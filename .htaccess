@@ -6,8 +6,8 @@
 # # PASSWORD PROTECTION FOR DEVELOPMENT SUBDOMAIN                      #
 # ######################################################################
 
-<If "req('Host') == 'kirbytest.mvldev.de'">
-  AuthUserFile /var/www/virtual/barbados/html/.htpasswd-kirbytest-mvldev-de
+<If "req('Host') == 'mvlkss.mvldev.de'">
+  AuthUserFile /var/www/virtual/barbados/html/.htpasswd-mvlkss-mvldev-de
   AuthType Basic
   AuthName "Password Protected"
   Require valid-user
