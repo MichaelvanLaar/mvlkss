@@ -1,0 +1,12 @@
+/**
+ * =============================================================================
+ * Main stylesheet using Tailwind CSS
+ *
+ * Use build process (see npm script in package.json) to create the final CSS
+ * file which uses ony the classes that are actually used in the PHP templates.
+ * =============================================================================
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
