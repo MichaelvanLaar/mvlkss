@@ -84,7 +84,7 @@ Starting with `/src/js/main.js` as entry point, Webpack will bundle everything (
 
 - [Kirby](https://getkirby.com/) (via [Composer](https://getcomposer.org/))
 - [PostCSS](https://postcss.org/)
-- [Tailwind CSS](https://tailwindcss.com/) (including the [forms plugin(https://tailwindcss.com/docs/plugins#forms)], the [aspect ration plugin](https://tailwindcss.com/docs/plugins#aspect-ratio) and the [typography plugin](https://tailwindcss.com/docs/plugins#typography))
+- [Tailwind CSS](https://tailwindcss.com/) (including the [forms plugin](https://tailwindcss.com/docs/plugins#forms), the [aspect ration plugin](https://tailwindcss.com/docs/plugins#aspect-ratio) and the [typography plugin](https://tailwindcss.com/docs/plugins#typography))
 - [Autoprefixer](https://github.com/postcss/autoprefixer)
 - [cssnano](https://cssnano.co/)
 - [Babel](https://babeljs.io/)
