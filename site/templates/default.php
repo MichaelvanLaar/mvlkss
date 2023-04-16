@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title><?= $page->title() ?></title>
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -12,8 +13,12 @@
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000" />
     <meta name="msapplication-TileColor" content="#ffffff" />
     <meta name="theme-color" content="#ffffff" />
+
+    <link rel="stylesheet" href="/assets/css/main.css">
   </head>
   <body>
     <h1><?= $page->title() ?></h1>
+
+    <script src="/assets/js/main.js"></script>
   </body>
 </html>
