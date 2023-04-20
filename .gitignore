@@ -1,9 +1,6 @@
 # Created by https://www.toptal.com/developers/gitignore/api/git,node,yarn,linux,macos,kirby3,windows,composer,intellij,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=git,node,yarn,linux,macos,kirby3,windows,composer,intellij,visualstudiocode
 
-### Main .htaccess ###
-/.htaccess
-
 ### Composer ###
 composer.phar
 /vendor/
