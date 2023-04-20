@@ -30,7 +30,6 @@
     "prettier": "^2.8.7",
     "prettier-plugin-packagejson": "^2.4.3",
     "tailwindcss": "^3.3.1",
-    "tailwindcss-fluid-type": "^2.0.3",
     "webpack": "^5.79.0",
     "webpack-cli": "^5.0.1"
   }

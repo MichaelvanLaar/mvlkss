@@ -10,3 +10,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    /* Implement a fluid font size based on viewport width with a minimum size
+       of 16px and a maximum of 22px. This also affects all relative size
+       specifications which are directly or indirectly based on the base font
+       size. The result is a zoom effect of the whole layout. */
+    font-size: clamp(1.00rem, calc(0.86rem + 0.55vw), 1.38rem);
+  }
+}
