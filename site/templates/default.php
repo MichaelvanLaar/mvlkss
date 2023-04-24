@@ -14,11 +14,11 @@
     <meta name="msapplication-TileColor" content="#ffffff" />
     <meta name="theme-color" content="#ffffff" />
 
-    <link rel="stylesheet" href="/assets/css/main.css">
+    <?= css('assets/css/main.css') ?>
   </head>
   <body>
     <h1><?= $page->title() ?></h1>
 
-    <script src="/assets/js/main.js"></script>
+    <?= js('assets/js/main.js') ?>
   </body>
 </html>
