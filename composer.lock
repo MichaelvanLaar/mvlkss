@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5a748711dcaa543b7494c0cefe0838e2",
+    "content-hash": "f25300682de59e90a5a6ea09efc877e9",
     "packages": [
         {
             "name": "claviska/simpleimage",
@@ -473,6 +473,41 @@
                 "source": "https://github.com/thephpleague/color-extractor/tree/master"
             },
             "time": "2016-12-15T09:30:02+00:00"
+        },
+        {
+            "name": "lukaskleinschmidt/kirby-snippet-controller",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lukaskleinschmidt/kirby-snippet-controller.git",
+                "reference": "07e595172bb83894a540549a5c6dddd1b82d8f24"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lukaskleinschmidt/kirby-snippet-controller/zipball/07e595172bb83894a540549a5c6dddd1b82d8f24",
+                "reference": "07e595172bb83894a540549a5c6dddd1b82d8f24",
+                "shasum": ""
+            },
+            "require": {
+                "getkirby/composer-installer": "^1.2"
+            },
+            "type": "kirby-plugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Lukas Kleinschmidt",
+                    "email": "contact@kleinschmidt.mozmail.com"
+                }
+            ],
+            "description": "Kirby Snippet Controller",
+            "support": {
+                "issues": "https://github.com/lukaskleinschmidt/kirby-snippet-controller/issues",
+                "source": "https://github.com/lukaskleinschmidt/kirby-snippet-controller/tree/1.0.0"
+            },
+            "time": "2022-12-15T13:09:28+00:00"
         },
         {
             "name": "michelf/php-smartypants",

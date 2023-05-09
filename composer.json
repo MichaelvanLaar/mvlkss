@@ -23,7 +23,8 @@
   },
   "require": {
     "php": ">=8.0.0 <8.3.0",
-    "getkirby/cms": "^3.9"
+    "getkirby/cms": "^3.9",
+    "lukaskleinschmidt/kirby-snippet-controller": "^1.0"
   },
   "config": {
     "allow-plugins": {
