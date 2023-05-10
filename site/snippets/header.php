@@ -1,5 +1,6 @@
 <?php
 /**
+ * =============================================================================
  * Header snippet for all pages
  * 
  * Uses “header.controller.php” via the Kirby Snippet Controller plugin
@@ -7,6 +8,7 @@
  * 
  * Variables form controller:
  * - $pageLanguageCode
+ * =============================================================================
  */
 ?>
 <!DOCTYPE html>
@@ -34,4 +36,4 @@
 
     <?= css("assets/css/main.css") ?>    
   </head>
-  <body>
+  <body class="flex flex-col min-h-screen">
