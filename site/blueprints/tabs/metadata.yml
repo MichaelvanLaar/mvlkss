@@ -1,0 +1,32 @@
+label: Metadata
+
+columns:
+  seo:
+    width: 1/2
+    fields:
+      seoTitle:
+        label: SEO Title
+        type: text
+        help: "If this field contiains text, it will be used for the meta title element instead of the default combination “page title + divider + site title”."
+      seoDescription:
+        label: SEO Description
+        type: text
+      seoIndex:
+        label: Indexing
+        type: toggle
+        text:
+          - Forbidden
+          - Allowed
+        help: "Allow or forbid search engines to index this page. This also affects the XML sitemap and the frontend search function (if implemented)."
+        default: true
+
+  socialShare:
+    width: 1/2
+    fields:
+      socialTitle:
+        label: Social Title
+        type: text
+        help: "If this field contiains text, it will be used for Open Graph and Twitter Card metadata instead of the default combination “page title + divider + site title”."
+      socialDescription:
+        label: Social Description
+        type: text
