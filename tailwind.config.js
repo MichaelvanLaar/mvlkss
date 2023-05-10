@@ -3,7 +3,11 @@
 module.exports = {
   content: ["./site/**/*.php"],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        "screen": {"raw": "screen"},
+      },
+    },
   },
   plugins: [
     require("@tailwindcss/container-queries"),
