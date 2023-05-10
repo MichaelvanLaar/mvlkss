@@ -22,11 +22,36 @@
 }
 
 @layer components {
+  /* Centered container with a width of 7xl (see Tailwind CSS documentation for
+     details) */
   .mvl-container,
   .mvl-container-default {
-    @apply mx-auto w-full max-w-7xl px-6;
+    @apply mx-auto w-full max-w-7xl px-6 print:px-0;
   }
+
+  /* Full width container */
   .mvl-container-full {
-    @apply w-full px-6;
+    @apply w-full px-6 print:px-0;
   }
+}
+
+/**
+ * -----------------------------------------------------------------------------
+ * Print view
+ * -----------------------------------------------------------------------------
+ */
+
+/* Element which is only displayed when a page is printed */
+.print-only {
+  @apply screen:invisible screen:hidden;
+}
+
+/* Box for link URL footnotes in print view of a page */
+.print-links-footer {
+  @apply clear-both mt-5 break-inside-avoid-page border border-solid border-black px-5;
+}
+
+/* Ordered list in with link URL footnotes in print view of a page */
+.print-links-footer-list {
+  @apply list-inside list-decimal;
 }
