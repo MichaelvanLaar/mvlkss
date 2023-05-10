@@ -1,6 +1,7 @@
 {
   "conventionalCommits.scopes": [
     "Tailwind CSS",
-    "Kirby templates"
+    "Kirby templates",
+    "webpack"
   ]
 }
