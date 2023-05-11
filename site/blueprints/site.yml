@@ -1,5 +1,24 @@
 title: Site
 
-sections:
+tabs:
   pages:
-    type: pages
+    sections:
+      pages:
+        type: pages
+
+  siteSettings:
+    label:
+      en: Site Settings
+      de: Website-Einstellungen
+    fields:
+      siteLogo:
+        type: files
+        label:
+          en: Site Logo
+          de: Website-Logo
+        query: site.images
+        uploads: site-logo
+        required: true
+        max: 1
+        multiple: false
+        layout: cards
