@@ -2,4 +2,44 @@ Title: Home
 
 ----
 
+Text: 
+
+----
+
+Seotitle: 
+
+----
+
+Appenddefaultdividertotitleelement: true
+
+----
+
+Appendsitetitletotitleelement: true
+
+----
+
+Seodescription: 
+
+----
+
+Seoindex: true
+
+----
+
+Socialsharetitle: 
+
+----
+
+Appenddefaultdividertosocialsharetitle: false
+
+----
+
+Appendsitetitletosocialsharetitle: false
+
+----
+
+Socialsharedescription: 
+
+----
+
 Uuid: w9bQ6BHXQKj6dygb

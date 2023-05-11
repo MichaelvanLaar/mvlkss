@@ -6,4 +6,4 @@ Sitelogo: - file://e9YFeaSFBylg1A8E
 
 ----
 
-Defaultdevider: |
+Defaultdivider: |
