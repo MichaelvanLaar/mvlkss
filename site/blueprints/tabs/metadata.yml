@@ -1,32 +1,57 @@
-label: Metadata
+label:
+  en: Metadata
+  de: Metainformationen
 
 columns:
+  # Metadata for SEO
   seo:
     width: 1/2
     fields:
       seoTitle:
-        label: SEO Title
         type: text
-        help: "If this field contiains text, it will be used for the meta title element instead of the default combination “page title + divider + site title”."
+        label:
+          en: SEO Title
+          de: SEO-Titel
+        help:
+          en: If this field contiains text, it will be used for the meta title element instead of the default combination “page title + divider + site title”.
+          de: Wenn dieses Feld Text enthält, wird dieser anstatt der Standardkombination “Seitentitel + Trennzeichen + Website-Titel” für das Meta-Title-Element verwendet.
       seoDescription:
-        label: SEO Description
         type: text
+        label:
+          en: SEO Description
+          de: SEO-Beschreibung
+        help:
+          en: ca. 160 characters
+          de: ca. 160 Zeichen
       seoIndex:
-        label: Indexing
         type: toggle
+        label:
+          en: Indexing
+          de: Indexierung
         text:
-          - Forbidden
-          - Allowed
-        help: "Allow or forbid search engines to index this page. This also affects the XML sitemap and the frontend search function (if implemented)."
+          - en: Forbidden
+            de: Nicht erlaubt
+          - en: Allowed
+            de: Erlaubt
+        help:
+          en: Allow or forbid search engines to index this page. This also affects the XML sitemap and the frontend search function (if implemented).
+          de: Suchmaschinen das Indexieren dieser Seite erlauben oder verbieten. Dies hat auch Einfluss auf die XML-Sitemap und die Frontend-Suchfunktion (falls implementiert).
         default: true
 
+  # Metadata for social media link previews
   socialShare:
     width: 1/2
     fields:
-      socialTitle:
-        label: Social Title
+      socialShareTitle:
         type: text
-        help: "If this field contiains text, it will be used for Open Graph and Twitter Card metadata instead of the default combination “page title + divider + site title”."
-      socialDescription:
-        label: Social Description
+        label:
+          en: Title for Social Media Link Previews
+          de: Titel für Social-Media-Link-Vorschau-Boxen
+        help:
+          en: If this field contiains text, it will be used for Open Graph and Twitter Card metadata instead of the default combination “page title + divider + site title”.
+          de: Wenn dieses Feld Text enthält, wird dieser anstatt der Standardkombination “Seitentitel + Trennzeichen + Website-Titel” für die Open-Graph- und Twitter-Card-Metadaten verwendet.
+      socialShareDescription:
         type: text
+        label:
+          en: Description for Social Media Link Previews
+          de: Beschreibung für Social-Media-Link-Vorschau-Boxen

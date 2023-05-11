@@ -1,10 +1,13 @@
 title: Default Page
 
 tabs:
-
   # Content tab
   content:
+    label:
+      en: Content
+      de: Inhalt
     columns:
+      # Main content column
       main:
         width: 2/3
         sections:
@@ -14,14 +17,22 @@ tabs:
               text:
                 type: textarea
                 size: huge
+
+      # Sidebar column
       sidebar:
         width: 1/3
         sections:
           pages:
             type: pages
+            label:
+              en: Sub pages
+              de: Unterseiten
             template: default
           files:
             type: files
+            label:
+              en: Files
+              de: Dateien
 
   # Metadata tab
   metadata: tabs/metadata
