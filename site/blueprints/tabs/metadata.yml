@@ -132,8 +132,8 @@ columns:
           en: Description for Social Media Link Previews
           de: Beschreibung für Social-Media-Link-Vorschau-Boxen
         help:
-          en: "Please avoid line breaks. Fallback: SEO description"
-          de: "Bitte keine Zeilenumbrüche verwenden. Fallback: SEO-Beschreibung"
+          en: "Please avoid line breaks. Fallback if empty: SEO description"
+          de: "Bitte keine Zeilenumbrüche verwenden. Fallback, falls leer: SEO-Beschreibung"
         buttons: false
         maxlength: 150
       twitterCreatorHandle:
