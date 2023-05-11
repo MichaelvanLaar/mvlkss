@@ -20,16 +20,30 @@ return function ($kirby, $site, $page) {
     : $metaTitle;
 
   // Construct social share title (for Open Graph and Twitter Card title)
-  $socialShareTitle =
-    $page->socialShareTitle()->length() > 0
-      ? $page->socialShareTitle()
-      : $page->title();
-  $socialShareTitle = $page->appendDefaultDividerToSocialShareTitle()->toBool()
-    ? $socialShareTitle . " " . $site->defaultDivider()
-    : $socialShareTitle;
-  $socialShareTitle = $page->appendSiteTitleToSocialShareTitle()->toBool()
-    ? $socialShareTitle . " " . $site->title()
-    : $socialShareTitle;
+  $socialShareTitleOutput = "";
+  if ($page->socialShareTitle()->length() > 0) {
+    $socialShareTitleOutput = $page->socialShareTitle();
+  } elseif ($page->seoTitle()->length() > 0) {
+    $socialShareTitleOutput = $page->seoTitle();
+  } else {
+    $socialShareTitleOutput = $page->title();
+  }
+  $socialShareTitleOutput = $page
+    ->appendDefaultDividerToSocialShareTitle()
+    ->toBool()
+    ? $socialShareTitleOutput . " " . $site->defaultDivider()
+    : $socialShareTitleOutput;
+  $socialShareTitleOutput = $page->appendSiteTitleToSocialShareTitle()->toBool()
+    ? $socialShareTitleOutput . " " . $site->title()
+    : $socialShareTitleOutput;
+
+  // Construct social share description (for Open Graph and Twitter Card description)
+  $socialShareDescriptionOutput = "";
+  if ($page->socialShareDescription()->length() > 0) {
+    $socialShareDescriptionOutput = $page->socialShareDescription();
+  } elseif ($page->seoDescription()->length() > 0) {
+    $socialShareDescriptionOutput = $page->seoDescription();
+  }
 
   return [
     "pageLanguageCode" => $kirby->language()
@@ -39,11 +53,10 @@ return function ($kirby, $site, $page) {
       ? $kirby->language()->locale()
       : "en_US",
     "metaTitle" => $metaTitle,
-    "socialShareTitle" => $socialShareTitle,
-    "socialShareDescription" =>
-      $page->socialShareDescription()->length() > 0
-        ? $page->socialShareDescription()
-        : "",
+    "metaDescription" =>
+      $page->seoDescription()->length() > 0 ? $page->seoDescription() : "",
+    "socialShareTitleOutput" => $socialShareTitleOutput,
+    "socialShareDescriptionOutput" => $socialShareDescriptionOutput,
     "twitterSiteHandle" =>
       $site->twitterSiteHandle()->length() > 0
         ? $site->twitterSiteHandle()

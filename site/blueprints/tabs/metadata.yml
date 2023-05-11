@@ -21,6 +21,7 @@ columns:
         help:
           en: "Fallback if empty: page title"
           de: "Fallback, falls leer: Seitentitel"
+        maxlength: 55
       appendDefaultDividerToTitleElement:
         type: toggle
         width: 1/2
@@ -60,7 +61,7 @@ columns:
           en: Please avoid line breaks.
           de: Bitte keine Zeilenumbrüche verwenden.
         buttons: false
-        maxlength: 160
+        maxlength: 150
       seoIndex:
         type: toggle
         label:
@@ -92,8 +93,9 @@ columns:
           en: Title for Social Media Link Previews
           de: Titel für Social-Media-Link-Vorschau-Boxen
         help:
-          en: "Fallback if empty: page title"
-          de: "Fallback, falls leer: Seitentitel"
+          en: "Fallback if empty: SEO title, page title"
+          de: "Fallback, falls leer: SEO-Titel, Seitentitel"
+        maxlength: 70
       appendDefaultDividerToSocialShareTitle:
         type: toggle
         width: 1/2
@@ -130,10 +132,10 @@ columns:
           en: Description for Social Media Link Previews
           de: Beschreibung für Social-Media-Link-Vorschau-Boxen
         help:
-          en: Please avoid line breaks.
-          de: Bitte keine Zeilenumbrüche verwenden.
+          en: "Please avoid line breaks. Fallback: SEO description"
+          de: "Bitte keine Zeilenumbrüche verwenden. Fallback: SEO-Beschreibung"
         buttons: false
-        maxlength: 160
+        maxlength: 150
       twitterCreatorHandle:
         type: text
         label:
