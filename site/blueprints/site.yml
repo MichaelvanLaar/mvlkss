@@ -16,9 +16,21 @@ tabs:
         label:
           en: Site Logo
           de: Website-Logo
+        width: 1/2
         query: site.images
         uploads: site-logo
         required: true
         max: 1
         multiple: false
         layout: cards
+      defaultDevider:
+        type: text
+        required: true
+        label:
+          en: Default divider between the elements in metadata titles
+          de: Standard-Trennzeichen zwischen den Elementen in Metainfo-Titeln
+        width: 1/2
+        help:
+          en: Typically one character like “–” or “|”
+          de: Typischerweise ein Zeichen wie  “–” oder “|”
+        default: "|"

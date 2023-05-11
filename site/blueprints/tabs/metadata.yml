@@ -52,10 +52,15 @@ columns:
           de: Wenn aktiviert, wird der Website-Titel an an das &lt;title&gt;-Element angehängt.
         default: true
       seoDescription:
-        type: text
+        type: textarea
         label:
           en: SEO Description
           de: SEO-Beschreibung
+        help:
+          en: Please avoid line breaks.
+          de: Bitte keine Zeilenumbrüche verwenden.
+        buttons: false
+        maxlength: 160
       seoIndex:
         type: toggle
         label:
@@ -120,7 +125,12 @@ columns:
           de: Wenn aktiviert, wird der Website-Titel an den Open-Graph- und Twitter-Card-Titel angehängt.
         default: false
       socialShareDescription:
-        type: text
+        type: textarea
         label:
           en: Description for Social Media Link Previews
           de: Beschreibung für Social-Media-Link-Vorschau-Boxen
+        help:
+          en: Please avoid line breaks.
+          de: Bitte keine Zeilenumbrüche verwenden.
+        buttons: false
+        maxlength: 160
