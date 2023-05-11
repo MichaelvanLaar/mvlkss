@@ -7,22 +7,55 @@ columns:
   seo:
     width: 1/2
     fields:
+      seoHeadline:
+        type: headline
+        label:
+          en: Metadata for SEO
+          de: Metainformationen für SEO
+        numbered: false
       seoTitle:
         type: text
         label:
           en: SEO Title
           de: SEO-Titel
         help:
-          en: If this field contiains text, it will be used for the meta title element instead of the default combination “page title + divider + site title”.
-          de: Wenn dieses Feld Text enthält, wird dieser anstatt der Standardkombination “Seitentitel + Trennzeichen + Website-Titel” für das Meta-Title-Element verwendet.
+          en: "Fallback if empty: page title"
+          de: "Fallback, falls leer: Seitentitel"
+      appendDefaultDividerToTitleElement:
+        type: toggle
+        width: 1/2
+        label:
+          en: Append Default Divider
+          de: Standard-Trennzeichen anhängen
+        text:
+          - en: Don’t append
+            de: Nicht anhängen
+          - en: Append
+            de: Anhängen
+        help:
+          en: If enabled, the default divider will be appended to the &lt;title&gt; element.
+          de: Wenn aktiviert, wird das Standard-Trennzeichen an das &lt;title&gt;-Element angehängt.
+        default: true
+      appendSiteTitleToTitleElement:
+        type: toggle
+        width: 1/2
+        label:
+          en: Append Site Title
+          de: Website-Titel anhängen
+        text:
+          - en: Don’t append
+            de: Nicht anhängen
+          - en: Append
+            de: Anhängen
+        help:
+          en: If enabled, the site title will be appended to the &lt;title&gt; element.
+          de: Wenn aktiviert, wird der Website-Titel an an das &lt;title&gt;-Element angehängt.
+        default: true
       seoDescription:
         type: text
         label:
           en: SEO Description
           de: SEO-Beschreibung
-        help:
-          en: ca. 160 characters
-          de: ca. 160 Zeichen
       seoIndex:
         type: toggle
         label:
@@ -42,14 +75,50 @@ columns:
   socialShare:
     width: 1/2
     fields:
+      socialShareHeadline:
+        type: headline
+        label:
+          en: Metadata for Social Media Link Previews
+          de: Metainformationen für Social-Media-Link-Vorschau-Boxen
+        numbered: false
       socialShareTitle:
         type: text
         label:
           en: Title for Social Media Link Previews
           de: Titel für Social-Media-Link-Vorschau-Boxen
         help:
-          en: If this field contiains text, it will be used for Open Graph and Twitter Card metadata instead of the default combination “page title + divider + site title”.
-          de: Wenn dieses Feld Text enthält, wird dieser anstatt der Standardkombination “Seitentitel + Trennzeichen + Website-Titel” für die Open-Graph- und Twitter-Card-Metadaten verwendet.
+          en: "Fallback if empty: page title"
+          de: "Fallback, falls leer: Seitentitel"
+      appendDefaultDividerToSocialShareTitle:
+        type: toggle
+        width: 1/2
+        label:
+          en: Append Default Divider
+          de: Standard-Trennzeichen anhängen
+        text:
+          - en: Don’t append
+            de: Nicht anhängen
+          - en: Append
+            de: Anhängen
+        help:
+          en: If enabled, the default divider will be appended to the Open Graph and Twitter Card title.
+          de: Wenn aktiviert, wird das Standard-Trennzeichen an den Open-Graph- und Twitter-Card-Titel angehängt.
+        default: false
+      appendSiteTitleToSocialShareTitle:
+        type: toggle
+        width: 1/2
+        label:
+          en: Append Site Title
+          de: Website-Titel anhängen
+        text:
+          - en: Don’t append
+            de: Nicht anhängen
+          - en: Append
+            de: Anhängen
+        help:
+          en: If enabled, the site title will be appended to the Open Graph and Twitter Card title.
+          de: Wenn aktiviert, wird der Website-Titel an den Open-Graph- und Twitter-Card-Titel angehängt.
+        default: false
       socialShareDescription:
         type: text
         label:

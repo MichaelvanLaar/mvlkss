@@ -25,7 +25,7 @@ tabs:
           pages:
             type: pages
             label:
-              en: Sub pages
+              en: Sub Pages
               de: Unterseiten
             template: default
           files:
