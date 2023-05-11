@@ -10,7 +10,7 @@ The following must be installed on your machine:
   Please note that for development purposes, you do not need any of the web servers listed in the requirements. Instead, you will use PHP’s built-in server while developing. Of course, you need one of the listed “real” webservers when you want to deploy the website.
 - **[Composer](https://getcomposer.org/), a dependency manager for PHP**  
   Make sure that all platform requirements are satisfied. You can do this by running the following command after composer is successfully installed: `composer check-platform-reqs`
-- [Node.js](https://nodejs.org/)
+- **[Node.js](https://nodejs.org/)**
 
 ## Install
 
