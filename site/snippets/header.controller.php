@@ -9,7 +9,7 @@
  */
 
 return function ($kirby, $site, $page) {
-  // Meta title (for <title> element)
+  // Construct meta title (for <title> element)
   $metaTitle =
     $page->seoTitle()->length() > 0 ? $page->seoTitle() : $page->title();
   $metaTitle = $page->appendDefaultDividerToTitleElement()->toBool()
@@ -19,7 +19,7 @@ return function ($kirby, $site, $page) {
     ? $metaTitle . " " . $site->title()
     : $metaTitle;
 
-  // Social share title (for Open Graph and Twitter Card title)
+  // Construct social share title (for Open Graph and Twitter Card title)
   $socialShareTitle =
     $page->socialShareTitle()->length() > 0
       ? $page->socialShareTitle()
@@ -44,8 +44,13 @@ return function ($kirby, $site, $page) {
       $page->socialShareDescription()->length() > 0
         ? $page->socialShareDescription()
         : "",
-    "twitterSiteHandle" => $site->twitterSiteHandle()->length() > 0
-      ? $site->twitterSiteHandle()
-      : "",
+    "twitterSiteHandle" =>
+      $site->twitterSiteHandle()->length() > 0
+        ? $site->twitterSiteHandle()
+        : "",
+    "twitterCreatorHandle" =>
+      $page->twitterCreatorHandle()->length() > 0
+        ? $site->twitterCreatorHandle()
+        : "",
   ];
 };

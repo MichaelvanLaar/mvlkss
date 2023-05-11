@@ -13,6 +13,7 @@
  * - $socialShareTitle
  * - $socialShareDescription
  * - $twitterSiteHandle
+ * - $twitterCreatorHandle
  * =============================================================================
  */
 ?>
@@ -52,7 +53,9 @@
     <?php if (strlen($twitterSiteHandle) > 0): ?>
       <meta name="twitter:site" content="<?= $twitterSiteHandle ?>" />
     <?php endif; ?>
-    <!-- <meta name="twitter:creator" content="[Insert @user_name_of_content_creator]" /> -->
+    <?php if (strlen($twitterCreatorHandle) > 0): ?>
+      <meta name="twitter:creator" content="<?= $twitterCreatorHandle ?>" />
+    <?php endif; ?>
     <meta name="twitter:title" content="<?= $socialShareTitle ?>" />
     <meta name="twitter:description" content="<?= $socialShareDescription ?>" />
     <!-- <meta name="twitter:image" content="[Insert URL of image with 2:1 ratio]" /> -->

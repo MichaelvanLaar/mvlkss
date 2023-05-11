@@ -134,3 +134,12 @@ columns:
           de: Bitte keine Zeilenumbrüche verwenden.
         buttons: false
         maxlength: 160
+      twitterCreatorHandle:
+        type: text
+        label:
+          en: Twitter Handle of the Page Author (e.g. for articles)
+          de: Twitter-Account des Seitenautors (z. B. bei Artikeln)
+        help:
+          en: Please include the leading “@” character
+          de: Bitte mit dem „@“-Zeichen beginnen
+        pattern: "^@([A-Za-z0-9_]{1,15})$"
