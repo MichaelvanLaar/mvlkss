@@ -16,21 +16,31 @@ tabs:
         label:
           en: Site Logo
           de: Website-Logo
-        width: 1/2
+        width: 1/4
         query: site.images
         uploads: site-logo
         required: true
         max: 1
         multiple: false
         layout: cards
-      defaultDevider:
+      defaultDivider:
         type: text
         required: true
         label:
-          en: Default divider between the elements in metadata titles
+          en: Default Divider Between the Elements in Metadata Titles
           de: Standard-Trennzeichen zwischen den Elementen in Metainfo-Titeln
         width: 1/2
         help:
           en: Typically one character like “–” or “|”
-          de: Typischerweise ein Zeichen wie  “–” oder “|”
+          de: Typischerweise ein Zeichen wie  „–“ oder „|“
         default: "|"
+      twitterSiteHandle:
+        type: text
+        label:
+          en: Twitter Handle of the Site
+          de: Twitter-Account der Website
+        help:
+          en: Please include the leading “@” character
+          de: Bitte mit dem „@“-Zeichen beginnen
+        width: 1/4
+        pattern: "^@([A-Za-z0-9_]{1,15})$"
