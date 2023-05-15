@@ -69,4 +69,27 @@
     <?php endif; ?>
     <!-- <meta name="twitter:image" content="[Insert URL of image with 2:1 ratio]" /> -->
   </head>
-  <body class="flex flex-col min-h-screen">
+
+  <body class="flex min-h-screen flex-col bg-white text-black dark:bg-black dark:text-white">
+
+    <!-- Page header -->
+    <div>
+      <div class="mvl-container-default flex py-3">
+        <div
+          class="site-logo-container max-w-[10rem]"
+          style="--height: 3rem; --aspect-ratio: <?= $site->siteLogo()->toFile()->dimensions()->ratio() ?>;"
+        >
+          <a href="<?= $site->url() ?>">
+            <?= $site->siteLogo()->toFile()->extension() == "svg" ? svg($site->siteLogo()->toFile()) : $site->siteLogo()->toFile() ?>
+          </a>
+        </div>
+        <nav class="flex flex-grow items-center justify-end">
+          <ul class="flex">
+            <li class="ms-3"><a href="#one">One</a></li>
+            <li class="ms-3"><a href="#two">Two</a></li>
+            <li class="ms-3"><a href="#three">Three</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+ 

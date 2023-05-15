@@ -1,12 +1,5 @@
 <?php snippet('header') ?>
 
-    <!-- Page header -->
-    <div>
-      <div class="mvl-container-default">
-        <p>Here is room for the page header.</p>
-      </div>
-    </div>
-
     <!-- Main section -->
     <div class="flex-grow">
       <div class="mvl-container-default js-page-main-content">
