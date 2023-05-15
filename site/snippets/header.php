@@ -73,13 +73,13 @@
   <body class="flex min-h-screen flex-col bg-white text-black dark:bg-black dark:text-white">
 
     <!-- Page header -->
-    <div>
+    <header>
       <div class="mvl-container-default flex py-3">
         <div
           class="site-logo-container max-w-[10rem]"
           style="--height: 3rem; --aspect-ratio: <?= $site->siteLogo()->toFile()->dimensions()->ratio() ?>;"
         >
-          <a href="<?= $site->url() ?>">
+          <a href="<?= $site->url() ?>" title="<?= $site->title() ?> → <?= $site->homePage()->title() ?>">
             <?= $site->siteLogo()->toFile()->extension() == "svg" ? svg($site->siteLogo()->toFile()) : $site->siteLogo()->toFile() ?>
           </a>
         </div>
@@ -91,5 +91,5 @@
           </ul>
         </nav>
       </div>
-    </div>
+    </header>
  
