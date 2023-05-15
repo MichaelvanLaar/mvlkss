@@ -2,8 +2,12 @@ Title: Site Title
 
 ----
 
-Sitelogo: - file://e9YFeaSFBylg1A8E
+Sitelogo: - file://2Lx4HV4jCW4Ihdi5
 
 ----
 
 Defaultdivider: |
+
+----
+
+Twittersitehandle: 
