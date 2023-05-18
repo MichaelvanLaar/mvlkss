@@ -8,6 +8,7 @@ return [
         ],
     ],
     "debug" => false,
+    "distantnative.retour.logs" => false,
     "lukaskleinschmidt.resolve.cache" => true,
     "ready" => function ($kirby) {
         return [
