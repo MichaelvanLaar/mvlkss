@@ -11,6 +11,12 @@ return [
     "lukaskleinschmidt.resolve.cache" => true,
     "ready" => function ($kirby) {
         return [
+            "bnomei.robots-txt.content" =>
+                "# https://www.robotstxt.org/\n\n# Allow crawling of all content\nUser-agent: *\nDisallow:\n\nSitemap: " .
+                $kirby->site()->url() .
+                "/sitemap.xml",
+            "bnomei.robots-txt.groups" => null,
+            "bnomei.robots-txt.sitemap" => null,
             "isaactopo.xmlsitemap.ignore" => $kirby
                 ->site()
                 ->index()

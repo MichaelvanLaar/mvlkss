@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "875aee25506ebabb46f52dae96403cae",
+    "content-hash": "ff6627eb01cc4d371f8fc4b6765a4889",
     "packages": [
         {
             "name": "afbora/kirby-minify-html",
@@ -57,6 +57,83 @@
                 }
             ],
             "time": "2023-02-13T09:15:26+00:00"
+        },
+        {
+            "name": "bnomei/kirby3-robots-txt",
+            "version": "1.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bnomei/kirby3-robots-txt.git",
+                "reference": "375ca49b428df3e22ec4756610032552329d19c9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bnomei/kirby3-robots-txt/zipball/375ca49b428df3e22ec4756610032552329d19c9",
+                "reference": "375ca49b428df3e22ec4756610032552329d19c9",
+                "shasum": ""
+            },
+            "require": {
+                "getkirby/composer-installer": "^1.1",
+                "php": ">=7.3.0"
+            },
+            "require-dev": {
+                "getkirby/cms": "^3.5",
+                "php-coveralls/php-coveralls": "^2.4",
+                "phpunit/phpunit": "^9.5"
+            },
+            "suggest": {
+                "bnomei/kirby3-feeds": "Adds a xml sitemap which will be automatically be included in the robots.txt"
+            },
+            "type": "kirby-plugin",
+            "extra": {
+                "kirby-cms-path": "tests/kirby"
+            },
+            "autoload": {
+                "psr-4": {
+                    "Bnomei\\": "classes/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bruno Meilick",
+                    "email": "b@bnomei.com"
+                }
+            ],
+            "description": "Manage the robots.txt from the Kirby config file",
+            "keywords": [
+                "kirby3",
+                "kirby3-cms",
+                "kirby3-plugin",
+                "robots-exclusion-protocol",
+                "robots-txt"
+            ],
+            "support": {
+                "issues": "https://github.com/bnomei/kirby3-robots-txt/issues",
+                "source": "https://github.com/bnomei/kirby3-robots-txt/tree/v1.5.0"
+            },
+            "funding": [
+                {
+                    "url": "https://buymeacoff.ee/bnomei",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://paypal.me/bnomei",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/bnomei",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/bnomei",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2021-08-06T13:21:27+00:00"
         },
         {
             "name": "claviska/simpleimage",
