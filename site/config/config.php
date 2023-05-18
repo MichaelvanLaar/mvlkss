@@ -9,4 +9,14 @@ return [
     ],
     "debug" => false,
     "lukaskleinschmidt.resolve.cache" => true,
+    "ready" => function ($kirby) {
+        return [
+            "isaactopo.xmlsitemap.ignore" => $kirby
+                ->site()
+                ->index()
+                ->filterBy("seoIndex", "false")
+                ->pluck("uri"),
+            "isaactopo.xmlsitemap.includeImages" => true,
+        ];
+    },
 ];

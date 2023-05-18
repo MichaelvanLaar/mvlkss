@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "17955fdbb79712b0b9737d9e1135ba77",
+    "content-hash": "875aee25506ebabb46f52dae96403cae",
     "packages": [
         {
             "name": "afbora/kirby-minify-html",
@@ -410,6 +410,41 @@
                 }
             ],
             "time": "2020-12-28T12:54:39+00:00"
+        },
+        {
+            "name": "isaactopo/xmlsitemap",
+            "version": "0.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/isaactopo/xmlsitemap.git",
+                "reference": "eaa208b0c49f47953329a1baeb955a015caddd77"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/isaactopo/xmlsitemap/zipball/eaa208b0c49f47953329a1baeb955a015caddd77",
+                "reference": "eaa208b0c49f47953329a1baeb955a015caddd77",
+                "shasum": ""
+            },
+            "require": {
+                "getkirby/composer-installer": "^1.2"
+            },
+            "type": "kirby-plugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Isaac Bordons Soler",
+                    "email": "isaac@topo.bz"
+                }
+            ],
+            "description": "Kirby 3 Multilanguage XML Sitemap",
+            "support": {
+                "issues": "https://github.com/isaactopo/xmlsitemap/issues",
+                "source": "https://github.com/isaactopo/xmlsitemap/tree/0.2.2"
+            },
+            "time": "2023-03-22T10:35:39+00:00"
         },
         {
             "name": "johannschopplich/kirby-hashed-assets",
