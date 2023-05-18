@@ -24,7 +24,8 @@
   "require": {
     "php": ">=8.0.0 <8.3.0",
     "getkirby/cms": "^3.9",
-    "lukaskleinschmidt/kirby-snippet-controller": "^1.0"
+    "lukaskleinschmidt/kirby-snippet-controller": "^1.0",
+    "afbora/kirby-minify-html": "^2.0"
   },
   "config": {
     "allow-plugins": {
