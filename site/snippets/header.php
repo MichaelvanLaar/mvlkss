@@ -70,14 +70,23 @@
     <!-- <meta name="twitter:image" content="[Insert URL of image with 2:1 ratio]" /> -->
   </head>
 
-  <body class="flex min-h-screen flex-col bg-white text-black dark:bg-black dark:text-white">
+  <body
+    class="flex min-h-screen flex-col bg-white text-black dark:bg-black dark:text-white"
+  >
 
     <!-- Page header -->
-    <header>
-      <div class="mvl-container-default flex py-3">
+    <header
+      style="--site-header-height: 6rem; --site-header-padding-y: 0.75rem;"
+    >
+      <div class="row-container-default flex py-[--site-header-padding-y]">
         <div
-          class="site-logo-container max-w-[10rem]"
-          style="--height: 3rem; --aspect-ratio: <?= $site->siteLogo()->toFile()->dimensions()->ratio() ?>;"
+          style="
+            --site-logo-height: calc(
+              var(--site-header-height) - var(--site-header-padding-y)
+            );
+            --site-logo-aspect-ratio: <?= $site->siteLogo()->toFile()->dimensions()->ratio() ?>;
+          "
+          class="site-logo-container h-[calc(var(--site-logo-height)_+_2px)] w-[calc(var(--site-logo-height)_*_var(--site-logo-aspect-ratio))] max-w-[10rem]"
         >
           <a href="<?= $site->url() ?>" title="<?= $site->title() ?> → <?= $site->homePage()->title() ?>">
             <?= $site->siteLogo()->toFile()->extension() == "svg" ? svg($site->siteLogo()->toFile()) : $site->siteLogo()->toFile() ?>
