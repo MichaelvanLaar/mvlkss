@@ -3,7 +3,8 @@
   "private": true,
   "author": "Michael van Laar <michael@van-laar.de> (https://michaelvanlaar.com/)",
   "scripts": {
-    "build": "webpack --mode production",
+    "clean": "rm -rf assets/{css,js}",
+    "build": "npm run clean && webpack --mode production && npx -y hashup",
     "dev": "webpack --mode development --watch",
     "dev-server": "concurrently --kill-others \"npm run dev\" \"php -S localhost:8000 kirby/router.php\""
   },

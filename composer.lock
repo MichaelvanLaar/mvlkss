@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8f37361ebc780111a68988eabd1e390c",
+    "content-hash": "17955fdbb79712b0b9737d9e1135ba77",
     "packages": [
         {
             "name": "afbora/kirby-minify-html",
@@ -410,6 +410,63 @@
                 }
             ],
             "time": "2020-12-28T12:54:39+00:00"
+        },
+        {
+            "name": "johannschopplich/kirby-hashed-assets",
+            "version": "3.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/johannschopplich/kirby-hashed-assets.git",
+                "reference": "84c30446c34fb0ad1fef83545ef84dc475a79b32"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/johannschopplich/kirby-hashed-assets/zipball/84c30446c34fb0ad1fef83545ef84dc475a79b32",
+                "reference": "84c30446c34fb0ad1fef83545ef84dc475a79b32",
+                "shasum": ""
+            },
+            "require": {
+                "getkirby/composer-installer": "^1.2",
+                "php": ">=8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "@stable",
+                "getkirby/cms": "^3.8",
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "kirby-plugin",
+            "extra": {
+                "kirby-cms-path": "tests/fixtures/kirby"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Johann Schopplich",
+                    "email": "pkg@johannschopplich.com",
+                    "homepage": "https://johannschopplich.com"
+                }
+            ],
+            "description": "File name hashes support for css() and js() helpers",
+            "homepage": "https://github.com/johannschopplich/kirby-hashed-assets#readme",
+            "keywords": [
+                "JS",
+                "assets",
+                "components",
+                "css",
+                "helpers",
+                "kirby",
+                "kirby-cms",
+                "laravel-mix",
+                "manifest"
+            ],
+            "support": {
+                "issues": "https://github.com/johannschopplich/kirby-hashed-assets/issues",
+                "source": "https://github.com/johannschopplich/kirby-hashed-assets/tree/v3.0.8"
+            },
+            "time": "2023-01-05T21:07:26+00:00"
         },
         {
             "name": "laminas/laminas-escaper",

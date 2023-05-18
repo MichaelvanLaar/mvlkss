@@ -26,7 +26,8 @@
     "getkirby/cms": "^3.9",
     "lukaskleinschmidt/kirby-snippet-controller": "^1.0",
     "afbora/kirby-minify-html": "^2.0",
-    "lukaskleinschmidt/kirby-resolve": "^1.0"
+    "lukaskleinschmidt/kirby-resolve": "^1.0",
+    "johannschopplich/kirby-hashed-assets": "^3.0"
   },
   "config": {
     "allow-plugins": {
