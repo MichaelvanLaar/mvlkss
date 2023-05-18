@@ -24,13 +24,13 @@
 @layer components {
   /* Centered container with a width of 7xl (see Tailwind CSS documentation for
      details) */
-  .mvl-container,
-  .mvl-container-default {
+  .row-container,
+  .row-container-default {
     @apply mx-auto w-full max-w-7xl px-6 print:px-0;
   }
 
   /* Full width container */
-  .mvl-container-full {
+  .row-container-full {
     @apply w-full px-6 print:px-0;
   }
 }
@@ -41,9 +41,10 @@
  * -----------------------------------------------------------------------------
  */
 
-.site-logo-container {
-  height: var(--height);
-  width: calc(var(--height) * var(--aspect-ratio));
+/* Hack to prevent SVG images from unwanted cropping */
+.site-logo-container svg {
+  height: calc(var(--site-logo-height) + 0.125rem);
+  width: calc(var(--site-logo-height) * var(--site-logo-aspect-ratio));
 }
 
 /**
