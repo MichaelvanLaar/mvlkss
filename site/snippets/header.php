@@ -68,6 +68,11 @@
       <meta name="twitter:description" content="<?= $socialShareDescriptionOutput ?>" />
     <?php endif; ?>
     <!-- <meta name="twitter:image" content="[Insert URL of image with 2:1 ratio]" /> -->
+
+    <link rel="canonical" href="<?= $page->url() ?>" />
+    <?php if (!$page->seoIndex()->toBool()): ?>
+      <meta name="robots" content="noindex, nofollow">
+    <?php endif; ?>
   </head>
 
   <body
