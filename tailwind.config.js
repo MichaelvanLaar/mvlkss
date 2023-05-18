@@ -17,7 +17,7 @@ module.exports = {
     require("@tailwindcss/forms"),
     require("@tailwindcss/typography"),
 
-    // Cusotm plugins
+    // Custom plugins
     plugin(function ({ addVariant, e }) {
       // Add “js:” variant
       // (i.e. is applied when there is a “js” class on the html element)
