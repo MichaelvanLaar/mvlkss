@@ -36,3 +36,6 @@ tabs:
 
   # Metadata tab
   metadata: tabs/metadata
+
+  # Info tab
+  page-info: tabs/page-info
