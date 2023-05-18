@@ -30,7 +30,8 @@
     "johannschopplich/kirby-hashed-assets": "^3.0",
     "isaactopo/xmlsitemap": "^0.2.2",
     "bnomei/kirby3-robots-txt": "^1.5",
-    "distantnative/retour-for-kirby": "^4.4"
+    "distantnative/retour-for-kirby": "^4.4",
+    "fabianmichael/kirby-markdown-field": "^2.1"
   },
   "config": {
     "allow-plugins": {

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c74b2fa1951ddb8269038999e3edd363",
+    "content-hash": "1a9d92be77bfa3ee4c283135635d3195",
     "packages": [
         {
             "name": "afbora/kirby-minify-html",
@@ -316,6 +316,56 @@
                 }
             ],
             "time": "2023-01-19T18:25:17+00:00"
+        },
+        {
+            "name": "fabianmichael/kirby-markdown-field",
+            "version": "2.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fabianmichael/kirby-markdown-field.git",
+                "reference": "7102989c2dc6f434ade698d645ee30e13f95ea56"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fabianmichael/kirby-markdown-field/zipball/7102989c2dc6f434ade698d645ee30e13f95ea56",
+                "reference": "7102989c2dc6f434ade698d645ee30e13f95ea56",
+                "shasum": ""
+            },
+            "require": {
+                "getkirby/cms": ">=3.6.0",
+                "getkirby/composer-installer": "^1.2",
+                "php": ">=8.0.0"
+            },
+            "type": "kirby-plugin",
+            "extra": {
+                "installer-name": "markdown-field"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sylvain Julé",
+                    "email": "contact@sylvain-jule.fr"
+                },
+                {
+                    "name": "Fabian Michael",
+                    "email": "hallo@fabianmichael.de"
+                }
+            ],
+            "description": "Super-sophisticated markdown editor for Kirby 3",
+            "support": {
+                "issues": "https://github.com/fabianmichael/kirby-markdown-field/issues",
+                "source": "https://github.com/fabianmichael/kirby-markdown-field/tree/2.1.4"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/fabianmichael",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-01-25T08:19:18+00:00"
         },
         {
             "name": "filp/whoops",
