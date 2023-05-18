@@ -15,7 +15,7 @@ tabs:
             type: fields
             fields:
               text:
-                type: textarea
+                type: markdown
                 size: huge
 
       # Sidebar column
