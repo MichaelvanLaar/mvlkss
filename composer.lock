@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d3b9ff72f72bb662e6d00441d32bf613",
+    "content-hash": "52bb559e2e34a933d605440cc546b34b",
     "packages": [
         {
             "name": "adspectus/date-extended",
@@ -749,6 +749,42 @@
             "time": "2022-11-11T11:15:13+00:00"
         },
         {
+            "name": "hananils/kirby-date-methods",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hananils/kirby-date-methods.git",
+                "reference": "14866d1e420df0f8a0967f259461cf09afd1b81b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hananils/kirby-date-methods/zipball/14866d1e420df0f8a0967f259461cf09afd1b81b",
+                "reference": "14866d1e420df0f8a0967f259461cf09afd1b81b",
+                "shasum": ""
+            },
+            "require": {
+                "getkirby/composer-installer": "^1.1",
+                "openpsa/ranger": "^0.5.1"
+            },
+            "type": "kirby-plugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "hana+nils · Büro für Gestaltung",
+                    "email": "buero@hananils.de"
+                }
+            ],
+            "description": "Kirby 3 plugin providing field and page methods for formatting dates and creating PHP date objects.",
+            "support": {
+                "issues": "https://github.com/hananils/kirby-date-methods/issues",
+                "source": "https://github.com/hananils/kirby-date-methods/tree/2.1.0"
+            },
+            "time": "2022-01-17T18:41:13+00:00"
+        },
+        {
             "name": "isaactopo/xmlsitemap",
             "version": "0.2.2",
             "source": {
@@ -1127,6 +1163,58 @@
                 }
             ],
             "time": "2023-03-02T20:57:20+00:00"
+        },
+        {
+            "name": "openpsa/ranger",
+            "version": "v0.5.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/flack/ranger.git",
+                "reference": "3333620a67bc74746f2e07874c09dae307efe812"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/flack/ranger/zipball/3333620a67bc74746f2e07874c09dae307efe812",
+                "reference": "3333620a67bc74746f2e07874c09dae307efe812",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0",
+                "symfony/intl": "~2.6|~3.4|~4.0|~5.0|~6.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": ">=4.8"
+            },
+            "suggest": {
+                "ext-intl": "Needed for usage with other locales than 'en'"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "OpenPsa\\Ranger\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Flack",
+                    "email": "flack@contentcontrol-berlin.de",
+                    "homepage": "http://www.contentcontrol-berlin.de/"
+                }
+            ],
+            "description": "Formatter for date and time ranges with i18n support",
+            "keywords": [
+                "date range",
+                "time range"
+            ],
+            "support": {
+                "issues": "https://github.com/flack/ranger/issues",
+                "source": "https://github.com/flack/ranger/tree/v0.5.5"
+            },
+            "time": "2022-09-08T09:01:35+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
@@ -1933,6 +2021,87 @@
                 }
             ],
             "time": "2023-03-01T10:25:55+00:00"
+        },
+        {
+            "name": "symfony/intl",
+            "version": "v6.2.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/intl.git",
+                "reference": "860c99e53149d22df1900d3aefdaeb17adb7669d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/intl/zipball/860c99e53149d22df1900d3aefdaeb17adb7669d",
+                "reference": "860c99e53149d22df1900d3aefdaeb17adb7669d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1"
+            },
+            "require-dev": {
+                "symfony/filesystem": "^5.4|^6.0",
+                "symfony/finder": "^5.4|^6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Intl\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bernhard Schussek",
+                    "email": "bschussek@gmail.com"
+                },
+                {
+                    "name": "Eriksen Costa",
+                    "email": "eriksen.costa@infranology.com.br"
+                },
+                {
+                    "name": "Igor Wiedler",
+                    "email": "igor@wiedler.ch"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Provides access to the localization data of the ICU library",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "i18n",
+                "icu",
+                "internationalization",
+                "intl",
+                "l10n",
+                "localization"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/intl/tree/v6.2.10"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-04-14T16:23:31+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
