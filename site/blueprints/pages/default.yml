@@ -28,11 +28,19 @@ tabs:
               en: Sub Pages
               de: Unterseiten
             template: default
+          images:
+            type: files
+            label:
+              en: Images
+              de: Bilder
+            template: image
+            layout: cardlets
           files:
             type: files
             label:
               en: Files
               de: Dateien
+            template: non-image
 
   # Metadata tab
   metadata: tabs/metadata
