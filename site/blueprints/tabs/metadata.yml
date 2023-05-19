@@ -1,6 +1,7 @@
 label:
   en: Metadata
   de: Metainformationen
+icon: tag
 
 columns:
   # Metadata for SEO
