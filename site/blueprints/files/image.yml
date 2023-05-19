@@ -1,0 +1,24 @@
+title:
+  en: Image
+  de: Bild
+
+accept:
+  type: image
+
+columns:
+  metadata:
+    width: 1/2
+    fields:
+      Alt:
+        type: text
+        label:
+          en: Alternative text for the image
+          de: Alternativ-Text für das Bild
+  colors:
+    width: 1/2
+    fields:
+      color:
+        type: colors
+        label:
+          en: Extracted Main Color
+          de: Extrahierte Hauptfarbe
