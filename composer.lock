@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "28accdf6db724e2a891ae58574ff2069",
+    "content-hash": "3d103c34a47da7e2f7fd97b2cbf2c22b",
     "packages": [
         {
             "name": "adspectus/date-extended",
@@ -1175,6 +1175,44 @@
                 "source": "https://github.com/php-fig/log/tree/3.0.0"
             },
             "time": "2021-07-14T16:46:02+00:00"
+        },
+        {
+            "name": "sylvainjule/autofocus",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sylvainjule/kirby-autofocus.git",
+                "reference": "a371e6ef6d201e1f7511201b67d82da83ac21c23"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sylvainjule/kirby-autofocus/zipball/a371e6ef6d201e1f7511201b67d82da83ac21c23",
+                "reference": "a371e6ef6d201e1f7511201b67d82da83ac21c23",
+                "shasum": ""
+            },
+            "require": {
+                "getkirby/composer-installer": "^1.1"
+            },
+            "type": "kirby-plugin",
+            "extra": {
+                "installer-name": "autofocus"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sylvain Julé",
+                    "email": "contact@sylvain-jule.fr"
+                }
+            ],
+            "description": "Content aware image cropping for Kirby",
+            "support": {
+                "issues": "https://github.com/sylvainjule/kirby-autofocus/issues",
+                "source": "https://github.com/sylvainjule/kirby-autofocus/tree/1.0.3"
+            },
+            "time": "2022-02-23T16:57:24+00:00"
         },
         {
             "name": "sylvainjule/colorextractor",
