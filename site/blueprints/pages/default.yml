@@ -6,6 +6,7 @@ tabs:
     label:
       en: Content
       de: Inhalt
+    icon: page
     columns:
       # Main content column
       main:
