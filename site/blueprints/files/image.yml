@@ -14,7 +14,7 @@ columns:
         label:
           en: Alternative text for the image
           de: Alternativ-Text für das Bild
-  colors:
+  display:
     width: 1/2
     fields:
       color:
@@ -22,3 +22,11 @@ columns:
         label:
           en: Extracted Main Color
           de: Extrahierte Hauptfarbe
+      focus:
+        type: focus
+        label:
+          en: Focus Point
+          de: Fokuspunkt
+        help:
+          en: Used for automatic cropping.
+          de: Wird für das automatische Zuschneiden verwendet.
