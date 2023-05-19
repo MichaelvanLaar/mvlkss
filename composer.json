@@ -34,7 +34,8 @@
     "fabianmichael/kirby-markdown-field": "^2.1",
     "adspectus/date-extended": "^1.1",
     "sylvainjule/colorextractor": "^1.0",
-    "hananils/kirby-colors": "^1.7"
+    "hananils/kirby-colors": "^1.7",
+    "flokosiol/focus": "^3.1"
   },
   "config": {
     "allow-plugins": {

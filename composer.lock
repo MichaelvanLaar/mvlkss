@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "57d0bee00994b0576e9578738bd340ac",
+    "content-hash": "28accdf6db724e2a891ae58574ff2069",
     "packages": [
         {
             "name": "adspectus/date-extended",
@@ -472,6 +472,52 @@
                 }
             ],
             "time": "2023-04-12T12:00:00+00:00"
+        },
+        {
+            "name": "flokosiol/focus",
+            "version": "3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/flokosiol/kirby-focus.git",
+                "reference": "ebc89db38737156b4c705138349eda29c67db173"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/flokosiol/kirby-focus/zipball/ebc89db38737156b4c705138349eda29c67db173",
+                "reference": "ebc89db38737156b4c705138349eda29c67db173",
+                "shasum": ""
+            },
+            "require": {
+                "getkirby/cms": "^3.6",
+                "getkirby/composer-installer": "^1.1"
+            },
+            "type": "kirby-plugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Flo Kosiol",
+                    "email": "git@flokosiol.de"
+                }
+            ],
+            "description": "Better image cropping for Kirby CMS",
+            "support": {
+                "issues": "https://github.com/flokosiol/kirby-focus/issues",
+                "source": "https://github.com/flokosiol/kirby-focus/tree/3.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://a.paddle.com/v2/click/1129/36201?link=1170",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.paypal.me/flokosiol/10",
+                    "type": "custom"
+                }
+            ],
+            "time": "2022-04-14T21:21:15+00:00"
         },
         {
             "name": "getkirby/cms",
