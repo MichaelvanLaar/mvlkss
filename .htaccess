@@ -289,7 +289,7 @@ AddDefaultCharset utf-8
 
 <IfModule mod_rewrite.c>
 
-  RewriteEngine On
+  # RewriteEngine On
 
   # (1)
   RewriteCond %{HTTPS} =on
@@ -341,7 +341,7 @@ AddDefaultCharset utf-8
 # https://tools.ietf.org/html/rfc5785
 
 <IfModule mod_rewrite.c>
-  RewriteEngine On
+  # RewriteEngine On
   RewriteCond %{REQUEST_URI} "!(^|/)\.well-known/([^./]+./?)+$" [NC]
   RewriteCond %{SCRIPT_FILENAME} -d [OR]
   RewriteCond %{SCRIPT_FILENAME} -f
@@ -690,3 +690,24 @@ SetEnvIf Authorization "(.+)" HTTP_AUTHORIZATION=$1
 # AddOutputFilterByType DEFLATE application/javascript
 # AddOutputFilterByType DEFLATE application/x-javascript
 # </IfModule>
+
+# ######################################################################
+# # KIRBY3-WEBP                                                        #
+# ######################################################################
+
+<IfModule mod_rewrite.c>
+  # RewriteEngine On
+
+  # Checking for WebP browser support ..
+  RewriteCond %{HTTP_ACCEPT} image/webp
+
+  # .. and if there's a WebP version for the requested image
+  RewriteCond %{DOCUMENT_ROOT}/$1.webp -f
+
+  # Well, then go for it & serve WebP instead
+  RewriteRule (.+)\.(jpe?g|png)$ $1.webp [T=image/webp,E=accept:1]
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header append Vary Accept env=REDIRECT_accept
+</IfModule>
