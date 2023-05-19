@@ -1,6 +1,7 @@
 label:
   en: Info
   de: Info
+icon: info
 
 fields:
   dateCreatedInfo:
