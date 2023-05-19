@@ -84,10 +84,13 @@ Starting with `/src/js/main.js` as entry point, Webpack will bundle everything (
 
 - [Kirby](https://getkirby.com/) (via [Composer](https://getcomposer.org/))
 - Kirby plugins (via [Composer](https://getcomposer.org/)):
+  - [Autofocus](https://github.com/sylvainjule/kirby-autofocus)
   - [Color Extractor](https://github.com/sylvainjule/kirby-colorextractor)
   - [Colors](https://github.com/hananils/kirby-colors)
+  - [Focus](https://github.com/flokosiol/kirby-focus)
   - [Hashed Assets](https://github.com/johannschopplich/kirby-hashed-assets)
   - [k3-date-extended](https://github.com/Adspectus/k3-date-extended)
+  - [kirby3-webp](https://github.com/felixhaeberle/kirby3-webp)
   - [Markdown Field](https://github.com/fabianmichael/kirby-markdown-field)
   - [Minify HTML](https://github.com/afbora/kirby-minify-html)
   - [Multilanguage XML Sitemap](https://github.com/isaactopo/xmlsitemap)
