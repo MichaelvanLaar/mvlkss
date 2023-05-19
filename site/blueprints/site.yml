@@ -2,6 +2,10 @@ title: Site
 
 tabs:
   pages:
+    label:
+      en: Pages
+      de: Seiten
+    icon: folder-structure
     sections:
       pages:
         type: pages
@@ -10,6 +14,7 @@ tabs:
     label:
       en: Navigation
       de: Navigation
+    icon: sitemap
     fields:
       mainNavigation:
         type: navigation
@@ -30,6 +35,7 @@ tabs:
     label:
       en: Site Settings
       de: Website-Einstellungen
+    icon: settings
     fields:
       siteLogo:
         type: files
