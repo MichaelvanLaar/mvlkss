@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8e0893ed4928cad3c08c4d4735a381b8",
+    "content-hash": "57d0bee00994b0576e9578738bd340ac",
     "packages": [
         {
             "name": "adspectus/date-extended",
@@ -622,6 +622,46 @@
             "time": "2020-12-28T12:54:39+00:00"
         },
         {
+            "name": "hananils/kirby-colors",
+            "version": "1.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hananils/kirby-colors.git",
+                "reference": "6b49acf525cdd987e6063de7ee33f4035a2d5824"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hananils/kirby-colors/zipball/6b49acf525cdd987e6063de7ee33f4035a2d5824",
+                "reference": "6b49acf525cdd987e6063de7ee33f4035a2d5824",
+                "shasum": ""
+            },
+            "require": {
+                "getkirby/composer-installer": "^1.2"
+            },
+            "type": "kirby-plugin",
+            "autoload": {
+                "psr-4": {
+                    "Hananils\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "hana+nils · Büro für Gestaltung",
+                    "email": "buero@hananils.de"
+                }
+            ],
+            "description": "A color field for Kirby 3",
+            "support": {
+                "issues": "https://github.com/hananils/kirby-colors/issues/",
+                "source": "https://github.com/hananils/kirby-colors/tree/1.7.0"
+            },
+            "time": "2022-11-11T11:15:13+00:00"
+        },
+        {
             "name": "isaactopo/xmlsitemap",
             "version": "0.2.2",
             "source": {
@@ -1089,6 +1129,44 @@
                 "source": "https://github.com/php-fig/log/tree/3.0.0"
             },
             "time": "2021-07-14T16:46:02+00:00"
+        },
+        {
+            "name": "sylvainjule/colorextractor",
+            "version": "1.0.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sylvainjule/kirby-colorextractor.git",
+                "reference": "e224b5be66396ec887687e591fae32034df63169"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sylvainjule/kirby-colorextractor/zipball/e224b5be66396ec887687e591fae32034df63169",
+                "reference": "e224b5be66396ec887687e591fae32034df63169",
+                "shasum": ""
+            },
+            "require": {
+                "getkirby/composer-installer": "^1.1"
+            },
+            "type": "kirby-plugin",
+            "extra": {
+                "installer-name": "colorextractor"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sylvain Julé",
+                    "email": "contact@sylvain-jule.fr"
+                }
+            ],
+            "description": "Extract dominant / average color from any image.",
+            "support": {
+                "issues": "https://github.com/sylvainjule/kirby-colorextractor/issues",
+                "source": "https://github.com/sylvainjule/kirby-colorextractor/tree/1.0.7"
+            },
+            "time": "2022-02-24T11:03:40+00:00"
         },
         {
             "name": "symfony/css-selector",

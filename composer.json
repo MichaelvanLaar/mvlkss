@@ -32,7 +32,9 @@
     "bnomei/kirby3-robots-txt": "^1.5",
     "distantnative/retour-for-kirby": "^4.4",
     "fabianmichael/kirby-markdown-field": "^2.1",
-    "adspectus/date-extended": "^1.1"
+    "adspectus/date-extended": "^1.1",
+    "sylvainjule/colorextractor": "^1.0",
+    "hananils/kirby-colors": "^1.7"
   },
   "config": {
     "allow-plugins": {
