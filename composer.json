@@ -39,7 +39,8 @@
     "sylvainjule/autofocus": "^1.0",
     "felixhaeberle/kirby3-webp": "^1.0",
     "microman/kirby-inherit": "^1.0",
-    "hananils/kirby-date-methods": "^2.1"
+    "hananils/kirby-date-methods": "^2.1",
+    "belugadigital/kirby-navigation": "^3.0"
   },
   "config": {
     "allow-plugins": {
