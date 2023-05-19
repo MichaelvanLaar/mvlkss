@@ -36,7 +36,8 @@
     "sylvainjule/colorextractor": "^1.0",
     "hananils/kirby-colors": "^1.7",
     "flokosiol/focus": "^3.1",
-    "sylvainjule/autofocus": "^1.0"
+    "sylvainjule/autofocus": "^1.0",
+    "felixhaeberle/kirby3-webp": "^1.0"
   },
   "config": {
     "allow-plugins": {
