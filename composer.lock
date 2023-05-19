@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "77c932c46a80f94b21c3045a6e3a2c8a",
+    "content-hash": "d3b9ff72f72bb662e6d00441d32bf613",
     "packages": [
         {
             "name": "adspectus/date-extended",
@@ -1086,6 +1086,47 @@
                 "source": "https://github.com/michelf/php-smartypants/tree/1.8.1"
             },
             "time": "2016-12-13T01:01:17+00:00"
+        },
+        {
+            "name": "microman/kirby-inherit",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/youngcut/kirby-inherit.git",
+                "reference": "912c66c314fc72b9b154d51d5a15cc84ac86e80e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/youngcut/kirby-inherit/zipball/912c66c314fc72b9b154d51d5a15cc84ac86e80e",
+                "reference": "912c66c314fc72b9b154d51d5a15cc84ac86e80e",
+                "shasum": ""
+            },
+            "require": {
+                "getkirby/composer-installer": "^1.1"
+            },
+            "type": "kirby-plugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roman Gsponer",
+                    "email": "kirby@microman.ch"
+                }
+            ],
+            "description": "Get field from parent page if empty",
+            "support": {
+                "issues": "https://github.com/youngcut/kirby-inherit/issues",
+                "source": "https://github.com/youngcut/kirby-inherit/tree/1.0.1"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.com/donate/?hosted_button_id=BHXBDRWYPUPCG",
+                    "type": "other"
+                }
+            ],
+            "time": "2023-03-02T20:57:20+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
