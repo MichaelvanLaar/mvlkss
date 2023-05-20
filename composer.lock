@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "293a28cf92499e9f49e9327e7416183b",
+    "content-hash": "1b6e1fe602d11a63b85b9e3f54f943d5",
     "packages": [
         {
             "name": "adspectus/date-extended",
@@ -214,6 +214,46 @@
                 }
             ],
             "time": "2021-08-06T13:21:27+00:00"
+        },
+        {
+            "name": "bvdputte/kirby-bettersearch",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bvdputte/kirby-bettersearch.git",
+                "reference": "3564c760d0db85742ecbac89f72c9c3b32d74631"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bvdputte/kirby-bettersearch/zipball/3564c760d0db85742ecbac89f72c9c3b32d74631",
+                "reference": "3564c760d0db85742ecbac89f72c9c3b32d74631",
+                "shasum": ""
+            },
+            "require": {
+                "getkirby/composer-installer": "^1.1"
+            },
+            "type": "kirby-plugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bart Vandeputte",
+                    "email": "mail@bartvandeputte.be"
+                }
+            ],
+            "description": "A search plugin for Kirby 3 that searches for full word combinations rather than just individual words.",
+            "keywords": [
+                "kirby3",
+                "kirby3-plugin",
+                "search"
+            ],
+            "support": {
+                "issues": "https://github.com/bvdputte/kirby-bettersearch/issues",
+                "source": "https://github.com/bvdputte/kirby-bettersearch/tree/2.0.0"
+            },
+            "time": "2023-02-04T16:20:20+00:00"
         },
         {
             "name": "claviska/simpleimage",
