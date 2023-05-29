@@ -79,23 +79,35 @@
 
   <body
     class="flex min-h-screen flex-col bg-white text-black dark:bg-black dark:text-white"
+    style="
+      /* Set site header height */
+      --site-header-initial-height: 6rem;
+      --site-header-scroll-height: 3rem;
+      --site-header-height: var(--site-header-initial-height);
+
+      /* Set site header vertical padding */
+      --site-header-initial-padding-y: 0.75rem;
+      --site-header-scroll-padding-y: 0.3rem;
+      --site-header-padding-y: var(--site-header-initial-padding-y);
+
+      /* Calculate site logo dimensions */
+      --site-logo-height: calc(var(--site-header-height) - (2 * var(--site-header-padding-y)));
+      --site-logo-aspect-ratio: <?= $siteLogoFile->dimensions()->ratio() ?>;
+
+      /* Calculate site logo container dimensions */
+      --site-logo-container-height: calc(var(--site-logo-height) + 2px);
+      --site-logo-container-width: calc(var(--site-logo-height) * var(--site-logo-aspect-ratio));
+    "
   >
 
     <!-- Page header -->
     <header
-      style="--site-header-height: 6rem; --site-header-padding-y: 0.75rem;"
+      id="page-header"
+      class="fixed w-full bg-neutral-200 h-[var(--site-header-height)]"
     >
-      <div class="row-container-default flex py-[--site-header-padding-y]">
+      <div class="row-container-default flex py-[var(--site-header-padding-y)]">
         <div
-          style="
-            --site-logo-height: calc(
-              var(--site-header-height) - var(--site-header-padding-y)
-            );
-            --site-logo-aspect-ratio: <?= $siteLogoFile
-              ->dimensions()
-              ->ratio() ?>;
-          "
-          class="site-logo-container h-[calc(var(--site-logo-height)_+_2px)] w-[calc(var(--site-logo-height)_*_var(--site-logo-aspect-ratio))] max-w-[10rem]"
+          class="site-logo-container h-[var(--site-logo-container-height)] w-[var(--site-logo-container-width)] max-w-[10rem]"
         >
           <a
             href="<?= $site->url() ?>"
