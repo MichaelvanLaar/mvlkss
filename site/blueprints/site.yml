@@ -10,27 +10,6 @@ tabs:
       pages:
         type: pages
 
-  navigation:
-    label:
-      en: Navigation
-      de: Navigation
-    icon: sitemap
-    fields:
-      mainNavigation:
-        type: navigation
-        label:
-          en: Main Navigation
-          de: Hauptnavigation
-        width: 1/2
-        levels: 3
-      footerNavigation:
-        type: navigation
-        label:
-          en: Footer Navigation
-          de: Fußzeilennavigation
-        width: 1/2
-        levels: 1
-
   siteSettings:
     label:
       en: Site Settings
