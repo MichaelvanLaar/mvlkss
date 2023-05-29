@@ -67,10 +67,18 @@ return function ($kirby, $site, $page) {
   // Construct array with content for main menu
   $mainMenuItems = [];
   foreach ($site->children()->listed() as $menuItem) {
-    if ($menuItem->includeInMenus()->value() == "main") {
+    $menuOptions = $menuItem->includeInMenus()->split(",");
+    if (in_array("main", $menuOptions)) {
+      $url =
+        $menuItem->intendedTemplate() == "custommenuitem"
+          ? $menuItem->menuItemUrl()
+          : $menuItem->url();
       $mainMenuItems[] = [
         "title" => $menuItem->title(),
-        "url" => $menuItem->url(),
+        "url" => $url,
+        "target" => $menuItem->menuItemTarget()->exists()
+          ? $menuItem->menuItemTarget()
+          : "_self",
         "isActive" =>
           $page->is($menuItem) || $page->parents()->has($menuItem)
             ? "active"

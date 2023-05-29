@@ -104,8 +104,8 @@
     <header
       id="page-header"
       class="fixed w-full bg-neutral-200 h-[var(--site-header-height)]"
-    >
-      <div class="row-container-default flex py-[var(--site-header-padding-y)]">
+    ><!-- Row -->
+      <div class="row-container-default flex justify-between py-[var(--site-header-padding-y)]"><!-- Inner row container -->
         <div
           class="site-logo-container h-[var(--site-logo-container-height)] w-[var(--site-logo-container-width)] max-w-[10rem]"
         >
@@ -118,11 +118,11 @@
               : $siteLogoFile ?>
           </a>
         </div>
-        <nav class="flex flex-grow items-center justify-end">
+        <nav class="flex items-center justify-end ps-6">
           <ul class="flex">
             <?php foreach ($mainMenuItems as $menuItem): ?>
               <li class="<?= $menuItem["isActive"] ?> ms-6">
-                <a href="<?= $menuItem["url"] ?>">
+                <a href="<?= $menuItem["url"] ?>" target="<?= $menuItem["target"] ?>">
                   <?= $menuItem["title"] ?>
                 </a>
               </li>
