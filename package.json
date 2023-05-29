@@ -3,9 +3,9 @@
   "private": true,
   "author": "Michael van Laar <michael@van-laar.de> (https://michaelvanlaar.com/)",
   "scripts": {
-    "clean": "rm -rf assets/{css,js}",
+    "clean": "rm -rf assets/{css,js} && rm -f assets/manifest.json",
     "build": "npm run clean && webpack --mode production && npx -y hashup",
-    "dev": "webpack --mode development --watch",
+    "dev": "npm run clean && webpack --mode development --watch",
     "dev-server": "concurrently --kill-others \"npm run dev\" \"php -S localhost:8000 kirby/router.php\""
   },
   "browserslist": [
