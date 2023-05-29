@@ -5,44 +5,78 @@
  *
  * Uses the Kirby Snippet Controller plugin
  * Plugin details: https://github.com/lukaskleinschmidt/kirby-snippet-controller
+ *
+ * Provides variables for use in the header snippet:
+ * - $pageLanguageCode
+ * - $pageLanguageLocale
+ * - $metaTitle
+ * - $metaDescription
+ * - $socialShareTitleOutput
+ * - $socialShareDescriptionOutput
+ * - $twitterSiteHandle
+ * - $twitterCreatorHandle
+ * - $siteLogoFile
+ * - $mainMenuItems
  * =============================================================================
  */
 
 return function ($kirby, $site, $page) {
+  // Minimize repetitive method calls
+  $seoTitle = $page->seoTitle();
+  $title = $page->title();
+  $defaultDivider = $site->defaultDivider();
+  $siteTitle = $site->title();
+  $socialShareTitle = $page->socialShareTitle();
+  $seoDescription = $page->seoDescription();
+  $twitterSiteHandle = $site->twitterSiteHandle();
+  $twitterCreatorHandle = $page->twitterCreatorHandle();
+
   // Construct meta title (for <title> element)
-  $metaTitle =
-    $page->seoTitle()->length() > 0 ? $page->seoTitle() : $page->title();
-  $metaTitle = $page->appendDefaultDividerToTitleElement()->toBool()
-    ? $metaTitle . " " . $site->defaultDivider()
-    : $metaTitle;
-  $metaTitle = $page->appendSiteTitleToTitleElement()->toBool()
-    ? $metaTitle . " " . $site->title()
-    : $metaTitle;
+  $metaTitle = $seoTitle->length() > 0 ? $seoTitle : $title;
+  $metaTitle .= $page->appendDefaultDividerToTitleElement()->toBool()
+    ? " " . $defaultDivider
+    : "";
+  $metaTitle .= $page->appendSiteTitleToTitleElement()->toBool()
+    ? " " . $siteTitle
+    : "";
 
   // Construct social share title (for Open Graph and Twitter Card title)
-  $socialShareTitleOutput = "";
-  if ($page->socialShareTitle()->length() > 0) {
-    $socialShareTitleOutput = $page->socialShareTitle();
-  } elseif ($page->seoTitle()->length() > 0) {
-    $socialShareTitleOutput = $page->seoTitle();
-  } else {
-    $socialShareTitleOutput = $page->title();
-  }
-  $socialShareTitleOutput = $page
+  $socialShareTitleOutput =
+    $socialShareTitle->length() > 0
+      ? $socialShareTitle
+      : ($seoTitle->length() > 0
+        ? $seoTitle
+        : $title);
+  $socialShareTitleOutput .= $page
     ->appendDefaultDividerToSocialShareTitle()
     ->toBool()
-    ? $socialShareTitleOutput . " " . $site->defaultDivider()
-    : $socialShareTitleOutput;
-  $socialShareTitleOutput = $page->appendSiteTitleToSocialShareTitle()->toBool()
-    ? $socialShareTitleOutput . " " . $site->title()
-    : $socialShareTitleOutput;
+    ? " " . $defaultDivider
+    : "";
+  $socialShareTitleOutput .= $page
+    ->appendSiteTitleToSocialShareTitle()
+    ->toBool()
+    ? " " . $siteTitle
+    : "";
 
   // Construct social share description (for Open Graph and Twitter Card description)
-  $socialShareDescriptionOutput = "";
-  if ($page->socialShareDescription()->length() > 0) {
-    $socialShareDescriptionOutput = $page->socialShareDescription();
-  } elseif ($page->seoDescription()->length() > 0) {
-    $socialShareDescriptionOutput = $page->seoDescription();
+  $socialShareDescriptionOutput =
+    $page->socialShareDescription()->length() > 0
+      ? $page->socialShareDescription()
+      : $seoDescription;
+
+  // Construct array with content for main menu
+  $mainMenuItems = [];
+  foreach ($site->children()->listed() as $menuItem) {
+    if ($menuItem->includeInMenus()->value() == "main") {
+      $mainMenuItems[] = [
+        "title" => $menuItem->title(),
+        "url" => $menuItem->url(),
+        "isActive" =>
+          $page->is($menuItem) || $page->parents()->has($menuItem)
+            ? "active"
+            : "",
+      ];
+    }
   }
 
   return [
@@ -53,17 +87,14 @@ return function ($kirby, $site, $page) {
       ? $kirby->language()->locale()
       : "en_US",
     "metaTitle" => $metaTitle,
-    "metaDescription" =>
-      $page->seoDescription()->length() > 0 ? $page->seoDescription() : "",
+    "metaDescription" => $seoDescription->length() > 0 ? $seoDescription : "",
     "socialShareTitleOutput" => $socialShareTitleOutput,
     "socialShareDescriptionOutput" => $socialShareDescriptionOutput,
     "twitterSiteHandle" =>
-      $site->twitterSiteHandle()->length() > 0
-        ? $site->twitterSiteHandle()
-        : "",
+      $twitterSiteHandle->length() > 0 ? $twitterSiteHandle : "",
     "twitterCreatorHandle" =>
-      $page->twitterCreatorHandle()->length() > 0
-        ? $site->twitterCreatorHandle()
-        : "",
+      $twitterCreatorHandle->length() > 0 ? $twitterCreatorHandle : "",
+    "siteLogoFile" => $site->siteLogo()->toFile(),
+    "mainMenuItems" => $mainMenuItems,
   ];
 };

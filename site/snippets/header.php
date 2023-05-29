@@ -6,15 +6,17 @@
  * Uses “header.controller.php” via the Kirby Snippet Controller plugin
  * Plugin details: https://github.com/lukaskleinschmidt/kirby-snippet-controller
  * 
- * Variables form controller:
+ * Receives variables from snippet controller:
  * - $pageLanguageCode
- * - pageLanguageLocale
+ * - $pageLanguageLocale
  * - $metaTitle
  * - $metaDescription
  * - $socialShareTitleOutput
  * - $socialShareDescriptionOutput
  * - $twitterSiteHandle
  * - $twitterCreatorHandle
+ * - $siteLogoFile
+ * - $mainMenuItems
  * =============================================================================
  */
 ?>
@@ -89,19 +91,30 @@
             --site-logo-height: calc(
               var(--site-header-height) - var(--site-header-padding-y)
             );
-            --site-logo-aspect-ratio: <?= $site->siteLogo()->toFile()->dimensions()->ratio() ?>;
+            --site-logo-aspect-ratio: <?= $siteLogoFile
+              ->dimensions()
+              ->ratio() ?>;
           "
           class="site-logo-container h-[calc(var(--site-logo-height)_+_2px)] w-[calc(var(--site-logo-height)_*_var(--site-logo-aspect-ratio))] max-w-[10rem]"
         >
-          <a href="<?= $site->url() ?>" title="<?= $site->title() ?> → <?= $site->homePage()->title() ?>">
-            <?= $site->siteLogo()->toFile()->extension() == "svg" ? svg($site->siteLogo()->toFile()) : $site->siteLogo()->toFile() ?>
+          <a
+            href="<?= $site->url() ?>"
+            title="<?= $site->title() ?> → <?= $site->homePage()->title() ?>"
+          >
+            <?= $siteLogoFile->extension() == "svg"
+              ? svg($siteLogoFile)
+              : $siteLogoFile ?>
           </a>
         </div>
         <nav class="flex flex-grow items-center justify-end">
           <ul class="flex">
-            <li class="ms-3"><a href="#one">One</a></li>
-            <li class="ms-3"><a href="#two">Two</a></li>
-            <li class="ms-3"><a href="#three">Three</a></li>
+            <?php foreach ($mainMenuItems as $menuItem): ?>
+              <li class="<?= $menuItem["isActive"] ?> ms-6">
+                <a href="<?= $menuItem["url"] ?>">
+                  <?= $menuItem["title"] ?>
+                </a>
+              </li>
+            <?php endforeach; ?>
           </ul>
         </nav>
       </div>
