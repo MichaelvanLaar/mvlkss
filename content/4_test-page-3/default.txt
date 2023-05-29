@@ -46,7 +46,7 @@ Twittercreatorhandle:
 
 ----
 
-Includeinmenus: footer
+Includeinmenus: footer, main
 
 ----
 
@@ -58,4 +58,4 @@ Datecreatedepoch: 1685363688
 
 ----
 
-Datemodifiedepoch: 1685377860
+Datemodifiedepoch: 1685396174
