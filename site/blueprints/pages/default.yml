@@ -46,5 +46,8 @@ tabs:
   # Metadata tab
   metadata: tabs/metadata
 
+  #Navigation tab
+  navigationMenus: tabs/navigation-menus
+
   # Info tab
-  page-info: tabs/page-info
+  pageInfo: tabs/page-info
