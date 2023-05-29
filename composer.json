@@ -40,7 +40,6 @@
     "felixhaeberle/kirby3-webp": "^1.0",
     "microman/kirby-inherit": "^1.0",
     "hananils/kirby-date-methods": "^2.1",
-    "belugadigital/kirby-navigation": "^3.0",
     "fendinger/kirby3-consent-gate": "^1.0",
     "bvdputte/kirby-bettersearch": "^2.0"
   },
