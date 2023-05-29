@@ -98,7 +98,6 @@ Starting with `/src/js/main.js` as entry point, Webpack will bundle everything (
   - [Markdown Field](https://github.com/fabianmichael/kirby-markdown-field)
   - [Minify HTML](https://github.com/afbora/kirby-minify-html)
   - [Multilanguage XML Sitemap](https://github.com/isaactopo/xmlsitemap)
-  - [Navigation Field](https://github.com/chrisbeluga/kirby-navigation)
   - [Resolve](https://github.com/lukaskleinschmidt/kirby-resolve)
   - [Retour](https://github.com/distantnative/retour-for-kirby)
   - [Robots.txt](https://github.com/bnomei/kirby3-robots-txt)
