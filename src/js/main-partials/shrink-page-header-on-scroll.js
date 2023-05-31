@@ -15,7 +15,7 @@
    */
 
   // All custom CSS properties must be defined in an inline style attribute of
-  // the body element:
+  // the body element using “rem” values:
   // --site-header-initial-height
   // --site-header-scroll-height
   // --site-header-initial-padding-y
