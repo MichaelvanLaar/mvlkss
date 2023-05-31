@@ -14,7 +14,7 @@ The following must be installed on your machine:
 
 ## Install
 
-### Step 1: Clone the repository
+### Step 1: Clone the Repository
 
 Use whichever clone method you like best.
 
@@ -24,7 +24,7 @@ Use whichever clone method you like best.
 composer install
 ```
 
-### Step 3: Install Tailwind CSS and all required build tools
+### Step 3: Install Tailwind CSS and All Required Build Tools
 
 ```bash
 npm install
@@ -62,7 +62,7 @@ npm run build
 
 ## File Locations
 
-### Kirby files (e.g. content and templates)
+### Kirby Files (e.g. Content and Templates)
 
 See [Kirby’s comprehensive documentation](https://getkirby.com/docs/guide).
 
@@ -80,7 +80,7 @@ To keep everything neat and simple, organize your frontend scripts in separate p
 
 Starting with `/src/js/main.js` as entry point, Webpack will bundle everything (including imported node modules) and create the output file `assets/js/main.js`. This is the JS file that needs to be linked in your Kirby templates.
 
-## Tools included
+## Tools Included
 
 - [Kirby](https://getkirby.com/) (via [Composer](https://getcomposer.org/))
 - Kirby plugins (via [Composer](https://getcomposer.org/)):
@@ -109,7 +109,7 @@ Starting with `/src/js/main.js` as entry point, Webpack will bundle everything (
 - [Babel](https://babeljs.io/)
 - [webpack](https://webpack.js.org/)
 
-## Best practices / tutorials included
+## Best Practices / Tutorials Included
 
 - [Accessible hamburger buttons without JavaScript](https://www.pausly.app/blog/accessible-hamburger-buttons-without-javascript)
 
