@@ -109,4 +109,8 @@ Starting with `/src/js/main.js` as entry point, Webpack will bundle everything (
 - [Babel](https://babeljs.io/)
 - [webpack](https://webpack.js.org/)
 
+## Best practices / tutorials included
+
+- [Accessible hamburger buttons without JavaScript](https://www.pausly.app/blog/accessible-hamburger-buttons-without-javascript)
+
 [^1]: No browser sync or auto-refresh feature is included. Just use a browser extension like [Tab Auto Refresh](https://addons.mozilla.org/de/firefox/addon/tab-auto-refresh/) for Firefox. Or use a development browser like [Polypane](https://polypane.app/) which has a handy live reload feature already built in.
