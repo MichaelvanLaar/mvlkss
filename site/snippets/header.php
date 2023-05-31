@@ -89,7 +89,7 @@
 
       /* Set site header vertical padding */
       --site-header-initial-padding-y: 0.75rem;
-      --site-header-scroll-padding-y: 0.3rem;
+      --site-header-scroll-padding-y: 0.3125rem;
       --site-header-padding-y: var(--site-header-initial-padding-y);
 
       /* Calculate site logo dimensions */
@@ -99,15 +99,20 @@
       /* Calculate site logo container dimensions */
       --site-logo-container-height: calc(var(--site-logo-height) + 2px);
       --site-logo-container-width: calc(var(--site-logo-height) * var(--site-logo-aspect-ratio));
+
+      /* Calculate navigation toggle dimensions  */
+      --main-navigation-toggle-width: calc(var(--site-header-scroll-height) - (2 * var(--site-header-scroll-padding-y)) + 1.5rem);
     "
   >
 
     <!-- Page header -->
+    <!-- Row -->
     <header
       id="page-header"
-      class="h-[var(--site-header-height)] w-full bg-neutral-200 js:fixed"
-    ><!-- Row -->
-      <div class="row-container-default flex justify-between py-[var(--site-header-padding-y)]"><!-- Inner row container -->
+      class="h-[var(--site-header-height)] w-full bg-neutral-200 js:fixed dark:bg-neutral-600"
+    >
+      <!-- Inner row container -->
+      <div class="row-container-default flex justify-between py-[var(--site-header-padding-y)]">
         <!-- Site logo -->
         <div class="site-logo-container h-[var(--site-logo-container-height)] w-[var(--site-logo-container-width)] max-w-[10rem]">
           <a
@@ -121,7 +126,7 @@
         </div>
 
         <!-- Main menu -->
-        <div class="flex justify-end ps-6">
+        <div class="-me-6 flex justify-end ps-6 md:me-0">
           <input
             type="checkbox"
             id="main-menu-state"
@@ -129,9 +134,10 @@
             aria-hidden="true"
           />
           <nav class="flex items-center">
-            <!-- Toggle button for mobile menu, for details see:
-                 https://www.pausly.app/blog/accessible-hamburger-buttons-without-javascript -->
-            <div class="relative h-[var(--site-logo-height)] w-[var(--site-logo-height)] md:hidden">
+            <!-- Toggle button for mobile menu, see:
+                 https://www.pausly.app/blog/accessible-hamburger-buttons-without-javascript
+                 (with animated toogle icon instead of two unicode characters) -->
+            <div class="relative h-[var(--site-logo-height)] w-[var(--main-navigation-toggle-width)] md:hidden">
               <a
                 href="#main-menu-state"
                 class="main-menu-open absolute inset-0"
@@ -158,16 +164,26 @@
               </a>
               <label
                 for="main-menu-state"
-                class="absolute inset-0 flex cursor-pointer items-center justify-end text-4xl"
+                class="absolute inset-0 flex cursor-pointer items-center justify-end pe-6"
                 aria-hidden="true"
               >
-                <span class="main-menu-open">≡</span>
-                <span class="main-menu-close hidden">×</span>
+                <!-- Animated hamburger icon -->
+                <div
+                  style="
+                    --nav-toggle-icon-line-height: calc(var(--site-header-scroll-height) / 24);
+                  "
+                  class="nav-toggle-icon relative h-[calc(var(--site-header-scroll-height)_/_4)] w-[calc(var(--site-header-scroll-height)_/_3)]"
+                >
+                  <span class="absolute left-0 top-0 block h-[var(--nav-toggle-icon-line-height)] w-full rotate-0 rounded-sm bg-black transition-[top,_width,_left,_transform] duration-200 ease-in-out dark:bg-white"></span>
+                  <span class="absolute left-0 top-[calc(50%_-_(var(--nav-toggle-icon-line-height)_/_2))] block h-[var(--nav-toggle-icon-line-height)] w-full rotate-0 rounded-sm bg-black transition-[top,_width,_left,_transform] duration-200 ease-in-out dark:bg-white"></span>
+                  <span class="absolute left-0 top-[calc(50%_-_(var(--nav-toggle-icon-line-height)_/_2))] block h-[var(--nav-toggle-icon-line-height)] w-full rotate-0 rounded-sm bg-black transition-[top,_width,_left,_transform] duration-200 ease-in-out dark:bg-white"></span>
+                  <span class="absolute left-0 top-[calc(100%_-_var(--nav-toggle-icon-line-height))] block h-[var(--nav-toggle-icon-line-height)] w-full rotate-0 rounded-sm bg-black transition-[top,_width,_left,_transform] duration-200 ease-in-out dark:bg-white"></span>
+                </div>
               </label>
             </div>
 
             <!-- Main menu items -->
-            <ul class="absolute end-3 top-[var(--site-header-height)] hidden max-w-2xl bg-neutral-300 py-3 md:static md:flex md:bg-transparent md:py-0">
+            <ul class="invisible absolute end-3 top-[var(--site-header-height)] flex max-h-[calc(100vh_-_var(--site-header-height)_-_0.75rem)] max-w-2xl flex-col overflow-y-auto bg-neutral-300 py-3 opacity-0 transition-opacity duration-200 dark:bg-neutral-700 md:visible md:static md:max-h-none md:flex-row md:overflow-y-visible md:bg-transparent md:py-0 md:opacity-100">
               <?php foreach ($mainMenuItems as $menuItem): ?>
                 <li class="<?= $menuItem["isActive"] ?> md:ms-6">
                   <a
