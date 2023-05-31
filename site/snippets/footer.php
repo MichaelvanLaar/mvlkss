@@ -12,8 +12,13 @@
  */
 ?>
     <!-- Page footer -->
-    <footer id="page-footer" class="w-full bg-neutral-700 py-6"><!-- Row -->
-      <div class="row-container-default flex justify-between text-white"><!-- Inner row container -->
+    <!-- Row -->
+    <footer
+      id="page-footer"
+      class="w-full bg-neutral-600 py-6 dark:bg-neutral-900"
+    >
+      <!-- Inner row container -->
+      <div class="row-container-default flex justify-between text-white">
         <nav class="flex items-center">
           <ul class="flex">
             <?php foreach ($footerMenuItems as $menuItem): ?>
