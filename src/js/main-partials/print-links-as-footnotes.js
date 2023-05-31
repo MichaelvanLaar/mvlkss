@@ -4,6 +4,9 @@
  * =============================================================================
  */
 
+// Wrap the entire code inside an Immediately Invoked Function Expression
+// (IIFE). This will prevent any variables or functions defined inside from
+// polluting the global scope.
 (function (linksContainerSelector) {
   /**
    * ---------------------------------------------------------------------------
