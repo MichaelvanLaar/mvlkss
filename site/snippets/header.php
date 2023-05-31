@@ -17,6 +17,8 @@
  * - $twitterCreatorHandle
  * - $siteLogoFile
  * - $mainMenuItems
+ * - $mainMenuOpenLabel
+ * - $mainMenuCloseLabel
  * =============================================================================
  */
 ?>
@@ -103,12 +105,11 @@
     <!-- Page header -->
     <header
       id="page-header"
-      class="fixed w-full bg-neutral-200 h-[var(--site-header-height)]"
+      class="h-[var(--site-header-height)] w-full bg-neutral-200 js:fixed"
     ><!-- Row -->
       <div class="row-container-default flex justify-between py-[var(--site-header-padding-y)]"><!-- Inner row container -->
-        <div
-          class="site-logo-container h-[var(--site-logo-container-height)] w-[var(--site-logo-container-width)] max-w-[10rem]"
-        >
+        <!-- Site logo -->
+        <div class="site-logo-container h-[var(--site-logo-container-height)] w-[var(--site-logo-container-width)] max-w-[10rem]">
           <a
             href="<?= $site->url() ?>"
             title="<?= $site->title() ?> → <?= $site->homePage()->title() ?>"
@@ -118,17 +119,70 @@
               : $siteLogoFile ?>
           </a>
         </div>
-        <nav class="flex items-center justify-end ps-6">
-          <ul class="flex">
-            <?php foreach ($mainMenuItems as $menuItem): ?>
-              <li class="<?= $menuItem["isActive"] ?> ms-6">
-                <a href="<?= $menuItem["url"] ?>" target="<?= $menuItem["target"] ?>">
-                  <?= $menuItem["title"] ?>
-                </a>
-              </li>
-            <?php endforeach; ?>
-          </ul>
-        </nav>
+
+        <!-- Main menu -->
+        <div class="flex justify-end ps-6">
+          <input
+            type="checkbox"
+            id="main-menu-state"
+            class="hidden"
+            aria-hidden="true"
+          />
+          <nav class="flex items-center">
+            <!-- Toggle button for mobile menu, for details see:
+                 https://www.pausly.app/blog/accessible-hamburger-buttons-without-javascript -->
+            <div class="relative h-[var(--site-logo-height)] w-[var(--site-logo-height)] md:hidden">
+              <a
+                href="#main-menu-state"
+                class="main-menu-open absolute inset-0"
+                role="button"
+              >
+                <span
+                  class="absolute m-[-1px] h-px w-px overflow-hidden whitespace-nowrap border-0 p-0"
+                  style="clip-path: inset(100%);" 
+                >
+                  <?= $mainMenuOpenLabel ?>
+                </span>
+              </a>
+              <a
+                href="#"
+                class="main-menu-close absolute inset-0 hidden"
+                role="button"
+              >
+                <span
+                  class="absolute m-[-1px] h-px w-px overflow-hidden whitespace-nowrap border-0 p-0"
+                  style="clip-path: inset(100%);" 
+                >
+                  <?= $mainMenuCloseLabel ?>
+                </span>
+              </a>
+              <label
+                for="main-menu-state"
+                class="absolute inset-0 flex cursor-pointer items-center justify-end text-4xl"
+                aria-hidden="true"
+              >
+                <span class="main-menu-open">≡</span>
+                <span class="main-menu-close hidden">×</span>
+              </label>
+            </div>
+
+            <!-- Main menu items -->
+            <ul class="absolute end-3 top-[var(--site-header-height)] hidden max-w-2xl bg-neutral-300 py-3 md:static md:flex md:bg-transparent md:py-0">
+              <?php foreach ($mainMenuItems as $menuItem): ?>
+                <li class="<?= $menuItem["isActive"] ?> md:ms-6">
+                  <a
+                    href="<?= $menuItem["url"] ?>"
+                    target="<?= $menuItem["target"] ?>"
+                    class="block px-6 py-3 md:static md:px-0 md:py-0"
+                    <?= $menuItem["target"] == "_blank" ? "rel=\"noopener\"" : "" ?>
+                  >
+                    <?= $menuItem["title"] ?>
+                  </a>
+                </li>
+              <?php endforeach; ?>
+            </ul>
+          </nav>
+        </div>
       </div>
     </header>
  

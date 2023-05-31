@@ -43,8 +43,28 @@
 
 /* Hack to prevent SVG images from unwanted cropping */
 .site-logo-container svg {
-  height: calc(var(--site-logo-height) + 0.125rem);
-  width: calc(var(--site-logo-height) * var(--site-logo-aspect-ratio));
+  @apply h-[calc(var(--site-logo-height)_+_0.125rem)] w-[calc(var(--site-logo-height)_*_var(--site-logo-aspect-ratio))];
+}
+
+/**
+ * -----------------------------------------------------------------------------
+ * Main menu (mobile)
+ * -----------------------------------------------------------------------------
+ */
+
+:is(#main-menu-state:checked, #main-menu-state:target) ~ nav ul {
+  /* Show the menu */
+  @apply block md:flex;
+}
+
+:is(#main-menu-state:checked, #main-menu-state:target) ~ nav .main-menu-close {
+  /* Show the close button */
+  @apply block;
+}
+
+:is(#main-menu-state:checked, #main-menu-state:target) ~ nav .main-menu-open {
+  /* Hide the open button */
+  @apply hidden;
 }
 
 /**

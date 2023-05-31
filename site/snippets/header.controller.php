@@ -17,6 +17,8 @@
  * - $twitterCreatorHandle
  * - $siteLogoFile
  * - $mainMenuItems
+ * - $mainMenuOpenLabel
+ * - $mainMenuCloseLabel
  * =============================================================================
  */
 
@@ -104,5 +106,15 @@ return function ($kirby, $site, $page) {
       $twitterCreatorHandle->length() > 0 ? $twitterCreatorHandle : "",
     "siteLogoFile" => $site->siteLogo()->toFile(),
     "mainMenuItems" => $mainMenuItems,
+    "mainMenuOpenLabel" => $kirby->language()
+      ? ($kirby->language()->code() == "de"
+        ? "Menü öffnen"
+        : "Open menu")
+      : "Open menu",
+    "mainMenuCloseLabel" => $kirby->language()
+      ? ($kirby->language()->code() == "de"
+        ? "Menü schließen"
+        : "Close menu")
+      : "Close menu",
   ];
 };
