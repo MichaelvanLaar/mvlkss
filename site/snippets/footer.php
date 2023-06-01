@@ -18,19 +18,24 @@
       class="w-full bg-neutral-600 py-6 dark:bg-neutral-900 print:hidden"
     >
       <!-- Inner row container -->
-      <div class="row-container-default flex justify-between text-white">
-        <nav class="flex items-center">
+      <div class="row-container-default flex flex-col items-center justify-between text-white md:flex-row md:items-stretch">
+        <nav class="mb-3 flex items-center md:mb-0">
           <ul class="flex">
             <?php foreach ($footerMenuItems as $menuItem): ?>
               <li class="me-6">
-                <a href="<?= $menuItem["url"] ?>" target="<?= $menuItem["target"] ?>">
+                <a
+                  href="<?= $menuItem["url"] ?>"
+                  target="<?= $menuItem["target"] ?>"
+                >
                   <?= $menuItem["title"] ?>
                 </a>
               </li>
             <?php endforeach; ?>
           </ul>
         </nav>
-        <div>Social Media</div>
+        <div>
+          Social Media
+        </div>
       </div>
     </footer>
 
