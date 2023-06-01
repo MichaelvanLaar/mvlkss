@@ -15,7 +15,7 @@
     <!-- Row -->
     <footer
       id="page-footer"
-      class="w-full bg-neutral-600 py-6 dark:bg-neutral-900"
+      class="w-full bg-neutral-600 py-6 dark:bg-neutral-900 print:hidden"
     >
       <!-- Inner row container -->
       <div class="row-container-default flex justify-between text-white">
