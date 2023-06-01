@@ -174,16 +174,16 @@
                   "
                   class="nav-toggle-icon relative h-[calc(var(--site-header-scroll-height)_/_4)] w-[calc(var(--site-header-scroll-height)_/_3)]"
                 >
-                  <span class="absolute left-0 top-0 block h-[var(--nav-toggle-icon-line-height)] w-full rotate-0 rounded-sm bg-black transition-[top,_width,_left,_transform] duration-200 ease-in-out dark:bg-white"></span>
-                  <span class="absolute left-0 top-[calc(50%_-_(var(--nav-toggle-icon-line-height)_/_2))] block h-[var(--nav-toggle-icon-line-height)] w-full rotate-0 rounded-sm bg-black transition-[top,_width,_left,_transform] duration-200 ease-in-out dark:bg-white"></span>
-                  <span class="absolute left-0 top-[calc(50%_-_(var(--nav-toggle-icon-line-height)_/_2))] block h-[var(--nav-toggle-icon-line-height)] w-full rotate-0 rounded-sm bg-black transition-[top,_width,_left,_transform] duration-200 ease-in-out dark:bg-white"></span>
-                  <span class="absolute left-0 top-[calc(100%_-_var(--nav-toggle-icon-line-height))] block h-[var(--nav-toggle-icon-line-height)] w-full rotate-0 rounded-sm bg-black transition-[top,_width,_left,_transform] duration-200 ease-in-out dark:bg-white"></span>
+                  <span class="absolute left-0 top-0 block h-[var(--nav-toggle-icon-line-height)] w-full rotate-0 rounded-sm bg-black transition-[left,_width,_top,_transform] duration-300 ease-in-out dark:bg-white"></span>
+                  <span class="absolute left-0 top-[calc(50%_-_(var(--nav-toggle-icon-line-height)_/_2))] block h-[var(--nav-toggle-icon-line-height)] w-full rotate-0 rounded-sm bg-black transition-[left,_width,_top,_transform] duration-300 ease-in-out dark:bg-white"></span>
+                  <span class="absolute left-0 top-[calc(50%_-_(var(--nav-toggle-icon-line-height)_/_2))] block h-[var(--nav-toggle-icon-line-height)] w-full rotate-0 rounded-sm bg-black transition-[left,_width,_top,_transform] duration-300 ease-in-out dark:bg-white"></span>
+                  <span class="absolute left-0 top-[calc(100%_-_var(--nav-toggle-icon-line-height))] block h-[var(--nav-toggle-icon-line-height)] w-full rotate-0 rounded-sm bg-black transition-[left,_width,_top,_transform] duration-300 ease-in-out dark:bg-white"></span>
                 </div>
               </label>
             </div>
 
             <!-- Main menu items -->
-            <ul class="invisible absolute end-3 top-[var(--site-header-height)] flex max-h-[calc(100vh_-_var(--site-header-height)_-_0.75rem)] max-w-2xl flex-col overflow-y-auto bg-neutral-300 py-3 opacity-0 transition-opacity duration-200 dark:bg-neutral-700 md:visible md:static md:max-h-none md:flex-row md:overflow-y-visible md:bg-transparent md:py-0 md:opacity-100">
+            <ul class="invisible absolute end-3 top-[var(--site-header-height)] flex max-h-[calc(100vh_-_var(--site-header-height)_-_0.75rem)] max-w-2xl flex-col overflow-y-auto bg-neutral-300 py-3 opacity-0 transition-[opacity,_visibility] duration-300 ease-in-out dark:bg-neutral-700 md:visible md:static md:max-h-none md:flex-row md:overflow-y-visible md:bg-transparent md:py-0 md:opacity-100">
               <?php foreach ($mainMenuItems as $menuItem): ?>
                 <li class="<?= $menuItem["isActive"] ?> md:ms-6">
                   <a
