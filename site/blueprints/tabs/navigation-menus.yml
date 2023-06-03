@@ -5,5 +5,5 @@ icon: menu
 
 fields:
   includeInMenus:
-    extends: fields/includeinmenus
+    extends: fields/include-in-menus
     width: 1/2
