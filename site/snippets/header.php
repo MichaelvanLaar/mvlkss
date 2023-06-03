@@ -49,6 +49,33 @@
       })(document.documentElement);
     </script>
 
+    <style>
+      body {
+        /* Set site header height */
+        --site-header-initial-height: 6rem;
+        --site-header-scroll-height: 3rem;
+        --site-header-height: var(--site-header-initial-height);
+
+        /* Set site header vertical padding */
+        --site-header-initial-padding-y: 0.75rem;
+        --site-header-scroll-padding-y: 0.3125rem;
+        --site-header-padding-y: var(--site-header-initial-padding-y);
+
+        /* Calculate site logo dimensions */
+        --site-logo-height: calc(var(--site-header-height) - (2 * var(--site-header-padding-y)));
+        --site-logo-aspect-ratio: <?= $siteLogoFile->dimensions()->ratio() ?>;
+
+        /* Calculate site logo container dimensions */
+        --site-logo-container-height: calc(var(--site-logo-height) + 2px);
+        --site-logo-container-width: calc(var(--site-logo-height) * var(--site-logo-aspect-ratio));
+
+        /* Calculate navigation toggle width  */
+        --main-navigation-toggle-width: calc(var(--site-header-scroll-height) - (2 * var(--site-header-scroll-padding-y)) + 1.5rem);
+
+        /* Calculate stroke width of navigation toggle icon  */
+        --nav-toggle-icon-stroke-width: calc(var(--site-header-scroll-height) / 24);
+      }
+    </style>
     <?= css("assets/css/main.css") ?>
 
     <!-- Open Graph Data -->
@@ -79,33 +106,9 @@
     <?php endif; ?>
   </head>
 
-  <body
-    class="flex min-h-screen flex-col bg-white text-black dark:bg-black dark:text-white"
-    style="
-      /* Set site header height */
-      --site-header-initial-height: 6rem;
-      --site-header-scroll-height: 3rem;
-      --site-header-height: var(--site-header-initial-height);
+  <body class="flex min-h-screen flex-col bg-white text-black dark:bg-black dark:text-white">
 
-      /* Set site header vertical padding */
-      --site-header-initial-padding-y: 0.75rem;
-      --site-header-scroll-padding-y: 0.3125rem;
-      --site-header-padding-y: var(--site-header-initial-padding-y);
-
-      /* Calculate site logo dimensions */
-      --site-logo-height: calc(var(--site-header-height) - (2 * var(--site-header-padding-y)));
-      --site-logo-aspect-ratio: <?= $siteLogoFile->dimensions()->ratio() ?>;
-
-      /* Calculate site logo container dimensions */
-      --site-logo-container-height: calc(var(--site-logo-height) + 2px);
-      --site-logo-container-width: calc(var(--site-logo-height) * var(--site-logo-aspect-ratio));
-
-      /* Calculate navigation toggle dimensions  */
-      --main-navigation-toggle-width: calc(var(--site-header-scroll-height) - (2 * var(--site-header-scroll-padding-y)) + 1.5rem);
-    "
-  >
-
-    <!-- Page header -->
+    <!-- PAGE HEADER -->
     <!-- Row -->
     <header
       id="page-header"
@@ -143,10 +146,7 @@
                 class="main-menu-open absolute inset-0"
                 role="button"
               >
-                <span
-                  class="absolute m-[-1px] h-px w-px overflow-hidden whitespace-nowrap border-0 p-0"
-                  style="clip-path: inset(100%);" 
-                >
+                <span class="absolute m-[-1px] h-px w-px overflow-hidden whitespace-nowrap border-0 p-0">
                   <?= $mainMenuOpenLabel ?>
                 </span>
               </a>
@@ -155,10 +155,7 @@
                 class="main-menu-close absolute inset-0 hidden"
                 role="button"
               >
-                <span
-                  class="absolute m-[-1px] h-px w-px overflow-hidden whitespace-nowrap border-0 p-0"
-                  style="clip-path: inset(100%);" 
-                >
+                <span class="absolute m-[-1px] h-px w-px overflow-hidden whitespace-nowrap border-0 p-0">
                   <?= $mainMenuCloseLabel ?>
                 </span>
               </a>
@@ -168,16 +165,11 @@
                 aria-hidden="true"
               >
                 <!-- Animated hamburger icon -->
-                <div
-                  style="
-                    --nav-toggle-icon-line-height: calc(var(--site-header-scroll-height) / 24);
-                  "
-                  class="nav-toggle-icon relative h-[calc(var(--site-header-scroll-height)_/_4)] w-[calc(var(--site-header-scroll-height)_/_3)]"
-                >
-                  <span class="absolute left-0 top-0 block h-[var(--nav-toggle-icon-line-height)] w-full rotate-0 rounded-sm bg-black transition-[left,_width,_top,_transform] duration-300 ease-in-out dark:bg-white"></span>
-                  <span class="absolute left-0 top-[calc(50%_-_(var(--nav-toggle-icon-line-height)_/_2))] block h-[var(--nav-toggle-icon-line-height)] w-full rotate-0 rounded-sm bg-black transition-[left,_width,_top,_transform] duration-300 ease-in-out dark:bg-white"></span>
-                  <span class="absolute left-0 top-[calc(50%_-_(var(--nav-toggle-icon-line-height)_/_2))] block h-[var(--nav-toggle-icon-line-height)] w-full rotate-0 rounded-sm bg-black transition-[left,_width,_top,_transform] duration-300 ease-in-out dark:bg-white"></span>
-                  <span class="absolute left-0 top-[calc(100%_-_var(--nav-toggle-icon-line-height))] block h-[var(--nav-toggle-icon-line-height)] w-full rotate-0 rounded-sm bg-black transition-[left,_width,_top,_transform] duration-300 ease-in-out dark:bg-white"></span>
+                <div class="nav-toggle-icon relative h-[calc(var(--site-header-scroll-height)_/_4)] w-[calc(var(--site-header-scroll-height)_/_3)]">
+                  <span class="absolute left-0 top-0 block h-[var(--nav-toggle-icon-stroke-width)] w-full rotate-0 rounded-sm bg-black transition-[left,_width,_top,_transform] duration-300 ease-in-out dark:bg-white"></span>
+                  <span class="absolute left-0 top-[calc(50%_-_(var(--nav-toggle-icon-stroke-width)_/_2))] block h-[var(--nav-toggle-icon-stroke-width)] w-full rotate-0 rounded-sm bg-black transition-[left,_width,_top,_transform] duration-300 ease-in-out dark:bg-white"></span>
+                  <span class="absolute left-0 top-[calc(50%_-_(var(--nav-toggle-icon-stroke-width)_/_2))] block h-[var(--nav-toggle-icon-stroke-width)] w-full rotate-0 rounded-sm bg-black transition-[left,_width,_top,_transform] duration-300 ease-in-out dark:bg-white"></span>
+                  <span class="absolute left-0 top-[calc(100%_-_var(--nav-toggle-icon-stroke-width))] block h-[var(--nav-toggle-icon-stroke-width)] w-full rotate-0 rounded-sm bg-black transition-[left,_width,_top,_transform] duration-300 ease-in-out dark:bg-white"></span>
                 </div>
               </label>
             </div>
@@ -190,7 +182,9 @@
                     href="<?= $menuItem["url"] ?>"
                     target="<?= $menuItem["target"] ?>"
                     class="block px-6 py-3 md:static md:px-0 md:py-0"
-                    <?= $menuItem["target"] == "_blank" ? "rel=\"noopener\"" : "" ?>
+                    <?= $menuItem["target"] == "_blank"
+                      ? "rel=\"noopener\""
+                      : "" ?>
                   >
                     <?= $menuItem["title"] ?>
                   </a>
