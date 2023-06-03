@@ -1,0 +1,78 @@
+type: layout
+label:
+  en: Content (Page Builder)
+  de: Inhalt (Page Builder)
+layouts:
+  - "1/1"
+  - "1/2, 1/2"
+  - "1/4, 1/2, 1/4"
+  - "1/3, 1/3, 1/3"
+  - "1/3, 2/3"
+  - "2/3, 1/3"
+  - "1/4, 1/4, 1/4, 1/4"
+  - "1/4, 1/4, 1/2"
+  - "1/2, 1/4, 1/4"
+settings:
+  fields:
+    rowWidthHeadline:
+      type: headline
+      label:
+        en: Width
+        de: Breite
+      numbered: false
+    rowWidth:
+      type: select
+      label:
+        en: Width
+        de: Breite
+      options:
+        row-container-default:
+          en: Default
+          de: Standard
+        row-container-full:
+          en: Full Width
+          de: Volle Breite
+      default: row-container-default
+    rowBackgroundHeadline:
+      type: headline
+      label:
+        en: Background
+        de: Hintergrund
+      numbered: false
+    rowBackgroundImage:
+      type: files
+      label:
+        en: Background Image
+        de: Hintergrundbild
+      template: image
+      layout: cardlets
+      width: 1/2
+    rowBackgroundColor:
+      # For a consinstent look, the color picker should be replaced by a
+      # selection of pre-defined brand colors to choose from.
+      type: colors
+      alpha: true
+      width: 1/2
+    rowHtmlAttributesHeadline:
+      type: headline
+      label:
+        en: HTML Attributes
+        de: HTML-Attribute
+      numbered: false
+    rowId:
+      type: text
+      label:
+        en: ID
+        de: ID
+      help:
+        en: "The ID must be unique for the page to enable anchor links."
+        de: "Die ID muss eindeutig sein, um Ankerlinks zu ermöglichen."
+      pattern: "^[a-zA-Z][\w\-\:\.]*$"
+      width: 1/2
+    rowClasses:
+      type: text
+      label:
+        en: Classes
+        de: Klassen
+      pattern: "^([a-zA-Z_\-:][\w\-:]*($|\s))*$"
+      width: 1/2
