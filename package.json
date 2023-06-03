@@ -6,6 +6,7 @@
     "clean": "rm -rf assets/css && rm -rf assets/js && rm -f assets/manifest.json",
     "build": "npm run clean && webpack --mode production && npx -y hashup",
     "dev": "npm run clean && webpack --mode development --watch",
+    "server": "php -S localhost:8000 kirby/router.php",
     "dev-server": "concurrently --kill-others \"npm run dev\" \"php -S localhost:8000 kirby/router.php\""
   },
   "browserslist": [
