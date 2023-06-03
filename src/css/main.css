@@ -12,6 +12,12 @@
 @tailwind utilities;
 
 @layer base {
+  /**
+   * ---------------------------------------------------------------------------
+   * Fluid font size and zoom effect
+   * ---------------------------------------------------------------------------
+   */
+
   html {
     /* Implement a fluid font size based on viewport width with a minimum size
        of 16px and a maximum of 22px. This also affects all relative size
@@ -22,7 +28,13 @@
 }
 
 @layer components {
-  /* Centered container with a width of 7xl (see Tailwind CSS documentation for
+  /**
+   * ---------------------------------------------------------------------------
+   * Row container
+   * ---------------------------------------------------------------------------
+   */
+
+  /* Centered container with a width of 6xl (see Tailwind CSS documentation for
      details) */
   .row-container,
   .row-container-default {
@@ -36,23 +48,40 @@
 
   /**
    * ---------------------------------------------------------------------------
+   * Site logo
+   * ---------------------------------------------------------------------------
+   */
+
+  /* Hack to prevent SVG images from unwanted cropping */
+  .site-logo-container svg {
+    @apply h-[calc(var(--site-logo-height)_+_0.125rem)] w-[calc(var(--site-logo-height)_*_var(--site-logo-aspect-ratio))];
+  }
+
+  /**
+   * ---------------------------------------------------------------------------
    * Main menu (mobile)
    * ---------------------------------------------------------------------------
    */
 
-  /* Show the menu */
+  /* Show the mobile menu */
   :is(#main-menu-state:checked, #main-menu-state:target) ~ nav ul {
     @apply visible opacity-100;
   }
 
-  /* Show the close link for screen reader */
+  /* Hide screen reader links from normal browsers
+     (This part can’t be done using Tailwind CSS.) */
+  :is(.main-menu-open, .main-menu-close) span {
+    clip-path: inset(100%);
+  }
+
+  /* When the mobile menu is open, show the close link for screen readers */
   :is(#main-menu-state:checked, #main-menu-state:target)
     ~ nav
     .main-menu-close {
     @apply block;
   }
 
-  /* Hide the open link for screen reader */
+  /* When the mobile menu is open, hide the open link from screen readers */
   :is(#main-menu-state:checked, #main-menu-state:target) ~ nav .main-menu-open {
     @apply hidden;
   }
@@ -80,36 +109,25 @@
     span:nth-child(3) {
     @apply -rotate-45;
   }
-}
 
-/**
- * -----------------------------------------------------------------------------
- * Site logo
- * -----------------------------------------------------------------------------
- */
+  /**
+   * ---------------------------------------------------------------------------
+   * Print view
+   * ---------------------------------------------------------------------------
+   */
 
-/* Hack to prevent SVG images from unwanted cropping */
-.site-logo-container svg {
-  @apply h-[calc(var(--site-logo-height)_+_0.125rem)] w-[calc(var(--site-logo-height)_*_var(--site-logo-aspect-ratio))];
-}
+  /* Element which is only displayed when a page is printed */
+  .print-only {
+    @apply screen:invisible screen:hidden;
+  }
 
-/**
- * -----------------------------------------------------------------------------
- * Print view
- * -----------------------------------------------------------------------------
- */
+  /* Box for link URL footnotes in print view of a page */
+  .print-links-footer {
+    @apply clear-both mt-5 break-inside-avoid-page border border-solid border-black px-5;
+  }
 
-/* Element which is only displayed when a page is printed */
-.print-only {
-  @apply screen:invisible screen:hidden;
-}
-
-/* Box for link URL footnotes in print view of a page */
-.print-links-footer {
-  @apply clear-both mt-5 break-inside-avoid-page border border-solid border-black px-5;
-}
-
-/* Ordered list in with link URL footnotes in print view of a page */
-.print-links-footer-list {
-  @apply list-inside list-decimal;
+  /* Ordered list in with link URL footnotes in print view of a page */
+  .print-links-footer-list {
+    @apply list-inside list-decimal;
+  }
 }
