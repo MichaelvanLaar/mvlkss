@@ -18,6 +18,7 @@ tabs:
               text:
                 type: markdown
                 size: huge
+              mainContent: fields/page-builder-default
 
       # Sidebar column
       sidebar:
