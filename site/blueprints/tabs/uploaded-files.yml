@@ -10,7 +10,7 @@ label:
 icon: file
 
 sections:
-  images:
+  uploadedFiles:
     type: files
     label:
       en: Files
