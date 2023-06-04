@@ -143,6 +143,21 @@ columns:
           de: "Bitte keine Zeilenumbrüche verwenden. Fallback, falls leer: SEO-Beschreibung"
         buttons: false
         maxlength: 150
+      socialShareImage:
+        type: files
+        label:
+          en: Social Share Image
+          de: Social-Share-Bild
+        help:
+          en: "Minimum dimensions: 1200 × 630 pixels. Fallback if empty: Social share image specified in the site settings."
+          de: "Mindestmaße: 1200 × 630 Pixel. Fallback, falls leer: Social-Share-Bild aus den Seiteneinstellungen."
+        uploads: socialshare-image
+        required: false
+        max: 1
+        multiple: false
+        layout: cards
+        image:
+          ratio: 120/63
       twitterCreatorHandle:
         type: text
         label:
