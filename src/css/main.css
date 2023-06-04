@@ -30,24 +30,6 @@
 @layer components {
   /**
    * ---------------------------------------------------------------------------
-   * Row container
-   * ---------------------------------------------------------------------------
-   */
-
-  /* Centered container with a width of 6xl (see Tailwind CSS documentation for
-     details) */
-  .row-container,
-  .row-container-default {
-    @apply mx-auto w-full max-w-6xl px-6 print:px-0;
-  }
-
-  /* Full width container */
-  .row-container-full {
-    @apply w-full px-6 print:px-0;
-  }
-
-  /**
-   * ---------------------------------------------------------------------------
    * Site logo
    * ---------------------------------------------------------------------------
    */
@@ -130,4 +112,22 @@
   .print-links-footer-list {
     @apply list-inside list-decimal;
   }
+}
+
+/**
+ * -----------------------------------------------------------------------------
+ * Row container
+ * -----------------------------------------------------------------------------
+ */
+
+/* Centered container with a width of 6xl (see Tailwind CSS documentation for
+    details) */
+.row-container,
+.row-container-default {
+  @apply mx-auto w-full max-w-6xl px-6 print:px-0;
+}
+
+/* Full width container */
+.row-container-full {
+  @apply w-full px-6 print:px-0;
 }
