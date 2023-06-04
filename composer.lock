@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eacf92d02dd5c831cd5a5d36fdbaf454",
+    "content-hash": "bbc120f5ef5c81204d7dc055d78e2ac8",
     "packages": [
         {
             "name": "adspectus/date-extended",
@@ -585,52 +585,6 @@
                 }
             ],
             "time": "2023-04-12T12:00:00+00:00"
-        },
-        {
-            "name": "flokosiol/focus",
-            "version": "3.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/flokosiol/kirby-focus.git",
-                "reference": "ebc89db38737156b4c705138349eda29c67db173"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/flokosiol/kirby-focus/zipball/ebc89db38737156b4c705138349eda29c67db173",
-                "reference": "ebc89db38737156b4c705138349eda29c67db173",
-                "shasum": ""
-            },
-            "require": {
-                "getkirby/cms": "^3.6",
-                "getkirby/composer-installer": "^1.1"
-            },
-            "type": "kirby-plugin",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Flo Kosiol",
-                    "email": "git@flokosiol.de"
-                }
-            ],
-            "description": "Better image cropping for Kirby CMS",
-            "support": {
-                "issues": "https://github.com/flokosiol/kirby-focus/issues",
-                "source": "https://github.com/flokosiol/kirby-focus/tree/3.1.0"
-            },
-            "funding": [
-                {
-                    "url": "https://a.paddle.com/v2/click/1129/36201?link=1170",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://www.paypal.me/flokosiol/10",
-                    "type": "custom"
-                }
-            ],
-            "time": "2022-04-14T21:21:15+00:00"
         },
         {
             "name": "getkirby/cms",
@@ -1885,44 +1839,6 @@
                 }
             ],
             "time": "2022-05-19T13:56:36+00:00"
-        },
-        {
-            "name": "sylvainjule/autofocus",
-            "version": "1.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sylvainjule/kirby-autofocus.git",
-                "reference": "a371e6ef6d201e1f7511201b67d82da83ac21c23"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sylvainjule/kirby-autofocus/zipball/a371e6ef6d201e1f7511201b67d82da83ac21c23",
-                "reference": "a371e6ef6d201e1f7511201b67d82da83ac21c23",
-                "shasum": ""
-            },
-            "require": {
-                "getkirby/composer-installer": "^1.1"
-            },
-            "type": "kirby-plugin",
-            "extra": {
-                "installer-name": "autofocus"
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Sylvain Julé",
-                    "email": "contact@sylvain-jule.fr"
-                }
-            ],
-            "description": "Content aware image cropping for Kirby",
-            "support": {
-                "issues": "https://github.com/sylvainjule/kirby-autofocus/issues",
-                "source": "https://github.com/sylvainjule/kirby-autofocus/tree/1.0.3"
-            },
-            "time": "2022-02-23T16:57:24+00:00"
         },
         {
             "name": "sylvainjule/colorextractor",
