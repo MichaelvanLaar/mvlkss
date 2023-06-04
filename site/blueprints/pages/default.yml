@@ -39,14 +39,14 @@ tabs:
             label:
               en: Images
               de: Bilder
-            template: image
+            template: image-default
             layout: cardlets
           files:
             type: files
             label:
               en: Files
               de: Dateien
-            template: non-image
+            template: non-image-default
 
   # Metadata tab
   metadata: tabs/metadata
