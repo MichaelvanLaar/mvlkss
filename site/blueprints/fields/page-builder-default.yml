@@ -1,3 +1,9 @@
+#===============================================================================
+# Field: Page Builder (default)
+#
+# Used to build the main content of a page using a layout field.
+#===============================================================================
+
 type: layout
 label:
   en: Content (Page Builder)
@@ -32,6 +38,7 @@ settings:
         row-container-full:
           en: Full Width
           de: Volle Breite
+      required: true
       default: row-container-default
     rowBackgroundHeadline:
       type: headline
@@ -39,14 +46,15 @@ settings:
         en: Background
         de: Hintergrund
       numbered: false
-    rowBackgroundImage:
-      type: files
-      label:
-        en: Background Image
-        de: Hintergrundbild
-      template: image
-      layout: cardlets
-      width: 1/2
+    # TO DO: Add support for background images.
+    # rowBackgroundImage:
+    #   type: files
+    #   label:
+    #     en: Background Image
+    #     de: Hintergrundbild
+    #   template: image
+    #   layout: cardlets
+    #   width: 1/2
     rowBackgroundColor:
       # For a consinstent look, the color picker should be replaced by a
       # selection of pre-defined brand colors to choose from.
@@ -65,8 +73,8 @@ settings:
         en: ID
         de: ID
       help:
-        en: "The ID must be unique for the page to enable anchor links."
-        de: "Die ID muss eindeutig sein, um Ankerlinks zu ermöglichen."
+        en: "The ID must be unique (related to the page) to enable anchor links."
+        de: "Die ID muss eindeutig sein (bezogen auf die Seite), um Ankerlinks zu ermöglichen."
       pattern: "^[a-zA-Z][\w\-\:\.]*$"
       width: 1/2
     rowClasses:
