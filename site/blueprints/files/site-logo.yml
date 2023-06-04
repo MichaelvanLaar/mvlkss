@@ -1,3 +1,7 @@
+#===============================================================================
+# File: Site Logo
+#===============================================================================
+
 title:
   en: Site Logo
   de: Website-Logo
@@ -6,7 +10,7 @@ accept:
   type: image
 
 fields:
-  Alt:
+  alt:
     type: text
     label:
       en: Alternative text for the site logo image
