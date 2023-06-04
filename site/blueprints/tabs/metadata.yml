@@ -1,3 +1,9 @@
+#===============================================================================
+# Tab: Page Metadata
+#
+# Used to set metadata for SEO and social media.
+#===============================================================================
+
 label:
   en: Metadata
   de: Metainformationen
