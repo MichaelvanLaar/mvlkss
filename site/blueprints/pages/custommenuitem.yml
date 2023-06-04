@@ -1,3 +1,9 @@
+#===============================================================================
+# Page: Custom Menu Item
+#
+# Used to include custom links in the navigation menus.
+#===============================================================================
+
 title: Custom Menu Item
 
 columns:
