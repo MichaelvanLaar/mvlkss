@@ -43,4 +43,4 @@ columns:
   menus:
     width: 1/2
     fields:
-      includeInMenus: fields/includeinmenus
+      includeInMenus: fields/include-in-menus
