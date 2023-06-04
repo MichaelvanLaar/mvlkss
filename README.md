@@ -113,9 +113,6 @@ Starting with `/src/js/main.js` as entry point, Webpack will bundle everything (
 
 ## To Do List
 
-- [ ] Add support for social share images:
-  - [ ] Fields on “page metadata” tab and “site settings” tab.
-  - [ ] Output meta element in page header (incl. fallbacks in header controller).
 - [ ] Add support for background images of page builder rows.
 - [ ] Add support for a flexible color scheme editor in the site settings, so that editors can only choose from this pre-defined set of colors whenever a color selection is necessary. (?)
 
