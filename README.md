@@ -98,6 +98,7 @@ Starting with `/src/js/main.js` as entry point, Webpack will bundle everything (
   - [Multilanguage XML Sitemap](https://github.com/isaactopo/xmlsitemap)
   - [Resolve](https://github.com/lukaskleinschmidt/kirby-resolve)
   - [Retour](https://github.com/distantnative/retour-for-kirby)
+  - [Retrotree](https://bitbucket.org/vitamin2/retrotree/src/master/)
   - [Robots.txt](https://github.com/bnomei/kirby3-robots-txt)
   - [Snippet Controller](https://github.com/lukaskleinschmidt/kirby-snippet-controller)
 - [PostCSS](https://postcss.org/)
