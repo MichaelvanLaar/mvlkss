@@ -95,7 +95,7 @@ return function ($kirby, $site, $page) {
       ? $kirby->language()->code()
       : "en",
     "pageLanguageLocale" => $kirby->language()
-      ? $kirby->language()->locale()
+      ? $kirby->language()->locale(LC_ALL)
       : "en_US",
     "metaTitle" => $metaTitle,
     "metaDescription" => $seoDescription->length() > 0 ? $seoDescription : "",
