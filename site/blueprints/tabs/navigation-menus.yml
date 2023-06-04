@@ -1,3 +1,9 @@
+#===============================================================================
+# Tab: Navigation Menus
+#
+# Used to select in which navigation menus the page should appear.
+#===============================================================================
+
 label:
   en: Navigation menus
   de: Navigationsmenüs
