@@ -1,0 +1,25 @@
+Title: Site Title
+
+----
+
+Sitelogo: - file://2Lx4HV4jCW4Ihdi5
+
+----
+
+Sitesocialshareimage: 
+
+----
+
+Defaultdivider: |
+
+----
+
+Twittersitehandle: 
+
+----
+
+Mainnavigation: 
+
+----
+
+Footernavigation: 
