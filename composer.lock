@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bbc120f5ef5c81204d7dc055d78e2ac8",
+    "content-hash": "41d8a459933b76d559fb536d48d56689",
     "packages": [
         {
             "name": "adspectus/date-extended",
@@ -2501,6 +2501,51 @@
                 }
             ],
             "time": "2023-02-21T19:46:44+00:00"
+        },
+        {
+            "name": "vitamin2/retrotree",
+            "version": "1.6.3",
+            "source": {
+                "type": "git",
+                "url": "https://bitbucket.org/vitamin2/retrotree.git",
+                "reference": "6567c239124e72afac92b5fe84e66fec1f8826bc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://bitbucket.org/vitamin2/retrotree/get/6567c239124e72afac92b5fe84e66fec1f8826bc.zip",
+                "reference": "6567c239124e72afac92b5fe84e66fec1f8826bc",
+                "shasum": ""
+            },
+            "require": {
+                "getkirby/composer-installer": "^1.1",
+                "php": ">=7.1.0"
+            },
+            "type": "kirby-plugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Vitamin2 AG",
+                    "email": "info@vitamin2.ch"
+                }
+            ],
+            "description": "Retrotree is a kirby 3 section plugin to display pages in real retro tree fashion.",
+            "homepage": "https://vitamin2.ch",
+            "keywords": [
+                "kirby-retro-tree",
+                "kirby3",
+                "kirby3-cms",
+                "kirby3-plugin",
+                "retro-tree",
+                "retrotree"
+            ],
+            "support": {
+                "issues": "https://bitbucket.org/vitamin2/retrotree/issues",
+                "source": "https://bitbucket.org/vitamin2/retrotree/src/6567c239124e72afac92b5fe84e66fec1f8826bc/?at=1.6.3"
+            },
+            "time": "2022-11-07T14:33:40+00:00"
         },
         {
             "name": "voku/html-min",

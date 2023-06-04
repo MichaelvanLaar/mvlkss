@@ -39,7 +39,8 @@
     "microman/kirby-inherit": "^1.0",
     "hananils/kirby-date-methods": "^2.1",
     "fendinger/kirby3-consent-gate": "^1.0",
-    "bvdputte/kirby-bettersearch": "^2.0"
+    "bvdputte/kirby-bettersearch": "^2.0",
+    "vitamin2/retrotree": "^1.6"
   },
   "config": {
     "allow-plugins": {
