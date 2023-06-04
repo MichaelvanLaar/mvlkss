@@ -1,0 +1,18 @@
+#===============================================================================
+# Tab: Uploaded Files
+#
+# Displays all files which have been uploaded for the respective page.
+#===============================================================================
+
+label:
+  en: Uploaded Files
+  de: Hochgeladene Dateien
+icon: file
+
+sections:
+  images:
+    type: files
+    label:
+      en: Files
+      de: Dateien
+    layout: cards
