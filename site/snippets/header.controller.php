@@ -13,6 +13,7 @@
  * - $metaDescription
  * - $socialShareTitleOutput
  * - $socialShareDescriptionOutput
+ * - $socialShareImageUrlOutput
  * - $twitterSiteHandle
  * - $twitterCreatorHandle
  * - $siteLogoFile
@@ -100,6 +101,17 @@ return function ($kirby, $site, $page) {
     "metaDescription" => $seoDescription->length() > 0 ? $seoDescription : "",
     "socialShareTitleOutput" => $socialShareTitleOutput,
     "socialShareDescriptionOutput" => $socialShareDescriptionOutput,
+    "socialShareImageUrlOutput" => $page->socialShareImage()->toFile()
+      ? $page
+        ->socialShareImage()
+        ->toFile()
+        ->url()
+      : ($site->siteSocialShareImage()->toFile()
+        ? $site
+          ->siteSocialShareImage()
+          ->toFile()
+          ->url()
+        : ""),
     "twitterSiteHandle" =>
       $twitterSiteHandle->length() > 0 ? $twitterSiteHandle : "",
     "twitterCreatorHandle" =>

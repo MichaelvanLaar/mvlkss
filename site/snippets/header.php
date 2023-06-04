@@ -13,6 +13,7 @@
  * - $metaDescription
  * - $socialShareTitleOutput
  * - $socialShareDescriptionOutput
+ * - $socialShareImageUrlOutput
  * - $twitterSiteHandle
  * - $twitterCreatorHandle
  * - $siteLogoFile
@@ -83,7 +84,9 @@
     <?php if (strlen($socialShareDescriptionOutput) > 0): ?>
       <meta property="og:description" content="<?= $socialShareDescriptionOutput ?>" />
     <?php endif; ?>
-    <!-- <meta property="og:image" content="[Insert URL of image with 2:1 ratio]" /> -->
+    <?php if (strlen($socialShareImageUrlOutput) > 0): ?>
+      <meta property="og:image" content="<?= $socialShareImageUrlOutput ?>" />
+    <?php endif; ?>
     <meta property="og:locale" content="<?= $pageLanguageLocale ?>" />
 
     <!-- Twitter Data -->
@@ -98,7 +101,9 @@
     <?php if (strlen($socialShareDescriptionOutput) > 0): ?>
       <meta name="twitter:description" content="<?= $socialShareDescriptionOutput ?>" />
     <?php endif; ?>
-    <!-- <meta name="twitter:image" content="[Insert URL of image with 2:1 ratio]" /> -->
+    <?php if (strlen($socialShareImageUrlOutput) > 0): ?>
+      <meta name="twitter:image" content="<?= $socialShareImageUrlOutput ?>" />
+    <?php endif; ?>
 
     <link rel="canonical" href="<?= $page->url() ?>" />
     <?php if (!$page->seoIndex()->toBool()): ?>
