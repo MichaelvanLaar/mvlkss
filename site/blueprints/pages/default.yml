@@ -15,9 +15,6 @@ tabs:
       fields:
         type: fields
         fields:
-          text:
-            type: markdown
-            size: huge
           mainContent: fields/page-builder-default
 
   # Metadata tab
