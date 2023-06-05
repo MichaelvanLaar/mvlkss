@@ -1,7 +1,7 @@
 <?php
 /**
  * =============================================================================
- * Controller for Header snippet (which is used on all pages)
+ * Controller for Header Snippet (which is used on all pages)
  *
  * Uses the Kirby Snippet Controller plugin
  * Plugin details: https://github.com/lukaskleinschmidt/kirby-snippet-controller
@@ -17,9 +17,6 @@
  * - $twitterSiteHandle
  * - $twitterCreatorHandle
  * - $siteLogoFile
- * - $mainMenuItems
- * - $mainMenuOpenLabel
- * - $mainMenuCloseLabel
  * =============================================================================
  */
 
@@ -67,29 +64,6 @@ return function ($kirby, $site, $page) {
       ? $page->socialShareDescription()
       : $seoDescription;
 
-  // Construct array with content for main menu
-  $mainMenuItems = [];
-  foreach ($site->children()->listed() as $menuItem) {
-    $menuOptions = $menuItem->includeInMenus()->split(",");
-    if (in_array("main", $menuOptions)) {
-      $url =
-        $menuItem->intendedTemplate() == "custommenuitem"
-          ? $menuItem->menuItemUrl()
-          : $menuItem->url();
-      $mainMenuItems[] = [
-        "title" => $menuItem->title(),
-        "url" => $url,
-        "target" => $menuItem->menuItemTarget()->exists()
-          ? $menuItem->menuItemTarget()
-          : "_self",
-        "isActive" =>
-          $page->is($menuItem) || $page->parents()->has($menuItem)
-            ? "active"
-            : "",
-      ];
-    }
-  }
-
   return [
     "pageLanguageCode" => $kirby->language()
       ? $kirby->language()->code()
@@ -117,16 +91,5 @@ return function ($kirby, $site, $page) {
     "twitterCreatorHandle" =>
       $twitterCreatorHandle->length() > 0 ? $twitterCreatorHandle : "",
     "siteLogoFile" => $site->siteLogo()->toFile(),
-    "mainMenuItems" => $mainMenuItems,
-    "mainMenuOpenLabel" => $kirby->language()
-      ? ($kirby->language()->code() == "de"
-        ? "Menü öffnen"
-        : "Open menu")
-      : "Open menu",
-    "mainMenuCloseLabel" => $kirby->language()
-      ? ($kirby->language()->code() == "de"
-        ? "Menü schließen"
-        : "Close menu")
-      : "Close menu",
   ];
 };

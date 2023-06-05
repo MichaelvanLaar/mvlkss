@@ -1,7 +1,7 @@
 <?php
 /**
  * =============================================================================
- * Controller for Footer snippet (which is used on all pages)
+ * Controller for Footer Snippet (which is used on all pages)
  *
  * Uses the Kirby Snippet Controller plugin
  * Plugin details: https://github.com/lukaskleinschmidt/kirby-snippet-controller
