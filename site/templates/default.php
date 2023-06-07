@@ -3,7 +3,7 @@
     <!-- MAIN SECTION -->
     <div
       id="page-main-section"
-      class="js-page-main-content flex-grow js:mt-[calc(var(--site-header-initial-height)_+_1.5rem)] no-js:mt-6"
+      class="js-page-main-content flex-grow js:mt-[var(--site-header-initial-height)]"
     >
       <?php snippet("page-builder-default") ?>
 
