@@ -9,7 +9,6 @@ return [
     ],
     "debug" => false,
     "distantnative.retour.logs" => false,
-    "kirby3-webp" => true,
     "languages" => true,
     "lukaskleinschmidt.resolve.cache" => true,
     "ready" => function ($kirby) {

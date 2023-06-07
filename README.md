@@ -92,7 +92,6 @@ Starting with `/src/js/main.js` as entry point, Webpack will bundle everything (
   - [k3-date-extended](https://github.com/Adspectus/k3-date-extended)
   - [Kirby 3 Consent Gate](https://github.com/fendinger/kirby3-consent-gate)
   - [Kirby Inherit](https://github.com/youngcut/kirby-inherit)
-  - [kirby3-webp](https://github.com/felixhaeberle/kirby3-webp)
   - [Markdown Field](https://github.com/fabianmichael/kirby-markdown-field)
   - [Minify HTML](https://github.com/afbora/kirby-minify-html)
   - [Multilanguage XML Sitemap](https://github.com/isaactopo/xmlsitemap)
