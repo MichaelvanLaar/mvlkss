@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b422a44e79595c7a7c270459b21ec60a",
+    "content-hash": "058a15c0d47ef33149f473472479e7ad",
     "packages": [
         {
             "name": "adspectus/date-extended",
@@ -1148,6 +1148,42 @@
                 }
             ],
             "time": "2023-03-02T20:57:20+00:00"
+        },
+        {
+            "name": "moritzebeling/kirby-maintenance",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/moritzebeling/kirby-maintenance.git",
+                "reference": "ac0ae3587739702c82fe04e01213c9b4bc703f64"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/moritzebeling/kirby-maintenance/zipball/ac0ae3587739702c82fe04e01213c9b4bc703f64",
+                "reference": "ac0ae3587739702c82fe04e01213c9b4bc703f64",
+                "shasum": ""
+            },
+            "require": {
+                "getkirby/composer-installer": "^1.1"
+            },
+            "type": "kirby-plugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Moritz Ebeling",
+                    "homepage": "https://github.com/moritzebeling"
+                }
+            ],
+            "description": "Kirby Maintenance mode plugin",
+            "homepage": "https://github.com/moritzebeling/kirby-meintenance",
+            "support": {
+                "issues": "https://github.com/moritzebeling/kirby-maintenance/issues",
+                "source": "https://github.com/moritzebeling/kirby-maintenance/tree/v1.0.0"
+            },
+            "time": "2023-01-22T15:23:05+00:00"
         },
         {
             "name": "openpsa/ranger",
