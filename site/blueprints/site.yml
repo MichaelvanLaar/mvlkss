@@ -43,55 +43,59 @@ tabs:
       en: Site Settings
       de: Website-Einstellungen
     icon: settings
-    fields:
-      siteLogo:
-        type: files
-        label:
-          en: Site Logo
-          de: Website-Logo
-        width: 1/4
-        uploads: site-logo
-        required: true
-        max: 1
-        multiple: false
-        layout: cards
-      siteSocialShareImage:
-        type: files
-        label:
-          en: Social Share Image
-          de: Social-Share-Bild
-        help:
-          en: "Minimum dimensions: 1200 × 630 pixels. This image will be used as fallback if no specific image exists for a page."
-          de: "Mindestmaße: 1200 × 630 Pixel. Dieses Bild wird als Fallback verwendet, wenn für eine Seite kein spezifisches Bild existiert."
-        width: 1/4
-        uploads: socialshare-image
-        required: false
-        max: 1
-        multiple: false
-        layout: cards
-        image:
-          ratio: 120/63
-      defaultDivider:
-        type: text
-        required: true
-        label:
-          en: Default Divider Between the Elements in Metadata Titles
-          de: Standard-Trennzeichen zwischen den Elementen in Metainfo-Titeln
-        width: 1/4
-        help:
-          en: Typically one character like “–” or “|”
-          de: Typischerweise ein Zeichen wie  „–“ oder „|“
-        default: "|"
-      twitterSiteHandle:
-        type: text
-        label:
-          en: Twitter Handle of the Site
-          de: Twitter-Account der Website
-        help:
-          en: Please include the leading “@” character
-          de: Bitte mit dem „@“-Zeichen beginnen
-        width: 1/4
-        pattern: "^@([A-Za-z0-9_]{1,15})$"
+    sections:
+      siteSettings:
+        type: fields
+        fields:
+          siteLogo:
+            type: files
+            label:
+              en: Site Logo
+              de: Website-Logo
+            width: 1/4
+            uploads: site-logo
+            required: true
+            max: 1
+            multiple: false
+            layout: cards
+          siteSocialShareImage:
+            type: files
+            label:
+              en: Social Share Image
+              de: Social-Share-Bild
+            help:
+              en: "Minimum dimensions: 1200 × 630 pixels. This image will be used as fallback if no specific image exists for a page."
+              de: "Mindestmaße: 1200 × 630 Pixel. Dieses Bild wird als Fallback verwendet, wenn für eine Seite kein spezifisches Bild existiert."
+            width: 1/4
+            uploads: socialshare-image
+            required: false
+            max: 1
+            multiple: false
+            layout: cards
+            image:
+              ratio: 120/63
+          defaultDivider:
+            type: text
+            required: true
+            label:
+              en: Default Divider Between the Elements in Metadata Titles
+              de: Standard-Trennzeichen zwischen den Elementen in Metainfo-Titeln
+            width: 1/4
+            help:
+              en: Typically one character like “–” or “|”
+              de: Typischerweise ein Zeichen wie  „–“ oder „|“
+            default: "|"
+          twitterSiteHandle:
+            type: text
+            label:
+              en: Twitter Handle of the Site
+              de: Twitter-Account der Website
+            help:
+              en: Please include the leading “@” character
+              de: Bitte mit dem „@“-Zeichen beginnen
+            width: 1/4
+            pattern: "^@([A-Za-z0-9_]{1,15})$"
+      maintenanceMode: sections/maintenance
 
   # Uploaded files tab
   uploadedFiles: tabs/uploaded-files
