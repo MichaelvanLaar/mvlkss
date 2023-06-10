@@ -24,7 +24,7 @@ return function ($page) {
     "small" => "py-small",
     "medium" => "py-medium",
     "large" => "py-large",
-    "huge" => "py-xlarge"
+    "xlarge" => "py-xlarge"
   ];
 
   /**
