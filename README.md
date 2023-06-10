@@ -88,6 +88,7 @@ Starting with `/src/js/main.js` as entry point, Webpack will bundle everything (
   - [Color Extractor](https://github.com/sylvainjule/kirby-colorextractor)
   - [Colors](https://github.com/hananils/kirby-colors)
   - [Date Methods](https://github.com/hananils/kirby-date-methods)
+  - [Grid Block](https://github.com/youngcut/kirby-grid-block)
   - [Hashed Assets](https://github.com/johannschopplich/kirby-hashed-assets)
   - [k3-date-extended](https://github.com/Adspectus/k3-date-extended)
   - [Kirby 3 Consent Gate](https://github.com/fendinger/kirby3-consent-gate)
