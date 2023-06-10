@@ -6,16 +6,19 @@ module.exports = {
 
   theme: {
     extend: {
-      spacing: {
-        small: "0.75rem",
-        medium: "1.5rem",
-        large: "3rem",
-        xlarge: "6rem",
+      fontFamily: {
+        primary: ["Nunito Sans", "sans-serif"],
       },
       screens: {
         screen: {
           raw: "screen",
         },
+      },
+      spacing: {
+        small: "0.75rem",
+        medium: "1.5rem",
+        large: "3rem",
+        xlarge: "6rem",
       },
     },
   },
