@@ -21,10 +21,10 @@ return function ($page) {
   // Set vertical padding values for the “small”, “medium” and “large” options of the
   // respective layout settings field using Tailwind CSS classes
   $layoutRowVerticalPaddingValues = [
-    "small" => "py-3",
-    "medium" => "py-6",
-    "large" => "py-12",
-    "huge" => "py-24"
+    "small" => "py-small",
+    "medium" => "py-medium",
+    "large" => "py-large",
+    "huge" => "py-xlarge"
   ];
 
   /**
