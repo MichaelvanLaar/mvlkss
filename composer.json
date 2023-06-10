@@ -40,7 +40,8 @@
     "fendinger/kirby3-consent-gate": "^1.0",
     "bvdputte/kirby-bettersearch": "^2.0",
     "vitamin2/retrotree": "^1.6",
-    "moritzebeling/kirby-maintenance": "^1.0"
+    "moritzebeling/kirby-maintenance": "^1.0",
+    "microman/kirby-grid-blocks": "^1.0"
   },
   "config": {
     "allow-plugins": {

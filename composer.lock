@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "058a15c0d47ef33149f473472479e7ad",
+    "content-hash": "b2586988dc9480bcccb8a42f0ac22786",
     "packages": [
         {
             "name": "adspectus/date-extended",
@@ -1108,6 +1108,41 @@
                 "source": "https://github.com/michelf/php-smartypants/tree/1.8.1"
             },
             "time": "2016-12-13T01:01:17+00:00"
+        },
+        {
+            "name": "microman/kirby-grid-blocks",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/youngcut/kirby-grid-block.git",
+                "reference": "eb8b8423a5c0376d85980ec2862adc5f66268370"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/youngcut/kirby-grid-block/zipball/eb8b8423a5c0376d85980ec2862adc5f66268370",
+                "reference": "eb8b8423a5c0376d85980ec2862adc5f66268370",
+                "shasum": ""
+            },
+            "require": {
+                "getkirby/composer-installer": "^1.2"
+            },
+            "type": "kirby-plugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roman Gsponer",
+                    "email": "mail@microman.ch"
+                }
+            ],
+            "description": "Use the layouts field as block",
+            "support": {
+                "issues": "https://github.com/youngcut/kirby-grid-block/issues",
+                "source": "https://github.com/youngcut/kirby-grid-block/tree/1.0.0"
+            },
+            "time": "2021-10-05T10:11:05+00:00"
         },
         {
             "name": "microman/kirby-inherit",
