@@ -18,6 +18,35 @@ layouts:
   - "1/4, 1/4, 1/4, 1/4"
   - "1/4, 1/4, 1/2"
   - "1/2, 1/4, 1/4"
+fieldsets:
+  text:
+    label:
+      en: Text
+      de: Text
+    type: group
+    fieldsets:
+      - heading
+      - text
+      - list
+      - markdown
+      - quote
+      - code
+  media:
+    label:
+      en: Media
+      de: Medien
+    type: group
+    fieldsets:
+      - image
+      - gallery
+      - video
+  misc:
+    label:
+      en: Misc
+      de: Sonstiges
+    type: group
+    fieldsets:
+      - line
 settings:
   fields:
     rowWidthHeadline:
