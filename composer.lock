@@ -695,16 +695,16 @@
         },
         {
             "name": "hananils/kirby-colors",
-            "version": "1.7.0",
+            "version": "1.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hananils/kirby-colors.git",
-                "reference": "6b49acf525cdd987e6063de7ee33f4035a2d5824"
+                "reference": "0fdfd1f7d4978c9383345b7b9390fefd2f171a9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hananils/kirby-colors/zipball/6b49acf525cdd987e6063de7ee33f4035a2d5824",
-                "reference": "6b49acf525cdd987e6063de7ee33f4035a2d5824",
+                "url": "https://api.github.com/repos/hananils/kirby-colors/zipball/0fdfd1f7d4978c9383345b7b9390fefd2f171a9d",
+                "reference": "0fdfd1f7d4978c9383345b7b9390fefd2f171a9d",
                 "shasum": ""
             },
             "require": {
@@ -727,11 +727,12 @@
                 }
             ],
             "description": "A color field for Kirby 3",
+            "homepage": "https://github.com/hananils/kirby-colors",
             "support": {
                 "issues": "https://github.com/hananils/kirby-colors/issues/",
-                "source": "https://github.com/hananils/kirby-colors/tree/1.7.0"
+                "source": "https://github.com/hananils/kirby-colors/tree/1.7.3"
             },
-            "time": "2022-11-11T11:15:13+00:00"
+            "time": "2023-06-09T09:39:46+00:00"
         },
         {
             "name": "hananils/kirby-date-methods",
