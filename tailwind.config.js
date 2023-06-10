@@ -6,8 +6,16 @@ module.exports = {
 
   theme: {
     extend: {
+      spacing: {
+        small: "0.75rem",
+        medium: "1.5rem",
+        large: "3rem",
+        xlarge: "6rem",
+      },
       screens: {
-        screen: { raw: "screen" },
+        screen: {
+          raw: "screen",
+        },
       },
     },
   },
