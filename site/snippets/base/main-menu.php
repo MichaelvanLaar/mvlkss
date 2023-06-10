@@ -14,7 +14,7 @@
  */
 ?>
         <!-- Main menu -->
-        <div class="-me-6 flex justify-end ps-6 md:me-0 print:hidden">
+        <div class="-me-medium flex justify-end ps-medium md:me-0 print:hidden">
           <input
             type="checkbox"
             id="main-menu-state"
@@ -46,7 +46,7 @@
               </a>
               <label
                 for="main-menu-state"
-                class="absolute inset-0 flex cursor-pointer items-center justify-end pe-6"
+                class="absolute inset-0 flex cursor-pointer items-center justify-end pe-medium"
                 aria-hidden="true"
               >
                 <!-- Animated hamburger icon -->
@@ -62,11 +62,11 @@
             <!-- Main menu items -->
             <ul class="invisible absolute end-3 top-[var(--site-header-height)] flex max-h-[calc(100vh_-_var(--site-header-height)_-_0.75rem)] max-w-2xl flex-col overflow-y-auto bg-neutral-300 py-3 opacity-0 transition-[opacity,_visibility] duration-300 ease-in-out dark:bg-neutral-700 md:visible md:static md:max-h-none md:flex-row md:overflow-y-visible md:bg-transparent md:py-0 md:opacity-100">
               <?php foreach ($mainMenuItems as $menuItem): ?>
-                <li class="<?= $menuItem["isActive"] ?> md:ms-6">
+                <li class="<?= $menuItem["isActive"] ?> md:ms-medium">
                   <a
                     href="<?= $menuItem["url"] ?>"
                     target="<?= $menuItem["target"] ?>"
-                    class="block px-6 py-3 md:static md:px-0 md:py-0"
+                    class="block px-medium py-3 md:static md:px-0 md:py-0"
                     <?= $menuItem["target"] == "_blank"
                       ? "rel=\"noopener\""
                       : "" ?>
