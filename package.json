@@ -3,15 +3,21 @@
   "private": true,
   "author": "Michael van Laar <michael@van-laar.de> (https://michaelvanlaar.com/)",
   "scripts": {
-    "clean": "rm -rf assets/css && rm -rf assets/js && rm -f assets/manifest.json",
     "build": "npm run clean && webpack --mode production && npx -y hashup",
+    "clean": "rm -rf assets/css && rm -rf assets/js && rm -f assets/manifest.json",
+    "dependencies-update": "node -e \"console.log('==========================\\nUPDATING COMPOSER PACKAGES\\n==========================\\n')\" && composer update && node -e \"console.log('\\n\\n=====================\\nUPDATING NPM PACKAGES\\n=====================\\n')\" && ncu -u && npm install",
+    "dependencies-update-check": "node -e \"console.log('==========================\\nCHECKING COMPOSER PACKAGES\\n==========================\\n')\" && composer outdated && node -e \"console.log('\\n\\n=====================\\nCHECKING NPM PACKAGES\\n=====================\\n')\" && npm-check-updates",
     "dev": "npm run clean && webpack --mode development --watch",
-    "server": "php -S localhost:8000 kirby/router.php",
-    "dev-server": "concurrently --kill-others \"npm run dev\" \"php -S localhost:8000 kirby/router.php\""
+    "dev-server": "concurrently --kill-others \"npm run dev\" \"php -S localhost:8000 kirby/router.php\"",
+    "server": "php -S localhost:8000 kirby/router.php"
   },
   "browserslist": [
     "> 0.1%, last 2 versions, Firefox ESR, not dead"
   ],
+  "dependencies": {
+    "concurrently": "^8.2.0",
+    "npm-check-updates": "^16.10.12"
+  },
   "devDependencies": {
     "@babel/core": "^7.22.5",
     "@babel/preset-env": "^7.22.5",
@@ -23,7 +29,6 @@
     "autoprefixer": "^10.4.14",
     "babel-loader": "^9.1.2",
     "browserslist": "^4.21.7",
-    "concurrently": "^8.2.0",
     "css-loader": "^6.8.1",
     "cssnano": "^6.0.1",
     "mini-css-extract-plugin": "^2.7.6",
