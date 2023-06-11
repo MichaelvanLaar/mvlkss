@@ -116,7 +116,13 @@ Starting with `/src/js/main.js` as entry point, Webpack will bundle everything (
 
 ## To Do List
 
-- [ ] Add support for background images of page builder rows.
+- [ ] Add proper basic text styling via prose classes.
 - [ ] Add support for a flexible color scheme editor in the site settings, so that editors can only choose from this pre-defined set of colors whenever a color selection is necessary. (?)
+- [ ] Add support for background images of page builder rows and grid block rows.
+- [ ] Adjust the image block snippet to use responsive images and WebP images.
+- [ ] Check if all default block types can be used out of the box or if there are additions required.
+- [ ] Add button block.
+- [ ] Add language switch which should only be displayed if more than one language is set up.
+- [ ] Add hreflang links which should only be included if more than one language is set up.
 
 [^1]: No browser sync or auto-refresh feature is included. Just use a browser extension like [Tab Auto Refresh](https://addons.mozilla.org/de/firefox/addon/tab-auto-refresh/) for Firefox. Or use a development browser like [Polypane](https://polypane.app/) which has a handy live reload feature already built in.
