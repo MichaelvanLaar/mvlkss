@@ -20,7 +20,7 @@ return function ($page) {
 
   // Set vertical padding values for the “small”, “medium” and “large” options of the
   // respective layout settings field using Tailwind CSS classes
-  $layoutRowVerticalPaddingValues = [
+  $layoutrowPaddingVerticalValues = [
     "small" => "py-small",
     "medium" => "py-medium",
     "large" => "py-large",
@@ -42,9 +42,9 @@ return function ($page) {
       : "";
 
     // Set the vertical padding related CSS class for the current row
-    $layoutRowVerticalPaddingKey = (string) $layoutRow->rowVerticalPadding();
-    $rowVerticalPaddingClass =
-      $layoutRowVerticalPaddingValues[$layoutRowVerticalPaddingKey] ?? "py-0";
+    $layoutrowPaddingVerticalKey = (string) $layoutRow->rowPaddingVertical();
+    $rowPaddingVerticalClass =
+      $layoutrowPaddingVerticalValues[$layoutrowPaddingVerticalKey] ?? "py-0";
 
     // Set the column splitting related CSS class for the current row
     $layoutColumnSplitting = "column-splitting-";
@@ -60,7 +60,7 @@ return function ($page) {
       " " .
       $layoutRow->rowClasses() .
       " " .
-      $rowVerticalPaddingClass .
+      $rowPaddingVerticalClass .
       "\"";
 
     // Construct the style attribute for the current row

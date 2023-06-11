@@ -1,0 +1,28 @@
+#===============================================================================
+# Field: Spacing Select
+#
+# Used to choose between predefined spacing values, e.g. for padding.
+#===============================================================================
+
+type: select
+label:
+  en: Spacing
+  de: Abstand
+options:
+  none:
+    en: None
+    de: Ohne
+  small:
+    en: Small
+    de: Klein
+  medium:
+    en: Medium
+    de: Mittel
+  large:
+    en: Large
+    de: Groß
+  xlarge:
+    en: X-large
+    de: Sehr groß
+required: true
+default: none
