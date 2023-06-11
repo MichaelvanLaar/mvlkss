@@ -1,3 +1,9 @@
+#===============================================================================
+# Field: Image Display Settings
+#
+# Used to add information about how an image should be displayed.
+#===============================================================================
+
 type: group
 fields:
   color:
