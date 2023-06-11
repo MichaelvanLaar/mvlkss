@@ -1,6 +1,6 @@
 /**
  * =============================================================================
- * This file is only required to make the CSS file available for webpack.
+ * This file is required to make the main.css file available for webpack.
  *
  * DON’T REMOVE THIS FILE!
  * =============================================================================
