@@ -2,19 +2,18 @@ name: Grid
 icon: grid
 fields:
   title:
+    type: text
     label:
       en: Title
       de: Titel
-    type: text
-  rowPaddingHorizontal:
-    extends: fields/spacing-select
+  settingsInfo:
+    type: info
     label:
-      en: Padding left and righ
-      de: Innenabstand links und rechts
-    width: 1/2
-  rowPaddingVertical:
-    extends: fields/spacing-select
-    width: 1/2
+      en: Please Note
+      de: Bitte beachten
+    text:
+      en: All layout settings like backgrounds and paddings can be set for each grid row individually.
+      de: Alle Layout-Einstellungen wie Hintergründe und Abstände können für jede Grid-Zeile einzeln eingestellt werden.
   grid:
     type: layout
     when:
@@ -25,53 +24,78 @@ fields:
       - "1/3, 1/3, 1/3"
     settings:
       fields:
-        rowPaddingHorizontal:
-          type: select
+        gridRowLayoutHeadline:
+          type: headline
           label:
-            en: Padding left and righ
-            de: Innenabstand links und rechts
-          options:
-            none:
-              en: None
-              de: Ohne
-            small:
-              en: Small
-              de: Klein
-            medium:
-              en: Medium
-              de: Mittel
-            large:
-              en: Large
-              de: Groß
-            xlarge:
-              en: X-large
-              de: Sehr groß
-          required: true
-          default: none
+            en: Grid Row Layout
+            de: Grid-Zeilenlayout
+          numbered: false
+        gridRowPaddingTop:
+          extends: fields/spacing-select
+          label:
+            en: Padding Top
+            de: Innenabstand oben
           width: 1/2
-        rowPaddingVertical:
-          type: select
+        gridRowPaddingBottom:
+          extends: fields/spacing-select
           label:
-            en: Padding top and bottom
-            de: Innenabstand oben und unten
-          options:
-            none:
-              en: None
-              de: Ohne
-            small:
-              en: Small
-              de: Klein
-            medium:
-              en: Medium
-              de: Mittel
-            large:
-              en: Large
-              de: Groß
-            xlarge:
-              en: X-large
-              de: Sehr groß
-          required: true
-          default: none
+            en: Padding Bottom
+            de: Innenabstand unten
+          width: 1/2
+        gridRowPaddingStart:
+          extends: fields/spacing-select
+          label:
+            en: Horizontal Padding at Row Start
+            de: Horizontaler Innenabstand am Zeilenanfang
+          help:
+            en: “Row start” refers to the reading direction (LTR or RTL) of the language in which the website is displayed to a visitor.
+            de: „Zeilenanfang“ bezieht sich auf die Leserichtung (LTR oder RTL) der Sprache, in der die Website einem Besucher angezeigt wird.
+          width: 1/2
+        gridRowPaddingEnd:
+          extends: fields/spacing-select
+          label:
+            en: Horizontal Padding at Row End
+            de: Horizontaler Innenabstand am Zeilenende
+          help:
+            en: “Row end” refers to the reading direction (LTR or RTL) of the language in which the website is displayed to a visitor.
+            de: „Zeilenende“ bezieht sich auf die Leserichtung (LTR oder RTL) der Sprache, in der die Website einem Besucher angezeigt wird.
+          width: 1/2
+        gridRowGap:
+          extends: fields/spacing-select
+          label:
+            en: Gap Between Columns
+            de: Abstand zwischen Spalten
+          default: medium
+        gridRowBackgroundHeadline:
+          type: headline
+          label:
+            en: Grid Row Background
+            de: Grid-Zeilenhintergrund
+          numbered: false
+        gridRowBackgroundColor:
+          # For a consinstent look, the color picker should be replaced by a
+          # selection of pre-defined brand colors to choose from.
+          type: colors
+          label:
+            en: Background Color
+            de: Hintergrundfarbe
+          help:
+            en: "ATTENTION: The transperency is set to 0% (i.e. transparent) by default. Increase it to be able to chose a color and make the chosen color visible."
+            de: "ACHTUNG: Die Transparenz ist standardmäßig auf 0% (d.h. transparent) eingestellt. Erhöhen Sie sie, um eine Farbe auswählen zu können und die gewählte Farbe sichtbar zu machen."
+          alpha: true
+          default: rgba(255, 255, 255, 0)
+          width: 1/2
+        gridRowHtmlAttributesHeadline:
+          type: headline
+          label:
+            en: HTML Attributes of the Grid Row
+            de: HTML-Attribute der Grid-Zeile
+          numbered: false
+        gridRowId:
+          extends: fields/id
+          width: 1/2
+        gridRowClasses:
+          extends: fields/classes
           width: 1/2
     fieldsets:
       textBlocks:
