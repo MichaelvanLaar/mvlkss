@@ -50,11 +50,11 @@ fieldsets:
       - grid
 settings:
   fields:
-    rowWidthHeadline:
+    rowLayoutHeadline:
       type: headline
       label:
-        en: Layout
-        de: Layout
+        en: Row Layout
+        de: Zeilenlayout
       numbered: false
     rowWidth:
       type: select
@@ -70,28 +70,24 @@ settings:
           de: Volle Breite
       required: true
       default: row-container-default
-      width: 1/2
-    rowPaddingVertical:
+    rowPaddingTop:
       extends: fields/spacing-select
       label:
-        en: Padding top and bottom
-        de: Innenabstand oben und unten
+        en: Padding Top
+        de: Innenabstand oben
+      width: 1/2
+    rowPaddingBottom:
+      extends: fields/spacing-select
+      label:
+        en: Padding Bottom
+        de: Innenabstand unten
       width: 1/2
     rowBackgroundHeadline:
       type: headline
       label:
-        en: Background
-        de: Hintergrund
+        en: Row Background
+        de: Zeilenhintergrund
       numbered: false
-    # TO DO: Add support for background images.
-    # rowBackgroundImage:
-    #   type: files
-    #   label:
-    #     en: Background Image
-    #     de: Hintergrundbild
-    #   template: image
-    #   layout: cardlets
-    #   width: 1/2
     rowBackgroundColor:
       # For a consinstent look, the color picker should be replaced by a
       # selection of pre-defined brand colors to choose from.
@@ -108,26 +104,12 @@ settings:
     rowHtmlAttributesHeadline:
       type: headline
       label:
-        en: HTML Attributes
-        de: HTML-Attribute
+        en: HTML Attributes of the Row
+        de: HTML-Attribute der Zeile
       numbered: false
     rowId:
-      type: text
-      label:
-        en: ID
-        de: ID
-      help:
-        en: "The ID must be unique (related to the page) to enable anchor links."
-        de: "Die ID muss eindeutig sein (bezogen auf die Seite), um Ankerlinks zu ermöglichen."
-      pattern: "^[a-zA-Z][\w\-\:\.]*$"
+      extends: fields/id
       width: 1/2
     rowClasses:
-      type: text
-      label:
-        en: Classes
-        de: Klassen
-      help:
-        en: "Please note: Do not use tailwind CSS utility classes as they will not work here."
-        de: "Bitte beachten Sie: Verwenden Sie keine Utility-Klassen von Tailwind CSS, da diese hier nicht funktionieren."
-      pattern: "^([a-zA-Z_\-:][\w\-:]*($|\s))*$"
+      extends: fields/classes
       width: 1/2

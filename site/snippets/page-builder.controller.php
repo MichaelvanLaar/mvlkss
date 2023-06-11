@@ -18,13 +18,21 @@ return function ($page) {
    * ---------------------------------------------------------------------------
    */
 
-  // Set vertical padding values for the “small”, “medium” and “large” options of the
-  // respective layout settings field using Tailwind CSS classes
-  $layoutrowPaddingVerticalValues = [
-    "small" => "py-small",
-    "medium" => "py-medium",
-    "large" => "py-large",
-    "xlarge" => "py-xlarge",
+  // Set vertical padding values for the “small”, “medium” and “large” options
+  // of the respective layout settings field using Tailwind CSS classes
+  $rowPaddingTopValues = [
+    "none" => "pt-0",
+    "small" => "pt-small",
+    "medium" => "pt-medium",
+    "large" => "pt-large",
+    "xlarge" => "pt-xlarge",
+  ];
+  $rowPaddingBottomValues = [
+    "none" => "pb-0",
+    "small" => "pb-small",
+    "medium" => "pb-medium",
+    "large" => "pb-large",
+    "xlarge" => "pb-xlarge",
   ];
 
   /**
@@ -37,14 +45,18 @@ return function ($page) {
 
   foreach ($layoutRows as $layoutRow) {
     // Construct the ID attribute for the current row
-    $layoutRowId = $layoutRow->rowId()->isNotEmpty()
+    $layoutRowIdAttribute = $layoutRow->rowId()->isNotEmpty()
       ? " id=\"" . $layoutRow->rowId() . "\""
       : "";
 
-    // Set the vertical padding related CSS class for the current row
-    $layoutrowPaddingVerticalKey = (string) $layoutRow->rowPaddingVertical();
-    $rowPaddingVerticalClass =
-      $layoutrowPaddingVerticalValues[$layoutrowPaddingVerticalKey] ?? "py-0";
+    // Set the top padding related CSS class for the current row
+    $rowPaddingTopKey = (string) $layoutRow->rowPaddingTop();
+    $rowPaddingTopClass = $rowPaddingTopValues[$rowPaddingTopKey] ?? "pt-0";
+
+    // Set the bottom padding related CSS class for the current row
+    $rowPaddingBottomKey = (string) $layoutRow->rowPaddingBottom();
+    $rowPaddingBottomClass =
+      $rowPaddingBottomValues[$rowPaddingBottomKey] ?? "pb-0";
 
     // Set the column splitting related CSS class for the current row
     $layoutColumnSplitting = "column-splitting-";
@@ -54,17 +66,17 @@ return function ($page) {
     $layoutColumnSplitting = rtrim($layoutColumnSplitting, "-");
 
     // Construct the classes attribute for the current row
-    $layoutRowClass =
-      "class=\"" .
-      $layoutColumnSplitting .
-      " " .
-      $layoutRow->rowClasses() .
-      " " .
-      $rowPaddingVerticalClass .
-      "\"";
+    $layoutRowClasses = [
+      $layoutColumnSplitting,
+      $layoutRow->rowClasses(),
+      $rowPaddingTopClass,
+      $rowPaddingBottomClass,
+    ];
+    $layoutRowClassAttribute =
+      "class=\"" . implode(" ", $layoutRowClasses) . "\"";
 
     // Construct the style attribute for the current row
-    $layoutRowStyle = $layoutRow->rowBackgroundColor()
+    $layoutRowStyleAttribute = $layoutRow->rowBackgroundColor()
       ? "style=\"background-color: " .
         $layoutRow->rowBackgroundColor()->toColor("rgb") .
         ";\""
@@ -72,9 +84,9 @@ return function ($page) {
 
     // Add the row data to the array
     $layoutRowsData[] = [
-      "layoutRowId" => $layoutRowId,
-      "layoutRowClass" => $layoutRowClass,
-      "layoutRowStyle" => $layoutRowStyle,
+      "layoutRowIdAttribute" => $layoutRowIdAttribute,
+      "layoutRowClassAttribute" => $layoutRowClassAttribute,
+      "layoutRowStyleAttribute" => $layoutRowStyleAttribute,
       "layout" => $layoutRow,
     ];
   }
