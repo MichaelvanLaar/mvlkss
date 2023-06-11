@@ -1,7 +1,7 @@
 <?php
 /**
  * =============================================================================
- * Page Builder (default)
+ * Page Builder Snippet
  * 
  * Layout field for main content of a page.
  * 

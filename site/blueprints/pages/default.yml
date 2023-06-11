@@ -15,7 +15,7 @@ tabs:
       fields:
         type: fields
         fields:
-          mainContent: fields/page-builder-default
+          pageBuilder: fields/page-builder
 
   # Metadata tab
   metadata: tabs/metadata

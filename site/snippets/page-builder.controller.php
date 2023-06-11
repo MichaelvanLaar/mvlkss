@@ -1,7 +1,7 @@
 <?php
 /**
  * =============================================================================
- * Controller for Page Builder (default) Snippet
+ * Controller for Page Builder Snippet
  *
  * Uses the Kirby Snippet Controller plugin
  * Plugin details: https://github.com/lukaskleinschmidt/kirby-snippet-controller
@@ -24,7 +24,7 @@ return function ($page) {
     "small" => "py-small",
     "medium" => "py-medium",
     "large" => "py-large",
-    "xlarge" => "py-xlarge"
+    "xlarge" => "py-xlarge",
   ];
 
   /**
@@ -32,7 +32,7 @@ return function ($page) {
    * Processing rows and columns
    * ---------------------------------------------------------------------------
    */
-  $layoutRows = $page->mainContent()->toLayouts();
+  $layoutRows = $page->pageBuilder()->toLayouts();
   $layoutRowsData = [];
 
   foreach ($layoutRows as $layoutRow) {
