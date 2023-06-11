@@ -18,7 +18,7 @@ return function ($site) {
     $menuOptions = $menuItem->includeInMenus()->split(",");
     if (in_array("footer", $menuOptions)) {
       $url =
-        $menuItem->intendedTemplate() == "custommenuitem"
+        $menuItem->intendedTemplate() == "custom-menu-item"
           ? $menuItem->menuItemUrl()
           : $menuItem->url();
       $footerMenuItems[] = [

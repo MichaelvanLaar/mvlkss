@@ -20,7 +20,7 @@ return function ($kirby, $site, $page) {
     $menuOptions = $menuItem->includeInMenus()->split(",");
     if (in_array("main", $menuOptions)) {
       $url =
-        $menuItem->intendedTemplate() == "custommenuitem"
+        $menuItem->intendedTemplate() == "custom-menu-item"
           ? $menuItem->menuItemUrl()
           : $menuItem->url();
       $mainMenuItems[] = [
