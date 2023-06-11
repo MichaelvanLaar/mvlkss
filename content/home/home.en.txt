@@ -2,7 +2,7 @@ Title: Home
 
 ----
 
-Pagebuilder: [{"attrs":{"rowwidth":"row-container-default","rowverticalpadding":"none","rowbackgroundcolor":"rgba(255, 255, 255, 0)","rowid":"","rowclasses":""},"columns":[{"blocks":[{"content":{"text":"<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>"},"id":"f3e435c4-9136-453b-8e3d-ddb11ec3f2b8","isHidden":false,"type":"text"}],"id":"a39d93e9-9d36-4c5b-809a-1655f09692c9","width":"1/2"},{"blocks":[{"content":{"title":"Test grid","rowhorizontalpadding":"none","rowverticalpadding":"none","grid":"[{\"attrs\":{\"rowhorizontalpadding\":\"none\",\"rowverticalpadding\":\"none\"},\"columns\":[{\"blocks\":[{\"content\":{\"text\":\"<ul><li>List item 1</li><li>List item 2</li></ul>\"},\"id\":\"7fb5d5c6-8df2-470e-8094-2c493ee570b6\",\"isHidden\":false,\"type\":\"list\"}],\"id\":\"71d9336e-5489-4d7f-ae71-deb2e29aeed1\",\"width\":\"1/2\"},{\"blocks\":[{\"content\":{\"code\":\"<?php\\n\\n$test = \\\"test\\\";\",\"language\":\"php\"},\"id\":\"0b0d661e-922b-46b8-8aa7-39af05886f37\",\"isHidden\":false,\"type\":\"code\"}],\"id\":\"129b7290-a800-4455-8dc6-09a22503354f\",\"width\":\"1/2\"}],\"id\":\"12adb6ac-f5a6-4045-b3f7-3682e317bc4b\"}]"},"id":"d849b662-7bbf-41d8-9ab3-19dd86a1a5f7","isHidden":false,"type":"grid"}],"id":"ce7ac3f6-b6dd-4387-8896-c5ed35fe0abd","width":"1/2"}],"id":"be110bee-01ca-4a02-abdf-5fd2aa4c50f5"}]
+Pagebuilder: [{"attrs":{"rowwidth":"row-container-default","rowpaddingtop":"none","rowpaddingbottom":"none","rowbackgroundcolor":"rgba(255, 255, 255, 0)","rowid":"","rowclasses":""},"columns":[{"blocks":[{"content":{"text":"<p>Placeholder for content</p>"},"id":"258488ef-a47b-44ac-bafe-e7a26668635d","isHidden":false,"type":"text"}],"id":"c9fe97e5-66b7-4c94-9a0a-ac0506ccf1ad","width":"1/1"}],"id":"995d112d-8a16-4f99-b583-589c50105ff4"}]
 
 ----
 
@@ -58,4 +58,4 @@ Uuid: w9bQ6BHXQKj6dygb
 
 ----
 
-Datemodifiedepoch: 1686483714
+Datemodifiedepoch: 1686524203
