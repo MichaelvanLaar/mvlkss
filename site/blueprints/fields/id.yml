@@ -1,0 +1,14 @@
+#===============================================================================
+# Field: ID
+#
+# Used to add an ID to an HTML element.
+#===============================================================================
+
+type: text
+label:
+  en: ID
+  de: ID
+help:
+  en: "The ID must be unique (related to the page) to enable anchor links."
+  de: "Die ID muss eindeutig sein (bezogen auf die Seite), um Ankerlinks zu ermöglichen."
+pattern: "^[a-zA-Z][\w\-\:\.]*$"
