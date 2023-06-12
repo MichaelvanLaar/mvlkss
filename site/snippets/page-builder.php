@@ -45,7 +45,7 @@ $columnWidthClasses = [
           $columnWidthClasses[$layoutColumn->width()] ??
           "column-width-" . $layoutColumn->width() . " col-span-full";
         ?>
-        <div class="<?= $columnClassOutput ?>">
+        <div class="<?= $columnClassOutput ?> prose prose-neutral max-w-none dark:prose-invert">
           <?= $layoutColumn->blocks() ?>
         </div>
       <?php endforeach; ?>

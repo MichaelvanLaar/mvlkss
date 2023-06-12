@@ -115,7 +115,7 @@ foreach ($block->grid()->toLayouts() as $gridLayoutRow): ?>
     <?php foreach ($gridLayoutRow->columns() as $gridLayoutColumn): ?>
       <!-- Grid Column -->
       <div class="<?= GRID_COLUMN_WIDTH_CLASSES[$gridLayoutColumn->width()] ??
-        "col-span-full" ?>">
+        "col-span-full" ?> prose prose-neutral max-w-none dark:prose-invert">
         <?= $gridLayoutColumn->blocks() ?>
       </div>
     <?php endforeach; ?>
