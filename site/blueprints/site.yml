@@ -95,6 +95,30 @@ tabs:
               de: Bitte mit dem „@“-Zeichen beginnen
             width: 1/4
             pattern: "^@([A-Za-z0-9_]{1,15})$"
+          brandColors:
+            extends: fields/brand-colors
+            label:
+              en: Brand Colors
+              de: Markenfarben
+            help:
+              en: "For each brand color there is a color version for light mode (left side of each color swatch) and for dark mode (right side of each color swatch)."
+              de: "Für jede Markenfarbe gibt es eine Farbversion für den hellen Modus (linke Seite jedes Farbfeldes) und für den dunklen Modus (rechte Seite jedes Farbfeldes)."
+            unselect: false
+            disabled: true
+            width: 3/4
+          brandColorInfo:
+            type: info
+            label:
+              en:
+              de:
+            text:
+              en: |
+                PLEASE NOTE:
+                The brand color palette is for your information only. (And it is required here due to technical reasons.) You cannot select or set colors here.
+              de: |
+                BITTE BEACHTEN:
+                Die Markenfarbpalette dient nur zur Information. (Und sie ist aus technischen Gründen an dieser Stelle erforderlich.) Sie können hier keine Farben auswählen oder festlegen.
+            width: 1/4
       maintenanceMode: sections/maintenance
 
   # Uploaded files tab
