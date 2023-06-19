@@ -17,8 +17,14 @@
  * - $twitterSiteHandle
  * - $twitterCreatorHandle
  * - $siteLogoFile
+ * - $siteColorArray
+ * - $siteColorsCssCustomProperties
  * =============================================================================
  */
+
+global $siteColors;
+$siteColors = $siteColorsArray;
+
 ?>
 <!DOCTYPE html>
 <html class="no-js" lang="<?= $pageLanguageCode ?>">
@@ -72,6 +78,8 @@
 
         /* Calculate stroke width of navigation toggle icon  */
         --nav-toggle-icon-stroke-width: calc(var(--site-header-scroll-height) / 24);
+
+        <?= $siteColorsCssCustomProperties ?>
       }
     </style>
     <?= css("assets/css/main.css") ?>
