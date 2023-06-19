@@ -11,7 +11,7 @@
  * =============================================================================
  */
 
-return function ($page) {
+return function ($page, $data) {
   /**
    * ---------------------------------------------------------------------------
    * Configuration
@@ -65,22 +65,37 @@ return function ($page) {
     }
     $layoutColumnSplitting = rtrim($layoutColumnSplitting, "-");
 
+    // Set the background color related CSS class for the current row
+    $rowBackgroundColorClasses = $layoutRow->rowBackgroundColor()->isNotEmpty()
+      ? "bg-[var(--row-background-color-light-mode)] dark:bg-[var(--row-background-color-dark-mode)]"
+      : "";
+
     // Construct the classes attribute for the current row
     $layoutRowClasses = [
       $layoutColumnSplitting,
       $layoutRow->rowClasses(),
       $rowPaddingTopClass,
       $rowPaddingBottomClass,
+      $rowBackgroundColorClasses,
     ];
     $layoutRowClassAttribute =
       "class=\"" . implode(" ", $layoutRowClasses) . "\"";
 
     // Construct the style attribute for the current row
-    $layoutRowStyleAttribute = $layoutRow->rowBackgroundColor()
-      ? "style=\"background-color: " .
-        $layoutRow->rowBackgroundColor()->toColor("rgb") .
-        ";\""
-      : "";
+    if ($layoutRow->rowBackgroundColor()->isNotEmpty()) {
+      $layoutRowStyleAttribute =
+        "style=\"--row-background-color-light-mode: " .
+        $data["siteColors"][$layoutRow->rowBackgroundColor()->value()][
+          "lightMode"
+        ] .
+        "; --row-background-color-dark-mode: " .
+        $data["siteColors"][$layoutRow->rowBackgroundColor()->value()][
+          "darkMode"
+        ] .
+        ";\"";
+    } else {
+      $layoutRowStyleAttribute = "";
+    }
 
     // Add the row data to the array
     $layoutRowsData[] = [
