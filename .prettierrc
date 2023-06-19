@@ -1,3 +1,4 @@
 {
+  "braceStyle": "1tbs",
   "plugins": ["@prettier/plugin-php", "prettier-plugin-tailwindcss"]
 }
