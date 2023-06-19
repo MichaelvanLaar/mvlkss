@@ -86,7 +86,6 @@ Starting with `/src/js/main.js` as entry point, Webpack will bundle everything (
 - Kirby plugins (via [Composer](https://getcomposer.org/)):
   - [Bettersearch](https://github.com/bvdputte/kirby-bettersearch)
   - [Color Extractor](https://github.com/sylvainjule/kirby-colorextractor)
-  - [Color-Palette](https://github.com/sylvainjule/kirby-color-palette)
   - [Colors](https://github.com/hananils/kirby-colors)
   - [Date Methods](https://github.com/hananils/kirby-date-methods)
   - [Grid Block](https://github.com/youngcut/kirby-grid-block)

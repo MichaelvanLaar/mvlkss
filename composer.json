@@ -42,8 +42,7 @@
     "vitamin2/retrotree": "^1.6",
     "moritzebeling/kirby-maintenance": "^1.0",
     "microman/kirby-grid-blocks": "^1.0",
-    "johannschopplich/kirby-highlighter": "^3.0",
-    "sylvainjule/color-palette": "^1.0"
+    "johannschopplich/kirby-highlighter": "^3.0"
   },
   "config": {
     "allow-plugins": {

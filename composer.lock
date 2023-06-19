@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2cf2b9d2d8a4bd9343618edd01350a1a",
+    "content-hash": "b537ac5b1d7ac6c1a244d751f9b14359",
     "packages": [
         {
             "name": "adspectus/date-extended",
@@ -1537,44 +1537,6 @@
                 }
             ],
             "time": "2022-12-17T21:53:22+00:00"
-        },
-        {
-            "name": "sylvainjule/color-palette",
-            "version": "1.0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sylvainjule/kirby-color-palette.git",
-                "reference": "290da479c5bddf55a61974119243987504085223"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sylvainjule/kirby-color-palette/zipball/290da479c5bddf55a61974119243987504085223",
-                "reference": "290da479c5bddf55a61974119243987504085223",
-                "shasum": ""
-            },
-            "require": {
-                "getkirby/composer-installer": "^1.1"
-            },
-            "type": "kirby-plugin",
-            "extra": {
-                "installer-name": "color-palette"
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Sylvain Julé",
-                    "email": "contact@sylvain-jule.fr"
-                }
-            ],
-            "description": "A color palette to pick colors from for Kirby",
-            "support": {
-                "issues": "https://github.com/sylvainjule/kirby-color-palette/issues",
-                "source": "https://github.com/sylvainjule/kirby-color-palette/tree/master"
-            },
-            "time": "2020-04-11T10:05:01+00:00"
         },
         {
             "name": "sylvainjule/colorextractor",
