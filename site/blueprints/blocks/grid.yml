@@ -73,17 +73,10 @@ fields:
             de: Grid-Zeilenhintergrund
           numbered: false
         gridRowBackgroundColor:
-          # For a consinstent look, the color picker should be replaced by a
-          # selection of pre-defined brand colors to choose from.
-          type: colors
+          extends: fields/site-color-select
           label:
             en: Background Color
             de: Hintergrundfarbe
-          help:
-            en: "ATTENTION: The transperency is set to 0% (i.e. transparent) by default. Increase it to be able to chose a color and make the chosen color visible."
-            de: "ACHTUNG: Die Transparenz ist standardmäßig auf 0% (d.h. transparent) eingestellt. Erhöhen Sie sie, um eine Farbe auswählen zu können und die gewählte Farbe sichtbar zu machen."
-          alpha: true
-          default: rgba(255, 255, 255, 0)
           width: 1/2
         gridRowHtmlAttributesHeadline:
           type: headline
