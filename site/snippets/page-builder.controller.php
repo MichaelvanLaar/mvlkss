@@ -11,52 +11,23 @@
  * =============================================================================
  */
 
-return function ($page, $data) {
-  /**
-   * ---------------------------------------------------------------------------
-   * Configuration
-   * ---------------------------------------------------------------------------
-   */
-
-  // Set vertical padding values for the “small”, “medium” and “large” options
-  // of the respective layout settings field using Tailwind CSS classes
-  $rowPaddingTopValues = [
-    "none" => "pt-0",
-    "small" => "pt-small",
-    "medium" => "pt-medium",
-    "large" => "pt-large",
-    "xlarge" => "pt-xlarge",
-  ];
-  $rowPaddingBottomValues = [
-    "none" => "pb-0",
-    "small" => "pb-small",
-    "medium" => "pb-medium",
-    "large" => "pb-large",
-    "xlarge" => "pb-xlarge",
-  ];
-
-  /**
-   * ---------------------------------------------------------------------------
-   * Processing rows and columns
-   * ---------------------------------------------------------------------------
-   */
+return function ($page) {
   $layoutRows = $page->pageBuilder()->toLayouts();
   $layoutRowsData = [];
 
   foreach ($layoutRows as $layoutRow) {
     // Construct the ID attribute for the current row
     $layoutRowIdAttribute = $layoutRow->rowId()->isNotEmpty()
-      ? " id=\"" . $layoutRow->rowId() . "\""
+      ? sprintf("id=\"%s\"", $layoutRow->rowId())
       : "";
 
     // Set the top padding related CSS class for the current row
-    $rowPaddingTopKey = (string) $layoutRow->rowPaddingTop();
-    $rowPaddingTopClass = $rowPaddingTopValues[$rowPaddingTopKey] ?? "pt-0";
+    $rowPaddingTopClass =
+      PADDING_TOP_CLASSES[(string) $layoutRow->rowPaddingTop()] ?? "pt-0";
 
     // Set the bottom padding related CSS class for the current row
-    $rowPaddingBottomKey = (string) $layoutRow->rowPaddingBottom();
     $rowPaddingBottomClass =
-      $rowPaddingBottomValues[$rowPaddingBottomKey] ?? "pb-0";
+      PADDING_BOTTOM_CLASSES[(string) $layoutRow->rowPaddingBottom()] ?? "pb-0";
 
     // Set the column splitting related CSS class for the current row
     $layoutColumnSplitting = "column-splitting-";
@@ -78,24 +49,19 @@ return function ($page, $data) {
       $rowPaddingBottomClass,
       $rowBackgroundColorClasses,
     ];
-    $layoutRowClassAttribute =
-      "class=\"" . implode(" ", $layoutRowClasses) . "\"";
+    $layoutRowClassAttribute = sprintf(
+      "class=\"%s\"",
+      implode(" ", $layoutRowClasses)
+    );
 
     // Construct the style attribute for the current row
-    if ($layoutRow->rowBackgroundColor()->isNotEmpty()) {
-      $layoutRowStyleAttribute =
-        "style=\"--row-background-color-light-mode: " .
-        $data["siteColors"][$layoutRow->rowBackgroundColor()->value()][
-          "lightMode"
-        ] .
-        "; --row-background-color-dark-mode: " .
-        $data["siteColors"][$layoutRow->rowBackgroundColor()->value()][
-          "darkMode"
-        ] .
-        ";\"";
-    } else {
-      $layoutRowStyleAttribute = "";
-    }
+    $layoutRowStyleAttribute = $layoutRow->rowBackgroundColor()->isNotEmpty()
+      ? sprintf(
+        "style=\"--row-background-color-light-mode: %s; --row-background-color-dark-mode: %s;\"",
+        SITE_COLORS[$layoutRow->rowBackgroundColor()->value()]["lightMode"],
+        SITE_COLORS[$layoutRow->rowBackgroundColor()->value()]["darkMode"]
+      )
+      : "";
 
     // Add the row data to the array
     $layoutRowsData[] = [
@@ -106,11 +72,7 @@ return function ($page, $data) {
     ];
   }
 
-  /**
-   * ---------------------------------------------------------------------------
-   * Return the variables to the snippet
-   * ---------------------------------------------------------------------------
-   */
+  // Return the variables to the snippet
   return [
     "layoutRowsData" => $layoutRowsData,
   ];

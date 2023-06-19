@@ -15,16 +15,23 @@
 
 /**
  * -----------------------------------------------------------------------------
- * Configuration
+ * Configuration: Column Width Classes
  * -----------------------------------------------------------------------------
  */
 
+// Set column width classes for the “1/2”, “1/3”, “2/3” and “1/4” options of the
+// respective layout settings field using Tailwind CSS classes
 $columnWidthClasses = [
   "1/2" => "column-width-1/2 col-span-full md:col-span-6",
   "1/3" => "column-width-1/3 col-span-full md:col-span-6 lg:col-span-4",
   "2/3" => "column-width-2/3 col-span-full md:col-span-6 lg:col-span-8",
   "1/4" => "column-width-1/4 col-span-full md:col-span-6 lg:col-span-3",
-]; ?>
+];
+
+// Classes required for the responsive design of the multi-column layout
+$innerRowGridClasses =
+  "grid grid-cols-12 gap-medium md:[&_>_.column-width-1\/3:nth-child(3)]:col-start-4 lg:[&_>_.column-width-1\/3:nth-child(3)]:col-start-auto [.column-splitting-1\/4-1\/2-1\/4_>_&_>_.column-width-1\/4.empty-column]:hidden lg:[.column-splitting-1\/4-1\/2-1\/4_>_&_>_.column-width-1\/4.empty-column]:block md:[.column-splitting-1\/4-1\/2-1\/4_>_&_>_.column-width-1\/4]:col-start-4 lg:[.column-splitting-1\/4-1\/2-1\/4_>_&_>_.column-width-1\/4]:col-start-auto md:[:is(.column-splitting-1\/4-1\/2-1\/4,_.column-splitting-1\/4-1\/4-1\/2,_.column-splitting-1\/2-1\/4-1\/4)_>_&_>_.column-width-1\/2]:col-span-full lg:[:is(.column-splitting-1\/4-1\/2-1\/4,_.column-splitting-1\/4-1\/4-1\/2,_.column-splitting-1\/2-1\/4-1\/4)_>_&_>_.column-width-1\/2]:col-span-6";
+?>
 <?php foreach ($layoutRowsData as $layoutRow): ?>
   <!-- Row -->
   <section
@@ -35,7 +42,7 @@ $columnWidthClasses = [
     <!-- Inner row container -->
     <div class="<?= $layoutRow[
       "layout"
-    ]->rowWidth() ?> grid grid-cols-12 gap-medium md:[&_>_.column-width-1\/3:nth-child(3)]:col-start-4 lg:[&_>_.column-width-1\/3:nth-child(3)]:col-start-auto [.column-splitting-1\/4-1\/2-1\/4_>_&_>_.column-width-1\/4.empty-column]:hidden lg:[.column-splitting-1\/4-1\/2-1\/4_>_&_>_.column-width-1\/4.empty-column]:block md:[.column-splitting-1\/4-1\/2-1\/4_>_&_>_.column-width-1\/4]:col-start-4 lg:[.column-splitting-1\/4-1\/2-1\/4_>_&_>_.column-width-1\/4]:col-start-auto md:[:is(.column-splitting-1\/4-1\/2-1\/4,_.column-splitting-1\/4-1\/4-1\/2,_.column-splitting-1\/2-1\/4-1\/4)_>_&_>_.column-width-1\/2]:col-span-full lg:[:is(.column-splitting-1\/4-1\/2-1\/4,_.column-splitting-1\/4-1\/4-1\/2,_.column-splitting-1\/2-1\/4-1\/4)_>_&_>_.column-width-1\/2]:col-span-6">
+    ]->rowWidth() ?> <?= $innerRowGridClasses ?>">
       <?php foreach ($layoutRow["layout"]->columns() as $layoutColumn): ?>
         <!-- Column -->
         <?php
@@ -50,22 +57,22 @@ $columnWidthClasses = [
             ->rowBackgroundColor()
             ->value();
           $contrastColorForLightMode =
-            $siteColors[$rowBackgroundColorValue]["contrastForLightMode"];
+            SITE_COLORS[$rowBackgroundColorValue]["contrastForLightMode"];
           $contrastColorForDarkMode =
-            $siteColors[$rowBackgroundColorValue]["contrastForDarkMode"];
+            SITE_COLORS[$rowBackgroundColorValue]["contrastForDarkMode"];
           switch ($contrastColorForLightMode) {
-            case "#000000":
+            case COLOR_BLACK:
               $columnClassOutput .= " prose-black";
               break;
-            case "#ffffff":
+            case COLOR_WHITE:
               $columnClassOutput .= " prose-white";
               break;
           }
           switch ($contrastColorForDarkMode) {
-            case "#000000":
+            case COLOR_BLACK:
               $columnClassOutput .= " dark:prose-black";
               break;
-            case "#ffffff":
+            case COLOR_WHITE:
               $columnClassOutput .= " dark:prose-white";
               break;
           }
