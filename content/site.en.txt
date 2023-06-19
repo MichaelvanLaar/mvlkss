@@ -18,11 +18,51 @@ Twittersitehandle:
 
 ----
 
+Sitecolorscheme:
+
+- 
+  id: brand-color-1
+  name: Brand Red
+  includeincolorselect: 'true'
+  lightmode: '#d20f0a'
+  darkmode: '#650705'
+- 
+  id: brand-color-2
+  name: Brand Yellow
+  includeincolorselect: 'false'
+  lightmode: '#ffe60f'
+  darkmode: '#7a6e07'
+- 
+  id: brand-color-3
+  name: Brand Green
+  includeincolorselect: 'true'
+  lightmode: '#8cbe0a'
+  darkmode: '#435b05'
+
+----
+
 Maintenance: false
 
 ----
 
 Maintenance-text: 
+
+----
+
+Brandcolors:
+
+- 
+  name: Brand Red
+  lightmode: '#d20f0a'
+  darkmode: '#9b0b07'
+- 
+  name: Brand Yellow
+  lightmode: '#ffe60f'
+  darkmode: '#bdaa0b'
+- 
+  name: Brand Blue
+  lightmode: '#0a4baa'
+  darkmode: '#07387e'
 
 ----
 

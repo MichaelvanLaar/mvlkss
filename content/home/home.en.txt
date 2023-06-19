@@ -2,7 +2,7 @@ Title: Home
 
 ----
 
-Pagebuilder: [{"attrs":{"rowwidth":"row-container-default","rowpaddingtop":"none","rowpaddingbottom":"none","rowbackgroundcolor":"rgba(255, 255, 255, 0)","rowid":"","rowclasses":""},"columns":[{"blocks":[{"content":{"text":"<p>Placeholder for content</p>"},"id":"258488ef-a47b-44ac-bafe-e7a26668635d","isHidden":false,"type":"text"}],"id":"c9fe97e5-66b7-4c94-9a0a-ac0506ccf1ad","width":"1/1"}],"id":"995d112d-8a16-4f99-b583-589c50105ff4"}]
+Pagebuilder: [{"attrs":{"rowwidth":"row-container-default","rowpaddingtop":"none","rowpaddingbottom":"none","rowbackgroundcolor":"","rowid":"","rowclasses":""},"columns":[{"blocks":[{"content":{"text":"<p>Placeholder for content</p>"},"id":"258488ef-a47b-44ac-bafe-e7a26668635d","isHidden":false,"type":"text"}],"id":"c9fe97e5-66b7-4c94-9a0a-ac0506ccf1ad","width":"1/1"}],"id":"995d112d-8a16-4f99-b583-589c50105ff4"}]
 
 ----
 
@@ -58,4 +58,4 @@ Uuid: w9bQ6BHXQKj6dygb
 
 ----
 
-Datemodifiedepoch: 1686524203
+Datemodifiedepoch: 1687135632
