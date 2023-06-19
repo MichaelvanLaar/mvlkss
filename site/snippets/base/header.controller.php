@@ -17,8 +17,6 @@
  * - $twitterSiteHandle
  * - $twitterCreatorHandle
  * - $siteLogoFile
- * - $siteColorsArray
- * - $siteColorsCssCustomProperties
  * =============================================================================
  */
 
@@ -66,57 +64,6 @@ return function ($kirby, $site, $page) {
       ? $page->socialShareDescription()
       : $seoDescription;
 
-  // Create an array with all information about the site’s colors
-  $siteColorsArray = [];
-  $siteColorsCssCustomProperties = "";
-  $siteColorScheme = $site->siteColorScheme()->toStructure();
-  if ($siteColorScheme->isNotEmpty()) {
-    $siteColorsCssCustomProperties .= "/* Site color scheme */\n";
-
-    // Loop through each color group in the site color scheme
-    foreach ($siteColorScheme as $siteColorGroup) {
-      // Add the color group's information to the site colors array
-      $siteColorsArray[$siteColorGroup->id()] = [
-        "name" => $siteColorGroup->name()->value(),
-        "includeInColorSelect" => $siteColorGroup
-          ->includeInColorSelect()
-          ->toBool(),
-        "lightMode" => $siteColorGroup->lightMode()->value(),
-        "darkMode" => $siteColorGroup->darkMode()->value(),
-        "contrastForLightMode" => $siteColorGroup
-          ->lightMode()
-          ->toMostReadable(),
-        "contrastForDarkMode" => $siteColorGroup->darkMode()->toMostReadable(),
-      ];
-
-      // Add the color group's information to the site colors CSS custom properties
-      $siteColorsCssCustomProperties .=
-        "        --site-color-" .
-        $siteColorGroup->id() .
-        "-light-mode: " .
-        $siteColorGroup->lightMode()->value() .
-        ";\n";
-      $siteColorsCssCustomProperties .=
-        "        --site-color-" .
-        $siteColorGroup->id() .
-        "-dark-mode: " .
-        $siteColorGroup->darkMode()->value() .
-        ";\n";
-      $siteColorsCssCustomProperties .=
-        "        --site-color-" .
-        $siteColorGroup->id() .
-        "-contrast-for-light-mode: " .
-        $siteColorGroup->lightMode()->toMostReadable() .
-        ";\n";
-      $siteColorsCssCustomProperties .=
-        "        --site-color-" .
-        $siteColorGroup->id() .
-        "-contrast-for-dark-mode: " .
-        $siteColorGroup->darkMode()->toMostReadable() .
-        ";\n";
-    }
-  }
-
   // Return data for use in the header snippet
   return [
     "pageLanguageCode" => $kirby->language()
@@ -145,7 +92,5 @@ return function ($kirby, $site, $page) {
     "twitterCreatorHandle" =>
       $twitterCreatorHandle->length() > 0 ? $twitterCreatorHandle : "",
     "siteLogoFile" => $site->siteLogo()->toFile(),
-    "siteColorsArray" => $siteColorsArray,
-    "siteColorsCssCustomProperties" => $siteColorsCssCustomProperties,
   ];
 };

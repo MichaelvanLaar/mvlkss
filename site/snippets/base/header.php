@@ -17,14 +17,11 @@
  * - $twitterSiteHandle
  * - $twitterCreatorHandle
  * - $siteLogoFile
- * - $siteColorArray
- * - $siteColorsCssCustomProperties
  * =============================================================================
  */
 
-global $siteColors;
-$siteColors = $siteColorsArray;
-
+// Include centrally managed global constants
+snippet("base/global-constants");
 ?>
 <!DOCTYPE html>
 <html class="no-js" lang="<?= $pageLanguageCode ?>">
@@ -79,10 +76,11 @@ $siteColors = $siteColorsArray;
         /* Calculate stroke width of navigation toggle icon  */
         --nav-toggle-icon-stroke-width: calc(var(--site-header-scroll-height) / 24);
 
-        <?= $siteColorsCssCustomProperties ?>
+        <?= //$GLOBALS["siteColorsCssCustomProperties"]
+        SITE_COLORS_CSS_CUSTOM_PROPERTIES ?>
       }
     </style>
-    <?= css("assets/css/main.css") ?>
+      <?= css("assets/css/main.css") ?>
 
     <!-- Open Graph Data -->
     <meta property="og:title" content="<?= $socialShareTitleOutput ?>" />
@@ -116,7 +114,7 @@ $siteColors = $siteColorsArray;
     <?php endif; ?>
   </head>
 
-  <body class="flex min-h-screen flex-col bg-white text-black dark:bg-black dark:text-white">
+  <body class="flex min-h-screen flex-col bg-white dark:bg-neutral-950 dark:text-white">
 
     <!-- PAGE HEADER -->
     <!-- Row -->
