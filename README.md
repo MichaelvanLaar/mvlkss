@@ -116,9 +116,8 @@ Starting with `/src/js/main.js` as entry point, Webpack will bundle everything (
 
 ## To Do List
 
-- [ ] Add support for a flexible color scheme editor in the site settings, so that editors can only choose from this pre-defined set of colors whenever a color selection is necessary. (?)
-- [ ] Add support for background images of page builder rows and grid block rows.
 - [ ] Adjust the image block snippet to use responsive images and WebP images.
+- [ ] Add support for background images of page builder rows and grid block rows.
 - [ ] Check if all default block types can be used out of the box or if there are additions required.
 - [ ] Add button block.
 - [ ] Add language switch which should only be displayed if more than one language is set up.
