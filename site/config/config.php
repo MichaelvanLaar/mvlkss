@@ -27,4 +27,8 @@ return [
             "isaactopo.xmlsitemap.includeImages" => true,
         ];
     },
+    "thumbs" => [
+        "driver" => "im",
+        "interlace" => true,
+    ],
 ];
