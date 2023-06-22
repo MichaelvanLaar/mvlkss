@@ -394,16 +394,16 @@
         },
         {
             "name": "fabianmichael/kirby-markdown-field",
-            "version": "2.1.4",
+            "version": "2.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabianmichael/kirby-markdown-field.git",
-                "reference": "7102989c2dc6f434ade698d645ee30e13f95ea56"
+                "reference": "f6b84ea345c1cf55727e8296869eb2a02b43e8ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabianmichael/kirby-markdown-field/zipball/7102989c2dc6f434ade698d645ee30e13f95ea56",
-                "reference": "7102989c2dc6f434ade698d645ee30e13f95ea56",
+                "url": "https://api.github.com/repos/fabianmichael/kirby-markdown-field/zipball/f6b84ea345c1cf55727e8296869eb2a02b43e8ba",
+                "reference": "f6b84ea345c1cf55727e8296869eb2a02b43e8ba",
                 "shasum": ""
             },
             "require": {
@@ -432,7 +432,7 @@
             "description": "Super-sophisticated markdown editor for Kirby 3",
             "support": {
                 "issues": "https://github.com/fabianmichael/kirby-markdown-field/issues",
-                "source": "https://github.com/fabianmichael/kirby-markdown-field/tree/2.1.4"
+                "source": "https://github.com/fabianmichael/kirby-markdown-field/tree/2.1.5"
             },
             "funding": [
                 {
@@ -440,7 +440,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-01-25T08:19:18+00:00"
+            "time": "2023-06-21T11:03:42+00:00"
         },
         {
             "name": "fendinger/kirby3-consent-gate",
