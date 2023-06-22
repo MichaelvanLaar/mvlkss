@@ -1,3 +1,9 @@
+#===============================================================================
+# Block: Code
+#
+# Replaces the default code block blueprint
+#===============================================================================
+
 name: field.blocks.code.name
 icon: code
 wysiwyg: true
