@@ -11,6 +11,8 @@ The following must be installed on your machine:
 - **[Composer](https://getcomposer.org/), a dependency manager for PHP**  
   Make sure that all platform requirements are satisfied. You can do this by running the following command after composer is successfully installed: `composer check-platform-reqs`
 - **[Node.js](https://nodejs.org/)**
+- **[ImageMagick](https://imagemagick.org/)**
+  For AVIF support. If ImageMagick is not available, delete the `thumbs.driver` and `thumbs.interlace` settings in the `config.php` file. This will  switch back to the default GD Lib driver.
 
 ## Install
 
