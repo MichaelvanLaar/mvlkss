@@ -21,7 +21,7 @@ $gridColumnWidthClasses = [
 
 /**
  * -----------------------------------------------------------------------------
- * Preparation
+ * Output
  * -----------------------------------------------------------------------------
  */
 
@@ -131,7 +131,17 @@ foreach ($block->grid()->toLayouts() as $gridLayoutRow): ?>
       }
       ?>
       <div class="<?= $gridColumnClassOutput ?> prose max-w-none">
-        <?= $gridLayoutColumn->blocks() ?>
+        <?php foreach ($gridLayoutColumn->blocks() as $block) {
+            if (in_array($block->type(), ["image"])) {
+              snippet("blocks/" . $block->type(), [
+                "block" => $block,
+                "layoutColumnWidth" => $layoutColumnWidth ?? null,
+                "gridLayoutColumnWidth" => $gridLayoutColumn->width(),
+              ]);
+            } else {
+              echo $block;
+            }
+          } ?>
       </div>
     <?php endforeach; ?>
   </div>

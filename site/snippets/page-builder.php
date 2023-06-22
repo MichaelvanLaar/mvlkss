@@ -28,6 +28,12 @@ $columnWidthClasses = [
   "1/4" => "column-width-1/4 col-span-full md:col-span-6 lg:col-span-3",
 ];
 
+/**
+ * -----------------------------------------------------------------------------
+ * Output
+ * -----------------------------------------------------------------------------
+ */
+
 // Classes required for the responsive design of the multi-column layout
 $innerRowGridClasses =
   "grid grid-cols-12 gap-medium md:[&_>_.column-width-1\/3:nth-child(3)]:col-start-4 lg:[&_>_.column-width-1\/3:nth-child(3)]:col-start-auto [.column-splitting-1\/4-1\/2-1\/4_>_&_>_.column-width-1\/4.empty-column]:hidden lg:[.column-splitting-1\/4-1\/2-1\/4_>_&_>_.column-width-1\/4.empty-column]:block md:[.column-splitting-1\/4-1\/2-1\/4_>_&_>_.column-width-1\/4]:col-start-4 lg:[.column-splitting-1\/4-1\/2-1\/4_>_&_>_.column-width-1\/4]:col-start-auto md:[:is(.column-splitting-1\/4-1\/2-1\/4,_.column-splitting-1\/4-1\/4-1\/2,_.column-splitting-1\/2-1\/4-1\/4)_>_&_>_.column-width-1\/2]:col-span-full lg:[:is(.column-splitting-1\/4-1\/2-1\/4,_.column-splitting-1\/4-1\/4-1\/2,_.column-splitting-1\/2-1\/4-1\/4)_>_&_>_.column-width-1\/2]:col-span-6";
@@ -81,7 +87,16 @@ $innerRowGridClasses =
         }
         ?>
         <div class="<?= $columnClassOutput ?> prose max-w-none">
-          <?= $layoutColumn->blocks() ?>
+          <?php foreach ($layoutColumn->blocks() as $block) {
+            if (in_array($block->type(), ["image", "grid"])) {
+              snippet("blocks/" . $block->type(), [
+                "block" => $block,
+                "layoutColumnWidth" => $layoutColumn->width(),
+              ]);
+            } else {
+              echo $block;
+            }
+          } ?>
         </div>
       <?php endforeach; ?>
     </div>
