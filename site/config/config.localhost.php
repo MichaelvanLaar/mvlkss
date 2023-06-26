@@ -1,4 +1,11 @@
 <?php
+/**
+ * =============================================================================
+ * Additional Kirby Configuration for localhost
+ * 
+ * Overwrites the respective settings from config.php
+ * =============================================================================
+ */
 
 return [
     "afbora.kirby-minify-html.enabled" => false,
