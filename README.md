@@ -11,8 +11,6 @@ The following must be installed on your machine:
 - **[Composer](https://getcomposer.org/), a dependency manager for PHP**  
   Make sure that all platform requirements are satisfied. You can do this by running the following command after composer is successfully installed: `composer check-platform-reqs`
 - **[Node.js](https://nodejs.org/)**
-- **[ImageMagick v7+](https://imagemagick.org/)**
-  For AVIF support. If ImageMagick is not available, delete the `thumbs.driver` and `thumbs.interlace` settings in the `config.php` file. This will  switch back to the default GD Lib driver.
 
 ## Install
 
@@ -118,7 +116,8 @@ Starting with `/src/js/main.js` as entry point, Webpack will bundle everything (
 
 ## To Do List
 
-- [ ] Adjust the image block snippet to use responsive images and WebP images.
+- [ ] Add the size attribute to the source elements of the image block snippet (to use responsive images).
+- [ ] Move global constants to options config.php.
 - [ ] Add support for background images of page builder rows and grid block rows.
 - [ ] Check if all default block types can be used out of the box or if there are additions required.
 - [ ] Add button block.
