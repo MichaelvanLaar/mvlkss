@@ -18,32 +18,56 @@ if ($block->location() == "web") {
   $alt = $alt->or($image->alt());
   $src = $image->url();
 }
-?>
-<?php if ($src): ?>
-  <figure
-    <?= Html::attr(
-      [
-        //"data-ratio" => $ratio,
-        //"data-crop" => $crop ? "true" : null,
-        "data-layout-column-width" => $layoutColumnWidth ?? null,
-        "data-grid-layout-column-width" => $gridLayoutColumnWidth ?? null,
-      ],
-      null,
-      " "
-    ) ?>
-  >
-    <?php if ($link->isNotEmpty()): ?>
-      <a href="<?= Str::esc($link->toUrl()) ?>">
-    <?php endif; ?>
-      <img src="<?= $src ?>" alt="<?= $alt->esc() ?>" loading="lazy">
-    <?php if ($link->isNotEmpty()): ?>
-      </a>
-    <?php endif; ?>
 
-    <?php if ($caption->isNotEmpty()): ?>
-      <figcaption>
-        <?= $caption ?>
-      </figcaption>
+if ($src):
+
+  $attr = [
+    "data-layout-column-width" => $layoutColumnWidth ?? null,
+    "data-grid-layout-column-width" => $gridLayoutColumnWidth ?? null,
+  ];
+
+  $linkUrl = Str::esc($link->toUrl());
+
+  $srcsetsForCurrentImageType = $image
+    ? option("site-constants.thumb-srcsets-selector." . $image->extension())
+    : [];
+
+  $imgSrcset = $image ? $image->srcset() : null;
+  $altEsc = $alt->esc();
+  ?>
+<figure <?= Html::attr($attr, null, " ") ?>>
+  <?= $link->isNotEmpty() ? "<a href='$linkUrl'>" : "" ?>
+  <picture>
+    <?php if (
+      $image &&
+      array_key_exists(
+        $image->extension(),
+        option("site-constants.thumb-srcsets-selector")
+      )
+    ): ?>
+      <?php foreach ($srcsetsForCurrentImageType as $thumbSrcset): ?>
+        <source srcset="<?= $image->srcset($thumbSrcset) ?>" type="<?= option(
+  "site-constants.thumb-srcsets." .
+    ($thumbSrcset ?? "default") .
+    "." .
+    array_key_first(
+      option("site-constants.thumb-srcsets." . ($thumbSrcset ?? "default"))
+    ) .
+    ".type-attribute-for-source-element"
+) ?>">
+      <?php endforeach; ?>
     <?php endif; ?>
-  </figure>
-<?php endif; ?>
+    <img
+      src="<?= $src ?>"
+      srcset="<?= $imgSrcset ?>"
+      alt="<?= $altEsc ?>"
+      class="mx-auto"
+      loading="lazy"
+    >
+  </picture>
+  <?= $link->isNotEmpty() ? "</a>" : "" ?>
+
+  <?= $caption->isNotEmpty() ? "<figcaption>{$caption}</figcaption>" : "" ?>
+</figure>
+<?php
+endif; ?>
