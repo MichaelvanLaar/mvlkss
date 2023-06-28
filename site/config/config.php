@@ -126,6 +126,7 @@ return [
         ];
     },
     "thumbs" => [
+        "driver" => "im",
         "srcsets" => $thumbSrcsets,
     ],
 ];

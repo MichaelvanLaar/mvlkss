@@ -2,7 +2,7 @@
 /**
  * =============================================================================
  * Additional Kirby Configuration for localhost
- * 
+ *
  * Overwrites the respective settings from config.php
  * =============================================================================
  */
@@ -16,4 +16,7 @@ return [
     ],
     "debug" => true,
     "lukaskleinschmidt.resolve.cache" => false,
+    "thumbs" => [
+        "driver" => "gd",
+    ],
 ];
