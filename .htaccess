@@ -17,7 +17,7 @@
 
 <IfModule mod_setenvif.c>
   <IfModule mod_headers.c>
-    <FilesMatch "\.(bmp|cur|gif|ico|jpe?g|a?png|svgz?|webp)$">
+    <FilesMatch "\.(avif|bmp|cur|gif|ico|jpe?g|a?png|svgz?|webp)$">
       SetEnvIf Origin ":" IS_CORS
       Header set Access-Control-Allow-Origin "*" env=IS_CORS
     </FilesMatch>
@@ -126,6 +126,7 @@ Options -MultiViews
 
     AddType audio/mp4                                   f4a f4b m4a
     AddType audio/ogg                                   oga ogg opus
+    AddType image/avif                                   avif
     AddType image/bmp                                   bmp
     AddType image/svg+xml                               svg svgz
     AddType image/webp                                  webp
@@ -582,6 +583,7 @@ FileETag None
 
     ExpiresByType audio/ogg                             "access plus 1 month"
     ExpiresByType image/apng                            "access plus 1 month"
+    ExpiresByType image/avif                            "access plus 1 month"
     ExpiresByType image/bmp                             "access plus 1 month"
     ExpiresByType image/gif                             "access plus 1 month"
     ExpiresByType image/jpeg                            "access plus 1 month"
@@ -690,24 +692,3 @@ SetEnvIf Authorization "(.+)" HTTP_AUTHORIZATION=$1
 # AddOutputFilterByType DEFLATE application/javascript
 # AddOutputFilterByType DEFLATE application/x-javascript
 # </IfModule>
-
-# ######################################################################
-# # KIRBY3-WEBP                                                        #
-# ######################################################################
-
-<IfModule mod_rewrite.c>
-  # RewriteEngine On
-
-  # Checking for WebP browser support ..
-  RewriteCond %{HTTP_ACCEPT} image/webp
-
-  # .. and if there's a WebP version for the requested image
-  RewriteCond %{DOCUMENT_ROOT}/$1.webp -f
-
-  # Well, then go for it & serve WebP instead
-  RewriteRule (.+)\.(jpe?g|png)$ $1.webp [T=image/webp,E=accept:1]
-</IfModule>
-
-<IfModule mod_headers.c>
-  Header append Vary Accept env=REDIRECT_accept
-</IfModule>
