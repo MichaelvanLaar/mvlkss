@@ -394,16 +394,16 @@
         },
         {
             "name": "fabianmichael/kirby-markdown-field",
-            "version": "2.1.6",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabianmichael/kirby-markdown-field.git",
-                "reference": "fae58b42ab875b6210aa23c0b1f16098b0798979"
+                "reference": "d0b6e572ac5172ec91bac8dc9b41b4dcf2620815"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabianmichael/kirby-markdown-field/zipball/fae58b42ab875b6210aa23c0b1f16098b0798979",
-                "reference": "fae58b42ab875b6210aa23c0b1f16098b0798979",
+                "url": "https://api.github.com/repos/fabianmichael/kirby-markdown-field/zipball/d0b6e572ac5172ec91bac8dc9b41b4dcf2620815",
+                "reference": "d0b6e572ac5172ec91bac8dc9b41b4dcf2620815",
                 "shasum": ""
             },
             "require": {
@@ -431,7 +431,7 @@
             "description": "Super-sophisticated markdown editor for Kirby 3",
             "support": {
                 "issues": "https://github.com/fabianmichael/kirby-markdown-field/issues",
-                "source": "https://github.com/fabianmichael/kirby-markdown-field/tree/2.1.6"
+                "source": "https://github.com/fabianmichael/kirby-markdown-field/tree/2.2.0"
             },
             "funding": [
                 {
@@ -439,23 +439,29 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-06-28T09:05:52+00:00"
+            "time": "2023-06-30T08:14:59+00:00"
         },
         {
             "name": "fendinger/kirby3-consent-gate",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fendinger/kirby3-consent-gate.git",
-                "reference": "f5b2522cdda1efce19158f7ae332575e96055a9b"
+                "reference": "e831a4ce012d1db44a080a4ac11e6fe59a284b83"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fendinger/kirby3-consent-gate/zipball/f5b2522cdda1efce19158f7ae332575e96055a9b",
-                "reference": "f5b2522cdda1efce19158f7ae332575e96055a9b",
+                "url": "https://api.github.com/repos/fendinger/kirby3-consent-gate/zipball/e831a4ce012d1db44a080a4ac11e6fe59a284b83",
+                "reference": "e831a4ce012d1db44a080a4ac11e6fe59a284b83",
                 "shasum": ""
             },
-            "type": "library",
+            "require": {
+                "getkirby/composer-installer": "^1.2"
+            },
+            "type": "kirby-plugin",
+            "extra": {
+                "installer-name": "consent-gate"
+            },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
@@ -469,9 +475,9 @@
             "description": "Kirby 3 Consent Gate - GDPR Compliant External Content Blocker",
             "support": {
                 "issues": "https://github.com/fendinger/kirby3-consent-gate/issues",
-                "source": "https://github.com/fendinger/kirby3-consent-gate/tree/1.0.0"
+                "source": "https://github.com/fendinger/kirby3-consent-gate/tree/1.0.1"
             },
-            "time": "2022-04-06T10:59:09+00:00"
+            "time": "2023-07-03T08:39:43+00:00"
         },
         {
             "name": "filp/whoops",
