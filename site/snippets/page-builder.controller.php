@@ -65,6 +65,7 @@ return function ($page) {
 
     // Add the row data to the array
     $layoutRowsData[] = [
+      "layoutColumnSplitting" => $layoutColumnSplitting,
       "layoutRowIdAttribute" => $layoutRowIdAttribute,
       "layoutRowClassAttribute" => $layoutRowClassAttribute,
       "layoutRowStyleAttribute" => $layoutRowStyleAttribute,
