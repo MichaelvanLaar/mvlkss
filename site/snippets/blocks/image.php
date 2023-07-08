@@ -11,6 +11,7 @@ $caption = $block->caption();
 $link = $block->link();
 //$ratio = $block->ratio()->or("auto");
 $src = null;
+$image = null;
 
 if ($block->location() == "web") {
   $src = $block->src()->esc();
@@ -21,47 +22,114 @@ if ($block->location() == "web") {
 
 if ($src):
 
-  $attr = [
-    "data-layout-column-width" => $layoutColumnWidth ?? null,
-    "data-grid-layout-column-width" => $gridLayoutColumnWidth ?? null,
+  $layoutColumnMaxWidths = [
+    "1/1" => [
+      "min-width: 1024px" => 1524,
+      "min-width: 768px" => 965,
+      "default" => 714,
+    ],
+    "1/2" => [
+      "min-width: 1024px" => 746,
+      "min-width: 768px" =>
+        $layoutColumnSplitting == "column-splitting-1/4-1/2-1/4" ? 965 : 468,
+      "default" => 714,
+    ],
+    "1/3" => [
+      "min-width: 1024px" => 468,
+      "min-width: 768px" => 468,
+      "default" => 714,
+    ],
+    "1/4" => [
+      "min-width: 1024px" => 357,
+      "min-width: 768px" => 468,
+      "default" => 714,
+    ],
   ];
 
   $linkUrl = Str::esc($link->toUrl());
+  $imgSrcset = $image ? $image->srcset() : null;
+  $altEsc = $alt->esc();
 
   $srcsetsForCurrentImageType = $image
     ? option("site-constants.thumb-srcsets-selector." . $image->extension())
     : [];
 
-  $imgSrcset = $image ? $image->srcset() : null;
-  $altEsc = $alt->esc();
+  $figureSourceSizesAttribute = [];
+  foreach (
+    $layoutColumnMaxWidths[$layoutColumnWidth]
+    as $mediaQuery => $maxWidth
+  ) {
+    if ($gridLayoutColumnWidth ?? null) {
+      switch ($gridLayoutColumnWidth) {
+        case "1/2":
+          $maxWidth = ceil($maxWidth / 2);
+          break;
+        case "1/3":
+          $maxWidth = ceil($maxWidth / 3);
+          break;
+      }
+    }
+    $figureSourceSizesAttribute[] = sprintf(
+      "(%s) %spx",
+      $mediaQuery,
+      $maxWidth,
+    );
+  }
+
+  $sizesAttribute = str_replace(
+    "(default) ",
+    "",
+    implode(", ", $figureSourceSizesAttribute),
+  );
+  $thumbSrcsetsSelector = option("site-constants.thumb-srcsets-selector");
+  $thumbSrcsets = option("site-constants.thumb-srcsets");
   ?>
-<figure <?= Html::attr($attr, null, " ") ?>>
+<figure>
   <?= $link->isNotEmpty() ? "<a href='$linkUrl'>" : "" ?>
   <picture>
     <?php if (
       $image &&
-      array_key_exists(
-        $image->extension(),
-        option("site-constants.thumb-srcsets-selector")
-      )
+      array_key_exists($image->extension(), $thumbSrcsetsSelector)
     ): ?>
       <?php foreach ($srcsetsForCurrentImageType as $thumbSrcset): ?>
-        <source srcset="<?= $image->srcset($thumbSrcset) ?>" type="<?= option(
-  "site-constants.thumb-srcsets." .
-    ($thumbSrcset ?? "default") .
-    "." .
-    array_key_first(
-      option("site-constants.thumb-srcsets." . ($thumbSrcset ?? "default"))
-    ) .
-    ".type-attribute-for-source-element"
-) ?>">
+        <?php
+        $sourceSrcsetAttribute = $image->srcset($thumbSrcset);
+        $sourceTypeAttribute = option(
+          "site-constants.thumb-srcsets." .
+            ($thumbSrcset ?? "default") .
+            "." .
+            array_key_first($thumbSrcsets[$thumbSrcset ?? "default"]) .
+            ".type-attribute-for-source-element",
+        );
+        ?>
+        <source
+          srcset="<?= $sourceSrcsetAttribute ?>"
+          <?php if ($image->extension() != "svg"): ?>
+            sizes="<?= $sizesAttribute ?>"
+          <?php endif; ?>
+          type="<?= $sourceTypeAttribute ?>"
+        >
       <?php endforeach; ?>
     <?php endif; ?>
+
     <img
       src="<?= $src ?>"
-      srcset="<?= $imgSrcset ?>"
+      <?php if ($image && $image->extension() != "svg"): ?>
+        srcset="<?= $imgSrcset ?>"
+        sizes="<?= $sizesAttribute ?>"
+      <?php endif; ?>
       alt="<?= $altEsc ?>"
       class="mx-auto"
+      <?php if (
+        $image &&
+        ($image->extension() == "jpg" || $image->extension() == "jpeg")
+      ): ?>
+        style="background-color: <?= $image->color() ?>"
+      <?php endif; ?>
+      <?php if ($image): ?>
+        width="<?= $image->width() ?>"
+        height="<?= $image->height() ?>"
+      <?php endif; ?>
       loading="lazy"
     >
   </picture>
