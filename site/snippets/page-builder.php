@@ -92,6 +92,7 @@ $innerRowGridClasses =
               snippet("blocks/" . $block->type(), [
                 "block" => $block,
                 "layoutColumnWidth" => $layoutColumn->width(),
+                "layoutColumnSplitting" => $layoutRow["layoutColumnSplitting"],
               ]);
             } else {
               echo $block;
