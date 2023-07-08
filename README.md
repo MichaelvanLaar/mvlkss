@@ -116,8 +116,7 @@ Starting with `/src/js/main.js` as entry point, Webpack will bundle everything (
 
 ## To Do List
 
-- [ ] Add the size attribute to the source elements of the image block snippet (to use responsive images).
-- [ ] Move global constants to options config.php.
+- [ ] Move global constants to options config.php, if possible.
 - [ ] Add support for background images of page builder rows and grid block rows.
 - [ ] Check if all default block types can be used out of the box or if there are additions required.
 - [ ] Add button block.
