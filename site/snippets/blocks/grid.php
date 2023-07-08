@@ -81,9 +81,13 @@ foreach ($block->grid()->toLayouts() as $gridLayoutRow): ?>
   if ($gridLayoutRow->gridRowBackgroundColor()->isNotEmpty()) {
     $gridRowStyleAttribute =
       "style=\"--grid-row-background-color-light-mode: " .
-      SITE_COLORS[$gridLayoutRow->gridRowBackgroundColor()->value()]["lightMode"] .
+      SITE_COLORS[$gridLayoutRow->gridRowBackgroundColor()->value()][
+        "lightMode"
+      ] .
       "; --grid-row-background-color-dark-mode: " .
-      SITE_COLORS[$gridLayoutRow->gridRowBackgroundColor()->value()]["darkMode"] .
+      SITE_COLORS[$gridLayoutRow->gridRowBackgroundColor()->value()][
+        "darkMode"
+      ] .
       ";\"";
   } else {
     $gridRowStyleAttribute = "";
@@ -132,16 +136,17 @@ foreach ($block->grid()->toLayouts() as $gridLayoutRow): ?>
       ?>
       <div class="<?= $gridColumnClassOutput ?> prose max-w-none">
         <?php foreach ($gridLayoutColumn->blocks() as $block) {
-            if (in_array($block->type(), ["image"])) {
-              snippet("blocks/" . $block->type(), [
-                "block" => $block,
-                "layoutColumnWidth" => $layoutColumnWidth ?? null,
-                "gridLayoutColumnWidth" => $gridLayoutColumn->width(),
-              ]);
-            } else {
-              echo $block;
-            }
-          } ?>
+          if (in_array($block->type(), ["image"])) {
+            snippet("blocks/" . $block->type(), [
+              "block" => $block,
+              "layoutColumnWidth" => $layoutColumnWidth ?? null,
+              "gridLayoutColumnWidth" => $gridLayoutColumn->width(),
+              "layoutColumnSplitting" => $layoutColumnSplitting,
+            ]);
+          } else {
+            echo $block;
+          }
+        } ?>
       </div>
     <?php endforeach; ?>
   </div>
