@@ -24,20 +24,7 @@ columns:
         help:
           en: This URL will be used for the menu item instead of the normal page URL.
           de: Diese URL wird für das Menüelement verwendet, anstatt der normalen Seiten-URL.
-      menuItemTarget:
-        type: select
-        label:
-          en: Target
-          de: Ziel
-        options:
-          _self:
-            en: Open in same window
-            de: Im selben Fenster öffnen
-          _blank:
-            en: Open in new window
-            de: In neuem Fenster öffnen
-        required: true
-        default: _self
+      menuItemTarget: fields/link-target
 
   # Include in menus
   menus:
