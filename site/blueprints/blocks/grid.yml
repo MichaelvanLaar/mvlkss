@@ -116,7 +116,6 @@ fields:
         type: group
         fieldsets:
           - image
-          - gallery
           - video
       miscBlocks:
         label:
