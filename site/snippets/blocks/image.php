@@ -5,6 +5,48 @@
  * =============================================================================
  */
 
+/**
+ * -----------------------------------------------------------------------------
+ * Configuration
+ * -----------------------------------------------------------------------------
+ */
+
+// Set the values (media query and width) for the “sizes” attribute of “source”
+// and “img” elements to match the column widths of the respective layout
+// settings. The integer values represent sizes in pixels.
+// See “page-builder.php” for column layouts depending on the viewport width.
+// Also see section “Fluid font size and zoom effect” in “main.css”, since this
+// setting has an effect on the sizes used here.
+$layoutColumnMaxWidths = [
+  "1/1" => [
+    "min-width: 1024px" => 1524,
+    "min-width: 768px" => 965,
+    "default" => 714,
+  ],
+  "1/2" => [
+    "min-width: 1024px" => 746,
+    "min-width: 768px" =>
+      $layoutColumnSplitting == "column-splitting-1/4-1/2-1/4" ? 965 : 468,
+    "default" => 714,
+  ],
+  "1/3" => [
+    "min-width: 1024px" => 468,
+    "min-width: 768px" => 468,
+    "default" => 714,
+  ],
+  "1/4" => [
+    "min-width: 1024px" => 357,
+    "min-width: 768px" => 468,
+    "default" => 714,
+  ],
+];
+
+/**
+ * -----------------------------------------------------------------------------
+ * Output
+ * -----------------------------------------------------------------------------
+ */
+
 $alt = $block->alt();
 $caption = $block->caption();
 //$crop = $block->crop()->isTrue();
@@ -13,6 +55,8 @@ $link = $block->link();
 $src = null;
 $image = null;
 
+// Fill $src and $alt with values depending on the type of image (local or
+// remote).
 if ($block->location() == "web") {
   $src = $block->src()->esc();
 } elseif ($image = $block->image()->toFile()) {
@@ -20,41 +64,22 @@ if ($block->location() == "web") {
   $src = $image->url();
 }
 
+// If clause just to double check that we really have an image to work with.
 if ($src):
-
-  $layoutColumnMaxWidths = [
-    "1/1" => [
-      "min-width: 1024px" => 1524,
-      "min-width: 768px" => 965,
-      "default" => 714,
-    ],
-    "1/2" => [
-      "min-width: 1024px" => 746,
-      "min-width: 768px" =>
-        $layoutColumnSplitting == "column-splitting-1/4-1/2-1/4" ? 965 : 468,
-      "default" => 714,
-    ],
-    "1/3" => [
-      "min-width: 1024px" => 468,
-      "min-width: 768px" => 468,
-      "default" => 714,
-    ],
-    "1/4" => [
-      "min-width: 1024px" => 357,
-      "min-width: 768px" => 468,
-      "default" => 714,
-    ],
-  ];
 
   $linkUrl = Str::esc($link->toUrl());
   $imgSrcset = $image ? $image->srcset() : null;
   $altEsc = $alt->esc();
-
   $srcsetsForCurrentImageType = $image
     ? option("site-constants.thumb-srcsets-selector." . $image->extension())
     : [];
+  $thumbSrcsetsSelector = option("site-constants.thumb-srcsets-selector");
+  $thumbSrcsets = option("site-constants.thumb-srcsets");
 
-  $figureSourceSizesAttribute = [];
+  // Extract the correct set of values for the “sizes” attribute of “source” and
+  // “img” elements and take into account the column width reduction in case the
+  // image is contained in a grid block within the layout field.
+  $sizesAttribute = [];
   foreach (
     $layoutColumnMaxWidths[$layoutColumnWidth]
     as $mediaQuery => $maxWidth
@@ -69,24 +94,21 @@ if ($src):
           break;
       }
     }
-    $figureSourceSizesAttribute[] = sprintf(
-      "(%s) %spx",
-      $mediaQuery,
-      $maxWidth,
-    );
+    $sizesAttribute[] = sprintf("(%s) %spx", $mediaQuery, $maxWidth);
   }
 
+  // Remove the incorrect “default media query” from the “sizes” attribute,
+  // since the default value is simply set as the last option in the “sizes”
+  // attribute without a preceding media query.
   $sizesAttribute = str_replace(
     "(default) ",
     "",
-    implode(", ", $figureSourceSizesAttribute),
+    implode(", ", $sizesAttribute),
   );
-  $thumbSrcsetsSelector = option("site-constants.thumb-srcsets-selector");
-  $thumbSrcsets = option("site-constants.thumb-srcsets");
   ?>
 <figure>
   <?= $link->isNotEmpty() ? "<a href='$linkUrl'>" : "" ?>
-  <picture>
+  <picture class="not-prose">
     <?php if (
       $image &&
       array_key_exists($image->extension(), $thumbSrcsetsSelector)
