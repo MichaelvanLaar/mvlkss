@@ -51,6 +51,7 @@ $alt = $block->alt();
 $caption = $block->caption();
 //$crop = $block->crop()->isTrue();
 $link = $block->link();
+$linkTarget = $block->linkTarget()->or("_self");
 //$ratio = $block->ratio()->or("auto");
 $src = null;
 $image = null;
@@ -107,7 +108,7 @@ if ($src):
   );
   ?>
 <figure>
-  <?= $link->isNotEmpty() ? "<a href='$linkUrl'>" : "" ?>
+  <?= $link->isNotEmpty() ? "<a href='$linkUrl' target='$linkTarget'>" : "" ?>
   <picture class="not-prose">
     <?php if (
       $image &&

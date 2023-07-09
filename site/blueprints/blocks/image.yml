@@ -45,6 +45,10 @@ fields:
     label: field.blocks.image.link
     type: text
     icon: url
+    width: 1/2
+  linkTarget:
+    extends: fields/link-target
+    width: 1/2
   #ratio:
   #  label: field.blocks.image.ratio
   #  type: select
