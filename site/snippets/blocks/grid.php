@@ -36,25 +36,33 @@ foreach ($block->grid()->toLayouts() as $gridLayoutRow): ?>
 
   // Set the gap related CSS class for the current grid row
   $gridRowGapClass =
-    GAP_CLASSES[(string) $gridLayoutRow->gridRowGap()] ?? "gap-0";
+    option("site-constants")["spacing-utility-classes"]["gap"][
+      (string) $gridLayoutRow->gridRowGap()
+    ] ?? "gap-0";
 
   // Set the top padding related CSS class for the current grid row
   $gridRowPaddingTopClass =
-    PADDING_TOP_CLASSES[(string) $gridLayoutRow->gridRowPaddingTop()] ?? "pt-0";
+    option("site-constants")["spacing-utility-classes"]["padding-top"][
+      (string) $gridLayoutRow->gridRowPaddingTop()
+    ] ?? "pt-0";
 
   // Set the bottom padding related CSS class for the current grid row
   $gridRowPaddingBottomClass =
-    PADDING_BOTTOM_CLASSES[(string) $gridLayoutRow->gridRowPaddingBottom()] ??
-    "pb-0";
+    option("site-constants")["spacing-utility-classes"]["padding-bottom"][
+      (string) $gridLayoutRow->gridRowPaddingBottom()
+    ] ?? "pb-0";
 
   // Set the start padding related CSS class for the current grid row
   $gridRowPaddingStartClass =
-    PADDING_START_CLASSES[(string) $gridLayoutRow->gridRowPaddingStart()] ??
-    "ps-0";
+    option("site-constants")["spacing-utility-classes"]["padding-start"][
+      (string) $gridLayoutRow->gridRowPaddingStart()
+    ] ?? "ps-0";
 
   // Set the end padding related CSS class for the current grid row
   $gridRowPaddingEndClass =
-    PADDING_END_CLASSES[(string) $gridLayoutRow->gridRowPaddingEnd()] ?? "pe-0";
+    option("site-constants")["spacing-utility-classes"]["padding-end"][
+      (string) $gridLayoutRow->gridRowPaddingEnd()
+    ] ?? "pe-0";
 
   // Set the background color related CSS class for the current grid row
   $gridRowBackgroundColorClasses = $gridLayoutRow
@@ -81,13 +89,13 @@ foreach ($block->grid()->toLayouts() as $gridLayoutRow): ?>
   if ($gridLayoutRow->gridRowBackgroundColor()->isNotEmpty()) {
     $gridRowStyleAttribute =
       "style=\"--grid-row-background-color-light-mode: " .
-      SITE_COLORS[$gridLayoutRow->gridRowBackgroundColor()->value()][
-        "lightMode"
-      ] .
+      option("site-constants")["site-colors"][
+        $gridLayoutRow->gridRowBackgroundColor()->value()
+      ]["lightMode"] .
       "; --grid-row-background-color-dark-mode: " .
-      SITE_COLORS[$gridLayoutRow->gridRowBackgroundColor()->value()][
-        "darkMode"
-      ] .
+      option("site-constants")["site-colors"][
+        $gridLayoutRow->gridRowBackgroundColor()->value()
+      ]["darkMode"] .
       ";\"";
   } else {
     $gridRowStyleAttribute = "";
@@ -110,10 +118,12 @@ foreach ($block->grid()->toLayouts() as $gridLayoutRow): ?>
         $gridRowBackgroundColorValue = $gridLayoutRow
           ->gridRowBackgroundColor()
           ->value();
-        $gridContrastColorForLightMode =
-          SITE_COLORS[$gridRowBackgroundColorValue]["contrastForLightMode"];
-        $gridContrastColorForDarkMode =
-          SITE_COLORS[$gridRowBackgroundColorValue]["contrastForDarkMode"];
+        $gridContrastColorForLightMode = option("site-constants")[
+          "site-colors"
+        ][$gridRowBackgroundColorValue]["contrastForLightMode"];
+        $gridContrastColorForDarkMode = option("site-constants")["site-colors"][
+          $gridRowBackgroundColorValue
+        ]["contrastForDarkMode"];
         switch ($gridContrastColorForLightMode) {
           case "#000000":
             $gridColumnClassOutput .= " prose-black";

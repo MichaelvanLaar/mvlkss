@@ -62,23 +62,25 @@ $innerRowGridClasses =
           $rowBackgroundColorValue = $layoutRow["layout"]
             ->rowBackgroundColor()
             ->value();
-          $contrastColorForLightMode =
-            SITE_COLORS[$rowBackgroundColorValue]["contrastForLightMode"];
-          $contrastColorForDarkMode =
-            SITE_COLORS[$rowBackgroundColorValue]["contrastForDarkMode"];
+          $contrastColorForLightMode = option("site-constants")["site-colors"][
+            $rowBackgroundColorValue
+          ]["contrastForLightMode"];
+          $contrastColorForDarkMode = option("site-constants")["site-colors"][
+            $rowBackgroundColorValue
+          ]["contrastForDarkMode"];
           switch ($contrastColorForLightMode) {
-            case COLOR_BLACK:
+            case option("site-constants")["color-black"]:
               $columnClassOutput .= " prose-black";
               break;
-            case COLOR_WHITE:
+            case option("site-constants")["color-white"]:
               $columnClassOutput .= " prose-white";
               break;
           }
           switch ($contrastColorForDarkMode) {
-            case COLOR_BLACK:
+            case option("site-constants")["color-black"]:
               $columnClassOutput .= " dark:prose-black";
               break;
-            case COLOR_WHITE:
+            case option("site-constants")["color-white"]:
               $columnClassOutput .= " dark:prose-white";
               break;
           }

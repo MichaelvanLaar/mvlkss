@@ -2,10 +2,10 @@
 /**
  * =============================================================================
  * Header Snippet for All Pages
- * 
+ *
  * Uses “header.controller.php” via the Kirby Snippet Controller plugin
  * Plugin details: https://github.com/lukaskleinschmidt/kirby-snippet-controller
- * 
+ *
  * Receives variables from snippet controller:
  * - $pageLanguageCode
  * - $pageLanguageLocale
@@ -21,7 +21,6 @@
  */
 
 // Include centrally managed global constants
-snippet("base/global-constants");
 ?>
 <!DOCTYPE html>
 <html class="no-js" lang="<?= $pageLanguageCode ?>">
@@ -76,8 +75,7 @@ snippet("base/global-constants");
         /* Calculate stroke width of navigation toggle icon  */
         --nav-toggle-icon-stroke-width: calc(var(--site-header-scroll-height) / 24);
 
-        <?= //$GLOBALS["siteColorsCssCustomProperties"]
-        SITE_COLORS_CSS_CUSTOM_PROPERTIES ?>
+        <?= option("site-constants")["site-colors-css-custom-properties"] ?>
       }
     </style>
       <?= css("assets/css/main.css") ?>
@@ -139,4 +137,3 @@ snippet("base/global-constants");
         <?php snippet("base/main-menu"); ?>
       </div>
     </header>
- 

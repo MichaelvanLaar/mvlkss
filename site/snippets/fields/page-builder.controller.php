@@ -23,11 +23,15 @@ return function ($page) {
 
     // Set the top padding related CSS class for the current row
     $rowPaddingTopClass =
-      PADDING_TOP_CLASSES[(string) $layoutRow->rowPaddingTop()] ?? "pt-0";
+      option("site-constants")["spacing-utility-classes"]["padding-top"][
+        (string) $layoutRow->rowPaddingTop()
+      ] ?? "pt-0";
 
     // Set the bottom padding related CSS class for the current row
     $rowPaddingBottomClass =
-      PADDING_BOTTOM_CLASSES[(string) $layoutRow->rowPaddingBottom()] ?? "pb-0";
+      option("site-constants")["spacing-utility-classes"]["padding-bottom"][
+        (string) $layoutRow->rowPaddingBottom()
+      ] ?? "pb-0";
 
     // Set the column splitting related CSS class for the current row
     $layoutColumnSplitting = "column-splitting-";
@@ -51,15 +55,19 @@ return function ($page) {
     ];
     $layoutRowClassAttribute = sprintf(
       "class=\"%s\"",
-      implode(" ", $layoutRowClasses)
+      implode(" ", $layoutRowClasses),
     );
 
     // Construct the style attribute for the current row
     $layoutRowStyleAttribute = $layoutRow->rowBackgroundColor()->isNotEmpty()
       ? sprintf(
         "style=\"--row-background-color-light-mode: %s; --row-background-color-dark-mode: %s;\"",
-        SITE_COLORS[$layoutRow->rowBackgroundColor()->value()]["lightMode"],
-        SITE_COLORS[$layoutRow->rowBackgroundColor()->value()]["darkMode"]
+        option("site-constants")["site-colors"][
+          $layoutRow->rowBackgroundColor()->value()
+        ]["lightMode"],
+        option("site-constants")["site-colors"][
+          $layoutRow->rowBackgroundColor()->value()
+        ]["darkMode"],
       )
       : "";
 
