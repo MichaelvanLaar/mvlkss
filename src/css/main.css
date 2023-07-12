@@ -180,10 +180,10 @@
     details) */
 .row-container,
 .row-container-default {
-  @apply mx-auto w-full max-w-6xl px-medium print:px-0;
+  @apply mx-auto w-full max-w-6xl px-medium lg:px-large print:px-0;
 }
 
 /* Full width container */
 .row-container-full {
-  @apply w-full px-medium print:px-0;
+  @apply w-full px-medium lg:px-large print:px-0;
 }
