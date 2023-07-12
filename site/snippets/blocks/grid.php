@@ -71,6 +71,13 @@ foreach ($block->grid()->toLayouts() as $gridLayoutRow): ?>
     ? "bg-[var(--grid-row-background-color-light-mode)] dark:bg-[var(--grid-row-background-color-dark-mode)]"
     : "";
 
+  // Set the sticky related CSS class for the current grid row
+  $gridRowStickyClasses = $gridLayoutRow
+    ->gridRowSticky()
+    ->toBool($default = false)
+    ? "sticky top-[var(--site-header-height)]"
+    : "";
+
   // Construct the classes attribute for the current grid row
   $gridRowClasses = [
     $gridLayoutRow->gridRowClasses(),
@@ -82,6 +89,7 @@ foreach ($block->grid()->toLayouts() as $gridLayoutRow): ?>
     $gridRowPaddingStartClass,
     $gridRowPaddingEndClass,
     $gridRowBackgroundColorClasses,
+    $gridRowStickyClasses,
   ];
   $gridRowClassAttribute = "class=\"" . implode(" ", $gridRowClasses) . "\"";
 
@@ -142,6 +150,21 @@ foreach ($block->grid()->toLayouts() as $gridLayoutRow): ?>
         }
       } else {
         $gridColumnClassOutput .= " prose-neutral dark:prose-invert";
+      }
+      if ($gridLayoutRow->gridRowVerticalAlign()->isNotEmpty()) {
+        switch ($gridLayoutRow->gridRowVerticalAlign()->value()) {
+          case "top":
+            $gridColumnClassOutput .= " flex flex-col justify-start";
+            break;
+          case "middle":
+            $gridColumnClassOutput .= " flex flex-col justify-center";
+            break;
+          case "bottom":
+            $gridColumnClassOutput .= " flex flex-col justify-end";
+            break;
+        }
+      } else {
+        $gridColumnClassOutput .= " flex flex-col justify-start";
       }
       ?>
       <div class="<?= $gridColumnClassOutput ?> prose max-w-none">

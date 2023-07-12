@@ -36,6 +36,24 @@ fields:
             en: Grid Row Layout
             de: Grid-Zeilenlayout
           numbered: false
+        gridRowVerticalAlign:
+          extends: fields/vertical-align
+          width: 1/2
+        gridRowSticky:
+          type: toggle
+          label:
+            en: Sticky
+            de: Fixiert (Sticky)
+          help:
+            en: If enabled, the grid row will stick to the top of the browser window when scrolling down.
+            de: Wenn aktiviert, bleibt die Grid-Zeile beim Scrollen am oberen Rand des Browserfensters haften.
+          text:
+            - en: Not sticky
+              de: Nicht fixiert
+            - en: Sticky
+              de: Fixiert
+          default: false
+          width: 1/2
         gridRowPaddingTop:
           extends: fields/spacing-select
           label:
