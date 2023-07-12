@@ -113,6 +113,7 @@ Starting with `/src/js/main.js` as entry point, Webpack will bundle everything (
 ## Best Practices / Tutorials Included
 
 - [Accessible hamburger buttons without JavaScript](https://www.pausly.app/blog/accessible-hamburger-buttons-without-javascript)
+- [Responsive images](https://getkirby.com/docs/cookbook/performance/responsive-images) (in image blocks)
 
 ## To Do List
 
