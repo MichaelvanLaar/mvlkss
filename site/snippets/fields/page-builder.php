@@ -87,6 +87,21 @@ $innerRowContainerClasses =
         } else {
           $columnClassOutput .= " prose-neutral dark:prose-invert";
         }
+        if ($layoutRow["layout"]->rowVerticalAlign()->isNotEmpty()) {
+          switch ($layoutRow["layout"]->rowVerticalAlign()->value()) {
+            case "top":
+              $columnClassOutput .= " flex flex-col justify-start";
+              break;
+            case "middle":
+              $columnClassOutput .= " flex flex-col justify-center";
+              break;
+            case "bottom":
+              $columnClassOutput .= " flex flex-col justify-end";
+              break;
+          }
+        } else {
+          $columnClassOutput .= " flex flex-col justify-start";
+        }
         ?>
         <div class="<?= $columnClassOutput ?> prose max-w-none">
           <?php foreach ($layoutColumn->blocks() as $block) {

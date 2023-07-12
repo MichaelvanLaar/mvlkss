@@ -69,6 +69,10 @@ settings:
           de: Volle Breite
       required: true
       default: row-container-default
+      width: 1/2
+    rowVerticalAlign:
+      extends: fields/vertical-align
+      width: 1/2
     rowPaddingTop:
       extends: fields/spacing-select
       label:
