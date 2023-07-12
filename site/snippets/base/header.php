@@ -118,7 +118,7 @@
     <!-- Row -->
     <header
       id="page-header"
-      class="h-[var(--site-header-height)] w-full bg-neutral-200 js:fixed dark:bg-neutral-600 print:bg-transparent"
+      class="z-50 h-[var(--site-header-height)] w-full bg-neutral-200 js:fixed dark:bg-neutral-600 print:bg-transparent"
     >
       <!-- Inner row container -->
       <div class="row-container-default flex justify-between py-[var(--site-header-padding-y)]">
