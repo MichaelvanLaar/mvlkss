@@ -117,7 +117,6 @@ Starting with `/src/js/main.js` as entry point, Webpack will bundle everything (
 
 ## To Do List
 
-- [ ] Add support for background images of page builder rows and grid block rows.
 - [ ] Check if all default block types can be used out of the box or if there are additions required.
 - [ ] Add button block.
 - [ ] Add language switch which should only be displayed if more than one language is set up.
