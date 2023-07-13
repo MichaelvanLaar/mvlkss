@@ -65,7 +65,7 @@ settings:
           en: Default
           de: Standard
         row-container-full:
-          en: Full Width
+          en: Full width
           de: Volle Breite
       required: true
       default: row-container-default
@@ -96,6 +96,87 @@ settings:
       label:
         en: Background Color
         de: Hintergrundfarbe
+    rowBackgroundImage:
+      type: files
+      label:
+        en: Background Image
+        de: Hintergrundbild
+      uploads: image-default
+      required: false
+      max: 1
+      multiple: false
+      width: 1/2
+    rowBackgroundImageSize:
+      type: select
+      label:
+        en: Background Image Size
+        de: Hintergrundbildgröße
+      options:
+        original:
+          en: Original size
+          de: Originalgröße
+        cover:
+          en: Fill complete row background
+          de: Kompletten Zeilenhintergrund füllen
+      required: false
+      default: cover
+      width: 1/2
+    rowBackgroundImagePosition:
+      type: select
+      label:
+        en: Background Image Position
+        de: Hintergrundbildposition
+      options:
+        top-left:
+          en: Top left
+          de: Oben links
+        top-center:
+          en: Top center
+          de: Oben mittig
+        top-right:
+          en: Top right
+          de: Oben rechts
+        middle-left:
+          en: Middle left
+          de: Mittig links
+        middle-center:
+          en: Middle center
+          de: Mittig mittig
+        middle-right:
+          en: Middle right
+          de: Mittig rechts
+        bottom-left:
+          en: Bottom left
+          de: Unten links
+        bottom-center:
+          en: Bottom center
+          de: Unten mittig
+        bottom-right:
+          en: Bottom right
+          de: Unten rechts
+      required: false
+      default: middle-center
+      width: 1/2
+    rowBackgroundImageRepeat:
+      type: select
+      label:
+        en: Background Image Repeat
+        de: Hintergrundbildwiederholung
+      options:
+        no-repeat:
+          en: No repeat
+          de: Keine Wiederholung
+        repeat:
+          en: Repeat horizontally and vertically
+          de: Horizontal und vertikal wiederholen
+        repeat-x:
+          en: Repeat horizontally
+          de: Horizontal wiederholen
+        repeat-y:
+          en: Repeat vertically
+          de: Vertikal wiederholen
+      required: false
+      default: no-repeat
       width: 1/2
     rowHtmlAttributesHeadline:
       type: headline
