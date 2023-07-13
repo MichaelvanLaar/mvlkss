@@ -19,23 +19,23 @@
 // setting has an effect on the sizes used here.
 $layoutColumnMaxWidths = [
   "1/1" => [
-    "min-width: 1024px" => 1524,
+    "min-width: 1024px" => 1458,
     "min-width: 768px" => 965,
     "default" => 714,
   ],
   "1/2" => [
-    "min-width: 1024px" => 746,
+    "min-width: 1024px" => 696,
     "min-width: 768px" =>
       $layoutColumnSplitting == "column-splitting-1/4-1/2-1/4" ? 965 : 468,
     "default" => 714,
   ],
   "1/3" => [
-    "min-width: 1024px" => 468,
+    "min-width: 1024px" => 442,
     "min-width: 768px" => 468,
     "default" => 714,
   ],
   "1/4" => [
-    "min-width: 1024px" => 357,
+    "min-width: 1024px" => 315,
     "min-width: 768px" => 468,
     "default" => 714,
   ],
