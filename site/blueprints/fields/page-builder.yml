@@ -112,7 +112,7 @@ settings:
         en: Background Image Size
         de: Hintergrundbildgröße
       options:
-        original:
+        auto:
           en: Original size
           de: Originalgröße
         cover:
