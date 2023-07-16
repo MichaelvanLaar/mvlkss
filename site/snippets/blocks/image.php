@@ -104,7 +104,7 @@ if ($src):
   $sizesAttribute = str_replace(
     "(default) ",
     "",
-    implode(", ", $sizesAttribute),
+    implode(", ", $sizesAttribute)
   );
   ?>
 <figure>
@@ -122,7 +122,7 @@ if ($src):
             ($thumbSrcset ?? "default") .
             "." .
             array_key_first($thumbSrcsets[$thumbSrcset ?? "default"]) .
-            ".type-attribute-for-source-element",
+            ".type-attribute-for-source-element"
         );
         ?>
         <source
@@ -147,7 +147,7 @@ if ($src):
         $image &&
         ($image->extension() == "jpg" || $image->extension() == "jpeg")
       ): ?>
-        style="background-color: <?= $image->color() ?>"
+        style="background-color: <?= $image->color()->value() ?>"
       <?php endif; ?>
       <?php if ($image): ?>
         width="<?= $image->width() ?>"
