@@ -40,6 +40,8 @@ $innerRowContainerClasses =
 ?>
 <?php foreach ($layoutRowsData as $layoutRow): ?>
   <!-- Row -->
+  <!-- Background Image Color Exists: <?= $layoutRow["layoutRowBackgroundImageColorExists"] ? "true" : "false" ?> -->
+  <!-- Background Color Exists: <?= $layoutRow["layoutRowBackgroundColorExists"] ? "true" : "false" ?> -->
   <section
     <?= $layoutRow["layoutRowIdAttribute"] ?>
     <?= $layoutRow["layoutRowClassAttribute"] ?>
@@ -58,16 +60,24 @@ $innerRowContainerClasses =
         $columnClassOutput .=
           $columnWidthClasses[$layoutColumn->width()] ??
           "column-width-" . $layoutColumn->width() . " col-span-full";
-        if ($layoutRow["layout"]->rowBackgroundColor()->isNotEmpty()) {
-          $rowBackgroundColorValue = $layoutRow["layout"]
-            ->rowBackgroundColor()
-            ->value();
-          $contrastColorForLightMode = option("site-constants")["site-colors"][
-            $rowBackgroundColorValue
-          ]["contrastForLightMode"];
-          $contrastColorForDarkMode = option("site-constants")["site-colors"][
-            $rowBackgroundColorValue
-          ]["contrastForDarkMode"];
+        if ($layoutRow["layoutRowBackgroundColorExists"]) {
+          if ($layoutRow["layoutRowBackgroundImageColorExists"]) {
+            $contrastColorForLightMode = $layoutRow["layout"]
+              ->rowBackgroundImage()
+              ->toFile()
+              ->color()
+              ->toMostReadable();
+            $contrastColorForDarkMode = $contrastColorForLightMode;
+          } else {
+            $contrastColorForLightMode = option("site-constants")[
+              "site-colors"
+            ][$layoutRow["layoutRowBackgroundColorValue"]][
+              "contrastForLightMode"
+            ];
+            $contrastColorForDarkMode = option("site-constants")["site-colors"][
+              $layoutRow["layoutRowBackgroundColorValue"]
+            ]["contrastForDarkMode"];
+          }
           switch ($contrastColorForLightMode) {
             case option("site-constants")["color-black"]:
               $columnClassOutput .= " prose-black";

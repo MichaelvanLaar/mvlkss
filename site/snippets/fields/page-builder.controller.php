@@ -14,8 +14,7 @@
 return function ($page) {
   $layoutRows = $page->pageBuilder()->toLayouts();
   $layoutRowsData = [];
-  $siteConstants = option("site-constants");
-  $spacingUtilityClasses = $siteConstants["spacing-utility-classes"];
+  $spacingUtilityClasses = option("site-constants")["spacing-utility-classes"];
 
   foreach ($layoutRows as $layoutRow) {
     // Construct the ID attribute for the current row
@@ -37,9 +36,25 @@ return function ($page) {
     $layoutColumnSplitting = buildColumnSplitting($layoutRow);
 
     // Set the background color related CSS class for the current row
+    // (Also checks if a background image exists that is not transparent and is
+    // set to cover the complete row background. If so, the extracted main color
+    // of the background image will be used as background color.)
     $rowBackgroundColor = $layoutRow->rowBackgroundColor();
-    $rowBackgroundColorExists = $rowBackgroundColor->isNotEmpty();
-    $rowBackgroundColorValue = $rowBackgroundColor->value();
+    $rowBackgroundImageColorExists =
+      $layoutRow->rowBackgroundImage()->isNotEmpty() &&
+        !$layoutRow->rowBackgroundImageTransparency()->toBool() &&
+        ($layoutRow->rowBackgroundImageSize() == "cover" ||
+          $layoutRow->rowBackgroundImageRepeat() == "repeat" ||
+          ($layoutRow->rowBackgroundImageRepeat() != "no-repeat" &&
+            $layoutRow->rowBackgroundImageSize() != "auto")) &&
+        $layoutRow
+          ->rowBackgroundImage()
+          ->toFile()
+          ->color()
+          ->isNotEmpty() ?? false;
+    $rowBackgroundColorExists =
+      $rowBackgroundImageColorExists || $rowBackgroundColor->isNotEmpty();
+    $rowBackgroundColorValue = $rowBackgroundColor->value() ?? "";
     $rowBackgroundColorClasses = $rowBackgroundColorExists
       ? "bg-[var(--row-background-color-light-mode)] dark:bg-[var(--row-background-color-dark-mode)]"
       : "";
@@ -65,7 +80,7 @@ return function ($page) {
     $layoutRowStyleAttribute = buildStyleAttribute(
       $layoutRow,
       $rowBackgroundColorValue,
-      $siteConstants,
+      $rowBackgroundImageColorExists,
       $rowBackgroundColorExists
     );
 
@@ -75,6 +90,9 @@ return function ($page) {
       "layoutRowIdAttribute" => $layoutRowIdAttribute,
       "layoutRowClassAttribute" => $layoutRowClassAttribute,
       "layoutRowStyleAttribute" => $layoutRowStyleAttribute,
+      "layoutRowBackgroundImageColorExists" => $rowBackgroundImageColorExists,
+      "layoutRowBackgroundColorExists" => $rowBackgroundColorExists,
+      "layoutRowBackgroundColorValue" => $rowBackgroundColorValue,
       "layout" => $layoutRow,
     ];
   }
@@ -146,18 +164,36 @@ function buildBackgroundImageClasses($layoutRow) {
 function buildStyleAttribute(
   $layoutRow,
   $rowBackgroundColorValue,
-  $siteConstants,
+  $rowBackgroundImageColorExists,
   $rowBackgroundColorExists
 ) {
   // Open the style attribute
   $layoutRowStyleAttribute = "style=\"";
 
-  // Set the background color related CSS custom properties
-  if ($rowBackgroundColorExists) {
+  //Set the background color related CSS custom properties
+  if ($rowBackgroundImageColorExists) {
     $layoutRowStyleAttribute .= sprintf(
       "--row-background-color-light-mode: %s; --row-background-color-dark-mode: %s;",
-      $siteConstants["site-colors"][$rowBackgroundColorValue]["lightMode"],
-      $siteConstants["site-colors"][$rowBackgroundColorValue]["darkMode"]
+      $layoutRow
+        ->rowBackgroundImage()
+        ->toFile()
+        ->color()
+        ->value(),
+      $layoutRow
+        ->rowBackgroundImage()
+        ->toFile()
+        ->color()
+        ->value()
+    );
+  } elseif ($rowBackgroundColorExists) {
+    $layoutRowStyleAttribute .= sprintf(
+      "--row-background-color-light-mode: %s; --row-background-color-dark-mode: %s;",
+      option("site-constants")["site-colors"][$rowBackgroundColorValue][
+        "lightMode"
+      ],
+      option("site-constants")["site-colors"][$rowBackgroundColorValue][
+        "darkMode"
+      ]
     );
   }
 
