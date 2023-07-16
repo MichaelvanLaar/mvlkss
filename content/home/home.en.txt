@@ -2,7 +2,7 @@ Title: Home
 
 ----
 
-Pagebuilder: [{"attrs":{"rowwidth":"row-container-default","rowpaddingtop":"none","rowpaddingbottom":"none","rowbackgroundcolor":"","rowid":"","rowclasses":""},"columns":[{"blocks":[{"content":{"text":"<p>Placeholder for content</p>"},"id":"258488ef-a47b-44ac-bafe-e7a26668635d","isHidden":false,"type":"text"}],"id":"c9fe97e5-66b7-4c94-9a0a-ac0506ccf1ad","width":"1/1"}],"id":"995d112d-8a16-4f99-b583-589c50105ff4"}]
+Pagebuilder: [{"attrs":{"rowwidth":"row-container-default","rowverticalalign":"top","rowpaddingtop":"none","rowpaddingbottom":"none","rowbackgroundcolor":"","rowbackgroundimage":[],"rowbackgroundimagetransparency":"false","rowbackgroundimagesize":"cover","rowbackgroundimageposition":"middle-center","rowbackgroundimagerepeat":"no-repeat","rowid":"","rowclasses":""},"columns":[{"blocks":[{"content":{"text":"<p>Placeholder for content</p>"},"id":"88d02b17-9c99-4454-ac7b-5f76d54898fe","isHidden":false,"type":"text"}],"id":"4f994e63-b637-466a-9fba-fb4ef086b364","width":"1/1"}],"id":"d2603a86-c43d-4a9f-b515-4320ed9d2ce6"}]
 
 ----
 
@@ -58,4 +58,4 @@ Uuid: w9bQ6BHXQKj6dygb
 
 ----
 
-Datemodifiedepoch: 1687135632
+Datemodifiedepoch: 1689466473
