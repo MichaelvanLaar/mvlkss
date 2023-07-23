@@ -134,22 +134,23 @@ foreach ($block->grid()->toLayouts() as $gridLayoutRow): ?>
         ]["contrastForDarkMode"];
         switch ($gridContrastColorForLightMode) {
           case "#000000":
-            $gridColumnClassOutput .= " prose-black";
+            $gridColumnInnerContainerClassOutput = " prose-black";
             break;
           case "#ffffff":
-            $gridColumnClassOutput .= " prose-white";
+            $gridColumnInnerContainerClassOutput = " prose-white";
             break;
         }
         switch ($gridContrastColorForDarkMode) {
           case "#000000":
-            $gridColumnClassOutput .= " dark:prose-black";
+            $gridColumnInnerContainerClassOutput .= " dark:prose-black";
             break;
           case "#ffffff":
-            $gridColumnClassOutput .= " dark:prose-white";
+            $gridColumnInnerContainerClassOutput .= " dark:prose-white";
             break;
         }
       } else {
-        $gridColumnClassOutput .= " prose-neutral dark:prose-invert";
+        $gridColumnInnerContainerClassOutput =
+          " prose-neutral dark:prose-invert";
       }
       if ($gridLayoutRow->gridRowVerticalAlign()->isNotEmpty()) {
         switch ($gridLayoutRow->gridRowVerticalAlign()->value()) {
@@ -167,19 +168,25 @@ foreach ($block->grid()->toLayouts() as $gridLayoutRow): ?>
         $gridColumnClassOutput .= " flex flex-col justify-start";
       }
       ?>
-      <div class="<?= $gridColumnClassOutput ?> prose max-w-none">
-        <?php foreach ($gridLayoutColumn->blocks() as $block) {
-          if (in_array($block->type(), ["image"])) {
-            snippet("blocks/" . $block->type(), [
-              "block" => $block,
-              "layoutColumnWidth" => $layoutColumnWidth ?? null,
-              "gridLayoutColumnWidth" => $gridLayoutColumn->width(),
-              "layoutColumnSplitting" => $layoutColumnSplitting,
-            ]);
-          } else {
-            echo $block;
-          }
+      <div class="<?= $gridColumnClassOutput ?>">
+        <?php if ($gridLayoutColumn->blocks()->isNotEmpty()) {
+          echo "<!-- Inner grid column container -->\n<div class=\"max-w-none prose" .
+            $gridColumnInnerContainerClassOutput .
+            "\">";
         } ?>
+          <?php foreach ($gridLayoutColumn->blocks() as $block) {
+            if (in_array($block->type(), ["image"])) {
+              snippet("blocks/" . $block->type(), [
+                "block" => $block,
+                "layoutColumnWidth" => $layoutColumnWidth ?? null,
+                "gridLayoutColumnWidth" => $gridLayoutColumn->width(),
+                "layoutColumnSplitting" => $layoutColumnSplitting,
+              ]);
+            } else {
+              echo $block;
+            }
+          } ?>
+        <?= $gridLayoutColumn->blocks()->isNotEmpty() ? "</div>" : "" ?>
       </div>
     <?php endforeach; ?>
   </div>
