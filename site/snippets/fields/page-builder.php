@@ -40,8 +40,14 @@ $innerRowContainerClasses =
 ?>
 <?php foreach ($layoutRowsData as $layoutRow): ?>
   <!-- Row -->
-  <!-- Background Image Color Exists: <?= $layoutRow["layoutRowBackgroundImageColorExists"] ? "true" : "false" ?> -->
-  <!-- Background Color Exists: <?= $layoutRow["layoutRowBackgroundColorExists"] ? "true" : "false" ?> -->
+  <!-- Background Image Color Exists: <?= $layoutRow[
+    "layoutRowBackgroundImageColorExists"
+  ]
+    ? "true"
+    : "false" ?> -->
+  <!-- Background Color Exists: <?= $layoutRow["layoutRowBackgroundColorExists"]
+    ? "true"
+    : "false" ?> -->
   <section
     <?= $layoutRow["layoutRowIdAttribute"] ?>
     <?= $layoutRow["layoutRowClassAttribute"] ?>
@@ -80,22 +86,22 @@ $innerRowContainerClasses =
           }
           switch ($contrastColorForLightMode) {
             case option("site-constants")["color-black"]:
-              $columnClassOutput .= " prose-black";
+              $columnInnerContainerClassOutput = " prose-black";
               break;
             case option("site-constants")["color-white"]:
-              $columnClassOutput .= " prose-white";
+              $columnInnerContainerClassOutput = " prose-white";
               break;
           }
           switch ($contrastColorForDarkMode) {
             case option("site-constants")["color-black"]:
-              $columnClassOutput .= " dark:prose-black";
+              $columnInnerContainerClassOutput .= " dark:prose-black";
               break;
             case option("site-constants")["color-white"]:
-              $columnClassOutput .= " dark:prose-white";
+              $columnInnerContainerClassOutput .= " dark:prose-white";
               break;
           }
         } else {
-          $columnClassOutput .= " prose-neutral dark:prose-invert";
+          $columnInnerContainerClassOutput = " prose-neutral dark:prose-invert";
         }
         if ($layoutRow["layout"]->rowVerticalAlign()->isNotEmpty()) {
           switch ($layoutRow["layout"]->rowVerticalAlign()->value()) {
@@ -113,18 +119,25 @@ $innerRowContainerClasses =
           $columnClassOutput .= " flex flex-col justify-start";
         }
         ?>
-        <div class="<?= $columnClassOutput ?> prose max-w-none">
-          <?php foreach ($layoutColumn->blocks() as $block) {
-            if (in_array($block->type(), ["image", "grid"])) {
-              snippet("blocks/" . $block->type(), [
-                "block" => $block,
-                "layoutColumnWidth" => $layoutColumn->width(),
-                "layoutColumnSplitting" => $layoutRow["layoutColumnSplitting"],
-              ]);
-            } else {
-              echo $block;
-            }
+        <div class="<?= $columnClassOutput ?>">
+          <?php if ($layoutColumn->blocks()->isNotEmpty()) {
+            echo "<!-- Inner column container -->\n<div class=\"max-w-none prose" .
+              $columnInnerContainerClassOutput .
+              "\">";
           } ?>
+            <?php foreach ($layoutColumn->blocks() as $block) {
+              if (in_array($block->type(), ["image", "grid"])) {
+                snippet("blocks/" . $block->type(), [
+                  "block" => $block,
+                  "layoutColumnWidth" => $layoutColumn->width(),
+                  "layoutColumnSplitting" =>
+                    $layoutRow["layoutColumnSplitting"],
+                ]);
+              } else {
+                echo $block;
+              }
+            } ?>
+          <?= $layoutColumn->blocks()->isNotEmpty() ? "</div>" : "" ?>
         </div>
       <?php endforeach; ?>
     </div>
