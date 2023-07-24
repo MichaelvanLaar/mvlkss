@@ -91,7 +91,6 @@ Starting with `/src/js/main.js` as entry point, Webpack will bundle everything (
   - [Grid Block](https://github.com/youngcut/kirby-grid-block)
   - [Hashed Assets](https://github.com/johannschopplich/kirby-hashed-assets)
   - [k3-date-extended](https://github.com/Adspectus/k3-date-extended)
-  - [Kirby 3 Consent Gate](https://github.com/fendinger/kirby3-consent-gate)
   - [Kirby Highlighter](https://github.com/johannschopplich/kirby-highlighter)
   - [Kirby Inherit](https://github.com/youngcut/kirby-inherit)
   - [Maintenance Mode](https://github.com/moritzebeling/kirby-maintenance)
