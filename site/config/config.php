@@ -275,6 +275,9 @@ return [
     "distantnative.retour.logs" => false,
     "languages" => true,
     "lukaskleinschmidt.resolve.cache" => true,
+    "markdown" => [
+        "extra" => true,
+    ],
     "ready" => function ($kirby) use (
         $thumbWidths,
         $thumbSrcsets,
