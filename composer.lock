@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b537ac5b1d7ac6c1a244d751f9b14359",
+    "content-hash": "50cdae8b6c5fe6fd504d8fd49c25f169",
     "packages": [
         {
             "name": "adspectus/date-extended",
@@ -440,44 +440,6 @@
                 }
             ],
             "time": "2023-06-30T08:14:59+00:00"
-        },
-        {
-            "name": "fendinger/kirby3-consent-gate",
-            "version": "1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/fendinger/kirby3-consent-gate.git",
-                "reference": "e831a4ce012d1db44a080a4ac11e6fe59a284b83"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/fendinger/kirby3-consent-gate/zipball/e831a4ce012d1db44a080a4ac11e6fe59a284b83",
-                "reference": "e831a4ce012d1db44a080a4ac11e6fe59a284b83",
-                "shasum": ""
-            },
-            "require": {
-                "getkirby/composer-installer": "^1.2"
-            },
-            "type": "kirby-plugin",
-            "extra": {
-                "installer-name": "consent-gate"
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fendinger",
-                    "email": "dev@fendinger.de"
-                }
-            ],
-            "description": "Kirby 3 Consent Gate - GDPR Compliant External Content Blocker",
-            "support": {
-                "issues": "https://github.com/fendinger/kirby3-consent-gate/issues",
-                "source": "https://github.com/fendinger/kirby3-consent-gate/tree/1.0.1"
-            },
-            "time": "2023-07-03T08:39:43+00:00"
         },
         {
             "name": "filp/whoops",
