@@ -40,14 +40,6 @@ $innerRowContainerClasses =
 ?>
 <?php foreach ($layoutRowsData as $layoutRow): ?>
   <!-- Row -->
-  <!-- Background Image Color Exists: <?= $layoutRow[
-    "layoutRowBackgroundImageColorExists"
-  ]
-    ? "true"
-    : "false" ?> -->
-  <!-- Background Color Exists: <?= $layoutRow["layoutRowBackgroundColorExists"]
-    ? "true"
-    : "false" ?> -->
   <section
     <?= $layoutRow["layoutRowIdAttribute"] ?>
     <?= $layoutRow["layoutRowClassAttribute"] ?>
@@ -118,6 +110,13 @@ $innerRowContainerClasses =
         } else {
           $columnClassOutput .= " flex flex-col justify-start";
         }
+        $columnInnerContainerClassOutput .= $layoutColumn
+          ->blocks()
+          ->first()
+          ->sticky()
+          ->toBool($default = false)
+          ? " sticky top-[var(--site-header-height)]"
+          : "";
         ?>
         <div class="<?= $columnClassOutput ?>">
           <?php if ($layoutColumn->blocks()->isNotEmpty()) {

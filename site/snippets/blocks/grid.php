@@ -18,7 +18,6 @@ $gridColumnWidthClasses = [
   "1/2" => "col-span-3",
   "1/3" => "col-span-2",
 ];
-
 /**
  * -----------------------------------------------------------------------------
  * Output
@@ -71,13 +70,6 @@ foreach ($block->grid()->toLayouts() as $gridLayoutRow): ?>
     ? "bg-[var(--grid-row-background-color-light-mode)] dark:bg-[var(--grid-row-background-color-dark-mode)]"
     : "";
 
-  // Set the sticky related CSS class for the current grid row
-  $gridRowStickyClasses = $gridLayoutRow
-    ->gridRowSticky()
-    ->toBool($default = false)
-    ? "sticky top-[var(--site-header-height)]"
-    : "";
-
   // Construct the classes attribute for the current grid row
   $gridRowClasses = [
     $gridLayoutRow->gridRowClasses(),
@@ -89,7 +81,6 @@ foreach ($block->grid()->toLayouts() as $gridLayoutRow): ?>
     $gridRowPaddingStartClass,
     $gridRowPaddingEndClass,
     $gridRowBackgroundColorClasses,
-    $gridRowStickyClasses,
   ];
   $gridRowClassAttribute = "class=\"" . implode(" ", $gridRowClasses) . "\"";
 
