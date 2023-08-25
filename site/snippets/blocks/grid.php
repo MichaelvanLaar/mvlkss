@@ -103,6 +103,7 @@ foreach ($block->grid()->toLayouts() as $gridLayoutRow): ?>
 
   <!-- Grid Row -->
   <div
+    data-page-builder-element-type="grid-row"
     <?= $gridRowIdAttribute ?>
     <?= $gridRowClassAttribute ?>
     <?= $gridRowStyleAttribute ?>
@@ -159,9 +160,9 @@ foreach ($block->grid()->toLayouts() as $gridLayoutRow): ?>
         $gridColumnClassOutput .= " flex flex-col justify-start";
       }
       ?>
-      <div class="<?= $gridColumnClassOutput ?>">
+      <div data-page-builder-element-type="grid-column" class="<?= $gridColumnClassOutput ?>">
         <?php if ($gridLayoutColumn->blocks()->isNotEmpty()) {
-          echo "<!-- Inner grid column container -->\n<div class=\"max-w-none prose" .
+          echo "<!-- Inner grid column container -->\n<div data-page-builder-element-type=\"grid-inner-column-container\" class=\"max-w-none prose" .
             $gridColumnInnerContainerClassOutput .
             "\">";
         } ?>

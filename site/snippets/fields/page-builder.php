@@ -41,12 +41,13 @@ $innerRowContainerClasses =
 <?php foreach ($layoutRowsData as $layoutRow): ?>
   <!-- Row -->
   <section
+    data-page-builder-element-type="layout-row"
     <?= $layoutRow["layoutRowIdAttribute"] ?>
     <?= $layoutRow["layoutRowClassAttribute"] ?>
     <?= $layoutRow["layoutRowStyleAttribute"] ?>
   >
     <!-- Inner row container -->
-    <div class="<?= $layoutRow[
+    <div data-page-builder-element-type="layout-inner-row-container" class="<?= $layoutRow[
       "layout"
     ]->rowWidth() ?> <?= $innerRowContainerClasses ?>">
       <?php foreach ($layoutRow["layout"]->columns() as $layoutColumn): ?>
@@ -118,9 +119,9 @@ $innerRowContainerClasses =
           ? " sticky top-[var(--site-header-height)]"
           : "";
         ?>
-        <div class="<?= $columnClassOutput ?>">
+        <div data-page-builder-element-type="layout-column" class="<?= $columnClassOutput ?>">
           <?php if ($layoutColumn->blocks()->isNotEmpty()) {
-            echo "<!-- Inner column container -->\n<div class=\"max-w-none prose" .
+            echo "<!-- Inner column container -->\n<div data-page-builder-element-type=\"layout-inner-column-container\" class=\"max-w-none prose" .
               $columnInnerContainerClassOutput .
               "\">";
           } ?>

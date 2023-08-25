@@ -23,7 +23,8 @@
   font-family: "Nunito Sans";
   font-style: normal;
   font-weight: 400;
-  src: url("../fonts/nunito-sans-v15-latin-regular.woff2") format("woff2"),
+  src:
+    url("../fonts/nunito-sans-v15-latin-regular.woff2") format("woff2"),
     url("../fonts/nunito-sans-v15-latin-regular.ttf") format("truetype");
 }
 
@@ -33,7 +34,8 @@
   font-family: "Nunito Sans";
   font-style: italic;
   font-weight: 400;
-  src: url("../fonts/nunito-sans-v15-latin-italic.woff2") format("woff2"),
+  src:
+    url("../fonts/nunito-sans-v15-latin-italic.woff2") format("woff2"),
     url("../fonts/nunito-sans-v15-latin-italic.ttf") format("truetype");
 }
 
@@ -43,7 +45,8 @@
   font-family: "Nunito Sans";
   font-style: normal;
   font-weight: 700;
-  src: url("../fonts/nunito-sans-v15-latin-700.woff2") format("woff2"),
+  src:
+    url("../fonts/nunito-sans-v15-latin-700.woff2") format("woff2"),
     url("../fonts/nunito-sans-v15-latin-700.ttf") format("truetype");
 }
 
@@ -53,7 +56,8 @@
   font-family: "Nunito Sans";
   font-style: italic;
   font-weight: 700;
-  src: url("../fonts/nunito-sans-v15-latin-700italic.woff2") format("woff2"),
+  src:
+    url("../fonts/nunito-sans-v15-latin-700italic.woff2") format("woff2"),
     url("../fonts/nunito-sans-v15-latin-700italic.ttf") format("truetype");
 }
 
@@ -180,10 +184,38 @@
     details) */
 .row-container,
 .row-container-default {
-  @apply mx-auto w-full max-w-6xl px-medium lg:px-large print:px-0;
+  @apply mx-auto w-full max-w-6xl px-medium print:px-0 lg:px-large;
 }
 
 /* Full width container */
 .row-container-full {
-  @apply w-full px-medium lg:px-large print:px-0;
+  @apply w-full px-medium print:px-0 lg:px-large;
+}
+
+/**
+ * -----------------------------------------------------------------------------
+ * Helper classes
+ * -----------------------------------------------------------------------------
+ */
+
+ /* Centered text of block elements in a layout row or grid layout row */
+[data-page-builder-element-type="layout-row"].row-text-center > div > div > div > p,
+[data-page-builder-element-type="layout-row"].row-text-center > div > div > div > h1,
+[data-page-builder-element-type="layout-row"].row-text-center > div > div > div > h2,
+[data-page-builder-element-type="layout-row"].row-text-center > div > div > div > h3,
+[data-page-builder-element-type="layout-row"].row-text-center > div > div > div > h4,
+[data-page-builder-element-type="layout-row"].row-text-center > div > div > div > h5,
+[data-page-builder-element-type="layout-row"].row-text-center > div > div > div > h6,
+[data-page-builder-element-type="layout-row"].row-text-center > div > div > div > ul,
+[data-page-builder-element-type="layout-row"].row-text-center > div > div > div > ol,
+[data-page-builder-element-type="grid-row"].row-text-center > div > div > p,
+[data-page-builder-element-type="grid-row"].row-text-center > div > div > h1,
+[data-page-builder-element-type="grid-row"].row-text-center > div > div > h2,
+[data-page-builder-element-type="grid-row"].row-text-center > div > div > h3,
+[data-page-builder-element-type="grid-row"].row-text-center > div > div > h4,
+[data-page-builder-element-type="grid-row"].row-text-center > div > div > h5,
+[data-page-builder-element-type="grid-row"].row-text-center > div > div > h6,
+[data-page-builder-element-type="grid-row"].row-text-center > div > div > ul,
+[data-page-builder-element-type="grid-row"].row-text-center > div > div > ol {
+  @apply text-center;
 }
