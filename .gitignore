@@ -1,6 +1,8 @@
 # Created by https://www.toptal.com/developers/gitignore/api/git,node,yarn,linux,macos,kirby3,windows,composer,intellij,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=git,node,yarn,linux,macos,kirby3,windows,composer,intellij,visualstudiocode
 
+# ATTENTION: Custom addition in line 147 to 149 regarding custom Kirby plugins
+
 ### Composer ###
 composer.phar
 /vendor/
@@ -141,6 +143,10 @@ fabric.properties
 # Uncomment if you install core files via composer
 /kirby
 /site/plugins/*
+
+# Do not ignore custom plugins with names starting with “mvlkss-”
+!/site/plugins/mvlkss-*/
+!/site/plugins/mvlkss-*/**
 
 # Temporary files
 /media/*
