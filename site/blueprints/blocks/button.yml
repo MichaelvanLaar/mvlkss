@@ -1,0 +1,21 @@
+#===============================================================================
+# Block: Button
+#===============================================================================
+
+name: Button
+icon: url
+fields:
+  link:
+    name:
+      en: Link
+      de: Link
+    type: url
+    width: 1/2
+  linkTarget:
+    extends: fields/link-target
+    width: 1/2
+  text:
+    name:
+      en: Button Label
+      de: Button-Beschriftung
+    type: text
