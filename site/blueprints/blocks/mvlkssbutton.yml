@@ -7,8 +7,14 @@ name:
   de: Button
 icon: url
 fields:
+  text:
+    label:
+      en: Button Label
+      de: Button-Beschriftung
+    type: text
+    required: true
   link:
-    name:
+    label:
       en: Link
       de: Link
     type: text
@@ -18,9 +24,55 @@ fields:
   linkTarget:
     extends: fields/link-target
     width: 1/2
-  text:
-    name:
-      en: Button Label
-      de: Button-Beschriftung
-    type: text
+  color:
+    extends: fields/site-color-select
     required: true
+    width: 1/2
+  outline:
+    type: toggles
+    label:
+      en: Style
+      de: Stil
+    options:
+      filled:
+        en: Filled-in
+        de: Ausgefüllt
+      outline:
+        en: Outline
+        de: Outline
+    default: filled
+    required: true
+    width: 1/2
+  align:
+    type: toggles
+    label:
+      en: Alignment
+      de: Ausrichtung
+    options:
+      left:
+        en: Left
+        de: Links
+      center:
+        en: Center
+        de: Zentriert
+      right:
+        en: Right
+        de: Rechts
+    default: left
+    required: true
+    width: 1/2
+  width:
+    type: toggles
+    label:
+      en: Width
+      de: Breite
+    options:
+      flexible:
+        en: Flexible
+        de: Flexibel
+      fullWidth:
+        en: Full Width
+        de: Volle Breite
+    default: flexible
+    required: true
+    width: 1/2

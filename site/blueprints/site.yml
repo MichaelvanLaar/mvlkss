@@ -109,6 +109,11 @@ tabs:
                 label:
                   en: Include in Color Select Field
                   de: In Farbauswahlfeld aufnehmen
+                text:
+                  - en: Don’t include
+                    de: Nicht aufnehmen
+                  - en: Include
+                    de: Aufnehmen
                 help:
                   en: If enabled, website editors will see this color in color seleect fields.
                   de: Wenn aktiviert, sehen Website-Editoren diese Farbe in Farbauswahlfeldern.
