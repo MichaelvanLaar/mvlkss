@@ -26,9 +26,8 @@ fields:
     width: 1/2
   color:
     extends: fields/site-color-select
-    required: true
     width: 1/2
-  outline:
+  style:
     type: toggles
     label:
       en: Style
@@ -48,16 +47,19 @@ fields:
     label:
       en: Alignment
       de: Ausrichtung
+    help:
+      en: In LTR languages, “start” means left and “end” means right. In RTL languages, everything is reversed.
+      de: In LTR-Sprachen steht „Anfang“ für links und „Ende“ für rechts. In RTL-Sprachen ist alles umgekehrt.
     options:
-      left:
-        en: Left
-        de: Links
+      start:
+        en: Start
+        de: Anfang
       center:
         en: Center
         de: Zentriert
-      right:
-        en: Right
-        de: Rechts
+      end:
+        en: End
+        de: Ende
     default: left
     required: true
     width: 1/2
