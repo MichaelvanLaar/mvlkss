@@ -4,7 +4,7 @@
 # Used to select if a link should open in a new browser tab or not.
 #===============================================================================
 
-type: select
+type: toggles
 label:
   en: Link Target
   de: Link-Ziel
