@@ -24,11 +24,15 @@ Use whichever clone method you like best.
 composer install
 ```
 
+Required on development machine as well as on production server.
+
 ### Step 3: Install Tailwind CSS and All Required Build Tools
 
 ```bash
 npm install
 ```
+
+Only required on the development machine. After using the build script at least once, all required assets are in place and and can be transfered to a production server. Neither npm or any npm module is required on the production server.
 
 ## Use
 
@@ -115,7 +119,6 @@ Starting with `/src/js/main.js` as entry point, Webpack will bundle everything (
 
 ## To Do List
 
-- [ ] Add button block.
 - [ ] Add language switch which should only be displayed if more than one language is set up.
 - [ ] Add hreflang links which should only be included if more than one language is set up.
 
