@@ -10,6 +10,10 @@
   padding: 0.25rem 1.5rem;
   cursor: pointer;
 }
+.k-block-type-mvlkssbutton button.button-style-filled {
+  background-color: #000;
+  color: var(--color-white);
+}
 .k-block-type-mvlkssbutton button:empty::after {
   content: "Button text …";
   color: var(--color-text-light);
@@ -18,13 +22,17 @@
   outline: 0;
   border-color: var(--color-focus);
 }
+.k-block-type-mvlkssbutton button.button-style-filled:focus {
+  background-color: var(--color-focus);
+}
+
 
 .k-block-type-mvlkssbutton .button-align-center {
   text-align: center;
 }
 
-.k-block-type-mvlkssbutton .button-align-right {
-  text-align: right;
+.k-block-type-mvlkssbutton .button-align-end {
+  text-align: end;
 }
 
 .k-block-type-mvlkssbutton button.button-width-fullWidth {
