@@ -85,6 +85,19 @@
   html {
     @apply font-primary;
   }
+
+  /**
+   * ---------------------------------------------------------------------------
+   * Global link hover effect
+   * ---------------------------------------------------------------------------
+   */
+
+  a {
+    @apply hover:brightness-125;
+    transition-property: filter;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+  }
 }
 
 @layer components {
@@ -198,16 +211,52 @@
  * -----------------------------------------------------------------------------
  */
 
- /* Centered text of block elements in a layout row or grid layout row */
-[data-page-builder-element-type="layout-row"].row-text-center > div > div > div > p,
-[data-page-builder-element-type="layout-row"].row-text-center > div > div > div > h1,
-[data-page-builder-element-type="layout-row"].row-text-center > div > div > div > h2,
-[data-page-builder-element-type="layout-row"].row-text-center > div > div > div > h3,
-[data-page-builder-element-type="layout-row"].row-text-center > div > div > div > h4,
-[data-page-builder-element-type="layout-row"].row-text-center > div > div > div > h5,
-[data-page-builder-element-type="layout-row"].row-text-center > div > div > div > h6,
-[data-page-builder-element-type="layout-row"].row-text-center > div > div > div > ul,
-[data-page-builder-element-type="layout-row"].row-text-center > div > div > div > ol,
+/* Centered text of block elements in a layout row or grid layout row */
+[data-page-builder-element-type="layout-row"].row-text-center
+  > div
+  > div
+  > div
+  > p,
+[data-page-builder-element-type="layout-row"].row-text-center
+  > div
+  > div
+  > div
+  > h1,
+[data-page-builder-element-type="layout-row"].row-text-center
+  > div
+  > div
+  > div
+  > h2,
+[data-page-builder-element-type="layout-row"].row-text-center
+  > div
+  > div
+  > div
+  > h3,
+[data-page-builder-element-type="layout-row"].row-text-center
+  > div
+  > div
+  > div
+  > h4,
+[data-page-builder-element-type="layout-row"].row-text-center
+  > div
+  > div
+  > div
+  > h5,
+[data-page-builder-element-type="layout-row"].row-text-center
+  > div
+  > div
+  > div
+  > h6,
+[data-page-builder-element-type="layout-row"].row-text-center
+  > div
+  > div
+  > div
+  > ul,
+[data-page-builder-element-type="layout-row"].row-text-center
+  > div
+  > div
+  > div
+  > ol,
 [data-page-builder-element-type="grid-row"].row-text-center > div > div > p,
 [data-page-builder-element-type="grid-row"].row-text-center > div > div > h1,
 [data-page-builder-element-type="grid-row"].row-text-center > div > div > h2,
