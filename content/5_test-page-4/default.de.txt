@@ -1,0 +1,69 @@
+Title: Testseite 4
+
+----
+
+Slug: testseite-4
+
+----
+
+Text: 
+
+----
+
+Seotitle: 
+
+----
+
+Appenddefaultdividertotitleelement: true
+
+----
+
+Appendsitetitletotitleelement: true
+
+----
+
+Seodescription: 
+
+----
+
+Seoindex: true
+
+----
+
+Socialsharetitle: 
+
+----
+
+Appenddefaultdividertosocialsharetitle: false
+
+----
+
+Appendsitetitletosocialsharetitle: false
+
+----
+
+Socialsharedescription: 
+
+----
+
+Twittercreatorhandle: 
+
+----
+
+Includeinmenus: footer
+
+----
+
+Datecreatedepoch: 1685392570
+
+----
+
+Datemodifiedepoch: 1694876329
+
+----
+
+Pagebuilder: 
+
+----
+
+Socialshareimage: 

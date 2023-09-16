@@ -1,0 +1,25 @@
+Title: Google
+
+----
+
+Menuitemurl: https://www.google.de/
+
+----
+
+Menuitemtarget: _blank
+
+----
+
+Includeinmenus: main
+
+----
+
+Datecreatedepoch: 1685385549
+
+----
+
+Datemodifiedepoch: 1694876271
+
+----
+
+Url: https://www.google.com/

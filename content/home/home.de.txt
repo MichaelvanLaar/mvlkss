@@ -1,0 +1,57 @@
+Title: Startseite
+
+----
+
+Pagebuilder: [{"attrs":{"rowwidth":"row-container-default","rowverticalalign":"top","rowpaddingtop":"none","rowpaddingbottom":"none","rowbackgroundcolor":"","rowbackgroundimage":[],"rowbackgroundimagetransparency":"false","rowbackgroundimagesize":"cover","rowbackgroundimageposition":"middle-center","rowbackgroundimagerepeat":"no-repeat","rowid":"","rowclasses":""},"columns":[{"blocks":[{"content":{"text":"<p>Placeholder for content</p>"},"id":"88d02b17-9c99-4454-ac7b-5f76d54898fe","isHidden":false,"type":"text"}],"id":"4f994e63-b637-466a-9fba-fb4ef086b364","width":"1/1"}],"id":"d2603a86-c43d-4a9f-b515-4320ed9d2ce6"}]
+
+----
+
+Seotitle: 
+
+----
+
+Appenddefaultdividertotitleelement: true
+
+----
+
+Appendsitetitletotitleelement: true
+
+----
+
+Seodescription: 
+
+----
+
+Seoindex: true
+
+----
+
+Socialsharetitle: 
+
+----
+
+Appenddefaultdividertosocialsharetitle: false
+
+----
+
+Appendsitetitletosocialsharetitle: false
+
+----
+
+Socialsharedescription: 
+
+----
+
+Socialshareimage: 
+
+----
+
+Twittercreatorhandle: 
+
+----
+
+Includeinmenus: main
+
+----
+
+Datemodifiedepoch: 1694876158

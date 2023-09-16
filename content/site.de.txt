@@ -1,0 +1,50 @@
+Title: Website-Titel
+
+----
+
+Sitelogo: - file://2Lx4HV4jCW4Ihdi5
+
+----
+
+Sitesocialshareimage: 
+
+----
+
+Defaultdivider: |
+
+----
+
+Twittersitehandle: 
+
+----
+
+Maintenance: false
+
+----
+
+Maintenance-text: 
+
+----
+
+Brandcolors:
+
+- 
+  name: Brand Red
+  lightmode: '#d20f0a'
+  darkmode: '#9b0b07'
+- 
+  name: Brand Yellow
+  lightmode: '#ffe60f'
+  darkmode: '#bdaa0b'
+- 
+  name: Brand Blue
+  lightmode: '#0a4baa'
+  darkmode: '#07387e'
+
+----
+
+Mainnavigation: 
+
+----
+
+Footernavigation: 
