@@ -15,7 +15,7 @@
     "> 0.1%, last 2 versions, Firefox ESR, not dead"
   ],
   "devDependencies": {
-    "@babel/core": "^7.22.15",
+    "@babel/core": "^7.22.19",
     "@babel/preset-env": "^7.22.15",
     "@prettier/plugin-php": "^0.20.1",
     "@tailwindcss/aspect-ratio": "^0.4.2",
@@ -29,7 +29,7 @@
     "css-loader": "^6.8.1",
     "cssnano": "^6.0.1",
     "mini-css-extract-plugin": "^2.7.6",
-    "npm-check-updates": "^16.13.2",
+    "npm-check-updates": "^16.14.3",
     "postcss": "^8.4.29",
     "postcss-loader": "^7.3.3",
     "prettier": "^3.0.3",
