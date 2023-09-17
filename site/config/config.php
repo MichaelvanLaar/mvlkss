@@ -285,11 +285,28 @@ return [
         $spacingUtilityClasses
     ) {
         $siteColorSchemeData = getSiteColorScheme($kirby);
+
+        // Fetch XML sitemap URLs for robots.txt file
+        $sitemapPages = $kirby
+            ->site()
+            ->index()
+            ->filterBy("template", "xml-sitemap");
+        $sitemapEntriesForRobotsTxt = [];
+        foreach ($sitemapPages as $page) {
+            foreach ($kirby->languages() as $language) {
+                $sitemapEntriesForRobotsTxt[] =
+                    "Sitemap: " . $page->url($language->code()) . ".xml";
+            }
+        }
+        $sitemapContentForRobotsTxt = implode(
+            "\n",
+            $sitemapEntriesForRobotsTxt
+        );
+
         return [
             "bnomei.robots-txt.content" =>
-                "# https://www.robotstxt.org/\n\n# Allow crawling of all content\nUser-agent: *\nDisallow:\n\nSitemap: " .
-                $kirby->site()->url() .
-                "/sitemap.xml",
+                "# https://www.robotstxt.org/\n\n# Allow crawling of all content\nUser-agent: *\nDisallow:\n\n" .
+                $sitemapContentForRobotsTxt,
             "bnomei.robots-txt.groups" => null,
             "bnomei.robots-txt.sitemap" => null,
             "site-constants" => [
