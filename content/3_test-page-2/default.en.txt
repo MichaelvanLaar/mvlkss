@@ -2,7 +2,7 @@ Title: Test page 2
 
 ----
 
-Text: 
+Pagebuilder: 
 
 ----
 
@@ -42,11 +42,19 @@ Socialsharedescription:
 
 ----
 
+Socialshareimage: 
+
+----
+
 Twittercreatorhandle: 
 
 ----
 
 Includeinmenus: main
+
+----
+
+Text: 
 
 ----
 
@@ -58,4 +66,4 @@ Datecreatedepoch: 1685363587
 
 ----
 
-Datemodifiedepoch: 1685386941
+Datemodifiedepoch: 1694986366

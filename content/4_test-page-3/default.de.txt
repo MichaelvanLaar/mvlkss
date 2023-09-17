@@ -26,10 +26,6 @@ Seodescription:
 
 ----
 
-Seoindex: true
-
-----
-
 Socialsharetitle: 
 
 ----
