@@ -292,12 +292,6 @@ return [
                 "/sitemap.xml",
             "bnomei.robots-txt.groups" => null,
             "bnomei.robots-txt.sitemap" => null,
-            "isaactopo.xmlsitemap.ignore" => $kirby
-                ->site()
-                ->index()
-                ->filterBy("seoIndex", "false")
-                ->pluck("uri"),
-            "isaactopo.xmlsitemap.includeImages" => true,
             "site-constants" => [
                 "thumb-widths" => $thumbWidths,
                 "thumb-srcsets" => $thumbSrcsets,
