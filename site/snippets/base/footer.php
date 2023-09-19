@@ -16,10 +16,11 @@
     <footer
       id="page-footer"
       class="w-full bg-neutral-600 py-medium dark:bg-neutral-900 print:hidden"
+      role="contentinfo"
     >
       <!-- Inner row container -->
       <div class="row-container-default flex flex-col items-center justify-between text-white md:flex-row md:items-stretch">
-        <nav class="mb-3 flex items-center md:mb-0">
+        <nav class="mb-3 flex items-center md:mb-0" aria-label="Footer Links">
           <ul class="flex">
             <?php foreach ($footerMenuItems as $menuItem): ?>
               <li class="me-medium">
