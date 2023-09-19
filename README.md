@@ -117,9 +117,4 @@ Starting with `/src/js/main.js` as entry point, Webpack will bundle everything (
 - [Accessible hamburger buttons without JavaScript](https://www.pausly.app/blog/accessible-hamburger-buttons-without-javascript)
 - [Responsive images](https://getkirby.com/docs/cookbook/performance/responsive-images) (in image blocks)
 
-## To Do List
-
-- [ ] Add language switch which should only be displayed if more than one language is set up.
-- [ ] Add hreflang links which should only be included if more than one language is set up.
-
 [^1]: No browser sync or auto-refresh feature is included. Just use a browser extension like [Tab Auto Refresh](https://addons.mozilla.org/de/firefox/addon/tab-auto-refresh/) for Firefox. Or use a development browser like [Polypane](https://polypane.app/) which has a handy live reload feature already built in.

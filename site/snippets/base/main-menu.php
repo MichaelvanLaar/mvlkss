@@ -10,6 +10,12 @@
  * - $mainMenuItems
  * - $mainMenuOpenLabel
  * - $mainMenuCloseLabel
+ * 
+ * Requires variables from the snippet call:
+ * - $pageLanguageCode
+ * - $languages
+ * - $defaultLanguage
+ * - $hasMoreThanOneLanguage
  * =============================================================================
  */
 ?>
@@ -21,7 +27,7 @@
             class="hidden"
             aria-hidden="true"
           />
-          <nav class="flex items-center">
+          <nav class="flex items-center" role="navigation">
             <!-- Toggle button for mobile menu, see:
                  https://www.pausly.app/blog/accessible-hamburger-buttons-without-javascript
                  (with animated toogle icon instead of two unicode characters) -->
@@ -60,13 +66,13 @@
             </div>
 
             <!-- Main menu items -->
-            <ul class="invisible absolute end-3 top-[var(--site-header-height)] flex max-h-[calc(100vh_-_var(--site-header-height)_-_0.75rem)] max-w-2xl flex-col overflow-y-auto bg-neutral-300 py-3 opacity-0 transition-[opacity,_visibility] duration-300 ease-in-out dark:bg-neutral-700 md:visible md:static md:max-h-none md:flex-row md:overflow-y-visible md:bg-transparent md:py-0 md:opacity-100">
+            <ul id="main-menu" class="invisible absolute end-small top-[var(--site-header-height)] flex max-h-[calc(100vh_-_var(--site-header-height)_-_0.75rem)] max-w-2xl flex-col overflow-y-auto bg-neutral-300 py-small opacity-0 transition-[opacity,_visibility] duration-300 ease-in-out dark:bg-neutral-700 md:visible md:static md:max-h-none md:flex-row md:overflow-y-visible md:bg-transparent md:py-0 md:opacity-100">
               <?php foreach ($mainMenuItems as $menuItem): ?>
                 <li class="<?= $menuItem["isActive"] ?> md:ms-medium">
                   <a
                     href="<?= $menuItem["url"] ?>"
                     target="<?= $menuItem["target"] ?>"
-                    class="block px-medium py-3 md:static md:px-0 md:py-0"
+                    class="block px-medium py-small md:static md:px-0 md:py-0"
                     <?= $menuItem["target"] == "_blank"
                       ? "rel=\"noopener\""
                       : "" ?>
@@ -75,6 +81,43 @@
                   </a>
                 </li>
               <?php endforeach; ?>
+              
+              <?php if ($hasMoreThanOneLanguage): ?>
+                <!-- Language switcher -->
+                <li class="md:ms-large">
+                  <div class="flex px-medium pb-small pt-medium uppercase md:static md:px-0 md:py-0">
+                    <?php
+                    $languageCount = count($languages);
+                    $counter = 0;
+                    foreach ($languages as $lang): ?>
+                      <?php
+                      $counter++;
+                      if ($pageLanguageCode != $lang->code()): ?>
+                        <a
+                          href="<?= $page->url($lang->code()) ?>"
+                          aria-label="<?= $lang->translations()["Switch to"] .
+                            " " .
+                            $lang->name() ?>"
+                        >
+                      <?php else: ?>
+                        <span class="text-neutral-500">
+                      <?php endif;
+                      ?>
+                          <small><?= $lang->code() ?></small>
+                      <?php if ($kirby->language()->code() != $lang->code()): ?>
+                        </a>
+                      <?php else: ?>
+                        </span>
+                      <?php endif; ?>
+                      <?php if ($counter < $languageCount): ?>
+                        <span class="px-1 text-neutral-500"><small>/</small></span>
+                      <?php endif; ?>
+                    <?php endforeach;
+                    ?>
+                  </div>
+                </li>
+              <?php endif; ?>
+
             </ul>
           </nav>
         </div>

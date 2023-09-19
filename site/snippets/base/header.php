@@ -9,6 +9,9 @@
  * Receives variables from snippet controller:
  * - $pageLanguageCode
  * - $pageLanguageLocale
+ * - $languages
+ * - $defaultLanguage
+ * - $hasMoreThanOneLanguage
  * - $metaTitle
  * - $metaDescription
  * - $socialShareTitleOutput
@@ -106,6 +109,22 @@
       <meta name="twitter:image" content="<?= $socialShareImageUrlOutput ?>" />
     <?php endif; ?>
 
+    <!-- Hreflang annotations -->
+    <?php if ($hasMoreThanOneLanguage): ?>
+      <?php foreach ($languages as $lang): ?>
+        <link 
+          rel="alternate" 
+          hreflang="<?= $lang->code() ?>" 
+          href="<?= $page->url($lang->code()) ?>" 
+        />
+      <?php endforeach; ?>
+      <link 
+        rel="alternate" 
+        hreflang="x-default" 
+        href="<?= $page->url($defaultLanguage->code()) ?>" 
+      />
+    <?php endif; ?>
+
     <link rel="canonical" href="<?= $page->url() ?>" />
     <?php if (!$page->seoIndex()->toBool()): ?>
       <meta name="robots" content="noindex, nofollow">
@@ -119,6 +138,7 @@
     <header
       id="page-header"
       class="z-50 h-[var(--site-header-height)] w-full bg-neutral-200 js:fixed dark:bg-neutral-600 print:bg-transparent"
+      role="banner"
     >
       <!-- Inner row container -->
       <div class="row-container-default flex justify-between py-[var(--site-header-padding-y)]">
@@ -127,6 +147,7 @@
           <a
             href="<?= $site->url() ?>"
             title="<?= $site->title() ?> → <?= $site->homePage()->title() ?>"
+            aria-label="<?= $site->title() ?> Logo"
           >
             <?= $siteLogoFile->extension() == "svg"
               ? svg($siteLogoFile)
@@ -134,6 +155,12 @@
           </a>
         </div>
 
-        <?php snippet("base/main-menu"); ?>
+        <?php snippet("base/main-menu", [
+          "pageLanguageCode" => $pageLanguageCode,
+          "languages" => $languages,
+          "defaultLanguage" => $defaultLanguage,
+          "hasMoreThanOneLanguage" => $hasMoreThanOneLanguage,
+        ]); ?>
+
       </div>
     </header>

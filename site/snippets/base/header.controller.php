@@ -9,6 +9,9 @@
  * Provides variables for use in the header snippet:
  * - $pageLanguageCode
  * - $pageLanguageLocale
+ * - $hasMoreThanOneLanguage
+ * - $languages
+ * - $defaultLanguage
  * - $metaTitle
  * - $metaDescription
  * - $socialShareTitleOutput
@@ -30,6 +33,9 @@ return function ($kirby, $site, $page) {
   $seoDescription = $page->seoDescription();
   $twitterSiteHandle = $site->twitterSiteHandle();
   $twitterCreatorHandle = $page->twitterCreatorHandle();
+  $languages = $kirby->languages()->sortBy('code', 'asc');
+  $defaultLanguage = $kirby->defaultLanguage();
+  $hasMoreThanOneLanguage = !is_null($languages) && count($languages) > 1;
 
   // Construct meta title (for <title> element)
   $metaTitle = $seoTitle->length() > 0 ? $seoTitle : $title;
@@ -72,6 +78,9 @@ return function ($kirby, $site, $page) {
     "pageLanguageLocale" => $kirby->language()
       ? $kirby->language()->locale(LC_ALL)
       : "en_US",
+    "languages" => $languages,
+    "defaultLanguage" => $defaultLanguage,
+    "hasMoreThanOneLanguage" => $hasMoreThanOneLanguage,
     "metaTitle" => $metaTitle,
     "metaDescription" => $seoDescription->length() > 0 ? $seoDescription : "",
     "socialShareTitleOutput" => $socialShareTitleOutput,
