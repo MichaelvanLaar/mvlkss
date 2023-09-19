@@ -11,6 +11,7 @@ snippet("base/header"); ?>
     <div
       id="page-main-section"
       class="js-page-main-content flex-grow js:mt-[var(--site-header-initial-height)]"
+      role="main"
     >
       <?php snippet("fields/page-builder"); ?>
 
