@@ -9,6 +9,7 @@
  * Provides variables for use in the header snippet:
  * - $pageLanguageCode
  * - $pageLanguageLocale
+ * - $pageLanguageDirection
  * - $hasMoreThanOneLanguage
  * - $languages
  * - $defaultLanguage
@@ -80,6 +81,9 @@ return function ($kirby, $site, $page) {
       : "en_US",
     "languages" => $languages,
     "defaultLanguage" => $defaultLanguage,
+    "pageLanguageDirection" => $kirby->language()
+      ? $kirby->language()->direction()
+      : "ltr",
     "hasMoreThanOneLanguage" => $hasMoreThanOneLanguage,
     "metaTitle" => $metaTitle,
     "metaDescription" => $seoDescription->length() > 0 ? $seoDescription : "",

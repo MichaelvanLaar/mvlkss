@@ -11,6 +11,7 @@
  * - $pageLanguageLocale
  * - $languages
  * - $defaultLanguage
+ * - $pageLanguageDirection
  * - $hasMoreThanOneLanguage
  * - $metaTitle
  * - $metaDescription
@@ -26,7 +27,7 @@
 // Include centrally managed global constants
 ?>
 <!DOCTYPE html>
-<html class="no-js" lang="<?= $pageLanguageCode ?>">
+<html class="no-js" lang="<?= $pageLanguageCode ?>" dir="<?= $pageLanguageDirection ?>">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
