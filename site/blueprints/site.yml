@@ -69,89 +69,13 @@ tabs:
           twitterSiteHandle:
             type: text
             label:
-              en: Twitter Handle of the Site
-              de: Twitter-Account der Website
+              en: X Handle of the Site
+              de: X-Account der Website
             help:
               en: Please include the leading “@” character
               de: Bitte mit dem „@“-Zeichen beginnen
             width: 1/4
             pattern: "^@([A-Za-z0-9_]{1,15})$"
-          siteColorScheme:
-            disabled: false
-            type: structure
-            label:
-              en: Color Scheme
-              de: Farbschema
-            duplicate: false
-            fields:
-              id:
-                type: slug
-                label:
-                  en: Unique ID
-                  de: Eindeutige ID
-                help:
-                  en: "ATTENTION: This ID must be UNIQUE and must NEVER BE CHANGED once it has been set. Doing so would break the use of this color everywhere on the site."
-                  de: "ACHTUNG: Diese ID muss EINDEUTIG sein und DARF NIEMALS GEÄNDERT werden, nachdem sie einmal gesetzt wurde. Andernfalls würde die Verwendung dieser Farbe auf der gesamten Website nicht mehr funktionieren."
-                icon: key
-                translate: false
-                required: true
-                width: 1/3
-              name:
-                type: text
-                label:
-                  en: Color Name
-                  de: Farbname
-                help:
-                  en: "This name is used in option lists of select fields. So choose a meaningful and short name."
-                  de: "Dieser Name wird in Optionslisten von Select-Feldern verwendet. Wählen Sie also einen aussagekräftigen und kurzen Namen."
-                required: true
-                width: 1/3
-              includeInColorSelect:
-                type: toggle
-                label:
-                  en: Include in Color Select Field
-                  de: In Farbauswahlfeld aufnehmen
-                text:
-                  - en: Don’t include
-                    de: Nicht aufnehmen
-                  - en: Include
-                    de: Aufnehmen
-                help:
-                  en: If enabled, website editors will see this color in color seleect fields.
-                  de: Wenn aktiviert, sehen Website-Editoren diese Farbe in Farbauswahlfeldern.
-                default: true
-                translate: false
-                width: 1/3
-              lightMode:
-                type: colors
-                label:
-                  en: Light Mode
-                  de: Light Mode
-                contrast: true
-                default: "#ffffff"
-                translate: false
-                required: true
-                width: 1/2
-              darkMode:
-                type: colors
-                label:
-                  en: Dark Mode
-                  de: Dark Mode
-                contrast: true
-                default: "#000000"
-                translate: false
-                required: true
-                width: 1/2
-          siteColorSchemeWarning:
-            type: info
-            label:
-              en: ATTENTION
-              de: ACHTUNG
-            text:
-              en: Never delete a row in the color scheme table – unless you are absolutely sure what you are doing. Deleting colors may break the site.
-              de: Löschen Sie niemals eine Zeile in der Farbschema-Tabelle – es sei denn, Sie wissen genau, was Sie tun. Das Löschen von Farben kann die fehlerfreie Darstellung der Website beeinträchtigen.
-            theme: negative
-      maintenanceMode: sections/maintenance
 
   # Uploaded files tab
   uploadedFiles: tabs/uploaded-files

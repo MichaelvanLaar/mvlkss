@@ -1,15 +1,15 @@
 <?php
 
 return [
-    "code" => "de",
-    "default" => false,
-    "direction" => "ltr",
-    "locale" => [
-        "LC_ALL" => "de_DE",
+    'code' => 'de',
+    'default' => false,
+    'direction' => 'ltr',
+    'locale' => [
+        'LC_ALL' => 'de_DE'
     ],
-    "name" => "Deutsch",
-    "translations" => [
-        "Switch to" => "Wechseln zu",
+    'name' => 'Deutsch',
+    'translations' => [
+
     ],
-    "url" => null,
+    'url' => NULL
 ];

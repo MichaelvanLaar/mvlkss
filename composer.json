@@ -23,23 +23,7 @@
   },
   "require": {
     "php": ">=8.0.0 <8.3.0",
-    "getkirby/cms": "^3.9",
-    "lukaskleinschmidt/kirby-snippet-controller": "^2.0",
-    "afbora/kirby-minify-html": "^2.0",
-    "lukaskleinschmidt/kirby-resolve": "^1.0",
-    "johannschopplich/kirby-hashed-assets": "^3.0",
-    "bnomei/kirby3-robots-txt": "^1.5",
-    "distantnative/retour-for-kirby": "^4.4",
-    "fabianmichael/kirby-markdown-field": "^2.1",
-    "adspectus/date-extended": "^1.1",
-    "sylvainjule/colorextractor": "^1.0",
-    "hananils/kirby-colors": "^1.7",
-    "microman/kirby-inherit": "^1.0",
-    "hananils/kirby-date-methods": "^2.1",
-    "bvdputte/kirby-bettersearch": "^2.0",
-    "moritzebeling/kirby-maintenance": "^1.0",
-    "microman/kirby-grid-blocks": "^1.0",
-    "johannschopplich/kirby-highlighter": "^3.0"
+    "getkirby/cms": "^3.9"
   },
   "config": {
     "allow-plugins": {

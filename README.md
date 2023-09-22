@@ -88,23 +88,6 @@ Starting with `/src/js/main.js` as entry point, Webpack will bundle everything (
 ## Tools Included
 
 - [Kirby](https://getkirby.com/) (via [Composer](https://getcomposer.org/))
-- Kirby plugins (via [Composer](https://getcomposer.org/)):
-  - [Bettersearch](https://github.com/bvdputte/kirby-bettersearch)
-  - [Color Extractor](https://github.com/sylvainjule/kirby-colorextractor)
-  - [Colors](https://github.com/hananils/kirby-colors)
-  - [Date Methods](https://github.com/hananils/kirby-date-methods)
-  - [Grid Block](https://github.com/youngcut/kirby-grid-block)
-  - [Hashed Assets](https://github.com/johannschopplich/kirby-hashed-assets)
-  - [k3-date-extended](https://github.com/Adspectus/k3-date-extended)
-  - [Kirby Highlighter](https://github.com/johannschopplich/kirby-highlighter)
-  - [Kirby Inherit](https://github.com/youngcut/kirby-inherit)
-  - [Maintenance Mode](https://github.com/moritzebeling/kirby-maintenance)
-  - [Markdown Field](https://github.com/fabianmichael/kirby-markdown-field)
-  - [Minify HTML](https://github.com/afbora/kirby-minify-html)
-  - [Resolve](https://github.com/lukaskleinschmidt/kirby-resolve)
-  - [Retour](https://github.com/distantnative/retour-for-kirby)
-  - [Robots.txt](https://github.com/bnomei/kirby3-robots-txt)
-  - [Snippet Controller](https://github.com/lukaskleinschmidt/kirby-snippet-controller)
 - [PostCSS](https://postcss.org/)
 - [Tailwind CSS](https://tailwindcss.com/) (including the [forms plugin](https://tailwindcss.com/docs/plugins#forms), the [aspect ration plugin](https://tailwindcss.com/docs/plugins#aspect-ratio) and the [typography plugin](https://tailwindcss.com/docs/plugins#typography))
 - [Autoprefixer](https://github.com/postcss/autoprefixer)
