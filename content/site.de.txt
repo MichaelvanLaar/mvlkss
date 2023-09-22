@@ -10,7 +10,7 @@ Sitesocialshareimage:
 
 ----
 
-Defaultdivider: –
+Defaultdivider: |
 
 ----
 

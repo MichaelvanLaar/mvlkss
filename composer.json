@@ -1,6 +1,6 @@
 {
-  "name": "getkirby/plainkit",
-  "description": "Kirby Plainkit",
+  "name": "michaelvanlaar/mvlkss",
+  "description": "Michael van Laar’s Kirby Site Starter",
   "type": "project",
   "keywords": [
     "kirby",
@@ -12,6 +12,11 @@
       "name": "Bastian Allgeier",
       "email": "bastian@getkirby.com",
       "homepage": "https://getkirby.com"
+    },
+    {
+      "name": "Michael van Laar",
+      "email": "michael@van-laar.de",
+      "homepage": "https://michaelvanlaar.com"
     }
   ],
   "homepage": "https://getkirby.com",
