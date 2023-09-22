@@ -1011,16 +1011,16 @@
         },
         {
             "name": "lukaskleinschmidt/kirby-snippet-controller",
-            "version": "2.0.1",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lukaskleinschmidt/kirby-snippet-controller.git",
-                "reference": "83f63b45f2241844da2818349cdd6e90a0fa1f30"
+                "reference": "57bcda190eec630b7e796ff357d5bf9784c6d876"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lukaskleinschmidt/kirby-snippet-controller/zipball/83f63b45f2241844da2818349cdd6e90a0fa1f30",
-                "reference": "83f63b45f2241844da2818349cdd6e90a0fa1f30",
+                "url": "https://api.github.com/repos/lukaskleinschmidt/kirby-snippet-controller/zipball/57bcda190eec630b7e796ff357d5bf9784c6d876",
+                "reference": "57bcda190eec630b7e796ff357d5bf9784c6d876",
                 "shasum": ""
             },
             "require": {
@@ -1043,9 +1043,9 @@
             "description": "Kirby Snippet Controller",
             "support": {
                 "issues": "https://github.com/lukaskleinschmidt/kirby-snippet-controller/issues",
-                "source": "https://github.com/lukaskleinschmidt/kirby-snippet-controller/tree/2.0.1"
+                "source": "https://github.com/lukaskleinschmidt/kirby-snippet-controller/tree/2.1.0"
             },
-            "time": "2023-08-04T14:23:40+00:00"
+            "time": "2023-09-18T12:12:12+00:00"
         },
         {
             "name": "michelf/php-smartypants",
