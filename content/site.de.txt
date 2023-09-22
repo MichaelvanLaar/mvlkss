@@ -18,33 +18,21 @@ Twittersitehandle:
 
 ----
 
+Sitecolorscheme:
+
+- 
+  name: Marken-Rot
+- 
+  name: Marken-Gelb
+- 
+  name: Marken-Grün
+- 
+  name: Marken-Blau
+
+----
+
 Maintenance: false
 
 ----
 
 Maintenance-text: 
-
-----
-
-Brandcolors:
-
-- 
-  name: Brand Red
-  lightmode: '#d20f0a'
-  darkmode: '#9b0b07'
-- 
-  name: Brand Yellow
-  lightmode: '#ffe60f'
-  darkmode: '#bdaa0b'
-- 
-  name: Brand Blue
-  lightmode: '#0a4baa'
-  darkmode: '#07387e'
-
-----
-
-Mainnavigation: 
-
-----
-
-Footernavigation: 
