@@ -1,0 +1,40 @@
+/**
+ * =============================================================================
+ * Block: MvLKSS Button
+ * =============================================================================
+ */
+
+.k-block-type-mvlkssbutton button {
+  border: 2px solid #000;
+  border-radius: 3rem;
+  padding: 0.25rem 1.5rem;
+  cursor: pointer;
+}
+.k-block-type-mvlkssbutton button.button-style-filled {
+  background-color: #000;
+  color: var(--color-white);
+}
+.k-block-type-mvlkssbutton button:empty::after {
+  content: "Button text …";
+  color: var(--color-text-light);
+}
+.k-block-type-mvlkssbutton button:focus {
+  outline: 0;
+  border-color: var(--color-focus);
+}
+.k-block-type-mvlkssbutton button.button-style-filled:focus {
+  background-color: var(--color-focus);
+}
+
+
+.k-block-type-mvlkssbutton .button-align-center {
+  text-align: center;
+}
+
+.k-block-type-mvlkssbutton .button-align-end {
+  text-align: end;
+}
+
+.k-block-type-mvlkssbutton button.button-width-fullWidth {
+  width: 100%;
+}

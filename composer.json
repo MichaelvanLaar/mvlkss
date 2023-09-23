@@ -28,7 +28,15 @@
   },
   "require": {
     "php": ">=8.0.0 <8.3.0",
-    "getkirby/cms": "^3.9"
+    "getkirby/cms": "^3.9",
+    "microman/kirby-grid-blocks": "^1.0",
+    "johannschopplich/kirby-hashed-assets": "^3.0",
+    "johannschopplich/kirby-highlighter": "^3.0",
+    "fabianmichael/kirby-markdown-field": "^2.2",
+    "afbora/kirby-minify-html": "^2.0",
+    "distantnative/retour-for-kirby": "^4.4",
+    "bnomei/kirby3-robots-txt": "^1.7",
+    "lukaskleinschmidt/kirby-snippet-controller": "^2.1"
   },
   "config": {
     "allow-plugins": {

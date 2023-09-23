@@ -113,7 +113,73 @@ $thumbPresets = getThumbPresets($thumbSrcsetsConfig);
 
 /**
  * -----------------------------------------------------------------------------
- * Configuration: Spacing Utility Classes
+ * CONFIGURATION: Selectable Background Colors
+ *
+ * These constants assign Tailwind CSS utility classes to the respective options
+ * which are used in panel fields whenever a website editor should be able to
+ * choose a background color for a block, button, etc.
+ *
+ * Colors which are not part of the default Tailwind CSS color palette can be
+ * added by defining a custom color in the Tailwind CSS configuration file
+ * (tailwind.config.js) and then using the respective utility class here.
+ * See https://tailwindcss.com/docs/customizing-colors#adding-additional-colors
+ * for more information.
+ *
+ * The keys of the array are the option values of the panel field. The values of
+ * the array are arrays with the following keys:
+ * - label: The label text of the option
+ * - light-tailwindcss-bg-class: The Tailwind CSS utility class for the light
+ *   mode background color (needs to start with “bg-”)
+ * - light-tailwindcss-border-class: The Tailwind CSS utility class for the
+ *   light mode border color which is used when rendering buttons (needs to
+ *   start with “border-”)
+ * - light-tailwindcss-prose-class: The Tailwind CSS utility class of the
+ *   Typography plugin color scheme used for rendering text on this backgorund
+ *   in light mode (needs to start with “prose-”)
+ * - dark-tailwindcss-bg-class: The Tailwind CSS utility class for the dark mode
+ *   background color (needs to start with “bg-”)
+ * - dark-tailwindcss-border-class: The Tailwind CSS utility class for the
+ *   dark mode border color which is used when rendering buttons (needs to
+ *   start with “border-”)
+ * - dark-tailwindcss-prose-class: The Tailwind CSS utility class of the
+ *   Typography plugin color scheme used for rendering text on this backgorund
+ *   in dark mode (needs to start with “prose-”)
+ * -----------------------------------------------------------------------------
+ */
+
+$selectableBackgroundColors = [
+    "brand-red" => [
+        "label" => "Brand Red",
+        "light-tailwindcss-bg-class" => "bg-red-300",
+        "light-tailwindcss-border-class" => "border-red-300",
+        "light-tailwindcss-prose-class" => "prose-black",
+        "dark-tailwindcss-bg-class" => "bg-red-700",
+        "dark-tailwindcss-border-class" => "border-red-700",
+        "dark-tailwindcss-prose-class" => "prose-white",
+    ],
+    "brand-green" => [
+        "label" => "Brand Green",
+        "light-tailwindcss-bg-class" => "bg-green-300",
+        "light-tailwindcssborder-class" => "border-green-300",
+        "light-tailwindcss-prose-class" => "prose-black",
+        "dark-tailwindcss-bg-class" => "bg-green-700",
+        "dark-tailwindcss-border-class" => "border-green-700",
+        "dark-tailwindcss-prose-class" => "prose-white",
+    ],
+    "brand-blue" => [
+        "label" => "Brand Blue",
+        "light-tailwindcss-bg-class" => "bg-blue-300",
+        "light-tailwindcss-border-class" => "border-blue-300",
+        "light-tailwindcss-prose-class" => "prose-black",
+        "dark-tailwindcss-bg-class" => "bg-blue-700",
+        "dark-tailwindcss-border-class" => "border-blue-700",
+        "dark-tailwindcss-prose-class" => "prose-white",
+    ],
+];
+
+/**
+ * -----------------------------------------------------------------------------
+ * CONFIGURATION: Spacing Utility Classes
  *
  * These constants assign Tailwind CSS utility classes to the respective options
  * which are used in panel fields whenever a website editor should be able to
@@ -201,22 +267,19 @@ $spacingUtilityClasses = [
  */
 
 return [
+    "afbora.kirby-minify-html.enabled" => true,
     "cache" => [
         "pages" => [
             "active" => true,
         ],
     ],
     "debug" => false,
+    "distantnative.retour.logs" => false,
     "languages" => true,
     "markdown" => [
         "extra" => true,
     ],
-    "ready" => function ($kirby) use (
-        $thumbWidths,
-        $thumbSrcsets,
-        $thumbSrcsetsSelector,
-        $spacingUtilityClasses
-    ) {
+    "ready" => function ($kirby) {
         // Fetch XML sitemap URLs for robots.txt file
         $sitemapPages = $kirby
             ->site()
@@ -240,14 +303,15 @@ return [
                 $sitemapContentForRobotsTxt,
             "bnomei.robots-txt.groups" => null,
             "bnomei.robots-txt.sitemap" => null,
-            "site-constants" => [
-                "thumb-widths" => $thumbWidths,
-                "thumb-srcsets" => $thumbSrcsets,
-                "thumb-srcsets-selector" => $thumbSrcsetsSelector,
-                "spacing-utility-classes" => $spacingUtilityClasses,
-            ],
         ];
     },
+    "site-constants" => [
+        "thumb-widths" => $thumbWidths,
+        "thumb-srcsets" => $thumbSrcsets,
+        "thumb-srcsets-selector" => $thumbSrcsetsSelector,
+        "selectable-background-colors" => $selectableBackgroundColors,
+        "spacing-utility-classes" => $spacingUtilityClasses,
+    ],
     "thumbs" => [
         "driver" => "im",
         "srcsets" => $thumbSrcsets,

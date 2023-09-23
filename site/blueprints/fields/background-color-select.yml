@@ -1,0 +1,15 @@
+#===============================================================================
+# Field: Background Color Select
+#
+# Used to choose one of the background colors defined in the config.php.
+#===============================================================================
+
+type: select
+label:
+  en: Background Color
+  de: Hintergrundfarbe
+options:
+  type: query
+  query: page.backgroundColorOptions
+  text: "{{ item.text }}"
+  value: "{{ item.value }}"

@@ -1,0 +1,20 @@
+#===============================================================================
+# Field: Include in Menus
+#
+# Used to select in which navigation menus the page should appear.
+#===============================================================================
+
+type: checkboxes
+label:
+  en: Include Page in One or More of These Menus
+  de: Seite in einem oder mehreren dieser Menüs anzeigen
+options:
+  main:
+    en: Main menu
+    de: Hauptmenü
+  footer:
+    en: Footer menu
+    de: Fußzeilenmenü
+help:
+  en: This setting only applies if the page status is “public” (i.e. “listed”). “Unlisted” pages will not be included in any menu, even if they are selected here.
+  de: Diese Einstellung greift nur, wenn der Status der Seite „öffentlich“ (d.h. „listed“) ist. „Ungelistete“ Seiten werden in keinem Menü angezeigt, unabhängig davon, ob sie hier ausgewählt sind oder nicht.

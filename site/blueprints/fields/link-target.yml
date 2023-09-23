@@ -1,0 +1,19 @@
+#===============================================================================
+# Field: Link target
+#
+# Used to select if a link should open in a new browser tab or not.
+#===============================================================================
+
+type: toggles
+label:
+  en: Link Target
+  de: Link-Ziel
+options:
+  _self:
+    en: Open in same window
+    de: Im selben Fenster öffnen
+  _blank:
+    en: Open in new window
+    de: In neuem Fenster öffnen
+required: true
+default: _self

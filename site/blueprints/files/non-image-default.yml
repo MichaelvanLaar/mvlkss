@@ -1,16 +1,10 @@
 #===============================================================================
-# File: Socialshare image
+# File: Non-Image (default)
 #===============================================================================
 
 title:
-  en: Image
-  de: Bild
+  en: File
+  de: Datei
 
 accept:
-  type: image
-  extension: jpg, jpeg, png, gif
-  minwidth: 1200
-  minheight: 630
-
-fields:
-  imageMetadata: fields/image-meta
+  type: document, archive, audio and video

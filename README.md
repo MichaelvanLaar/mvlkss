@@ -88,6 +88,15 @@ Starting with `/src/js/main.js` as entry point, Webpack will bundle everything (
 ## Tools Included
 
 - [Kirby](https://getkirby.com/) (via [Composer](https://getcomposer.org/))
+- Kirby plugins (via [Composer](https://getcomposer.org/)):
+  - [Grid Block](https://github.com/youngcut/kirby-grid-block)
+  - [Hashed Assets](https://github.com/johannschopplich/kirby-hashed-assets)
+  - [Kirby Highlighter](https://github.com/johannschopplich/kirby-highlighter)
+  - [Markdown Field](https://github.com/fabianmichael/kirby-markdown-field)
+  - [Minify HTML](https://github.com/afbora/kirby-minify-html)
+  - [Retour](https://github.com/distantnative/retour-for-kirby)
+  - [Robots.txt](https://github.com/bnomei/kirby3-robots-txt)
+  - [Snippet Controller](https://github.com/lukaskleinschmidt/kirby-snippet-controller)
 - [PostCSS](https://postcss.org/)
 - [Tailwind CSS](https://tailwindcss.com/) (including the [forms plugin](https://tailwindcss.com/docs/plugins#forms), the [aspect ration plugin](https://tailwindcss.com/docs/plugins#aspect-ratio) and the [typography plugin](https://tailwindcss.com/docs/plugins#typography))
 - [Autoprefixer](https://github.com/postcss/autoprefixer)

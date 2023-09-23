@@ -4,8 +4,137 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5a748711dcaa543b7494c0cefe0838e2",
+    "content-hash": "f1b32bef5a9d7237af6f61b81caf8810",
     "packages": [
+        {
+            "name": "afbora/kirby-minify-html",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/afbora/kirby-minify-html.git",
+                "reference": "c616f159c92a58a2cc52e3d9451a694439d95bfb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/afbora/kirby-minify-html/zipball/c616f159c92a58a2cc52e3d9451a694439d95bfb",
+                "reference": "c616f159c92a58a2cc52e3d9451a694439d95bfb",
+                "shasum": ""
+            },
+            "require": {
+                "getkirby/composer-installer": "^1.2",
+                "php": "^8.0",
+                "voku/html-min": "^4.5"
+            },
+            "type": "kirby-plugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ahmet Bora",
+                    "email": "ahmet@getkirby.com"
+                }
+            ],
+            "description": "Enable minify HTML output for Kirby 3.",
+            "homepage": "https://github.com/afbora/kirby-minify-html",
+            "keywords": [
+                "kirby",
+                "kirby-3",
+                "kirby-cms",
+                "kirby-plugin",
+                "kirby3-plugin"
+            ],
+            "support": {
+                "email": "ahmet@getkirby.com",
+                "issues": "https://github.com/afbora/kirby-minify-html/issues",
+                "source": "https://github.com/afbora/kirby-minify-html/tree/2.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://a.paddle.com/v2/click/1129/52467?link=1170",
+                    "type": "custom"
+                }
+            ],
+            "time": "2023-02-13T09:15:26+00:00"
+        },
+        {
+            "name": "bnomei/kirby3-robots-txt",
+            "version": "1.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bnomei/kirby3-robots-txt.git",
+                "reference": "377261809f4f56604411388982e7c65100443627"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bnomei/kirby3-robots-txt/zipball/377261809f4f56604411388982e7c65100443627",
+                "reference": "377261809f4f56604411388982e7c65100443627",
+                "shasum": ""
+            },
+            "require": {
+                "getkirby/composer-installer": "^1.1",
+                "php": ">=8.0.0"
+            },
+            "require-dev": {
+                "getkirby/cms": "^3.5",
+                "php-coveralls/php-coveralls": "^2.4",
+                "phpunit/phpunit": "^9.5"
+            },
+            "suggest": {
+                "bnomei/kirby3-feeds": "Adds a xml sitemap which will be automatically be included in the robots.txt"
+            },
+            "type": "kirby-plugin",
+            "extra": {
+                "kirby-cms-path": "tests/kirby"
+            },
+            "autoload": {
+                "psr-4": {
+                    "Bnomei\\": "classes/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bruno Meilick",
+                    "email": "b@bnomei.com"
+                }
+            ],
+            "description": "Manage the robots.txt from the Kirby config file",
+            "keywords": [
+                "kirby3",
+                "kirby3-cms",
+                "kirby3-plugin",
+                "robots-exclusion-protocol",
+                "robots-txt"
+            ],
+            "support": {
+                "issues": "https://github.com/bnomei/kirby3-robots-txt/issues",
+                "source": "https://github.com/bnomei/kirby3-robots-txt/tree/v1.7.0"
+            },
+            "funding": [
+                {
+                    "url": "https://buymeacoff.ee/bnomei",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://paypal.me/bnomei",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/bnomei",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/bnomei",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2023-08-02T10:01:17+00:00"
+        },
         {
             "name": "claviska/simpleimage",
             "version": "4.0.5",
@@ -139,6 +268,103 @@
                 }
             ],
             "time": "2022-04-01T19:23:25+00:00"
+        },
+        {
+            "name": "distantnative/retour-for-kirby",
+            "version": "4.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/distantnative/retour-for-kirby.git",
+                "reference": "472c5e759e6dbe7128de5eaee8f949cf0170a54b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/distantnative/retour-for-kirby/zipball/472c5e759e6dbe7128de5eaee8f949cf0170a54b",
+                "reference": "472c5e759e6dbe7128de5eaee8f949cf0170a54b",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "getkirby/cms": ">=3.7.4 <3.10.0",
+                "getkirby/composer-installer": "^1.1",
+                "php": ">=8.0.0 <8.3.0"
+            },
+            "type": "kirby-plugin",
+            "extra": {
+                "installer-name": "retour",
+                "kirby-cms-path": false
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nico Hoffmann",
+                    "email": "on-github@nhoffmann.com"
+                }
+            ],
+            "description": "Redirects and 404 tracking for Kirby",
+            "support": {
+                "issues": "https://github.com/distantnative/retour-for-kirby/issues",
+                "source": "https://github.com/distantnative/retour-for-kirby/tree/4.4.2"
+            },
+            "funding": [
+                {
+                    "url": "https://paypal.me/distantnative",
+                    "type": "custom"
+                }
+            ],
+            "time": "2023-01-19T18:25:17+00:00"
+        },
+        {
+            "name": "fabianmichael/kirby-markdown-field",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fabianmichael/kirby-markdown-field.git",
+                "reference": "d0b6e572ac5172ec91bac8dc9b41b4dcf2620815"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fabianmichael/kirby-markdown-field/zipball/d0b6e572ac5172ec91bac8dc9b41b4dcf2620815",
+                "reference": "d0b6e572ac5172ec91bac8dc9b41b4dcf2620815",
+                "shasum": ""
+            },
+            "require": {
+                "getkirby/composer-installer": "^1.2",
+                "php": ">=8.0.0"
+            },
+            "type": "kirby-plugin",
+            "extra": {
+                "installer-name": "markdown-field"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sylvain Julé",
+                    "email": "contact@sylvain-jule.fr"
+                },
+                {
+                    "name": "Fabian Michael",
+                    "email": "hallo@fabianmichael.de"
+                }
+            ],
+            "description": "Super-sophisticated markdown editor for Kirby 3",
+            "support": {
+                "issues": "https://github.com/fabianmichael/kirby-markdown-field/issues",
+                "source": "https://github.com/fabianmichael/kirby-markdown-field/tree/2.2.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/fabianmichael",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-06-30T08:14:59+00:00"
         },
         {
             "name": "filp/whoops",
@@ -360,6 +586,119 @@
             "time": "2020-12-28T12:54:39+00:00"
         },
         {
+            "name": "johannschopplich/kirby-hashed-assets",
+            "version": "3.0.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/johannschopplich/kirby-hashed-assets.git",
+                "reference": "ea64f6e2c4afb7da8fda0ea1a4500d596a31a20f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/johannschopplich/kirby-hashed-assets/zipball/ea64f6e2c4afb7da8fda0ea1a4500d596a31a20f",
+                "reference": "ea64f6e2c4afb7da8fda0ea1a4500d596a31a20f",
+                "shasum": ""
+            },
+            "require": {
+                "getkirby/composer-installer": "^1.2"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "@stable",
+                "getkirby/cms": "^3.9",
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "kirby-plugin",
+            "extra": {
+                "kirby-cms-path": "tests/fixtures/kirby"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Johann Schopplich",
+                    "email": "pkg@johannschopplich.com",
+                    "homepage": "https://johannschopplich.com"
+                }
+            ],
+            "description": "File name hashes support for css() and js() helpers",
+            "homepage": "https://github.com/johannschopplich/kirby-hashed-assets#readme",
+            "keywords": [
+                "JS",
+                "assets",
+                "components",
+                "css",
+                "helpers",
+                "kirby",
+                "kirby-cms",
+                "laravel-mix",
+                "manifest"
+            ],
+            "support": {
+                "issues": "https://github.com/johannschopplich/kirby-hashed-assets/issues",
+                "source": "https://github.com/johannschopplich/kirby-hashed-assets/tree/v3.0.9"
+            },
+            "time": "2023-09-22T20:06:34+00:00"
+        },
+        {
+            "name": "johannschopplich/kirby-highlighter",
+            "version": "3.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/johannschopplich/kirby-highlighter.git",
+                "reference": "38082198bd3a990571d6e64faf7b7001be5323b6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/johannschopplich/kirby-highlighter/zipball/38082198bd3a990571d6e64faf7b7001be5323b6",
+                "reference": "38082198bd3a990571d6e64faf7b7001be5323b6",
+                "shasum": ""
+            },
+            "require": {
+                "getkirby/composer-installer": "^1.2",
+                "scrivo/highlight.php": "^9.18"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "@stable",
+                "getkirby/cms": "^3.9",
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "kirby-plugin",
+            "extra": {
+                "kirby-cms-path": "tests/fixtures/kirby"
+            },
+            "autoload": {
+                "psr-4": {
+                    "JohannSchopplich\\": "classes/JohannSchopplich/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Johann Schopplich",
+                    "email": "pkg@johannschopplich.com",
+                    "homepage": "https://johannschopplich.com"
+                }
+            ],
+            "description": "Server-side syntax highlighting for the Kirby CMS",
+            "homepage": "https://github.com/johannschopplich/kirby-highlighter#readme",
+            "keywords": [
+                "highlight",
+                "highlighter",
+                "hljs",
+                "kirby"
+            ],
+            "support": {
+                "issues": "https://github.com/johannschopplich/kirby-highlighter/issues",
+                "source": "https://github.com/johannschopplich/kirby-highlighter/tree/v3.0.3"
+            },
+            "time": "2023-01-23T17:32:59+00:00"
+        },
+        {
             "name": "laminas/laminas-escaper",
             "version": "2.12.0",
             "source": {
@@ -483,6 +822,44 @@
             "time": "2022-09-24T15:57:16+00:00"
         },
         {
+            "name": "lukaskleinschmidt/kirby-snippet-controller",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lukaskleinschmidt/kirby-snippet-controller.git",
+                "reference": "57bcda190eec630b7e796ff357d5bf9784c6d876"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lukaskleinschmidt/kirby-snippet-controller/zipball/57bcda190eec630b7e796ff357d5bf9784c6d876",
+                "reference": "57bcda190eec630b7e796ff357d5bf9784c6d876",
+                "shasum": ""
+            },
+            "require": {
+                "getkirby/composer-installer": "^1.2"
+            },
+            "type": "kirby-plugin",
+            "extra": {
+                "installer-name": "snippet-controller"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Lukas Kleinschmidt",
+                    "email": "contact@kleinschmidt.mozmail.com"
+                }
+            ],
+            "description": "Kirby Snippet Controller",
+            "support": {
+                "issues": "https://github.com/lukaskleinschmidt/kirby-snippet-controller/issues",
+                "source": "https://github.com/lukaskleinschmidt/kirby-snippet-controller/tree/2.1.0"
+            },
+            "time": "2023-09-18T12:12:12+00:00"
+        },
+        {
             "name": "michelf/php-smartypants",
             "version": "1.8.1",
             "source": {
@@ -535,6 +912,41 @@
                 "source": "https://github.com/michelf/php-smartypants/tree/1.8.1"
             },
             "time": "2016-12-13T01:01:17+00:00"
+        },
+        {
+            "name": "microman/kirby-grid-blocks",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/youngcut/kirby-grid-block.git",
+                "reference": "eb8b8423a5c0376d85980ec2862adc5f66268370"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/youngcut/kirby-grid-block/zipball/eb8b8423a5c0376d85980ec2862adc5f66268370",
+                "reference": "eb8b8423a5c0376d85980ec2862adc5f66268370",
+                "shasum": ""
+            },
+            "require": {
+                "getkirby/composer-installer": "^1.2"
+            },
+            "type": "kirby-plugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roman Gsponer",
+                    "email": "mail@microman.ch"
+                }
+            ],
+            "description": "Use the layouts field as block",
+            "support": {
+                "issues": "https://github.com/youngcut/kirby-grid-block/issues",
+                "source": "https://github.com/youngcut/kirby-grid-block/tree/1.0.0"
+            },
+            "time": "2021-10-05T10:11:05+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
@@ -665,6 +1077,149 @@
                 "source": "https://github.com/php-fig/log/tree/3.0.0"
             },
             "time": "2021-07-14T16:46:02+00:00"
+        },
+        {
+            "name": "scrivo/highlight.php",
+            "version": "v9.18.1.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/scrivo/highlight.php.git",
+                "reference": "850f4b44697a2552e892ffe71490ba2733c2fc6e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/scrivo/highlight.php/zipball/850f4b44697a2552e892ffe71490ba2733c2fc6e",
+                "reference": "850f4b44697a2552e892ffe71490ba2733c2fc6e",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8|^5.7",
+                "sabberworm/php-css-parser": "^8.3",
+                "symfony/finder": "^2.8|^3.4|^5.4",
+                "symfony/var-dumper": "^2.8|^3.4|^5.4"
+            },
+            "suggest": {
+                "ext-mbstring": "Allows highlighting code with unicode characters and supports language with unicode keywords"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "HighlightUtilities/functions.php"
+                ],
+                "psr-0": {
+                    "Highlight\\": "",
+                    "HighlightUtilities\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Geert Bergman",
+                    "homepage": "http://www.scrivo.org/",
+                    "role": "Project Author"
+                },
+                {
+                    "name": "Vladimir Jimenez",
+                    "homepage": "https://allejo.io",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Martin Folkers",
+                    "homepage": "https://twobrain.io",
+                    "role": "Contributor"
+                }
+            ],
+            "description": "Server side syntax highlighter that supports 185 languages. It's a PHP port of highlight.js",
+            "keywords": [
+                "code",
+                "highlight",
+                "highlight.js",
+                "highlight.php",
+                "syntax"
+            ],
+            "support": {
+                "issues": "https://github.com/scrivo/highlight.php/issues",
+                "source": "https://github.com/scrivo/highlight.php"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/allejo",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-12-17T21:53:22+00:00"
+        },
+        {
+            "name": "symfony/css-selector",
+            "version": "v6.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/css-selector.git",
+                "reference": "883d961421ab1709877c10ac99451632a3d6fa57"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/883d961421ab1709877c10ac99451632a3d6fa57",
+                "reference": "883d961421ab1709877c10ac99451632a3d6fa57",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\CssSelector\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Jean-François Simon",
+                    "email": "jeanfrancois.simon@sensiolabs.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Converts CSS selectors to XPath expressions",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/css-selector/tree/v6.3.2"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-07-12T16:00:22+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -1143,6 +1698,154 @@
                 }
             ],
             "time": "2023-04-23T19:33:36+00:00"
+        },
+        {
+            "name": "voku/html-min",
+            "version": "4.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/voku/HtmlMin.git",
+                "reference": "2c79e17121bdce16844b1190423bfe0c9537885b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/voku/HtmlMin/zipball/2c79e17121bdce16844b1190423bfe0c9537885b",
+                "reference": "2c79e17121bdce16844b1190423bfe0c9537885b",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "php": ">=7.0.0",
+                "voku/simple_html_dom": "~4.8.5"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~6.0 || ~7.0 || ~9.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "voku\\": "src/voku/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Lars Moelleken",
+                    "homepage": "https://www.moelleken.org/"
+                }
+            ],
+            "description": "HTML Compressor and Minifier",
+            "homepage": "https://github.com/voku/HtmlMin",
+            "keywords": [
+                "compress",
+                "compression",
+                "compressor",
+                "html",
+                "minifier"
+            ],
+            "support": {
+                "issues": "https://github.com/voku/HtmlMin/issues",
+                "source": "https://github.com/voku/HtmlMin/tree/4.5.0"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.me/moelleken",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/voku",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/voku",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2022-06-09T07:37:14+00:00"
+        },
+        {
+            "name": "voku/simple_html_dom",
+            "version": "4.8.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/voku/simple_html_dom.git",
+                "reference": "9ef90f0280fe16054c117e04ea86617ce0fcdd35"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/voku/simple_html_dom/zipball/9ef90f0280fe16054c117e04ea86617ce0fcdd35",
+                "reference": "9ef90f0280fe16054c117e04ea86617ce0fcdd35",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "ext-libxml": "*",
+                "ext-simplexml": "*",
+                "php": ">=7.0.0",
+                "symfony/css-selector": "~3.0 || ~4.0 || ~5.0 || ~6.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~6.0 || ~7.0 || ~9.0"
+            },
+            "suggest": {
+                "voku/portable-utf8": "If you need e.g. UTF-8 fixed output."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "voku\\helper\\": "src/voku/helper/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "dimabdc",
+                    "email": "support@titor.ru",
+                    "homepage": "https://github.com/dimabdc",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Lars Moelleken",
+                    "homepage": "https://www.moelleken.org/",
+                    "role": "Fork-Maintainer"
+                }
+            ],
+            "description": "Simple HTML DOM package.",
+            "homepage": "https://github.com/voku/simple_html_dom",
+            "keywords": [
+                "HTML Parser",
+                "dom",
+                "php dom"
+            ],
+            "support": {
+                "issues": "https://github.com/voku/simple_html_dom/issues",
+                "source": "https://github.com/voku/simple_html_dom/tree/4.8.8"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.me/moelleken",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/voku",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/voku",
+                    "type": "patreon"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/voku/simple_html_dom",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-02-12T16:15:15+00:00"
         }
     ],
     "packages-dev": [],

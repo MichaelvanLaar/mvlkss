@@ -1,0 +1,150 @@
+#===============================================================================
+# Block: Grid
+#
+# Replaces the default grid block blueprint
+#===============================================================================
+
+name: Grid
+icon: grid
+fields:
+  title:
+    type: text
+    label:
+      en: Title
+      de: Titel
+  sticky:
+    type: toggle
+    label:
+      en: Sticky
+      de: Fixiert (Sticky)
+    help:
+      en: If enabled and if the grid block is the first element in the column, the grid block as well as the rest of the column content will stick to the top of the browser window when scrolling down.
+      de: Wenn aktiviert und wenn der Grid-Block das erste Element in der Spalte ist, bleibt der Grid-Block sowie der restliche Spalteninhalt beim Scrollen am oberen Rand des Browserfensters haften.
+    text:
+      - en: Not sticky
+        de: Nicht fixiert
+      - en: Sticky
+        de: Fixiert
+    default: false
+    width: 1/2
+  stickyInfo:
+    type: info
+    label:
+      en: Attention
+      de: Achtung
+    text:
+      en: The “sticky” option only works if the grid block is the first element in the column. Otherwise you will see no effect. The “sticky” behavior will be applied to the whole column content, not only to this grid block.
+      de: Die Option „Fixiert“ funktioniert nur, wenn der Grid-Block das erste Element in der Spalte ist. Andernfalls wird keine Wirkung erzielt. Das „Fixiert“-Verhalten wird auf den gesamten Spalteninhalt angewendet, nicht nur auf diesen Grid-Block.
+    theme: negative
+    width: 1/2
+  settingsInfo:
+    type: info
+    label:
+      en: Please Note
+      de: Bitte beachten
+    text:
+      en: All other layout settings like backgrounds and paddings can be set for each grid row individually.
+      de: Alle anderen Layout-Einstellungen wie Hintergründe und Innenabstände können für jede Grid-Zeile einzeln festgelegt werden.
+  grid:
+    type: layout
+    when:
+      - false
+    layouts:
+      - "1/1"
+      - "1/2, 1/2"
+      - "1/3, 1/3, 1/3"
+    settings:
+      fields:
+        gridRowLayoutHeadline:
+          type: headline
+          label:
+            en: Grid Row Layout
+            de: Grid-Zeilenlayout
+          numbered: false
+        gridRowVerticalAlign:
+          extends: fields/vertical-align
+        gridRowPaddingTop:
+          extends: fields/spacing-select
+          label:
+            en: Padding Top
+            de: Innenabstand oben
+          width: 1/2
+        gridRowPaddingBottom:
+          extends: fields/spacing-select
+          label:
+            en: Padding Bottom
+            de: Innenabstand unten
+          width: 1/2
+        gridRowPaddingStart:
+          extends: fields/spacing-select
+          label:
+            en: Horizontal Padding at Row Start
+            de: Horizontaler Innenabstand am Zeilenanfang
+          help:
+            en: “Row start” refers to the reading direction (LTR or RTL) of the language in which the website is displayed to a visitor.
+            de: „Zeilenanfang“ bezieht sich auf die Leserichtung (LTR oder RTL) der Sprache, in der die Website einem Besucher angezeigt wird.
+          width: 1/2
+        gridRowPaddingEnd:
+          extends: fields/spacing-select
+          label:
+            en: Horizontal Padding at Row End
+            de: Horizontaler Innenabstand am Zeilenende
+          help:
+            en: “Row end” refers to the reading direction (LTR or RTL) of the language in which the website is displayed to a visitor.
+            de: „Zeilenende“ bezieht sich auf die Leserichtung (LTR oder RTL) der Sprache, in der die Website einem Besucher angezeigt wird.
+          width: 1/2
+        gridRowGap:
+          extends: fields/spacing-select
+          label:
+            en: Gap Between Columns
+            de: Abstand zwischen Spalten
+          default: medium
+        gridRowBackgroundHeadline:
+          type: headline
+          label:
+            en: Grid Row Background
+            de: Grid-Zeilenhintergrund
+          numbered: false
+        gridRowBackgroundColor:
+          extends: fields/background-color-select
+          width: 1/2
+        gridRowHtmlAttributesHeadline:
+          type: headline
+          label:
+            en: HTML Attributes of the Grid Row
+            de: HTML-Attribute der Grid-Zeile
+          numbered: false
+        gridRowId:
+          extends: fields/id
+          width: 1/2
+        gridRowClasses:
+          extends: fields/classes
+          width: 1/2
+    fieldsets:
+      textBlocks:
+        label:
+          en: Text
+          de: Text
+        type: group
+        fieldsets:
+          - heading
+          - text
+          - list
+          - markdown
+          - quote
+          - code
+      mediaBlocks:
+        label:
+          en: Media
+          de: Medien
+        type: group
+        fieldsets:
+          - image
+          - video
+      miscBlocks:
+        label:
+          en: Misc
+          de: Sonstiges
+        type: group
+        fieldsets:
+          - line

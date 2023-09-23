@@ -1,0 +1,15 @@
+#===============================================================================
+# Field: Image Display Settings
+#
+# Used to add information about how an image should be displayed.
+#===============================================================================
+
+type: group
+fields:
+  color:
+    type: colors
+    label:
+      en: Extracted Main Color
+      de: Extrahierte Hauptfarbe
+    contrast: true
+    default: "#ffffff"

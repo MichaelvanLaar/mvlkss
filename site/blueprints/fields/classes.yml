@@ -1,0 +1,14 @@
+#===============================================================================
+# Field: Classes
+#
+# Used to add classes to an HTML element.
+#===============================================================================
+
+type: text
+label:
+  en: Classes
+  de: Klassen
+help:
+  en: "Please note: Do not use tailwind CSS utility classes as they will not work here."
+  de: "Bitte beachten Sie: Verwenden Sie keine Utility-Klassen von Tailwind CSS, da diese hier nicht funktionieren."
+pattern: "^([a-zA-Z_\-:][\w\-:]*($|\s))*$"

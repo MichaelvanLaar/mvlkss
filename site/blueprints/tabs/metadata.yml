@@ -1,0 +1,169 @@
+#===============================================================================
+# Tab: Page Metadata
+#
+# Used to set metadata for SEO and social media.
+#===============================================================================
+
+label:
+  en: Metadata
+  de: Metainformationen
+icon: tag
+
+columns:
+  # Metadata for SEO
+  seo:
+    width: 1/2
+    fields:
+      seoHeadline:
+        type: headline
+        label:
+          en: Metadata for SEO
+          de: Metainformationen für SEO
+        numbered: false
+      seoTitle:
+        type: text
+        label:
+          en: SEO Title
+          de: SEO-Titel
+        help:
+          en: "Fallback if empty: page title"
+          de: "Fallback, falls leer: Seitentitel"
+        maxlength: 55
+      appendDefaultDividerToTitleElement:
+        type: toggle
+        width: 1/2
+        label:
+          en: Append Default Divider
+          de: Standard-Trennzeichen anhängen
+        text:
+          - en: Don’t append
+            de: Nicht anhängen
+          - en: Append
+            de: Anhängen
+        help:
+          en: If enabled, the default divider will be appended to the &lt;title&gt; element.
+          de: Wenn aktiviert, wird das Standard-Trennzeichen an das &lt;title&gt;-Element angehängt.
+        default: true
+      appendSiteTitleToTitleElement:
+        type: toggle
+        width: 1/2
+        label:
+          en: Append Site Title
+          de: Website-Titel anhängen
+        text:
+          - en: Don’t append
+            de: Nicht anhängen
+          - en: Append
+            de: Anhängen
+        help:
+          en: If enabled, the site title will be appended to the &lt;title&gt; element.
+          de: Wenn aktiviert, wird der Website-Titel an an das &lt;title&gt;-Element angehängt.
+        default: true
+      seoDescription:
+        type: textarea
+        label:
+          en: SEO Description
+          de: SEO-Beschreibung
+        help:
+          en: Please avoid line breaks.
+          de: Bitte keine Zeilenumbrüche verwenden.
+        buttons: false
+        maxlength: 150
+      seoIndex:
+        type: toggle
+        label:
+          en: Indexing
+          de: Indexierung
+        text:
+          - en: Forbidden
+            de: Nicht erlaubt
+          - en: Allowed
+            de: Erlaubt
+        help:
+          en: Allow or forbid search engines to index this page. This also affects the XML sitemap and the frontend search function (if implemented).
+          de: Suchmaschinen das Indexieren dieser Seite erlauben oder verbieten. Dies hat auch Einfluss auf die XML-Sitemap und die Frontend-Suchfunktion (falls implementiert).
+        default: true
+
+  # Metadata for social media link previews
+  socialShare:
+    width: 1/2
+    fields:
+      socialShareHeadline:
+        type: headline
+        label:
+          en: Metadata for Social Media Link Previews
+          de: Metainformationen für Social-Media-Link-Vorschau-Boxen
+        numbered: false
+      socialShareTitle:
+        type: text
+        label:
+          en: Title for Social Media Link Previews
+          de: Titel für Social-Media-Link-Vorschau-Boxen
+        help:
+          en: "Fallback if empty: SEO title, page title"
+          de: "Fallback, falls leer: SEO-Titel, Seitentitel"
+        maxlength: 70
+      appendDefaultDividerToSocialShareTitle:
+        type: toggle
+        width: 1/2
+        label:
+          en: Append Default Divider
+          de: Standard-Trennzeichen anhängen
+        text:
+          - en: Don’t append
+            de: Nicht anhängen
+          - en: Append
+            de: Anhängen
+        help:
+          en: If enabled, the default divider will be appended to the Open Graph and Twitter Card title.
+          de: Wenn aktiviert, wird das Standard-Trennzeichen an den Open-Graph- und Twitter-Card-Titel angehängt.
+        default: false
+      appendSiteTitleToSocialShareTitle:
+        type: toggle
+        width: 1/2
+        label:
+          en: Append Site Title
+          de: Website-Titel anhängen
+        text:
+          - en: Don’t append
+            de: Nicht anhängen
+          - en: Append
+            de: Anhängen
+        help:
+          en: If enabled, the site title will be appended to the Open Graph and Twitter Card title.
+          de: Wenn aktiviert, wird der Website-Titel an den Open-Graph- und Twitter-Card-Titel angehängt.
+        default: false
+      socialShareDescription:
+        type: textarea
+        label:
+          en: Description for Social Media Link Previews
+          de: Beschreibung für Social-Media-Link-Vorschau-Boxen
+        help:
+          en: "Please avoid line breaks. Fallback if empty: SEO description"
+          de: "Bitte keine Zeilenumbrüche verwenden. Fallback, falls leer: SEO-Beschreibung"
+        buttons: false
+        maxlength: 150
+      socialShareImage:
+        type: files
+        label:
+          en: Social Share Image
+          de: Social-Share-Bild
+        help:
+          en: "Minimum dimensions: 1200 × 630 pixels. Fallback if empty: Social share image specified in the site settings."
+          de: "Mindestmaße: 1200 × 630 Pixel. Fallback, falls leer: Social-Share-Bild aus den Seiteneinstellungen."
+        uploads: socialshare-image
+        required: false
+        max: 1
+        multiple: false
+        layout: cards
+        image:
+          ratio: 120/63
+      twitterCreatorHandle:
+        type: text
+        label:
+          en: X Handle of the Page Author (e.g. for articles)
+          de: X-Account des Seitenautors (z. B. bei Artikeln)
+        help:
+          en: Please include the leading “@” character
+          de: Bitte mit dem „@“-Zeichen beginnen
+        pattern: "^@([A-Za-z0-9_]{1,15})$"

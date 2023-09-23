@@ -1,0 +1,24 @@
+#===============================================================================
+# Tab: Page Info
+#===============================================================================
+
+label:
+  en: Info
+  de: Info
+icon: info
+
+fields:
+  dateCreatedInfo:
+    type: info
+    label:
+      en: Creation Date
+      de: Erstellungsdatum
+    theme: none
+    text: "{{ page.dateCreatedEpoch.epoch2date }}"
+  dateModifiedInfo:
+    type: info
+    label:
+      en: Last Modification
+      de: Letzte Aktualisierung
+    theme: none
+    text: "{{ page.dateModifiedEpoch.epoch2date }}"

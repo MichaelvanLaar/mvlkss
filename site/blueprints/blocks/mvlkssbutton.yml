@@ -1,0 +1,83 @@
+#===============================================================================
+# Block: MvLKSS Button
+#===============================================================================
+
+name:
+  en: Button
+  de: Button
+icon: url
+fields:
+  text:
+    label:
+      en: Button Label
+      de: Button-Beschriftung
+    type: text
+    required: true
+  link:
+    label:
+      en: Link
+      de: Link
+    type: text
+    pattern: ^(https?:\/\/)?[a-zA-Z0-9-._~:\/?#\[\]@!$&'()*+,;=%]*|\/[a-zA-Z0-9-._~:\/?#\[\]@!$&'()*+,;=%]*|^#.*$
+    required: true
+    width: 1/2
+  linkTarget:
+    extends: fields/link-target
+    width: 1/2
+  color:
+    extends: fields/background-color-select
+    label:
+      en: Button Color
+      de: Button-Farbe
+    width: 1/2
+  style:
+    type: toggles
+    label:
+      en: Style
+      de: Stil
+    options:
+      filled:
+        en: Filled-in
+        de: Ausgefüllt
+      outline:
+        en: Outline
+        de: Outline
+    default: filled
+    required: true
+    width: 1/2
+  align:
+    type: toggles
+    label:
+      en: Alignment
+      de: Ausrichtung
+    help:
+      en: In LTR languages, “start” means left and “end” means right. In RTL languages, everything is reversed.
+      de: In LTR-Sprachen steht „Anfang“ für links und „Ende“ für rechts. In RTL-Sprachen ist alles umgekehrt.
+    options:
+      start:
+        en: Start
+        de: Anfang
+      center:
+        en: Center
+        de: Zentriert
+      end:
+        en: End
+        de: Ende
+    default: left
+    required: true
+    width: 1/2
+  width:
+    type: toggles
+    label:
+      en: Width
+      de: Breite
+    options:
+      flexible:
+        en: Flexible
+        de: Flexibel
+      fullWidth:
+        en: Full Width
+        de: Volle Breite
+    default: flexible
+    required: true
+    width: 1/2

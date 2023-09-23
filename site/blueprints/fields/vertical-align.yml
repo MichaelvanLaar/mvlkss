@@ -1,0 +1,25 @@
+#===============================================================================
+# Field: Vertical Align
+#
+# Used to choose vertical alignment of multi-column content.
+#===============================================================================
+
+type: select
+label:
+  en: Vertical Align
+  de: Vertikale Ausrichtung
+help:
+  en: Only applies to multi-column content. The same vertical alignment will be applied to all columns.
+  de: Nur für mehrspaltige Inhalte. Die gleiche vertikale Ausrichtung wird auf alle Spalten angewendet.
+options:
+  top:
+    en: Top
+    de: Oben
+  middle:
+    en: Middle
+    de: Mitte
+  bottom:
+    en: Bottom
+    de: Unten
+required: true
+default: top

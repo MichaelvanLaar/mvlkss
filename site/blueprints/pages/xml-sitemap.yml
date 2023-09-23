@@ -1,0 +1,47 @@
+#===============================================================================
+# Page: XML Sitemap
+#
+# Used to create one XML sitemap per language.
+#===============================================================================
+
+title:
+  en: XML Sitemap
+  de: XML-Sitemap
+
+status:
+  draft:
+    label:
+      en: Draft
+      de: Entwurf
+  unlisted:
+    label:
+      en: Published
+      de: Veröffentlicht
+
+icon: sitemap
+
+options:
+  changeSlug:
+    *: false
+  changeStatus:
+    *: false
+  changeTemplate:
+    *: false
+  changeTitle:
+    *: false
+  create:
+    *: false
+  delete:
+    *: false
+  duplicate:
+    *: false
+
+fields:
+  sitemapInfo:
+    type: info
+    label:
+      en: XML Sitemap
+      de: XML-Sitemap
+    text:
+      en: This page is used to create one XML sitemap per language.
+      de: Diese Seite wird verwendet, um eine XML-Sitemap pro Sprache zu erstellen.

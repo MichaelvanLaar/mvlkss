@@ -1,0 +1,13 @@
+#===============================================================================
+# Field: Image Metadata
+#
+# Used to add metadata to an image.
+#===============================================================================
+
+type: group
+fields:
+  alt:
+    type: text
+    label:
+      en: Alternative text for the image
+      de: Alternativ-Text für das Bild
