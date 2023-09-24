@@ -635,7 +635,7 @@ FileETag None
 
 # ######################################################################
 # # KIRBY .HTACCESS                                                    #
-# # REVISION 2022-09-15                                                #
+# # REVISION 2023-07-22                                                #
 # ######################################################################
 
 # rewrite rules
@@ -692,3 +692,13 @@ SetEnvIf Authorization "(.+)" HTTP_AUTHORIZATION=$1
 # AddOutputFilterByType DEFLATE application/javascript
 # AddOutputFilterByType DEFLATE application/x-javascript
 # </IfModule>
+
+# set security headers in all responses
+<IfModule mod_headers.c>
+
+# serve files as plain text if the actual content type is not known
+# (hardens against attacks from malicious file uploads)
+Header set Content-Type "text/plain" "expr=-z %{CONTENT_TYPE}"
+Header set X-Content-Type-Options "nosniff"
+
+</IfModule>

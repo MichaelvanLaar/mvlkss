@@ -92,10 +92,7 @@ settings:
         de: Zeilenhintergrund
       numbered: false
     rowBackgroundColor:
-      extends: fields/site-color-select
-      label:
-        en: Background Color
-        de: Hintergrundfarbe
+      extends: fields/background-color-select
     rowBackgroundImage:
       type: files
       label:
@@ -106,37 +103,15 @@ settings:
       max: 1
       multiple: false
       layout: cards
-      width: 1/3
-    rowBackgroundImageTransparency:
-      type: toggle
-      label:
-        en: Image Transparency
-        de: Bild-Transparenz
-      text:
-        - en: Image is opaque
-          de: Bild ist undurchsichtig
-        - en: Image has transparen areas
-          de: Bild hat transparente Bereiche
-      default: false
-      width: 1/3
-    transparencyInfo:
-      type: info
-      label:
-        en: Please note
-        de: Bitte beachten
-      text:
-        en: Please adjust the transparency setting after uploading a new background image.
-        de: Bitte passen Sie die Transparenz-Einstellung nach dem Hochladen eines neuen Hintergrundbildes an.
-      theme: negative
-      width: 1/3
+      width: 1/2
     rowBackgroundImageSize:
       type: select
       label:
         en: Background Image Size
         de: Hintergrundbildgröße
       help:
-        en: "CSS values:\n“Original size” = auto\n“Fill element” = cover\n“Fit into element” = contain"
-        de: "CSS-Werte:\n„Originalgröße“ = auto\n„Element ausfüllen“ = cover\n„In Element einpassen“ = contain"
+        en: "Corresponding CSS values:\n“Original size” = auto\n“Fill element” = cover\n“Fit into element” = contain"
+        de: "Zugehörige CSS-Werte:\n„Originalgröße“ = auto\n„Element ausfüllen“ = cover\n„In Element einpassen“ = contain"
       options:
         auto:
           en: Original size
@@ -149,7 +124,7 @@ settings:
           de: In Element einpassen
       required: true
       default: cover
-      width: 1/3
+      width: 1/2
     rowBackgroundImagePosition:
       type: select
       label:
@@ -185,7 +160,7 @@ settings:
           de: Unten rechts
       required: true
       default: middle-center
-      width: 1/3
+      width: 1/2
     rowBackgroundImageRepeat:
       type: select
       label:
@@ -206,7 +181,7 @@ settings:
           de: Vertikal wiederholen
       required: true
       default: no-repeat
-      width: 1/3
+      width: 1/2
     rowHtmlAttributesHeadline:
       type: headline
       label:

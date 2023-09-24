@@ -18,11 +18,17 @@ $gridColumnWidthClasses = [
   "1/2" => "col-span-3",
   "1/3" => "col-span-2",
 ];
+
 /**
  * -----------------------------------------------------------------------------
  * Output
  * -----------------------------------------------------------------------------
  */
+
+// Get the “selectable background colors” array from the site constants
+$selectableBackgroundColors = option("site-constants")[
+  "selectable-background-colors"
+];
 
 // Loop through all grid layout rows
 foreach ($block->grid()->toLayouts() as $gridLayoutRow): ?>
@@ -67,7 +73,13 @@ foreach ($block->grid()->toLayouts() as $gridLayoutRow): ?>
   $gridRowBackgroundColorClasses = $gridLayoutRow
     ->gridRowBackgroundColor()
     ->isNotEmpty()
-    ? "bg-[var(--grid-row-background-color-light-mode)] dark:bg-[var(--grid-row-background-color-dark-mode)]"
+    ? $selectableBackgroundColors[
+        $gridLayoutRow->gridRowBackgroundColor()->value()
+      ]["light-tailwindcss-bg-class"] .
+      " " .
+      $selectableBackgroundColors[
+        $gridLayoutRow->gridRowBackgroundColor()->value()
+      ]["dark-tailwindcss-bg-class"]
     : "";
 
   // Construct the classes attribute for the current grid row
@@ -83,22 +95,6 @@ foreach ($block->grid()->toLayouts() as $gridLayoutRow): ?>
     $gridRowBackgroundColorClasses,
   ];
   $gridRowClassAttribute = "class=\"" . implode(" ", $gridRowClasses) . "\"";
-
-  // Construct the style attribute for the current grid row
-  if ($gridLayoutRow->gridRowBackgroundColor()->isNotEmpty()) {
-    $gridRowStyleAttribute =
-      "style=\"--grid-row-background-color-light-mode: " .
-      option("site-constants")["site-colors"][
-        $gridLayoutRow->gridRowBackgroundColor()->value()
-      ]["lightMode"] .
-      "; --grid-row-background-color-dark-mode: " .
-      option("site-constants")["site-colors"][
-        $gridLayoutRow->gridRowBackgroundColor()->value()
-      ]["darkMode"] .
-      ";\"";
-  } else {
-    $gridRowStyleAttribute = "";
-  }
   ?>
 
   <!-- Grid Row -->
@@ -106,7 +102,6 @@ foreach ($block->grid()->toLayouts() as $gridLayoutRow): ?>
     data-page-builder-element-type="grid-row"
     <?= $gridRowIdAttribute ?>
     <?= $gridRowClassAttribute ?>
-    <?= $gridRowStyleAttribute ?>
   >
     <?php foreach ($gridLayoutRow->columns() as $gridLayoutColumn): ?>
       <!-- Grid Column -->
@@ -115,31 +110,15 @@ foreach ($block->grid()->toLayouts() as $gridLayoutRow): ?>
       $gridColumnClassOutput .=
         $gridColumnWidthClasses[$gridLayoutColumn->width()] ?? "col-span-full";
       if ($gridLayoutRow->gridRowBackgroundColor()->isNotEmpty()) {
-        $gridRowBackgroundColorValue = $gridLayoutRow
-          ->gridRowBackgroundColor()
-          ->value();
-        $gridContrastColorForLightMode = option("site-constants")[
-          "site-colors"
-        ][$gridRowBackgroundColorValue]["contrastForLightMode"];
-        $gridContrastColorForDarkMode = option("site-constants")["site-colors"][
-          $gridRowBackgroundColorValue
-        ]["contrastForDarkMode"];
-        switch ($gridContrastColorForLightMode) {
-          case "#000000":
-            $gridColumnInnerContainerClassOutput = " prose-black";
-            break;
-          case "#ffffff":
-            $gridColumnInnerContainerClassOutput = " prose-white";
-            break;
-        }
-        switch ($gridContrastColorForDarkMode) {
-          case "#000000":
-            $gridColumnInnerContainerClassOutput .= " dark:prose-black";
-            break;
-          case "#ffffff":
-            $gridColumnInnerContainerClassOutput .= " dark:prose-white";
-            break;
-        }
+        $gridColumnInnerContainerClassOutput =
+          " " .
+          $selectableBackgroundColors[
+            $gridLayoutRow->gridRowBackgroundColor()->value()
+          ]["light-contrast-tailwindcss-prose-class"] .
+          " " .
+          $selectableBackgroundColors[
+            $gridLayoutRow->gridRowBackgroundColor()->value()
+          ]["dark-contrast-tailwindcss-prose-class"];
       } else {
         $gridColumnInnerContainerClassOutput =
           " prose-neutral dark:prose-invert";

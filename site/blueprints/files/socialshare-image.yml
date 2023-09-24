@@ -12,12 +12,5 @@ accept:
   minwidth: 1200
   minheight: 630
 
-columns:
-  metadata:
-    width: 1/2
-    fields:
-      imageMetadata: fields/image-meta
-  display:
-    width: 1/2
-    fields:
-      imageDisplaySettings: fields/image-display-settings
+fields:
+  imageMetadata: fields/image-meta

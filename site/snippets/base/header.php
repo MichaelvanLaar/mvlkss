@@ -78,8 +78,6 @@
 
         /* Calculate stroke width of navigation toggle icon  */
         --nav-toggle-icon-stroke-width: calc(var(--site-header-scroll-height) / 24);
-
-        <?= option("site-constants")["site-colors-css-custom-properties"] ?>
       }
     </style>
       <?= css("assets/css/main.css") ?>

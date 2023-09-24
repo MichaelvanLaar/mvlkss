@@ -4,43 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "360fb9e2a29e98a52e21fa287e87e111",
+    "content-hash": "f1b32bef5a9d7237af6f61b81caf8810",
     "packages": [
-        {
-            "name": "adspectus/date-extended",
-            "version": "1.1.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Adspectus/k3-date-extended.git",
-                "reference": "48f9011d1585a45e1d43b66b6eae974b2688b804"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Adspectus/k3-date-extended/zipball/48f9011d1585a45e1d43b66b6eae974b2688b804",
-                "reference": "48f9011d1585a45e1d43b66b6eae974b2688b804",
-                "shasum": ""
-            },
-            "require": {
-                "getkirby/composer-installer": "^1.1"
-            },
-            "type": "kirby-plugin",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-3.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Adspectus",
-                    "email": "adspectus@fastmail.com"
-                }
-            ],
-            "description": "Plugin to provide two additional date fields which will store the creation date and the modication date as a Unix Epoch. A field method is provided to convert this epoch to a formatted string.",
-            "support": {
-                "issues": "https://github.com/Adspectus/k3-date-extended/issues",
-                "source": "https://github.com/Adspectus/k3-date-extended/tree/v1.1.3"
-            },
-            "time": "2020-06-23T11:22:24+00:00"
-        },
         {
             "name": "afbora/kirby-minify-html",
             "version": "2.0.0",
@@ -169,46 +134,6 @@
                 }
             ],
             "time": "2023-08-02T10:01:17+00:00"
-        },
-        {
-            "name": "bvdputte/kirby-bettersearch",
-            "version": "2.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/bvdputte/kirby-bettersearch.git",
-                "reference": "3564c760d0db85742ecbac89f72c9c3b32d74631"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/bvdputte/kirby-bettersearch/zipball/3564c760d0db85742ecbac89f72c9c3b32d74631",
-                "reference": "3564c760d0db85742ecbac89f72c9c3b32d74631",
-                "shasum": ""
-            },
-            "require": {
-                "getkirby/composer-installer": "^1.1"
-            },
-            "type": "kirby-plugin",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Bart Vandeputte",
-                    "email": "mail@bartvandeputte.be"
-                }
-            ],
-            "description": "A search plugin for Kirby 3 that searches for full word combinations rather than just individual words.",
-            "keywords": [
-                "kirby3",
-                "kirby3-plugin",
-                "search"
-            ],
-            "support": {
-                "issues": "https://github.com/bvdputte/kirby-bettersearch/issues",
-                "source": "https://github.com/bvdputte/kirby-bettersearch/tree/2.0.0"
-            },
-            "time": "2023-02-04T16:20:20+00:00"
         },
         {
             "name": "claviska/simpleimage",
@@ -661,103 +586,25 @@
             "time": "2020-12-28T12:54:39+00:00"
         },
         {
-            "name": "hananils/kirby-colors",
-            "version": "1.7.3",
+            "name": "johannschopplich/kirby-hashed-assets",
+            "version": "3.0.9",
             "source": {
                 "type": "git",
-                "url": "https://github.com/hananils/kirby-colors.git",
-                "reference": "0fdfd1f7d4978c9383345b7b9390fefd2f171a9d"
+                "url": "https://github.com/johannschopplich/kirby-hashed-assets.git",
+                "reference": "ea64f6e2c4afb7da8fda0ea1a4500d596a31a20f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hananils/kirby-colors/zipball/0fdfd1f7d4978c9383345b7b9390fefd2f171a9d",
-                "reference": "0fdfd1f7d4978c9383345b7b9390fefd2f171a9d",
+                "url": "https://api.github.com/repos/johannschopplich/kirby-hashed-assets/zipball/ea64f6e2c4afb7da8fda0ea1a4500d596a31a20f",
+                "reference": "ea64f6e2c4afb7da8fda0ea1a4500d596a31a20f",
                 "shasum": ""
             },
             "require": {
                 "getkirby/composer-installer": "^1.2"
             },
-            "type": "kirby-plugin",
-            "autoload": {
-                "psr-4": {
-                    "Hananils\\": "lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "hana+nils · Büro für Gestaltung",
-                    "email": "buero@hananils.de"
-                }
-            ],
-            "description": "A color field for Kirby 3",
-            "homepage": "https://github.com/hananils/kirby-colors",
-            "support": {
-                "issues": "https://github.com/hananils/kirby-colors/issues/",
-                "source": "https://github.com/hananils/kirby-colors/tree/1.7.3"
-            },
-            "time": "2023-06-09T09:39:46+00:00"
-        },
-        {
-            "name": "hananils/kirby-date-methods",
-            "version": "2.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/hananils/kirby-date-methods.git",
-                "reference": "14866d1e420df0f8a0967f259461cf09afd1b81b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/hananils/kirby-date-methods/zipball/14866d1e420df0f8a0967f259461cf09afd1b81b",
-                "reference": "14866d1e420df0f8a0967f259461cf09afd1b81b",
-                "shasum": ""
-            },
-            "require": {
-                "getkirby/composer-installer": "^1.1",
-                "openpsa/ranger": "^0.5.1"
-            },
-            "type": "kirby-plugin",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "hana+nils · Büro für Gestaltung",
-                    "email": "buero@hananils.de"
-                }
-            ],
-            "description": "Kirby 3 plugin providing field and page methods for formatting dates and creating PHP date objects.",
-            "support": {
-                "issues": "https://github.com/hananils/kirby-date-methods/issues",
-                "source": "https://github.com/hananils/kirby-date-methods/tree/2.1.0"
-            },
-            "time": "2022-01-17T18:41:13+00:00"
-        },
-        {
-            "name": "johannschopplich/kirby-hashed-assets",
-            "version": "3.0.8",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/johannschopplich/kirby-hashed-assets.git",
-                "reference": "84c30446c34fb0ad1fef83545ef84dc475a79b32"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/johannschopplich/kirby-hashed-assets/zipball/84c30446c34fb0ad1fef83545ef84dc475a79b32",
-                "reference": "84c30446c34fb0ad1fef83545ef84dc475a79b32",
-                "shasum": ""
-            },
-            "require": {
-                "getkirby/composer-installer": "^1.2",
-                "php": ">=8.0"
-            },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "@stable",
-                "getkirby/cms": "^3.8",
+                "getkirby/cms": "^3.9",
                 "phpunit/phpunit": "^9.0"
             },
             "type": "kirby-plugin",
@@ -790,9 +637,9 @@
             ],
             "support": {
                 "issues": "https://github.com/johannschopplich/kirby-hashed-assets/issues",
-                "source": "https://github.com/johannschopplich/kirby-hashed-assets/tree/v3.0.8"
+                "source": "https://github.com/johannschopplich/kirby-hashed-assets/tree/v3.0.9"
             },
-            "time": "2023-01-05T21:07:26+00:00"
+            "time": "2023-09-22T20:06:34+00:00"
         },
         {
             "name": "johannschopplich/kirby-highlighter",
@@ -975,41 +822,6 @@
             "time": "2022-09-24T15:57:16+00:00"
         },
         {
-            "name": "lukaskleinschmidt/kirby-resolve",
-            "version": "1.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/lukaskleinschmidt/kirby-resolve.git",
-                "reference": "4c87912678774a2c2b3b945c65fe7cdc116d4648"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/lukaskleinschmidt/kirby-resolve/zipball/4c87912678774a2c2b3b945c65fe7cdc116d4648",
-                "reference": "4c87912678774a2c2b3b945c65fe7cdc116d4648",
-                "shasum": ""
-            },
-            "require": {
-                "getkirby/composer-installer": "^1.1"
-            },
-            "type": "kirby-plugin",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Lukas Kleinschmidt",
-                    "email": "public@kleinschmidt.at"
-                }
-            ],
-            "description": "Kirby Resolve",
-            "support": {
-                "issues": "https://github.com/lukaskleinschmidt/kirby-resolve/issues",
-                "source": "https://github.com/lukaskleinschmidt/kirby-resolve/tree/master"
-            },
-            "time": "2020-04-23T08:02:53+00:00"
-        },
-        {
             "name": "lukaskleinschmidt/kirby-snippet-controller",
             "version": "2.1.0",
             "source": {
@@ -1135,135 +947,6 @@
                 "source": "https://github.com/youngcut/kirby-grid-block/tree/1.0.0"
             },
             "time": "2021-10-05T10:11:05+00:00"
-        },
-        {
-            "name": "microman/kirby-inherit",
-            "version": "1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/youngcut/kirby-inherit.git",
-                "reference": "912c66c314fc72b9b154d51d5a15cc84ac86e80e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/youngcut/kirby-inherit/zipball/912c66c314fc72b9b154d51d5a15cc84ac86e80e",
-                "reference": "912c66c314fc72b9b154d51d5a15cc84ac86e80e",
-                "shasum": ""
-            },
-            "require": {
-                "getkirby/composer-installer": "^1.1"
-            },
-            "type": "kirby-plugin",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Roman Gsponer",
-                    "email": "kirby@microman.ch"
-                }
-            ],
-            "description": "Get field from parent page if empty",
-            "support": {
-                "issues": "https://github.com/youngcut/kirby-inherit/issues",
-                "source": "https://github.com/youngcut/kirby-inherit/tree/1.0.1"
-            },
-            "funding": [
-                {
-                    "url": "https://www.paypal.com/donate/?hosted_button_id=BHXBDRWYPUPCG",
-                    "type": "other"
-                }
-            ],
-            "time": "2023-03-02T20:57:20+00:00"
-        },
-        {
-            "name": "moritzebeling/kirby-maintenance",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/moritzebeling/kirby-maintenance.git",
-                "reference": "ac0ae3587739702c82fe04e01213c9b4bc703f64"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/moritzebeling/kirby-maintenance/zipball/ac0ae3587739702c82fe04e01213c9b4bc703f64",
-                "reference": "ac0ae3587739702c82fe04e01213c9b4bc703f64",
-                "shasum": ""
-            },
-            "require": {
-                "getkirby/composer-installer": "^1.1"
-            },
-            "type": "kirby-plugin",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Moritz Ebeling",
-                    "homepage": "https://github.com/moritzebeling"
-                }
-            ],
-            "description": "Kirby Maintenance mode plugin",
-            "homepage": "https://github.com/moritzebeling/kirby-meintenance",
-            "support": {
-                "issues": "https://github.com/moritzebeling/kirby-maintenance/issues",
-                "source": "https://github.com/moritzebeling/kirby-maintenance/tree/v1.0.0"
-            },
-            "time": "2023-01-22T15:23:05+00:00"
-        },
-        {
-            "name": "openpsa/ranger",
-            "version": "v0.5.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/flack/ranger.git",
-                "reference": "3333620a67bc74746f2e07874c09dae307efe812"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/flack/ranger/zipball/3333620a67bc74746f2e07874c09dae307efe812",
-                "reference": "3333620a67bc74746f2e07874c09dae307efe812",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.5.0",
-                "symfony/intl": "~2.6|~3.4|~4.0|~5.0|~6.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": ">=4.8"
-            },
-            "suggest": {
-                "ext-intl": "Needed for usage with other locales than 'en'"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "OpenPsa\\Ranger\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Andreas Flack",
-                    "email": "flack@contentcontrol-berlin.de",
-                    "homepage": "http://www.contentcontrol-berlin.de/"
-                }
-            ],
-            "description": "Formatter for date and time ranges with i18n support",
-            "keywords": [
-                "date range",
-                "time range"
-            ],
-            "support": {
-                "issues": "https://github.com/flack/ranger/issues",
-                "source": "https://github.com/flack/ranger/tree/v0.5.5"
-            },
-            "time": "2022-09-08T09:01:35+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
@@ -1474,44 +1157,6 @@
             "time": "2022-12-17T21:53:22+00:00"
         },
         {
-            "name": "sylvainjule/colorextractor",
-            "version": "1.0.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sylvainjule/kirby-colorextractor.git",
-                "reference": "e224b5be66396ec887687e591fae32034df63169"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sylvainjule/kirby-colorextractor/zipball/e224b5be66396ec887687e591fae32034df63169",
-                "reference": "e224b5be66396ec887687e591fae32034df63169",
-                "shasum": ""
-            },
-            "require": {
-                "getkirby/composer-installer": "^1.1"
-            },
-            "type": "kirby-plugin",
-            "extra": {
-                "installer-name": "colorextractor"
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Sylvain Julé",
-                    "email": "contact@sylvain-jule.fr"
-                }
-            ],
-            "description": "Extract dominant / average color from any image.",
-            "support": {
-                "issues": "https://github.com/sylvainjule/kirby-colorextractor/issues",
-                "source": "https://github.com/sylvainjule/kirby-colorextractor/tree/1.0.7"
-            },
-            "time": "2022-02-24T11:03:40+00:00"
-        },
-        {
             "name": "symfony/css-selector",
             "version": "v6.3.2",
             "source": {
@@ -1642,88 +1287,6 @@
                 }
             ],
             "time": "2023-05-23T14:45:45+00:00"
-        },
-        {
-            "name": "symfony/intl",
-            "version": "v6.3.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/intl.git",
-                "reference": "1f8cb145c869ed089a8531c51a6a4b31ed0b3c69"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/intl/zipball/1f8cb145c869ed089a8531c51a6a4b31ed0b3c69",
-                "reference": "1f8cb145c869ed089a8531c51a6a4b31ed0b3c69",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.1"
-            },
-            "require-dev": {
-                "symfony/filesystem": "^5.4|^6.0",
-                "symfony/finder": "^5.4|^6.0",
-                "symfony/var-exporter": "^5.4|^6.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Intl\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Bernhard Schussek",
-                    "email": "bschussek@gmail.com"
-                },
-                {
-                    "name": "Eriksen Costa",
-                    "email": "eriksen.costa@infranology.com.br"
-                },
-                {
-                    "name": "Igor Wiedler",
-                    "email": "igor@wiedler.ch"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Provides access to the localization data of the ICU library",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "i18n",
-                "icu",
-                "internationalization",
-                "intl",
-                "l10n",
-                "localization"
-            ],
-            "support": {
-                "source": "https://github.com/symfony/intl/tree/v6.3.2"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2023-07-20T07:43:09+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",

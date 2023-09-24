@@ -83,7 +83,6 @@ columns:
           en: Allow or forbid search engines to index this page. This also affects the XML sitemap and the frontend search function (if implemented).
           de: Suchmaschinen das Indexieren dieser Seite erlauben oder verbieten. Dies hat auch Einfluss auf die XML-Sitemap und die Frontend-Suchfunktion (falls implementiert).
         default: true
-        translate: false
 
   # Metadata for social media link previews
   socialShare:
@@ -162,8 +161,8 @@ columns:
       twitterCreatorHandle:
         type: text
         label:
-          en: Twitter Handle of the Page Author (e.g. for articles)
-          de: Twitter-Account des Seitenautors (z. B. bei Artikeln)
+          en: X Handle of the Page Author (e.g. for articles)
+          de: X-Account des Seitenautors (z. B. bei Artikeln)
         help:
           en: Please include the leading “@” character
           de: Bitte mit dem „@“-Zeichen beginnen

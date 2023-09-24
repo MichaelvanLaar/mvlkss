@@ -34,6 +34,11 @@ $columnWidthClasses = [
  * -----------------------------------------------------------------------------
  */
 
+// Get the “selectable background colors” array from the site constants
+$selectableBackgroundColors = option("site-constants")[
+  "selectable-background-colors"
+];
+
 // Classes required for the responsive design of the multi-column layout
 $innerRowContainerClasses =
   "grid grid-cols-12 gap-medium lg:gap-large md:[&_>_.column-width-1\/3:nth-child(3)]:col-start-4 lg:[&_>_.column-width-1\/3:nth-child(3)]:col-start-auto [.column-splitting-1\/4-1\/2-1\/4_>_&_>_.column-width-1\/4.empty-column]:hidden lg:[.column-splitting-1\/4-1\/2-1\/4_>_&_>_.column-width-1\/4.empty-column]:block md:[.column-splitting-1\/4-1\/2-1\/4_>_&_>_.column-width-1\/4]:col-start-4 lg:[.column-splitting-1\/4-1\/2-1\/4_>_&_>_.column-width-1\/4]:col-start-auto md:[:is(.column-splitting-1\/4-1\/2-1\/4,_.column-splitting-1\/4-1\/4-1\/2,_.column-splitting-1\/2-1\/4-1\/4)_>_&_>_.column-width-1\/2]:col-span-full lg:[:is(.column-splitting-1\/4-1\/2-1\/4,_.column-splitting-1\/4-1\/4-1\/2,_.column-splitting-1\/2-1\/4-1\/4)_>_&_>_.column-width-1\/2]:col-span-6";
@@ -60,39 +65,15 @@ $innerRowContainerClasses =
           $columnWidthClasses[$layoutColumn->width()] ??
           "column-width-" . $layoutColumn->width() . " col-span-full";
         if ($layoutRow["layoutRowBackgroundColorExists"]) {
-          if ($layoutRow["layoutRowBackgroundImageColorExists"]) {
-            $contrastColorForLightMode = $layoutRow["layout"]
-              ->rowBackgroundImage()
-              ->toFile()
-              ->color()
-              ->toMostReadable();
-            $contrastColorForDarkMode = $contrastColorForLightMode;
-          } else {
-            $contrastColorForLightMode = option("site-constants")[
-              "site-colors"
-            ][$layoutRow["layoutRowBackgroundColorValue"]][
-              "contrastForLightMode"
-            ];
-            $contrastColorForDarkMode = option("site-constants")["site-colors"][
+          $columnInnerContainerClassOutput =
+            " " .
+            $selectableBackgroundColors[
               $layoutRow["layoutRowBackgroundColorValue"]
-            ]["contrastForDarkMode"];
-          }
-          switch ($contrastColorForLightMode) {
-            case option("site-constants")["color-black"]:
-              $columnInnerContainerClassOutput = " prose-black";
-              break;
-            case option("site-constants")["color-white"]:
-              $columnInnerContainerClassOutput = " prose-white";
-              break;
-          }
-          switch ($contrastColorForDarkMode) {
-            case option("site-constants")["color-black"]:
-              $columnInnerContainerClassOutput .= " dark:prose-black";
-              break;
-            case option("site-constants")["color-white"]:
-              $columnInnerContainerClassOutput .= " dark:prose-white";
-              break;
-          }
+            ]["light-contrast-tailwindcss-prose-class"] .
+            " " .
+            $selectableBackgroundColors[
+              $layoutRow["layoutRowBackgroundColorValue"]
+            ]["dark-contrast-tailwindcss-prose-class"];
         } else {
           $columnInnerContainerClassOutput = " prose-neutral dark:prose-invert";
         }
@@ -119,7 +100,10 @@ $innerRowContainerClasses =
           ? " sticky top-[var(--site-header-height)]"
           : "";
         ?>
-        <div data-page-builder-element-type="layout-column" class="<?= $columnClassOutput ?>">
+        <div
+          data-page-builder-element-type="layout-column"
+          class="<?= $columnClassOutput ?>"
+        >
           <?php if ($layoutColumn->blocks()->isNotEmpty()) {
             echo "<!-- Inner column container -->\n<div data-page-builder-element-type=\"layout-inner-column-container\" class=\"max-w-none prose" .
               $columnInnerContainerClassOutput .

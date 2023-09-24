@@ -2,7 +2,7 @@ Title: Site Title
 
 ----
 
-Sitelogo: - file://2Lx4HV4jCW4Ihdi5
+Sitelogo: - file://0sLoU6R7JGqIGl3I
 
 ----
 
@@ -15,40 +15,3 @@ Defaultdivider: |
 ----
 
 Twittersitehandle: 
-
-----
-
-Sitecolorscheme:
-
-- 
-  id: brand-color-1
-  name: Brand Red
-  includeincolorselect: 'true'
-  lightmode: '#d20f0a'
-  darkmode: '#650705'
-- 
-  id: brand-color-2
-  name: Brand Yellow
-  includeincolorselect: 'false'
-  lightmode: '#ffe60f'
-  darkmode: '#7a6e07'
-- 
-  id: brand-color-3
-  name: Brand Green
-  includeincolorselect: 'true'
-  lightmode: '#8cbe0a'
-  darkmode: '#435b05'
-- 
-  id: brand-color-4
-  name: Brand Blue
-  includeincolorselect: 'true'
-  lightmode: '#93c5fd'
-  darkmode: '#1d4ed8'
-
-----
-
-Maintenance: false
-
-----
-
-Maintenance-text: 

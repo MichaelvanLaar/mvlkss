@@ -25,7 +25,10 @@ fields:
     extends: fields/link-target
     width: 1/2
   color:
-    extends: fields/site-color-select
+    extends: fields/background-color-select
+    label:
+      en: Button Color
+      de: Button-Farbe
     width: 1/2
   style:
     type: toggles
@@ -60,7 +63,7 @@ fields:
       end:
         en: End
         de: Ende
-    default: left
+    default: start
     required: true
     width: 1/2
   width:

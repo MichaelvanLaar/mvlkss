@@ -15,7 +15,6 @@ return [
         ],
     ],
     "debug" => true,
-    "lukaskleinschmidt.resolve.cache" => false,
     "thumbs" => [
         "driver" => "gd",
     ],

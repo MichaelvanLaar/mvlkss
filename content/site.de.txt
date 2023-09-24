@@ -2,7 +2,7 @@ Title: Website-Titel
 
 ----
 
-Sitelogo: - file://2Lx4HV4jCW4Ihdi5
+Sitelogo: - file://0sLoU6R7JGqIGl3I
 
 ----
 
@@ -15,24 +15,3 @@ Defaultdivider: |
 ----
 
 Twittersitehandle: 
-
-----
-
-Sitecolorscheme:
-
-- 
-  name: Marken-Rot
-- 
-  name: Marken-Gelb
-- 
-  name: Marken-Grün
-- 
-  name: Marken-Blau
-
-----
-
-Maintenance: false
-
-----
-
-Maintenance-text: 
