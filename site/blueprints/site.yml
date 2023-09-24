@@ -17,6 +17,9 @@ tabs:
         label:
           en: Pages
           de: Seiten
+        create:
+          - default
+          - custom-menu-item
 
   # Site Settings tab
   siteSettings:
