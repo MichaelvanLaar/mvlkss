@@ -85,6 +85,14 @@ To keep everything neat and simple, organize your frontend scripts in separate p
 
 Starting with `/src/js/main.js` as entry point, Webpack will bundle everything (including imported node modules) and create the output file `assets/js/main.js`. This is the JS file that needs to be linked in your Kirby templates.
 
+## How to set up a brand color palette for the site and make specific brand colors available to editors (e.g., in background color select fields)
+
+1. Unless you are using the default Tailwind CSS colors exclusively as brand colors for your website design, **add your custom colors in the [`tailwind.config.js`](https://github.com/MichaelvanLaar/mvlkss/blob/main/tailwind.config.js) file.** See the [Tailwind CSS documentation](https://tailwindcss.com/docs/customizing-colors#adding-additional-colors) for more information on adding additional colors to the Tailwind CSS setup.
+2. **Reference those colors that you want to provide in select boxes for website editors in Kirby’s [`config.php`](https://github.com/MichaelvanLaar/mvlkss/blob/main/site/config/config.php) file,** using the respective Tailwind CSS utility classes.
+3. Note that the concept is to specify multiple Tailwind CSS utility classes for each selectable color name to cover light and dark modes, as well as to specify matching contrast colors. The latter are used, for example, to provide proper colors to ensure that text displayed over the respective brand color background is always readable.  
+   Since each Tailwind CSS utility class in use has to be present as a complete string in a PHP file, in order to be identified correctly during the build step, you need to **define all utility classes you want to use for one brand-color separately.** See the [comment of the corresponding section in the `config.php` file](https://github.com/MichaelvanLaar/mvlkss/blob/1e6f8c42567db1d8402776837caa38b3ce69500a/site/config/config.php#L114-L187) for detailed information and examples.
+4. If you prefer individual contrast colors over pure black and pure white, you need to **add additional color schemes for the Tailwind CSS typography plugin.** You can copy the [examples for the `prose-black` and `prose-white` utility classes in the `tailwind.config.js` file](https://github.com/MichaelvanLaar/mvlkss/blob/1e6f8c42567db1d8402776837caa38b3ce69500a/tailwind.config.js#L24-L95) and use them to add your own typography colors. For more information see the [“Adding custom color themes” section](https://tailwindcss.com/docs/typography-plugin#adding-custom-color-themes) of the Tailwind CSS typography plugin documentation.
+
 ## Tools Included
 
 - [Kirby](https://getkirby.com/) (via [Composer](https://getcomposer.org/))
