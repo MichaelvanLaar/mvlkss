@@ -100,7 +100,7 @@
                             $lang->name() ?>"
                         >
                       <?php else: ?>
-                        <span class="text-neutral-500">
+                        <span class="text-neutral-500 dark:text-neutral-400">
                       <?php endif;
                       ?>
                           <small><?= $lang->code() ?></small>
@@ -110,7 +110,7 @@
                         </span>
                       <?php endif; ?>
                       <?php if ($counter < $languageCount): ?>
-                        <span class="px-1 text-neutral-500"><small>/</small></span>
+                        <span class="px-1 text-neutral-500 dark:text-neutral-400"><small>/</small></span>
                       <?php endif; ?>
                     <?php endforeach;
                     ?>
