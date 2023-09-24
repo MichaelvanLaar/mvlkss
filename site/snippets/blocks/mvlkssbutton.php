@@ -8,15 +8,58 @@
 // Check if the button color is set
 $buttonColorIsSet = $block->color()->isNotEmpty();
 
-// Set the background and/or border color related CSS classes for the button
+// Get the “selectable background colors” array from the site constants
+$selectableBackgroundColors = option("site-constants")[
+  "selectable-background-colors"
+];
+
+// Set the background and/or border color related CSS classes as well as the
+// text color related CSS classes for the button
 if ($block->style() == "filled") {
   $buttonStyleClasses = $buttonColorIsSet
-    ? "bg-[var(--button-color-light-mode)] dark:bg-[var(--button-color-dark-mode)] border-solid border-2 border-[var(--button-color-light-mode)] dark:border-[var(--button-color-dark-mode)] text-[var(--button-text-color-light-mode)] dark:text-[var(--button-text-color-dark-mode)]"
-    : "bg-neutral-500 border-solid border-2 border-neutral-500 text-white";
+    ? $selectableBackgroundColors[$block->color()->value()][
+        "light-tailwindcss-bg-class"
+      ] .
+      " " .
+      $selectableBackgroundColors[$block->color()->value()][
+        "dark-tailwindcss-bg-class"
+      ] .
+      " border-solid border-2 " .
+      $selectableBackgroundColors[$block->color()->value()][
+        "light-tailwindcss-border-class"
+      ] .
+      " " .
+      $selectableBackgroundColors[$block->color()->value()][
+        "dark-tailwindcss-border-class"
+      ] .
+      " " .
+      $selectableBackgroundColors[$block->color()->value()][
+        "light-contrast-tailwindcss-text-class"
+      ] .
+      " " .
+      $selectableBackgroundColors[$block->color()->value()][
+        "dark-contrast-tailwindcss-text-class"
+      ]
+    : "bg-neutral-500 dark:bg-neutral-500 border-solid border-2 border-neutral-500 dark:border-neutral-500 text-white dark:text-white";
 } else {
   $buttonStyleClasses = $buttonColorIsSet
-    ? "border-solid border-2 border-[var(--button-color-light-mode)] dark:border-[var(--button-color-dark-mode)] text-[var(--button-text-color-light-mode)] dark:text-[var(--button-text-color-dark-mode)]"
-    : "border-solid border-2 border-neutral-500 text-neutral-500";
+    ? "border-solid border-2 " .
+      $selectableBackgroundColors[$block->color()->value()][
+        "light-tailwindcss-border-class"
+      ] .
+      " " .
+      $selectableBackgroundColors[$block->color()->value()][
+        "dark-tailwindcss-border-class"
+      ] .
+      " " .
+      $selectableBackgroundColors[$block->color()->value()][
+        "light-tailwindcss-text-class"
+      ] .
+      " " .
+      $selectableBackgroundColors[$block->color()->value()][
+        "dark-tailwindcss-text-class"
+      ]
+    : "border-solid border-2 border-neutral-500 dark:border-neutral-500 text-neutral-500 dark:text-neutral-500";
 }
 
 // Set the width related CSS class for the button
@@ -41,41 +84,11 @@ $buttonContainerClasses = array_key_exists($alignmentValue, $alignMap)
   ? $alignMap[$alignmentValue]
   : $alignMap["start"];
 $buttonContainerClassAttribute = "class=\"{$buttonContainerClasses}\"";
-
-// Construct the style attribute for the button container
-$buttonContainerStyleAttribute = $buttonColorIsSet
-  ? "style=\"--button-color-light-mode: " .
-    option("site-constants")["site-colors"][$block->color()->value()][
-      "lightMode"
-    ] .
-    "; --button-color-dark-mode: " .
-    option("site-constants")["site-colors"][$block->color()->value()][
-      "darkMode"
-    ] .
-    "; --button-text-color-light-mode: " .
-    ($block->style() == "filled"
-      ? option("site-constants")["site-colors"][$block->color()->value()][
-        "contrastForLightMode"
-      ]
-      : option("site-constants")["site-colors"][$block->color()->value()][
-        "lightMode"
-      ]) .
-    "; --button-text-color-dark-mode: " .
-    ($block->style() == "filled"
-      ? option("site-constants")["site-colors"][$block->color()->value()][
-        "contrastForDarkMode"
-      ]
-      : option("site-constants")["site-colors"][$block->color()->value()][
-        "darkMode"
-      ]) .
-    ";\""
-  : "";
 ?>
 
 <!-- Button Container -->
 <div
   <?= $buttonContainerClassAttribute ?>
-  <?= $buttonContainerStyleAttribute ?>
 >
   <!-- Button -->
   <a

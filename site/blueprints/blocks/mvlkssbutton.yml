@@ -63,7 +63,7 @@ fields:
       end:
         en: End
         de: Ende
-    default: left
+    default: start
     required: true
     width: 1/2
   width:
