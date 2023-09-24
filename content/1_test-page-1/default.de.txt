@@ -1,0 +1,57 @@
+Title: Testseite 1
+
+----
+
+Slug: testseite-1
+
+----
+
+Pagebuilder: 
+
+----
+
+Seotitle: 
+
+----
+
+Appenddefaultdividertotitleelement: true
+
+----
+
+Appendsitetitletotitleelement: true
+
+----
+
+Seodescription: 
+
+----
+
+Seoindex: true
+
+----
+
+Socialsharetitle: 
+
+----
+
+Appenddefaultdividertosocialsharetitle: false
+
+----
+
+Appendsitetitletosocialsharetitle: false
+
+----
+
+Socialsharedescription: 
+
+----
+
+Socialshareimage: 
+
+----
+
+Twittercreatorhandle: 
+
+----
+
+Includeinmenus: main

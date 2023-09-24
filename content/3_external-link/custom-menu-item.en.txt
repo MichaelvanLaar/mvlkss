@@ -1,0 +1,17 @@
+Title: External Link
+
+----
+
+Menuitemurl: https://michaelvanlaar.com/
+
+----
+
+Menuitemtarget: _blank
+
+----
+
+Includeinmenus: main
+
+----
+
+Uuid: mOmuOhCvr5w9iHiq

@@ -1,0 +1,17 @@
+Title: Externer Link
+
+----
+
+Slug: externer-link
+
+----
+
+Menuitemurl: https://michaelvanlaar.com/
+
+----
+
+Menuitemtarget: _blank
+
+----
+
+Includeinmenus: main

@@ -1,1 +1,53 @@
 Title: Start
+
+----
+
+Pagebuilder: [{"attrs":{"rowwidth":"row-container-default","rowverticalalign":"top","rowpaddingtop":"none","rowpaddingbottom":"none","rowbackgroundcolor":"","rowbackgroundimage":[],"rowbackgroundimagesize":"cover","rowbackgroundimageposition":"middle-center","rowbackgroundimagerepeat":"no-repeat","rowid":"","rowclasses":""},"columns":[{"blocks":[{"content":{"text":"<p>Viel Platz für Ihre Inhalte.</p>"},"id":"79d2307b-1851-4d32-83c9-923ce0f61b1f","isHidden":false,"type":"text"}],"id":"0c434a55-25d0-407d-a8bf-ec6a0d32bdeb","width":"1/1"}],"id":"09c5c1be-1d0a-480f-8535-8fb810db442e"}]
+
+----
+
+Seotitle: 
+
+----
+
+Appenddefaultdividertotitleelement: true
+
+----
+
+Appendsitetitletotitleelement: true
+
+----
+
+Seodescription: 
+
+----
+
+Seoindex: true
+
+----
+
+Socialsharetitle: 
+
+----
+
+Appenddefaultdividertosocialsharetitle: false
+
+----
+
+Appendsitetitletosocialsharetitle: false
+
+----
+
+Socialsharedescription: 
+
+----
+
+Socialshareimage: 
+
+----
+
+Twittercreatorhandle: 
+
+----
+
+Includeinmenus: 

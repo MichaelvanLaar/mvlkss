@@ -1,0 +1,57 @@
+Title: Test page 4
+
+----
+
+Pagebuilder: 
+
+----
+
+Seotitle: 
+
+----
+
+Appenddefaultdividertotitleelement: true
+
+----
+
+Appendsitetitletotitleelement: true
+
+----
+
+Seodescription: 
+
+----
+
+Seoindex: true
+
+----
+
+Socialsharetitle: 
+
+----
+
+Appenddefaultdividertosocialsharetitle: false
+
+----
+
+Appendsitetitletosocialsharetitle: false
+
+----
+
+Socialsharedescription: 
+
+----
+
+Socialshareimage: 
+
+----
+
+Twittercreatorhandle: 
+
+----
+
+Includeinmenus: main
+
+----
+
+Uuid: tJMhsJUgCFRPkxHu
