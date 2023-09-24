@@ -35,7 +35,7 @@
           </ul>
         </nav>
         <div>
-          Social Media
+          Social Media Links
         </div>
       </div>
     </footer>
