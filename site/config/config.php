@@ -114,6 +114,7 @@ $thumbPresets = getThumbPresets($thumbSrcsetsConfig);
 /**
  * -----------------------------------------------------------------------------
  * CONFIGURATION: Selectable Background Colors
+ * (with corresponding colors for borders and text)
  *
  * These constants assign Tailwind CSS utility classes to the respective options
  * which are used in panel fields whenever a website editor should be able to
@@ -127,23 +128,61 @@ $thumbPresets = getThumbPresets($thumbSrcsetsConfig);
  *
  * The keys of the array are the option values of the panel field. The values of
  * the array are arrays with the following keys:
- * - label: The label text of the option
- * - light-tailwindcss-bg-class: The Tailwind CSS utility class for the light
- *   mode background color (needs to start with “bg-”)
- * - light-tailwindcss-border-class: The Tailwind CSS utility class for the
- *   light mode border color which is used when rendering buttons (needs to
- *   start with “border-”)
- * - light-tailwindcss-prose-class: The Tailwind CSS utility class of the
- *   Typography plugin color scheme used for rendering text on this backgorund
- *   in light mode (needs to start with “prose-”)
- * - dark-tailwindcss-bg-class: The Tailwind CSS utility class for the dark mode
- *   background color (needs to start with “bg-”)
- * - dark-tailwindcss-border-class: The Tailwind CSS utility class for the
- *   dark mode border color which is used when rendering buttons (needs to
- *   start with “border-”)
- * - dark-tailwindcss-prose-class: The Tailwind CSS utility class of the
- *   Typography plugin color scheme used for rendering text on this backgorund
- *   in dark mode (needs to start with “prose-”)
+ *
+ * - label:
+ *   Label text for select fields in the panel
+ *
+ * - light-tailwindcss-bg-class:
+ *   Tailwind CSS utility class for the light mode background color
+ *   (must start with “bg-”)
+ *
+ * - light-tailwindcss-border-class:
+ *   Tailwind CSS utility class for the light mode border color which is used
+ *   when rendering buttons (typically in the same color as the background)
+ *   (must start with “border-”)
+ *
+ * - light-tailwindcss-text-class:
+ *   The Tailwind CSS utility class for rendering text in the light mode
+ *   background color, which is used to style the text of outline buttons
+ *   (typically in the same color as the background)
+ *   (must start with “text-”)
+ *
+ * - light-contrast-tailwindcss-prose-class:
+ *   Tailwind CSS utility class of the Typography plugin color scheme used for
+ *   rendering text in a contrasting color on top of this backgorund in light
+ *   mode
+ *   (must start with “prose-”)
+ *
+ * - light-contrast-tailwindcss-text-class:
+ *   Tailwind CSS utility class for rendering text in a contrasting color on top
+ *   of this backgorund in light mode
+ *   (must start with “text-”)
+ *
+ * - dark-tailwindcss-bg-class:
+ *   Tailwind CSS utility class for the dark mode background color
+ *   (must start with “dark:bg-”)
+ *
+ * - dark-tailwindcss-border-class:
+ *   Tailwind CSS utility class for the dark mode border color which is used
+ *   when rendering buttons (typically in the same color as the background)
+ *   (must start with “dark:border-”)
+ *
+ * - dark-tailwindcss-text-class:
+ *   The Tailwind CSS utility class for rendering text in the dark mode
+ *   background color, which is used to style the text of outline buttons
+ *   (typically in the same color as the background)
+ *   (must start with “dark:text-”)
+ *
+ * - dark-contrast-tailwindcss-prose-class:
+ *   Tailwind CSS utility class of the Typography plugin color scheme used for
+ *   rendering text in a contrasting color on top of this backgorund in dark
+ *   mode
+ *   (must start with “dark:prose-”)
+ *
+ * - dark-contrast-tailwindcss-text-class:
+ *   Tailwind CSS utility class for rendering text in a contrasting color on top
+ *   of this backgorund in dark mode
+ *   (must start with “dark:text-”)
  * -----------------------------------------------------------------------------
  */
 
@@ -152,28 +191,40 @@ $selectableBackgroundColors = [
         "label" => "Brand Red",
         "light-tailwindcss-bg-class" => "bg-red-300",
         "light-tailwindcss-border-class" => "border-red-300",
-        "light-tailwindcss-prose-class" => "prose-black",
-        "dark-tailwindcss-bg-class" => "bg-red-700",
-        "dark-tailwindcss-border-class" => "border-red-700",
-        "dark-tailwindcss-prose-class" => "prose-white",
+        "light-tailwindcss-text-class" => "text-red-300",
+        "light-contrast-tailwindcss-prose-class" => "prose-black",
+        "light-contrast-tailwindcss-text-class" => "text-black",
+        "dark-tailwindcss-bg-class" => "dark:bg-red-700",
+        "dark-tailwindcss-border-class" => "dark:border-red-700",
+        "dark-tailwindcss-text-class" => "dark:text-red-700",
+        "dark-contrast-tailwindcss-prose-class" => "dark:prose-white",
+        "dark-contrast-tailwindcss-text-class" => "dark:text-white",
     ],
     "brand-green" => [
         "label" => "Brand Green",
         "light-tailwindcss-bg-class" => "bg-green-300",
-        "light-tailwindcssborder-class" => "border-green-300",
-        "light-tailwindcss-prose-class" => "prose-black",
-        "dark-tailwindcss-bg-class" => "bg-green-700",
-        "dark-tailwindcss-border-class" => "border-green-700",
-        "dark-tailwindcss-prose-class" => "prose-white",
+        "light-tailwindcss-border-class" => "border-green-300",
+        "light-tailwindcss-text-class" => "text-green-300",
+        "light-contrast-tailwindcss-prose-class" => "prose-black",
+        "light-contrast-tailwindcss-text-class" => "text-black",
+        "dark-tailwindcss-bg-class" => "dark:bg-green-700",
+        "dark-tailwindcss-border-class" => "dark:border-green-700",
+        "dark-tailwindcss-text-class" => "dark:text-green-700",
+        "dark-contrast-tailwindcss-prose-class" => "dark:prose-white",
+        "dark-contrast-tailwindcss-text-class" => "dark:text-white",
     ],
     "brand-blue" => [
         "label" => "Brand Blue",
         "light-tailwindcss-bg-class" => "bg-blue-300",
         "light-tailwindcss-border-class" => "border-blue-300",
-        "light-tailwindcss-prose-class" => "prose-black",
-        "dark-tailwindcss-bg-class" => "bg-blue-700",
-        "dark-tailwindcss-border-class" => "border-blue-700",
-        "dark-tailwindcss-prose-class" => "prose-white",
+        "light-tailwindcss-text-class" => "text-blue-300",
+        "light-contrast-tailwindcss-prose-class" => "prose-black",
+        "light-contrast-tailwindcss-text-class" => "text-black",
+        "dark-tailwindcss-bg-class" => "dark:bg-blue-700",
+        "dark-tailwindcss-border-class" => "dark:border-blue-700",
+        "dark-tailwindcss-text-class" => "dark:text-blue-700",
+        "dark-contrast-tailwindcss-prose-class" => "dark:prose-white",
+        "dark-contrast-tailwindcss-text-class" => "dark:text-white",
     ],
 ];
 
