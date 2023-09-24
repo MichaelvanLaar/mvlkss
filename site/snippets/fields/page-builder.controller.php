@@ -20,69 +20,13 @@ return function ($page) {
   ];
 
   foreach ($layoutRows as $layoutRow) {
-    // Construct the ID attribute for the current row
-    $rowId = $layoutRow->rowId();
-    $layoutRowIdAttribute = $rowId->isNotEmpty()
-      ? sprintf("id=\"%s\"", $rowId)
-      : "";
-
-    // Set the top and bottom padding related CSS class for the current row
-    $rowPaddingTopValue = (string) $layoutRow->rowPaddingTop();
-    $rowPaddingBottomValue = (string) $layoutRow->rowPaddingBottom();
-    $rowPaddingTopClass =
-      $spacingUtilityClasses["padding-top"][$rowPaddingTopValue] ?? "pt-0";
-    $rowPaddingBottomClass =
-      $spacingUtilityClasses["padding-bottom"][$rowPaddingBottomValue] ??
-      "pb-0";
-
-    // Set the column splitting related CSS class for the current row
-    $layoutColumnSplitting = buildColumnSplitting($layoutRow);
-
-    // Set the background color related CSS class for the current row
-    $rowBackgroundColor = $layoutRow->rowBackgroundColor();
-    $rowBackgroundColorClasses = $rowBackgroundColor->isNotEmpty()
-      ? $selectableBackgroundColors[$rowBackgroundColor->value()][
-          "light-tailwindcss-bg-class"
-        ] .
-        " " .
-        $selectableBackgroundColors[$rowBackgroundColor->value()][
-          "dark-tailwindcss-bg-class"
-        ]
-      : "";
-
-    // Set the background image related CSS classes for the current row
-    $rowBackgroundImageClasses = buildBackgroundImageClasses($layoutRow);
-
-    // Construct the classes attribute for the current row
-    $layoutRowClasses = [
-      $layoutColumnSplitting,
-      $layoutRow->rowClasses(),
-      $rowPaddingTopClass,
-      $rowPaddingBottomClass,
-      $rowBackgroundColorClasses,
-      $rowBackgroundImageClasses,
-    ];
-    $layoutRowClassAttribute = sprintf(
-      "class=\"%s\"",
-      implode(" ", $layoutRowClasses)
+    $layoutRowsData[] = getLayoutRowData(
+      $layoutRow,
+      $spacingUtilityClasses,
+      $selectableBackgroundColors
     );
-
-    // Construct the style attribute for the current row
-    $layoutRowStyleAttribute = buildStyleAttribute($layoutRow);
-
-    // Add the row data to the array
-    $layoutRowsData[] = [
-      "layoutColumnSplitting" => $layoutColumnSplitting,
-      "layoutRowIdAttribute" => $layoutRowIdAttribute,
-      "layoutRowClassAttribute" => $layoutRowClassAttribute,
-      "layoutRowStyleAttribute" => $layoutRowStyleAttribute,
-      "layoutRowBackgroundColorExists" => $rowBackgroundColor->isNotEmpty(),
-      "layoutRowBackgroundColorValue" => $rowBackgroundColor->value() ?? "",
-      "layout" => $layoutRow,
-    ];
   }
 
-  // Return the variables to the snippet
   return ["layoutRowsData" => $layoutRowsData];
 };
 
@@ -92,12 +36,73 @@ return function ($page) {
  * -----------------------------------------------------------------------------
  */
 
-function buildColumnSplitting($layoutRow) {
+function getLayoutRowData(
+  $layoutRow,
+  $spacingUtilityClasses,
+  $selectableBackgroundColors
+) {
+  // Construct the ID attribute for the current row
+  $rowId = $layoutRow->rowId();
+  $layoutRowIdAttribute = $rowId->isNotEmpty()
+    ? sprintf("id=\"%s\"", $rowId)
+    : "";
+
+  // Set the top and bottom padding related CSS class for the current row
+  $rowPaddingTopValue = (string) $layoutRow->rowPaddingTop();
+  $rowPaddingBottomValue = (string) $layoutRow->rowPaddingBottom();
+  $rowPaddingTopClass =
+    $spacingUtilityClasses["padding-top"][$rowPaddingTopValue] ?? "pt-0";
+  $rowPaddingBottomClass =
+    $spacingUtilityClasses["padding-bottom"][$rowPaddingBottomValue] ?? "pb-0";
+
+  // Set the column splitting related CSS class for the current row
   $layoutColumnSplitting = "column-splitting-";
   foreach ($layoutRow->columns() as $layoutColumn) {
     $layoutColumnSplitting .= $layoutColumn->width() . "-";
   }
-  return rtrim($layoutColumnSplitting, "-");
+  $layoutColumnSplitting = rtrim($layoutColumnSplitting, "-");
+
+  // Set the background color related CSS class for the current row
+  $rowBackgroundColor = $layoutRow->rowBackgroundColor();
+  $rowBackgroundColorClasses = $rowBackgroundColor->isNotEmpty()
+    ? $selectableBackgroundColors[$rowBackgroundColor->value()][
+        "light-tailwindcss-bg-class"
+      ] .
+      " " .
+      $selectableBackgroundColors[$rowBackgroundColor->value()][
+        "dark-tailwindcss-bg-class"
+      ]
+    : "";
+
+  // Set the background image related CSS classes for the current row
+  $rowBackgroundImageClasses = buildBackgroundImageClasses($layoutRow);
+
+  // Construct the classes attribute for the current row
+  $layoutRowClasses = [
+    $layoutColumnSplitting,
+    $layoutRow->rowClasses(),
+    $rowPaddingTopClass,
+    $rowPaddingBottomClass,
+    $rowBackgroundColorClasses,
+    $rowBackgroundImageClasses,
+  ];
+  $layoutRowClassAttribute = sprintf(
+    "class=\"%s\"",
+    implode(" ", $layoutRowClasses)
+  );
+
+  // Construct the style attribute for the current row
+  $layoutRowStyleAttribute = buildStyleAttribute($layoutRow);
+
+  return [
+    "layoutColumnSplitting" => $layoutColumnSplitting,
+    "layoutRowIdAttribute" => $layoutRowIdAttribute,
+    "layoutRowClassAttribute" => $layoutRowClassAttribute,
+    "layoutRowStyleAttribute" => $layoutRowStyleAttribute,
+    "layoutRowBackgroundColorExists" => $rowBackgroundColor->isNotEmpty(),
+    "layoutRowBackgroundColorValue" => $rowBackgroundColor->value() ?? "",
+    "layout" => $layoutRow,
+  ];
 }
 
 function buildBackgroundImageClasses($layoutRow) {
