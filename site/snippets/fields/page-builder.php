@@ -92,13 +92,14 @@ $innerRowContainerClasses =
         } else {
           $columnClassOutput .= " flex flex-col justify-start";
         }
-        $columnInnerContainerClassOutput .= $layoutColumn
-          ->blocks()
-          ->first()
-          ->sticky()
-          ->toBool($default = false)
-          ? " sticky top-[var(--site-header-height)]"
-          : "";
+        if ($layoutColumn->blocks()->isNotEmpty()) {
+          $firstBlock = $layoutColumn->blocks()->first();
+          $columnInnerContainerClassOutput .= $firstBlock
+            ->sticky()
+            ->toBool(false)
+            ? " sticky top-[var(--site-header-height)]"
+            : "";
+        }
         ?>
         <div
           data-page-builder-element-type="layout-column"
