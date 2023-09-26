@@ -18,6 +18,10 @@
  */
 
 /* nunito-sans-regular - latin */
+/* ATTENTION: The woff2 version of this web font is preladed in the header
+   snippet (/site/snippets/base/header.php) before the external CSS is loaded.
+   Remember to adapt the preloading link element in the snippet accordingly in
+   case you change the webfonts of the website. */
 @font-face {
   font-display: swap;
   font-family: "Nunito Sans";

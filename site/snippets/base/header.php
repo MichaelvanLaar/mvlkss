@@ -53,6 +53,14 @@
       })(document.documentElement);
     </script>
 
+    <link
+      rel="preload"
+      href="/assets/fonts/nunito-sans-v15-latin-regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
     <style>
       body {
         /* Set site header height */
