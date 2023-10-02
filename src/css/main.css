@@ -97,10 +97,7 @@
    */
 
   a {
-    @apply hover:brightness-125;
-    transition-property: filter;
-    transition-duration: 0.2s;
-    transition-timing-function: ease-in-out;
+    @apply hover:transition-all hover:brightness-125;
   }
 }
 
