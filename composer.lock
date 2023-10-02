@@ -587,16 +587,16 @@
         },
         {
             "name": "johannschopplich/kirby-hashed-assets",
-            "version": "3.0.9",
+            "version": "3.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johannschopplich/kirby-hashed-assets.git",
-                "reference": "ea64f6e2c4afb7da8fda0ea1a4500d596a31a20f"
+                "reference": "eb51a6bbc95dcfdd61dc4ec4c1f9939251503b11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johannschopplich/kirby-hashed-assets/zipball/ea64f6e2c4afb7da8fda0ea1a4500d596a31a20f",
-                "reference": "ea64f6e2c4afb7da8fda0ea1a4500d596a31a20f",
+                "url": "https://api.github.com/repos/johannschopplich/kirby-hashed-assets/zipball/eb51a6bbc95dcfdd61dc4ec4c1f9939251503b11",
+                "reference": "eb51a6bbc95dcfdd61dc4ec4c1f9939251503b11",
                 "shasum": ""
             },
             "require": {
@@ -637,9 +637,9 @@
             ],
             "support": {
                 "issues": "https://github.com/johannschopplich/kirby-hashed-assets/issues",
-                "source": "https://github.com/johannschopplich/kirby-hashed-assets/tree/v3.0.9"
+                "source": "https://github.com/johannschopplich/kirby-hashed-assets/tree/v3.0.10"
             },
-            "time": "2023-09-22T20:06:34+00:00"
+            "time": "2023-09-28T15:41:10+00:00"
         },
         {
             "name": "johannschopplich/kirby-highlighter",
