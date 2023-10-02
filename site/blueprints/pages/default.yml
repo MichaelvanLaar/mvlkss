@@ -2,7 +2,9 @@
 # Page: Default
 #===============================================================================
 
-title: Default Page
+title:
+  en: Default Page
+  de: Standardseite
 
 tabs:
   # Content tab
