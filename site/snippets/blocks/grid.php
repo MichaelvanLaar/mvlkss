@@ -121,7 +121,7 @@ foreach ($block->grid()->toLayouts() as $gridLayoutRow): ?>
           ]["dark-contrast-tailwindcss-prose-class"];
       } else {
         $gridColumnInnerContainerClassOutput =
-          " prose-neutral dark:prose-invert";
+          " prose-mvlkss dark:prose-invert";
       }
       if ($gridLayoutRow->gridRowVerticalAlign()->isNotEmpty()) {
         switch ($gridLayoutRow->gridRowVerticalAlign()->value()) {

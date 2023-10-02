@@ -75,7 +75,7 @@ $innerRowContainerClasses =
               $layoutRow["layoutRowBackgroundColorValue"]
             ]["dark-contrast-tailwindcss-prose-class"];
         } else {
-          $columnInnerContainerClassOutput = " prose-neutral dark:prose-invert";
+          $columnInnerContainerClassOutput = " prose-mvlkss dark:prose-invert";
         }
         if ($layoutRow["layout"]->rowVerticalAlign()->isNotEmpty()) {
           switch ($layoutRow["layout"]->rowVerticalAlign()->value()) {
