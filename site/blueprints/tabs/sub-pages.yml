@@ -15,3 +15,6 @@ sections:
     label:
       en: Sub Pages
       de: Unterseiten
+    create:
+      - default
+      - custom-menu-item
