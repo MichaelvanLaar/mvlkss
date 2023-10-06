@@ -99,6 +99,7 @@ Starting with `/src/js/main.js` as entry point, Webpack will bundle everything (
 - Kirby plugins (via [Composer](https://getcomposer.org/)):
   - [Grid Block](https://github.com/youngcut/kirby-grid-block)
   - [Hashed Assets](https://github.com/johannschopplich/kirby-hashed-assets)
+  - [k3-date-extended](https://github.com/Adspectus/k3-date-extended)
   - [Kirby Highlighter](https://github.com/johannschopplich/kirby-highlighter)
   - [Markdown Field](https://github.com/fabianmichael/kirby-markdown-field)
   - [Minify HTML](https://github.com/afbora/kirby-minify-html)

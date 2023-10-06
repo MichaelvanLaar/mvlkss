@@ -36,7 +36,8 @@
     "afbora/kirby-minify-html": "^2.0",
     "distantnative/retour-for-kirby": "^4.4",
     "bnomei/kirby3-robots-txt": "^1.7",
-    "lukaskleinschmidt/kirby-snippet-controller": "^2.1"
+    "lukaskleinschmidt/kirby-snippet-controller": "^2.1",
+    "adspectus/date-extended": "^1.1"
   },
   "config": {
     "allow-plugins": {
