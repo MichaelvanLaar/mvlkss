@@ -1,45 +1,65 @@
 # Michael van Laar’s Kirby Site Starter
 
-This is work in progress. This documentation should reflect the current state of development, but may be incomplete.
+This is a work in progress. This documentation should reflect the current state of development, but may be incomplete.
 
 ## Prerequisites
 
 The following must be installed on your machine:
 
 - **Everything listed in the PHP section of the [Kirby CMS Requirements](https://getkirby.com/docs/guide/quickstart#requirements)**  
-  Please note that for development purposes, you do not need any of the web servers listed in the requirements. Instead, you will use PHP’s built-in server while developing. Of course, you need one of the listed “real” webservers when you want to deploy the website.
-- **[Composer](https://getcomposer.org/), a dependency manager for PHP**  
-  Make sure that all platform requirements are satisfied. You can do this by running the following command after composer is successfully installed: `composer check-platform-reqs`
-- **[Node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/)**  
-  All npm packages and dependencies of this repository are updated to their lates versions on a regular basis.
+    Please note that for development purposes, you do not require any of the web servers listed in the requirements. Instead, utilize PHP’s built-in server when developing. However, one of the listed “real” webservers is essential when deploying the website.
+- **On your development machine: [Composer](https://getcomposer.org/), a dependency manager for PHP**  
+    Make sure all platform requirements are met by running the command `composer check-platform-reqs` after successfully installing Composer.
+- **On your development machine: [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/)**  
+    All packages and dependencies in this repository are regularly updated to their latest versions.
 
 ## Install
 
 ### Step 1: Clone the Repository
 
-Use whichever clone method you like best.
+Use the cloning method you like best.
 
-### Step 2: Install Kirby
-
-```bash
-composer install
-```
-
-Required on development machine as well as on production server.
-
-### Step 3: Install Tailwind CSS and All Required Build Tools
+### Step 2 (on Development Machines Only): Install Tailwind CSS and All Required Build Tools
 
 ```bash
 npm install
 ```
 
-Only required on the development machine. After using the build script at least once, all required assets are in place and and can be transfered to a production server. Neither npm or any npm module is required on the production server.
+This is only required on development machines. Once the build script has been run at least once, all essential assets are present and can be transferred to the production server. No npm or npm modules are necessary on the production server.
+
+## Update
+
+### General Rule
+
+**Perform all updates and upgrades exclusively on a development machine and then commit them to the repository.** By doing so, deployment becomes more efficient since there is no need to execute any update, installation, or script commands on the production server.
+
+For the sake of ease of deployment, the subdirectories `/kirby/*`, `/site/plugins/*`, and `/vendor/*` are committed to the repository despite the use of Composer.
+
+### Update Scripts
+
+The `package.json` includes two useful scripts that conveniently facilitate the process of checking and updating both Composer packages and npm packages.
+
+#### Checking for Updates
+
+The `dependencies-update-check` script checks for new updates of your installed Composer and npm packages and displays the available information. It does not affect any of your files.
+
+```bash
+npm run dependencies-update-check
+```
+
+#### Updating
+
+The `dependencies-update` script installs all available updates to your installed Composer and npm packages, based on the information in your `composer.json` and `package.json` files.
+
+```bash
+npm run dependencies-update
+```
 
 ## Use
 
 ### Development on a Local Machine
 
-Open a terminal and start PHP’s built-in server as well as all build tools (for Tailwind CSS as well as for bundling and transpiling your frontend JavaScript) in watch mode:
+Open a terminal and start PHP’s built-in server and all necessary build tools for Tailwind CSS, bundling, and transpiling your frontend JavaScript in watch mode by using this command:
 
 ```bash
 npm run dev-server
@@ -49,17 +69,19 @@ Open `http://localhost:8000` in your browser to browse the website.[^1]
 
 ### Remote Development Directly on a Web Space or Web Server
 
-Since in this cas you don’t need PHP’s built-in server, it is enough to start all build tools (for Tailwind CSS as well as for bundling and transpiling your frontend JavaScript) in watch mode:
+Since there is no need for PHP’s built-in server in this case, simply start all the build tools (for Tailwind CSS as well as for bundling and transpiling your frontend JavaScript) in watch mode using this command:
 
 ```bash
 npm run dev
 ```
 
+Remember, in order to develop remotely, you’ll need to have Node.js and npm on your web space or web server. However, it’s important to note that Node.js and npm are not required on your production web server.
+
 Open the website in your browser as usual.[^1]
 
 ### Building Production-Ready CSS and JS Files
 
-When you’re done developing, you can use the following command to create minified and optimized versions of your CSS and JS files:
+When development is complete, utilize the following command to generate streamlined and optimized CSS and JS files:
 
 ```bash
 npm run build
@@ -73,30 +95,33 @@ See [Kirby’s comprehensive documentation](https://getkirby.com/docs/guide).
 
 ### CSS
 
-The input file for Tailwind CSS is `/src/css/main.css`.
+The input file for Tailwind CSS can be found at `/src/css/main.css`.
 
-The output is rendered to `/assets/css/main.css` using the build tools mentioned above. This is the CSS file that needs to be linked in your Kirby templates.
+After using the mentioned build tools, the output will be located in `/assets/css/main.css`. It is essential to link this CSS file to your Kirby templates.
 
-**Please note:** The input CSS file must be imported into a JavaScript file for Webpack to be able to process it. This is done via the file `/src/js/maincss.js`. Do not delete this file, otherwise Webpack will not be able to create the output CSS file based on the tailwind CSS classes used in your templates.
+**Please note:** The input CSS file needs to be imported into a JavaScript file so that Webpack can process it. This is accomplished with the file `/src/js/maincss.js`. Do not delete this file. Otherwise, the output CSS file based on the tailwind CSS classes in your templates will not be generated by Webpack.
 
 ### JavaScript
 
-To keep everything neat and simple, organize your frontend scripts in separate partials (stored in the folder `/src/js/main-partials/`) and import them into `/src/js/main.js`.
+To keep things organized and simple, separate your frontend scripts into partials stored in the `/src/js/main-partials/` folder.
 
-Starting with `/src/js/main.js` as entry point, Webpack will bundle everything (including imported node modules) and create the output file `assets/js/main.js`. This is the JS file that needs to be linked in your Kirby templates.
+Then, import them into `/src/js/main.js`, which Webpack will use as the entry point to bundle everything (including imported node modules) and create the output file `assets/js/main.js`. This is the file that needs to be linked in your Kirby templates.
 
-## How to set up a brand color palette for the site and make specific brand colors available to editors (e.g., in background color select fields)
+## Color Scheme
 
-1. Unless you are using the default Tailwind CSS colors exclusively as brand colors for your website design, **add your custom colors in the [`tailwind.config.js`](https://github.com/MichaelvanLaar/mvlkss/blob/main/tailwind.config.js) file.** See the [Tailwind CSS documentation](https://tailwindcss.com/docs/customizing-colors#adding-additional-colors) for more information on adding additional colors to the Tailwind CSS setup.
-2. **Reference those colors that you want to provide in select boxes for website editors in Kirby’s [`config.php`](https://github.com/MichaelvanLaar/mvlkss/blob/main/site/config/config.php) file,** using the respective Tailwind CSS utility classes.
-3. Note that the concept is to specify multiple Tailwind CSS utility classes for each selectable color name to cover light and dark modes, as well as to specify matching contrast colors. The latter are used, for example, to provide proper colors to ensure that text displayed over the respective brand color background is always readable.  
-   Since each Tailwind CSS utility class in use has to be present as a complete string in a PHP file, in order to be identified correctly during the build step, you need to **define all utility classes you want to use for one brand-color separately.** See the [comment of the corresponding section in the `config.php` file](https://github.com/MichaelvanLaar/mvlkss/blob/1e6f8c42567db1d8402776837caa38b3ce69500a/site/config/config.php#L114-L187) for detailed information and examples.
-4. If you prefer individual contrast colors over pure black and pure white, you need to **add additional color schemes for the Tailwind CSS typography plugin.** You can copy the [examples for the `prose-black` and `prose-white` utility classes in the `tailwind.config.js` file](https://github.com/MichaelvanLaar/mvlkss/blob/1e6f8c42567db1d8402776837caa38b3ce69500a/tailwind.config.js#L24-L95) and use them to add your own typography colors. For more information see the [“Adding custom color themes” section](https://tailwindcss.com/docs/typography-plugin#adding-custom-color-themes) of the Tailwind CSS typography plugin documentation.
+Here's how to set up a brand color palette for the website and give editors access to specific brand colors (such as in background color selection fields):
+
+1. Unless you exclusively utilize the default Tailwind CSS colors as your brand colors for website design, you should **incorporate your custom colors in the `tailwind.config.js` file.** For more information on adding supplementary colors to the Tailwind CSS setup, refer to the [Tailwind CSS documentation](https://tailwindcss.com/docs/customizing-colors#adding-additional-colors).
+2. **Specify the colors you wish to offer for selection by website editors in Kirby’s `/site/config/config.php` file,** utilizing the relevant Tailwind CSS utility classes.
+3. Note that the idea is to define various Tailwind CSS utility classes for each color option that can be selected to accommodate both light and dark modes while also defining corresponding contrast colors. These contrast colors are employed, for instance, to guarantee that any text shown over the designated brand color background remains legible at all times.  
+   **Define all Tailwind CSS utility classes you wish to use for a brand color separately,** as each utility class must be present as a complete string in a PHP file to ensure accurate identification during the build process. Refer to the comment within the appropriate section of the `/site/config/config.php` file for specific examples and further details.
+4. To add unique contrast colors beyond black and white, simply **include additional color schemes for the Tailwind CSS typography plugin.** To do so, copy the `prose-black` and `prose-white` utility class examples in `tailwind.config.js` and use them to add your own typography colors. For further details, refer to the [“Adding custom color themes” section](https://tailwindcss.com/docs/typography-plugin#adding-custom-color-themes) within the Tailwind CSS typography plugin documentation.
 
 ## Tools Included
 
-- [Kirby](https://getkirby.com/) (via [Composer](https://getcomposer.org/))
-- Kirby plugins (via [Composer](https://getcomposer.org/)):
+- [Kirby](https://getkirby.com/)
+- Kirby plugins:
+  - [Clear Cache](https://owebstudio.com/kirby/plugins/clear-cache)
   - [Grid Block](https://github.com/youngcut/kirby-grid-block)
   - [Hashed Assets](https://github.com/johannschopplich/kirby-hashed-assets)
   - [k3-date-extended](https://github.com/Adspectus/k3-date-extended)
