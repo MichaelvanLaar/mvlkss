@@ -388,7 +388,7 @@
             "extra": {
                 "installer-name": "markdown-field"
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"

@@ -1,0 +1,28 @@
+{
+  "name": "kirby-markdown-field",
+  "description": "Enhanced markdown editor for Kirby 3",
+  "main": "index.js",
+  "author": "Kirby Community",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:sylvainjule/kirby-markdown-field.git"
+  },
+  "scripts": {
+    "dev": "kirbyup src/index.js --watch",
+    "build": "kirbyup src/index.js"
+  },
+  "devDependencies": {
+    "kirbyup": "^2.0.1"
+  },
+  "dependencies": {
+    "@codemirror/commands": "^6.1.1",
+    "@codemirror/lang-markdown": "^6.0.1",
+    "@codemirror/language": "^6.2.1",
+    "@codemirror/search": "^6.2.1",
+    "@codemirror/state": "^6.1.2",
+    "@codemirror/view": "^6.3.0",
+    "@lezer/highlight": "^1.1.1",
+    "underscore": "^1.13.6"
+  }
+}
