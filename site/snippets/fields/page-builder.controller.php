@@ -73,7 +73,8 @@ function getLayoutRowData(
       " " .
       $selectableBrandColors[$rowBackgroundColor->value()][
         "dark-tailwindcss-bg-class"
-      ]
+      ] .
+      " print:bg-transparent"
     : "";
 
   // Set the background image related CSS classes for the current row

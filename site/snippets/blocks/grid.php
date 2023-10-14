@@ -26,9 +26,7 @@ $gridColumnWidthClasses = [
  */
 
 // Get the “selectable brand colors” array from the site constants
-$selectableBrandColors = option("site-constants")[
-  "selectable-brand-colors"
-];
+$selectableBrandColors = option("site-constants")["selectable-brand-colors"];
 
 // Loop through all grid layout rows
 foreach ($block->grid()->toLayouts() as $gridLayoutRow): ?>
@@ -73,13 +71,14 @@ foreach ($block->grid()->toLayouts() as $gridLayoutRow): ?>
   $gridRowBackgroundColorClasses = $gridLayoutRow
     ->gridRowBackgroundColor()
     ->isNotEmpty()
-    ? $selectableBrandColors[
-        $gridLayoutRow->gridRowBackgroundColor()->value()
-      ]["light-tailwindcss-bg-class"] .
+    ? $selectableBrandColors[$gridLayoutRow->gridRowBackgroundColor()->value()][
+        "light-tailwindcss-bg-class"
+      ] .
       " " .
-      $selectableBrandColors[
-        $gridLayoutRow->gridRowBackgroundColor()->value()
-      ]["dark-tailwindcss-bg-class"]
+      $selectableBrandColors[$gridLayoutRow->gridRowBackgroundColor()->value()][
+        "dark-tailwindcss-bg-class"
+      ] .
+      " print:bg-transparent"
     : "";
 
   // Construct the classes attribute for the current grid row
@@ -87,6 +86,7 @@ foreach ($block->grid()->toLayouts() as $gridLayoutRow): ?>
     $gridLayoutRow->gridRowClasses(),
     "grid",
     "grid-cols-6",
+    "print:block",
     $gridRowGapClass,
     $gridRowPaddingTopClass,
     $gridRowPaddingBottomClass,
@@ -118,10 +118,11 @@ foreach ($block->grid()->toLayouts() as $gridLayoutRow): ?>
           " " .
           $selectableBrandColors[
             $gridLayoutRow->gridRowBackgroundColor()->value()
-          ]["dark-contrast-tailwindcss-prose-class"];
+          ]["dark-contrast-tailwindcss-prose-class"] .
+          " print:prose-black";
       } else {
         $gridColumnInnerContainerClassOutput =
-          " prose-mvlkss dark:prose-invert";
+          " prose-mvlkss dark:prose-invert print:prose-black";
       }
       if ($gridLayoutRow->gridRowVerticalAlign()->isNotEmpty()) {
         switch ($gridLayoutRow->gridRowVerticalAlign()->value()) {

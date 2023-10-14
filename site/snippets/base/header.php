@@ -74,10 +74,12 @@
         --site-header-padding-y: var(--site-header-initial-padding-y);
 
         /* Calculate site logo dimensions */
+        --site-logo-initial-height: calc(var(--site-header-initial-height) - (2 * var(--site-header-initial-padding-y)));
         --site-logo-height: calc(var(--site-header-height) - (2 * var(--site-header-padding-y)));
         --site-logo-aspect-ratio: <?= $siteLogoFile->dimensions()->ratio() ?>;
 
         /* Calculate site logo container dimensions */
+        --site-logo-initial-container-height: calc(var(--site-logo-initial-height) + 2px);
         --site-logo-container-height: calc(var(--site-logo-height) + 2px);
         --site-logo-container-width: calc(var(--site-logo-height) * var(--site-logo-aspect-ratio));
 
@@ -138,19 +140,19 @@
     <?php endif; ?>
   </head>
 
-  <body class="flex min-h-screen flex-col bg-white dark:bg-neutral-950 dark:text-white">
+  <body class="flex min-h-screen flex-col bg-white dark:bg-neutral-950 dark:text-white print:block">
 
     <!-- PAGE HEADER -->
     <!-- Row -->
     <header
       id="page-header"
-      class="z-50 h-[var(--site-header-height)] w-full bg-neutral-200 js:fixed dark:bg-neutral-600 print:bg-transparent"
+      class="z-50 h-[var(--site-header-height)] w-full bg-neutral-200 js:fixed dark:bg-neutral-600 print:h-[var(--site-header-initial-height)] print:bg-transparent print:js:static"
       role="banner"
-    >
+    >:
       <!-- Inner row container -->
       <div class="row-container-default flex justify-between py-[var(--site-header-padding-y)]">
         <!-- Site logo -->
-        <div class="site-logo-container h-[var(--site-logo-container-height)] w-[var(--site-logo-container-width)] max-w-[10rem]">
+        <div class="site-logo-container h-[var(--site-logo-container-height)] w-[var(--site-logo-container-width)] max-w-[10rem] print:h-[var(--site-logo-initial-container-height)]">
           <a
             href="<?= $site->url() ?>"
             title="<?= $site->title() ?> → <?= $site->homePage()->title() ?>"
