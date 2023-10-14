@@ -7,6 +7,7 @@
  * Plugin details: https://github.com/lukaskleinschmidt/kirby-snippet-controller
  *
  * Provides variables for use in the header snippet:
+ * - $selectableBrandColors
  * - $layoutRowsData
  * =============================================================================
  */
@@ -15,9 +16,7 @@ return function ($page) {
   $layoutRows = $page->pageBuilder()->toLayouts();
   $layoutRowsData = [];
   $spacingUtilityClasses = option("site-constants")["spacing-utility-classes"];
-  $selectableBrandColors = option("site-constants")[
-    "selectable-brand-colors"
-  ];
+  $selectableBrandColors = option("site-constants")["selectable-brand-colors"];
 
   foreach ($layoutRows as $layoutRow) {
     $layoutRowsData[] = getLayoutRowData(
@@ -27,7 +26,10 @@ return function ($page) {
     );
   }
 
-  return ["layoutRowsData" => $layoutRowsData];
+  return [
+    "selectableBrandColors" => $selectableBrandColors,
+    "layoutRowsData" => $layoutRowsData,
+  ];
 };
 
 /**

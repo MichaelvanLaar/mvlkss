@@ -9,6 +9,7 @@
  * Plugin details: https://github.com/lukaskleinschmidt/kirby-snippet-controller
  *
  * Receives variables from snippet controller:
+ * - $selectableBrandColors
  * - $layoutRowsData
  * =============================================================================
  */
@@ -33,11 +34,6 @@ $columnWidthClasses = [
  * Output
  * -----------------------------------------------------------------------------
  */
-
-// Get the “selectable brand colors” array from the site constants
-$selectableBrandColors = option("site-constants")[
-  "selectable-brand-colors"
-];
 
 // Classes required for the responsive design of the multi-column layout
 $innerRowContainerClasses =
