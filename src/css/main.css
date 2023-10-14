@@ -97,7 +97,7 @@
    */
 
   a {
-    @apply hover:transition-all hover:brightness-125;
+    @apply hover:brightness-125 hover:transition-all;
   }
 }
 
@@ -110,7 +110,7 @@
 
   /* Hack to prevent SVG images from unwanted cropping */
   .site-logo-container svg {
-    @apply h-[calc(var(--site-logo-height)_+_0.125rem)] w-[calc(var(--site-logo-height)_*_var(--site-logo-aspect-ratio))];
+    @apply h-[calc(var(--site-logo-height)_+_0.125rem)] w-[calc(var(--site-logo-height)_*_var(--site-logo-aspect-ratio))] print:h-[calc(var(--site-logo-initial-height)_+_0.125rem)] print:w-[calc(var(--site-logo-initial-height)_*_var(--site-logo-aspect-ratio))];
   }
 
   /**
@@ -179,12 +179,12 @@
 
   /* Box for link URL footnotes in print view of a page */
   .print-links-footer {
-    @apply clear-both mt-5 break-inside-avoid-page border border-solid border-black px-5;
+    @apply prose prose-sm prose-black clear-both mt-large max-w-none break-inside-avoid-page border border-solid border-black px-medium prose-h3:mt-medium;
   }
 
   /* Ordered list in with link URL footnotes in print view of a page */
   .print-links-footer-list {
-    @apply list-inside list-decimal;
+    @apply mb-medium list-inside list-decimal;
   }
 }
 
