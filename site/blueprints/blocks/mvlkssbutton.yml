@@ -25,7 +25,7 @@ fields:
     extends: fields/link-target
     width: 1/2
   color:
-    extends: fields/background-color-select
+    extends: fields/brand-color-select
     label:
       en: Button Color
       de: Button-Farbe

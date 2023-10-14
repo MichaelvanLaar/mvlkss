@@ -8,8 +8,8 @@
 // Check if the button color is set
 $buttonColorIsSet = $block->color()->isNotEmpty();
 
-// Get the “selectable background colors” array from the site constants
-$selectableBackgroundColors = option("site-constants")[
+// Get the “selectable brand colors” array from the site constants
+$selectableBrandColors = option("site-constants")[
   "selectable-background-colors"
 ];
 
@@ -17,46 +17,46 @@ $selectableBackgroundColors = option("site-constants")[
 // text color related CSS classes for the button
 if ($block->style() == "filled") {
   $buttonStyleClasses = $buttonColorIsSet
-    ? $selectableBackgroundColors[$block->color()->value()][
+    ? $selectableBrandColors[$block->color()->value()][
         "light-tailwindcss-bg-class"
       ] .
       " " .
-      $selectableBackgroundColors[$block->color()->value()][
+      $selectableBrandColors[$block->color()->value()][
         "dark-tailwindcss-bg-class"
       ] .
       " border-solid border-2 " .
-      $selectableBackgroundColors[$block->color()->value()][
+      $selectableBrandColors[$block->color()->value()][
         "light-tailwindcss-border-class"
       ] .
       " " .
-      $selectableBackgroundColors[$block->color()->value()][
+      $selectableBrandColors[$block->color()->value()][
         "dark-tailwindcss-border-class"
       ] .
       " " .
-      $selectableBackgroundColors[$block->color()->value()][
+      $selectableBrandColors[$block->color()->value()][
         "light-contrast-tailwindcss-text-class"
       ] .
       " " .
-      $selectableBackgroundColors[$block->color()->value()][
+      $selectableBrandColors[$block->color()->value()][
         "dark-contrast-tailwindcss-text-class"
       ]
     : "bg-neutral-500 dark:bg-neutral-500 border-solid border-2 border-neutral-500 dark:border-neutral-500 text-white dark:text-white";
 } else {
   $buttonStyleClasses = $buttonColorIsSet
     ? "border-solid border-2 " .
-      $selectableBackgroundColors[$block->color()->value()][
+      $selectableBrandColors[$block->color()->value()][
         "light-tailwindcss-border-class"
       ] .
       " " .
-      $selectableBackgroundColors[$block->color()->value()][
+      $selectableBrandColors[$block->color()->value()][
         "dark-tailwindcss-border-class"
       ] .
       " " .
-      $selectableBackgroundColors[$block->color()->value()][
+      $selectableBrandColors[$block->color()->value()][
         "light-tailwindcss-text-class"
       ] .
       " " .
-      $selectableBackgroundColors[$block->color()->value()][
+      $selectableBrandColors[$block->color()->value()][
         "dark-tailwindcss-text-class"
       ]
     : "border-solid border-2 border-neutral-500 dark:border-neutral-500 text-neutral-500 dark:text-neutral-500";

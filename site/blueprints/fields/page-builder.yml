@@ -92,7 +92,10 @@ settings:
         de: Zeilenhintergrund
       numbered: false
     rowBackgroundColor:
-      extends: fields/background-color-select
+      extends: fields/brand-color-select
+      label:
+        en: Background Color
+        de: Hintergrundfarbe
     rowBackgroundImage:
       type: files
       label:

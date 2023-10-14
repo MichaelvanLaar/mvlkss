@@ -15,7 +15,7 @@ return function ($page) {
   $layoutRows = $page->pageBuilder()->toLayouts();
   $layoutRowsData = [];
   $spacingUtilityClasses = option("site-constants")["spacing-utility-classes"];
-  $selectableBackgroundColors = option("site-constants")[
+  $selectableBrandColors = option("site-constants")[
     "selectable-background-colors"
   ];
 
@@ -23,7 +23,7 @@ return function ($page) {
     $layoutRowsData[] = getLayoutRowData(
       $layoutRow,
       $spacingUtilityClasses,
-      $selectableBackgroundColors
+      $selectableBrandColors
     );
   }
 
@@ -39,7 +39,7 @@ return function ($page) {
 function getLayoutRowData(
   $layoutRow,
   $spacingUtilityClasses,
-  $selectableBackgroundColors
+  $selectableBrandColors
 ) {
   // Construct the ID attribute for the current row
   $rowId = $layoutRow->rowId();
@@ -65,11 +65,11 @@ function getLayoutRowData(
   // Set the background color related CSS class for the current row
   $rowBackgroundColor = $layoutRow->rowBackgroundColor();
   $rowBackgroundColorClasses = $rowBackgroundColor->isNotEmpty()
-    ? $selectableBackgroundColors[$rowBackgroundColor->value()][
+    ? $selectableBrandColors[$rowBackgroundColor->value()][
         "light-tailwindcss-bg-class"
       ] .
       " " .
-      $selectableBackgroundColors[$rowBackgroundColor->value()][
+      $selectableBrandColors[$rowBackgroundColor->value()][
         "dark-tailwindcss-bg-class"
       ]
     : "";

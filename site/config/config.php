@@ -113,12 +113,11 @@ $thumbPresets = getThumbPresets($thumbSrcsetsConfig);
 
 /**
  * -----------------------------------------------------------------------------
- * CONFIGURATION: Selectable Background Colors
- * (with corresponding colors for borders and text)
+ * CONFIGURATION: Selectable Brand Colors
  *
  * These constants assign Tailwind CSS utility classes to the respective options
  * which are used in panel fields whenever a website editor should be able to
- * choose a background color for a block, button, etc.
+ * choose a color, e.g. as a background color of a block, button, etc.
  *
  * Colors which are not part of the default Tailwind CSS color palette can be
  * added by defining a custom color in the Tailwind CSS configuration file
@@ -133,7 +132,7 @@ $thumbPresets = getThumbPresets($thumbSrcsetsConfig);
  *   Label text for select fields in the panel
  *
  * - light-tailwindcss-bg-class:
- *   Tailwind CSS utility class for the light mode background color
+ *   Tailwind CSS utility class for the light mode brand color
  *   (must start with “bg-”)
  *
  * - light-tailwindcss-border-class:
@@ -143,8 +142,8 @@ $thumbPresets = getThumbPresets($thumbSrcsetsConfig);
  *
  * - light-tailwindcss-text-class:
  *   The Tailwind CSS utility class for rendering text in the light mode
- *   background color, which is used to style the text of outline buttons
- *   (typically in the same color as the background)
+ *   brand color, which is used to style the text of outline buttons (typically
+ *   in the same color as the background)
  *   (must start with “text-”)
  *
  * - light-contrast-tailwindcss-prose-class:
@@ -159,7 +158,7 @@ $thumbPresets = getThumbPresets($thumbSrcsetsConfig);
  *   (must start with “text-”)
  *
  * - dark-tailwindcss-bg-class:
- *   Tailwind CSS utility class for the dark mode background color
+ *   Tailwind CSS utility class for the dark mode brand color
  *   (must start with “dark:bg-”)
  *
  * - dark-tailwindcss-border-class:
@@ -169,8 +168,8 @@ $thumbPresets = getThumbPresets($thumbSrcsetsConfig);
  *
  * - dark-tailwindcss-text-class:
  *   The Tailwind CSS utility class for rendering text in the dark mode
- *   background color, which is used to style the text of outline buttons
- *   (typically in the same color as the background)
+ *   brand color, which is used to style the text of outline buttons (typically
+ *   in the same color as the background)
  *   (must start with “dark:text-”)
  *
  * - dark-contrast-tailwindcss-prose-class:
@@ -186,7 +185,7 @@ $thumbPresets = getThumbPresets($thumbSrcsetsConfig);
  * -----------------------------------------------------------------------------
  */
 
-$selectableBackgroundColors = [
+$selectableBrandColors = [
     "brand-red" => [
         "label" => "Brand Red",
         "light-tailwindcss-bg-class" => "bg-red-300",
@@ -360,7 +359,7 @@ return [
         "thumb-widths" => $thumbWidths,
         "thumb-srcsets" => $thumbSrcsets,
         "thumb-srcsets-selector" => $thumbSrcsetsSelector,
-        "selectable-background-colors" => $selectableBackgroundColors,
+        "selectable-background-colors" => $selectableBrandColors,
         "spacing-utility-classes" => $spacingUtilityClasses,
     ],
     "thumbs" => [

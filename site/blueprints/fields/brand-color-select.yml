@@ -1,15 +1,15 @@
 #===============================================================================
-# Field: Background Color Select
+# Field: Brand Color Select
 #
-# Used to choose one of the background colors defined in the config.php.
+# Used to choose one of the brand olors defined in the config.php.
 #===============================================================================
 
 type: select
 label:
-  en: Background Color
-  de: Hintergrundfarbe
+  en: Brand Color
+  de: Markenfarbe
 options:
   type: query
-  query: page.backgroundColorOptions
+  query: page.brandColorOptions
   text: "{{ item.text }}"
   value: "{{ item.value }}"

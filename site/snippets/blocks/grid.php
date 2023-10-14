@@ -25,8 +25,8 @@ $gridColumnWidthClasses = [
  * -----------------------------------------------------------------------------
  */
 
-// Get the “selectable background colors” array from the site constants
-$selectableBackgroundColors = option("site-constants")[
+// Get the “selectable brand colors” array from the site constants
+$selectableBrandColors = option("site-constants")[
   "selectable-background-colors"
 ];
 
@@ -73,11 +73,11 @@ foreach ($block->grid()->toLayouts() as $gridLayoutRow): ?>
   $gridRowBackgroundColorClasses = $gridLayoutRow
     ->gridRowBackgroundColor()
     ->isNotEmpty()
-    ? $selectableBackgroundColors[
+    ? $selectableBrandColors[
         $gridLayoutRow->gridRowBackgroundColor()->value()
       ]["light-tailwindcss-bg-class"] .
       " " .
-      $selectableBackgroundColors[
+      $selectableBrandColors[
         $gridLayoutRow->gridRowBackgroundColor()->value()
       ]["dark-tailwindcss-bg-class"]
     : "";
@@ -112,11 +112,11 @@ foreach ($block->grid()->toLayouts() as $gridLayoutRow): ?>
       if ($gridLayoutRow->gridRowBackgroundColor()->isNotEmpty()) {
         $gridColumnInnerContainerClassOutput =
           " " .
-          $selectableBackgroundColors[
+          $selectableBrandColors[
             $gridLayoutRow->gridRowBackgroundColor()->value()
           ]["light-contrast-tailwindcss-prose-class"] .
           " " .
-          $selectableBackgroundColors[
+          $selectableBrandColors[
             $gridLayoutRow->gridRowBackgroundColor()->value()
           ]["dark-contrast-tailwindcss-prose-class"];
       } else {

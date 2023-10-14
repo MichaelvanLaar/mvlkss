@@ -106,7 +106,10 @@ fields:
             de: Grid-Zeilenhintergrund
           numbered: false
         gridRowBackgroundColor:
-          extends: fields/background-color-select
+          extends: fields/brand-color-select
+          label:
+            en: Background Color
+            de: Hintergrundfarbe
           width: 1/2
         gridRowHtmlAttributesHeadline:
           type: headline

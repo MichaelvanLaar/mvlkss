@@ -34,8 +34,8 @@ $columnWidthClasses = [
  * -----------------------------------------------------------------------------
  */
 
-// Get the “selectable background colors” array from the site constants
-$selectableBackgroundColors = option("site-constants")[
+// Get the “selectable brand colors” array from the site constants
+$selectableBrandColors = option("site-constants")[
   "selectable-background-colors"
 ];
 
@@ -67,11 +67,11 @@ $innerRowContainerClasses =
         if ($layoutRow["layoutRowBackgroundColorExists"]) {
           $columnInnerContainerClassOutput =
             " " .
-            $selectableBackgroundColors[
+            $selectableBrandColors[
               $layoutRow["layoutRowBackgroundColorValue"]
             ]["light-contrast-tailwindcss-prose-class"] .
             " " .
-            $selectableBackgroundColors[
+            $selectableBrandColors[
               $layoutRow["layoutRowBackgroundColorValue"]
             ]["dark-contrast-tailwindcss-prose-class"];
         } else {

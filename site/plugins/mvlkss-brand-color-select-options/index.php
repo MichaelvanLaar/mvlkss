@@ -1,15 +1,15 @@
 <?php
 /**
  * =============================================================================
- * Options for select field “background color”
+ * Options for select field “brand color”
  * =============================================================================
  */
 
-Kirby::plugin("mvlkss/background-color-select-options", [
+Kirby::plugin("mvlkss/brand-color-select-options", [
     "pageMethods" => [
-        "backgroundColorOptions" => function () {
+        "brandColorOptions" => function () {
             $colorConfig = kirby()->option("site-constants")[
-                "selectable-background-colors"
+                "selectable-brand-colors"
             ];
             $options = [];
             foreach ($colorConfig as $key => $colorInfo) {
