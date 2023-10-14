@@ -16,7 +16,7 @@ return function ($page) {
   $layoutRowsData = [];
   $spacingUtilityClasses = option("site-constants")["spacing-utility-classes"];
   $selectableBrandColors = option("site-constants")[
-    "selectable-background-colors"
+    "selectable-brand-colors"
   ];
 
   foreach ($layoutRows as $layoutRow) {

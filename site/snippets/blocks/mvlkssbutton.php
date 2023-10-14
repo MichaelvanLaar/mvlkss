@@ -10,7 +10,7 @@ $buttonColorIsSet = $block->color()->isNotEmpty();
 
 // Get the “selectable brand colors” array from the site constants
 $selectableBrandColors = option("site-constants")[
-  "selectable-background-colors"
+  "selectable-brand-colors"
 ];
 
 // Set the background and/or border color related CSS classes as well as the

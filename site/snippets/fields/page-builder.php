@@ -36,7 +36,7 @@ $columnWidthClasses = [
 
 // Get the “selectable brand colors” array from the site constants
 $selectableBrandColors = option("site-constants")[
-  "selectable-background-colors"
+  "selectable-brand-colors"
 ];
 
 // Classes required for the responsive design of the multi-column layout

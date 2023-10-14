@@ -27,7 +27,7 @@ $gridColumnWidthClasses = [
 
 // Get the “selectable brand colors” array from the site constants
 $selectableBrandColors = option("site-constants")[
-  "selectable-background-colors"
+  "selectable-brand-colors"
 ];
 
 // Loop through all grid layout rows
