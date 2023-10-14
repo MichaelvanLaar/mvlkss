@@ -359,7 +359,7 @@ return [
         "thumb-widths" => $thumbWidths,
         "thumb-srcsets" => $thumbSrcsets,
         "thumb-srcsets-selector" => $thumbSrcsetsSelector,
-        "selectable-background-colors" => $selectableBrandColors,
+        "selectable-brand-colors" => $selectableBrandColors,
         "spacing-utility-classes" => $spacingUtilityClasses,
     ],
     "thumbs" => [
