@@ -1,5 +1,6 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   entry: [
@@ -15,10 +16,18 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "../css/[name].css",
     }),
+    new CopyPlugin({
+      patterns: [
+        // Copy all files in the `/src/images` directory to the `/assets/images`
+        // directory – even if they are not referenced in a JS or CSS file
+        { from: "src/images", to: "../images" },
+      ],
+    }),
   ],
   module: {
     rules: [
       {
+        // Process JS files
         test: /\.(?:js|mjs|cjs)$/,
         exclude: /node_modules/,
         use: {
@@ -36,6 +45,7 @@ module.exports = {
         },
       },
       {
+        // Process CSS files
         test: /\.css$/i,
         use: [
           {
@@ -52,7 +62,14 @@ module.exports = {
         ],
       },
       {
+        // Copy all font files in use to the `/assets/fonts` directory.
+        // The original font files must be stored in the `/src/fonts` directory.
+        // This is required because SVG files may be used for webfonts as well
+        // as for images. That’s why only SVG files in the `/src/fonts`
+        // directory should be processed by this rule. SVG files in the
+        // `/src/images` directory are processed by the “copy-webpack-plugin”.
         test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        include: path.resolve(__dirname, "src/fonts"),
         type: "asset/resource",
         generator: {
           filename: "../fonts/[name][ext][query]",
