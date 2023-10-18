@@ -23,7 +23,7 @@
         <nav class="mb-3 flex items-center md:mb-0" aria-label="Footer Links">
           <ul class="flex">
             <?php foreach ($footerMenuItems as $menuItem): ?>
-              <li class="me-medium">
+              <li class="me-medium last:me-0">
                 <a
                   href="<?= $menuItem["url"] ?>"
                   target="<?= $menuItem["target"] ?>"
