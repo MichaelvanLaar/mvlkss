@@ -138,6 +138,9 @@ Here's how to set up a brand color palette for the website and give editors acce
   - [cssnano](https://cssnano.co/)
 - [Babel](https://babeljs.io/)
 - [webpack](https://webpack.js.org/)
+- webpack plugins:
+  - [copy-webpack-plugin](https://github.com/webpack-contrib/copy-webpack-plugin)
+  - [mini-css-extract-plugin](https://github.com/webpack-contrib/mini-css-extract-plugin)
 
 ## Best Practices / Tutorials Included
 

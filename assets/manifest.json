@@ -1,4 +1,9 @@
 {
+<<<<<<< HEAD
   "assets/css/main.css": "assets/css/main.51cb244b.css",
   "assets/js/main.js": "assets/js/main.cc996d05.js"
+=======
+  "assets\\css\\main.css": "assets\\css\\main.a1f431b2.css",
+  "assets\\js\\main.js": "assets\\js\\main.379468f7.js"
+>>>>>>> 32f427478dca9a18c5a51e506b2181cd546427c4
 }
