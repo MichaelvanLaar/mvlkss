@@ -3,7 +3,7 @@
         'name' => 'michaelvanlaar/mvlkss',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '99ad15d9b3159ed479361e38555166c849869c25',
+        'reference' => 'e712ec3b32ecb6b2bbc36a3d37a3500a228a4298',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -154,7 +154,7 @@
         'michaelvanlaar/mvlkss' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '99ad15d9b3159ed479361e38555166c849869c25',
+            'reference' => 'e712ec3b32ecb6b2bbc36a3d37a3500a228a4298',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
