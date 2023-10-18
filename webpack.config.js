@@ -75,6 +75,21 @@ module.exports = {
           filename: "../fonts/[name][ext][query]",
         },
       },
+      {
+        // Copy all image files, which are in use and which are stored in
+        //`/src/images` to the `/assets/images` directory. This prevents
+        // duplicates because the default behavior of webpack is storing a
+        // renamed version of the image in the `/assets/js` directory. But since
+        // images from `/src/images` are already copied to `/assets/images` by
+        // the “copy-webpack-plugin”, we would have the same image twice within
+        // the `/assets` directory.
+        test: /\.(jp(e)?g|png|gif|webp|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        include: path.resolve(__dirname, "src/images"),
+        type: "asset/resource",
+        generator: {
+          filename: "../images/[name][ext][query]",
+        },
+      },
     ],
   },
 };
