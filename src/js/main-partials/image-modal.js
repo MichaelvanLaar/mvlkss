@@ -1,7 +1,10 @@
 /* =============================================================================
  * Image modal (i. e. lightbox)
  *
- * See https://www.kindacode.com/article/tailwind-css-how-to-create-image-modals-image-lightboxes/ for details
+ * Basic details:
+ * https://www.kindacode.com/article/tailwind-css-how-to-create-image-modals-image-lightboxes/
+ *
+ * This version of the code is enhanced with some improvements.
  * =============================================================================
  */
 
