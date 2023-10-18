@@ -41,14 +41,29 @@ fields:
     type: writer
     icon: text
     inline: true
+  lightbox:
+    label:
+      en: Open image in lightbox
+      de: Bild in Lightbox öffnen
+    type: toggle
+    icon: expand
+    text:
+      - en: No link to lightbox
+        de: Kein Link zur Lightbox
+      - en: Link to lightbox
+        de: Link zur Lightbox
   link:
     label: field.blocks.image.link
     type: text
     icon: url
     width: 1/2
+    when:
+      lightbox: false
   linkTarget:
     extends: fields/link-target
     width: 1/2
+    when:
+      lightbox: false
   #ratio:
   #  label: field.blocks.image.ratio
   #  type: select

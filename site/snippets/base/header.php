@@ -146,7 +146,7 @@
     <!-- Row -->
     <header
       id="page-header"
-      class="z-50 h-[var(--site-header-height)] w-full bg-neutral-200 js:fixed dark:bg-neutral-600 print:h-[var(--site-header-initial-height)] print:bg-transparent print:js:static"
+      class="z-30 h-[var(--site-header-height)] w-full bg-neutral-200 js:fixed dark:bg-neutral-600 print:h-[var(--site-header-initial-height)] print:bg-transparent print:js:static"
       role="banner"
     >:
       <!-- Inner row container -->

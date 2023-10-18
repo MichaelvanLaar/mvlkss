@@ -50,6 +50,7 @@ $layoutColumnMaxWidths = [
 $alt = $block->alt();
 $caption = $block->caption();
 //$crop = $block->crop()->isTrue();
+$lightbox = $block->lightbox()->toBool($default = false);
 $link = $block->link();
 $linkTarget = $block->linkTarget()->or("_self");
 //$ratio = $block->ratio()->or("auto");
@@ -108,7 +109,9 @@ if ($src):
   );
   ?>
 <figure>
-  <?= $link->isNotEmpty() ? "<a href='$linkUrl' target='$linkTarget'>" : "" ?>
+  <?= $link->isNotEmpty() && !$lightbox
+    ? "<a href='$linkUrl' target='$linkTarget'>"
+    : "" ?>
   <picture class="not-prose">
     <?php if (
       $image &&
@@ -142,21 +145,21 @@ if ($src):
         sizes="<?= $sizesAttribute ?>"
       <?php endif; ?>
       alt="<?= $altEsc ?>"
-      class="mx-auto"
-      <?php if (
-        $image &&
-        ($image->extension() == "jpg" || $image->extension() == "jpeg")
-      ): ?>
-        style="background-color: <?= $image->color()->value() ?>"
-      <?php endif; ?>
+      class="mx-auto
+        <?= $lightbox ? "cursor-pointer" : "" ?>"
       <?php if ($image): ?>
         width="<?= $image->width() ?>"
         height="<?= $image->height() ?>"
       <?php endif; ?>
       loading="lazy"
+      <?= $lightbox
+        ? "data-image-modal-trigger data-image-modal-url=\"" .
+          $image->url() .
+          "\""
+        : "" ?>
     >
   </picture>
-  <?= $link->isNotEmpty() ? "</a>" : "" ?>
+  <?= $link->isNotEmpty() && !$lightbox ? "</a>" : "" ?>
 
   <?= $caption->isNotEmpty() ? "<figcaption>{$caption}</figcaption>" : "" ?>
 </figure>
