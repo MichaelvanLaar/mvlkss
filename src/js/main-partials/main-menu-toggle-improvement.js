@@ -7,31 +7,62 @@
 // Wrap the entire code inside an Immediately Invoked Function Expression
 // (IIFE). This will prevent any variables or functions defined inside from
 // polluting the global scope.
-(function () {
-  // Get the main menu state input element (checkbox) using its ID
-  const mainMenuState = document.querySelector("#main-menu-state");
+(() => {
+  /**
+   * ---------------------------------------------------------------------------
+   * Configuration
+   * ---------------------------------------------------------------------------
+   */
 
-  // Define a function that will handle the event listener callback.
-  function toggleMenuState(event, state) {
+  const MENU_STATE_SELECTOR = "#main-menu-state";
+  const MENU_OPEN_SELECTOR = "a.main-menu-open";
+  const MENU_CLOSE_SELECTOR = "a.main-menu-close";
+
+  // Get the main menu state input element (checkbox) using its ID
+  const mainMenuState = document.querySelector(MENU_STATE_SELECTOR);
+
+  // Check if mainMenuState exists in the DOM, otherwise return.
+  if (!mainMenuState) {
+    return;
+  }
+
+  /**
+   * ---------------------------------------------------------------------------
+   * Helper functions
+   * ---------------------------------------------------------------------------
+   */
+
+  // Define the function that will handle the event listener callback.
+  const toggleMenuState = (event, state = true) => {
     // Prevent the default behavior of the click event.
     event.preventDefault();
-    // Set the “bchecked” state of the checkbox to the given state.
+    // Set the “checked” state of the checkbox to the given state.
     // This will either check (state = true) or uncheck (state = false) the
     // checkbox which is used to toggle the main menu dropdown on mobile.
     mainMenuState.checked = state;
-  }
+  };
 
-  // Select the element that opens the main menu and add an event listener.
-  // The event listener will call the toggleMenuState function with true as the
-  // state when the element is clicked.
-  document
-    .querySelector("a.main-menu-open")
-    .addEventListener("click", (e) => toggleMenuState(e, true));
+  // Function to add event listeners to elements if they exist.
+  const addEventListenerIfElementExists = (selector, eventType, callback) => {
+    const element = document.querySelector(selector);
+    if (element) {
+      element.addEventListener(eventType, callback);
+    }
+  };
 
-  // Select the element that closes the main menu and add an event listener.
-  // The event listener will call the toggleMenuState function with false as the
-  // state when the element is clicked.
-  document
-    .querySelector("a.main-menu-close")
-    .addEventListener("click", (e) => toggleMenuState(e, false));
+  /**
+   * ---------------------------------------------------------------------------
+   * Main script
+   * ---------------------------------------------------------------------------
+   */
+
+  // Add event listener for opening the menu.
+  addEventListenerIfElementExists(MENU_OPEN_SELECTOR, "click", (e) =>
+    toggleMenuState(e, true),
+  );
+
+  // Add event listener for closing the menu.
+  addEventListenerIfElementExists(MENU_CLOSE_SELECTOR, "click", (e) =>
+    toggleMenuState(e, false),
+  );
 })();

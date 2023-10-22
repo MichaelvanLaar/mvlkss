@@ -11,11 +11,31 @@
 // Wrap the entire code inside an Immediately Invoked Function Expression
 // (IIFE). This will prevent any variables or functions defined inside from
 // polluting the global scope.
-(function () {
+(() => {
+  /**
+   * ---------------------------------------------------------------------------
+   * Configuration
+   * ---------------------------------------------------------------------------
+   */
+
+  const modalId = "image-modal";
+  const modalImgId = "image-modal-img";
+  const modalLoaderId = "image-modal-loader";
+
+  // Duration of the CSS transition in milliseconds.
+  // Must match the transition duration set in the Kirby page footer snippet.
+  const cssTransitionDuration = 300;
+
+  /**
+   * ---------------------------------------------------------------------------
+   * Main script
+   * ---------------------------------------------------------------------------
+   */
+
   // Get elements
-  const modal = document.getElementById("image-modal");
-  const modalImg = document.getElementById("image-modal-img");
-  const loader = document.getElementById("image-modal-loader");
+  const modal = document.getElementById(modalId);
+  const modalImg = document.getElementById(modalImgId);
+  const loader = document.getElementById(modalLoaderId);
 
   // When the DOM is ready, attach an event listener to all elements that should
   // trigger the modal when clicked.
@@ -27,7 +47,7 @@
 
     // Attach a click event listener to each element
     modalTriggers.forEach((trigger) => {
-      trigger.addEventListener("click", function (event) {
+      trigger.addEventListener("click", (event) => {
         // Prevent the default action (if there is one)
         event.preventDefault();
 
@@ -43,14 +63,14 @@
     // select the close button(s) and attach an event listener.
     const closeButtons = document.querySelectorAll("[data-image-modal-close]");
     closeButtons.forEach((button) => {
-      button.addEventListener("click", function (event) {
+      button.addEventListener("click", (event) => {
         closeModal();
       });
     });
 
     // Close the modal if the user clicks outside of the image (i. e. on the
     // modal background)
-    modal.addEventListener("click", function (event) {
+    modal.addEventListener("click", (event) => {
       // Check if the clicked target is the modal background itself and not the
       // image
       if (event.target === modal) {
@@ -61,9 +81,15 @@
   });
 
   // Hide loader when image is loaded
-  modalImg.addEventListener("load", function () {
+  modalImg.addEventListener("load", () => {
     loader.classList.add("hidden");
   });
+
+  /**
+   * ---------------------------------------------------------------------------
+   * Helper functions
+   * ---------------------------------------------------------------------------
+   */
 
   // Function to open the modal when a thumbnail (or a link) is clicked
   function showModal(src) {
@@ -87,6 +113,6 @@
       modal.classList.add("hidden");
       modalImg.src = ""; // Clear the image source
       loader.classList.add("hidden"); // Hide the loader
-    }, 300); // Match this to the duration of the transition
+    }, cssTransitionDuration);
   }
 })();

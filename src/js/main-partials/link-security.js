@@ -9,7 +9,7 @@
 // Wrap the entire code inside an Immediately Invoked Function Expression
 // (IIFE). This will prevent any variables or functions defined inside from
 // polluting the global scope.
-(function () {
+(() => {
   // Select all anchor tags (<a>) that have the attribute target="_blank" but do
   // not have the attribute rel="noopener".
   const insecureLinks = document.querySelectorAll(
