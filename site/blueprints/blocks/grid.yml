@@ -143,11 +143,11 @@ fields:
         type: group
         fieldsets:
           - image
-          - video
       miscBlocks:
         label:
           en: Misc
           de: Sonstiges
         type: group
         fieldsets:
+          - mvlkssbutton
           - line
