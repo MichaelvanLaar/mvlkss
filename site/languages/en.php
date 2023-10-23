@@ -9,6 +9,8 @@ return [
     ],
     "name" => "English",
     "translations" => [
+        "Close menu" => "Close menu",
+        "Open menu" => "Open menu",
         "Switch to" => "Switch to",
     ],
     "url" => "/",

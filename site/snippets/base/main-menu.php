@@ -8,8 +8,6 @@
  * 
  * Receives variables from snippet controller:
  * - $mainMenuItems
- * - $mainMenuOpenLabel
- * - $mainMenuCloseLabel
  * 
  * Requires variables from the snippet call:
  * - $pageLanguageCode
@@ -38,7 +36,7 @@
                 role="button"
               >
                 <span class="absolute m-[-1px] h-px w-px overflow-hidden whitespace-nowrap border-0 p-0">
-                  <?= $mainMenuOpenLabel ?>
+                <?= t("Open menu", "Open menu") ?>
                 </span>
               </a>
               <a
@@ -47,7 +45,7 @@
                 role="button"
               >
                 <span class="absolute m-[-1px] h-px w-px overflow-hidden whitespace-nowrap border-0 p-0">
-                  <?= $mainMenuCloseLabel ?>
+                <?= t("Close menu", "Close menu") ?>
                 </span>
               </a>
               <label
@@ -95,7 +93,7 @@
                       if ($pageLanguageCode != $lang->code()): ?>
                         <a
                           href="<?= $page->url($lang->code()) ?>"
-                          aria-label="<?= $lang->translations()["Switch to"] .
+                          aria-label="<?= t("Switch to", "Switch to") .
                             " " .
                             $lang->name() ?>"
                         >

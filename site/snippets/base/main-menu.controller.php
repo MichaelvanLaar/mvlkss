@@ -8,12 +8,10 @@
  *
  * Provides variables for use in the header snippet:
  * - $mainMenuItems
- * - $mainMenuOpenLabel
- * - $mainMenuCloseLabel
  * =============================================================================
  */
 
-return function ($kirby, $site, $page) {
+return function ($site, $page) {
   // Construct array with content for main menu
   $mainMenuItems = [];
   foreach ($site->children()->listed() as $menuItem) {
@@ -39,15 +37,5 @@ return function ($kirby, $site, $page) {
 
   return [
     "mainMenuItems" => $mainMenuItems,
-    "mainMenuOpenLabel" => $kirby->language()
-      ? ($kirby->language()->code() == "de"
-        ? "Menü öffnen"
-        : "Open menu")
-      : "Open menu",
-    "mainMenuCloseLabel" => $kirby->language()
-      ? ($kirby->language()->code() == "de"
-        ? "Menü schließen"
-        : "Close menu")
-      : "Close menu",
   ];
 };
