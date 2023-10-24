@@ -35,7 +35,7 @@
     className,
     printOnlyClassName,
     headlineElement,
-    headlineText
+    headlineText,
   ) {
     const container = document.createElement("section");
     container.classList.add(className, printOnlyClassName);
@@ -48,8 +48,8 @@
   function getLinks(selector) {
     return Array.from(
       document.querySelectorAll(
-        `${selector} a[href]:not([href^='#']):not([href^="mailto"]):not([href^="javascript"])`
-      )
+        `${selector} a[href]:not([href^='#']):not([href^="mailto"]):not([href^="javascript"])`,
+      ),
     );
   }
 
@@ -59,7 +59,12 @@
     const urlMap = new Map();
 
     return links
-      .filter((link) => link.getElementsByTagName("img").length < 1)
+      .filter((link) => {
+        // Skip links which contain exactly one child node which is an image
+        return !(
+          link.childNodes.length === 1 && link.childNodes[0].nodeName === "IMG"
+        );
+      })
       .map((link) => {
         const url = link.href;
         let refNumber = urlMap.get(url);
@@ -75,7 +80,7 @@
           refNumber,
           printOnlyClassName,
           beforeNumber,
-          afterNumber
+          afterNumber,
         );
         link.parentNode.insertBefore(reference, link.nextSibling);
 
@@ -117,7 +122,7 @@
       links,
       printOnlyClassName,
       referenceTextBeforeNumber,
-      referenceTextAfterNumber
+      referenceTextAfterNumber,
     );
 
     // Cancel if no links were found
@@ -128,7 +133,7 @@
       footnotesContainerClassName,
       printOnlyClassName,
       footnotesHeadlineElement,
-      footnotesHeadlineText
+      footnotesHeadlineText,
     );
     const footnotesList = document.createElement("ol");
     footnotesList.classList.add("print-links-footer-list");
