@@ -34,7 +34,7 @@ return function ($kirby, $site, $page) {
   $seoDescription = $page->seoDescription();
   $twitterSiteHandle = $site->twitterSiteHandle();
   $twitterCreatorHandle = $page->twitterCreatorHandle();
-  $languages = $kirby->languages()->sortBy('code', 'asc');
+  $languages = $kirby->languages()->sortBy("code", "asc");
   $defaultLanguage = $kirby->defaultLanguage();
   $hasMoreThanOneLanguage = !is_null($languages) && count($languages) > 1;
 
@@ -93,11 +93,13 @@ return function ($kirby, $site, $page) {
       ? $page
         ->socialShareImage()
         ->toFile()
+        ->crop(1200, 630)
         ->url()
       : ($site->siteSocialShareImage()->toFile()
         ? $site
           ->siteSocialShareImage()
           ->toFile()
+          ->crop(1200, 630)
           ->url()
         : ""),
     "twitterSiteHandle" =>
