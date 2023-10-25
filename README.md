@@ -7,11 +7,13 @@ This is a work in progress. This documentation should reflect the current state 
 The following must be installed on your machine:
 
 - **Everything listed in the PHP section of the [Kirby CMS Requirements](https://getkirby.com/docs/guide/quickstart#requirements)**  
-    Please note that for development purposes, you do not require any of the web servers listed in the requirements. Instead, utilize PHP’s built-in server when developing. However, one of the listed “real” webservers is essential when deploying the website.
+  Please note that for development purposes, you do not require any of the web servers listed in the requirements. Instead, utilize PHP’s built-in server when developing. However, one of the listed “real” webservers is essential when deploying the website.
+- **On the production server: [ImageMagick](https://imagemagick.org/) in its latest version**  
+  ImageMagick is the better choice for server-side image processing as opposed to GD Library. It is mainly necessary to generate AVIF files. Therefore it is set in the `config.php` of PHP that ImageMagick should be used - except in `localhost` environments (there GDLib is used, because otherwise there are problems on Windows machines).
 - **On your development machine: [Composer](https://getcomposer.org/), a dependency manager for PHP**  
-    Make sure all platform requirements are met by running the command `composer check-platform-reqs` after successfully installing Composer.
+  Make sure all platform requirements are met by running the command `composer check-platform-reqs` after successfully installing Composer.
 - **On your development machine: [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/)**  
-    All packages and dependencies in this repository are regularly updated to their latest versions.
+  All packages and dependencies in this repository are regularly updated to their latest versions.
 
 ## Install
 
