@@ -148,7 +148,7 @@
       id="page-header"
       class="z-30 h-[var(--site-header-height)] w-full bg-neutral-200 js:fixed dark:bg-neutral-600 print:h-[var(--site-header-initial-height)] print:bg-transparent print:js:static"
       role="banner"
-    >:
+    >
       <!-- Inner row container -->
       <div class="row-container-default flex justify-between py-[var(--site-header-padding-y)]">
         <!-- Site logo -->
