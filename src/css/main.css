@@ -68,6 +68,20 @@
 @layer base {
   /**
    * ---------------------------------------------------------------------------
+   * Scrollbar visibility
+   * ---------------------------------------------------------------------------
+   */
+
+  /* Always display the vertical scrollbar
+     This prevents unwanted horizontal layout shifts when loading a page with
+     very short content after a page with long content. */
+
+  html {
+    @apply overflow-y-scroll;
+  }
+
+  /**
+   * ---------------------------------------------------------------------------
    * Fluid font size and zoom effect
    * ---------------------------------------------------------------------------
    */
