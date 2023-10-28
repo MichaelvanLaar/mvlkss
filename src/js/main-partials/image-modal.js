@@ -82,6 +82,7 @@
 
   // Hide loader when image is loaded
   modalImg.addEventListener("load", () => {
+    loader.classList.remove("flex");
     loader.classList.add("hidden");
   });
 
@@ -94,7 +95,9 @@
   // Function to open the modal when a thumbnail (or a link) is clicked
   function showModal(src) {
     loader.classList.remove("hidden"); // Show loader
+    loader.classList.add("flex"); // Show loader
     modal.classList.remove("hidden"); // Show the modal
+    modal.classList.add("flex"); // Show the modal
 
     // Force a reflow to make sure the opacity transition works when unhiding
     void modal.offsetHeight;
@@ -110,8 +113,10 @@
 
     // Wait for the transition to finish, then hide the modal completely
     setTimeout(() => {
+      modal.classList.remove("flex");
       modal.classList.add("hidden");
       modalImg.src = ""; // Clear the image source
+      loader.classList.remove("flex"); // Hide the loader
       loader.classList.add("hidden"); // Hide the loader
     }, cssTransitionDuration);
   }

@@ -43,10 +43,10 @@
     <!-- Image modal (used as lightbox in image blocks) -->
     <div
       id="image-modal"
-      class="hidden fixed top-0 start-0 z-40 w-screen h-screen bg-black/70 flex justify-center items-center opacity-0 transition-opacity duration-300 ease-in-out print:hidden"
+      class="hidden fixed top-0 start-0 z-40 w-screen h-screen bg-black/70 justify-center items-center opacity-0 transition-opacity duration-300 ease-in-out print:hidden"
     >
       <!-- Loading indicator -->
-      <div id="image-modal-loader" class="hidden absolute inset-0 flex items-center justify-center" role="status">
+      <div id="image-modal-loader" class="hidden absolute inset-0 items-center justify-center" role="status">
         <div class="border-neutral-400 h-xlarge w-xlarge animate-spin rounded-full border-[1rem] border-t-neutral-800"></div>
       </div>
 
