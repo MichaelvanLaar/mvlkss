@@ -47,6 +47,8 @@ $layoutColumnMaxWidths = [
  * -----------------------------------------------------------------------------
  */
 
+use Kirby\Toolkit\Str;
+
 $alt = $block->alt();
 $caption = $block->caption();
 //$crop = $block->crop()->isTrue();
