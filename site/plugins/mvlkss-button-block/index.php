@@ -5,4 +5,6 @@
  * =============================================================================
  */
 
+use Kirby\Cms\App as Kirby;
+
 Kirby::plugin("mvlkss/button-block", []);

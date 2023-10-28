@@ -5,6 +5,8 @@
  * =============================================================================
  */
 
+use Kirby\Cms\App as Kirby;
+
 Kirby::plugin("mvlkss/brand-color-select-options", [
     "pageMethods" => [
         "brandColorOptions" => function () {
