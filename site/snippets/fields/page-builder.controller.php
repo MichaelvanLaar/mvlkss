@@ -6,14 +6,19 @@
  * Uses the Kirby Snippet Controller plugin
  * Plugin details: https://github.com/lukaskleinschmidt/kirby-snippet-controller
  *
+ * Optional variables from the snippet call:
+ * - $field (in case the field name is not "pageBuilder")
+ *
  * Provides variables for use in the header snippet:
  * - $selectableBrandColors
  * - $layoutRowsData
  * =============================================================================
  */
 
-return function ($page) {
-  $layoutRows = $page->pageBuilder()->toLayouts();
+return function ($page, $field) {
+  $layoutRows = isset($field)
+    ? $field->toLayouts()
+    : $page->pageBuilder()->toLayouts();
   $layoutRowsData = [];
   $spacingUtilityClasses = option("site-constants")["spacing-utility-classes"];
   $selectableBrandColors = option("site-constants")["selectable-brand-colors"];

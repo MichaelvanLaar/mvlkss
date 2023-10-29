@@ -8,6 +8,9 @@
  * Uses “page-builder.controller.php” via the Kirby Snippet Controller plugin
  * Plugin details: https://github.com/lukaskleinschmidt/kirby-snippet-controller
  *
+ * Optional variables from the snippet call:
+ * - $field (in case the field name is not "pageBuilder")
+ *
  * Receives variables from snippet controller:
  * - $selectableBrandColors
  * - $layoutRowsData
