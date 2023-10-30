@@ -151,3 +151,4 @@ fields:
         fieldsets:
           - mvlkssbutton
           - line
+          - mvlkssbreadcrumb

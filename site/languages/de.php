@@ -12,6 +12,7 @@ return [
         "Close menu" => "Menü schließen",
         "Open menu" => "Menü öffnen",
         "Switch to" => "Wechseln zu",
+        "You are here" => "Sie sind hier",
     ],
     "url" => null,
 ];

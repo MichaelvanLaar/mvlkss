@@ -46,6 +46,7 @@ fieldsets:
     fieldsets:
       - mvlkssbutton
       - line
+      - mvlkssbreadcrumb
       - grid
 settings:
   fields:

@@ -1,0 +1,17 @@
+#===============================================================================
+# Block: MvLKSS Breadcrumb Navigation
+#===============================================================================
+
+name:
+  en: Breadcrumb Navigation
+  de: Breadcrumb-Navigation
+icon: road-sign
+fields:
+  countdownInfo:
+    type: info
+    label:
+      en: Breadcrumb Navigation
+      de: Breadcrumb-Navigation
+    text:
+      en: This block is used to display a breadcrumb navigation.
+      de: Dieser Block dient zur Anzeige einer Breadcrumb-Navigation.
