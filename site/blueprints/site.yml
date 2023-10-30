@@ -27,37 +27,31 @@ tabs:
       en: Site Settings
       de: Website-Einstellungen
     icon: settings
-    sections:
-      siteSettings:
-        type: fields
+
+    columns:
+      images:
+        width: 1/2
         fields:
           siteLogo:
             type: files
             label:
               en: Site Logo
               de: Website-Logo
-            width: 1/4
             uploads: site-logo
             required: true
             max: 1
             multiple: false
             layout: cards
+            width: 1/2
           siteSocialShareImage:
-            type: files
-            label:
-              en: Social Share Image
-              de: Social-Share-Bild
+            extends: fields/social-share-image
             help:
               en: "Minimum dimensions: 1200 × 630 pixels. This image will be used as fallback if no specific image exists for a page."
               de: "Mindestmaße: 1200 × 630 Pixel. Dieses Bild wird als Fallback verwendet, wenn für eine Seite kein spezifisches Bild existiert."
-            width: 1/4
-            uploads: socialshare-image
-            required: false
-            max: 1
-            multiple: false
-            layout: cards
-            image:
-              ratio: 120/63
+            width: 1/2
+      devider:
+        width: 1/4
+        fields:
           defaultDivider:
             type: text
             required: true
@@ -68,7 +62,19 @@ tabs:
             help:
               en: Typically one character like “–” or “|”
               de: Typischerweise ein Zeichen wie  „–“ oder „|“
-            default: "|"
+          defaultBreadcrumbDivider:
+            type: text
+            required: true
+            label:
+              en: Default Divider Between the Elements in a Breadcrumb Navigation
+              de: Standard-Trennzeichen zwischen den Elementen in einer Breadcrumb-Navigation
+            help:
+              en: Typically one character like “>” or “»”
+              de: Typischerweise ein Zeichen wie  „>“ oder „»“
+            default: ">"
+      socialMedia:
+        width: 1/4
+        fields:
           twitterSiteHandle:
             type: text
             label:

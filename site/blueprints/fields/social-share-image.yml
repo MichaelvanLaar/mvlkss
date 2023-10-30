@@ -1,0 +1,19 @@
+#===============================================================================
+# Field: Social Share Image
+#===============================================================================
+
+type: files
+label:
+  en: Social Share Image
+  de: Social-Share-Bild
+help:
+  en: "Minimum dimensions: 1200 × 630 pixels."
+  de: "Mindestmaße: 1200 × 630 Pixel."
+uploads: socialshare-image
+required: false
+max: 1
+multiple: false
+layout: cards
+image:
+  cover: true
+  ratio: 120/63
