@@ -2,6 +2,10 @@
 /**
  * =============================================================================
  * MvLKSS Breadcrumb Navigation Block Snippet
+ *
+ * Optional variables from the snippet call:
+ * - $textColorLight (string)
+ * - $textColorDark (string)
  * =============================================================================
  */
 
