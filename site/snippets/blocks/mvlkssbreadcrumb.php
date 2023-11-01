@@ -4,10 +4,32 @@
  * MvLKSS Breadcrumb Navigation Block Snippet
  * =============================================================================
  */
+
+// Configuration:
+// Default Tailwind CSS classes for text colors in leight and dark mode.
+// Will only be used it they are not set in the snippet call.
+$textColorLightDefault = "text-neutral-500";
+$textColorDarkDefault = "text-neutral-500";
+
+// Set text colors if this has not been done in the snippet call
+$textColorLight = $textColorLight ?? $textColorLightDefault;
+$textColorDark = $textColorDark ?? $textColorDarkDefault;
+
+// Provide a default value for the “includeCurrentPage” variable in case it has
+// not been set in the snippet call or via the block’s settings
+if (!isset($includeCurrentPage)) {
+  $includeCurrentPage =
+    isset($block) && $block->includeCurrentPage()
+      ? $block->includeCurrentPage()->toBool()
+      : true;
+}
 ?>
 
+<!-- Breadcrumb navigation -->
 <nav
-  class="not-prose text-neutral-500 print:text-black"
+  class="not-prose print:text-black
+    <?= $textColorLight ?>
+    <?= $textColorDark ?>"
   style="
     --breadcrumb-divider: '<?= $site->defaultBreadcrumbDivider()->or(">") ?>';"
 >
@@ -16,22 +38,31 @@
   ) ?>:</span>
   <ol class="inline leading-4">
     <?php if (!$page->isHomePage()): ?>
+      <!-- Home page -->
       <li class="inline text-[80%] after:mx-1 after:text-base after:content-[var(--breadcrumb-divider)]">
         <a
           href="<?= $site->url() ?>"
-          class="underline print:text-black"
+          class="underline"
         ><?= $site->title() ?></a>
       </li>
+
       <?php foreach ($page->parents() as $p): ?>
-        <li class="inline text-[80%] after:mx-1 after:text-base after:content-[var(--breadcrumb-divider)]">
+        <!-- Parent pages -->
+        <li
+          class="inline text-[80%] after:ms-1 after:text-base after:content-[var(--breadcrumb-divider)]
+            <?= $includeCurrentPage ? "after:me-1" : "" ?>"
+        >
           <a
             href="<?= $p->url() ?>"
-            class="underline print:text-black"
+            class="underline"
           ><?= $p->title() ?></a>
         </li>
       <?php endforeach; ?>
       
-      <li class="inline text-[80%]"><?= $page->title() ?></li>
+      <?php if ($includeCurrentPage): ?>
+        <!-- Current page -->
+        <li class="inline text-[80%]"><?= $page->title() ?></li>
+      <?php endif; ?>
     <?php endif; ?>
   </ol>
 </nav>

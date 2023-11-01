@@ -119,6 +119,26 @@ $innerRowContainerClasses =
                   "layoutColumnSplitting" =>
                     $layoutRow["layoutColumnSplitting"],
                 ]);
+              } elseif ($block->type() == "mvlkssbreadcrumb") {
+                $breadcrumbTextColorLight = $layoutRow[
+                  "layoutRowBackgroundColorExists"
+                ]
+                  ? $selectableBrandColors[
+                    $layoutRow["layoutRowBackgroundColorValue"]
+                  ]["light-contrast-tailwindcss-text-class"]
+                  : null;
+                $breadcrumbTextColorDark = $layoutRow[
+                  "layoutRowBackgroundColorExists"
+                ]
+                  ? $selectableBrandColors[
+                    $layoutRow["layoutRowBackgroundColorValue"]
+                  ]["dark-contrast-tailwindcss-text-class"]
+                  : null;
+                snippet("blocks/" . $block->type(), [
+                  "block" => $block,
+                  "textColorLight" => $breadcrumbTextColorLight,
+                  "textColorDark" => $breadcrumbTextColorDark,
+                ]);
               } else {
                 echo $block;
               }
