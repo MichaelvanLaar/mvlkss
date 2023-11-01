@@ -112,7 +112,7 @@ $innerRowContainerClasses =
               "\">";
           } ?>
             <?php foreach ($layoutColumn->blocks() as $block) {
-              if (in_array($block->type(), ["image", "grid"])) {
+              if ($block->type() == "image") {
                 snippet("blocks/" . $block->type(), [
                   "block" => $block,
                   "layoutColumnWidth" => $layoutColumn->width(),
@@ -138,6 +138,20 @@ $innerRowContainerClasses =
                   "block" => $block,
                   "textColorLight" => $breadcrumbTextColorLight,
                   "textColorDark" => $breadcrumbTextColorDark,
+                ]);
+              } elseif ($block->type() == "grid") {
+                snippet("blocks/" . $block->type(), [
+                  "block" => $block,
+                  "layoutColumnWidth" => $layoutColumn->width(),
+                  "layoutColumnSplitting" =>
+                    $layoutRow["layoutColumnSplitting"],
+                  "layoutRowBackgroundColorExists" =>
+                    $layoutRow["layoutRowBackgroundColorExists"],
+                  "layoutRowBackgroundColorValue" => $layoutRow[
+                    "layoutRowBackgroundColorExists"
+                  ]
+                    ? $layoutRow["layoutRowBackgroundColorValue"]
+                    : null,
                 ]);
               } else {
                 echo $block;

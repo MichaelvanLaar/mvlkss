@@ -120,7 +120,18 @@ foreach ($block->grid()->toLayouts() as $gridLayoutRow): ?>
             $gridLayoutRow->gridRowBackgroundColor()->value()
           ]["dark-contrast-tailwindcss-prose-class"] .
           " print:prose-black";
-      } else {
+        } elseif ($layoutRowBackgroundColorExists) {
+          $gridColumnInnerContainerClassOutput =
+            " " .
+            $selectableBrandColors[$layoutRowBackgroundColorValue][
+              "light-contrast-tailwindcss-prose-class"
+            ] .
+            " " .
+            $selectableBrandColors[$layoutRowBackgroundColorValue][
+              "dark-contrast-tailwindcss-prose-class"
+            ] .
+            " print:prose-black";
+        } else {
         $gridColumnInnerContainerClassOutput =
           " prose-mvlkss dark:prose-invert print:prose-black";
       }
@@ -147,12 +158,34 @@ foreach ($block->grid()->toLayouts() as $gridLayoutRow): ?>
             "\">";
         } ?>
           <?php foreach ($gridLayoutColumn->blocks() as $block) {
-            if (in_array($block->type(), ["image"])) {
+            if ($block->type() == "image") {
               snippet("blocks/" . $block->type(), [
                 "block" => $block,
                 "layoutColumnWidth" => $layoutColumnWidth ?? null,
                 "gridLayoutColumnWidth" => $gridLayoutColumn->width(),
                 "layoutColumnSplitting" => $layoutColumnSplitting,
+              ]);
+            } elseif ($block->type() == "mvlkssbreadcrumb") {
+              $colorKey = null;
+              if ($gridLayoutRow->gridRowBackgroundColor()->isNotEmpty()) {
+                $colorKey = $gridLayoutRow->gridRowBackgroundColor()->value();
+              } elseif ($layoutRowBackgroundColorExists) {
+                $colorKey = $layoutRowBackgroundColorValue;
+              }
+              $breadcrumbTextColorLight = $colorKey
+                ? $selectableBrandColors[$colorKey][
+                  "light-contrast-tailwindcss-text-class"
+                ]
+                : null;
+              $breadcrumbTextColorDark = $colorKey
+                ? $selectableBrandColors[$colorKey][
+                  "dark-contrast-tailwindcss-text-class"
+                ]
+                : null;
+              snippet("blocks/" . $block->type(), [
+                "block" => $block,
+                "textColorLight" => $breadcrumbTextColorLight,
+                "textColorDark" => $breadcrumbTextColorDark,
               ]);
             } else {
               echo $block;
