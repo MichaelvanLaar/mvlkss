@@ -9,5 +9,5 @@ fields:
   alt:
     type: text
     label:
-      en: Alternative text for the image
+      en: Alternative Text for the Image
       de: Alternativ-Text für das Bild

@@ -161,7 +161,7 @@ columns:
       twitterCreatorHandle:
         type: text
         label:
-          en: X Handle of the Page Author (e.g. for articles)
+          en: X Handle of the Page Author (e.g. for Articles)
           de: X-Account des Seitenautors (z. B. bei Artikeln)
         help:
           en: Please include the leading “@” character
