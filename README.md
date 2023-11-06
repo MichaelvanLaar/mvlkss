@@ -144,6 +144,8 @@ Here's how to set up a brand color palette for the website and give editors acce
 - webpack plugins:
   - [copy-webpack-plugin](https://github.com/webpack-contrib/copy-webpack-plugin)
   - [mini-css-extract-plugin](https://github.com/webpack-contrib/mini-css-extract-plugin)
+- Composer plugins:
+  - [composer-normalize](https://github.com/ergebnis/composer-normalize)
 
 ## Best Practices / Tutorials Included
 
