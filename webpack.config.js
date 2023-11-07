@@ -21,6 +21,10 @@ module.exports = {
         // Copy all files in the `/src/images` directory to the `/assets/images`
         // directory – even if they are not referenced in a JS or CSS file
         { from: "src/images", to: "../images" },
+
+        // Copy all files in the `/src/fonts` directory to the `/assets/fonts`
+        // directory – even if they are not referenced in a JS or CSS file
+        { from: "src/fonts", to: "../fonts" },
       ],
     }),
   ],
