@@ -1,0 +1,82 @@
+{
+  "name": "ergebnis/composer-normalize",
+  "description": "Provides a composer plugin for normalizing composer.json.",
+  "license": "MIT",
+  "type": "composer-plugin",
+  "keywords": [
+    "composer",
+    "normalizer",
+    "normalize",
+    "plugin"
+  ],
+  "authors": [
+    {
+      "name": "Andreas Möller",
+      "email": "am@localheinz.com",
+      "homepage": "https://localheinz.com"
+    }
+  ],
+  "homepage": "https://github.com/ergebnis/composer-normalize",
+  "support": {
+    "issues": "https://github.com/ergebnis/composer-normalize/issues",
+    "source": "https://github.com/ergebnis/composer-normalize",
+    "security": "https://github.com/ergebnis/composer-normalize/blob/main/.github/SECURITY.md"
+  },
+  "require": {
+    "php": "~8.1.0 || ~8.2.0 || ~8.3.0",
+    "ext-json": "*",
+    "composer-plugin-api": "^2.0.0",
+    "ergebnis/json": "^1.1.0",
+    "ergebnis/json-normalizer": "^4.3.0",
+    "ergebnis/json-printer": "^3.4.0",
+    "justinrainbow/json-schema": "^5.2.12",
+    "localheinz/diff": "^1.1.1"
+  },
+  "require-dev": {
+    "composer/composer": "^2.6.5",
+    "ergebnis/license": "^2.2.0",
+    "ergebnis/php-cs-fixer-config": "~6.7.0",
+    "ergebnis/phpunit-slow-test-detector": "^2.3.0",
+    "fakerphp/faker": "^1.23.0",
+    "infection/infection": "~0.27.4",
+    "phpunit/phpunit": "^10.4.1",
+    "psalm/plugin-phpunit": "~0.18.4",
+    "rector/rector": "~0.18.5",
+    "symfony/filesystem": "^6.0.13",
+    "vimeo/psalm": "^5.15.0"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "Ergebnis\\Composer\\Normalize\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Ergebnis\\Composer\\Normalize\\Test\\": "test/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "composer/package-versions-deprecated": true,
+      "infection/extension-installer": true
+    },
+    "audit": {
+      "abandoned": "report"
+    },
+    "platform": {
+      "php": "8.1.20"
+    },
+    "preferred-install": "dist",
+    "sort-packages": true
+  },
+  "extra": {
+    "class": "Ergebnis\\Composer\\Normalize\\NormalizePlugin",
+    "composer-normalize": {
+      "indent-size": 2,
+      "indent-style": "space"
+    },
+    "plugin-optional": true
+  }
+}

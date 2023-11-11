@@ -22,7 +22,7 @@ tabs:
         fields:
           menuItemUrl:
             label:
-              en: "URL or URL part"
+              en: "URL or URL Part"
               de: "URL oder Teil-URL"
             placeholder:
               en: "“https://domain.com” or “/path/page” or “#anchor”"

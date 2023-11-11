@@ -112,12 +112,46 @@ $innerRowContainerClasses =
               "\">";
           } ?>
             <?php foreach ($layoutColumn->blocks() as $block) {
-              if (in_array($block->type(), ["image", "grid"])) {
+              if ($block->type() == "image") {
                 snippet("blocks/" . $block->type(), [
                   "block" => $block,
                   "layoutColumnWidth" => $layoutColumn->width(),
                   "layoutColumnSplitting" =>
                     $layoutRow["layoutColumnSplitting"],
+                ]);
+              } elseif ($block->type() == "mvlkssbreadcrumb") {
+                $breadcrumbTextColorLight = $layoutRow[
+                  "layoutRowBackgroundColorExists"
+                ]
+                  ? $selectableBrandColors[
+                    $layoutRow["layoutRowBackgroundColorValue"]
+                  ]["light-contrast-tailwindcss-text-class"]
+                  : null;
+                $breadcrumbTextColorDark = $layoutRow[
+                  "layoutRowBackgroundColorExists"
+                ]
+                  ? $selectableBrandColors[
+                    $layoutRow["layoutRowBackgroundColorValue"]
+                  ]["dark-contrast-tailwindcss-text-class"]
+                  : null;
+                snippet("blocks/" . $block->type(), [
+                  "block" => $block,
+                  "textColorLight" => $breadcrumbTextColorLight,
+                  "textColorDark" => $breadcrumbTextColorDark,
+                ]);
+              } elseif ($block->type() == "grid") {
+                snippet("blocks/" . $block->type(), [
+                  "block" => $block,
+                  "layoutColumnWidth" => $layoutColumn->width(),
+                  "layoutColumnSplitting" =>
+                    $layoutRow["layoutColumnSplitting"],
+                  "layoutRowBackgroundColorExists" =>
+                    $layoutRow["layoutRowBackgroundColorExists"],
+                  "layoutRowBackgroundColorValue" => $layoutRow[
+                    "layoutRowBackgroundColorExists"
+                  ]
+                    ? $layoutRow["layoutRowBackgroundColorValue"]
+                    : null,
                 ]);
               } else {
                 echo $block;

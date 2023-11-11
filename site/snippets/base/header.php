@@ -51,16 +51,56 @@
       })(document.documentElement);
     </script>
 
-    <link
-      rel="preload"
-      href="/assets/fonts/nunito-sans-v15-latin-regular.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-
     <style>
+      /* Local webfont: nunito-sans-regular - latin */
+      @font-face {
+        font-display: swap;
+        font-family: "Nunito Sans";
+        font-style: normal;
+        font-weight: 400;
+        src:
+          url("/assets/fonts/nunito-sans-v15-latin-regular.woff2") format("woff2"),
+          url("/assets/fonts/nunito-sans-v15-latin-regular.ttf") format("truetype");
+      }
+
+      /* Local webfont: nunito-sans-italic - latin */
+      @font-face {
+        font-display: swap;
+        font-family: "Nunito Sans";
+        font-style: italic;
+        font-weight: 400;
+        src:
+          url("/assets/fonts/nunito-sans-v15-latin-italic.woff2") format("woff2"),
+          url("/assets/fonts/nunito-sans-v15-latin-italic.ttf") format("truetype");
+      }
+
+      /* Local webfont: nunito-sans-700 - latin */
+      @font-face {
+        font-display: swap;
+        font-family: "Nunito Sans";
+        font-style: normal;
+        font-weight: 700;
+        src:
+          url("/assets/fonts/nunito-sans-v15-latin-700.woff2") format("woff2"),
+          url("/assets/fonts/nunito-sans-v15-latin-700.ttf") format("truetype");
+      }
+
+      /* Local webfont: nunito-sans-700italic - latin */
+      @font-face {
+        font-display: swap;
+        font-family: "Nunito Sans";
+        font-style: italic;
+        font-weight: 700;
+        src:
+          url("/assets/fonts/nunito-sans-v15-latin-700italic.woff2") format("woff2"),
+          url("/assets/fonts/nunito-sans-v15-latin-700italic.ttf") format("truetype");
+      }
+
       body {
+        /* Used to trigger early font detection and download,
+        see https://web.dev/articles/font-best-practices?hl=en#inline_font_declarations */
+        font-family: "Nunito Sans", sans-serif;
+
         /* Set site header height */
         --site-header-initial-height: 6rem;
         --site-header-scroll-height: 3rem;

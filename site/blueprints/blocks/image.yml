@@ -43,7 +43,7 @@ fields:
     inline: true
   lightbox:
     label:
-      en: Open image in lightbox
+      en: Open Image in lightbox
       de: Bild in Lightbox öffnen
     type: toggle
     icon: expand

@@ -7,11 +7,14 @@ name:
   de: Breadcrumb-Navigation
 icon: road-sign
 fields:
-  countdownInfo:
-    type: info
+  includeCurrentPage:
+    type: toggle
     label:
-      en: Breadcrumb Navigation
-      de: Breadcrumb-Navigation
+      en: Current Page in Breadcrumb Navigation
+      de: Aktuelle Seite in der Breadcrumb-Navigation
     text:
-      en: This block is used to display a breadcrumb navigation.
-      de: Dieser Block dient zur Anzeige einer Breadcrumb-Navigation.
+      - en: Don’t include
+        de: Nicht anzeigen
+      - en: Include
+        de: Anzeigen
+    default: true
