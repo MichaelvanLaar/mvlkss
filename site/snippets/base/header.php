@@ -23,8 +23,6 @@
  * - $siteLogoFile
  * =============================================================================
  */
-
-// Include centrally managed global constants
 ?>
 <!DOCTYPE html>
 <html class="no-js" lang="<?= $pageLanguageCode ?>" dir="<?= $pageLanguageDirection ?>">
