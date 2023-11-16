@@ -90,6 +90,20 @@ When development is complete, utilize the following command to generate streamli
 npm run build
 ```
 
+### Cleaning Up Your Local Git Branches
+
+This project features a Node.js script aimed at simplifying the task of deleting local Git branches. The script automatically eliminates branches that have been merged and deleted from the remote repository, effectively ensuring that the local development environment stays neat and tidy.
+
+You can use this command to easily run the script:
+
+```bash
+npm run git-branches-clean-up
+```
+
+Always make sure you're on the `main` branch (or any other branch that should not be removed) when running this script.
+
+**Customization:** If your main branch has a different name than `main`, modify the file `.git-branches-clean-up.js` in the root directory accordingly by replacing the branch names in the exclusion condition.
+
 ## File Locations
 
 ### Kirby Files (e.g. Content and Templates)

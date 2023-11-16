@@ -9,6 +9,7 @@
     "dependencies-update-check": "node -e \"console.log('==========================\\nCHECKING COMPOSER PACKAGES\\n==========================\\n')\" && composer outdated && node -e \"console.log('\\n\\n=====================\\nCHECKING NPM PACKAGES\\n=====================\\n')\" && ncu",
     "dev": "npm run clean && webpack --mode development --watch",
     "dev-server": "concurrently --kill-others \"npm run dev\" \"npm run server\"",
+    "git-branches-clean-up": "node ./.git-branches-clean-up.js",
     "server": "php -S localhost:8000 kirby/router.php"
   },
   "browserslist": [
