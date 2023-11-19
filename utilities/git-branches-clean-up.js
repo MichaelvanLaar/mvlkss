@@ -8,7 +8,7 @@
  * =============================================================================
  */
 
-import { execSync } from "child_process";
+const { execSync } = require("child_process");
 
 function execCommand(command) {
   return execSync(command).toString().trim().split("\n");
