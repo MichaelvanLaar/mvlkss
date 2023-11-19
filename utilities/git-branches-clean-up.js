@@ -1,4 +1,14 @@
-const { execSync } = require("child_process");
+/**
+ * =============================================================================
+ * Clean-Up Git Branches
+ *
+ * This script automates local Git branch cleanup. It retrieves updates from the
+ * remote repository, excludes the current branch, and deletes branches merged
+ * into `main`, except `main`.
+ * =============================================================================
+ */
+
+import { execSync } from "child_process";
 
 function execCommand(command) {
   return execSync(command).toString().trim().split("\n");
@@ -10,9 +20,10 @@ execCommand("git fetch --prune");
 // Get the name of the currently checked out branch
 const currentBranch = execCommand("git branch --show-current")[0];
 
-// Get a list of merged branches, excluding the current branch and any lines with '*'
+// Get a list of merged branches, excluding the current branch and any lines
+// with '*'
 const branches = execCommand("git branch --merged main")
-  .map((branch) => branch.trim()) // Trim whitespace
+  .map((branch) => branch.trim())
   .filter(
     (branch) => branch && branch !== currentBranch && !branch.includes("*"),
   );

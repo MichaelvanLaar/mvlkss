@@ -44,18 +44,18 @@ The `package.json` includes two useful scripts that conveniently facilitate the 
 
 #### Checking for Updates
 
-The `dependencies-update-check` script checks for new updates of your installed Composer and npm packages and displays the available information. It does not affect any of your files.
+The `utility-dependencies-update-check` script checks for new updates of your installed Composer and npm packages and displays the available information. It does not affect any of your files.
 
 ```bash
-npm run dependencies-update-check
+npm run utility-dependencies-update-check
 ```
 
 #### Updating
 
-The `dependencies-update` script installs all available updates to your installed Composer and npm packages, based on the information in your `composer.json` and `package.json` files.
+The `utility-dependencies-update` script installs all available updates to your installed Composer and npm packages, based on the information in your `composer.json` and `package.json` files.
 
 ```bash
-npm run dependencies-update
+npm run utility-dependencies-update
 ```
 
 ## Use
@@ -97,7 +97,7 @@ This project features a Node.js script aimed at simplifying the task of deleting
 You can use this command to easily run the script:
 
 ```bash
-npm run git-branches-clean-up
+npm run utility-git-branches-clean-up
 ```
 
 Always make sure you're on the `main` branch (or any other branch that should not be removed) when running this script.
@@ -122,7 +122,7 @@ After using the mentioned build tools, the output will be located in `/assets/cs
 
 To keep things organized and simple, separate your frontend scripts into partials stored in the `/src/js/main-partials/` folder.
 
-Then, import them into `/src/js/main.js`, which Webpack will use as the entry point to bundle everything (including imported node modules) and create the output file `assets/js/main.js`. This is the file that needs to be linked in your Kirby templates.
+Then, import them into `/src/js/main.js`, which Webpack will use as the entry point to bundle everything (including imported Node.js modules) and create the output file `assets/js/main.js`. This is the file that needs to be linked in your Kirby templates.
 
 ## Color Scheme
 
@@ -160,6 +160,9 @@ Here's how to set up a brand color palette for the website and give editors acce
   - [mini-css-extract-plugin](https://github.com/webpack-contrib/mini-css-extract-plugin)
 - Composer plugins:
   - [composer-normalize](https://github.com/ergebnis/composer-normalize)
+- [Playwright](https://playwright.dev/)
+- [Axios](https://axios-http.com/)
+- [node-xml2js](https://github.com/Leonidas-from-XIV/node-xml2js)
 
 ## Best Practices / Tutorials Included
 
