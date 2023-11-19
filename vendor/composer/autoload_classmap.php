@@ -415,6 +415,7 @@ return array(
     'Kirby\\Toolkit\\Query' => $baseDir . '/kirby/src/Toolkit/Query.php',
     'Kirby\\Toolkit\\Silo' => $baseDir . '/kirby/src/Toolkit/Silo.php',
     'Kirby\\Toolkit\\Str' => $baseDir . '/kirby/src/Toolkit/Str.php',
+    'Kirby\\Toolkit\\SymmetricCrypto' => $baseDir . '/kirby/src/Toolkit/SymmetricCrypto.php',
     'Kirby\\Toolkit\\Tpl' => $baseDir . '/kirby/src/Toolkit/Tpl.php',
     'Kirby\\Toolkit\\V' => $baseDir . '/kirby/src/Toolkit/V.php',
     'Kirby\\Toolkit\\View' => $baseDir . '/kirby/src/Toolkit/View.php',
