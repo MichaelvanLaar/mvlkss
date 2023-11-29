@@ -2,6 +2,8 @@
 
 This is a work in progress. This documentation should reflect the current state of development, but may be incomplete.
 
+If you need a pair programming buddy who knows the tech stack used in this project, you may want to ask the custom GPT [custom GPT “Web developer for MvLKSS based projects”](https://chat.openai.com/g/g-64y755npL-web-developer-for-mvlkss-based-projects) (ChatGPT Plus required).
+
 ## Prerequisites
 
 The following must be installed on your machine:
