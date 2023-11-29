@@ -19,7 +19,7 @@ return array(
     'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
     'League\\ColorExtractor\\' => array($vendorDir . '/league/color-extractor/src'),
     'Laminas\\Escaper\\' => array($vendorDir . '/laminas/laminas-escaper/src'),
-    'Kirby\\' => array($vendorDir . '/getkirby/composer-installer/src', $baseDir . '/kirby/src'),
+    'Kirby\\' => array($baseDir . '/kirby/src', $vendorDir . '/getkirby/composer-installer/src'),
     'JsonSchema\\' => array($vendorDir . '/justinrainbow/json-schema/src/JsonSchema'),
     'JohannSchopplich\\' => array($baseDir . '/site/plugins/kirby-highlighter/classes/JohannSchopplich'),
     'Ergebnis\\Json\\SchemaValidator\\' => array($vendorDir . '/ergebnis/json-schema-validator/src'),
@@ -30,4 +30,5 @@ return array(
     'Ergebnis\\Composer\\Normalize\\' => array($vendorDir . '/ergebnis/composer-normalize/src'),
     'Composer\\Semver\\' => array($vendorDir . '/composer/semver/src'),
     'Bnomei\\' => array($baseDir . '/site/plugins/kirby3-robots-txt/classes'),
+    'Base32\\' => array($vendorDir . '/christian-riesen/base32/src'),
 );

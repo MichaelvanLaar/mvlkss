@@ -1,9 +1,10 @@
 <?php
 
-namespace distantnative\Retour;
+namespace Kirby\Retour;
 
 use Kirby\Http\Route;
 use Kirby\Http\Router;
+use Throwable;
 
 /**
  * Sets up route hook to intercept
@@ -28,10 +29,10 @@ return [
             $final === true &&
             empty($result) === true
         ) {
-            $retour = Plugin::instance();
+            $retour = Retour::instance();
 
-            // skip ignored paths
-            if (in_array($path, $retour->option('ignore', [])) === true) {
+            // Skip ignored paths
+            if ($retour->ignore($path) === true) {
                 return $result;
             }
 
@@ -41,7 +42,7 @@ return [
                 $routes = $retour->redirects()->toRoutes(false);
                 $router = new Router($routes);
                 return $router->call($path, $method);
-            } catch (\Throwable $e) {
+            } catch (Throwable) {
                 // log 404 if feature enabled
                 if ($retour->hasLog() === true) {
                     $retour->log()->add(['path' => $path]);
