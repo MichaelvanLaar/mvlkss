@@ -17,8 +17,7 @@ fields:
     label:
       en: Link
       de: Link
-    type: text
-    pattern: ^(https?:\/\/)?[a-zA-Z0-9-._~:\/?#\[\]@!$&'()*+,;=%]*|\/[a-zA-Z0-9-._~:\/?#\[\]@!$&'()*+,;=%]*|^#.*$
+    type: link
     required: true
     width: 1/2
   linkTarget:

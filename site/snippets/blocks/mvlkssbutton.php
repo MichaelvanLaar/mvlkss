@@ -92,7 +92,7 @@ $buttonContainerClassAttribute = "class=\"{$buttonContainerClasses}\"";
 >
   <!-- Button -->
   <a
-    href="<?= $block->link() ?>"
+    href="<?= $block->link()->toUrl() ?>"
     target="<?= $block->linkTarget() ?>"
     <?= $block->linkTarget() == "_blank" ? "rel=\"noopener\"" : "" ?>
     <?= $buttonClassAttribute ?>
