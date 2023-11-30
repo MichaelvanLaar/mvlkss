@@ -2,7 +2,7 @@ Title: External Link
 
 ----
 
-Menuitemurl: https://michaelvanlaar.com/
+Menuitemlink: https://getkirby.com/
 
 ----
 
@@ -14,4 +14,12 @@ Includeinmenus: main
 
 ----
 
+Menuitemurl: https://michaelvanlaar.com/
+
+----
+
 Uuid: mOmuOhCvr5w9iHiq
+
+----
+
+Datemodifiedepoch: 1701302901
