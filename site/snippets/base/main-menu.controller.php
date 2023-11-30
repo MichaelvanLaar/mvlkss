@@ -19,7 +19,7 @@ return function ($site, $page) {
     if (in_array("main", $menuOptions)) {
       $url =
         $menuItem->intendedTemplate() == "custom-menu-item"
-          ? $menuItem->menuItemUrl()
+          ? $menuItem->menuItemLink()->toUrl()
           : $menuItem->url();
       $mainMenuItems[] = [
         "title" => $menuItem->title(),
