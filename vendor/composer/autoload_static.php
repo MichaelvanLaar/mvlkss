@@ -130,8 +130,8 @@ class ComposerStaticInit162efd83110c77a994f175ee0d752b12
         ),
         'Kirby\\' => 
         array (
-            0 => __DIR__ . '/..' . '/getkirby/composer-installer/src',
-            1 => __DIR__ . '/../..' . '/kirby/src',
+            0 => __DIR__ . '/../..' . '/kirby/src',
+            1 => __DIR__ . '/..' . '/getkirby/composer-installer/src',
         ),
         'JsonSchema\\' => 
         array (
