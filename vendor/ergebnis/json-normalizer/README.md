@@ -13,7 +13,7 @@
 [![Total Downloads](https://poser.pugx.org/ergebnis/json-normalizer/downloads)](https://packagist.org/packages/ergebnis/json-normalizer)
 [![Monthly Downloads](http://poser.pugx.org/ergebnis/json-normalizer/d/monthly)](https://packagist.org/packages/ergebnis/json-normalizer)
 
-This package provides generic and vendor-specific normalizers for normalizing [JSON documents](https://www.json.org).
+This project provides a [`composer`](https://getcomposer.org) package with generic and vendor-specific normalizers for normalizing [JSON documents](https://www.json.org).
 
 ## Installation
 
@@ -25,14 +25,14 @@ composer require ergebnis/json-normalizer
 
 ## Usage
 
-This package comes with
+This project comes with
 
 - [generic normalizers](#generic-normalizers)
 - [vendor-specific normalizers](#vendor-specific-normalizers)
 
 ### Generic normalizers
 
-This package comes with the following generic normalizers:
+This project comes with the following generic normalizers:
 
 - [`Ergebnis\Json\Normalizer\CallableNormalizer`](#callablenormalizer)
 - [`Ergebnis\Json\Normalizer\ChainNormalizer`](#chainnormalizer)
@@ -409,7 +409,7 @@ The normalized version will now not have a final new line or any whitespace at t
 
 ### Vendor-specific normalizers
 
-This package comes with the following vendor-specific normalizers:
+This project comes with the following vendor-specific normalizers:
 
 - [`Ergebnis\Json\Normalizer\Vendor\Composer\JsonNormalizer`](#vendorcomposercomposerjsonnormalizer)
 
@@ -422,6 +422,7 @@ It composes the following normalizers:
 - [`Ergebnis\Composer\Json\Normalizer\Vendor\Composer\BinNormalizer`](#vendorcomposerbinnormalizer)
 - [`Ergebnis\Composer\Json\Normalizer\Vendor\Composer\ConfigHashNormalizer`](#vendorcomposerconfighashnormalizer)
 - [`Ergebnis\Composer\Json\Normalizer\Vendor\Composer\PackageHashNormalizer`](#vendorcomposerpackagehashnormalizer)
+- [`Ergebnis\Composer\Json\Normalizer\Vendor\Composer\RepositoriesHashNormalizer`](#vendorcomposerrepositorieshashnormalizer)
 - [`Ergebnis\Composer\Json\Normalizer\Vendor\Composer\VersionConstraintNormalizer`](#vendorcomposerversionconstraintnormalizer)
 - [`Ergebnis\Composer\Json\Normalizer\Vendor\WithFinalNewLineNormalizer`](#withfinalnewlinenormalizer)
 
@@ -451,6 +452,14 @@ When `composer.json` contains any configuration in the
 sections, the `Vendor\Composer\PackageHashNormalizer` will sort the packages in these sections.
 
 :bulb: This transfers the behaviour from using the [`--sort-packages`](https://getcomposer.org/doc/03-cli.md#require) or [`sort-packages`](https://getcomposer.org/doc/06-config.md#sort-packages) configuration flag in `require` and `require-dev` to other sections.
+
+#### `Vendor\Composer\RepositoriesHashNormalizer`
+
+When `composer.json` contains any configuration in the
+
+- [`repositories`](https://getcomposer.org/doc/04-schema.md#repositories)
+
+section, the `Vendor\Composer\RepositoriesHashNormalizer` will sort the repositories listed in the [`exclude` and `only` properties of repositories](https://getcomposer.org/doc/articles/repository-priorities.md#filtering-packages).
 
 #### `Vendor\Composer\VersionConstraintNormalizer`
 
@@ -581,7 +590,7 @@ sections, the `Vendor\Composer\VersionConstraintNormalizer` will ensure that
    }
   ```
 
-- useless [inline aliases]()https://getcomposer.org/doc/articles/aliases.md#require-inline-alias are removed
+- useless [inline aliases](https://getcomposer.org/doc/articles/aliases.md#require-inline-alias) are removed
 
   ```diff
    {
@@ -592,37 +601,50 @@ sections, the `Vendor\Composer\VersionConstraintNormalizer` will ensure that
    }
   ```
 
+
+- leading `v` prefixes in version constraints are removed
+
+  ```diff
+   {
+     "require": {
+  -    "foo/bar": "^v1.2",
+  -    "foo/baz": "v1.3.7"
+  +    "foo/bar": "^1.2",
+  +    "foo/baz": "1.3.7"
+   }
+  ```
+
 ## Changelog
 
-The maintainers of this package record notable changes to this project in a [changelog](CHANGELOG.md).
+The maintainers of this project record notable changes to this project in a [changelog](CHANGELOG.md).
 
 ## Contributing
 
-The maintainers of this package suggest following the [contribution guide](.github/CONTRIBUTING.md).
+The maintainers of this project suggest following the [contribution guide](.github/CONTRIBUTING.md).
 
 ## Code of Conduct
 
-The maintainers of this package ask contributors to follow the [code of conduct](https://github.com/ergebnis/.github/blob/main/CODE_OF_CONDUCT.md).
+The maintainers of this project ask contributors to follow the [code of conduct](https://github.com/ergebnis/.github/blob/main/CODE_OF_CONDUCT.md).
 
 ## General Support Policy
 
-The maintainers of this package provide limited support.
+The maintainers of this project provide limited support.
 
-You can support the maintenance of this package by [sponsoring @localheinz](https://github.com/sponsors/localheinz) or [requesting an invoice for services related to this package](mailto:am@localheinz.com?subject=ergebnis/json-normalizer:%20Requesting%20invoice%20for%20services).
+You can support the maintenance of this project by [sponsoring @localheinz](https://github.com/sponsors/localheinz) or [requesting an invoice for services related to this project](mailto:am@localheinz.com?subject=ergebnis/json-normalizer:%20Requesting%20invoice%20for%20services).
 
 ## PHP Version Support Policy
 
-This package supports PHP versions with [active support](https://www.php.net/supported-versions.php).
+This project supports PHP versions with [active and security support](https://www.php.net/supported-versions.php).
 
-The maintainers of this package add support for a PHP version following its initial release and drop support for a PHP version when it has reached its end of active support.
+The maintainers of this project add support for a PHP version following its initial release and drop support for a PHP version when it has reached the end of security support.
 
 ## Security Policy
 
-This package has a [security policy](.github/SECURITY.md).
+This project has a [security policy](.github/SECURITY.md).
 
 ## License
 
-This package uses the [MIT license](LICENSE.md).
+This project uses the [MIT license](LICENSE.md).
 
 ## Credits
 

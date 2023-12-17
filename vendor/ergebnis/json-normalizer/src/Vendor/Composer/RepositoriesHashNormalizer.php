@@ -17,17 +17,14 @@ use Ergebnis\Json\Json;
 use Ergebnis\Json\Normalizer\Format;
 use Ergebnis\Json\Normalizer\Normalizer;
 
-final class ConfigHashNormalizer implements Normalizer
+final class RepositoriesHashNormalizer implements Normalizer
 {
     private const PROPERTIES_WITH_WILDCARDS = [
         /**
-         * @see https://getcomposer.org/doc/06-config.md#allow-plugins
+         * @see https://getcomposer.org/doc/articles/repository-priorities.md#filtering-packages
          */
-        'allow-plugins',
-        /**
-         * @see https://getcomposer.org/doc/06-config.md#preferred-install
-         */
-        'preferred-install',
+        'exclude',
+        'only',
     ];
     private readonly WildcardSorter $wildcardSorter;
 
@@ -44,31 +41,41 @@ final class ConfigHashNormalizer implements Normalizer
             return $json;
         }
 
-        if (!\property_exists($decoded, 'config')) {
+        if (!\property_exists($decoded, 'repositories')) {
             return $json;
         }
 
-        if (!\is_object($decoded->config)) {
+        if (!\is_array($decoded->repositories) && !\is_object($decoded->repositories)) {
             return $json;
         }
 
-        /** @var array<string, mixed> $config */
-        $config = (array) $decoded->config;
+        /** @var array<string, mixed> $repositories */
+        $repositories = (array) $decoded->repositories;
 
-        if ([] === $config) {
+        if ([] === $repositories) {
             return $json;
         }
 
-        \ksort($config);
+        foreach ($repositories as &$repository) {
+            /**
+             * @see https://getcomposer.org/doc/05-repositories.md#disabling-packagist-org
+             */
+            if (!\is_array($repository) && !\is_object($repository)) {
+                continue;
+            }
 
-        foreach (self::PROPERTIES_WITH_WILDCARDS as $property) {
-            $this->wildcardSorter->sortPropertyWithWildcard(
-                $config,
-                $property,
-            );
+            $repository = (array) $repository;
+
+            foreach (self::PROPERTIES_WITH_WILDCARDS as $property) {
+                $this->wildcardSorter->sortPropertyWithWildcard(
+                    $repository,
+                    $property,
+                    false,
+                );
+            }
         }
 
-        $decoded->config = $config;
+        $decoded->repositories = $repositories;
 
         /** @var string $encoded */
         $encoded = \json_encode(

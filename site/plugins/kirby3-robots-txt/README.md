@@ -10,9 +10,16 @@
 
 Manage the [robots.txt](https://developers.google.com/search/reference/robots_txt) from the Kirby config file.
 
-## Similar Plugin
+## Similar Robots.txt Plugins
 
+- [kirby3-helpers](https://github.com/johannschopplich/kirby-helpers)
 - [kirby3-wellknown](https://github.com/omz13/kirby3-wellknown)
+
+## Related SEO Plugins
+
+- [kirby3-seo](https://github.com/tobimori/kirby-seo)
+- [kirby3-helpers](https://github.com/johannschopplich/kirby-helpers)
+- [kirby-meta-knight](https://github.com/diesdasdigital/kirby-meta-knight)
 
 ## Commercial Usage
 
@@ -34,23 +41,32 @@ Manage the [robots.txt](https://developers.google.com/search/reference/robots_tx
 - `git submodule add https://github.com/bnomei/kirby3-robots-txt.git site/plugins/kirby3-robots-txt` or
 - `composer require bnomei/kirby3-robots-txt`
 
+## Staging Server? Debug Mode = Disallow all
+
+When you set the global Kirby `debug` config to `true` the plugin will disallow all indexing for all user-agents. This is especially useful on a staging server but you could consider xml-sitemap and rss-feed among other things as well.
+
+> ⚠️⚠️⚠️ THIS MEANS IF YOU HAVE KIRBY'S DEBUG MODE ENABLED IN PRODUCTION ALL SEARCH ENGINES WILL BE BLOCKED FROM INDEXING YOUR SITE!
+
+## Adding Sitemap Link to Robots.txt
+
+This plugin will add the sitemap link **automatically** to the `robots.txt` file for most available SEO plugins. You can skip setting the `bnomei.robots-txt.sitemap` config value to `sitemap.xml` in that case.
+
 ## Setup
 
 The plugin generates automatic defaults for the starterkit. You do not have to enter them in the config file. But if you would it would look like this.
-
-> TIP: If you are using the [kirby3-feeds Plugin](https://github.com/bnomei/kirby3-feeds) or [kirby3-xmlsitemap Plugin](https://github.com/omz13/kirby3-xmlsitemap) your sitemap will be automatically added to the `robots.txt` file. You can skip setting the `bnomei.robots-txt.sitemap` config value to `sitemap.xml`.
 
 **defaults for starterkit**
 ```php
 <?php
 return [
     'bnomei.robots-txt.content' => null, // string or callback
-    'bnomei.robots-txt.sitemap' => null, // string or callback
+    'bnomei.robots-txt.sitemap' => null, // null (aka. AUTOMATIC) or string or callback
     'bnomei.robots-txt.groups' => [ // array or callback
         '*' => [ // user-agent
             'disallow' => [
                 '/kirby/',
                 '/site/',
+                '/cdn-cgi/',
             ],
             'allow' => [
                 '/media/',
@@ -67,6 +83,7 @@ return [
     'bnomei.robots-txt.content' => 'user-agent: *
 disallow: /kirby/
 disallow: /site/
+disallow: /cdn-cgi/
 allow: /media/',
 ];
 ```
@@ -100,10 +117,6 @@ return [
     ]
 ];
 ```
-
-## Staging Server? Debug Mode = Disallow all
-
-Since v1.3.0 when you set the global Kirby `debug` config to `true` the plugin will disallow all indexing for all user-agents. This is especially usefull on a staging server but you could consider xml-sitemap and rss-feed among other things as well.
 
 ## Disclaimer
 
