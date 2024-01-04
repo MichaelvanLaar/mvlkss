@@ -207,10 +207,12 @@ function buildBackgroundImageUrl(
         " background-image: url('%s');",
         $rowBackgroundImageFile->thumb("jpg->webp")->url()
       );
-      $rowBackgroundImageStyle .= sprintf(
-        " background-image: url('%s');",
-        $rowBackgroundImageFile->thumb("jpg->avif")->url()
-      );
+      if (option("thumbs")["driver"] == "im") {
+        $rowBackgroundImageStyle .= sprintf(
+          " background-image: url('%s');",
+          $rowBackgroundImageFile->thumb("jpg->avif")->url()
+        );
+      }
       break;
   }
 
