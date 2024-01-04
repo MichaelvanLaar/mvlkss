@@ -8,111 +8,6 @@
 
 /**
  * -----------------------------------------------------------------------------
- * Thumbnail Srcsets and Presets
- * -----------------------------------------------------------------------------
- */
-
-// CONFIGURATION: Set the widths of the thumbnails
-$thumbWidths = [200, 400, 600, 800, 1000, 1600, 2000];
-
-// CONFIGURATION: Define the sets of srcsets with their respective settings
-//
-// Keep an eye on the order of the sets. The same order will be used for the
-// source elements in the HTML. Browsers will use the first source element that
-// they support. I.e. if you want to prioritize AVIF over WebP, the AVIF
-// configuration for a specific input type must come before the WebP
-// configuration for the same input type.
-//
-// For each of the sets, a preset will be created in addition to the srcset. The
-// preset will not inllude any width information. It will only include the
-// format and quality information.
-$thumbSrcsetsConfig = [
-    [
-        "name" => "default",
-        "input" => null,
-        "format" => null,
-        "quality" => 90,
-    ],
-    [
-        "name" => "png->webp",
-        "input" => "png",
-        "format" => "webp",
-        "quality" => 100,
-    ],
-    [
-        "name" => "jpg->avif",
-        "input" => "jpg",
-        "format" => "avif",
-        "quality" => 60,
-    ],
-    [
-        "name" => "jpg->webp",
-        "input" => "jpg",
-        "format" => "webp",
-        "quality" => 70,
-    ],
-];
-
-// Helper function for constructing the srcsets from a given configuration
-function getThumbSrcsets($thumbSrcsetsConfig, $thumbWidths) {
-    $thumbSrcsets = [];
-    foreach ($thumbSrcsetsConfig as $thumbSrcset) {
-        $thumbSrcsets[$thumbSrcset["name"]] = [];
-        foreach ($thumbWidths as $thumbWidth) {
-            $thumbSrcsets[$thumbSrcset["name"]][(string) $thumbWidth . "w"] = [
-                "width" => $thumbWidth,
-                "format" => $thumbSrcset["format"] ?? null,
-                "quality" => $thumbSrcset["quality"] ?? null,
-                "type-attribute-for-source-element" => $thumbSrcset["format"]
-                    ? "image/" . $thumbSrcset["format"]
-                    : null,
-            ];
-        }
-    }
-    return $thumbSrcsets;
-}
-
-// Helper function for constructing the srcsets selector from a given
-// configuration
-function getThumbSrcsetsSelector($thumbSrcsetsConfig) {
-    $thumbSrcsetsSelector = [];
-    foreach ($thumbSrcsetsConfig as $thumbSrcset) {
-        if (!$thumbSrcset["input"]) {
-            continue;
-        }
-        $inputFileExtensions = in_array($thumbSrcset["input"], ["jpg", "jpeg"])
-            ? ["jpg", "jpeg"]
-            : [$thumbSrcset["input"]];
-
-        foreach ($inputFileExtensions as $inputFileExtension) {
-            if (!isset($thumbSrcsetsSelector[$inputFileExtension])) {
-                $thumbSrcsetsSelector[$inputFileExtension] = [];
-            }
-            $thumbSrcsetsSelector[$inputFileExtension][] = $thumbSrcset["name"];
-        }
-    }
-    return $thumbSrcsetsSelector;
-}
-
-// Helper function for constructing the presets from a given configuration
-function getThumbPresets($thumbSrcsetsConfig) {
-    $thumbPresets = [];
-    foreach ($thumbSrcsetsConfig as $thumbSrcset) {
-        $thumbPresets[$thumbSrcset["name"]] = [
-            "format" => $thumbSrcset["format"] ?? null,
-            "quality" => $thumbSrcset["quality"] ?? null,
-        ];
-    }
-    return $thumbPresets;
-}
-
-// Construct the srcsets and presets from the configuration
-$thumbSrcsets = getThumbSrcsets($thumbSrcsetsConfig, $thumbWidths);
-$thumbSrcsetsSelector = getThumbSrcsetsSelector($thumbSrcsetsConfig);
-$thumbPresets = getThumbPresets($thumbSrcsetsConfig);
-
-/**
- * -----------------------------------------------------------------------------
  * CONFIGURATION: Selectable Brand Colors
  *
  * These constants assign Tailwind CSS utility classes to the respective options
@@ -312,6 +207,19 @@ $spacingUtilityClasses = [
 
 /**
  * -----------------------------------------------------------------------------
+ * Thumbnail Srcsets and Presets
+ *
+ * The configuration for thumbnail creation can be found in the file
+ * `site/config/thumb-config.php`.
+ * -----------------------------------------------------------------------------
+ */
+
+require_once "site/config/thumb-config.php";
+
+$thumbConfig = getThumbConfig();
+
+/**
+ * -----------------------------------------------------------------------------
  * Return Configuration
  * -----------------------------------------------------------------------------
  */
@@ -356,15 +264,15 @@ return [
         ];
     },
     "site-constants" => [
-        "thumb-widths" => $thumbWidths,
-        "thumb-srcsets" => $thumbSrcsets,
-        "thumb-srcsets-selector" => $thumbSrcsetsSelector,
+        "thumb-widths" => $thumbConfig["thumbWidths"],
+        "thumb-srcsets" => $thumbConfig["thumbSrcsets"],
+        "thumb-srcsets-selector" => $thumbConfig["thumbSrcsetsSelector"],
         "selectable-brand-colors" => $selectableBrandColors,
         "spacing-utility-classes" => $spacingUtilityClasses,
     ],
     "thumbs" => [
         "driver" => "im",
-        "srcsets" => $thumbSrcsets,
-        "presets" => $thumbPresets,
+        "srcsets" => $thumbConfig["thumbSrcsets"],
+        "presets" => $thumbConfig["thumbPresets"],
     ],
 ];
