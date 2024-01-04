@@ -71,7 +71,7 @@ if ($block->location() == "web") {
 // If clause just to double check that we really have an image to work with.
 if ($src):
 
-  $linkUrl = Str::esc($link->toUrl());
+  $linkUrl = $link->isNotEmpty() ? Str::esc($link->toUrl()) : null;
   $imgSrcset = $image ? $image->srcset() : null;
   $altEsc = $alt->esc();
   $srcsetsForCurrentImageType = $image
