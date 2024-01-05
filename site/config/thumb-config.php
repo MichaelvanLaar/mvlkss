@@ -6,12 +6,13 @@
  */
 
 /**
- * Retrieves the thumbnail configuration based on the specified environment.
+ * Retrieves the thumbnail configuration based on the specified environment,
+ * which indicates if ImageMagick or GD is used for thumbnail creation.
  *
- * @param string $env The environment (default: "production")
+ * @param string $env The environment (default: "im")
  * @return array The thumbnail configuration
  */
-function getThumbConfig($env = "production") {
+function getThumbConfig($env = "im") {
     // CONFIGURATION: Set the widths of the thumbnails
     $thumbWidths = [200, 400, 600, 800, 1000, 1600, 2000];
 
@@ -54,11 +55,10 @@ function getThumbConfig($env = "production") {
     ];
 
     // CONFIGURATION: Define different sets of srcsets with their respective
-    // settings for the localhost environment
+    // settings if GD is used for thumbnail creation.
     //
-    // This is useful if you use GD as the driver for the thumbs in the
-    // localhost because GD cannot handle AVIF images properly.
-    if ($env === "localhost") {
+    // This is useful because GD often has problems with AVIF image creation.
+    if ($env === "gd") {
         $thumbSrcsetsConfig = [
             [
                 "name" => "default",

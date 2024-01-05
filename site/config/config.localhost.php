@@ -18,7 +18,7 @@
 
 require_once "site/config/thumb-config.php";
 
-$thumbConfig = getThumbConfig("localhost");
+$thumbConfig = getThumbConfig("gd");
 
 /**
  * -----------------------------------------------------------------------------
