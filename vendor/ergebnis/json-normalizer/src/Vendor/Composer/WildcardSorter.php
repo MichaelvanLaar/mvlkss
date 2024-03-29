@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2018-2023 Andreas Möller
+ * Copyright (c) 2018-2024 Andreas Möller
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -30,7 +30,7 @@ final class WildcardSorter
     public function sortPropertyWithWildcard(
         array &$config,
         string $property,
-        bool $sortByKey = true,
+        bool $sortByKey = true
     ): void {
         if (!\array_key_exists($property, $config)) {
             return;
@@ -50,7 +50,7 @@ final class WildcardSorter
 
         foreach ($packages as $package) {
             /** @var string $package */
-            if (\str_contains(\rtrim($package, '*'), '*')) {
+            if (false !== \strpos(\rtrim($package, '*'), '*')) {
                 // We cannot reliably sort allow-plugins when there's a wildcard other than at the end of the string.
                 return;
             }

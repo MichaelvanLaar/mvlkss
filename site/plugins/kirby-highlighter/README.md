@@ -1,6 +1,6 @@
 # Kirby Highlighter
 
-> Server-side code highlighting available as [custom block](https://getkirby.com/docs/reference/panel/fields/blocks) and for [KirbyText](https://getkirby.com/docs/guide/content/text-formatting#kirbytext).
+Server-side code highlighting available as [custom block](https://getkirby.com/docs/reference/panel/fields/blocks) and for [KirbyText](https://getkirby.com/docs/guide/content/text-formatting#kirbytext).
 
 Built upon [highlight.php](http://www.highlightjs.org) which itself is a port of [highlight.js](http://www.highlightjs.org).
 
@@ -17,21 +17,15 @@ Built upon [highlight.php](http://www.highlightjs.org) which itself is a port of
 
 ## Installation
 
-### Download
-
-Download and copy this repository to `/site/plugins/kirby-highlighter`.
-
-### Git Submodule
-
-```
-git submodule add https://github.com/johannschopplich/kirby-highlighter.git site/plugins/kirby-highlighter
-```
-
 ### Composer
 
 ```
 composer require johannschopplich/kirby-highlighter
 ```
+
+### Download
+
+Download and copy this repository to `/site/plugins/kirby-highlighter`.
 
 ## Usage
 
@@ -60,6 +54,12 @@ Create a code block in your KirbyText field and optionally set the code language
 }
 ```
 </code></pre>
+
+Or use the new `code`-KirbyTag from this plugin with a base64 encoded code string:
+
+```
+(code: LmN1cnJlbnRDb2xvciB7CiAgY29sb3I6IGN1cnJlbnRDb2xvcjsKfQ== lang: css)
+```
 
 Which outputs:
 
@@ -132,4 +132,4 @@ pre.hljs .hljs-code-line::before {
 
 ## License
 
-[MIT](./LICENSE) License © 2020-2023 [Johann Schopplich](https://github.com/johannschopplich)
+[MIT](./LICENSE) License © 2020-PRESENT [Johann Schopplich](https://github.com/johannschopplich)

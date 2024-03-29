@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2018-2023 Andreas Möller
+ * Copyright (c) 2018-2024 Andreas Möller
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -18,10 +18,15 @@ use Ergebnis\Json\Printer;
 
 final class IndentNormalizer implements Normalizer
 {
+    private Printer\PrinterInterface $printer;
+    private Format\Indent $indent;
+
     public function __construct(
-        private readonly Format\Indent $indent,
-        private readonly Printer\PrinterInterface $printer,
+        Format\Indent $indent,
+        Printer\PrinterInterface $printer
     ) {
+        $this->indent = $indent;
+        $this->printer = $printer;
     }
 
     public function normalize(Json $json): Json

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2018-2023 Andreas Möller
+ * Copyright (c) 2018-2024 Andreas Möller
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -27,9 +27,11 @@ final class VersionConstraintNormalizer implements Normalizer
         'require',
         'require-dev',
     ];
+    private Semver\VersionParser $versionParser;
 
-    public function __construct(private readonly Semver\VersionParser $versionParser)
+    public function __construct(Semver\VersionParser $versionParser)
     {
+        $this->versionParser = $versionParser;
     }
 
     public function normalize(Json $json): Json
@@ -62,7 +64,7 @@ final class VersionConstraintNormalizer implements Normalizer
 
                 try {
                     $this->versionParser->parseConstraints($versionConstraint);
-                } catch (\UnexpectedValueException) {
+                } catch (\UnexpectedValueException $exception) {
                     return $versionConstraint;
                 }
 
@@ -286,7 +288,7 @@ final class VersionConstraintNormalizer implements Normalizer
     /**
      * @see https://github.com/composer/semver/blob/3.3.2/src/VersionParser.php#L257
      *
-     * @return array<int, string>
+     * @return list<string>
      */
     private static function splitIntoOrConstraints(string $versionConstraint): array
     {
@@ -307,7 +309,7 @@ final class VersionConstraintNormalizer implements Normalizer
     /**
      * @see https://github.com/composer/semver/blob/3.3.2/src/VersionParser.php#L264
      *
-     * @return array<int, string>
+     * @return list<string>
      */
     private static function splitIntoAndConstraints(string $orConstraint): array
     {

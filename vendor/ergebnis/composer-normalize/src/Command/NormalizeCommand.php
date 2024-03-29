@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2018-2023 Andreas Möller
+ * Copyright (c) 2018-2024 Andreas Möller
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -31,12 +31,22 @@ use Symfony\Component\Console;
  */
 final class NormalizeCommand extends Command\BaseCommand
 {
+    private Diff\Differ $differ;
+    private Printer\PrinterInterface $printer;
+    private Normalizer\Normalizer $normalizer;
+    private Factory $factory;
+
     public function __construct(
-        private readonly Factory $factory,
-        private readonly Normalizer\Normalizer $normalizer,
-        private readonly Printer\PrinterInterface $printer,
-        private readonly Diff\Differ $differ,
+        Factory $factory,
+        Normalizer\Normalizer $normalizer,
+        Printer\PrinterInterface $printer,
+        Diff\Differ $differ
     ) {
+        $this->factory = $factory;
+        $this->normalizer = $normalizer;
+        $this->printer = $printer;
+        $this->differ = $differ;
+
         parent::__construct('normalize');
     }
 
@@ -93,7 +103,7 @@ final class NormalizeCommand extends Command\BaseCommand
 
     protected function execute(
         Console\Input\InputInterface $input,
-        Console\Output\OutputInterface $output,
+        Console\Output\OutputInterface $output
     ): int {
         $io = $this->getIO();
 
@@ -197,10 +207,15 @@ final class NormalizeCommand extends Command\BaseCommand
         $normalizer = new Normalizer\ChainNormalizer(
             $this->normalizer,
             new class($this->printer, $format) implements Normalizer\Normalizer {
+                private Normalizer\Format\Format $format;
+                private Printer\PrinterInterface $printer;
+
                 public function __construct(
-                    private readonly Printer\PrinterInterface $printer,
-                    private readonly Normalizer\Format\Format $format,
+                    Printer\PrinterInterface $printer,
+                    Normalizer\Format\Format $format
                 ) {
+                    $this->printer = $printer;
+                    $this->format = $format;
                 }
 
                 public function normalize(Json $json): Json
@@ -462,7 +477,7 @@ final class NormalizeCommand extends Command\BaseCommand
 
     private static function showValidationErrors(
         IO\IOInterface $io,
-        string ...$errors,
+        string ...$errors
     ): void {
         foreach ($errors as $error) {
             $io->writeError(\sprintf(
@@ -516,7 +531,7 @@ final class NormalizeCommand extends Command\BaseCommand
         Console\Application $application,
         Console\Input\InputInterface $input,
         Console\Output\OutputInterface $output,
-        string $workingDirectory,
+        string $workingDirectory
     ): int {
         $parameters = [
             'command' => 'update',

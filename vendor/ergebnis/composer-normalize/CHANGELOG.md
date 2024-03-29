@@ -6,11 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
-For a full diff see [`2.41.1...main`][2.41.1...main].
+For a full diff see [`2.42.0...main`][2.42.0...main].
+
+## [`2.42.0`][2.42.0]
+
+For a full diff see [`2.41.1...2.42.0`][2.40.0...2.42.0].
+
+### Changed
+
+- Required `ergebnis/json:^1.2.0` ([#1273]), by [@dependabot]
+- Required `ergebnis/json-printer:^3.5.0` ([#1275]), by [@dependabot]
+- Required `ergebnis/json-normalizer:^4.5.0` ([#1277]), by [@localheinz]
+- Added support for PHP 8.0 ([#1278]), by [@localheinz]
+- Added support for PHP 7.4 ([#1279]), by [@localheinz]
 
 ## [`2.41.1`][2.41.1]
 
-For a full diff see [`2.41.0...2.41.1`][2.40.0...2.41.1].
+For a full diff see [`2.41.0...2.41.1`][2.41.0...2.41.1].
 
 ### Fixed
 
@@ -967,6 +979,8 @@ For a full diff see [`81bc3a8...0.1.0`][81bc3a8...0.1.0].
 [2.39.0]: https://github.com/ergebnis/composer-normalize/releases/tag/2.39.0
 [2.40.0]: https://github.com/ergebnis/composer-normalize/releases/tag/2.40.0
 [2.41.0]: https://github.com/ergebnis/composer-normalize/releases/tag/2.41.0
+[2.41.1]: https://github.com/ergebnis/composer-normalize/releases/tag/2.41.1
+[2.42.0]: https://github.com/ergebnis/composer-normalize/releases/tag/2.42.0
 
 [81bc3a8...0.1.0]: https://github.com/ergebnis/composer-normalize/compare/81bc3a8...0.1.0
 [0.1.0...0.2.0]: https://github.com/ergebnis/composer-normalize/compare/0.1.0...0.2.0
@@ -1043,7 +1057,7 @@ For a full diff see [`81bc3a8...0.1.0`][81bc3a8...0.1.0].
 [2.27.0...2.28.0]: https://github.com/ergebnis/composer-normalize/compare/2.27.0...2.28.0
 [2.28.0...2.28.1]: https://github.com/ergebnis/composer-normalize/compare/2.28.0...2.28.1
 [2.28.1...2.28.2]: https://github.com/ergebnis/composer-normalize/compare/2.28.1...2.28.2
-[2.28.2...2.28.4]: https://github.com/ergebnis/composer-normalize/compare/2.28.2...2.28.3
+[2.28.2...2.28.3]: https://github.com/ergebnis/composer-normalize/compare/2.28.2...2.38.3
 [2.28.3...2.29.0]: https://github.com/ergebnis/composer-normalize/compare/2.28.3...2.29.0
 [2.29.0...2.30.0]: https://github.com/ergebnis/composer-normalize/compare/2.29.0...2.30.0
 [2.30.0...2.30.1]: https://github.com/ergebnis/composer-normalize/compare/2.30.0...2.30.1
@@ -1060,7 +1074,8 @@ For a full diff see [`81bc3a8...0.1.0`][81bc3a8...0.1.0].
 [2.39.0...2.40.0]: https://github.com/ergebnis/composer-normalize/compare/2.39.0...2.40.0
 [2.40.0...2.41.0]: https://github.com/ergebnis/composer-normalize/compare/2.40.0...2.41.0
 [2.41.0...2.41.1]: https://github.com/ergebnis/composer-normalize/compare/2.41.0...2.41.1
-[2.41.1...main]: https://github.com/ergebnis/composer-normalize/compare/2.41.1...main
+[2.41.1...2.42.0]: https://github.com/ergebnis/composer-normalize/compare/2.41.1...2.42.0
+[2.42.0...main]: https://github.com/ergebnis/composer-normalize/compare/2.42.0...main
 
 [#1]: https://github.com/ergebnis/composer-normalize/pull/1
 [#2]: https://github.com/ergebnis/composer-normalize/pull/2
@@ -1202,6 +1217,11 @@ For a full diff see [`81bc3a8...0.1.0`][81bc3a8...0.1.0].
 [#1237]: https://github.com/ergebnis/composer-normalize/pull/1237
 [#1241]: https://github.com/ergebnis/composer-normalize/pull/1241
 [#1243]: https://github.com/ergebnis/composer-normalize/pull/1243
+[#1273]: https://github.com/ergebnis/composer-normalize/pull/1273
+[#1275]: https://github.com/ergebnis/composer-normalize/pull/1275
+[#1277]: https://github.com/ergebnis/composer-normalize/pull/1277
+[#1278]: https://github.com/ergebnis/composer-normalize/pull/1278
+[#1279]: https://github.com/ergebnis/composer-normalize/pull/1279
 
 [@core23]: https://github.com/core23
 [@dependabot]: https://github.com/dependabot

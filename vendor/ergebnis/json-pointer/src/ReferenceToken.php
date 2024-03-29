@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2022-2023 Andreas Möller
+ * Copyright (c) 2022-2024 Andreas Möller
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -20,8 +20,11 @@ namespace Ergebnis\Json\Pointer;
  */
 final class ReferenceToken
 {
-    private function __construct(private readonly string $value)
+    private string $value;
+
+    private function __construct(string $value)
     {
+        $this->value = $value;
     }
 
     /**

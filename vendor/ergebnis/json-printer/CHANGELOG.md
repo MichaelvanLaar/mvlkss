@@ -6,7 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
-For a full diff see [`3.4.0...main`][3.4.0...main].
+For a full diff see [`3.5.0...main`][3.5.0...main].
+
+## [`3.5.0`][3.5.0]
+
+For a full diff see [`3.4.0...3.5.0`][3.4.0...3.5.0].
+
+### Changed
+
+- Added support for PHP 8.0 ([#752]), by [@localheinz]
+- Added support for PHP 7.4 ([#753]), by [@localheinz]
 
 ## [`3.4.0`][3.4.0]
 
@@ -148,6 +157,7 @@ For a full diff see [`8849fc6...1.0.0`][8849fc6...1.0.0].
 [3.2.0]: https://github.com/ergebnis/json-printer/releases/tag/3.2.0
 [3.3.0]: https://github.com/ergebnis/json-printer/releases/tag/3.3.0
 [3.4.0]: https://github.com/ergebnis/json-printer/releases/tag/3.4.0
+[3.5.0]: https://github.com/ergebnis/json-printer/releases/tag/3.5.0
 
 [8849fc6...1.0.0]: https://github.com/ergebnis/json-printer/compare/8849fc6...1.0.0
 [1.0.0...1.1.0]: https://github.com/ergebnis/json-printer/compare/1.0.0...1.1.0
@@ -161,7 +171,8 @@ For a full diff see [`8849fc6...1.0.0`][8849fc6...1.0.0].
 [3.1.1...3.2.0]: https://github.com/ergebnis/json-printer/compare/3.1.1...3.2.0
 [3.2.0...3.3.0]: https://github.com/ergebnis/json-printer/compare/3.2.0...3.3.0
 [3.3.0...3.4.0]: https://github.com/ergebnis/json-printer/compare/3.3.0...3.4.0
-[3.4.0...main]: https://github.com/ergebnis/json-printer/compare/3.4.0...main
+[3.4.0...3.5.0]: https://github.com/ergebnis/json-printer/compare/3.4.0...3.5.0
+[3.5.0...main]: https://github.com/ergebnis/json-printer/compare/3.5.0...main
 
 [#33]: https://github.com/ergebnis/json-printer/pull/33
 [#37]: https://github.com/ergebnis/json-printer/pull/37
@@ -177,6 +188,8 @@ For a full diff see [`8849fc6...1.0.0`][8849fc6...1.0.0].
 [#520]: https://github.com/ergebnis/json-printer/pull/520
 [#625]: https://github.com/ergebnis/json-printer/pull/625
 [#682]: https://github.com/ergebnis/json-printer/pull/682
+[#752]: https://github.com/ergebnis/json-printer/pull/752
+[#753]: https://github.com/ergebnis/json-printer/pull/753
 
 [@ergebnis]: https://github.com/ergebnis
 [@localheinz]: https://github.com/localheinz

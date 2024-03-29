@@ -12,7 +12,7 @@
 [![Total Downloads](https://poser.pugx.org/ergebnis/json-printer/downloads)](https://packagist.org/packages/ergebnis/json-printer)
 [![Monthly Downloads](http://poser.pugx.org/ergebnis/json-printer/d/monthly)](https://packagist.org/packages/ergebnis/json-printer)
 
-Provides a JSON printer, allowing for flexible indentation.
+This project provides a [`composer`](https://getcomposer.org) package with a JSON printer, allowing for flexible indentation.
 
 ## Installation
 
@@ -81,25 +81,35 @@ which results in `$printed`:
 
 ## Changelog
 
-Please have a look at [`CHANGELOG.md`](CHANGELOG.md).
+The maintainers of this project record notable changes to this project in a [changelog](CHANGELOG.md).
 
 ## Contributing
 
-Please have a look at [`CONTRIBUTING.md`](.github/CONTRIBUTING.md).
+The maintainers of this project suggest following the [contribution guide](.github/CONTRIBUTING.md).
 
 ## Code of Conduct
 
-Please have a look at [`CODE_OF_CONDUCT.md`](https://github.com/ergebnis/.github/blob/main/CODE_OF_CONDUCT.md).
+The maintainers of this project ask contributors to follow the [code of conduct](https://github.com/ergebnis/.github/blob/main/CODE_OF_CONDUCT.md).
+
+## General Support Policy
+
+The maintainers of this project provide limited support.
+
+You can support the maintenance of this project by [sponsoring @localheinz](https://github.com/sponsors/localheinz) or [requesting an invoice for services related to this project](mailto:am@localheinz.com?subject=ergebnis/json-printer:%20Requesting%20invoice%20for%20services).
+
+## PHP Version Support Policy
+
+This project supports PHP versions with [active and security support](https://www.php.net/supported-versions.php).
+
+The maintainers of this project add support for a PHP version following its initial release and drop support for a PHP version when it has reached the end of security support.
 
 ## Security Policy
 
-Please have a look at [`SECURITY.md`](.github/SECURITY.md).
+This project has a [security policy](.github/SECURITY.md).
 
 ## License
 
-This package is licensed using the MIT License.
-
-Please have a look at [`LICENSE.md`](LICENSE.md).
+This project uses the [MIT license](LICENSE.md).
 
 ## Credits
 
@@ -107,6 +117,6 @@ The [`Printer`](src/Printer.php) is adopted from [`Composer\Json\JsonFormatter`]
 
 The [`PrinterTest`](test/Unit/PrinterTest.php) is inspired by [`Composer\Test\Json\JsonFormatterTest`](https://github.com/composer/composer/blob/1.6.0/tests/Composer/Test/Json/JsonFormatterTest.php) (originally licensed under MIT by [Nils Adermann](https://github.com/naderman) and [Jordi Boggiano](https://github.com/seldaek)), as well as [`ZendTest\Json\JsonTest`](https://github.com/zendframework/zend-json/blob/release-3.0.0/test/JsonTest.php) (originally licensed under New BSD License).
 
-## Curious what I am up to?
+## Social
 
-Follow me on [Twitter](https://twitter.com/intent/follow?screen_name=localheinz)!
+Follow [@localheinz](https://twitter.com/intent/follow?screen_name=localheinz) and [@ergebnis](https://twitter.com/intent/follow?screen_name=ergebnis) on Twitter.

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2018-2023 Andreas Möller
+ * Copyright (c) 2018-2024 Andreas Möller
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -21,8 +21,11 @@ use Ergebnis\Json\Normalizer\Exception;
  */
 final class JsonEncodeOptions
 {
-    private function __construct(private readonly int $value)
+    private int $value;
+
+    private function __construct(int $value)
     {
+        $this->value = $value;
     }
 
     public static function default(): self
@@ -46,7 +49,7 @@ final class JsonEncodeOptions
     {
         $jsonEncodeOptions = 0;
 
-        if (!\str_contains($json->encoded(), '\/')) {
+        if (false === \strpos($json->encoded(), '\/')) {
             $jsonEncodeOptions = \JSON_UNESCAPED_SLASHES;
         }
 

@@ -6,7 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
-For a full diff see [`4.1.0...main`][4.1.0...main].
+For a full diff see [`4.2.0...main`][4.2.0...main].
+
+## [`4.2.0`][4.2.0]
+
+For a full diff see [`4.1.0...4.2.0`][4.1.0...4.2.0].
+
+### Changed
+
+- Added support for PHP 8.0 ([#521]), by [@localheinz]
+- Required `ergebnis/json:^1.2.0` ([#522]), by [@localheinz]
+- Required `ergebnis/json-pointer:^3.4.0` ([#523]), by [@localheinz]
+- Added support for PHP 7.4 ([#524]), by [@localheinz]
 
 ## [`4.1.0`][4.1.0]
 
@@ -96,6 +107,7 @@ For a full diff see [`dcd4cfb...1.0.0`][dcd4cfb...1.0.0].
 [3.2.0]: https://github.com/ergebnis/json-schema-validator/releases/tag/3.2.0
 [4.0.0]: https://github.com/ergebnis/json-schema-validator/releases/tag/4.0.0
 [4.1.0]: https://github.com/ergebnis/json-schema-validator/releases/tag/4.1.0
+[4.2.0]: https://github.com/ergebnis/json-schema-validator/releases/tag/4.2.0
 
 [dcd4cfb...1.0.0]: https://github.com/ergebnis/json-schema-validator/compare/dcd4cfb...1.0.0
 [1.0.0...2.0.0]: https://github.com/ergebnis/json-schema-validator/compare/1.0.0...2.0.0
@@ -104,7 +116,8 @@ For a full diff see [`dcd4cfb...1.0.0`][dcd4cfb...1.0.0].
 [3.1.0...3.2.0]: https://github.com/ergebnis/json-schema-validator/compare/3.1.0...3.2.0
 [3.2.0...4.0.0]: https://github.com/ergebnis/json-schema-validator/compare/3.2.0...4.0.0
 [4.0.0...4.1.0]: https://github.com/ergebnis/json-schema-validator/compare/4.0.0...4.1.0
-[4.1.0...main]: https://github.com/ergebnis/json-schema-validator/compare/4.1.0...main
+[4.1.0...4.2.0]: https://github.com/ergebnis/json-schema-validator/compare/4.1.0...4.2.0
+[4.2.0...main]: https://github.com/ergebnis/json-schema-validator/compare/4.2.0...main
 
 [#2]: https://github.com/ergebnis/json-schema-validator/pull/2
 [#3]: https://github.com/ergebnis/json-schema-validator/pull/3
@@ -131,5 +144,9 @@ For a full diff see [`dcd4cfb...1.0.0`][dcd4cfb...1.0.0].
 [#282]: https://github.com/ergebnis/json-schema-validator/pull/282
 [#388]: https://github.com/ergebnis/json-schema-validator/pull/388
 [#450]: https://github.com/ergebnis/json-schema-validator/pull/450
+[#521]: https://github.com/ergebnis/json-schema-validator/pull/521
+[#522]: https://github.com/ergebnis/json-schema-validator/pull/522
+[#523]: https://github.com/ergebnis/json-schema-validator/pull/523
+[#524]: https://github.com/ergebnis/json-schema-validator/pull/524
 
 [@localheinz]: https://github.com/localheinz

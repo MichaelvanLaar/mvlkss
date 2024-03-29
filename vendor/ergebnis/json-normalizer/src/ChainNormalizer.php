@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2018-2023 Andreas Möller
+ * Copyright (c) 2018-2024 Andreas Möller
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -18,13 +18,9 @@ use Ergebnis\Json\Json;
 final class ChainNormalizer implements Normalizer
 {
     /**
-     * @phpstan-var list<Normalizer>
-     *
-     * @psalm-var list<Normalizer>
-     *
      * @var array<int, Normalizer>
      */
-    private readonly array $normalizers;
+    private array $normalizers;
 
     public function __construct(Normalizer ...$normalizers)
     {

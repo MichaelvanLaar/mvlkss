@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2018-2023 Andreas Möller
+ * Copyright (c) 2018-2024 Andreas Möller
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -20,19 +20,28 @@ use Ergebnis\Json\Json;
  */
 final class Format
 {
+    private bool $hasFinalNewLine;
+    private NewLine $newLine;
+    private Indent $indent;
+    private JsonEncodeOptions $jsonEncodeOptions;
+
     private function __construct(
-        private JsonEncodeOptions $jsonEncodeOptions,
-        private Indent $indent,
-        private NewLine $newLine,
-        private bool $hasFinalNewLine,
+        JsonEncodeOptions $jsonEncodeOptions,
+        Indent $indent,
+        NewLine $newLine,
+        bool $hasFinalNewLine
     ) {
+        $this->jsonEncodeOptions = $jsonEncodeOptions;
+        $this->indent = $indent;
+        $this->newLine = $newLine;
+        $this->hasFinalNewLine = $hasFinalNewLine;
     }
 
     public static function create(
         JsonEncodeOptions $jsonEncodeOptions,
         Indent $indent,
         NewLine $newLine,
-        bool $hasFinalNewLine,
+        bool $hasFinalNewLine
     ): self {
         return new self(
             $jsonEncodeOptions,

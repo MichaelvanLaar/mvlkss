@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2018-2023 Andreas Möller
+ * Copyright (c) 2018-2024 Andreas Möller
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -25,9 +25,11 @@ final class Indent
         'space' => ' ',
         'tab' => "\t",
     ];
+    private string $value;
 
-    private function __construct(private readonly string $value)
+    private function __construct(string $value)
     {
+        $this->value = $value;
     }
 
     /**
@@ -48,7 +50,7 @@ final class Indent
      */
     public static function fromSizeAndStyle(
         int $size,
-        string $style,
+        string $style
     ): self {
         $minimumSize = 1;
 

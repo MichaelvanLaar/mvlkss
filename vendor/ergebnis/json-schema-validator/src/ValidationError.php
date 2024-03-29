@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2021-2023 Andreas Möller
+ * Copyright (c) 2021-2024 Andreas Möller
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -20,15 +20,20 @@ use Ergebnis\Json\Pointer;
  */
 final class ValidationError
 {
+    private Pointer\JsonPointer $jsonPointer;
+    private Message $message;
+
     private function __construct(
-        private readonly Pointer\JsonPointer $jsonPointer,
-        private readonly Message $message,
+        Pointer\JsonPointer $jsonPointer,
+        Message $message
     ) {
+        $this->message = $message;
+        $this->jsonPointer = $jsonPointer;
     }
 
     public static function create(
         Pointer\JsonPointer $jsonPointer,
-        Message $message,
+        Message $message
     ): self {
         return new self(
             $jsonPointer,

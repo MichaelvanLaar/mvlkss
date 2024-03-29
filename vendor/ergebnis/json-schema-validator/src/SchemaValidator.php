@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2021-2023 Andreas Möller
+ * Copyright (c) 2021-2024 Andreas Möller
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -30,7 +30,7 @@ final class SchemaValidator
     public function validate(
         Json $json,
         Json $schema,
-        Pointer\JsonPointer $jsonPointer,
+        Pointer\JsonPointer $jsonPointer
     ): ValidationResult {
         $schemaDecoded = \json_decode(
             $schema->toString(),
@@ -45,7 +45,7 @@ final class SchemaValidator
                     $schemaDecoded,
                     $jsonPointer->toUriFragmentIdentifierString(),
                 );
-            } catch (Exception\ResourceNotFoundException) {
+            } catch (Exception\ResourceNotFoundException $exception) {
                 throw CanNotResolve::jsonPointer($jsonPointer);
             }
 

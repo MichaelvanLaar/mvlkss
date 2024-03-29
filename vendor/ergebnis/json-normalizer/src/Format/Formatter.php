@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2018-2023 Andreas Möller
+ * Copyright (c) 2018-2024 Andreas Möller
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -19,6 +19,6 @@ interface Formatter
 {
     public function format(
         Json $json,
-        Format $format,
+        Format $format
     ): Json;
 }
