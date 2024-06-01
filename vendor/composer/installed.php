@@ -3,7 +3,7 @@
         'name' => 'michaelvanlaar/mvlkss',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'dee6aa3b1e0833a7b31fcdc8cca8e0553e61018b',
+        'reference' => '14f84a715e2d19372943f7cc71b15336d36d4c68',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -172,6 +172,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'junohamburg/kirby-language-selector' => array(
+            'pretty_version' => '1.1.9',
+            'version' => '1.1.9.0',
+            'reference' => '5285cc4eebac0be281d2329a01c3bbd50f419250',
+            'type' => 'kirby-plugin',
+            'install_path' => __DIR__ . '/../../site/plugins/kirby-language-selector',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'justinrainbow/json-schema' => array(
             'pretty_version' => 'v5.2.13',
             'version' => '5.2.13.0',
@@ -226,7 +235,7 @@
         'michaelvanlaar/mvlkss' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'dee6aa3b1e0833a7b31fcdc8cca8e0553e61018b',
+            'reference' => '14f84a715e2d19372943f7cc71b15336d36d4c68',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

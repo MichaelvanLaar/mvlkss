@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "80b3d1a6f330d48125848dd9ed854903",
+    "content-hash": "0bf89c9f2c882192c66521b1b71402a8",
     "packages": [
         {
             "name": "adspectus/date-extended",
@@ -746,6 +746,41 @@
                 "source": "https://github.com/johannschopplich/kirby-highlighter/tree/v3.1.0"
             },
             "time": "2024-02-14T06:53:45+00:00"
+        },
+        {
+            "name": "junohamburg/kirby-language-selector",
+            "version": "1.1.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/junohamburg/kirby-language-selector.git",
+                "reference": "5285cc4eebac0be281d2329a01c3bbd50f419250"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/junohamburg/kirby-language-selector/zipball/5285cc4eebac0be281d2329a01c3bbd50f419250",
+                "reference": "5285cc4eebac0be281d2329a01c3bbd50f419250",
+                "shasum": ""
+            },
+            "require": {
+                "getkirby/composer-installer": "^1.1"
+            },
+            "type": "kirby-plugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "JUNO",
+                    "email": "github@juno-hamburg.com"
+                }
+            ],
+            "description": "Kirby Language Selector",
+            "support": {
+                "issues": "https://github.com/junohamburg/kirby-language-selector/issues",
+                "source": "https://github.com/junohamburg/kirby-language-selector/tree/1.1.9"
+            },
+            "time": "2024-02-12T09:19:04+00:00"
         },
         {
             "name": "laminas/laminas-escaper",
