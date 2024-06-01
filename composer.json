@@ -35,9 +35,9 @@
     "getkirby/cms": "^4.0",
     "johannschopplich/kirby-hashed-assets": "^3.0",
     "johannschopplich/kirby-highlighter": "^3.0",
+    "junohamburg/kirby-language-selector": "^1.1",
     "lukaskleinschmidt/kirby-snippet-controller": "^2.1",
-    "microman/kirby-grid-blocks": "^1.0",
-    "junohamburg/kirby-language-selector": "^1.1"
+    "microman/kirby-grid-blocks": "^1.0"
   },
   "require-dev": {
     "ergebnis/composer-normalize": "^2.39"

@@ -1,50 +1,41 @@
 {
-    "name": "distantnative/retour",
-    "description": "Redirects and 404 tracking for Kirby",
-    "license": "MIT",
-    "type": "kirby-plugin",
-    "version": "5.1.0",
-    "homepage": "https://github.com/distantnative/retour-for-kirby",
-    "authors": [
-        {
-            "name": "Nico Hoffmann",
-            "email": "on-github@nhoffmann.com"
-        }
-    ],
-    "require": {
-        "php": ">=8.1.0 <8.4.0",
-        "getkirby/cms": "^4.1",
-        "getkirby/composer-installer": "^1.1"
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Kirby\\": "tests/"
-        }
-    },
-    "extra": {
-        "installer-name": "retour",
-        "kirby-cms-path": false
-    },
-    "scripts": {
-        "analyze": [
-            "@analyze:composer",
-            "@analyze:psalm",
-            "@analyze:phpmd"
-        ],
-        "analyze:composer": "composer validate --strict --no-check-version --no-check-all",
-        "analyze:phpmd": "phpmd . ansi phpmd.xml.dist --exclude 'node_modules/*,tests/*,vendor/*'",
-        "analyze:psalm": "psalm",
-        "ci": [
-            "@fix",
-            "@analyze",
-            "@test"
-        ],
-        "fix": "php-cs-fixer fix",
-        "test": "XDEBUG_MODE=coverage phpunit --stderr --coverage-html=tests/coverage"
-    },
-    "config": {
-        "allow-plugins": {
-            "getkirby/composer-installer": true
-        }
-    }
+	"name": "distantnative/retour",
+	"description": "Manage redirects and track 404s right from the Kirby CMS Panel",
+	"license": "MIT",
+	"type": "kirby-plugin",
+	"version": "5.2.2",
+	"homepage": "https://distantnative.com/retour-for-kirby/",
+	"authors": [
+		{
+			"name": "Nico Hoffmann",
+			"email": "nico@getkirby.com"
+		}
+	],
+	"require": {
+		"php": ">=8.1.0 <8.4.0",
+		"getkirby/cms": "^4.1",
+		"getkirby/composer-installer": "^1.1"
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Kirby\\": "tests/"
+		}
+	},
+	"extra": {
+		"installer-name": "retour",
+		"kirby-cms-path": false
+	},
+	"scripts": {
+		"ci": [
+			"@fix",
+			"@test"
+		],
+		"fix": "php-cs-fixer fix",
+		"test": "XDEBUG_MODE=coverage phpunit --stderr --coverage-html=tests/coverage"
+	},
+	"config": {
+		"allow-plugins": {
+			"getkirby/composer-installer": true
+		}
+	}
 }

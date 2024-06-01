@@ -2,7 +2,7 @@
 
 namespace Kirby\Retour\Panel;
 
-use Kirby\Panel\Panel;
+use Kirby\Retour\Retour;
 use Kirby\Toolkit\I18n;
 
 /**
@@ -14,35 +14,41 @@ use Kirby\Toolkit\I18n;
  */
 class FailureResolveDrawer extends RedirectCreateDrawer
 {
-    public function __construct(
-        protected string $path
-    ) {
-        $this->path = urldecode($path);
-    }
+	public function __construct(
+		protected string $path
+	) {
+		$this->path = urldecode($path);
+	}
 
-    protected function value(): array
-    {
-        return parent::value() + [
-            'from' => str_replace("\x1D",'/', $this->path)
-        ];
-    }
+	protected function value(): array
+	{
+		return parent::value() + [
+			'from' => str_replace("\x1D", '/', $this->path)
+		];
+	}
 
-    public function submit(): array
-    {
-        $redirects = $this->redirects();
-        $data      = $this->data();
-        $redirects->create($data);
-        $redirects->save();
-        $log = $this->retour()->log();
-        $log->resolve($this->path);
+	public function submit(): bool|array
+	{
+		$redirects = $this->redirects();
+		$input     = $this->data();
 
-        return [
-            'redirect' => 'retour/redirects'
-        ];
-    }
+		$redirects->create([
+			'creator' => $this->kirby()->user()?->email(),
+			...$input
+		]);
 
-    protected function title(): string
-    {
-        return I18n::translate('retour.failures.resolve');
-    }
+		$redirects->save();
+
+		$log = Retour::instance()->log();
+		$log->resolve($this->path);
+
+		return [
+			'redirect' => 'retour/redirects'
+		];
+	}
+
+	protected function title(): string
+	{
+		return I18n::translate('retour.failures.resolve');
+	}
 }

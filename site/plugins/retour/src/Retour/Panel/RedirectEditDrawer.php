@@ -2,7 +2,6 @@
 
 namespace Kirby\Retour\Panel;
 
-use Kirby\Cms\User;
 use Kirby\Retour\Redirect;
 use Kirby\Toolkit\I18n;
 
@@ -13,69 +12,85 @@ use Kirby\Toolkit\I18n;
  * @copyright Nico Hoffmann
  * @license   https://opensource.org/licenses/MIT
  */
-class RedirectEditDrawer extends RedirectDrawer
+class RedirectEditDrawer extends RedirectCreateDrawer
 {
-    public function __construct(
-        protected string $id
-    )
-    {
-        $this->id = urldecode($id);
-    }
+	public function __construct(
+		protected string $id
+	) {
+		$this->id = urldecode($id);
+	}
 
-    protected function creator(): User|null
-    {
-        $creator = $this->redirect()->creator();
-        return $creator ? $this->kirby()->user($creator) : null;
-    }
+	public function load(): array
+	{
+		$fields = $this->fields();
 
-    public function load(): array
-    {
-        $fields = $this->fields();
+		// set autofocus if specific column cell was passed
+		if ($column = $this->kirby()->request()->get('column')) {
+			foreach ($fields as $name => $field) {
+				$fields[$name]['autofocus'] = $name === $column;
+			}
+		}
 
-        // set autofocus if specific column cell was passed
-        if ($column = $this->kirby()->request()->get('column')) {
-            foreach ($fields as $name => $field) {
-                $fields[$name]['autofocus'] = $name === $column;
-            }
-        }
+		return [
+			'component' => 'k-form-drawer',
+			'props' => [
+				'fields'  => $fields,
+				'icon'    => 'shuffle',
+				'title'   => $this->redirect()->from(),
+				'value'   => $this->value(),
+				'options' => [
+					[
+						'icon'   => 'trash',
+						'title'  => I18n::translate('remove'),
+						'dialog' => 'retour/redirects/' . urlencode($this->id) . '/delete'
+					]
+				]
+			]
+		];
+	}
 
-        return [
-            'component' => 'k-form-drawer',
-            'props' => [
-                'fields'  => $fields,
-                'icon'    => 'shuffle',
-                'title'   => $this->redirect()->from(),
-                'value'   => $this->value(),
-                'options' => [
-                    [
-                        'icon'   => 'trash',
-                        'title'  => I18n::translate('remove'),
-                        'dialog' => 'retour/redirects/' . urlencode($this->id) .'/delete'
-                    ]
-                ]
-            ]
-        ];
-    }
+	protected function redirect(): Redirect
+	{
+		return $this->redirects()->get($this->id);
+	}
 
-    protected function redirect(): Redirect
-    {
-        return $this->redirects()->get($this->id);
-    }
+	public function submit(): bool
+	{
+		$redirects = $this->redirects();
+		$data      = $this->data();
+		$redirects->update($this->id, [
+			...$data,
+			'creator'  => $this->redirect()->creator(),
+			'modifier' => $this->kirby()->user()?->email(),
+		]);
+		$redirects->save();
+		return true;
+	}
 
-    public function submit(): bool
-    {
-        $redirects = $this->redirects();
-        $data      = $this->data();
-        $redirects->update($this->id, $data);
-        $redirects->save();
-        return true;
-    }
+	protected function userField(string $field): array
+	{
+		if ($user = $this->redirect()->$field()) {
+			if ($user = $this->kirby()->user($user)) {
+				return [$user->panel()->pickerData()];
+			}
+		}
 
-    protected function value(): array
-    {
-        return array_merge(
-            $this->redirect()->toArray(),
-            parent::value()
-        );
-    }
+		return [];
+	}
+
+	protected function value(): array
+	{
+		$creator  = $this->userField('creator');
+		$modifier = $this->userField('modifier');
+
+		if (empty($modifier) === true) {
+			$modifier = $creator;
+		}
+
+		return [
+			...$this->redirect()->toArray(),
+			'creator'  => $creator,
+			'modifier' => $modifier,
+		];
+	}
 }
