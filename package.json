@@ -8,7 +8,7 @@
     "dev": "npm run clean && webpack --mode development --watch",
     "dev-server": "concurrently --kill-others \"npm run dev\" \"npm run server\"",
     "server": "php -S localhost:8000 kirby/router.php",
-    "utility-dependencies-update": "node -e \"console.log('==========================\\nUPDATING COMPOSER PACKAGES\\n==========================\\n')\" && composer update -o && composer normalize && node -e \"console.log('\\n\\n=====================\\nUPDATING NPM PACKAGES\\n=====================\\n')\" && ncu -u && npm install && npm audit --fix",
+    "utility-dependencies-update": "node -e \"console.log('==========================\\nUPDATING COMPOSER PACKAGES\\n==========================\\n')\" && composer update -o && composer normalize && node -e \"console.log('\\n\\n=====================\\nUPDATING NPM PACKAGES\\n=====================\\n')\" && ncu -u && npm install && npm audit fix",
     "utility-dependencies-update-check": "node -e \"console.log('==========================\\nCHECKING COMPOSER PACKAGES\\n==========================\\n')\" && composer outdated && node -e \"console.log('\\n\\n=====================\\nCHECKING NPM PACKAGES\\n=====================\\n')\" && ncu",
     "utility-git-branches-clean-up": "node ./utilities/git-branches-clean-up.js"
   },
