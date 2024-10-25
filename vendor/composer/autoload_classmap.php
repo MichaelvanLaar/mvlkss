@@ -95,7 +95,6 @@ return array(
     'Highlight\\RegExMatch' => $vendorDir . '/scrivo/highlight.php/Highlight/RegExMatch.php',
     'Highlight\\RegExUtils' => $vendorDir . '/scrivo/highlight.php/Highlight/RegExUtils.php',
     'Highlight\\Terminators' => $vendorDir . '/scrivo/highlight.php/Highlight/Terminators.php',
-    'JohannSchopplich\\HTML5DOMDocument' => $baseDir . '/site/plugins/kirby-highlighter/classes/JohannSchopplich/HTML5DOMDocument.php',
     'JsonSchema\\Constraints\\BaseConstraint' => $vendorDir . '/justinrainbow/json-schema/src/JsonSchema/Constraints/BaseConstraint.php',
     'JsonSchema\\Constraints\\CollectionConstraint' => $vendorDir . '/justinrainbow/json-schema/src/JsonSchema/Constraints/CollectionConstraint.php',
     'JsonSchema\\Constraints\\Constraint' => $vendorDir . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Constraint.php',

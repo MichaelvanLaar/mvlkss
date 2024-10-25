@@ -6,7 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
-For a full diff see [`1.2.0...main`][1.2.0...main].
+For a full diff see [`1.3.0...main`][1.3.0...main].
+
+## [`1.3.0`][1.3.0]
+
+For a full diff see [`1.2.0...1.3.0`][1.2.0..1.3.0].
+
+### Changed
+
+- Allowed installation of PHP 8.4 ([#318]), by [@localheinz]
 
 ## [`1.2.0`][1.2.0]
 
@@ -47,12 +55,14 @@ For a full diff see [`c020e6f...1.0.0`][c020e6f...1.0.0].
 [1.0.1]: https://github.com/ergebnis/json/releases/tag/1.0.1
 [1.1.0]: https://github.com/ergebnis/json/releases/tag/1.1.0
 [1.2.0]: https://github.com/ergebnis/json/releases/tag/1.2.0
+[1.3.0]: https://github.com/ergebnis/json/releases/tag/1.3.0
 
 [c020e6f...1.0.0]: https://github.com/ergebnis/json/compare/c020e6f...1.0.0
 [1.0.0...1.0.1]: https://github.com/ergebnis/json/compare/1.0.0...1.0.1
 [1.0.1...1.1.0]: https://github.com/ergebnis/json/compare/1.0.1...1.1.0
 [1.1.0...1.2.0]: https://github.com/ergebnis/json/compare/1.1.0...1.2.0
-[1.2.0...main]: https://github.com/ergebnis/json/compare/1.2.0...main
+[1.2.0...1.3.0]: https://github.com/ergebnis/json/compare/1.2.0...1.3.0
+[1.3.0...main]: https://github.com/ergebnis/json/compare/1.3.0...main
 
 [#1]: https://github.com/ergebnis/json/pull/1
 [#2]: https://github.com/ergebnis/json/pull/2
@@ -61,5 +71,6 @@ For a full diff see [`c020e6f...1.0.0`][c020e6f...1.0.0].
 [#151]: https://github.com/ergebnis/json/pull/151
 [#226]: https://github.com/ergebnis/json/pull/226
 [#227]: https://github.com/ergebnis/json/pull/227
+[#318]: https://github.com/ergebnis/json/pull/318
 
 [@localheinz]: https://github.com/localheinz

@@ -53,7 +53,6 @@ class ComposerStaticInit162efd83110c77a994f175ee0d752b12
         'J' => 
         array (
             'JsonSchema\\' => 11,
-            'JohannSchopplich\\' => 17,
         ),
         'E' => 
         array (
@@ -136,10 +135,6 @@ class ComposerStaticInit162efd83110c77a994f175ee0d752b12
         'JsonSchema\\' => 
         array (
             0 => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema',
-        ),
-        'JohannSchopplich\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/site/plugins/kirby-highlighter/classes/JohannSchopplich',
         ),
         'Ergebnis\\Json\\SchemaValidator\\' => 
         array (
@@ -297,7 +292,6 @@ class ComposerStaticInit162efd83110c77a994f175ee0d752b12
         'Highlight\\RegExMatch' => __DIR__ . '/..' . '/scrivo/highlight.php/Highlight/RegExMatch.php',
         'Highlight\\RegExUtils' => __DIR__ . '/..' . '/scrivo/highlight.php/Highlight/RegExUtils.php',
         'Highlight\\Terminators' => __DIR__ . '/..' . '/scrivo/highlight.php/Highlight/Terminators.php',
-        'JohannSchopplich\\HTML5DOMDocument' => __DIR__ . '/../..' . '/site/plugins/kirby-highlighter/classes/JohannSchopplich/HTML5DOMDocument.php',
         'JsonSchema\\Constraints\\BaseConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/BaseConstraint.php',
         'JsonSchema\\Constraints\\CollectionConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/CollectionConstraint.php',
         'JsonSchema\\Constraints\\Constraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Constraint.php',

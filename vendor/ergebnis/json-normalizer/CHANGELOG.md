@@ -6,7 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
-For a full diff see [`4.5.0...main`][4.5.0...main].
+For a full diff see [`4.6.0...main`][4.6.0...main].
+
+## [`4.6.0`][4.6.0]
+
+For a full diff see [`4.5.0...4.6.0`][4.5.0...4.6.0].
+
+### Changed
+
+- Adjusted `Vendor\Composer\VersionConstraintNormalizer` to replace `x` and `X` wildcards with `*` ([#1052]), by [@fredden]
+- Allowed installation on PHP 8.4 ([#1171]), by [@localheinz]
 
 ## [`4.5.0`][4.5.0]
 
@@ -520,6 +529,7 @@ For a full diff see [`5d8b3e2...0.1.0`][5d8b3e2...0.1.0].
 [4.4.0]: https://github.com/ergebnis/json-normalizer/releases/tag/4.4.0
 [4.4.1]: https://github.com/ergebnis/json-normalizer/releases/tag/4.4.1
 [4.5.0]: https://github.com/ergebnis/json-normalizer/releases/tag/4.5.0
+[4.6.0]: https://github.com/ergebnis/json-normalizer/releases/tag/4.6.0
 
 [5d8b3e2...0.1.0]: https://github.com/ergebnis/json-normalizer/compare/5d8b3e2...0.1.0
 [0.1.0...0.2.0]: https://github.com/ergebnis/json-normalizer/compare/0.1.0...0.2.0
@@ -557,7 +567,8 @@ For a full diff see [`5d8b3e2...0.1.0`][5d8b3e2...0.1.0].
 [4.3.0...4.4.0]: https://github.com/ergebnis/json-normalizer/compare/4.4.0...main
 [4.4.0...4.4.1]: https://github.com/ergebnis/json-normalizer/compare/4.4.0...4.4.1
 [4.4.1...4.5.0]: https://github.com/ergebnis/json-normalizer/compare/4.4.1...4.5.0
-[4.5.0...main]: https://github.com/ergebnis/json-normalizer/compare/4.5.0...main
+[4.5.0...4.6.0]: https://github.com/ergebnis/json-normalizer/compare/4.5.0...4.6.0
+[4.6.0...main]: https://github.com/ergebnis/json-normalizer/compare/4.6.0...main
 
 [#1]: https://github.com/ergebnis/json-normalizer/pull/1
 [#2]: https://github.com/ergebnis/json-normalizer/pull/2
@@ -690,12 +701,14 @@ For a full diff see [`5d8b3e2...0.1.0`][5d8b3e2...0.1.0].
 [#1001]: https://github.com/ergebnis/json-normalizer/pull/1001
 [#1027]: https://github.com/ergebnis/json-normalizer/pull/1027
 [#1039]: https://github.com/ergebnis/json-normalizer/pull/1039
+[#1052]: https://github.com/ergebnis/json-normalizer/pull/1052
 [#1073]: https://github.com/ergebnis/json-normalizer/pull/1073
 [#1074]: https://github.com/ergebnis/json-normalizer/pull/1074
 [#1075]: https://github.com/ergebnis/json-normalizer/pull/1075
 [#1076]: https://github.com/ergebnis/json-normalizer/pull/1076
 [#1077]: https://github.com/ergebnis/json-normalizer/pull/1077
 [#1079]: https://github.com/ergebnis/json-normalizer/pull/1079
+[#1171]: https://github.com/ergebnis/json-normalizer/pull/1171
 
 [@alexis-saransig-lullabot]: https://github.com/alexis-saransig-lullabot
 [@BackEndTea]: https://github.com/BackEndTea
