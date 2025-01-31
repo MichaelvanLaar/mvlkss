@@ -1,0 +1,85 @@
+# ==============================================================================
+# GitHub Workflow: Deploy to Uberspace
+#
+# This workflow deploys changes from a selected branch to an Uberspace webspace.
+#
+# The following action secrets must be set in the GitHub repository:
+# - REMOTE_HOST (e.g. "servername.uberspace.de")
+# - REMOTE_PATH (e.g. "/home/username/html/mywebsite.com")
+# - REMOTE_USER (e.g. "username")
+# - SSH_KEY (SSH key to login to the server)
+#
+# The following YAML anchors must be set in the “Configuration” section of this
+# file:
+# - &deploy_branch (e.g. "main")
+# - &server_name (e.g. "production server", which is used in the commit message)
+# ==============================================================================
+
+name: Deploy to Uberspace
+
+# ------------------------------------------------------------------------------
+# Configuration
+# ------------------------------------------------------------------------------
+
+additional-configuration:
+  # Define the branch to deploy
+  - &deploy_branch "main"
+
+  # Define the server name
+  - &server_name "production server"
+
+# ------------------------------------------------------------------------------
+# Main workflow
+# ------------------------------------------------------------------------------
+
+on:
+  push:
+    branches:
+      - *deploy_branch
+
+jobs:
+  build:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    env:
+      DEPLOY_BRANCH: *deploy_branch
+      SERVER_NAME: *server_name
+
+    steps:
+      - name: executing remote ssh commands
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            # Navigate to the repository directory
+            cd "${{ secrets.REMOTE_PATH }}" || {
+              echo "Could not find directory: ${{ secrets.REMOTE_PATH }}" >&2
+              exit 1
+            }
+
+            # Deploy changes from central remote repository to server
+            git config --global pull.rebase false
+            git stash --include-untracked
+            git pull origin ${DEPLOY_BRANCH}
+
+            # Sync changes from server to central remote repository if there are no merge conflicts
+            git stash pop
+            git fetch origin ${DEPLOY_BRANCH}
+            git merge --no-commit --no-ff origin/${DEPLOY_BRANCH} || {
+              echo "Merge conflicts detected!" >&2
+              git merge --abort
+              exit 1
+            }
+            git add content/*
+            git commit -m "update content (from ${SERVER_NAME})" || echo "No changes to commit"
+            git push origin ${DEPLOY_BRANCH}
+
+            # Make sure the “Sync Server to Central Repository” script is executable
+            chmod +x "${{ secrets.REMOTE_PATH }}/utilities/deploy-and-sync/sync-server-to-central-repo.sh"
+
+            # Delete Kirby cache – just in case
+            find "${{ secrets.REMOTE_PATH }}/site/cache/" -type f ! -name 'index.html' -delete
+            find "${{ secrets.REMOTE_PATH }}/site/cache/" -mindepth 1 -type d -delete
