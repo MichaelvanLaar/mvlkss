@@ -106,6 +106,12 @@ Always make sure you're on the `main` branch (or any other branch that should no
 
 **Customization:** If your main branch has a different name than `main`, modify the file `.git-branches-clean-up.js` in the root directory accordingly by replacing the branch names in the exclusion condition.
 
+### Deploying to a Production or Staging Server
+
+The easiest way to deploy the website from a central remote repository to a production or staging server is to use GitHub Actions. You can find a sample workflow in `/utilities/deploy-and-sync/github-workflow-deploy-to-uberspace.yml`. This sample workflow reacts to changes in a configured branch. Further configuration notes can be found in the YAML file itself.
+
+If the Kirby Panel is used on a staging or production server to edit website content, you may wish to synchronise these changes back to the central remote repository. To do this you can use the shell script `/utilities/deploy-and-sync/sync-server-to-central-repo.sh`. You will probably want to use a cronjob to run this script on a regular basis. Further configuration notes can be found in the script file itself.
+
 ## File Locations
 
 ### Kirby Files (e.g. Content and Templates)
@@ -140,28 +146,28 @@ Here's how to set up a brand color palette for the website and give editors acce
 
 - [Kirby](https://getkirby.com/)
 - Kirby plugins:
-  - [Clear Cache](https://owebstudio.com/kirby/plugins/clear-cache)
-  - [Date Extended](https://github.com/Adspectus/k3-date-extended)
-  - [Grid Block](https://github.com/youngcut/kirby-grid-block)
-  - [Hashed Assets](https://github.com/johannschopplich/kirby-hashed-assets)
-  - [Kirby Highlighter](https://github.com/johannschopplich/kirby-highlighter)
-  - [Kirby Language Selector](https://github.com/junohamburg/kirby-language-selector)
-  - [Minify HTML](https://github.com/afbora/kirby-minify-html)
-  - [Retour](https://github.com/distantnative/retour-for-kirby)
-  - [Robots.txt](https://github.com/bnomei/kirby3-robots-txt)
-  - [Snippet Controller](https://github.com/lukaskleinschmidt/kirby-snippet-controller)
+    - [Clear Cache](https://owebstudio.com/kirby/plugins/clear-cache)
+    - [Date Extended](https://github.com/Adspectus/k3-date-extended)
+    - [Grid Block](https://github.com/youngcut/kirby-grid-block)
+    - [Hashed Assets](https://github.com/johannschopplich/kirby-hashed-assets)
+    - [Kirby Highlighter](https://github.com/johannschopplich/kirby-highlighter)
+    - [Kirby Language Selector](https://github.com/junohamburg/kirby-language-selector)
+    - [Minify HTML](https://github.com/afbora/kirby-minify-html)
+    - [Retour](https://github.com/distantnative/retour-for-kirby)
+    - [Robots.txt](https://github.com/bnomei/kirby3-robots-txt)
+    - [Snippet Controller](https://github.com/lukaskleinschmidt/kirby-snippet-controller)
 - [PostCSS](https://postcss.org/)
 - PostCSS plugins:
-  - [Tailwind CSS](https://tailwindcss.com/) (including the [forms plugin](https://tailwindcss.com/docs/plugins#forms), the [aspect ration plugin](https://tailwindcss.com/docs/plugins#aspect-ratio) and the [typography plugin](https://tailwindcss.com/docs/plugins#typography))
-  - [Autoprefixer](https://github.com/postcss/autoprefixer)
-  - [cssnano](https://cssnano.co/)
+    - [Tailwind CSS](https://tailwindcss.com/) (including the [forms plugin](https://tailwindcss.com/docs/plugins#forms), the [aspect ration plugin](https://tailwindcss.com/docs/plugins#aspect-ratio) and the [typography plugin](https://tailwindcss.com/docs/plugins#typography))
+    - [Autoprefixer](https://github.com/postcss/autoprefixer)
+    - [cssnano](https://cssnano.co/)
 - [Babel](https://babeljs.io/)
 - [webpack](https://webpack.js.org/)
 - webpack plugins:
-  - [copy-webpack-plugin](https://github.com/webpack-contrib/copy-webpack-plugin)
-  - [mini-css-extract-plugin](https://github.com/webpack-contrib/mini-css-extract-plugin)
+    - [copy-webpack-plugin](https://github.com/webpack-contrib/copy-webpack-plugin)
+    - [mini-css-extract-plugin](https://github.com/webpack-contrib/mini-css-extract-plugin)
 - Composer plugins:
-  - [composer-normalize](https://github.com/ergebnis/composer-normalize)
+    - [composer-normalize](https://github.com/ergebnis/composer-normalize)
 - [Playwright](https://playwright.dev/)
 - [Axios](https://axios-http.com/)
 - [node-xml2js](https://github.com/Leonidas-from-XIV/node-xml2js)
