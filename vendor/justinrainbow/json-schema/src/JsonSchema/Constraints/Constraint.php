@@ -28,6 +28,7 @@ abstract class Constraint extends BaseConstraint implements ConstraintInterface
     const CHECK_MODE_APPLY_DEFAULTS =   0x00000008;
     const CHECK_MODE_EXCEPTIONS =       0x00000010;
     const CHECK_MODE_DISABLE_FORMAT =   0x00000020;
+    const CHECK_MODE_EARLY_COERCE =     0x00000040;
     const CHECK_MODE_ONLY_REQUIRED_DEFAULTS   = 0x00000080;
     const CHECK_MODE_VALIDATE_SCHEMA =  0x00000100;
 
@@ -39,7 +40,7 @@ abstract class Constraint extends BaseConstraint implements ConstraintInterface
      *
      * @return JsonPointer;
      */
-    protected function incrementPath(?JsonPointer $path, $i)
+    protected function incrementPath(JsonPointer $path = null, $i)
     {
         $path = $path ?: new JsonPointer('');
 
@@ -65,7 +66,7 @@ abstract class Constraint extends BaseConstraint implements ConstraintInterface
      * @param JsonPointer|null $path
      * @param mixed            $i
      */
-    protected function checkArray(&$value, $schema = null, ?JsonPointer $path = null, $i = null)
+    protected function checkArray(&$value, $schema = null, JsonPointer $path = null, $i = null)
     {
         $validator = $this->factory->createInstanceFor('collection');
         $validator->check($value, $schema, $path, $i);
@@ -83,9 +84,10 @@ abstract class Constraint extends BaseConstraint implements ConstraintInterface
      * @param mixed            $additionalProperties
      * @param mixed            $patternProperties
      */
-    protected function checkObject(&$value, $schema = null, ?JsonPointer $path = null, $properties = null,
+    protected function checkObject(&$value, $schema = null, JsonPointer $path = null, $properties = null,
         $additionalProperties = null, $patternProperties = null, $appliedDefaults = array())
     {
+        /** @var ObjectConstraint $validator */
         $validator = $this->factory->createInstanceFor('object');
         $validator->check($value, $schema, $path, $properties, $additionalProperties, $patternProperties, $appliedDefaults);
 
@@ -100,7 +102,7 @@ abstract class Constraint extends BaseConstraint implements ConstraintInterface
      * @param JsonPointer|null $path
      * @param mixed            $i
      */
-    protected function checkType(&$value, $schema = null, ?JsonPointer $path = null, $i = null)
+    protected function checkType(&$value, $schema = null, JsonPointer $path = null, $i = null)
     {
         $validator = $this->factory->createInstanceFor('type');
         $validator->check($value, $schema, $path, $i);
@@ -116,8 +118,9 @@ abstract class Constraint extends BaseConstraint implements ConstraintInterface
      * @param JsonPointer|null $path
      * @param mixed            $i
      */
-    protected function checkUndefined(&$value, $schema = null, ?JsonPointer $path = null, $i = null, $fromDefault = false)
+    protected function checkUndefined(&$value, $schema = null, JsonPointer $path = null, $i = null, $fromDefault = false)
     {
+        /** @var UndefinedConstraint $validator */
         $validator = $this->factory->createInstanceFor('undefined');
 
         $validator->check($value, $this->factory->getSchemaStorage()->resolveRefSchema($schema), $path, $i, $fromDefault);
@@ -133,7 +136,7 @@ abstract class Constraint extends BaseConstraint implements ConstraintInterface
      * @param JsonPointer|null $path
      * @param mixed            $i
      */
-    protected function checkString($value, $schema = null, ?JsonPointer $path = null, $i = null)
+    protected function checkString($value, $schema = null, JsonPointer $path = null, $i = null)
     {
         $validator = $this->factory->createInstanceFor('string');
         $validator->check($value, $schema, $path, $i);
@@ -149,7 +152,7 @@ abstract class Constraint extends BaseConstraint implements ConstraintInterface
      * @param JsonPointer $path
      * @param mixed       $i
      */
-    protected function checkNumber($value, $schema = null, ?JsonPointer $path = null, $i = null)
+    protected function checkNumber($value, $schema = null, JsonPointer $path = null, $i = null)
     {
         $validator = $this->factory->createInstanceFor('number');
         $validator->check($value, $schema, $path, $i);
@@ -165,9 +168,25 @@ abstract class Constraint extends BaseConstraint implements ConstraintInterface
      * @param JsonPointer|null $path
      * @param mixed            $i
      */
-    protected function checkEnum($value, $schema = null, ?JsonPointer $path = null, $i = null)
+    protected function checkEnum($value, $schema = null, JsonPointer $path = null, $i = null)
     {
         $validator = $this->factory->createInstanceFor('enum');
+        $validator->check($value, $schema, $path, $i);
+
+        $this->addErrors($validator->getErrors());
+    }
+
+    /**
+     * Checks a const element
+     *
+     * @param mixed            $value
+     * @param mixed            $schema
+     * @param JsonPointer|null $path
+     * @param mixed            $i
+     */
+    protected function checkConst($value, $schema = null, JsonPointer $path = null, $i = null)
+    {
+        $validator = $this->factory->createInstanceFor('const');
         $validator->check($value, $schema, $path, $i);
 
         $this->addErrors($validator->getErrors());
@@ -181,7 +200,7 @@ abstract class Constraint extends BaseConstraint implements ConstraintInterface
      * @param JsonPointer|null $path
      * @param mixed            $i
      */
-    protected function checkFormat($value, $schema = null, ?JsonPointer $path = null, $i = null)
+    protected function checkFormat($value, $schema = null, JsonPointer $path = null, $i = null)
     {
         $validator = $this->factory->createInstanceFor('format');
         $validator->check($value, $schema, $path, $i);
@@ -197,22 +216,5 @@ abstract class Constraint extends BaseConstraint implements ConstraintInterface
     protected function getTypeCheck()
     {
         return $this->factory->getTypeCheck();
-    }
-
-    /**
-     * @param JsonPointer $pointer
-     *
-     * @return string property path
-     */
-    protected function convertJsonPointerIntoPropertyPath(JsonPointer $pointer)
-    {
-        $result = array_map(
-            function ($path) {
-                return sprintf(is_numeric($path) ? '[%d]' : '.%s', $path);
-            },
-            $pointer->getPropertyPaths()
-        );
-
-        return trim(implode('', $result), '.');
     }
 }

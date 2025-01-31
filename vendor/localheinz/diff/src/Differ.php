@@ -82,7 +82,7 @@ final class Differ
      * @param array|string $from
      * @param array|string $to
      */
-    public function diff($from, $to, LongestCommonSubsequenceCalculator $lcs = null): string
+    public function diff($from, $to, ?LongestCommonSubsequenceCalculator $lcs = null): string
     {
         $diff = $this->diffToArray(
             $this->normalizeDiffInput($from),
@@ -104,11 +104,11 @@ final class Differ
      * - 1: ADDED: $token was added to $from
      * - 0: OLD: $token is not changed in $to
      *
-     * @param array|string                       $from
-     * @param array|string                       $to
-     * @param LongestCommonSubsequenceCalculator $lcs
+     * @param array|string                        $from
+     * @param array|string                        $to
+     * @param ?LongestCommonSubsequenceCalculator $lcs
      */
-    public function diffToArray($from, $to, LongestCommonSubsequenceCalculator $lcs = null): array
+    public function diffToArray($from, $to, ?LongestCommonSubsequenceCalculator $lcs = null): array
     {
         if (is_string($from)) {
             $from = $this->splitStringByLines($from);

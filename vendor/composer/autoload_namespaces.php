@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'claviska' => array($vendorDir . '/claviska/simpleimage/src'),
     'Michelf' => array($vendorDir . '/michelf/php-smartypants'),
+    'Icecave\\Parity' => array($vendorDir . '/icecave/parity/src'),
     'Highlight\\' => array($vendorDir . '/scrivo/highlight.php'),
     'HighlightUtilities\\' => array($vendorDir . '/scrivo/highlight.php'),
 );

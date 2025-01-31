@@ -9,6 +9,7 @@
 
 namespace JsonSchema\Constraints;
 
+use JsonSchema\ConstraintError;
 use JsonSchema\Entity\JsonPointer;
 use JsonSchema\Exception\InvalidArgumentException;
 use JsonSchema\Exception\InvalidSchemaException;
@@ -28,7 +29,7 @@ class SchemaConstraint extends Constraint
     /**
      * {@inheritdoc}
      */
-    public function check(&$element, $schema = null, ?JsonPointer $path = null, $i = null)
+    public function check(&$element, $schema = null, JsonPointer $path = null, $i = null)
     {
         if ($schema !== null) {
             // passed schema
@@ -80,7 +81,7 @@ class SchemaConstraint extends Constraint
                 }
             }
             if ($this->numErrors() > $initialErrorCount) {
-                $this->addError($path, 'Schema is not valid', 'schema');
+                $this->addError(ConstraintError::INVALID_SCHEMA(), $path);
             }
 
             // restore the initial config

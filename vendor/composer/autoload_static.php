@@ -41,6 +41,10 @@ class ComposerStaticInit162efd83110c77a994f175ee0d752b12
             'Psr\\Log\\' => 8,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
+        'M' => 
+        array (
+            'MabeEnum\\' => 9,
+        ),
         'L' => 
         array (
             'League\\ColorExtractor\\' => 22,
@@ -53,6 +57,10 @@ class ComposerStaticInit162efd83110c77a994f175ee0d752b12
         'J' => 
         array (
             'JsonSchema\\' => 11,
+        ),
+        'I' => 
+        array (
+            'Icecave\\Repr\\' => 13,
         ),
         'E' => 
         array (
@@ -119,6 +127,10 @@ class ComposerStaticInit162efd83110c77a994f175ee0d752b12
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
+        'MabeEnum\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/marc-mabe/php-enum/src',
+        ),
         'League\\ColorExtractor\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/color-extractor/src',
@@ -135,6 +147,10 @@ class ComposerStaticInit162efd83110c77a994f175ee0d752b12
         'JsonSchema\\' => 
         array (
             0 => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema',
+        ),
+        'Icecave\\Repr\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/icecave/repr/src',
         ),
         'Ergebnis\\Json\\SchemaValidator\\' => 
         array (
@@ -187,6 +203,13 @@ class ComposerStaticInit162efd83110c77a994f175ee0d752b12
             'Michelf' => 
             array (
                 0 => __DIR__ . '/..' . '/michelf/php-smartypants',
+            ),
+        ),
+        'I' => 
+        array (
+            'Icecave\\Parity' => 
+            array (
+                0 => __DIR__ . '/..' . '/icecave/parity/src',
             ),
         ),
         'H' => 
@@ -292,8 +315,30 @@ class ComposerStaticInit162efd83110c77a994f175ee0d752b12
         'Highlight\\RegExMatch' => __DIR__ . '/..' . '/scrivo/highlight.php/Highlight/RegExMatch.php',
         'Highlight\\RegExUtils' => __DIR__ . '/..' . '/scrivo/highlight.php/Highlight/RegExUtils.php',
         'Highlight\\Terminators' => __DIR__ . '/..' . '/scrivo/highlight.php/Highlight/Terminators.php',
+        'Icecave\\Parity\\AbstractExtendedComparable' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/AbstractExtendedComparable.php',
+        'Icecave\\Parity\\AnyComparableInterface' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/AnyComparableInterface.php',
+        'Icecave\\Parity\\Comparator\\ComparatorInterface' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/Comparator/ComparatorInterface.php',
+        'Icecave\\Parity\\Comparator\\DeepComparator' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/Comparator/DeepComparator.php',
+        'Icecave\\Parity\\Comparator\\ObjectIdentityComparator' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/Comparator/ObjectIdentityComparator.php',
+        'Icecave\\Parity\\Comparator\\ParityComparator' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/Comparator/ParityComparator.php',
+        'Icecave\\Parity\\Comparator\\PhpComparator' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/Comparator/PhpComparator.php',
+        'Icecave\\Parity\\Comparator\\StrictPhpComparator' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/Comparator/StrictPhpComparator.php',
+        'Icecave\\Parity\\Exception\\NotComparableException' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/Exception/NotComparableException.php',
+        'Icecave\\Parity\\ExtendedComparableInterface' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/ExtendedComparableInterface.php',
+        'Icecave\\Parity\\ExtendedComparableTrait' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/ExtendedComparableTrait.php',
+        'Icecave\\Parity\\PackageInfo' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/PackageInfo.php',
+        'Icecave\\Parity\\Parity' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/Parity.php',
+        'Icecave\\Parity\\RestrictedComparableInterface' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/RestrictedComparableInterface.php',
+        'Icecave\\Parity\\SelfComparableInterface' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/SelfComparableInterface.php',
+        'Icecave\\Parity\\SubClassComparableInterface' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/SubClassComparableInterface.php',
+        'Icecave\\Repr\\Generator' => __DIR__ . '/..' . '/icecave/repr/src/Generator.php',
+        'Icecave\\Repr\\PackageInfo' => __DIR__ . '/..' . '/icecave/repr/src/PackageInfo.php',
+        'Icecave\\Repr\\Repr' => __DIR__ . '/..' . '/icecave/repr/src/Repr.php',
+        'Icecave\\Repr\\RepresentableInterface' => __DIR__ . '/..' . '/icecave/repr/src/RepresentableInterface.php',
+        'JsonSchema\\ConstraintError' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/ConstraintError.php',
         'JsonSchema\\Constraints\\BaseConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/BaseConstraint.php',
         'JsonSchema\\Constraints\\CollectionConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/CollectionConstraint.php',
+        'JsonSchema\\Constraints\\ConstConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/ConstConstraint.php',
         'JsonSchema\\Constraints\\Constraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Constraint.php',
         'JsonSchema\\Constraints\\ConstraintInterface' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/ConstraintInterface.php',
         'JsonSchema\\Constraints\\EnumConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/EnumConstraint.php',
@@ -309,6 +354,7 @@ class ComposerStaticInit162efd83110c77a994f175ee0d752b12
         'JsonSchema\\Constraints\\TypeConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/TypeConstraint.php',
         'JsonSchema\\Constraints\\UndefinedConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/UndefinedConstraint.php',
         'JsonSchema\\Entity\\JsonPointer' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Entity/JsonPointer.php',
+        'JsonSchema\\Enum' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Enum.php',
         'JsonSchema\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Exception/ExceptionInterface.php',
         'JsonSchema\\Exception\\InvalidArgumentException' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Exception/InvalidArgumentException.php',
         'JsonSchema\\Exception\\InvalidConfigException' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Exception/InvalidConfigException.php',
@@ -679,6 +725,10 @@ class ComposerStaticInit162efd83110c77a994f175ee0d752b12
         'Localheinz\\Diff\\Output\\UnifiedDiffOutputBuilder' => __DIR__ . '/..' . '/localheinz/diff/src/Output/UnifiedDiffOutputBuilder.php',
         'Localheinz\\Diff\\Parser' => __DIR__ . '/..' . '/localheinz/diff/src/Parser.php',
         'Localheinz\\Diff\\TimeEfficientLongestCommonSubsequenceCalculator' => __DIR__ . '/..' . '/localheinz/diff/src/TimeEfficientLongestCommonSubsequenceCalculator.php',
+        'MabeEnum\\Enum' => __DIR__ . '/..' . '/marc-mabe/php-enum/src/Enum.php',
+        'MabeEnum\\EnumMap' => __DIR__ . '/..' . '/marc-mabe/php-enum/src/EnumMap.php',
+        'MabeEnum\\EnumSerializableTrait' => __DIR__ . '/..' . '/marc-mabe/php-enum/src/EnumSerializableTrait.php',
+        'MabeEnum\\EnumSet' => __DIR__ . '/..' . '/marc-mabe/php-enum/src/EnumSet.php',
         'Michelf\\SmartyPants' => __DIR__ . '/..' . '/michelf/php-smartypants/Michelf/SmartyPants.php',
         'Michelf\\SmartyPantsTypographer' => __DIR__ . '/..' . '/michelf/php-smartypants/Michelf/SmartyPantsTypographer.php',
         'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
@@ -700,6 +750,7 @@ class ComposerStaticInit162efd83110c77a994f175ee0d752b12
         'Psr\\Log\\LoggerTrait' => __DIR__ . '/..' . '/psr/log/src/LoggerTrait.php',
         'Psr\\Log\\NullLogger' => __DIR__ . '/..' . '/psr/log/src/NullLogger.php',
         'Spyc' => __DIR__ . '/../..' . '/kirby/dependencies/spyc/Spyc.php',
+        'Stringable' => __DIR__ . '/..' . '/marc-mabe/php-enum/stubs/Stringable.php',
         'Symfony\\Component\\CssSelector\\CssSelectorConverter' => __DIR__ . '/..' . '/symfony/css-selector/CssSelectorConverter.php',
         'Symfony\\Component\\CssSelector\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/symfony/css-selector/Exception/ExceptionInterface.php',
         'Symfony\\Component\\CssSelector\\Exception\\ExpressionErrorException' => __DIR__ . '/..' . '/symfony/css-selector/Exception/ExpressionErrorException.php',

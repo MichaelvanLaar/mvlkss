@@ -9,6 +9,7 @@
 
 namespace JsonSchema\Constraints;
 
+use JsonSchema\ConstraintError;
 use JsonSchema\Entity\JsonPointer;
 
 /**
@@ -22,16 +23,16 @@ class CollectionConstraint extends Constraint
     /**
      * {@inheritdoc}
      */
-    public function check(&$value, $schema = null, ?JsonPointer $path = null, $i = null)
+    public function check(&$value, $schema = null, JsonPointer $path = null, $i = null)
     {
         // Verify minItems
         if (isset($schema->minItems) && count($value) < $schema->minItems) {
-            $this->addError($path, 'There must be a minimum of ' . $schema->minItems . ' items in the array', 'minItems', array('minItems' => $schema->minItems));
+            $this->addError(ConstraintError::MIN_ITEMS(), $path, array('minItems' => $schema->minItems));
         }
 
         // Verify maxItems
         if (isset($schema->maxItems) && count($value) > $schema->maxItems) {
-            $this->addError($path, 'There must be a maximum of ' . $schema->maxItems . ' items in the array', 'maxItems', array('maxItems' => $schema->maxItems));
+            $this->addError(ConstraintError::MAX_ITEMS(), $path, array('maxItems' => $schema->maxItems));
         }
 
         // Verify uniqueItems
@@ -43,7 +44,7 @@ class CollectionConstraint extends Constraint
                 }, $value);
             }
             if (count(array_unique($unique)) != count($value)) {
-                $this->addError($path, 'There are no duplicates allowed in the array', 'uniqueItems');
+                $this->addError(ConstraintError::UNIQUE_ITEMS(), $path);
             }
         }
 
@@ -61,7 +62,7 @@ class CollectionConstraint extends Constraint
      * @param JsonPointer|null $path
      * @param string           $i
      */
-    protected function validateItems(&$value, $schema = null, ?JsonPointer $path = null, $i = null)
+    protected function validateItems(&$value, $schema = null, JsonPointer $path = null, $i = null)
     {
         if (is_object($schema->items)) {
             // just one type definition for the whole array
@@ -98,7 +99,14 @@ class CollectionConstraint extends Constraint
                             $this->checkUndefined($v, $schema->additionalItems, $path, $k);
                         } else {
                             $this->addError(
-                                $path, 'The item ' . $i . '[' . $k . '] is not defined and the definition does not allow additional items', 'additionalItems', array('additionalItems' => $schema->additionalItems));
+                                ConstraintError::ADDITIONAL_ITEMS(),
+                                $path,
+                                array(
+                                    'item' => $i,
+                                    'property' => $k,
+                                    'additionalItems' => $schema->additionalItems
+                                )
+                            );
                         }
                     } else {
                         // Should be valid against an empty schema
