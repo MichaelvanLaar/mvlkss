@@ -2,7 +2,7 @@
 
 This is a work in progress. This documentation should reflect the current state of development, but may be incomplete.
 
-If you need a pair programming buddy who knows the tech stack used in this project, you may want to ask the custom GPT [custom GPT “Web developer for MvLKSS based projects”](https://chat.openai.com/g/g-64y755npL-web-developer-for-mvlkss-based-projects) (ChatGPT Plus required).
+If you need a pair programming buddy who knows the tech stack used in this project, you may want to ask the custom GPT [custom GPT “Web developer for MvLKSS based projects”](https://chat.openai.com/g/g-64y755npL-web-developer-for-mvlkss-based-projects) (ChatGPT account required).
 
 ## Prerequisites
 
@@ -44,7 +44,7 @@ For the sake of ease of deployment, the subdirectories `/kirby/*`, `/site/plugin
 
 The `package.json` includes two useful scripts that conveniently facilitate the process of checking and updating both Composer packages and npm packages.
 
-#### Checking for Updates
+#### Check for Dependency Updates
 
 The `utility-dependencies-update-check` script checks for new updates of your installed Composer and npm packages and displays the available information. It does not affect any of your files.
 
@@ -52,7 +52,7 @@ The `utility-dependencies-update-check` script checks for new updates of your in
 npm run utility-dependencies-update-check
 ```
 
-#### Updating
+#### Update Dependencies
 
 The `utility-dependencies-update` script installs all available updates to your installed Composer and npm packages, based on the information in your `composer.json` and `package.json` files.
 
@@ -84,7 +84,7 @@ Remember, in order to develop remotely, you’ll need to have Node.js and npm on
 
 Open the website in your browser as usual.[^1]
 
-### Building Production-Ready CSS and JS Files
+### Build Production-Ready CSS and JS Files
 
 When development is complete, utilize the following command to generate streamlined and optimized CSS and JS files:
 
@@ -92,7 +92,7 @@ When development is complete, utilize the following command to generate streamli
 npm run build
 ```
 
-### Cleaning Up Your Local Git Branches
+### Clean Up Your Local Git Branches
 
 This project features a Node.js script aimed at simplifying the task of deleting local Git branches. The script automatically eliminates branches that have been merged and deleted from the remote repository, effectively ensuring that the local development environment stays neat and tidy.
 
@@ -106,11 +106,30 @@ Always make sure you're on the `main` branch (or any other branch that should no
 
 **Customization:** If your main branch has a different name than `main`, modify the file `.git-branches-clean-up.js` in the root directory accordingly by replacing the branch names in the exclusion condition.
 
-### Deploying to a Production or Staging Server
+### Deploy to a Production or Staging Server
 
 The easiest way to deploy the website from a central remote repository to a production or staging server is to use GitHub Actions. You can find a sample workflow in `/utilities/deploy-and-sync/github-workflow-deploy-to-uberspace.yml`. This sample workflow reacts to changes in a configured branch. Further configuration notes can be found in the YAML file itself.
 
 If the Kirby Panel is used on a staging or production server to edit website content, you may wish to synchronise these changes back to the central remote repository. To do this you can use the shell script `/utilities/deploy-and-sync/sync-server-to-central-repo.sh`. You will probably want to use a cronjob to run this script on a regular basis. Further configuration notes can be found in the script file itself.
+
+### Prefill the Kirby Page Cache
+
+Especially pages created with the Page Builder of the Kirby Panel benefit enormously from server-side caching. A page is cached when it is visited for the first time – with the disadvantage, of course, that the "first visitor" to a page (after its cache information has been cleared, e.g. because the page content has been updated) has to wait longer. However, this usually works well.
+
+But there are situations where you might want to preload the page cache for all pages at once. Consider the following scenario as an example: You have to present a newly built website to the client. There were a lot of last-minute changes, so the page cache is more or less empty. Since you know that your pages are quite complex and therefore take a lot longer to load without the page cache, you probably don't want your customer to be the "first page visitor" for every single page – because you can already hear them saying that the new site feels damn slow.
+
+Of course, you could sit down a few hours before the meeting and manually click through all the pages, which is tedious and time-consuming if there are more than a dozen. Not only that, but you would have to do it multiple times because you would have to visit each page with different viewport sizes. Otherwise, the server-side generated images for the different image sizes will not be created, which is necessary due to the responsive image implementation.
+
+In such a situation, the included page cache prefill script comes in handy:
+
+1. Customize the configuration settings in the `/utilities/kirby-cache-prefill.js` file according to the details of your website project.
+2. Run the script **on your development machine** (which, of course, must be connected to the Internet):
+    ```bash
+    npm run utility-kirby-cache-prefill
+    ```
+3. Grab some coffee and wait. The script fetches the URLs of all pages from your XML sitemaps and visits each URL using Playwright with different viewports. This results in the visited pages being added to Kirby’s page cache, as well as any server-side generated images being generated in all the required sizes.
+
+**Warning:** The script has an artificial delay (of a random time between about one and five seconds) between two page visits built in to appear a little less robotic. However, you should make sure beforehand that the cache prefill script does not inadvertently trigger any security mechanisms your web hosting provider may have in place.
 
 ## File Locations
 
