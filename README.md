@@ -13,6 +13,18 @@ The following must be installed on your machine:
 - **On the production server: [ImageMagick](https://imagemagick.org/) in its latest version**  
   ImageMagick is a better choice for server-side image processing than the GD library. It is especially needed to create AVIF files. Therefore, in Kirby’s `config.php` ImageMagick is set up be used as thumbs driver – except in `localhost` environments (where GDLib is used because ImageMagick can cause problems on Windows machines).
   ImageMagick is the better choice for server-side image processing as opposed to GD Library. It is mainly necessary to generate AVIF files. Therefore it is set in the `config.php` of PHP that ImageMagick should be used - except in `localhost` environments (there GDLib is used, because otherwise there are problems on Windows machines).
+- **On the production server: [APC User Cache](https://www.php.net/apcu) as PHP module**  
+  While optional, using the `apcu` cache driver is recommended if available. **That’s why the `apcu` cache driver is already set in the site’s `config.php`.**
+  If you prefer to use Kirby’s default filesystem cache driver, just change the cache configuration in `config.php` like this:
+
+    ```php
+        "cache" => [
+            "pages" => [
+                "active" => true,
+            ],
+        ],
+    ```
+
 - **On your development machine: [Composer](https://getcomposer.org/), a dependency manager for PHP**  
   Make sure all platform requirements are met by running the command `composer check-platform-reqs` after successfully installing Composer.
 - **On your development machine: [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/)**  

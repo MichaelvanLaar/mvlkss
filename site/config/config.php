@@ -229,6 +229,7 @@ return [
     "cache" => [
         "pages" => [
             "active" => true,
+            "type" => "apcu",
         ],
     ],
     "debug" => false,
