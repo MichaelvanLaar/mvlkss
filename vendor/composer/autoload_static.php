@@ -61,6 +61,7 @@ class ComposerStaticInit162efd83110c77a994f175ee0d752b12
         'I' => 
         array (
             'Icecave\\Repr\\' => 13,
+            'Icecave\\Parity\\' => 15,
         ),
         'E' => 
         array (
@@ -152,6 +153,10 @@ class ComposerStaticInit162efd83110c77a994f175ee0d752b12
         array (
             0 => __DIR__ . '/..' . '/icecave/repr/src',
         ),
+        'Icecave\\Parity\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/icecave/parity/src',
+        ),
         'Ergebnis\\Json\\SchemaValidator\\' => 
         array (
             0 => __DIR__ . '/..' . '/ergebnis/json-schema-validator/src',
@@ -203,13 +208,6 @@ class ComposerStaticInit162efd83110c77a994f175ee0d752b12
             'Michelf' => 
             array (
                 0 => __DIR__ . '/..' . '/michelf/php-smartypants',
-            ),
-        ),
-        'I' => 
-        array (
-            'Icecave\\Parity' => 
-            array (
-                0 => __DIR__ . '/..' . '/icecave/parity/src',
             ),
         ),
         'H' => 
@@ -315,24 +313,21 @@ class ComposerStaticInit162efd83110c77a994f175ee0d752b12
         'Highlight\\RegExMatch' => __DIR__ . '/..' . '/scrivo/highlight.php/Highlight/RegExMatch.php',
         'Highlight\\RegExUtils' => __DIR__ . '/..' . '/scrivo/highlight.php/Highlight/RegExUtils.php',
         'Highlight\\Terminators' => __DIR__ . '/..' . '/scrivo/highlight.php/Highlight/Terminators.php',
-        'Icecave\\Parity\\AbstractExtendedComparable' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/AbstractExtendedComparable.php',
-        'Icecave\\Parity\\AnyComparableInterface' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/AnyComparableInterface.php',
-        'Icecave\\Parity\\Comparator\\ComparatorInterface' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/Comparator/ComparatorInterface.php',
-        'Icecave\\Parity\\Comparator\\DeepComparator' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/Comparator/DeepComparator.php',
-        'Icecave\\Parity\\Comparator\\ObjectIdentityComparator' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/Comparator/ObjectIdentityComparator.php',
-        'Icecave\\Parity\\Comparator\\ParityComparator' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/Comparator/ParityComparator.php',
-        'Icecave\\Parity\\Comparator\\PhpComparator' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/Comparator/PhpComparator.php',
-        'Icecave\\Parity\\Comparator\\StrictPhpComparator' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/Comparator/StrictPhpComparator.php',
-        'Icecave\\Parity\\Exception\\NotComparableException' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/Exception/NotComparableException.php',
-        'Icecave\\Parity\\ExtendedComparableInterface' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/ExtendedComparableInterface.php',
-        'Icecave\\Parity\\ExtendedComparableTrait' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/ExtendedComparableTrait.php',
-        'Icecave\\Parity\\PackageInfo' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/PackageInfo.php',
-        'Icecave\\Parity\\Parity' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/Parity.php',
-        'Icecave\\Parity\\RestrictedComparableInterface' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/RestrictedComparableInterface.php',
-        'Icecave\\Parity\\SelfComparableInterface' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/SelfComparableInterface.php',
-        'Icecave\\Parity\\SubClassComparableInterface' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/SubClassComparableInterface.php',
+        'Icecave\\Parity\\AnyComparable' => __DIR__ . '/..' . '/icecave/parity/src/AnyComparable.php',
+        'Icecave\\Parity\\Comparator\\Comparator' => __DIR__ . '/..' . '/icecave/parity/src/Comparator/Comparator.php',
+        'Icecave\\Parity\\Comparator\\DeepComparator' => __DIR__ . '/..' . '/icecave/parity/src/Comparator/DeepComparator.php',
+        'Icecave\\Parity\\Comparator\\ObjectIdentityComparator' => __DIR__ . '/..' . '/icecave/parity/src/Comparator/ObjectIdentityComparator.php',
+        'Icecave\\Parity\\Comparator\\ParityComparator' => __DIR__ . '/..' . '/icecave/parity/src/Comparator/ParityComparator.php',
+        'Icecave\\Parity\\Comparator\\PhpComparator' => __DIR__ . '/..' . '/icecave/parity/src/Comparator/PhpComparator.php',
+        'Icecave\\Parity\\Comparator\\StrictPhpComparator' => __DIR__ . '/..' . '/icecave/parity/src/Comparator/StrictPhpComparator.php',
+        'Icecave\\Parity\\Exception\\NotComparableException' => __DIR__ . '/..' . '/icecave/parity/src/Exception/NotComparableException.php',
+        'Icecave\\Parity\\ExtendedComparable' => __DIR__ . '/..' . '/icecave/parity/src/ExtendedComparable.php',
+        'Icecave\\Parity\\ExtendedComparableTrait' => __DIR__ . '/..' . '/icecave/parity/src/ExtendedComparableTrait.php',
+        'Icecave\\Parity\\Parity' => __DIR__ . '/..' . '/icecave/parity/src/Parity.php',
+        'Icecave\\Parity\\RestrictedComparable' => __DIR__ . '/..' . '/icecave/parity/src/RestrictedComparable.php',
+        'Icecave\\Parity\\SelfComparable' => __DIR__ . '/..' . '/icecave/parity/src/SelfComparable.php',
+        'Icecave\\Parity\\SubClassComparable' => __DIR__ . '/..' . '/icecave/parity/src/SubClassComparable.php',
         'Icecave\\Repr\\Generator' => __DIR__ . '/..' . '/icecave/repr/src/Generator.php',
-        'Icecave\\Repr\\PackageInfo' => __DIR__ . '/..' . '/icecave/repr/src/PackageInfo.php',
         'Icecave\\Repr\\Repr' => __DIR__ . '/..' . '/icecave/repr/src/Repr.php',
         'Icecave\\Repr\\RepresentableInterface' => __DIR__ . '/..' . '/icecave/repr/src/RepresentableInterface.php',
         'JsonSchema\\ConstraintError' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/ConstraintError.php',
@@ -371,6 +366,7 @@ class ComposerStaticInit162efd83110c77a994f175ee0d752b12
         'JsonSchema\\Rfc3339' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Rfc3339.php',
         'JsonSchema\\SchemaStorage' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/SchemaStorage.php',
         'JsonSchema\\SchemaStorageInterface' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/SchemaStorageInterface.php',
+        'JsonSchema\\Tool\\DeepCopy' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Tool/DeepCopy.php',
         'JsonSchema\\UriResolverInterface' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/UriResolverInterface.php',
         'JsonSchema\\UriRetrieverInterface' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/UriRetrieverInterface.php',
         'JsonSchema\\Uri\\Retrievers\\AbstractRetriever' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Uri/Retrievers/AbstractRetriever.php',

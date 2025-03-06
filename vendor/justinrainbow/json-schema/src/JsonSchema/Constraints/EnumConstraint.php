@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the JsonSchema package.
  *
@@ -24,7 +26,7 @@ class EnumConstraint extends Constraint
     /**
      * {@inheritdoc}
      */
-    public function check(&$element, $schema = null, JsonPointer $path = null, $i = null)
+    public function check(&$element, $schema = null, ?JsonPointer $path = null, $i = null): void
     {
         // Only validate enum if the attribute exists
         if ($element instanceof UndefinedConstraint && (!isset($schema->required) || !$schema->required)) {
@@ -47,6 +49,6 @@ class EnumConstraint extends Constraint
             }
         }
 
-        $this->addError(ConstraintError::ENUM(), $path, array('enum' => $schema->enum));
+        $this->addError(ConstraintError::ENUM(), $path, ['enum' => $schema->enum]);
     }
 }

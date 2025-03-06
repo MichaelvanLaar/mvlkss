@@ -7,6 +7,53 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [6.2.0] - 2025-02-26
+### Added
+- Welcome first time contributors ([#782](https://github.com/jsonrainbow/json-schema/pull/782))
+
+### Fixed
+- Add required permissions for welcome action ([#789](https://github.com/jsonrainbow/json-schema/pull/789))
+- Upgrade php cs fixer to latest ([#783](https://github.com/jsonrainbow/json-schema/pull/783))
+- Create deep copy before checking each sub schema in oneOf ([#791](https://github.com/jsonrainbow/json-schema/pull/791))
+- Create deep copy before checking each sub schema in anyOf ([#792](https://github.com/jsonrainbow/json-schema/pull/792))
+- Correctly set the schema ID when passing it as assoc array ([#794](https://github.com/jsonrainbow/json-schema/pull/794))
+- Create deep copy before checking each sub schema in oneOf when only check_mode_apply_defaults is set ([#795](https://github.com/jsonrainbow/json-schema/pull/795))
+- Additional property casted into int when actually is numeric string ([#784](https://github.com/jsonrainbow/json-schema/pull/784))
+
+### Changed
+- Used PHPStan's int-mask-of<T> type where applicable ([#779](https://github.com/jsonrainbow/json-schema/pull/779))
+- Fixed some PHPStan errors ([#781](https://github.com/jsonrainbow/json-schema/pull/781))
+- Cleanup redundant checks ([#796](https://github.com/jsonrainbow/json-schema/pull/796))
+
+## [6.1.0] - 2025-02-04
+### Added
+- Add return types in the test suite ([#748](https://github.com/jsonrainbow/json-schema/pull/748))
+- Add test case for validating array of strings with objects ([#704](https://github.com/jsonrainbow/json-schema/pull/704))
+- Add contributing information, contributor recognition and security information ([#771](https://github.com/jsonrainbow/json-schema/pull/771)) 
+
+### Fixed
+- Correct misconfigured mocks in JsonSchema\Tests\Uri\UriRetrieverTest ([#741](https://github.com/jsonrainbow/json-schema/pull/741))
+- Fix pugx badges in README ([#742](https://github.com/jsonrainbow/json-schema/pull/742))
+- Add missing property in UriResolverTest ([#743](https://github.com/jsonrainbow/json-schema/pull/743))
+- Correct casing of paths used in tests ([#745](https://github.com/jsonrainbow/json-schema/pull/745))
+- Resolve deprecations of optional parameter ([#752](https://github.com/jsonrainbow/json-schema/pull/752))
+- Fix wrong combined paths when traversing upward, fixes #557 ([#652](https://github.com/jsonrainbow/json-schema/pull/652))
+- Correct PHPStan baseline ([#764](https://github.com/jsonrainbow/json-schema/pull/764))
+- Correct spacing issue in `README.md` ([#763](https://github.com/jsonrainbow/json-schema/pull/763))
+- Format attribute: do not validate data instances that aren't the instance type to validate ([#773](https://github.com/jsonrainbow/json-schema/pull/773))
+
+### Changed
+- Bump to minimum PHP 7.2 ([#746](https://github.com/jsonrainbow/json-schema/pull/746))
+- Replace traditional syntax array with short syntax array ([#747](https://github.com/jsonrainbow/json-schema/pull/747))
+- Increase phpstan level to 8 with baseline to swallow existing errors ([#673](https://github.com/jsonrainbow/json-schema/pull/673))
+- Add ext-json to composer.json to ensure JSON extension available  ([#759](https://github.com/jsonrainbow/json-schema/pull/759))
+- Add visibility modifiers to class constants ([#757](https://github.com/jsonrainbow/json-schema/pull/757))
+- Include PHP 8.4 in workflow ([#765](https://github.com/jsonrainbow/json-schema/pull/765))
+- Add `strict_types=1` to all classes in ./src ([#758](https://github.com/jsonrainbow/json-schema/pull/758))
+- Raise minimum level of marc-mabe/php-enum ([#766](https://github.com/jsonrainbow/json-schema/pull/766))
+- Cleanup test from @param annotations ([#768](https://github.com/jsonrainbow/json-schema/pull/768))
+- Remove obsolete PHP 7.1 version check ([#772](https://github.com/jsonrainbow/json-schema/pull/772))
+
 ## [6.0.0] - 2024-07-30
 ### Added
 - Add URI translation, package:// URI scheme & bundle spec schemas ([#362](https://github.com/jsonrainbow/json-schema/pull/362))

@@ -1,30 +1,42 @@
 {
     "name": "icecave/parity",
     "description": "A customizable deep comparison library.",
-    "keywords": ["compare", "comparison", "equal", "equality", "less", "greater", "sort", "sorting"],
-    "homepage": "https://github.com/IcecaveStudios/parity",
+    "keywords": [
+        "compare",
+        "comparison",
+        "equal",
+        "equality",
+        "less",
+        "greater",
+        "sort",
+        "sorting"
+    ],
+    "homepage": "https://github.com/icecave/parity",
     "license": "MIT",
     "authors": [
         {
             "name": "James Harris",
-            "email": "james.harris@icecave.com.au",
+            "email": "mailjamesharris@gmail.com",
             "homepage": "https://github.com/jmalloc"
         }
     ],
     "require": {
-        "php": ">=5.3",
-        "icecave/repr": "~1"
+        "php": ">=7.3",
+        "icecave/repr": "^4"
     },
     "require-dev": {
-        "eloquent/liberator": "~1",
-        "icecave/archer": "~1"
+        "eloquent/liberator": "^2",
+        "friendsofphp/php-cs-fixer": "^2",
+        "eloquent/phony": "^5",
+        "eloquent/phony-phpunit": "^7",
+        "phpunit/phpunit": "^9"
     },
-    "suggest": {
-        "eloquent/asplode": "Drop-in exception-based error handling."
-    },
-    "autoload": {
-        "psr-0": {
-            "Icecave\\Parity": "src"
+    "autoload": { "psr-4": { "Icecave\\Parity\\": "src" } },
+    "autoload-dev": { "psr-4": { "Icecave\\Parity\\": "test/src" } },
+    "config": {
+        "sort-packages": true,
+        "platform": {
+            "php": "7.3"
         }
     }
 }

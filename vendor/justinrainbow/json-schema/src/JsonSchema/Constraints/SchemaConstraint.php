@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the JsonSchema package.
  *
@@ -24,12 +26,12 @@ use JsonSchema\Validator;
  */
 class SchemaConstraint extends Constraint
 {
-    const DEFAULT_SCHEMA_SPEC = 'http://json-schema.org/draft-04/schema#';
+    private const DEFAULT_SCHEMA_SPEC = 'http://json-schema.org/draft-04/schema#';
 
     /**
      * {@inheritdoc}
      */
-    public function check(&$element, $schema = null, JsonPointer $path = null, $i = null)
+    public function check(&$element, $schema = null, ?JsonPointer $path = null, $i = null): void
     {
         if ($schema !== null) {
             // passed schema

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "65537b2be9a0f1b39732c5a50037fffd",
+    "content-hash": "8ce36c0f675159928694679dec7c57b4",
     "packages": [
         {
             "name": "adspectus/date-extended",
@@ -43,16 +43,16 @@
         },
         {
             "name": "afbora/kirby-minify-html",
-            "version": "2.1.0",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/afbora/kirby-minify-html.git",
-                "reference": "f33815bbbc12b24da755e9a735f7da3cb255f128"
+                "reference": "1ae25e6f373e92645635948ae1e6b43b5b1d6268"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/afbora/kirby-minify-html/zipball/f33815bbbc12b24da755e9a735f7da3cb255f128",
-                "reference": "f33815bbbc12b24da755e9a735f7da3cb255f128",
+                "url": "https://api.github.com/repos/afbora/kirby-minify-html/zipball/1ae25e6f373e92645635948ae1e6b43b5b1d6268",
+                "reference": "1ae25e6f373e92645635948ae1e6b43b5b1d6268",
                 "shasum": ""
             },
             "require": {
@@ -71,21 +71,17 @@
                     "email": "ahmet@getkirby.com"
                 }
             ],
-            "description": "Enable minify HTML output for Kirby 3 and 4.",
+            "description": "Enable minify HTML output for Kirby",
             "homepage": "https://github.com/afbora/kirby-minify-html",
             "keywords": [
-                "kirby",
-                "kirby-3",
-                "kirby-4",
-                "kirby-cms",
-                "kirby-plugin",
-                "kirby3-plugin",
-                "kirby4-plugin"
+                "kirby3",
+                "kirby4",
+                "kirby5"
             ],
             "support": {
                 "email": "ahmet@getkirby.com",
                 "issues": "https://github.com/afbora/kirby-minify-html/issues",
-                "source": "https://github.com/afbora/kirby-minify-html/tree/2.1.0"
+                "source": "https://github.com/afbora/kirby-minify-html/tree/2.2.0"
             },
             "funding": [
                 {
@@ -93,7 +89,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2023-12-13T15:46:35+00:00"
+            "time": "2025-02-15T22:11:18+00:00"
         },
         {
             "name": "bnomei/kirby3-robots-txt",
@@ -367,22 +363,22 @@
         },
         {
             "name": "distantnative/retour-for-kirby",
-            "version": "5.4.0",
+            "version": "5.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/distantnative/retour-for-kirby.git",
-                "reference": "e2130dda5c63b931ded0aac8c2ee5d1990c4b577"
+                "reference": "1daae79a34dcc2dca63b96082b7752d3cd7b2ba8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/distantnative/retour-for-kirby/zipball/e2130dda5c63b931ded0aac8c2ee5d1990c4b577",
-                "reference": "e2130dda5c63b931ded0aac8c2ee5d1990c4b577",
+                "url": "https://api.github.com/repos/distantnative/retour-for-kirby/zipball/1daae79a34dcc2dca63b96082b7752d3cd7b2ba8",
+                "reference": "1daae79a34dcc2dca63b96082b7752d3cd7b2ba8",
                 "shasum": ""
             },
             "require": {
                 "getkirby/cms": "^4.3.1 || ^5.0",
                 "getkirby/composer-installer": "^1.1",
-                "php": ">=8.1.0 <8.4.0"
+                "php": ">=8.1.0 <8.5.0"
             },
             "type": "kirby-plugin",
             "extra": {
@@ -403,7 +399,7 @@
             "homepage": "https://distantnative.com/retour-for-kirby/",
             "support": {
                 "issues": "https://github.com/distantnative/retour-for-kirby/issues",
-                "source": "https://github.com/distantnative/retour-for-kirby/tree/5.4.0"
+                "source": "https://github.com/distantnative/retour-for-kirby/tree/5.4.1"
             },
             "funding": [
                 {
@@ -411,7 +407,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2025-01-22T18:06:21+00:00"
+            "time": "2025-02-02T13:04:26+00:00"
         },
         {
             "name": "filp/whoops",
@@ -486,16 +482,16 @@
         },
         {
             "name": "getkirby/cms",
-            "version": "4.6.0",
+            "version": "4.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getkirby/kirby.git",
-                "reference": "994556ca78eab3c11415702870b6388e8472addc"
+                "reference": "e29f216630ee1c2ab7e3f8f1bb3d335541121587"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getkirby/kirby/zipball/994556ca78eab3c11415702870b6388e8472addc",
-                "reference": "994556ca78eab3c11415702870b6388e8472addc",
+                "url": "https://api.github.com/repos/getkirby/kirby/zipball/e29f216630ee1c2ab7e3f8f1bb3d335541121587",
+                "reference": "e29f216630ee1c2ab7e3f8f1bb3d335541121587",
                 "shasum": ""
             },
             "require": {
@@ -585,7 +581,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2025-01-30T11:02:53+00:00"
+            "time": "2025-02-06T15:39:59+00:00"
         },
         {
             "name": "getkirby/composer-installer",
@@ -2364,33 +2360,33 @@
         },
         {
             "name": "icecave/parity",
-            "version": "1.0.0",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/icecave/parity.git",
-                "reference": "0109fef58b3230d23b20b2ac52ecdf477218d300"
+                "reference": "4fe835483e0f89f0f96763c47cb9fdca26c24bdc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/icecave/parity/zipball/0109fef58b3230d23b20b2ac52ecdf477218d300",
-                "reference": "0109fef58b3230d23b20b2ac52ecdf477218d300",
+                "url": "https://api.github.com/repos/icecave/parity/zipball/4fe835483e0f89f0f96763c47cb9fdca26c24bdc",
+                "reference": "4fe835483e0f89f0f96763c47cb9fdca26c24bdc",
                 "shasum": ""
             },
             "require": {
-                "icecave/repr": "~1",
-                "php": ">=5.3"
+                "icecave/repr": "^4",
+                "php": ">=7.3"
             },
             "require-dev": {
-                "eloquent/liberator": "~1",
-                "icecave/archer": "~1"
-            },
-            "suggest": {
-                "eloquent/asplode": "Drop-in exception-based error handling."
+                "eloquent/liberator": "^2",
+                "eloquent/phony": "^5",
+                "eloquent/phony-phpunit": "^7",
+                "friendsofphp/php-cs-fixer": "^2",
+                "phpunit/phpunit": "^9"
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "Icecave\\Parity": "src"
+                "psr-4": {
+                    "Icecave\\Parity\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -2400,12 +2396,12 @@
             "authors": [
                 {
                     "name": "James Harris",
-                    "email": "james.harris@icecave.com.au",
+                    "email": "mailjamesharris@gmail.com",
                     "homepage": "https://github.com/jmalloc"
                 }
             ],
             "description": "A customizable deep comparison library.",
-            "homepage": "https://github.com/IcecaveStudios/parity",
+            "homepage": "https://github.com/icecave/parity",
             "keywords": [
                 "compare",
                 "comparison",
@@ -2418,32 +2414,31 @@
             ],
             "support": {
                 "issues": "https://github.com/icecave/parity/issues",
-                "source": "https://github.com/icecave/parity/tree/1.0.0"
+                "source": "https://github.com/icecave/parity/tree/3.0.1"
             },
-            "time": "2014-01-17T05:56:27+00:00"
+            "time": "2021-02-04T05:51:24+00:00"
         },
         {
             "name": "icecave/repr",
-            "version": "1.0.1",
+            "version": "4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/icecave/repr.git",
-                "reference": "8a3d2953adf5f464a06e3e2587aeacc97e2bed07"
+                "reference": "3dad35ee43394404ae0f1926d754e7b7820da8e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/icecave/repr/zipball/8a3d2953adf5f464a06e3e2587aeacc97e2bed07",
-                "reference": "8a3d2953adf5f464a06e3e2587aeacc97e2bed07",
+                "url": "https://api.github.com/repos/icecave/repr/zipball/3dad35ee43394404ae0f1926d754e7b7820da8e4",
+                "reference": "3dad35ee43394404ae0f1926d754e7b7820da8e4",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3"
+                "php": ">=7.2"
             },
             "require-dev": {
-                "icecave/archer": "~1"
-            },
-            "suggest": {
-                "eloquent/asplode": "Drop-in exception-based error handling."
+                "eloquent/phony-phpunit": "^6",
+                "friendsofphp/php-cs-fixer": "^2",
+                "phpunit/phpunit": "^8"
             },
             "type": "library",
             "autoload": {
@@ -2458,12 +2453,12 @@
             "authors": [
                 {
                     "name": "James Harris",
-                    "email": "james.harris@icecave.com.au",
+                    "email": "mailjamesharris@gmail.com",
                     "homepage": "https://github.com/jmalloc"
                 }
             ],
             "description": "A library for generating string representations of any value, inspired by Python's reprlib library.",
-            "homepage": "https://github.com/IcecaveStudios/repr",
+            "homepage": "https://github.com/icecave/repr",
             "keywords": [
                 "human",
                 "readable",
@@ -2473,33 +2468,37 @@
             ],
             "support": {
                 "issues": "https://github.com/icecave/repr/issues",
-                "source": "https://github.com/icecave/repr/tree/1.0.1"
+                "source": "https://github.com/icecave/repr/tree/4.0.0"
             },
-            "time": "2014-07-25T05:44:41+00:00"
+            "time": "2020-08-25T02:05:11+00:00"
         },
         {
             "name": "justinrainbow/json-schema",
-            "version": "6.0.0",
+            "version": "6.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jsonrainbow/json-schema.git",
-                "reference": "a38c6198d53b09c0702f440585a4f4a5d9137bd9"
+                "reference": "460c0a09407f4d0d47679476745c4185ff0f1961"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jsonrainbow/json-schema/zipball/a38c6198d53b09c0702f440585a4f4a5d9137bd9",
-                "reference": "a38c6198d53b09c0702f440585a4f4a5d9137bd9",
+                "url": "https://api.github.com/repos/jsonrainbow/json-schema/zipball/460c0a09407f4d0d47679476745c4185ff0f1961",
+                "reference": "460c0a09407f4d0d47679476745c4185ff0f1961",
                 "shasum": ""
             },
             "require": {
-                "icecave/parity": "1.0.0",
-                "marc-mabe/php-enum": "^2.0 || ^3.0 || ^4.0",
-                "php": ">=5.3.3"
+                "ext-json": "*",
+                "icecave/parity": "^3.0",
+                "marc-mabe/php-enum": "^4.0",
+                "php": "^7.2 || ^8.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "~2.2.20 || ~2.19.0",
+                "friendsofphp/php-cs-fixer": "3.3.0",
                 "json-schema/json-schema-test-suite": "1.2.0",
-                "phpunit/phpunit": "^4.8.35"
+                "marc-mabe/php-enum-phpstan": "^2.0",
+                "phpspec/prophecy": "^1.19",
+                "phpstan/phpstan": "^1.12",
+                "phpunit/phpunit": "^8.5"
             },
             "bin": [
                 "bin/validate-json"
@@ -2545,9 +2544,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jsonrainbow/json-schema/issues",
-                "source": "https://github.com/jsonrainbow/json-schema/tree/6.0.0"
+                "source": "https://github.com/jsonrainbow/json-schema/tree/6.2.0"
             },
-            "time": "2024-07-30T17:49:21+00:00"
+            "time": "2025-02-26T20:58:15+00:00"
         },
         {
             "name": "localheinz/diff",
@@ -2684,7 +2683,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.0.0 <8.3.0"
+        "php": ">=8.1.0"
     },
     "platform-dev": {},
     "plugin-api-version": "2.6.0"

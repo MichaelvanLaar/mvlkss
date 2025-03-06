@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the JsonSchema package.
  *
@@ -23,7 +25,7 @@ class ConstConstraint extends Constraint
     /**
      * {@inheritdoc}
      */
-    public function check(&$element, $schema = null, JsonPointer $path = null, $i = null)
+    public function check(&$element, $schema = null, ?JsonPointer $path = null, $i = null): void
     {
         // Only validate const if the attribute exists
         if ($element instanceof UndefinedConstraint && (!isset($schema->required) || !$schema->required)) {
@@ -44,6 +46,6 @@ class ConstConstraint extends Constraint
             return;
         }
 
-        $this->addError(ConstraintError::CONSTANT(), $path, array('const' => $schema->const));
+        $this->addError(ConstraintError::CONSTANT(), $path, ['const' => $schema->const]);
     }
 }

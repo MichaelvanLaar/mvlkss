@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the JsonSchema package.
  *
@@ -11,6 +13,7 @@ namespace JsonSchema;
 
 use JsonSchema\Constraints\BaseConstraint;
 use JsonSchema\Constraints\Constraint;
+use JsonSchema\Constraints\TypeCheck\LooseTypeCheck;
 
 /**
  * A JsonSchema Constraint
@@ -22,12 +25,12 @@ use JsonSchema\Constraints\Constraint;
  */
 class Validator extends BaseConstraint
 {
-    const SCHEMA_MEDIA_TYPE = 'application/schema+json';
+    public const SCHEMA_MEDIA_TYPE = 'application/schema+json';
 
-    const ERROR_NONE                    = 0x00000000;
-    const ERROR_ALL                     = 0xFFFFFFFF;
-    const ERROR_DOCUMENT_VALIDATION     = 0x00000001;
-    const ERROR_SCHEMA_VALIDATION       = 0x00000002;
+    public const ERROR_NONE                    = 0x00000000;
+    public const ERROR_ALL                     = 0xFFFFFFFF;
+    public const ERROR_DOCUMENT_VALIDATION     = 0x00000001;
+    public const ERROR_SCHEMA_VALIDATION       = 0x00000002;
 
     /**
      * Validates the given data against the schema and returns an object containing the results
@@ -35,6 +38,15 @@ class Validator extends BaseConstraint
      * The validation works as defined by the schema proposal in http://json-schema.org.
      *
      * Note that the first argument is passed by reference, so you must pass in a variable.
+     *
+     * @param mixed $value
+     * @param mixed $schema
+     * @param int   $checkMode
+     *
+     * @return int
+     *
+     * @phpstan-param int-mask-of<Constraint::CHECK_MODE_*> $checkMode
+     * @phpstan-return int-mask-of<Validator::ERROR_*>
      */
     public function validate(&$value, $schema = null, $checkMode = null)
     {
@@ -48,10 +60,9 @@ class Validator extends BaseConstraint
         }
 
         // add provided schema to SchemaStorage with internal URI to allow internal $ref resolution
-        if (is_object($schema) && property_exists($schema, 'id')) {
-            $schemaURI = $schema->id;
-        } else {
-            $schemaURI = SchemaStorage::INTERNAL_PROVIDED_SCHEMA_URI;
+        $schemaURI = SchemaStorage::INTERNAL_PROVIDED_SCHEMA_URI;
+        if (LooseTypeCheck::propertyExists($schema, 'id')) {
+            $schemaURI = LooseTypeCheck::propertyGet($schema, 'id');
         }
         $this->factory->getSchemaStorage()->addSchema($schemaURI, $schema);
 

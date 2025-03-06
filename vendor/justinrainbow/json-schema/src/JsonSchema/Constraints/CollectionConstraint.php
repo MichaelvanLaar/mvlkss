@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the JsonSchema package.
  *
@@ -23,16 +25,16 @@ class CollectionConstraint extends Constraint
     /**
      * {@inheritdoc}
      */
-    public function check(&$value, $schema = null, JsonPointer $path = null, $i = null)
+    public function check(&$value, $schema = null, ?JsonPointer $path = null, $i = null): void
     {
         // Verify minItems
         if (isset($schema->minItems) && count($value) < $schema->minItems) {
-            $this->addError(ConstraintError::MIN_ITEMS(), $path, array('minItems' => $schema->minItems));
+            $this->addError(ConstraintError::MIN_ITEMS(), $path, ['minItems' => $schema->minItems]);
         }
 
         // Verify maxItems
         if (isset($schema->maxItems) && count($value) > $schema->maxItems) {
-            $this->addError(ConstraintError::MAX_ITEMS(), $path, array('maxItems' => $schema->maxItems));
+            $this->addError(ConstraintError::MAX_ITEMS(), $path, ['maxItems' => $schema->maxItems]);
         }
 
         // Verify uniqueItems
@@ -57,12 +59,11 @@ class CollectionConstraint extends Constraint
     /**
      * Validates the items
      *
-     * @param array            $value
-     * @param \stdClass        $schema
-     * @param JsonPointer|null $path
-     * @param string           $i
+     * @param array     $value
+     * @param \stdClass $schema
+     * @param string    $i
      */
-    protected function validateItems(&$value, $schema = null, JsonPointer $path = null, $i = null)
+    protected function validateItems(&$value, $schema = null, ?JsonPointer $path = null, $i = null): void
     {
         if (is_object($schema->items)) {
             // just one type definition for the whole array
@@ -101,11 +102,11 @@ class CollectionConstraint extends Constraint
                             $this->addError(
                                 ConstraintError::ADDITIONAL_ITEMS(),
                                 $path,
-                                array(
+                                [
                                     'item' => $i,
                                     'property' => $k,
                                     'additionalItems' => $schema->additionalItems
-                                )
+                                ]
                             );
                         }
                     } else {
