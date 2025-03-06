@@ -27,7 +27,7 @@
     "source": "https://github.com/getkirby/starterkit"
   },
   "require": {
-    "php": ">=8.1.0 <=8.3.0",
+    "php": ">=8.1.0",
     "adspectus/date-extended": "^1.1",
     "afbora/kirby-minify-html": "^2.0",
     "bnomei/kirby3-robots-txt": "^1.7",
