@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [6.2.1] - 2025-03-06
+### Fixed
+- allow items: true to pass validation ([#801](https://github.com/jsonrainbow/json-schema/pull/801))
+
+### Changed
+- Include actual count in collection constraint errors ([#797](https://github.com/jsonrainbow/json-schema/pull/797))
+
 ## [6.2.0] - 2025-02-26
 ### Added
 - Welcome first time contributors ([#782](https://github.com/jsonrainbow/json-schema/pull/782))
