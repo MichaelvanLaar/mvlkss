@@ -1,7 +1,8 @@
+/** @type {import('postcss-load-config').Config} */
 module.exports = ({ options, env }) => ({
-  plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
-    cssnano: env === "production" ? options.cssnano : false,
-  },
+  plugins: [
+    require("@tailwindcss/postcss")(),
+    require("autoprefixer")(),
+    env === "production" ? require("cssnano")(options.cssnano) : false,
+  ].filter(Boolean),
 });
