@@ -7,9 +7,116 @@
  * =============================================================================
  */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@config '../../tailwind.config.js';
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+@utility site-logo-container {
+  /**
+   * ---------------------------------------------------------------------------
+   * Site logo
+   * ---------------------------------------------------------------------------
+   */
+
+  /* Hack to prevent SVG images from unwanted cropping */
+  & svg {
+    @apply h-[calc(var(--site-logo-height)_+_0.125rem)] w-[calc(var(--site-logo-height)_*_var(--site-logo-aspect-ratio))] print:h-[calc(var(--site-logo-initial-height)_+_0.125rem)] print:w-[calc(var(--site-logo-initial-height)_*_var(--site-logo-aspect-ratio))];
+  }
+}
+
+@utility main-menu-open {
+  /* Hide screen reader links from normal browsers
+     (This part can’t be done using Tailwind CSS.) */
+  :is(&, .main-menu-close) span {
+    clip-path: inset(100%);
+  }
+
+  /* When the mobile menu is open, hide the open link from screen readers */
+  :is(#main-menu-state:checked, #main-menu-state:target) ~ nav & {
+    @apply hidden;
+  }
+}
+
+@utility main-menu-close {
+  /* Hide screen reader links from normal browsers
+     (This part can’t be done using Tailwind CSS.) */
+  :is(.main-menu-open, &) span {
+    clip-path: inset(100%);
+  }
+
+  /* When the mobile menu is open, show the close link for screen readers */
+  :is(#main-menu-state:checked, #main-menu-state:target) ~ nav & {
+    @apply block;
+  }
+}
+
+@utility nav-toggle-icon {
+  /* Menu toggle icon animation */
+  :is(#main-menu-state:checked, #main-menu-state:target)
+    ~ nav
+    &
+    span:nth-child(1) {
+    @apply left-1/2 top-[calc(50%_-_(0.375rem_/_2))] w-0;
+  }
+
+  :is(#main-menu-state:checked, #main-menu-state:target)
+    ~ nav
+    &
+    span:nth-child(4) {
+    @apply left-1/2 top-[calc(50%_-_(0.375rem_/_2))] w-0;
+  }
+  :is(#main-menu-state:checked, #main-menu-state:target)
+    ~ nav
+    &
+    span:nth-child(2) {
+    @apply rotate-45;
+  }
+  :is(#main-menu-state:checked, #main-menu-state:target)
+    ~ nav
+    &
+    span:nth-child(3) {
+    @apply -rotate-45;
+  }
+}
+
+@utility print-only {
+  /**
+   * ---------------------------------------------------------------------------
+   * Print view
+   * ---------------------------------------------------------------------------
+   */
+
+  /* Element which is only displayed when a page is printed */
+  @apply screen:invisible screen:hidden;
+}
+
+@utility print-links-footer {
+  /* Box for link URL footnotes in print view of a page */
+  @apply prose prose-sm prose-black clear-both mt-large max-w-none break-inside-avoid-page border border-solid border-black px-medium prose-h3:mt-medium;
+}
+
+@utility print-links-footer-list {
+  /* Ordered list in with link URL footnotes in print view of a page */
+  @apply mb-medium list-decimal;
+}
 
 /* Webfonts are included in the `header.php` snippet. */
 
@@ -64,16 +171,6 @@
 }
 
 @layer components {
-  /**
-   * ---------------------------------------------------------------------------
-   * Site logo
-   * ---------------------------------------------------------------------------
-   */
-
-  /* Hack to prevent SVG images from unwanted cropping */
-  .site-logo-container svg {
-    @apply h-[calc(var(--site-logo-height)_+_0.125rem)] w-[calc(var(--site-logo-height)_*_var(--site-logo-aspect-ratio))] print:h-[calc(var(--site-logo-initial-height)_+_0.125rem)] print:w-[calc(var(--site-logo-initial-height)_*_var(--site-logo-aspect-ratio))];
-  }
 
   /**
    * ---------------------------------------------------------------------------
@@ -84,69 +181,6 @@
   /* Show the mobile menu */
   :is(#main-menu-state:checked, #main-menu-state:target) ~ nav ul {
     @apply visible opacity-100;
-  }
-
-  /* Hide screen reader links from normal browsers
-     (This part can’t be done using Tailwind CSS.) */
-  :is(.main-menu-open, .main-menu-close) span {
-    clip-path: inset(100%);
-  }
-
-  /* When the mobile menu is open, show the close link for screen readers */
-  :is(#main-menu-state:checked, #main-menu-state:target)
-    ~ nav
-    .main-menu-close {
-    @apply block;
-  }
-
-  /* When the mobile menu is open, hide the open link from screen readers */
-  :is(#main-menu-state:checked, #main-menu-state:target) ~ nav .main-menu-open {
-    @apply hidden;
-  }
-
-  /* Menu toggle icon animation */
-  :is(#main-menu-state:checked, #main-menu-state:target)
-    ~ nav
-    .nav-toggle-icon
-    span:nth-child(1),
-  :is(#main-menu-state:checked, #main-menu-state:target)
-    ~ nav
-    .nav-toggle-icon
-    span:nth-child(4) {
-    @apply left-1/2 top-[calc(50%_-_(0.375rem_/_2))] w-0;
-  }
-  :is(#main-menu-state:checked, #main-menu-state:target)
-    ~ nav
-    .nav-toggle-icon
-    span:nth-child(2) {
-    @apply rotate-45;
-  }
-  :is(#main-menu-state:checked, #main-menu-state:target)
-    ~ nav
-    .nav-toggle-icon
-    span:nth-child(3) {
-    @apply -rotate-45;
-  }
-
-  /**
-   * ---------------------------------------------------------------------------
-   * Print view
-   * ---------------------------------------------------------------------------
-   */
-
-  /* Element which is only displayed when a page is printed */
-  .print-only {
-    @apply screen:invisible screen:hidden;
-  }
-
-  /* Box for link URL footnotes in print view of a page */
-  .print-links-footer {
-    @apply prose prose-sm prose-black clear-both mt-large max-w-none break-inside-avoid-page border border-solid border-black px-medium prose-h3:mt-medium;
-  }
-
-  /* Ordered list in with link URL footnotes in print view of a page */
-  .print-links-footer-list {
-    @apply mb-medium list-decimal;
   }
 }
 
