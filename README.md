@@ -6,29 +6,26 @@ If you need a pair programming buddy who knows the tech stack used in this proje
 
 ## Prerequisites
 
-The following must be installed on your machine:
+### Mandatory
+
+The following must be installed on your machine.
 
 - **Everything listed in the PHP section of the [Kirby CMS Requirements](https://getkirby.com/docs/guide/quickstart#requirements)**  
   Please note that for development purposes, you do not require any of the web servers listed in the requirements. Instead, utilize PHP’s built-in server when developing. However, one of the listed “real” webservers is essential when deploying the website.
-- **On the production server: [ImageMagick](https://imagemagick.org/) in its latest version**  
-  ImageMagick is a better choice for server-side image processing than the GD library. It is especially needed to create AVIF files. Therefore, in Kirby’s `config.php` ImageMagick is set up be used as thumbs driver – except in `localhost` environments (where GDLib is used because ImageMagick can cause problems on Windows machines).  
-  ImageMagick is the better choice for server-side image processing as opposed to GD Library. It is mainly necessary to generate AVIF files. Therefore it is set in the `config.php` of PHP that ImageMagick should be used - except in `localhost` environments (there GDLib is used, because otherwise there are problems on Windows machines).
-- **On the production server: [APC User Cache](https://www.php.net/apcu) as PHP module**  
-  While optional, using the `apcu` cache driver is recommended if available. **That’s why the `apcu` cache driver is already set in the site’s `config.php`.**  
-  If you prefer to use Kirby’s default filesystem cache driver, just change the cache configuration in `config.php` like this:
-
-    ```php
-        "cache" => [
-            "pages" => [
-                "active" => true,
-            ],
-        ],
-    ```
-
 - **On your development machine: [Composer](https://getcomposer.org/), a dependency manager for PHP**  
   Make sure all platform requirements are met by running the command `composer check-platform-reqs` after successfully installing Composer.
 - **On your development machine: [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/)**  
   All packages and dependencies in this repository are regularly updated to their latest versions.
+
+### Optional
+
+The following requirements are optional on both your development machine and the production server. Proper fallbacks are in place if these optional requirements are not met.
+
+- **[ImageMagick](https://imagemagick.org/) in its latest version**  
+  ImageMagick is a better choice than the GD library for server-side image processing. It is especially needed for creating AVIF files. If ImageMagick cannot be used, the GD library is automatically used as a fallback.
+- **[APC User Cache](https://www.php.net/apcu) as PHP module**  
+  It is recommended to use the `apcu` page cache driver if available. If the APC user cache is not available, the default file system cache driver is automatically used as a fallback.  
+  Note: Typically, page cache should be disabled during development and is therefore disabled in `config.localhost.php`.
 
 ## Install
 

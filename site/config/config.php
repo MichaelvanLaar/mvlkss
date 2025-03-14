@@ -216,7 +216,20 @@ $spacingUtilityClasses = [
 
 require_once "site/config/thumb-config.php";
 
-$thumbConfig = getThumbConfig();
+$thumbDriver =
+    class_exists("Imagick") && \Imagick::queryFormats("AVIF") !== false
+        ? "im"
+        : "gd";
+$thumbConfig = getThumbConfig($thumbDriver);
+
+/**
+ * -----------------------------------------------------------------------------
+ * Pages cache driver
+ * -----------------------------------------------------------------------------
+ */
+
+$pagesCacheDriver =
+    function_exists("apcu_enabled") && apcu_enabled() ? "apcu" : "file";
 
 /**
  * -----------------------------------------------------------------------------
@@ -229,7 +242,7 @@ return [
     "cache" => [
         "pages" => [
             "active" => true,
-            "type" => "apcu",
+            "type" => $pagesCacheDriver,
         ],
     ],
     "debug" => false,
@@ -273,7 +286,7 @@ return [
         "spacing-utility-classes" => $spacingUtilityClasses,
     ],
     "thumbs" => [
-        "driver" => "im",
+        "driver" => $thumbDriver,
         "srcsets" => $thumbConfig["thumbSrcsets"],
         "presets" => $thumbConfig["thumbPresets"],
     ],

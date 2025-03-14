@@ -9,19 +9,6 @@
 
 /**
  * -----------------------------------------------------------------------------
- * Thumbnail Srcsets and Presets
- *
- * The configuration for thumbnail creation can be found in the file
- * `site/config/thumb-config.php`.
- * -----------------------------------------------------------------------------
- */
-
-require_once "site/config/thumb-config.php";
-
-$thumbConfig = getThumbConfig("gd");
-
-/**
- * -----------------------------------------------------------------------------
  * Return Configuration
  * -----------------------------------------------------------------------------
  */
@@ -34,14 +21,4 @@ return [
         ],
     ],
     "debug" => true,
-    "site-constants" => [
-        "thumb-widths" => $thumbConfig["thumbWidths"],
-        "thumb-srcsets" => $thumbConfig["thumbSrcsets"],
-        "thumb-srcsets-selector" => $thumbConfig["thumbSrcsetsSelector"],
-    ],
-    "thumbs" => [
-        "driver" => "gd",
-        "srcsets" => $thumbConfig["thumbSrcsets"],
-        "presets" => $thumbConfig["thumbPresets"],
-    ],
 ];
