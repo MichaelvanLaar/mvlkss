@@ -1,0 +1,502 @@
+/**
+ * =============================================================================
+ * Main stylesheet using Tailwind CSS
+ *
+ * Use build process (see npm script in package.json) to create the final CSS
+ * file which uses ony the classes that are actually used in the PHP templates.
+ * =============================================================================
+ */
+
+/* PLEASE NOTE: Webfonts are included in the `header.php` snippet. */
+
+/**
+  * -----------------------------------------------------------------------------
+  * Tailwind CSS configuration
+  * -----------------------------------------------------------------------------
+  */
+
+@import "tailwindcss";
+
+/* Add source directories for content detection */
+@source "./site/**/*.php" "./src/**/*.js";
+
+/* Define theme customizations */
+@theme {
+  /* Custom font family */
+  --font-primary: "Nunito Sans", sans-serif;
+
+  /* Custom spacing values */
+  --spacing-small: 0.75rem;
+  --spacing-medium: 1.5rem;
+  --spacing-large: 3rem;
+  --spacing-xlarge: 6rem;
+}
+
+/* Register required plugins */
+@plugin "@tailwindcss/container-queries";
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/typography";
+
+/* Custom variants for JS and no-JS */
+@custom-variant js (&:where(.js *));
+@custom-variant no-js (&:where(.no-js *));
+
+/* Typography customizations */
+@theme {
+  /* Define typography color variables for black theme */
+  --typography-black-body: #000000;
+  --typography-black-headings: #000000;
+  --typography-black-lead: #000000;
+  --typography-black-links: #000000;
+  --typography-black-bold: #000000;
+  --typography-black-counters: #000000;
+  --typography-black-bullets: #000000;
+  --typography-black-hr: #000000;
+  --typography-black-quotes: #000000;
+  --typography-black-quote-borders: #000000;
+  --typography-black-captions: #000000;
+  --typography-black-code: #000000;
+  --typography-black-pre-code: #ffffff;
+  --typography-black-pre-bg: #000000;
+  --typography-black-th-borders: #000000;
+  --typography-black-td-borders: #000000;
+  --typography-black-invert-body: #ffffff;
+  --typography-black-invert-headings: #ffffff;
+  --typography-black-invert-lead: #ffffff;
+  --typography-black-invert-links: #ffffff;
+  --typography-black-invert-bold: #ffffff;
+  --typography-black-invert-counters: #ffffff;
+  --typography-black-invert-bullets: #ffffff;
+  --typography-black-invert-hr: #ffffff;
+  --typography-black-invert-quotes: #ffffff;
+  --typography-black-invert-quote-borders: #ffffff;
+  --typography-black-invert-captions: #ffffff;
+  --typography-black-invert-code: #ffffff;
+  --typography-black-invert-pre-code: #ffffff;
+  --typography-black-invert-pre-bg: #000000;
+  --typography-black-invert-th-borders: #ffffff;
+  --typography-black-invert-td-borders: #ffffff;
+
+  /* Define typography color variables for MvLKSS theme */
+  --typography-mvlkss-body: theme(colors.neutral.700);
+  --typography-mvlkss-headings: theme(colors.neutral.900);
+  --typography-mvlkss-lead: theme(colors.neutral.600);
+  --typography-mvlkss-links: theme(colors.blue.700);
+  --typography-mvlkss-bold: theme(colors.neutral.900);
+  --typography-mvlkss-counters: theme(colors.neutral.500);
+  --typography-mvlkss-bullets: theme(colors.neutral.300);
+  --typography-mvlkss-hr: theme(colors.neutral.200);
+  --typography-mvlkss-quotes: theme(colors.neutral.900);
+  --typography-mvlkss-quote-borders: theme(colors.neutral.200);
+  --typography-mvlkss-captions: theme(colors.neutral.500);
+  --typography-mvlkss-kbd: theme(colors.neutral.900);
+  --typography-mvlkss-kbd-shadows: rgb(from theme(colors.neutral.900));
+  --typography-mvlkss-code: theme(colors.neutral.900);
+  --typography-mvlkss-pre-code: theme(colors.neutral.200);
+  --typography-mvlkss-pre-bg: theme(colors.neutral.800);
+  --typography-mvlkss-th-borders: theme(colors.neutral.300);
+  --typography-mvlkss-td-borders: theme(colors.neutral.200);
+  --typography-mvlkss-invert-body: theme(colors.neutral.300);
+  --typography-mvlkss-invert-headings: theme(colors.white);
+  --typography-mvlkss-invert-lead: theme(colors.neutral.400);
+  --typography-mvlkss-invert-links: theme(colors.blue.300);
+  --typography-mvlkss-invert-bold: theme(colors.white);
+  --typography-mvlkss-invert-counters: theme(colors.neutral.400);
+  --typography-mvlkss-invert-bullets: theme(colors.neutral.600);
+  --typography-mvlkss-invert-hr: theme(colors.neutral.700);
+  --typography-mvlkss-invert-quotes: theme(colors.neutral.100);
+  --typography-mvlkss-invert-quote-borders: theme(colors.neutral.700);
+  --typography-mvlkss-invert-captions: theme(colors.neutral.400);
+  --typography-mvlkss-invert-kbd: theme(colors.white);
+  --typography-mvlkss-invert-kbd-shadows: rgb(from theme(colors.white));
+  --typography-mvlkss-invert-code: theme(colors.white);
+  --typography-mvlkss-invert-pre-code: theme(colors.neutral.300);
+  --typography-mvlkss-invert-pre-bg: rgb(0 0 0 / 50%);
+  --typography-mvlkss-invert-th-borders: theme(colors.neutral.600);
+  --typography-mvlkss-invert-td-borders: theme(colors.neutral.700);
+
+  /* Define typography color variables for white theme */
+  --typography-white-body: #ffffff;
+  --typography-white-headings: #ffffff;
+  --typography-white-lead: #ffffff;
+  --typography-white-links: #ffffff;
+  --typography-white-bold: #ffffff;
+  --typography-white-counters: #ffffff;
+  --typography-white-bullets: #ffffff;
+  --typography-white-hr: #ffffff;
+  --typography-white-quotes: #ffffff;
+  --typography-white-quote-borders: #ffffff;
+  --typography-white-captions: #ffffff;
+  --typography-white-code: #ffffff;
+  --typography-white-pre-code: #ffffff;
+  --typography-white-pre-bg: #000000;
+  --typography-white-th-borders: #ffffff;
+  --typography-white-td-borders: #ffffff;
+  --typography-white-invert-body: #000000;
+  --typography-white-invert-headings: #000000;
+  --typography-white-invert-lead: #000000;
+  --typography-white-invert-links: #000000;
+  --typography-white-invert-bold: #000000;
+  --typography-white-invert-counters: #000000;
+  --typography-white-invert-bullets: #000000;
+  --typography-white-invert-hr: #000000;
+  --typography-white-invert-quotes: #000000;
+  --typography-white-invert-quote-borders: #000000;
+  --typography-white-invert-captions: #000000;
+  --typography-white-invert-code: #000000;
+  --typography-white-invert-pre-code: #ffffff;
+  --typography-white-invert-pre-bg: #000000;
+  --typography-white-invert-th-borders: #000000;
+  --typography-white-invert-td-borders: #000000;
+}
+
+/* Register prose modifier utilities */
+@utility prose-black {
+  --tw-prose-body: var(--typography-black-body);
+  --tw-prose-headings: var(--typography-black-headings);
+  --tw-prose-lead: var(--typography-black-lead);
+  --tw-prose-links: var(--typography-black-links);
+  --tw-prose-bold: var(--typography-black-bold);
+  --tw-prose-counters: var(--typography-black-counters);
+  --tw-prose-bullets: var(--typography-black-bullets);
+  --tw-prose-hr: var(--typography-black-hr);
+  --tw-prose-quotes: var(--typography-black-quotes);
+  --tw-prose-quote-borders: var(--typography-black-quote-borders);
+  --tw-prose-captions: var(--typography-black-captions);
+  --tw-prose-code: var(--typography-black-code);
+  --tw-prose-pre-code: var(--typography-black-pre-code);
+  --tw-prose-pre-bg: var(--typography-black-pre-bg);
+  --tw-prose-th-borders: var(--typography-black-th-borders);
+  --tw-prose-td-borders: var(--typography-black-td-borders);
+  --tw-prose-invert-body: var(--typography-black-invert-body);
+  --tw-prose-invert-headings: var(--typography-black-invert-headings);
+  --tw-prose-invert-lead: var(--typography-black-invert-lead);
+  --tw-prose-invert-links: var(--typography-black-invert-links);
+  --tw-prose-invert-bold: var(--typography-black-invert-bold);
+  --tw-prose-invert-counters: var(--typography-black-invert-counters);
+  --tw-prose-invert-bullets: var(--typography-black-invert-bullets);
+  --tw-prose-invert-hr: var(--typography-black-invert-hr);
+  --tw-prose-invert-quotes: var(--typography-black-invert-quotes);
+  --tw-prose-invert-quote-borders: var(--typography-black-invert-quote-borders);
+  --tw-prose-invert-captions: var(--typography-black-invert-captions);
+  --tw-prose-invert-code: var(--typography-black-invert-code);
+  --tw-prose-invert-pre-code: var(--typography-black-invert-pre-code);
+  --tw-prose-invert-pre-bg: var(--typography-black-invert-pre-bg);
+  --tw-prose-invert-th-borders: var(--typography-black-invert-th-borders);
+  --tw-prose-invert-td-borders: var(--typography-black-invert-td-borders);
+}
+
+@utility prose-mvlkss {
+  --tw-prose-body: var(--typography-mvlkss-body);
+  --tw-prose-headings: var(--typography-mvlkss-headings);
+  --tw-prose-lead: var(--typography-mvlkss-lead);
+  --tw-prose-links: var(--typography-mvlkss-links);
+  --tw-prose-bold: var(--typography-mvlkss-bold);
+  --tw-prose-counters: var(--typography-mvlkss-counters);
+  --tw-prose-bullets: var(--typography-mvlkss-bullets);
+  --tw-prose-hr: var(--typography-mvlkss-hr);
+  --tw-prose-quotes: var(--typography-mvlkss-quotes);
+  --tw-prose-quote-borders: var(--typography-mvlkss-quote-borders);
+  --tw-prose-captions: var(--typography-mvlkss-captions);
+  --tw-prose-kbd: var(--typography-mvlkss-kbd);
+  --tw-prose-kbd-shadows: var(--typography-mvlkss-kbd-shadows);
+  --tw-prose-code: var(--typography-mvlkss-code);
+  --tw-prose-pre-code: var(--typography-mvlkss-pre-code);
+  --tw-prose-pre-bg: var(--typography-mvlkss-pre-bg);
+  --tw-prose-th-borders: var(--typography-mvlkss-th-borders);
+  --tw-prose-td-borders: var(--typography-mvlkss-td-borders);
+  --tw-prose-invert-body: var(--typography-mvlkss-invert-body);
+  --tw-prose-invert-headings: var(--typography-mvlkss-invert-headings);
+  --tw-prose-invert-lead: var(--typography-mvlkss-invert-lead);
+  --tw-prose-invert-links: var(--typography-mvlkss-invert-links);
+  --tw-prose-invert-bold: var(--typography-mvlkss-invert-bold);
+  --tw-prose-invert-counters: var(--typography-mvlkss-invert-counters);
+  --tw-prose-invert-bullets: var(--typography-mvlkss-invert-bullets);
+  --tw-prose-invert-hr: var(--typography-mvlkss-invert-hr);
+  --tw-prose-invert-quotes: var(--typography-mvlkss-invert-quotes);
+  --tw-prose-invert-quote-borders: var(
+    --typography-mvlkss-invert-quote-borders
+  );
+  --tw-prose-invert-captions: var(--typography-mvlkss-invert-captions);
+  --tw-prose-invert-kbd: var(--typography-mvlkss-invert-kbd);
+  --tw-prose-invert-kbd-shadows: var(--typography-mvlkss-invert-kbd-shadows);
+  --tw-prose-invert-code: var(--typography-mvlkss-invert-code);
+  --tw-prose-invert-pre-code: var(--typography-mvlkss-invert-pre-code);
+  --tw-prose-invert-pre-bg: var(--typography-mvlkss-invert-pre-bg);
+  --tw-prose-invert-th-borders: var(--typography-mvlkss-invert-th-borders);
+  --tw-prose-invert-td-borders: var(--typography-mvlkss-invert-td-borders);
+}
+
+@utility prose-white {
+  --tw-prose-body: var(--typography-white-body);
+  --tw-prose-headings: var(--typography-white-headings);
+  --tw-prose-lead: var(--typography-white-lead);
+  --tw-prose-links: var(--typography-white-links);
+  --tw-prose-bold: var(--typography-white-bold);
+  --tw-prose-counters: var(--typography-white-counters);
+  --tw-prose-bullets: var(--typography-white-bullets);
+  --tw-prose-hr: var(--typography-white-hr);
+  --tw-prose-quotes: var(--typography-white-quotes);
+  --tw-prose-quote-borders: var(--typography-white-quote-borders);
+  --tw-prose-captions: var(--typography-white-captions);
+  --tw-prose-code: var(--typography-white-code);
+  --tw-prose-pre-code: var(--typography-white-pre-code);
+  --tw-prose-pre-bg: var(--typography-white-pre-bg);
+  --tw-prose-th-borders: var(--typography-white-th-borders);
+  --tw-prose-td-borders: var(--typography-white-td-borders);
+  --tw-prose-invert-body: var(--typography-white-invert-body);
+  --tw-prose-invert-headings: var(--typography-white-invert-headings);
+  --tw-prose-invert-lead: var(--typography-white-invert-lead);
+  --tw-prose-invert-links: var(--typography-white-invert-links);
+  --tw-prose-invert-bold: var(--typography-white-invert-bold);
+  --tw-prose-invert-counters: var(--typography-white-invert-counters);
+  --tw-prose-invert-bullets: var(--typography-white-invert-bullets);
+  --tw-prose-invert-hr: var(--typography-white-invert-hr);
+  --tw-prose-invert-quotes: var(--typography-white-invert-quotes);
+  --tw-prose-invert-quote-borders: var(--typography-white-invert-quote-borders);
+  --tw-prose-invert-captions: var(--typography-white-invert-captions);
+  --tw-prose-invert-code: var(--typography-white-invert-code);
+  --tw-prose-invert-pre-code: var(--typography-white-invert-pre-code);
+  --tw-prose-invert-pre-bg: var(--typography-white-invert-pre-bg);
+  --tw-prose-invert-th-borders: var(--typography-white-invert-th-borders);
+  --tw-prose-invert-td-borders: var(--typography-white-invert-td-borders);
+}
+
+/* Define screen media type in theme */
+@theme {
+  --breakpoint-screen: screen;
+}
+
+/**
+  * -----------------------------------------------------------------------------
+  * Page header and navigation
+  * -----------------------------------------------------------------------------
+  */
+
+@utility site-logo-container {
+  /* Hack to prevent SVG images from unwanted cropping when used as logo */
+  & svg {
+    @apply h-[calc(var(--site-logo-height)_+_0.125rem)] w-[calc(var(--site-logo-height)_*_var(--site-logo-aspect-ratio))] print:h-[calc(var(--site-logo-initial-height)_+_0.125rem)] print:w-[calc(var(--site-logo-initial-height)_*_var(--site-logo-aspect-ratio))];
+  }
+}
+
+@utility main-menu-open {
+  /* Hide screen reader links from normal browsers
+     (This part can’t be done using Tailwind CSS.) */
+  :is(&, .main-menu-close) span {
+    clip-path: inset(100%);
+  }
+
+  /* When the mobile menu is open, hide the open link from screen readers */
+  :is(#main-menu-state:checked, #main-menu-state:target) ~ nav & {
+    @apply hidden;
+  }
+}
+
+@utility main-menu-close {
+  /* Hide screen reader links from normal browsers
+     (This part can’t be done using Tailwind CSS.) */
+  :is(.main-menu-open, &) span {
+    clip-path: inset(100%);
+  }
+
+  /* When the mobile menu is open, show the close link for screen readers */
+  :is(#main-menu-state:checked, #main-menu-state:target) ~ nav & {
+    @apply block;
+  }
+}
+
+@utility nav-toggle-icon {
+  /* Menu toggle icon animation */
+  :is(#main-menu-state:checked, #main-menu-state:target)
+    ~ nav
+    &
+    span:nth-child(1) {
+    @apply top-[calc(50%_-_(0.375rem_/_2))] left-1/2 w-0;
+  }
+
+  :is(#main-menu-state:checked, #main-menu-state:target)
+    ~ nav
+    &
+    span:nth-child(4) {
+    @apply top-[calc(50%_-_(0.375rem_/_2))] left-1/2 w-0;
+  }
+  :is(#main-menu-state:checked, #main-menu-state:target)
+    ~ nav
+    &
+    span:nth-child(2) {
+    @apply rotate-45;
+  }
+  :is(#main-menu-state:checked, #main-menu-state:target)
+    ~ nav
+    &
+    span:nth-child(3) {
+    @apply -rotate-45;
+  }
+}
+
+/**
+  * -----------------------------------------------------------------------------
+  * Print view
+  * -----------------------------------------------------------------------------
+  */
+
+@utility print-only {
+  /* Element which is only displayed when a page is printed */
+  @apply screen:invisible screen:hidden;
+}
+
+@utility print-links-footer {
+  /* Box for link URL footnotes in print view of a page */
+  @apply prose prose-sm prose-black mt-large px-medium prose-h3:mt-medium clear-both max-w-none break-inside-avoid-page border border-solid border-black;
+}
+
+@utility print-links-footer-list {
+  /* Ordered list in with link URL footnotes in print view of a page */
+  @apply mb-medium list-decimal;
+}
+
+@layer base {
+  /**
+   * ---------------------------------------------------------------------------
+   * Scrollbar visibility
+   * ---------------------------------------------------------------------------
+   */
+
+  /* Always display the vertical scrollbar
+     This prevents unwanted horizontal layout shifts when loading a page with
+     very short content after a page with long content. */
+
+  html {
+    @apply overflow-y-scroll;
+  }
+
+  /**
+   * ---------------------------------------------------------------------------
+   * Fluid font size and zoom effect
+   * ---------------------------------------------------------------------------
+   */
+
+  html {
+    /* Implement a fluid font size based on viewport width with a minimum size
+       of 16px and a maximum of 22px. This also affects all relative size
+       specifications which are directly or indirectly based on the base font
+       size. The result is a zoom effect of the whole layout. */
+    font-size: clamp(1rem, calc(0.86rem + 0.55vw), 1.38rem);
+  }
+
+  /**
+   * ---------------------------------------------------------------------------
+   * Default font settings
+   * ---------------------------------------------------------------------------
+   */
+
+  html {
+    @apply font-primary;
+  }
+
+  /**
+   * ---------------------------------------------------------------------------
+   * Global link hover effect
+   * ---------------------------------------------------------------------------
+   */
+
+  a {
+    @apply hover:brightness-125 hover:transition-all;
+  }
+}
+
+@layer components {
+  /**
+   * ---------------------------------------------------------------------------
+   * Main menu (mobile)
+   * ---------------------------------------------------------------------------
+   */
+
+  /* Show the mobile menu */
+  :is(#main-menu-state:checked, #main-menu-state:target) ~ nav ul {
+    @apply visible opacity-100;
+  }
+}
+
+/**
+ * -----------------------------------------------------------------------------
+ * Row container
+ * -----------------------------------------------------------------------------
+ */
+
+/* Centered container with a width of 6xl (see Tailwind CSS documentation for
+    details) */
+.row-container,
+.row-container-default {
+  @apply px-medium lg:px-large mx-auto w-full max-w-6xl print:px-0;
+}
+
+/* Full width container */
+.row-container-full {
+  @apply px-medium lg:px-large w-full print:px-0;
+}
+
+/**
+ * -----------------------------------------------------------------------------
+ * Helper classes
+ * -----------------------------------------------------------------------------
+ */
+
+/* Centered text of block elements in a layout row or grid layout row */
+[data-page-builder-element-type="layout-row"].row-text-center
+  > div
+  > div
+  > div
+  > p,
+[data-page-builder-element-type="layout-row"].row-text-center
+  > div
+  > div
+  > div
+  > h1,
+[data-page-builder-element-type="layout-row"].row-text-center
+  > div
+  > div
+  > div
+  > h2,
+[data-page-builder-element-type="layout-row"].row-text-center
+  > div
+  > div
+  > div
+  > h3,
+[data-page-builder-element-type="layout-row"].row-text-center
+  > div
+  > div
+  > div
+  > h4,
+[data-page-builder-element-type="layout-row"].row-text-center
+  > div
+  > div
+  > div
+  > h5,
+[data-page-builder-element-type="layout-row"].row-text-center
+  > div
+  > div
+  > div
+  > h6,
+[data-page-builder-element-type="layout-row"].row-text-center
+  > div
+  > div
+  > div
+  > ul,
+[data-page-builder-element-type="layout-row"].row-text-center
+  > div
+  > div
+  > div
+  > ol,
+[data-page-builder-element-type="grid-row"].row-text-center > div > div > p,
+[data-page-builder-element-type="grid-row"].row-text-center > div > div > h1,
+[data-page-builder-element-type="grid-row"].row-text-center > div > div > h2,
+[data-page-builder-element-type="grid-row"].row-text-center > div > div > h3,
+[data-page-builder-element-type="grid-row"].row-text-center > div > div > h4,
+[data-page-builder-element-type="grid-row"].row-text-center > div > div > h5,
+[data-page-builder-element-type="grid-row"].row-text-center > div > div > h6,
+[data-page-builder-element-type="grid-row"].row-text-center > div > div > ul,
+[data-page-builder-element-type="grid-row"].row-text-center > div > div > ol {
+  @apply text-center;
+}
