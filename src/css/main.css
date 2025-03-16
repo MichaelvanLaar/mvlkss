@@ -47,7 +47,7 @@
 @custom-variant js (&:where(.js *));
 @custom-variant no-js (&:where(.no-js *));
 
-/* Prose modifier utilities */
+/* Prose modifier utilities – black variant */
 @utility prose-black {
   --tw-prose-body: var(--color-black);
   --tw-prose-headings: var(--color-black);
@@ -83,6 +83,7 @@
   --tw-prose-invert-td-borders: var(--color-white);
 }
 
+/* Prose modifier utilities – white variant */
 @utility prose-white {
   --tw-prose-body: var(--color-white);
   --tw-prose-headings: var(--color-white);
@@ -118,145 +119,82 @@
   --tw-prose-invert-td-borders: var(--color-black);
 }
 
+/* Prose modifier utilities – MvLKSS variant */
 @utility prose-mvlkss {
-  --tw-prose-body: theme(colors.neutral.700);
-  --tw-prose-headings: theme(colors.neutral.900);
-  --tw-prose-lead: theme(colors.neutral.600);
-  --tw-prose-links: theme(colors.blue.700);
-  --tw-prose-bold: theme(colors.neutral.900);
-  --tw-prose-counters: theme(colors.neutral.500);
-  --tw-prose-bullets: theme(colors.neutral.300);
-  --tw-prose-hr: theme(colors.neutral.200);
-  --tw-prose-quotes: theme(colors.neutral.900);
-  --tw-prose-quote-borders: theme(colors.neutral.200);
-  --tw-prose-captions: theme(colors.neutral.500);
-  --tw-prose-kbd: theme(colors.neutral.900);
-  --tw-prose-kbd-shadows: rgb(from theme(colors.neutral.900));
-  --tw-prose-code: theme(colors.neutral.900);
-  --tw-prose-pre-code: theme(colors.neutral.200);
-  --tw-prose-pre-bg: theme(colors.neutral.800);
-  --tw-prose-th-borders: theme(colors.neutral.300);
-  --tw-prose-td-borders: theme(colors.neutral.200);
-  --tw-prose-invert-body: theme(colors.neutral.300);
-  --tw-prose-invert-headings: theme(colors.white);
-  --tw-prose-invert-lead: theme(colors.neutral.400);
-  --tw-prose-invert-links: theme(colors.blue.300);
-  --tw-prose-invert-bold: theme(colors.white);
-  --tw-prose-invert-counters: theme(colors.neutral.400);
-  --tw-prose-invert-bullets: theme(colors.neutral.600);
-  --tw-prose-invert-hr: theme(colors.neutral.700);
-  --tw-prose-invert-quotes: theme(colors.neutral.100);
-  --tw-prose-invert-quote-borders: theme(colors.neutral.700);
-  --tw-prose-invert-captions: theme(colors.neutral.400);
-  --tw-prose-invert-kbd: theme(colors.white);
-  --tw-prose-invert-kbd-shadows: rgb(from theme(colors.white));
-  --tw-prose-invert-code: theme(colors.white);
-  --tw-prose-invert-pre-code: theme(colors.neutral.300);
+  --tw-prose-body: var(--color-neutral-700);
+  --tw-prose-headings: var(--color-neutral-900);
+  --tw-prose-lead: var(--color-neutral-600);
+  --tw-prose-links: var(--color-blue.700);
+  --tw-prose-bold: var(--color-neutral-900);
+  --tw-prose-counters: var(--color-neutral-500);
+  --tw-prose-bullets: var(--color-neutral-300);
+  --tw-prose-hr: var(--color-neutral-200);
+  --tw-prose-quotes: var(--color-neutral-900);
+  --tw-prose-quote-borders: var(--color-neutral-200);
+  --tw-prose-captions: var(--color-neutral-500);
+  --tw-prose-kbd: var(--color-neutral-900);
+  --tw-prose-kbd-shadows: rgb(from var(--color-neutral-900));
+  --tw-prose-code: var(--color-neutral-900);
+  --tw-prose-pre-code: var(--color-neutral-200);
+  --tw-prose-pre-bg: var(--color-neutral-800);
+  --tw-prose-th-borders: var(--color-neutral-300);
+  --tw-prose-td-borders: var(--color-neutral-200);
+  --tw-prose-invert-body: var(--color-neutral-300);
+  --tw-prose-invert-headings: var(--color-white);
+  --tw-prose-invert-lead: var(--color-neutral-400);
+  --tw-prose-invert-links: var(--color-blue.300);
+  --tw-prose-invert-bold: var(--color-white);
+  --tw-prose-invert-counters: var(--color-neutral-400);
+  --tw-prose-invert-bullets: var(--color-neutral-600);
+  --tw-prose-invert-hr: var(--color-neutral-700);
+  --tw-prose-invert-quotes: var(--color-neutral-100);
+  --tw-prose-invert-quote-borders: var(--color-neutral-700);
+  --tw-prose-invert-captions: var(--color-neutral-400);
+  --tw-prose-invert-kbd: var(--color-white);
+  --tw-prose-invert-kbd-shadows: rgb(from var(--color-white));
+  --tw-prose-invert-code: var(--color-white);
+  --tw-prose-invert-pre-code: var(--color-neutral-300);
   --tw-prose-invert-pre-bg: rgb(0 0 0 / 50%);
-  --tw-prose-invert-th-borders: theme(colors.neutral.600);
-  --tw-prose-invert-td-borders: theme(colors.neutral.700);
+  --tw-prose-invert-th-borders: var(--color-neutral-600);
+  --tw-prose-invert-td-borders: var(--color-neutral-700);
 }
 
 /**
   * -----------------------------------------------------------------------------
-  * Custom utility classes
+  * Print view utility classes
   * -----------------------------------------------------------------------------
   */
 
-/* Hack to prevent SVG logo images from unwanted cropping when used as logo */
-@utility site-logo-container {
-  & svg {
-    @apply h-[calc(var(--site-logo-height)_+_0.125rem)] w-[calc(var(--site-logo-height)_*_var(--site-logo-aspect-ratio))] print:h-[calc(var(--site-logo-initial-height)_+_0.125rem)] print:w-[calc(var(--site-logo-initial-height)_*_var(--site-logo-aspect-ratio))];
-  }
-}
-
-/* Main menu:
-   - Hide screen reader links in the main menu from normal browsers
-   - When the mobile menu is open, hide the open link from screen readers */
-@utility main-menu-open {
-  :is(&, .main-menu-close) span {
-    clip-path: inset(100%);
-  }
-  :is(#main-menu-state:checked, #main-menu-state:target) ~ nav & {
-    @apply hidden;
-  }
-}
-@utility main-menu-close {
-  :is(.main-menu-open, &) span {
-    clip-path: inset(100%);
-  }
-  :is(#main-menu-state:checked, #main-menu-state:target) ~ nav & {
-    @apply block;
-  }
-}
-
-/* Menu toggle icon animation */
-@utility nav-toggle-icon {
-  :is(#main-menu-state:checked, #main-menu-state:target)
-    ~ nav
-    &
-    span:nth-child(1) {
-    @apply top-[calc(50%_-_(0.375rem_/_2))] left-1/2 w-0;
-  }
-  :is(#main-menu-state:checked, #main-menu-state:target)
-    ~ nav
-    &
-    span:nth-child(4) {
-    @apply top-[calc(50%_-_(0.375rem_/_2))] left-1/2 w-0;
-  }
-  :is(#main-menu-state:checked, #main-menu-state:target)
-    ~ nav
-    &
-    span:nth-child(2) {
-    @apply rotate-45;
-  }
-  :is(#main-menu-state:checked, #main-menu-state:target)
-    ~ nav
-    &
-    span:nth-child(3) {
-    @apply -rotate-45;
-  }
-}
-
-/* Print view:
-   Element which is only displayed when a page is printed */
+/* Element which is only displayed when a page is printed */
 @utility print-only {
   @apply screen:invisible screen:hidden;
 }
 
-/* Print view:
-   Box for link URL footnotes in print view of a page */
+/* Box for link URL footnotes in print view of a page */
 @utility print-links-footer {
   @apply prose prose-sm prose-black mt-large px-medium prose-h3:mt-medium clear-both max-w-none break-inside-avoid-page border border-solid border-black;
 }
 
-/* Print view:
-   Ordered list in with link URL footnotes in print view of a page */
+/* Ordered list in with link URL footnotes in print view of a page */
 @utility print-links-footer-list {
   @apply mb-medium list-decimal;
 }
 
+/**
+  * -----------------------------------------------------------------------------
+  * Tailwind CSS base layer
+  * -----------------------------------------------------------------------------
+  */
 @layer base {
-  /**
-   * ---------------------------------------------------------------------------
-   * Scrollbar visibility
-   * ---------------------------------------------------------------------------
-   */
-
-  /* Always display the vertical scrollbar
-     This prevents unwanted horizontal layout shifts when loading a page with
-     very short content after a page with long content. */
-
+  /* Scrollbar visibility */
   html {
+    /* Always display the vertical scrollbar
+       This prevents unwanted horizontal layout shifts when loading a page with
+       very short content after a page with long content. */
     @apply overflow-y-scroll;
   }
 
-  /**
-   * ---------------------------------------------------------------------------
-   * Fluid font size and zoom effect
-   * ---------------------------------------------------------------------------
-   */
-
+  /* Fluid font size and zoom effect */
   html {
     /* Implement a fluid font size based on viewport width with a minimum size
        of 16px and a maximum of 22px. This also affects all relative size
@@ -265,38 +203,70 @@
     font-size: clamp(1rem, calc(0.86rem + 0.55vw), 1.38rem);
   }
 
-  /**
-   * ---------------------------------------------------------------------------
-   * Default font settings
-   * ---------------------------------------------------------------------------
-   */
-
+  /* Default font settings */
   html {
     @apply font-primary;
   }
 
-  /**
-   * ---------------------------------------------------------------------------
-   * Global link hover effect
-   * ---------------------------------------------------------------------------
-   */
-
+  /* Global link hover effect */
   a {
     @apply hover:brightness-125 hover:transition-all;
   }
 }
 
-@layer components {
-  /**
-   * ---------------------------------------------------------------------------
-   * Main menu (mobile)
-   * ---------------------------------------------------------------------------
-   */
+/**
+  * ---------------------------------------------------------------------------
+  * Page header
+  * ---------------------------------------------------------------------------
+  */
 
-  /* Show the mobile menu */
-  :is(#main-menu-state:checked, #main-menu-state:target) ~ nav ul {
-    @apply visible opacity-100;
-  }
+/* Hack to prevent SVG logo images from unwanted cropping when used as logo */
+.site-logo-container svg {
+  @apply h-[calc(var(--site-logo-height)_+_0.125rem)] w-[calc(var(--site-logo-height)_*_var(--site-logo-aspect-ratio))] print:h-[calc(var(--site-logo-initial-height)_+_0.125rem)] print:w-[calc(var(--site-logo-initial-height)_*_var(--site-logo-aspect-ratio))];
+}
+
+/* Show the mobile menu */
+:is(#main-menu-state:checked, #main-menu-state:target) ~ nav ul {
+  @apply visible opacity-100;
+}
+
+/* Hide screen reader links from normal browsers */
+:is(.main-menu-open, .main-menu-close) span {
+  clip-path: inset(100%);
+}
+
+/* When the mobile menu is open, show the close link for screen readers */
+:is(#main-menu-state:checked, #main-menu-state:target) ~ nav .main-menu-close {
+  @apply block;
+}
+
+/* When the mobile menu is open, hide the open link from screen readers */
+:is(#main-menu-state:checked, #main-menu-state:target) ~ nav .main-menu-open {
+  @apply hidden;
+}
+
+/* Menu toggle icon animation */
+:is(#main-menu-state:checked, #main-menu-state:target)
+  ~ nav
+  .nav-toggle-icon
+  span:nth-child(1),
+:is(#main-menu-state:checked, #main-menu-state:target)
+  ~ nav
+  .nav-toggle-icon
+  span:nth-child(4) {
+  @apply top-[calc(50%_-_(0.375rem_/_2))] left-1/2 w-0;
+}
+:is(#main-menu-state:checked, #main-menu-state:target)
+  ~ nav
+  .nav-toggle-icon
+  span:nth-child(2) {
+  @apply rotate-45;
+}
+:is(#main-menu-state:checked, #main-menu-state:target)
+  ~ nav
+  .nav-toggle-icon
+  span:nth-child(3) {
+  @apply -rotate-45;
 }
 
 /**
@@ -305,8 +275,8 @@
  * -----------------------------------------------------------------------------
  */
 
-/* Centered container with a width of 6xl (see Tailwind CSS documentation for
-  details) */
+/* Centered container with a width of 6xl
+   (see Tailwind CSS documentation for details) */
 .row-container,
 .row-container-default {
   @apply px-medium lg:px-large mx-auto w-full max-w-6xl print:px-0;
