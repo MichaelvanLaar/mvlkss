@@ -22,8 +22,6 @@ return array(
     'Laminas\\Escaper\\' => array($vendorDir . '/laminas/laminas-escaper/src'),
     'Kirby\\' => array($baseDir . '/kirby/src', $vendorDir . '/getkirby/composer-installer/src'),
     'JsonSchema\\' => array($vendorDir . '/justinrainbow/json-schema/src/JsonSchema'),
-    'Icecave\\Repr\\' => array($vendorDir . '/icecave/repr/src'),
-    'Icecave\\Parity\\' => array($vendorDir . '/icecave/parity/src'),
     'Ergebnis\\Json\\SchemaValidator\\' => array($vendorDir . '/ergebnis/json-schema-validator/src'),
     'Ergebnis\\Json\\Printer\\' => array($vendorDir . '/ergebnis/json-printer/src'),
     'Ergebnis\\Json\\Pointer\\' => array($vendorDir . '/ergebnis/json-pointer/src'),
