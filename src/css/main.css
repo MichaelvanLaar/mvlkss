@@ -21,7 +21,6 @@
 @source "./site/**/*.php" "./src/**/*.js";
 
 /* Register required plugins */
-@plugin "@tailwindcss/container-queries";
 @plugin "@tailwindcss/forms";
 @plugin "@tailwindcss/typography";
 
