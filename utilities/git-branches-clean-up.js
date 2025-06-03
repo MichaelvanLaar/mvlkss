@@ -29,9 +29,12 @@ const branches = execCommand("git branch --merged main")
   );
 
 // Delete each branch safely
+// Main branches that should never be removed
+const protectedBranches = ["main", "master"];
+
 branches.forEach((branch) => {
-  if (branch !== "main" && branch !== "main") {
-    // Replace with your main branch names if different
+  // Replace with your main branch names if different
+  if (!protectedBranches.includes(branch)) {
     try {
       execSync(`git branch -d ${branch}`, { stdio: "inherit" });
     } catch (error) {
