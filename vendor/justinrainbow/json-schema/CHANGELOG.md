@@ -7,6 +7,55 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [6.5.2] - 2025-09-09
+### Fixed
+- Fix issue when http headers are already present ([#843](https://github.com/jsonrainbow/json-schema/pull/843))
+
+## [6.5.1] - 2025-08-29
+### Changed
+- ci: Add PHP 8.5 to pipeline, ignoring dependencies and as experimental ([#842](https://github.com/jsonrainbow/json-schema/pull/842))
+
+## [6.5.0] - 2025-08-29
+### Changed
+- Update test case to current (PHP) standards ([#831](https://github.com/jsonrainbow/json-schema/pull/831))
+- Upgrade test suite to use generators ([#834](https://github.com/jsonrainbow/json-schema/pull/834))
+- update to latest json schema test suite ([#821](https://github.com/jsonrainbow/json-schema/pull/821))
+### Fixed
+- Fix PHP 8.5 $http_response_header deprecation ([#840](https://github.com/jsonrainbow/json-schema/pull/840))
+
+## [6.4.2] - 2025-06-03
+### Fixed
+- Fix objects are non-unique despite key order ([#819](https://github.com/jsonrainbow/json-schema/pull/819))
+- Id's not being resolved and id property affects sibling ref which it should not do ([#828](https://github.com/jsonrainbow/json-schema/pull/828)) 
+
+### Changed
+- Added extra breaking change to UPDATE-6.0.md regarding BaseConstraint::addError signature change ([#823](https://github.com/jsonrainbow/json-schema/pull/823))
+- Update constraint class to PHP 7.2 language level ([#824](https://github.com/jsonrainbow/json-schema/pull/824))
+- Update base constraint class to PHP 7.2 language level ([#826](https://github.com/jsonrainbow/json-schema/pull/826))
+
+### Added
+- Introduce 32 bits CI workflow on latest php version ([#825](https://github.com/jsonrainbow/json-schema/pull/825))
+
+## [6.4.1] - 2025-04-04
+### Fixed
+- Fix support for 32bits PHP ([#817](https://github.com/jsonrainbow/json-schema/pull/817))
+
+## [6.4.0] - 2025-04-01
+### Added
+- Run PHPStan using the lowest and highest php version ([#811](https://github.com/jsonrainbow/json-schema/pull/811))
+### Fixed
+- Use parallel-lint and cs2pr for improved feedback on linting errors ([#812](https://github.com/jsonrainbow/json-schema/pull/812))
+- Array with number values with mathematical equality are considered valid ([#813](https://github.com/jsonrainbow/json-schema/pull/813))
+### Changed
+- Correct PHPStan findings in validator ([#808](https://github.com/jsonrainbow/json-schema/pull/808))
+- Add cs2pr handling for php-cs-fixer; avoid doing composer install ([#814](https://github.com/jsonrainbow/json-schema/pull/814))
+- prepare PHP 8.5 in CI ([#815](https://github.com/jsonrainbow/json-schema/pull/815))
+
+## [6.3.1] - 2025-03-18
+### Fixed
+- ensure numeric issues in const are correctly evaluated ([#805](https://github.com/jsonrainbow/json-schema/pull/805))
+- fix 6.3.0 regression with comparison of null values during validation ([#806](https://github.com/jsonrainbow/json-schema/issues/806))
+
 ## [6.3.0] - 2025-03-14
 ### Fixed
 - only check minProperties or maxProperties on objects ([#802](https://github.com/jsonrainbow/json-schema/pull/802))
@@ -15,7 +64,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Changed
 - replace icecave/parity with custom deep comparator ([#803](https://github.com/jsonrainbow/json-schema/pull/803))
-- 
+ 
 ## [6.2.1] - 2025-03-06
 ### Fixed
 - allow items: true to pass validation ([#801](https://github.com/jsonrainbow/json-schema/pull/801))

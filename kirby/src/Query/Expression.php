@@ -14,6 +14,8 @@ use Kirby\Toolkit\A;
  * @link      https://getkirby.com
  * @copyright Bastian Allgeier
  * @license   https://opensource.org/licenses/MIT
+ *
+ * @todo Deprecate in v6
  */
 class Expression
 {
@@ -41,10 +43,10 @@ class Expression
 		// into actual types and treats all other parts as their own queries
 		$parts = A::map(
 			$parts,
-			fn ($part) =>
-				in_array($part, ['?', ':', '?:', '??'])
-					? $part
-					: Argument::factory($part)
+			fn ($part) => match ($part) {
+				'?', ':', '?:', '??' => $part,
+				default              => Argument::factory($part)
+			}
 		);
 
 		return new static(parts: $parts);
@@ -53,7 +55,7 @@ class Expression
 	/**
 	 * Splits a comparison string into an array
 	 * of expressions and operators
-	 * @internal
+	 * @unstable
 	 */
 	public static function parse(string $string): array
 	{
@@ -101,7 +103,9 @@ class Expression
 			// if `a` isn't false, return `b`, otherwise `c`
 			if ($part === '?') {
 				if (($this->parts[$index + 2] ?? null) !== ':') {
-					throw new LogicException('Query: Incomplete ternary operator (missing matching `? :`)');
+					throw new LogicException(
+						message: 'Query: Incomplete ternary operator (missing matching `? :`)'
+					);
 				}
 
 				if ($base != false) {

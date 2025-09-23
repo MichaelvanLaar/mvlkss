@@ -139,6 +139,7 @@ class RedirectCreateDrawer
 	{
 		return [
 			'creator' => [$this->kirby()->user()?->panel()->pickerData()],
+			'status'  => Retour::instance()->option('status')
 		];
 	}
 }

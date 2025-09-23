@@ -626,6 +626,19 @@ sections, the `Vendor\Composer\VersionConstraintNormalizer` will ensure that
    }
   ```
 
+- empty sections (which are defined as optional in the schema) are automatically removed
+
+  ```diff
+   {
+      "require": {
+          "foo/bar": "^2.3.4"
+      }
+  -   "config": {
+  -       "preferred-install": {}
+  -   }
+   }
+  ```
+
 ## Changelog
 
 The maintainers of this project record notable changes to this project in a [changelog](CHANGELOG.md).
@@ -642,7 +655,7 @@ The maintainers of this project ask contributors to follow the [code of conduct]
 
 The maintainers of this project provide limited support.
 
-You can support the maintenance of this project by [sponsoring @localheinz](https://github.com/sponsors/localheinz) or [requesting an invoice for services related to this project](mailto:am@localheinz.com?subject=ergebnis/json-normalizer:%20Requesting%20invoice%20for%20services).
+You can support the maintenance of this project by [sponsoring @ergebnis](https://github.com/sponsors/ergebnis).
 
 ## PHP Version Support Policy
 

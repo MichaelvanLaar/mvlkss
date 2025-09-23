@@ -26,6 +26,7 @@ class AutoSession
 	 *                       - `durationNormal`: Duration of normal sessions in seconds; defaults to 2 hours
 	 *                       - `durationLong`: Duration of "remember me" sessions in seconds; defaults to 2 weeks
 	 *                       - `timeout`: Activity timeout in seconds (integer or false for none); *only* used for normal sessions; defaults to `1800` (half an hour)
+	 *                       - `cookieDomain`: Domain to set the cookie to (this disables the cookie path restriction); defaults to none (default browser behavior)
 	 *                       - `cookieName`: Name to use for the session cookie; defaults to `kirby_session`
 	 *                       - `gcInterval`: How often should the garbage collector be run?; integer or `false` for never; defaults to `100`
 	 */
@@ -34,18 +35,21 @@ class AutoSession
 		array $options = []
 	) {
 		// merge options with defaults
-		$this->options = array_merge([
+		$this->options = [
 			'durationNormal' => 7200,
 			'durationLong'   => 1209600,
 			'timeout'        => 1800,
+			'cookieDomain'   => null,
 			'cookieName'     => 'kirby_session',
-			'gcInterval'     => 100
-		], $options);
+			'gcInterval'     => 100,
+			...$options
+		];
 
 		// create an internal instance of the low-level Sessions class
 		$this->sessions = new Sessions($store, [
-			'cookieName' => $this->options['cookieName'],
-			'gcInterval' => $this->options['gcInterval']
+			'cookieDomain' => $this->options['cookieDomain'],
+			'cookieName'   => $this->options['cookieName'],
+			'gcInterval'   => $this->options['gcInterval']
 		]);
 	}
 
@@ -60,11 +64,12 @@ class AutoSession
 	public function get(array $options = []): Session
 	{
 		// merge options with defaults
-		$options = array_merge([
+		$options = [
 			'detect'     => false,
 			'createMode' => 'cookie',
-			'long'       => false
-		], $options);
+			'long'       => false,
+			...$options
+		];
 
 		// determine expiry options based on the session type
 		if ($options['long'] === true) {
@@ -103,6 +108,7 @@ class AutoSession
 			// the duration needs to be extended
 			$session->duration($duration);
 		}
+
 		if ($session->timeout() !== false) {
 			// a timeout exists
 			if ($timeout === false) {
@@ -115,8 +121,9 @@ class AutoSession
 		}
 
 		// if the session has been created and was not yet initialized,
-		// update the mode to a custom mode
-		// don't update back to cookie mode because the "special" behavior always wins
+		// update the mode to a custom mode;
+		// don't update back to cookie mode because the
+		// "special" behavior always wins
 		if ($session->token() === null && $options['createMode'] !== 'cookie') {
 			$session->mode($options['createMode']);
 		}
@@ -125,7 +132,8 @@ class AutoSession
 	}
 
 	/**
-	 * Creates a new empty session that is *not* automatically transmitted to the client
+	 * Creates a new empty session that is *not* automatically
+	 * transmitted to the client;
 	 * Useful for custom applications like a password reset link
 	 * Does *not* affect the automatic session
 	 *

@@ -6,7 +6,34 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
-For a full diff see [`4.8.0...main`][4.8.0...main].
+For a full diff see [`4.10.1...main`][4.10.1...main].
+
+## [`4.10.1`][4.10.1]
+
+For a full diff see [`4.10.0...4.10.1`][4.10.0...4.10.1].
+
+### Fixed
+
+- Updated branch alias ([#1226]), by [@localheinz]
+
+## [`4.10.0`][4.10.0]
+
+For a full diff see [`4.9.0...4.10.0`][4.9.0...4.10.0].
+
+### Changed
+
+- Allowed installation on PHP 8.5 ([#1225]), by [@localheinz]
+
+## [`4.9.0`][4.9.0]
+
+For a full diff see [`4.8.0...4.9.0`][4.8.0...4.9.0].
+
+### Changed
+
+- Adjusted `SchemaNormalizer` to allow pruning empty sections when the schema declares them as not required ([#1053]), by [@fredden]
+- Adjusted `Vendor\Composer\VersionConstraintNormalizer` to correctly use `dev-` prefixes and `-dev` suffixes ([#1055]), by [@fredden]
+- Adjusted `Vendor\Composer\VersionConstraintNormalizer` to normalize and (if necessary) combine version constraints refering to extensions ([#1185]), by [@fredden]
+- Adjusted `Vendor\Composer\VersionConstraintNormalizer` to normalize version constraints that are combined with `*` to `*` ([#1186]), by [@fredden]
 
 ## [`4.8.0`][4.8.0]
 
@@ -548,6 +575,9 @@ For a full diff see [`5d8b3e2...0.1.0`][5d8b3e2...0.1.0].
 [4.6.0]: https://github.com/ergebnis/json-normalizer/releases/tag/4.6.0
 [4.7.0]: https://github.com/ergebnis/json-normalizer/releases/tag/4.7.0
 [4.8.0]: https://github.com/ergebnis/json-normalizer/releases/tag/4.8.0
+[4.9.0]: https://github.com/ergebnis/json-normalizer/releases/tag/4.9.0
+[4.10.0]: https://github.com/ergebnis/json-normalizer/releases/tag/4.10.0
+[4.10.1]: https://github.com/ergebnis/json-normalizer/releases/tag/4.10.1
 
 [5d8b3e2...0.1.0]: https://github.com/ergebnis/json-normalizer/compare/5d8b3e2...0.1.0
 [0.1.0...0.2.0]: https://github.com/ergebnis/json-normalizer/compare/0.1.0...0.2.0
@@ -588,7 +618,10 @@ For a full diff see [`5d8b3e2...0.1.0`][5d8b3e2...0.1.0].
 [4.5.0...4.6.0]: https://github.com/ergebnis/json-normalizer/compare/4.5.0...4.6.0
 [4.6.0...4.7.0]: https://github.com/ergebnis/json-normalizer/compare/4.6.0...4.7.0
 [4.7.0...4.8.0]: https://github.com/ergebnis/json-normalizer/compare/4.7.0...4.8.0
-[4.8.0...main]: https://github.com/ergebnis/json-normalizer/compare/4.8.0...main
+[4.8.0...4.9.0]: https://github.com/ergebnis/json-normalizer/compare/4.8.0...4.9.0
+[4.9.0...4.10.0]: https://github.com/ergebnis/json-normalizer/compare/4.9.0...4.10.0
+[4.10.0...4.10.1]: https://github.com/ergebnis/json-normalizer/compare/4.10.0...4.10.1
+[4.10.1...main]: https://github.com/ergebnis/json-normalizer/compare/4.10.1...main
 
 [#1]: https://github.com/ergebnis/json-normalizer/pull/1
 [#2]: https://github.com/ergebnis/json-normalizer/pull/2
@@ -722,6 +755,8 @@ For a full diff see [`5d8b3e2...0.1.0`][5d8b3e2...0.1.0].
 [#1027]: https://github.com/ergebnis/json-normalizer/pull/1027
 [#1039]: https://github.com/ergebnis/json-normalizer/pull/1039
 [#1052]: https://github.com/ergebnis/json-normalizer/pull/1052
+[#1053]: https://github.com/ergebnis/json-normalizer/pull/1053
+[#1055]: https://github.com/ergebnis/json-normalizer/pull/1055
 [#1073]: https://github.com/ergebnis/json-normalizer/pull/1073
 [#1074]: https://github.com/ergebnis/json-normalizer/pull/1074
 [#1075]: https://github.com/ergebnis/json-normalizer/pull/1075
@@ -729,8 +764,12 @@ For a full diff see [`5d8b3e2...0.1.0`][5d8b3e2...0.1.0].
 [#1077]: https://github.com/ergebnis/json-normalizer/pull/1077
 [#1079]: https://github.com/ergebnis/json-normalizer/pull/1079
 [#1171]: https://github.com/ergebnis/json-normalizer/pull/1171
+[#1185]: https://github.com/ergebnis/json-normalizer/pull/1185
+[#1186]: https://github.com/ergebnis/json-normalizer/pull/1186
 [#1195]: https://github.com/ergebnis/json-normalizer/pull/1195
 [#1198]: https://github.com/ergebnis/json-normalizer/pull/1198
+[#1225]: https://github.com/ergebnis/json-normalizer/pull/1225
+[#1226]: https://github.com/ergebnis/json-normalizer/pull/1226
 
 [@alexis-saransig-lullabot]: https://github.com/alexis-saransig-lullabot
 [@BackEndTea]: https://github.com/BackEndTea

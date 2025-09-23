@@ -4,11 +4,19 @@ $dropdowns = require __DIR__ . '/../users/dropdowns.php';
 
 return [
 	'account' => [
+		...$dropdowns['user'],
 		'pattern' => '(account)',
-		'options' => $dropdowns['user']['options']
+	],
+	'account.languages' => [
+		...$dropdowns['user.languages'],
+		'pattern' => '(account)/languages',
 	],
 	'account.file' => [
+		...$dropdowns['user.file'],
 		'pattern' => '(account)/files/(:any)',
-		'options' => $dropdowns['user.file']['options']
 	],
+	'account.file.languages' => [
+		...$dropdowns['user.file.languages'],
+		'pattern' => '(account)/files/(:any)/languages',
+	]
 ];

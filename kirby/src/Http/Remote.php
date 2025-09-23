@@ -47,13 +47,14 @@ class Remote
 	public string $errorMessage;
 	public array $headers = [];
 	public array $info = [];
-	public array $options = [];
 
 	/**
 	 * @throws \Exception when the curl request failed
 	 */
-	public function __construct(string $url, array $options = [])
-	{
+	public function __construct(
+		string $url,
+		public array $options = []
+	) {
 		$defaults = static::$defaults;
 
 		// use the system CA store by default if
@@ -68,14 +69,11 @@ class Remote
 		// update the defaults with App config if set;
 		// request the App instance lazily
 		if ($app = App::instance(null, true)) {
-			$defaults = array_merge($defaults, $app->option('remote', []));
+			$defaults = [...$defaults, ...$app->option('remote', [])];
 		}
 
-		// set all options
-		$this->options = array_merge($defaults, $options);
-
-		// add the url
-		$this->options['url'] = $url;
+		// set all options, incl. url
+		$this->options = [...$defaults, ...$options, 'url' => $url];
 
 		// send the request
 		$this->fetch();
@@ -95,11 +93,11 @@ class Remote
 		array $arguments = []
 	): static {
 		return new static(
-			url: $arguments[0],
-			options: array_merge(
-				['method' => strtoupper($method)],
-				$arguments[1] ?? []
-			)
+			url:     $arguments[0],
+			options: [
+				'method' => strtoupper($method),
+				...$arguments[1] ?? []
+			]
 		);
 	}
 
@@ -171,7 +169,9 @@ class Remote
 			$this->curlopt[CURLOPT_SSL_VERIFYPEER] = true;
 			$this->curlopt[CURLOPT_CAPATH] = $this->options['ca'];
 		} else {
-			throw new InvalidArgumentException('Invalid "ca" option for the Remote class');
+			throw new InvalidArgumentException(
+				message: 'Invalid "ca" option for the Remote class'
+			);
 		}
 
 		// add the progress
@@ -267,15 +267,15 @@ class Remote
 	 */
 	public static function get(string $url, array $params = []): static
 	{
-		$defaults = [
+		$options = [
 			'method' => 'GET',
 			'data'   => [],
+			...$params
 		];
 
-		$options = array_merge($defaults, $params);
-		$query   = http_build_query($options['data']);
+		$query = http_build_query($options['data']);
 
-		if (empty($query) === false) {
+		if ($query !== '') {
 			$url = match (Url::hasQuery($url)) {
 				true    => $url . '&' . $query,
 				default => $url . '?' . $query
@@ -337,7 +337,7 @@ class Remote
 	 */
 	protected function postfields($data)
 	{
-		if (is_object($data) || is_array($data)) {
+		if (is_object($data) === true || is_array($data) === true) {
 			return http_build_query($data);
 		}
 

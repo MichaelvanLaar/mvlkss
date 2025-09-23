@@ -14,6 +14,8 @@ use Kirby\Toolkit\Str;
  * @link      https://getkirby.com
  * @copyright Bastian Allgeier
  * @license   https://opensource.org/licenses/MIT
+ *
+ * @todo Deprecate in v6
  */
 class Argument
 {
@@ -70,7 +72,7 @@ class Argument
 
 		// numeric
 		if (is_numeric($argument) === true) {
-			if (strpos($argument, '.') === false) {
+			if (str_contains($argument, '.') === false) {
 				return new static((int)$argument);
 			}
 

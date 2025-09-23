@@ -76,7 +76,7 @@ class Dir
 
 			if (
 				is_array($ignore) === true &&
-				in_array($root, $ignore) === true
+				in_array($root, $ignore, true) === true
 			) {
 				continue;
 			}
@@ -114,9 +114,14 @@ class Dir
 	/**
 	 * Checks if the directory exists on disk
 	 */
-	public static function exists(string $dir): bool
+	public static function exists(string $dir, string|null $in = null): bool
 	{
-		return is_dir($dir) === true;
+		try {
+			static::realpath($dir, $in);
+			return true;
+		} catch (Exception) {
+			return false;
+		}
 	}
 
 	/**
@@ -140,8 +145,8 @@ class Dir
 	/**
 	 * Read the directory and all subdirectories
 	 *
-	 * @todo Remove support for `$ignore = null` in a major release
-	 * @param array|false|null $ignore Array of absolut file paths;
+	 * @todo Remove support for `$ignore = null` in v6
+	 * @param array|false|null $ignore Array of absolute file paths;
 	 *                                 `false` to disable `Dir::$ignore` list
 	 *                                 (passing null is deprecated)
 	 */
@@ -160,7 +165,7 @@ class Dir
 
 			if (
 				is_array($ignore) === true &&
-				in_array($root, $ignore) === true
+				in_array($root, $ignore, true) === true
 			) {
 				continue;
 			}
@@ -184,7 +189,7 @@ class Dir
 	 */
 	public static function isEmpty(string $dir): bool
 	{
-		return count(static::read($dir)) === 0;
+		return static::read($dir) === [];
 	}
 
 	/**
@@ -211,8 +216,6 @@ class Dir
 	 * relevant information.
 	 *
 	 * Don't use outside the Cms context.
-	 *
-	 * @internal
 	 */
 	public static function inventory(
 		string $dir,
@@ -242,7 +245,10 @@ class Dir
 		// loop through all directory items and collect all relevant information
 		foreach ($items as $item) {
 			// ignore all items with a leading dot or underscore
-			if (in_array(substr($item, 0, 1), ['.', '_']) === true) {
+			if (
+				str_starts_with($item, '.') ||
+				str_starts_with($item, '_')
+			) {
 				continue;
 			}
 
@@ -262,7 +268,7 @@ class Dir
 			$extension = pathinfo($item, PATHINFO_EXTENSION);
 
 			// don't track files with these extensions
-			if (in_array($extension, ['htm', 'html', 'php']) === true) {
+			if (in_array($extension, ['htm', 'html', 'php'], true) === true) {
 				continue;
 			}
 
@@ -314,7 +320,7 @@ class Dir
 		}
 
 		// determine the model
-		if (empty(Page::$models) === false) {
+		if (Page::$models !== []) {
 			if ($multilang === true) {
 				$code = App::instance()->defaultLanguage()->code();
 				$contentExtension = $code . '.' . $contentExtension;
@@ -445,7 +451,10 @@ class Dir
 				true  => filemtime($dir . '/' . $item),
 				false => static::modified($dir . '/' . $item)
 			};
-			$modified = ($newModified > $modified) ? $newModified : $modified;
+
+			if ($newModified > $modified) {
+				$modified = $newModified;
+			}
 		}
 
 		return Str::date($modified, $format, $handler);
@@ -510,7 +519,7 @@ class Dir
 
 		// create the ignore pattern
 		$ignore ??= static::$ignore;
-		$ignore   = array_merge($ignore, ['.', '..']);
+		$ignore   = [...$ignore, '.', '..'];
 
 		// scan for all files and dirs
 		$result = array_values((array)array_diff(scandir($dir), $ignore));
@@ -521,6 +530,33 @@ class Dir
 		}
 
 		return $result;
+	}
+
+	/**
+	 * Returns the absolute path to the directory if the directory can be found.
+	 * @since 4.7.1
+	 */
+	public static function realpath(string $dir, string|null $in = null): string
+	{
+		$realpath = realpath($dir);
+
+		if ($realpath === false || is_dir($realpath) === false) {
+			throw new Exception(sprintf('The directory does not exist at the given path: "%s"', $dir));
+		}
+
+		if ($in !== null) {
+			$parent = realpath($in);
+
+			if ($parent === false || is_dir($parent) === false) {
+				throw new Exception(sprintf('The parent directory does not exist: "%s"', $in));
+			}
+
+			if (substr($realpath, 0, strlen($parent)) !== $parent) {
+				throw new Exception('The directory is not within the parent directory');
+			}
+		}
+
+		return $realpath;
 	}
 
 	/**
@@ -539,7 +575,7 @@ class Dir
 		}
 
 		foreach (scandir($dir) as $childName) {
-			if (in_array($childName, ['.', '..']) === true) {
+			if (in_array($childName, ['.', '..'], true) === true) {
 				continue;
 			}
 

@@ -2,6 +2,8 @@
 
 namespace Kirby\Http\Request;
 
+use Stringable;
+
 /**
  * The Body class parses the
  * request body and provides a nice
@@ -14,14 +16,9 @@ namespace Kirby\Http\Request;
  * @copyright Bastian Allgeier
  * @license   https://opensource.org/licenses/MIT
  */
-class Body
+class Body implements Stringable
 {
 	use Data;
-
-	/**
-	 * The raw body content
-	 */
-	protected string|array|null $contents;
 
 	/**
 	 * The parsed content as array
@@ -34,10 +31,12 @@ class Body
 	 * If null is being passed, the class will
 	 * fetch the body either from the $_POST global
 	 * or from php://input.
+	 *
+	 * @param array|string|null $contents The raw body content
 	 */
-	public function __construct(array|string|null $contents = null)
-	{
-		$this->contents = $contents;
+	public function __construct(
+		protected array|string|null $contents = null
+	) {
 	}
 
 	/**
@@ -50,7 +49,7 @@ class Body
 			return $this->contents;
 		}
 
-		if (empty($_POST) === false) {
+		if ($_POST !== []) {
 			return $this->contents = $_POST;
 		}
 
@@ -84,11 +83,11 @@ class Body
 			return $this->data = $json;
 		}
 
-		if (strstr($contents, '=') !== false) {
+		if (str_contains($contents, '=') === true) {
 			// try to parse the body as query string
 			parse_str($contents, $parsed);
 
-			if (is_array($parsed)) {
+			if (is_array($parsed) === true) {
 				return $this->data = $parsed;
 			}
 		}

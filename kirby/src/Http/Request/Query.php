@@ -2,6 +2,8 @@
 
 namespace Kirby\Http\Request;
 
+use Stringable;
+
 /**
  * The Query class helps to
  * parse and inspect URL queries
@@ -13,14 +15,14 @@ namespace Kirby\Http\Request;
  * @copyright Bastian Allgeier
  * @license   https://opensource.org/licenses/MIT
  */
-class Query
+class Query implements Stringable
 {
 	use Data;
 
 	/**
 	 * The Query data array
 	 */
-	protected array|null $data = null;
+	protected array $data;
 
 	/**
 	 * Creates a new Query object.
@@ -54,7 +56,7 @@ class Query
 	 */
 	public function isEmpty(): bool
 	{
-		return empty($this->data) === true;
+		return $this->data === [];
 	}
 
 	/**
@@ -62,7 +64,7 @@ class Query
 	 */
 	public function isNotEmpty(): bool
 	{
-		return empty($this->data) === false;
+		return $this->data !== [];
 	}
 
 	/**

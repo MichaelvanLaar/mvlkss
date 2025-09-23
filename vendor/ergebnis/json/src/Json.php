@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2022-2024 Andreas Möller
+ * Copyright (c) 2022-2025 Andreas Möller
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -21,7 +21,7 @@ final class Json
     private string $encoded;
 
     /**
-     * @var null|bool|float|int|list<mixed>|object|string
+     * @var null|array<int, mixed>|bool|float|int|object|string
      */
     private $decoded;
 

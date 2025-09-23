@@ -8,24 +8,10 @@ use Kirby\Toolkit\A;
 
 final class Robotstxt
 {
-    /**
-     * @var string[]
-     */
-    private $txt;
-    /**
-     * @var array
-     */
-    private $options;
-
-    /**
-     * Robotstxt constructor.
-     *
-     * @param array $options
-     */
-    public function __construct(array $options = [])
-    {
-        $this->txt = [];
-
+    public function __construct(
+        private array $options = [],
+        private array $txt = [],
+    ) {
         $defaults = [
             'debug' => option('debug'),
             'content' => option('bnomei.robots-txt.content'),
@@ -35,117 +21,114 @@ final class Robotstxt
         $this->options = array_merge($defaults, $options);
 
         foreach ($this->options as $key => $call) {
-            if (is_callable($call)) {
+            if ($call instanceof \Closure) {
                 $this->options[$key] = $call();
             }
         }
 
-        $this->addContent(A::get($this->options, 'content'));
-        $this->addGroups(A::get($this->options, 'groups'));
-        $this->addSitemap(A::get($this->options, 'sitemap'));
+        $this->addContent($this->option('content'))
+            ->addGroups($this->option('groups'))
+            ->addSitemap($this->option('sitemap'));
     }
 
-    /**
-     * @return array|null
-     */
+    public function option(string $key): mixed
+    {
+        return A::get($this->options, $key);
+    }
+
     public function toArray(): ?array
     {
         return count($this->txt) ? $this->txt : null;
     }
 
-    /**
-     * @return string|null
-     */
     public function toTxt(): ?string
     {
-        return count($this->txt) ? implode(PHP_EOL, $this->txt) . PHP_EOL : null;
+        return count($this->txt) ? implode(PHP_EOL, $this->txt).PHP_EOL : null;
     }
 
-    /**
-     * @param null $content
-     *
-     * @return Robotstxt
-     */
-    private function addContent($content = null): Robotstxt
+    private function addContent(mixed $content = null): self
     {
-        if (! $content) {
+        if (empty($content)) {
             return $this;
         }
-        $this->txt[] = (string) $content;
+        if (is_string($content)) {
+            $this->txt[] = $content;
+        }
+
         return $this;
     }
 
-    /**
-     * @param null $groups
-     *
-     * @return Robotstxt
-     */
-    private function addGroups($groups = null): Robotstxt
+    private function addGroups(mixed $groups = null): self
     {
-        if (! $groups) {
+        if (empty($groups)) {
             return $this;
         }
-        if (A::get($this->options, 'debug')) {
+        if ($this->option('debug')) {
             $groups = ['*' => ['disallow' => ['/']]];
         }
-        if (! is_array($groups) && ! is_string($groups) && is_callable($groups)) {
-            $groups = $groups();
-        }
         if (is_array($groups)) {
-            foreach ($groups as $useragent => $group) {
-                $this->txt[] = 'user-agent: ' . $useragent;
-                foreach ($group as $field => $values) {
-                    foreach ($values as $value) {
-                        $this->txt[] = $field . ': ' . $value;
-                    }
-                }
-            }
-        } else {
-            $this->txt[] = (string) $groups;
+            $this->processGroupsArray($groups);
+        } elseif (is_string($groups)) {
+            $this->txt[] = $groups;
         }
+
         return $this;
     }
 
-    /**
-     * @param null $sitemap
-     *
-     * @return Robotstxt
-     */
-    private function addSitemap($sitemap = null): Robotstxt
+    private function processGroupsArray(array $groups): void
+    {
+        foreach ($groups as $useragent => $group) {
+            $this->txt[] = 'user-agent: '.$useragent;
+            if (is_array($group)) {
+                $this->processGroupFields($group);
+            }
+        }
+    }
+
+    private function processGroupFields(array $group): void
+    {
+        foreach ($group as $field => $values) {
+            if (is_array($values)) {
+                $this->processFieldValues($field, $values);
+            }
+        }
+    }
+
+    private function processFieldValues(string $field, array $values): void
+    {
+        foreach ($values as $value) {
+            $this->txt[] = implode('', [$field, ': ', $value]);
+        }
+    }
+
+    private function hasSitemapFromKnownPlugin(): bool
+    {
+        return count(array_filter([
+            option('isaactopo.xmlsitemap.ignore') !== null,
+            option('omz13.xmlsitemap.disable') === false,
+            option('fabianmichael.meta.sitemap') === true,
+            option('tobimori.seo.robots.active') === false,
+            option('johannschopplich.helpers.sitemap.enable') === true && option('johannschopplich.helpers.robots.enable') === false,
+            option('bnomei.feed.sitemap.enable') === true,
+        ])) > 0;
+    }
+
+    private function addSitemap(mixed $sitemap = null): self
     {
         // @codeCoverageIgnoreStart
-        if (option('omz13.xmlsitemap.disable') === false) {
-            $this->txt[] = 'sitemap: ' . url('/sitemap.xml');
-            return $this;
-        }
-        if (option('fabianmichael.meta.sitemap') === true) {
-            $this->txt[] = 'sitemap: ' . url('/sitemap.xml');
-            return $this;
-        }
-        if (option('tobimori.seo.robots.active') === false) {
-            $this->txt[] = 'sitemap: ' . url('/sitemap.xml');
-            return $this;
-        }
-        if (option('johannschopplich.helpers.sitemap.enable') === true && option('johannschopplich.helpers.robots.enable') === false) {
-            $this->txt[] = 'sitemap: ' . url('/sitemap.xml');
-            return $this;
-        }
-        if (option('kirbyzone.sitemapper.customMap') instanceof \Closure) {
-            $this->txt[] = 'sitemap: ' . url('/sitemap.xml');
-            return $this;
-        }
-        $feedPlugin = kirby()->plugin('bnomei/feed');
-        if ($feedPlugin && version_compare($feedPlugin->version(), '1.4.0', '>=')) {
-            $this->txt[] = 'sitemap: ' . url('/sitemap.xml');
+        if ($this->hasSitemapFromKnownPlugin()) {
+            $this->txt[] = 'sitemap: '.url('/sitemap.xml');
+
             return $this;
         }
         // @codeCoverageIgnoreEnd
 
-        if (! $sitemap) {
+        if (! is_string($sitemap)) {
             return $this;
         }
 
-        $this->txt[] = 'sitemap: ' . url($sitemap);
+        $this->txt[] = 'sitemap: '.url($sitemap);
+
         return $this;
     }
 }

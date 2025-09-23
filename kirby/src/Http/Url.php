@@ -110,17 +110,19 @@ class Url
 	/**
 	 * Convert a relative path into an absolute URL
 	 */
-	public static function makeAbsolute(string|null $path = null, string|null $home = null): string
-	{
+	public static function makeAbsolute(
+		string|null $path = null,
+		string|null $home = null
+	): string {
 		if ($path === '' || $path === '/' || $path === null) {
 			return $home ?? static::home();
 		}
 
-		if (substr($path, 0, 1) === '#') {
+		if (str_starts_with($path, '#') === true) {
 			return $path;
 		}
 
-		if (static::isAbsolute($path)) {
+		if (static::isAbsolute($path) === true) {
 			return $path;
 		}
 
@@ -128,11 +130,15 @@ class Url
 		$path   = ltrim($path, '/');
 		$home ??= static::home();
 
-		if (empty($path) === true) {
+		if ($path === '') {
 			return $home;
 		}
 
-		return $home === '/' ? '/' . $path : $home . '/' . $path;
+		if ($home === '/') {
+			return '/' . $path;
+		}
+
+		return $home . '/' . $path;
 	}
 
 	/**
@@ -226,7 +232,10 @@ class Url
 		$path ??= '';
 
 		// keep relative urls
-		if (substr($path, 0, 2) === './' || substr($path, 0, 3) === '../') {
+		if (
+			str_starts_with($path, './') === true ||
+			str_starts_with($path, '../') === true
+		) {
 			return $path;
 		}
 

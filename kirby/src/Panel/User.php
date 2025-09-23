@@ -7,6 +7,8 @@ use Kirby\Cms\ModelWithContent;
 use Kirby\Cms\Translation;
 use Kirby\Cms\Url;
 use Kirby\Filesystem\Asset;
+use Kirby\Panel\Ui\Buttons\ViewButtons;
+use Kirby\Panel\Ui\Item\UserItem;
 use Kirby\Toolkit\I18n;
 
 /**
@@ -37,6 +39,19 @@ class User extends Model
 				'link'  => $this->url(true),
 			]
 		];
+	}
+
+	/**
+	 * Returns header buttons which should be displayed
+	 * on the user view
+	 */
+	public function buttons(): array
+	{
+		return ViewButtons::view($this)->defaults(
+			'theme',
+			'settings',
+			'languages'
+		)->render();
 	}
 
 	/**
@@ -147,16 +162,16 @@ class User extends Model
 	 */
 	protected function imageDefaults(): array
 	{
-		return array_merge(parent::imageDefaults(), [
+		return [
+			...parent::imageDefaults(),
 			'back'  => 'black',
 			'icon'  => 'user',
 			'ratio' => '1/1',
-		]);
+		];
 	}
 
 	/**
 	 * Returns the image file object based on provided query
-	 * @internal
 	 */
 	protected function imageSource(
 		string|null $query = null
@@ -186,19 +201,25 @@ class User extends Model
 	 */
 	public function pickerData(array $params = []): array
 	{
-		$params['text'] ??= '{{ user.username }}';
+		$item = new UserItem(
+			user:   $this->model,
+			image:  $params['image'] ?? null,
+			info:   $params['info'] ?? null,
+			layout: $params['layout'] ?? null,
+			text:   $params['text'] ?? null,
+		);
 
-		return array_merge(parent::pickerData($params), [
+		return [
+			...$item->props(),
 			'email'    => $this->model->email(),
+			'sortable' => true,
 			'username' => $this->model->username(),
-		]);
+		];
 	}
 
 	/**
 	 * Returns navigation array with
 	 * previous and next user
-	 *
-	 * @internal
 	 */
 	public function prevNext(): array
 	{
@@ -211,41 +232,45 @@ class User extends Model
 	}
 
 	/**
-	 * Returns the data array for the
-	 * view's component props
-	 *
-	 * @internal
+	 * Returns the data array for the view's component props
 	 */
 	public function props(): array
 	{
+		$props       = parent::props();
 		$user        = $this->model;
-		$account     = $user->isLoggedIn();
 		$permissions = $this->options();
 
-		return array_merge(
-			parent::props(),
-			$this->prevNext(),
-			[
-				'blueprint'         => $this->model->role()->name(),
-				'canChangeEmail'    => $permissions['changeEmail'],
-				'canChangeLanguage' => $permissions['changeLanguage'],
-				'canChangeName'     => $permissions['changeName'],
-				'canChangeRole'     => $this->model->roles()->count() > 1,
-				'model' => [
-					'account'  => $account,
-					'avatar'   => $user->avatar()?->url(),
-					'content'  => $this->content(),
-					'email'    => $user->email(),
-					'id'       => $user->id(),
-					'language' => $this->translation()->name(),
-					'link'     => $this->url(true),
-					'name'     => $user->name()->toString(),
-					'role'     => $user->role()->title(),
-					'username' => $user->username(),
-					'uuid'     => fn () => $user->uuid()?->toString()
-				]
-			]
-		);
+		// Additional model information
+		// @deprecated Use the top-level props instead
+		$model = [
+			'account'  => $user->isLoggedIn(),
+			'avatar'   => $user->avatar()?->url(),
+			'email'    => $user->email(),
+			'id'       => $props['id'],
+			'language' => $this->translation()->name(),
+			'link'     => $props['link'],
+			'name'     => $user->name()->toString(),
+			'role'     => $user->role()->title(),
+			'username' => $user->username(),
+			'uuid'     => $props['uuid'],
+		];
+
+		return [
+			...parent::props(),
+			...$this->prevNext(),
+			'avatar'            => $model['avatar'],
+			'blueprint'         => $this->model->role()->name(),
+			'canChangeEmail'    => $permissions['changeEmail'],
+			'canChangeLanguage' => $permissions['changeLanguage'],
+			'canChangeName'     => $permissions['changeName'],
+			'canChangeRole'     => $this->model->roles()->count() > 1,
+			'email'             => $model['email'],
+			'language'          => $model['language'],
+			'model'             => $model,
+			'name'              => $model['name'],
+			'role'              => $model['role'],
+			'username'          => $model['username'],
+		];
 	}
 
 	/**
@@ -260,10 +285,7 @@ class User extends Model
 	}
 
 	/**
-	 * Returns the data array for
-	 * this model's Panel view
-	 *
-	 * @internal
+	 * Returns the data array for this model's Panel view
 	 */
 	public function view(): array
 	{

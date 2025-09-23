@@ -34,7 +34,7 @@
         "version": {
             "type": "string",
             "description": "Package version, see https://getcomposer.org/doc/04-schema.md#version for more info on valid schemes.",
-            "pattern": "^v?\\d+(\\.\\d+){0,3}|^dev-"
+            "pattern": "^[vV]?\\d+(?:[.-]\\d+){0,3}[._-]?(?:(?:[sS][tT][aA][bB][lL][eE]|[bB][eE][tT][aA]|[bB]|[rR][cC]|[aA][lL][pP][hH][aA]|[aA]|[pP][aA][tT][cC][hH]|[pP][lL]|[pP])(?:(?:[.-]?\\d+)*)?)?(?:[.-]?[dD][eE][vV]|\\.x-dev)?(?:\\+.*)?$|^dev-.*$"
         },
         "default-branch": {
             "type": [
@@ -380,6 +380,49 @@
                     "example": "my-extension-source",
                     "default": null
                 },
+                "download-url-method": {
+                    "type": "string",
+                    "description": "If specified, this technique will be used to override the URL that PIE uses to download the asset. The default, if not specified, is composer-default.",
+                    "enum": [
+                        "composer-default",
+                        "pre-packaged-source"
+                    ],
+                    "example": "composer-default"
+                },
+                "os-families": {
+                    "type": "array",
+                    "minItems": 1,
+                    "description": "An array of OS families to mark as compatible with the extension. Specifying this property will mean this package is not installable with PIE on any OS family not listed here. Must not be specified alongside os-families-exclude.",
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "windows",
+                            "bsd",
+                            "darwin",
+                            "solaris",
+                            "linux",
+                            "unknown"
+                        ],
+                        "description": "The name of the OS family to mark as compatible."
+                    }
+                },
+                "os-families-exclude": {
+                    "type": "array",
+                    "minItems": 1,
+                    "description": "An array of OS families to mark as incompatible with the extension. Specifying this property will mean this package is installable on any OS family except those listed here. Must not be specified alongside os-families.",
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "windows",
+                            "bsd",
+                            "darwin",
+                            "solaris",
+                            "linux",
+                            "unknown"
+                        ],
+                        "description": "The name of the OS family to exclude."
+                    }
+                },
                 "configure-options": {
                     "type": "array",
                     "description": "These configure options make up the flags that can be passed to ./configure when installing the extension.",
@@ -409,7 +452,17 @@
                         }
                     }
                 }
-            }
+            },
+            "allOf": [
+                {
+                    "not": {
+                        "required": [
+                            "os-families",
+                            "os-families-exclude"
+                        ]
+                    }
+                }
+            ]
         },
         "config": {
             "type": "object",
@@ -583,6 +636,17 @@
                         "type": "string"
                     }
                 },
+                "custom-headers": {
+                    "type": "object",
+                    "description": "Custom HTTP headers for specific domains.",
+                    "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "description": "A header in format 'Header-Name: Header-Value'"
+                        }
+                    }
+                },
                 "disable-tls": {
                     "type": "boolean",
                     "description": "Defaults to `false`. If set to true all HTTPS URLs will be tried with HTTP instead and no network level encryption is performed. Enabling this is a security risk and is NOT recommended. The better way is to enable the php_openssl extension in php.ini."
@@ -623,6 +687,30 @@
                             "password": {
                                 "type": "string",
                                 "description": "The password used for HTTP Basic authentication"
+                            }
+                        }
+                    }
+                },
+                "client-certificate": {
+                    "type": "object",
+                    "description": "An object of domain name => {\"local_cert\": \"...\", \"local_pk\"?: \"...\", \"passphrase\"?: \"...\"} to provide client certificate.",
+                    "additionalProperties": {
+                        "type": "object",
+                        "required": [
+                            "local_cert"
+                        ],
+                        "properties": {
+                            "local_cert": {
+                                "type": "string",
+                                "description": "Path to a certificate (pem) or pair certificate+key (pem)"
+                            },
+                            "local_pk": {
+                                "type": "string",
+                                "description": "Path to a private key file (pem)"
+                            },
+                            "passphrase": {
+                                "type": "string",
+                                "description": "Passphrase for private key"
                             }
                         }
                     }
@@ -1222,11 +1310,32 @@
                 "options": {
                     "type": "object",
                     "properties": {
+                        "reference": {
+                            "type": [
+                                "string"
+                            ],
+                            "enum": [
+                                "none",
+                                "config",
+                                "auto"
+                            ]
+                        },
                         "symlink": {
                             "type": [
                                 "boolean",
                                 "null"
                             ]
+                        },
+                        "relative": {
+                            "type": [
+                                "boolean"
+                            ]
+                        },
+                        "versions": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
                         }
                     },
                     "additionalProperties": true

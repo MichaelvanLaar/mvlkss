@@ -1,39 +1,15 @@
-# Kirby 3 Robots.txt
+# Kirby Robots.txt
 
-![Release](https://flat.badgen.net/packagist/v/bnomei/kirby3-robots-txt?color=ae81ff)
-![Downloads](https://flat.badgen.net/packagist/dt/bnomei/kirby3-robots-txt?color=272822)
-[![Build Status](https://flat.badgen.net/travis/bnomei/kirby3-robots-txt)](https://travis-ci.com/bnomei/kirby3-robots-txt)
-[![Coverage Status](https://flat.badgen.net/coveralls/c/github/bnomei/kirby3-robots-txt)](https://coveralls.io/github/bnomei/kirby3-robots-txt) 
-[![Maintainability](https://flat.badgen.net/codeclimate/maintainability/bnomei/kirby3-robots-txt)](https://codeclimate.com/github/bnomei/kirby3-robots-txt) 
-[![Twitter](https://flat.badgen.net/badge/twitter/bnomei?color=66d9ef)](https://twitter.com/bnomei)
+[![Kirby 5](https://flat.badgen.net/badge/Kirby/5?color=ECC748)](https://getkirby.com)
+![PHP 8.2](https://flat.badgen.net/badge/PHP/8.2?color=4E5B93&icon=php&label)
+![Release](https://flat.badgen.net/packagist/v/bnomei/kirby3-robots-txt?color=ae81ff&icon=github&label)
+![Downloads](https://flat.badgen.net/packagist/dt/bnomei/kirby3-robots-txt?color=272822&icon=github&label)
+[![Coverage](https://flat.badgen.net/codeclimate/coverage/bnomei/kirby3-robots-txt?icon=codeclimate&label)](https://codeclimate.com/github/bnomei/kirby3-robots-txt)
+[![Maintainability](https://flat.badgen.net/codeclimate/maintainability/bnomei/kirby3-robots-txt?icon=codeclimate&label)](https://codeclimate.com/github/bnomei/kirby3-robots-txt/issues)
+[![Discord](https://flat.badgen.net/badge/discord/bnomei?color=7289da&icon=discord&label)](https://discordapp.com/users/bnomei)
+[![Buymecoffee](https://flat.badgen.net/badge/icon/donate?icon=buymeacoffee&color=FF813F&label)](https://www.buymeacoffee.com/bnomei)
 
-
-Manage the [robots.txt](https://developers.google.com/search/reference/robots_txt) from the Kirby config file.
-
-## Similar Robots.txt Plugins
-
-- [kirby3-helpers](https://github.com/johannschopplich/kirby-helpers)
-- [kirby3-wellknown](https://github.com/omz13/kirby3-wellknown)
-
-## Related SEO Plugins
-
-- [kirby3-seo](https://github.com/tobimori/kirby-seo)
-- [kirby3-helpers](https://github.com/johannschopplich/kirby-helpers)
-- [kirby-meta-knight](https://github.com/diesdasdigital/kirby-meta-knight)
-
-## Commercial Usage
-
-> <br>
-> <b>Support open source!</b><br><br>
-> This plugin is free but if you use it in a commercial project please consider to sponsor me or make a donation.<br>
-> If my work helped you to make some cash it seems fair to me that I might get a little reward as well, right?<br><br>
-> Be kind. Share a little. Thanks.<br><br>
-> &dash; Bruno<br>
-> &nbsp; 
-
-| M | O | N | E | Y |
-|---|----|---|---|---|
-| [Github sponsor](https://github.com/sponsors/bnomei) | [Patreon](https://patreon.com/bnomei) | [Buy Me a Coffee](https://buymeacoff.ee/bnomei) | [Paypal dontation](https://www.paypal.me/bnomei/15) | [Hire me](mailto:b@bnomei.com?subject=Kirby) |
+Installing the plugin is enough to get a virtual [robots.txt](https://developers.google.com/search/reference/robots_txt) file.
 
 ## Installation
 
@@ -41,21 +17,32 @@ Manage the [robots.txt](https://developers.google.com/search/reference/robots_tx
 - `git submodule add https://github.com/bnomei/kirby3-robots-txt.git site/plugins/kirby3-robots-txt` or
 - `composer require bnomei/kirby3-robots-txt`
 
-## Staging Server? Debug Mode = Disallow all
+## Zero-Configuration
 
-When you set the global Kirby `debug` config to `true` the plugin will disallow all indexing for all user-agents. This is especially useful on a staging server but you could consider xml-sitemap and rss-feed among other things as well.
+The plugin will work out of the box without the need to configure anything. It will generate a virtual `robots.txt` file with the following content.
 
-> ⚠️⚠️⚠️ THIS MEANS IF YOU HAVE KIRBY'S DEBUG MODE ENABLED IN PRODUCTION ALL SEARCH ENGINES WILL BE BLOCKED FROM INDEXING YOUR SITE!
+```txt
+User-agent: *
+Disallow: /kirby/
+Disallow: /site/
+Disallow: /cdn-cgi/
+Allow: /media/
+```
 
-## Adding Sitemap Link to Robots.txt
+## Active debug mode will block indexing by search engines
 
-This plugin will add the sitemap link **automatically** to the `robots.txt` file for most available SEO plugins. You can skip setting the `bnomei.robots-txt.sitemap` config value to `sitemap.xml` in that case.
+> [!WARNING]
+> Setting the global Kirby `debug` configuration to `true` will prevent all indexing for every user agent (all Search Engines).
 
-## Setup
+## Link to Sitemap.xml
 
-The plugin generates automatic defaults for the starterkit. You do not have to enter them in the config file. But if you would it would look like this.
+This plugin will add the link to your `sitemap.xml` **automatically** for most available SEO plugins. In that case, you can skip setting the `bnomei.robots-txt.sitemap` config value to `sitemap.xml`.
 
-**defaults for starterkit**
+## Optional Manual Configuration
+
+The plugin generates automatic defaults optimized for the official [Kirby Starterkit](https://github.com/getkirby/starterkit). You do not have to enter any of them in the config file. But if you would, they would look like this.
+
+**defaults for Kirby Starterkit**
 ```php
 <?php
 return [

@@ -22,10 +22,8 @@ class Mime
 {
 	/**
 	 * Extension to MIME type map
-	 *
-	 * @var array
 	 */
-	public static $types = [
+	public static array $types = [
 		'ai'    => 'application/postscript',
 		'aif'   => 'audio/x-aiff',
 		'aifc'  => 'audio/x-aiff',
@@ -59,6 +57,7 @@ class Mime
 		'log'   => ['text/plain', 'text/x-log'],
 		'm4a'   => 'audio/mp4',
 		'm4v'   => 'video/mp4',
+		'md'    => 'text/markdown',
 		'mid'   => 'audio/midi',
 		'midi'  => 'audio/midi',
 		'mif'   => 'application/vnd.mif',
@@ -100,9 +99,9 @@ class Mime
 		'tgz'   => ['application/x-tar', 'application/x-gzip-compressed'],
 		'tif'   => 'image/tiff',
 		'tiff'  => 'image/tiff',
-		'wav'   => 'audio/x-wav',
+		'wav'   => ['audio/wav', 'audio/x-wav', 'audio/vnd.wave', 'audio/wave'],
 		'wbxml' => 'application/wbxml',
-		'webm'  => 'video/webm',
+		'webm'  => ['video/webm', 'audio/webm'],
 		'webp'  => 'image/webp',
 		'word'  => ['application/msword', 'application/octet-stream'],
 		'xhtml' => 'application/xhtml+xml',
@@ -129,13 +128,13 @@ class Mime
 		// fixing map
 		$map = [
 			'text/html' => [
-				'svg' => [Mime::class, 'fromSvg'],
+				'svg' => Mime::fromSvg(...),
 			],
 			'text/plain' => [
 				'css'  => 'text/css',
 				'json' => 'application/json',
 				'mjs' => 'text/javascript',
-				'svg'  => [Mime::class, 'fromSvg'],
+				'svg'  => Mime::fromSvg(...),
 			],
 			'text/x-asm' => [
 				'css' => 'text/css'
@@ -151,7 +150,7 @@ class Mime
 			]
 		];
 
-		if ($mode = ($map[$mime][$extension] ?? null)) {
+		if ($mode = $map[$mime][$extension] ?? null) {
 			if (is_callable($mode) === true) {
 				return $mode($file, $mime, $extension);
 			}
@@ -170,7 +169,12 @@ class Mime
 	public static function fromExtension(string $extension): string|null
 	{
 		$mime = static::$types[$extension] ?? null;
-		return is_array($mime) === true ? array_shift($mime) : $mime;
+
+		if (is_array($mime) === true) {
+			$mime = array_shift($mime);
+		}
+
+		return  $mime;
 	}
 
 	/**
@@ -178,7 +182,10 @@ class Mime
 	 */
 	public static function fromFileInfo(string $file): string|false
 	{
-		if (function_exists('finfo_file') === true && file_exists($file) === true) {
+		if (
+			function_exists('finfo_file') === true &&
+			file_exists($file) === true
+		) {
 			$finfo = finfo_open(FILEINFO_MIME_TYPE);
 			$mime  = finfo_file($finfo, $file);
 			finfo_close($finfo);
@@ -213,7 +220,10 @@ class Mime
 
 			$svg = new SimpleXMLElement(file_get_contents($file));
 
-			if ($svg !== false && $svg->getName() === 'svg') {
+			if (
+				$svg !== false &&
+				$svg->getName() === 'svg'
+			) {
 				return 'image/svg+xml';
 			}
 		}
@@ -254,7 +264,10 @@ class Mime
 	public static function toExtension(string|null $mime = null): string|false
 	{
 		foreach (static::$types as $key => $value) {
-			if (is_array($value) === true && in_array($mime, $value) === true) {
+			if (
+				is_array($value) === true &&
+				in_array($mime, $value, true) === true
+			) {
 				return $key;
 			}
 
@@ -269,36 +282,35 @@ class Mime
 	/**
 	 * Returns all available extensions for a given MIME type
 	 */
-	public static function toExtensions(string|null $mime = null, bool $matchWildcards = false): array
-	{
-		$extensions = [];
-		$testMime = fn (string $v) => static::matches($v, $mime);
+	public static function toExtensions(
+		string|null $mime = null,
+		bool $matchWildcards = false
+	): array {
+		// get all extensions
+		$extensions = array_keys(static::$types);
 
-		foreach (static::$types as $key => $value) {
-			if (is_array($value) === true) {
+		// filter extensions for given MIME type
+		$extensions = A::filter(
+			$extensions,
+			function ($extension) use ($mime, $matchWildcards) {
+				// get corresponding MIME types as array
+				$mimes = A::wrap(static::$types[$extension]);
+
 				if ($matchWildcards === true) {
-					if (A::some($value, $testMime)) {
-						$extensions[] = $key;
-					}
-				} else {
-					if (in_array($mime, $value) === true) {
-						$extensions[] = $key;
-					}
+					// check if at least one MIME type with wildcards matches
+					return A::some(
+						$mimes,
+						fn (string $v): bool => static::matches($v, $mime)
+					);
 				}
-			} else {
-				if ($matchWildcards === true) {
-					if ($testMime($value) === true) {
-						$extensions[] = $key;
-					}
-				} else {
-					if ($value === $mime) {
-						$extensions[] = $key;
-					}
-				}
+
+				// check if at least one MIME type matches exactly
+				return in_array($mime, $mimes, true);
 			}
-		}
+		);
 
-		return $extensions;
+		// renumber array with consecutive keys
+		return array_values($extensions);
 	}
 
 	/**

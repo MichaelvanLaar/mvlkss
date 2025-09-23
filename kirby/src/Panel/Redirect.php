@@ -3,6 +3,7 @@
 namespace Kirby\Panel;
 
 use Exception;
+use Throwable;
 
 /**
  * The Redirect exception can be thrown in all Fiber
@@ -18,6 +19,15 @@ use Exception;
  */
 class Redirect extends Exception
 {
+	public function __construct(
+		string $location,
+		int $code = 302,
+		protected int|false $refresh = false,
+		Throwable|null $previous = null
+	) {
+		parent::__construct($location, $code, $previous);
+	}
+
 	/**
 	 * Returns the HTTP code for the redirect
 	 */
@@ -25,7 +35,7 @@ class Redirect extends Exception
 	{
 		$codes = [301, 302, 303, 307, 308];
 
-		if (in_array($this->getCode(), $codes) === true) {
+		if (in_array($this->getCode(), $codes, true) === true) {
 			return $this->getCode();
 		}
 
@@ -38,5 +48,13 @@ class Redirect extends Exception
 	public function location(): string
 	{
 		return $this->getMessage();
+	}
+
+	/**
+	 * Returns the refresh time in seconds
+	 */
+	public function refresh(): int|false
+	{
+		return $this->refresh;
 	}
 }

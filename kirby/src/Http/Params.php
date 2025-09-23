@@ -4,6 +4,7 @@ namespace Kirby\Http;
 
 use Kirby\Toolkit\Obj;
 use Kirby\Toolkit\Str;
+use Stringable;
 
 /**
  * A wrapper around a URL params
@@ -16,7 +17,7 @@ use Kirby\Toolkit\Str;
  * @copyright Bastian Allgeier
  * @license   https://opensource.org/licenses/MIT
  */
-class Params extends Obj
+class Params extends Obj implements Stringable
 {
 	public static string|null $separator = null;
 
@@ -37,7 +38,7 @@ class Params extends Obj
 	 */
 	public static function extract(string|array|null $path = null): array
 	{
-		if (empty($path) === true) {
+		if ($path === null || $path === '' || $path === []) {
 			return [
 				'path'   => null,
 				'params' => null,
@@ -48,7 +49,7 @@ class Params extends Obj
 		$slash = false;
 
 		if (is_string($path) === true) {
-			$slash = substr($path, -1, 1) === '/';
+			$slash = str_ends_with($path, '/') === true;
 			$path  = Str::split($path, '/');
 		}
 
@@ -57,16 +58,20 @@ class Params extends Obj
 			$separator = static::separator();
 
 			foreach ($path as $index => $p) {
-				if (strpos($p, $separator) === false) {
+				if (str_contains($p, $separator) === false) {
 					continue;
 				}
 
-				$paramParts = Str::split($p, $separator);
-				$paramKey   = $paramParts[0] ?? null;
-				$paramValue = $paramParts[1] ?? null;
+				$parts = Str::split($p, $separator);
 
-				if ($paramKey !== null) {
-					$params[rawurldecode($paramKey)] = $paramValue !== null ? rawurldecode($paramValue) : null;
+				if ($key = $parts[0] ?? null) {
+					$key = rawurldecode($key);
+
+					if ($value = $parts[1] ?? null) {
+						$value = rawurldecode($value);
+					}
+
+					$params[$key] = $value;
 				}
 
 				unset($path[$index]);
@@ -88,12 +93,29 @@ class Params extends Obj
 
 	public function isEmpty(): bool
 	{
-		return empty((array)$this) === true;
+		return (array)$this === [];
 	}
 
 	public function isNotEmpty(): bool
 	{
 		return $this->isEmpty() === false;
+	}
+
+	/**
+	 * Merges the current params with the given params
+	 * @since 5.1.0
+	 *
+	 * @return $this
+	 */
+	public function merge(array|string|null $params): static
+	{
+		$params = new static($params);
+
+		foreach ($params as $key => $value) {
+			$this->$key = $value;
+		}
+
+		return $this;
 	}
 
 	/**
@@ -105,15 +127,7 @@ class Params extends Obj
 	 */
 	public static function separator(): string
 	{
-		if (static::$separator !== null) {
-			return static::$separator;
-		}
-
-		if (DIRECTORY_SEPARATOR === '/') {
-			return static::$separator = ':';
-		}
-
-		return static::$separator = ';';
+		return static::$separator ??= DIRECTORY_SEPARATOR === '/' ? ':' : ';';
 	}
 
 	/**
@@ -133,11 +147,13 @@ class Params extends Obj
 
 		foreach ($this as $key => $value) {
 			if ($value !== null && $value !== '') {
-				$params[] = rawurlencode($key) . $separator . rawurlencode($value);
+				$key      = rawurlencode($key);
+				$value    = rawurlencode($value);
+				$params[] = $key . $separator . $value;
 			}
 		}
 
-		if (empty($params) === true) {
+		if ($params === []) {
 			return '';
 		}
 

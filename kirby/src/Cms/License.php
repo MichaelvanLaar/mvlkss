@@ -24,10 +24,13 @@ class License
 {
 	public const HISTORY = [
 		'3' => '2019-02-05',
-		'4' => '2023-11-28'
+		'4' => '2023-11-28',
+		'5' => '2025-06-24'
 	];
 
 	protected const SALT = 'kwAHMLyLPBnHEskzH9pPbJsBxQhKXZnX';
+
+	protected App $kirby;
 
 	// cache
 	protected LicenseStatus $status;
@@ -42,9 +45,15 @@ class License
 		protected string|null $date = null,
 		protected string|null $signature = null,
 	) {
-		// normalize arguments
-		$this->code  = $this->code !== null ? trim($this->code) : null;
-		$this->email = $this->email !== null ? $this->normalizeEmail($this->email) : null;
+		if ($code !== null) {
+			$this->code = trim($code);
+		}
+
+		if ($email !== null) {
+			$this->email = $this->normalizeEmail($email);
+		}
+
+		$this->kirby = App::instance();
 	}
 
 	/**
@@ -93,6 +102,15 @@ class License
 		string|null $handler = null
 	): int|string|null {
 		return $this->date !== null ? Str::date(strtotime($this->date), $format, $handler) : null;
+	}
+
+	/**
+	 * Deletes the license file if it exists
+	 * @since 5.1.0
+	 */
+	public function delete(): bool
+	{
+		return F::remove($this->root());
 	}
 
 	/**
@@ -174,14 +192,16 @@ class License
 		}
 
 		// get release date of current major version
-		$major   = Str::before(App::instance()->version(), '.');
+		$major   = Str::before($this->kirby->version(), '.');
 		$release = strtotime(static::HISTORY[$major] ?? '');
 
 		// if there's no matching version in the history
 		// rather throw an exception to avoid further issues
 		// @codeCoverageIgnoreStart
 		if ($release === false) {
-			throw new InvalidArgumentException('The version for your license could not be found');
+			throw new InvalidArgumentException(
+				message: 'The version for your license could not be found'
+			);
 		}
 		// @codeCoverageIgnoreEnd
 
@@ -212,7 +232,7 @@ class License
 		}
 
 		// compare domains
-		if ($this->normalizeDomain(App::instance()->system()->indexUrl()) !== $this->normalizeDomain($this->domain)) {
+		if ($this->normalizeDomain($this->kirby->system()->indexUrl()) !== $this->normalizeDomain($this->domain)) {
 			return false;
 		}
 
@@ -229,7 +249,7 @@ class License
 		}
 
 		// get the public key
-		$pubKey = F::read(App::instance()->root('kirby') . '/kirby.pub');
+		$pubKey = F::read($this->kirby->root('kirby') . '/kirby.pub');
 
 		// verify the license signature
 		$data      = json_encode($this->signatureData());
@@ -321,7 +341,7 @@ class License
 	public static function read(): static
 	{
 		try {
-			$license = Json::read(App::instance()->root('license'));
+			$license = Json::read(static::root());
 		} catch (Throwable) {
 			return new static();
 		}
@@ -335,15 +355,21 @@ class License
 	public function register(): static
 	{
 		if ($this->type() === LicenseType::Invalid) {
-			throw new InvalidArgumentException(['key' => 'license.format']);
+			throw new InvalidArgumentException(
+				key: 'license.format'
+			);
 		}
 
 		if ($this->hasValidEmailAddress() === false) {
-			throw new InvalidArgumentException(['key' => 'license.email']);
+			throw new InvalidArgumentException(
+				key: 'license.email'
+			);
 		}
 
 		if ($this->domain === null) {
-			throw new InvalidArgumentException(['key' => 'license.domain']);
+			throw new InvalidArgumentException(
+				key: 'license.domain'
+			);
 		}
 
 		// @codeCoverageIgnoreStart
@@ -386,11 +412,23 @@ class License
 		if ($response->code() !== 200) {
 			$message = $response->json()['message'] ?? 'The request failed';
 
-			throw new LogicException($message, $response->code());
+			throw new LogicException(
+				key: $response->code(),
+				message: $message,
+			);
 		}
 
 		return $response->json();
 		// @codeCoverageIgnoreEnd
+	}
+
+	/**
+	 * Returns the root path to the license file
+	 * @since 5.1.0
+	 */
+	public static function root(): string
+	{
+		return App::instance()->root('license');
 	}
 
 	/**
@@ -399,16 +437,16 @@ class License
 	public function save(): bool
 	{
 		if ($this->status()->activatable() !== true) {
-			throw new InvalidArgumentException([
-				'key' => 'license.verification'
-			]);
+			throw new InvalidArgumentException(
+				key: 'license.verification'
+			);
 		}
 
-		// where to store the license file
-		$file = App::instance()->root('license');
-
 		// save the license information
-		return Json::write($file, $this->content());
+		return Json::write(
+			file: $this->root(),
+			data: $this->content()
+		);
 	}
 
 	/**
@@ -453,10 +491,10 @@ class License
 	public function status(): LicenseStatus
 	{
 		return $this->status ??= match (true) {
-			$this->isMissing()  === true => LicenseStatus::Missing,
-			$this->isLegacy()   === true => LicenseStatus::Legacy,
-			$this->isInactive() === true => LicenseStatus::Inactive,
-			default                      => LicenseStatus::Active
+			$this->isMissing()  => LicenseStatus::Missing,
+			$this->isLegacy()   => LicenseStatus::Legacy,
+			$this->isInactive() => LicenseStatus::Inactive,
+			default             => LicenseStatus::Active
 		};
 	}
 
@@ -510,7 +548,9 @@ class License
 		if (empty($response['url']) === false) {
 			// validate the redirect URL
 			if (Str::startsWith($response['url'], static::hub()) === false) {
-				throw new Exception('We couldn’t redirect you to the Hub');
+				throw new Exception(
+					message: 'We couldn’t redirect you to the Hub'
+				);
 			}
 
 			return [

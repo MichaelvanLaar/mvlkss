@@ -20,20 +20,16 @@ $fields = require __DIR__ . '/../fields/dialogs.php';
 $files = require __DIR__ . '/../files/dialogs.php';
 
 return [
-
-	// change page position
 	'page.changeSort' => [
 		'pattern' => 'pages/(:any)/changeSort',
 		'load' => function (string $id) {
 			$page = Find::page($id);
 
 			if ($page->blueprint()->num() !== 'default') {
-				throw new PermissionException([
-					'key'  => 'page.sort.permission',
-					'data' => [
-						'slug' => $page->slug()
-					]
-				]);
+				throw new PermissionException(
+					key: 'page.sort.permission',
+					data: ['slug' => $page->slug()]
+				);
 			}
 
 			return [
@@ -63,7 +59,6 @@ return [
 		}
 	],
 
-	// change page status
 	'page.changeStatus' => [
 		'pattern' => 'pages/(:any)/changeStatus',
 		'load' => function (string $id) {
@@ -142,7 +137,6 @@ return [
 		}
 	],
 
-	// change template
 	'page.changeTemplate' => [
 		'pattern' => 'pages/(:any)/changeTemplate',
 		'load' => function (string $id) {
@@ -150,12 +144,10 @@ return [
 			$blueprints = $page->blueprints();
 
 			if (count($blueprints) <= 1) {
-				throw new Exception([
-					'key'  => 'page.changeTemplate.invalid',
-					'data' => [
-						'slug' => $id
-					]
-				]);
+				throw new Exception(
+					key: 'page.changeTemplate.invalid',
+					data: ['slug' => $id]
+				);
 			}
 
 			return [
@@ -191,7 +183,6 @@ return [
 		}
 	],
 
-	// change title
 	'page.changeTitle' => [
 		'pattern' => 'pages/(:any)/changeTitle',
 		'load' => function (string $id) {
@@ -264,20 +255,17 @@ return [
 
 			// the page title changed
 			if ($page->title()->value() !== $title) {
-				$page->changeTitle($title);
+				$page = $page->changeTitle($title);
 				$response['event'][] = 'page.changeTitle';
 			}
 
 			// the slug changed
 			if ($page->slug() !== $slug) {
-				$newPage = $page->changeSlug($slug);
 				$response['event'][] = 'page.changeSlug';
-				$response['dispatch'] = [
-					'content/move' => [
-						$oldUrl = $page->panel()->url(true),
-						$newUrl = $newPage->panel()->url(true)
-					]
-				];
+
+				$newPage = $page->changeSlug($slug);
+				$oldUrl  = $page->panel()->url(true);
+				$newUrl  = $newPage->panel()->url(true);
 
 				// check for a necessary redirect after the slug has changed
 				if (Panel::referrer() === $oldUrl && $oldUrl !== $newUrl) {
@@ -289,7 +277,6 @@ return [
 		}
 	],
 
-	// create a new page
 	'page.create' => [
 		'pattern' => 'pages/create',
 		'load' => function () {
@@ -300,6 +287,7 @@ return [
 				slug: $request->get('slug'),
 				template: $request->get('template'),
 				title: $request->get('title'),
+				uuid: $request->get('uuid'),
 				viewId: $request->get('view'),
 			);
 
@@ -313,6 +301,7 @@ return [
 				slug: $request->get('slug'),
 				template: $request->get('template'),
 				title: $request->get('title'),
+				uuid: $request->get('uuid'),
 				viewId: $request->get('view'),
 			);
 
@@ -320,7 +309,6 @@ return [
 		}
 	],
 
-	// delete page
 	'page.delete' => [
 		'pattern' => 'pages/(:any)/delete',
 		'load' => function (string $id) {
@@ -372,7 +360,9 @@ return [
 				$page->childrenAndDrafts()->count() > 0 &&
 				$request->get('check') !== $page->title()->value()
 			) {
-				throw new InvalidArgumentException(['key' => 'page.delete.confirm']);
+				throw new InvalidArgumentException(
+					key: 'page.delete.confirm'
+				);
 			}
 
 			$page->delete(true);
@@ -385,13 +375,11 @@ return [
 
 			return [
 				'event'    => 'page.delete',
-				'dispatch' => ['content/remove' => [$url]],
 				'redirect' => $redirect
 			];
 		}
 	],
 
-	// duplicate page
 	'page.duplicate' => [
 		'pattern' => 'pages/(:any)/duplicate',
 		'load' => function (string $id) {
@@ -416,19 +404,17 @@ return [
 
 			if ($hasFiles === true) {
 				$fields['files'] = [
-					'label'    => I18n::translate('page.duplicate.files'),
-					'type'     => 'toggle',
-					'required' => true,
-					'width'    => $toggleWidth
+					'label' => I18n::translate('page.duplicate.files'),
+					'type'  => 'toggle',
+					'width' => $toggleWidth
 				];
 			}
 
 			if ($hasChildren === true) {
 				$fields['children'] = [
-					'label'    => I18n::translate('page.duplicate.pages'),
-					'type'     => 'toggle',
-					'required' => true,
-					'width'    => $toggleWidth
+					'label' => I18n::translate('page.duplicate.pages'),
+					'type'  => 'toggle',
+					'width' => $toggleWidth
 				];
 			}
 
@@ -440,11 +426,11 @@ return [
 			$duplicateSlug = $page->slug() . '-' . $slugAppendix;
 			$siblingKeys   = $page->parentModel()->childrenAndDrafts()->pluck('uid');
 
-			if (in_array($duplicateSlug, $siblingKeys) === true) {
+			if (in_array($duplicateSlug, $siblingKeys, true) === true) {
 				$suffixCounter = 2;
 				$newSlug       = $duplicateSlug . $suffixCounter;
 
-				while (in_array($newSlug, $siblingKeys) === true) {
+				while (in_array($newSlug, $siblingKeys, true) === true) {
 					$newSlug = $duplicateSlug . ++$suffixCounter;
 				}
 
@@ -482,49 +468,31 @@ return [
 		}
 	],
 
-	// page field dialogs
 	'page.fields' => [
-		'pattern' => '(pages/.*?)/fields/(:any)/(:all?)',
-		'load'    => $fields['model']['load'],
-		'submit'  => $fields['model']['submit']
+		...$fields['model'],
+		'pattern' => '(pages/[^/]+)/fields/(:any)/(:all?)',
 	],
-
-	// change filename
 	'page.file.changeName' => [
-		'pattern' => '(pages/.*?)/files/(:any)/changeName',
-		'load'    => $files['changeName']['load'],
-		'submit'  => $files['changeName']['submit'],
+		...$files['changeName'],
+		'pattern' => '(pages/[^/]+)/files/(:any)/changeName',
 	],
-
-	// change sort
 	'page.file.changeSort' => [
-		'pattern' => '(pages/.*?)/files/(:any)/changeSort',
-		'load'    => $files['changeSort']['load'],
-		'submit'  => $files['changeSort']['submit'],
+		...$files['changeSort'],
+		'pattern' => '(pages/[^/]+)/files/(:any)/changeSort',
 	],
-
-	// change template
 	'page.file.changeTemplate' => [
-		'pattern' => '(pages/.*?)/files/(:any)/changeTemplate',
-		'load'    => $files['changeTemplate']['load'],
-		'submit'  => $files['changeTemplate']['submit'],
+		...$files['changeTemplate'],
+		'pattern' => '(pages/[^/]+)/files/(:any)/changeTemplate',
 	],
-
-	// delete
 	'page.file.delete' => [
-		'pattern' => '(pages/.*?)/files/(:any)/delete',
-		'load'    => $files['delete']['load'],
-		'submit'  => $files['delete']['submit'],
+		...$files['delete'],
+		'pattern' => '(pages/[^/]+)/files/(:any)/delete',
 	],
-
-	// page file field dialogs
 	'page.file.fields' => [
-		'pattern' => '(pages/.*?)/files/(:any)/fields/(:any)/(:all?)',
-		'load'    => $fields['file']['load'],
-		'submit'  => $fields['file']['submit'],
+		...$fields['file'],
+		'pattern' => '(pages/[^/]+)/files/(:any)/fields/(:any)/(:all?)',
 	],
 
-	// move page
 	'page.move' => [
 		'pattern' => 'pages/(:any)/move',
 		'load'    => function (string $id) {
@@ -556,18 +524,11 @@ return [
 
 			return [
 				'event'    => 'page.move',
-				'redirect' => $newPage->panel()->url(true),
-				'dispatch' => [
-					'content/move' => [
-						$oldPage->panel()->url(true),
-						$newPage->panel()->url(true)
-					]
-				],
+				'redirect' => $newPage->panel()->url(true)
 			];
 		}
 	],
 
-	// change site title
 	'site.changeTitle' => [
 		'pattern' => 'site/changeTitle',
 		'load' => function () {
@@ -597,59 +558,35 @@ return [
 		}
 	],
 
-	// site field dialogs
 	'site.fields' => [
+		...$fields['model'],
 		'pattern' => '(site)/fields/(:any)/(:all?)',
-		'load'    => $fields['model']['load'],
-		'submit'  => $fields['model']['submit'],
 	],
-
-	// change filename
 	'site.file.changeName' => [
+		...$files['changeName'],
 		'pattern' => '(site)/files/(:any)/changeName',
-		'load'    => $files['changeName']['load'],
-		'submit'  => $files['changeName']['submit'],
 	],
-
-	// change sort
 	'site.file.changeSort' => [
+		...$files['changeSort'],
 		'pattern' => '(site)/files/(:any)/changeSort',
-		'load'    => $files['changeSort']['load'],
-		'submit'  => $files['changeSort']['submit'],
 	],
-
-	// change template
 	'site.file.changeTemplate' => [
+		...$files['changeTemplate'],
 		'pattern' => '(site)/files/(:any)/changeTemplate',
-		'load'    => $files['changeTemplate']['load'],
-		'submit'  => $files['changeTemplate']['submit'],
 	],
-
-	// delete
 	'site.file.delete' => [
+		...$files['delete'],
 		'pattern' => '(site)/files/(:any)/delete',
-		'load'    => $files['delete']['load'],
-		'submit'  => $files['delete']['submit'],
 	],
-
-	// site file field dialogs
 	'site.file.fields' => [
+		...$fields['file'],
 		'pattern' => '(site)/files/(:any)/fields/(:any)/(:all?)',
-		'load'    => $fields['file']['load'],
-		'submit'  => $fields['file']['submit'],
 	],
 
-	// content changes
 	'changes' => [
 		'pattern' => 'changes',
 		'load'    => function () {
-			$dialog = new ChangesDialog();
-			return $dialog->load();
+			return (new ChangesDialog())->load();
 		},
-		'submit' => function () {
-			$dialog = new ChangesDialog();
-			$ids    = App::instance()->request()->get('ids');
-			return $dialog->submit($ids);
-		}
 	],
 ];

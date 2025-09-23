@@ -6,7 +6,51 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
-For a full diff see [`2.45.0...main`][2.45.0...main].
+For a full diff see [`2.48.2...main`][2.48.2...main].
+
+## [`2.48.2`][2.48.2]
+
+For a full diff see [`2.48.1...2.48.2`][2.48.1...2.48.2].
+
+### Fixed
+
+- Updated branch alias ([#1502]), by [@localheinz]
+
+## [`2.48.1`][2.48.1]
+
+For a full diff see [`2.48.0...2.48.1`][2.48.0...2.48.1].
+
+### Fixed
+
+- Adjusted release workflow to create a release in draft mode, upload release assets, and then publish the release ([#1496]), by [@localheinz]
+
+## [`2.48.0`][2.48.0]
+
+For a full diff see [`2.47.0...2.48.0`][2.47.0...2.48.0].
+
+### Changed
+
+- Updated `schema.json` ([#1454]), by [@ergebnis-bot]
+- Allowed installation on PHP 8.5 ([#1485]), by [@localheinz]
+- Added support for PHP 8.5 ([#1490]), by [@AlexSkrypnyk]
+- Updated `localheinz/diff` ([#1493]), by [@andrey-helldar]
+
+## [`2.47.0`][2.47.0]
+
+For a full diff see [`2.46.0...2.47.0`][2.46.0...2.47.0].
+
+### Changed
+
+- Updated `schema.json` ([#1441]), by [@ergebnis-bot]
+
+## [`2.46.0`][2.46.0]
+
+For a full diff see [`2.45.0...2.46.0`][2.45.0...2.46.0].
+
+### Changed
+
+- Updated `schema.json` ([#1419]), by [@ergebnis-bot]
+- Updated `ergerbnis/json-normalizer` ([#1440]), by [@localheinz]
 
 ## [`2.45.0`][2.45.0]
 
@@ -1019,6 +1063,10 @@ For a full diff see [`81bc3a8...0.1.0`][81bc3a8...0.1.0].
 [2.43.0]: https://github.com/ergebnis/composer-normalize/releases/tag/2.43.0
 [2.44.0]: https://github.com/ergebnis/composer-normalize/releases/tag/2.44.0
 [2.45.0]: https://github.com/ergebnis/composer-normalize/releases/tag/2.45.0
+[2.46.0]: https://github.com/ergebnis/composer-normalize/releases/tag/2.46.0
+[2.47.0]: https://github.com/ergebnis/composer-normalize/releases/tag/2.47.0
+[2.48.0]: https://github.com/ergebnis/composer-normalize/releases/tag/2.48.0
+[2.48.1]: https://github.com/ergebnis/composer-normalize/releases/tag/2.48.1
 
 [81bc3a8...0.1.0]: https://github.com/ergebnis/composer-normalize/compare/81bc3a8...0.1.0
 [0.1.0...0.2.0]: https://github.com/ergebnis/composer-normalize/compare/0.1.0...0.2.0
@@ -1116,7 +1164,12 @@ For a full diff see [`81bc3a8...0.1.0`][81bc3a8...0.1.0].
 [2.42.0...2.43.0]: https://github.com/ergebnis/composer-normalize/compare/2.42.0...2.43.0
 [2.43.0...2.44.0]: https://github.com/ergebnis/composer-normalize/compare/2.43.0...2.44.0
 [2.44.0...2.45.0]: https://github.com/ergebnis/composer-normalize/compare/2.44.0...2.45.0
-[2.45.0...main]: https://github.com/ergebnis/composer-normalize/compare/2.45.0...main
+[2.45.0...2.46.0]: https://github.com/ergebnis/composer-normalize/compare/2.45.0...2.46.0
+[2.46.0...2.47.0]: https://github.com/ergebnis/composer-normalize/compare/2.46.0...2.47.0
+[2.47.0...2.48.0]: https://github.com/ergebnis/composer-normalize/compare/2.47.0...2.48.0
+[2.48.0...2.48.1]: https://github.com/ergebnis/composer-normalize/compare/2.48.0...2.48.1
+[2.48.1...2.48.2]: https://github.com/ergebnis/composer-normalize/compare/2.48.1...2.48.2
+[2.48.2...main]: https://github.com/ergebnis/composer-normalize/compare/2.48.2...main
 
 [#1]: https://github.com/ergebnis/composer-normalize/pull/1
 [#2]: https://github.com/ergebnis/composer-normalize/pull/2
@@ -1271,7 +1324,18 @@ For a full diff see [`81bc3a8...0.1.0`][81bc3a8...0.1.0].
 [#1405]: https://github.com/ergebnis/composer-normalize/pull/1405
 [#1410]: https://github.com/ergebnis/composer-normalize/pull/1410
 [#1416]: https://github.com/ergebnis/composer-normalize/pull/1416
+[#1419]: https://github.com/ergebnis/composer-normalize/pull/1419
+[#1440]: https://github.com/ergebnis/composer-normalize/pull/1440
+[#1441]: https://github.com/ergebnis/composer-normalize/pull/1441
+[#1454]: https://github.com/ergebnis/composer-normalize/pull/1454
+[#1485]: https://github.com/ergebnis/composer-normalize/pull/1485
+[#1490]: https://github.com/ergebnis/composer-normalize/pull/1490
+[#1493]: https://github.com/ergebnis/composer-normalize/pull/1493
+[#1496]: https://github.com/ergebnis/composer-normalize/pull/1496
+[#1502]: https://github.com/ergebnis/composer-normalize/pull/1502
 
+[@AlexSkrypnyk]: https://github.com/AlexSkrypnyk
+[@andrey-helldar]: https://github.com/andrey-helldar
 [@core23]: https://github.com/core23
 [@dependabot]: https://github.com/dependabot
 [@ergebnis-bot]: https://github.com/ergebnis-bot

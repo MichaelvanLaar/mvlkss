@@ -8,29 +8,19 @@ use Kirby\Image\Darkroom;
 use Kirby\Image\Focus;
 
 /**
- * ImageMagick
+ * Legacy ImageMagick driver using the convert CLI
  *
  * @package   Kirby Image
  * @author    Bastian Allgeier <bastian@getkirby.com>
  * @link      https://getkirby.com
  * @copyright Bastian Allgeier
  * @license   https://opensource.org/licenses/MIT
+ *
+ * @deprecated 5.1.0 Use `imagick` in the `thumbs.driver` config option instead
+ * @todo Remove in 7.0.0
  */
 class ImageMagick extends Darkroom
 {
-	/**
-	 * Activates imagemagick's auto-orient feature unless
-	 * it is deactivated via the options
-	 */
-	protected function autoOrient(string $file, array $options): string|null
-	{
-		if ($options['autoOrient'] === true) {
-			return '-auto-orient';
-		}
-
-		return null;
-	}
-
 	/**
 	 * Applies the blur settings
 	 */
@@ -135,7 +125,7 @@ class ImageMagick extends Darkroom
 		$command[] = $this->interlace($file, $options);
 		$command[] = $this->coalesce($file, $options);
 		$command[] = $this->grayscale($file, $options);
-		$command[] = $this->autoOrient($file, $options);
+		$command[] = '-auto-orient';
 		$command[] = $this->resize($file, $options);
 		$command[] = $this->quality($file, $options);
 		$command[] = $this->blur($file, $options);
@@ -150,7 +140,7 @@ class ImageMagick extends Darkroom
 
 		// log broken commands
 		if ($return !== 0) {
-			throw new Exception('The imagemagick convert command could not be executed: ' . $command);
+			throw new Exception(message: 'The imagemagick convert command could not be executed: ' . $command);
 		}
 
 		return $options;

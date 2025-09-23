@@ -2,7 +2,9 @@
 
 use Kirby\Cms\App;
 use Kirby\Cms\Find;
-use Kirby\Toolkit\Escape;
+use Kirby\Panel\Collector\UsersCollector;
+use Kirby\Panel\Ui\Buttons\ViewButtons;
+use Kirby\Panel\Ui\Item\UserItem;
 
 return [
 	'users' => [
@@ -18,7 +20,11 @@ return [
 			return [
 				'component' => 'k-users-view',
 				'props'     => [
-					'canCreate' => $kirby->roles()->canBeCreated()->count() > 0,
+					'buttons' => fn () =>
+						ViewButtons::view('users')
+							->defaults('create')
+							->bind(['role' => $role])
+							->render(),
 					'role' => function () use ($roles, $role) {
 						if ($role) {
 							return $roles[$role] ?? null;
@@ -26,29 +32,17 @@ return [
 					},
 					'roles' => array_values($roles),
 					'users' => function () use ($kirby, $role) {
-						$users = $kirby->users();
+						$collector = new UsersCollector(
+							limit: 20,
+							page: $kirby->request()->get('page', 1),
+							role: $role,
+							sortBy: 'username asc',
+						);
 
-						if (empty($role) === false) {
-							$users = $users->role($role);
-						}
-
-						// sort users alphabetically
-						$users = $users->sortBy('username', 'asc');
-
-						// paginate
-						$users = $users->paginate([
-							'limit' => 20,
-							'page'  => $kirby->request()->get('page')
-						]);
+						$users = $collector->models(paginated: true);
 
 						return [
-							'data' => $users->values(fn ($user) => [
-								'id'    => $user->id(),
-								'image' => $user->panel()->image(),
-								'info'  => Escape::html($user->role()->title()),
-								'link'  => $user->panel()->url(true),
-								'text'  => Escape::html($user->username())
-							]),
+							'data'       => $users->values(fn ($user) => (new UserItem(user: $user))->props()),
 							'pagination' => $users->pagination()->toArray()
 						];
 					},

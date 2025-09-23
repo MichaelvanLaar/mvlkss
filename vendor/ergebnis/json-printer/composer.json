@@ -22,11 +22,12 @@
     "security": "https://github.com/ergebnis/json-printer/blob/main/.github/SECURITY.md"
   },
   "require": {
-    "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0",
+    "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0",
     "ext-json": "*",
     "ext-mbstring": "*"
   },
   "require-dev": {
+    "ergebnis/composer-normalize": "^2.44.0",
     "ergebnis/data-provider": "^3.3.0",
     "ergebnis/license": "^2.5.0",
     "ergebnis/php-cs-fixer-config": "^6.37.0",
@@ -54,6 +55,7 @@
   "config": {
     "allow-plugins": {
       "composer/package-versions-deprecated": true,
+      "ergebnis/composer-normalize": true,
       "infection/extension-installer": true,
       "phpstan/extension-installer": true
     },
@@ -65,5 +67,14 @@
     },
     "preferred-install": "dist",
     "sort-packages": true
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-main": "3.9-dev"
+    },
+    "composer-normalize": {
+      "indent-size": 2,
+      "indent-style": "space"
+    }
   }
 }

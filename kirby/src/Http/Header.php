@@ -68,7 +68,7 @@ class Header
 
 		$header = 'Content-type: ' . $mime;
 
-		if (empty($charset) === false) {
+		if ($charset !== '') {
 			$header .= '; charset=' . $charset;
 		}
 
@@ -287,14 +287,13 @@ class Header
 	 */
 	public static function download(array $params = []): void
 	{
-		$defaults = [
+		$options = [
 			'name'     => 'download',
 			'size'     => false,
 			'mime'     => 'application/force-download',
-			'modified' => time()
+			'modified' => time(),
+			...$params
 		];
-
-		$options = array_merge($defaults, $params);
 
 		header('Pragma: public');
 		header('Cache-Control: no-cache, no-store, must-revalidate');

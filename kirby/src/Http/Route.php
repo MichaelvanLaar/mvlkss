@@ -14,24 +14,9 @@ use Closure;
 class Route
 {
 	/**
-	 * The callback action function
-	 */
-	protected Closure $action;
-
-	/**
 	 * Listed of parsed arguments
 	 */
 	protected array $arguments = [];
-
-	/**
-	 * An array of all passed attributes
-	 */
-	protected array $attributes = [];
-
-	/**
-	 * The registered request method
-	 */
-	protected string $method;
 
 	/**
 	 * The registered pattern
@@ -74,14 +59,11 @@ class Route
 	 */
 	public function __construct(
 		string $pattern,
-		string $method,
-		Closure $action,
-		array $attributes = []
+		protected string $method,
+		protected Closure $action,
+		protected array $attributes = []
 	) {
-		$this->action     = $action;
-		$this->attributes = $attributes;
-		$this->method     = $method;
-		$this->pattern    = $this->regex(ltrim($pattern, '/'));
+		$this->pattern = $this->regex(ltrim($pattern, '/'));
 	}
 
 	/**
@@ -131,7 +113,7 @@ class Route
 	 */
 	public static function next(): void
 	{
-		throw new Exceptions\NextRouteException('next');
+		throw new Exceptions\NextRouteException(message: 'next');
 	}
 
 	/**
@@ -177,7 +159,7 @@ class Route
 		// We only need to check routes with regular expression since all others
 		// would have been able to be matched by the search for literal matches
 		// we just did before we started searching.
-		if (strpos($pattern, '(') === false) {
+		if (str_contains($pattern, '(') === false) {
 			return false;
 		}
 

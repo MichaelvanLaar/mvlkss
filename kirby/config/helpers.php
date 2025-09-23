@@ -55,7 +55,7 @@ if (Helpers::hasOverride('collection') === false) { // @codeCoverageIgnore
 	 * Returns the result of a collection by name
 	 *
 	 * @return \Kirby\Toolkit\Collection|null
-	 * @todo 5.0 Add return type declaration
+	 * @todo 6.0 Add return type declaration
 	 */
 	function collection(string $name, array $options = [])
 	{
@@ -640,7 +640,7 @@ if (Helpers::hasOverride('uuid') === false) { // @codeCoverageIgnore
 
 if (Helpers::hasOverride('video') === false) { // @codeCoverageIgnore
 	/**
-	 * Creates a video embed via iframe for Youtube or Vimeo
+	 * Creates a video embed via iframe for YouTube or Vimeo
 	 * videos. The embed Urls are automatically detected from
 	 * the given Url.
 	 */
@@ -680,7 +680,7 @@ if (Helpers::hasOverride('widont') === false) { // @codeCoverageIgnore
 
 if (Helpers::hasOverride('youtube') === false) { // @codeCoverageIgnore
 	/**
-	 * Embeds a Youtube video by URL in an iframe
+	 * Embeds a YouTube video by URL in an iframe
 	 */
 	function youtube(
 		string $url,
