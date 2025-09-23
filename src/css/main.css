@@ -350,3 +350,13 @@
 [data-page-builder-element-type="grid-row"].row-text-center > div > div > ol {
   @apply text-center;
 }
+
+/**
+ * -----------------------------------------------------------------------------
+ * Page Transition
+ * -----------------------------------------------------------------------------
+ */
+
+@view-transition {
+  navigation: auto;
+}
