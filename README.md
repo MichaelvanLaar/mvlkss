@@ -121,6 +121,49 @@ The easiest way to deploy the website from a central remote repository to a prod
 
 If the Kirby Panel is used on a staging or production server to edit website content, you may wish to synchronise these changes back to the central remote repository. To do this you can use the shell script `/utilities/deploy-and-sync/sync-server-to-central-repo.sh`. You will probably want to use a cronjob to run this script on a regular basis. Further configuration notes can be found in the script file itself.
 
+#### Server Configuration
+
+**Caddy Web Server (Recommended)**
+
+If you use Caddy, add this snippet to your Caddyfile's snippets section:
+
+```caddy
+# Kirby-specific configuration snippet
+(kirby_config) {
+    # PHP setup (adjust socket path as needed)
+    php_fastcgi unix//run/php/php8.4-fpm.sock {
+        # Pass Authorization header to PHP (required for API auth)
+        env HTTP_AUTHORIZATION {http.request.header.Authorization}
+    }
+
+    # Block access to Kirby core directories
+    @kirby_blocked path /kirby/* /site/* /content/*
+    respond @kirby_blocked 404
+
+    # Enable directory indexes (handled by index.php)
+    try_files {path} {path}/ /index.php?{query}
+}
+```
+
+Then use it in your site configuration:
+
+```caddy
+example.com, www.example.com {
+    root * /var/www/example.com
+    # ... other imports like www_to_naked, security_headers, etc.
+    import kirby_config  # Add this line
+    file_server
+
+    # Optional: Cache static assets
+    header /fonts/* Cache-Control "public, max-age=31536000"
+    header /images/* Cache-Control "public, max-age=31536000"
+}
+```
+
+**Apache Web Server**
+
+The included `.htaccess` file is production-ready and provides all necessary configuration including URL rewriting, security headers, compression, and caching. No modifications are needed for most deployments.
+
 ### Prefill the Kirby Page Cache
 
 Especially pages created with the Page Builder of the Kirby Panel benefit enormously from server-side caching. A page is cached when it is visited for the first time – with the disadvantage, of course, that the "first visitor" to a page (after its cache information has been cleared, e.g. because the page content has been updated) has to wait longer. However, this usually works well.
@@ -133,9 +176,11 @@ In such a situation, the included page cache prefill script comes in handy:
 
 1. Customize the configuration settings in the `/utilities/kirby-cache-prefill.js` file according to the details of your website project.
 2. Run the script **on your development machine** (which, of course, must be connected to the Internet):
+
     ```bash
     npm run utility-kirby-cache-prefill
     ```
+
 3. Grab some coffee and wait. The script fetches the URLs of all pages from your XML sitemaps and visits each URL using Playwright with different viewports. This results in the visited pages being added to Kirby’s page cache, as well as any server-side generated images being generated in all the required sizes.
 
 **Warning:** The script has an artificial delay (of a random time between about one and five seconds) between two page visits built in to appear a little less robotic. However, you should make sure beforehand that the cache prefill script does not inadvertently trigger any security mechanisms your web hosting provider may have in place.

@@ -141,6 +141,67 @@ Defined in [site/config/config.php](site/config/config.php) as the `$spacingUtil
 4. **Image Processing**: Prefers ImageMagick over GD for AVIF support
 5. **Deployment**: GitHub Actions workflow sample in `/utilities/deploy-and-sync/`
 
+## Server Configuration
+
+### Caddy Web Server (Recommended)
+
+This template includes Apache `.htaccess` for compatibility, but the author uses Caddy. Add this Caddyfile snippet for Kirby sites:
+
+```caddy
+# Kirby-specific configuration snippet
+(kirby_config) {
+    # PHP setup (adjust socket path as needed)
+    php_fastcgi unix//run/php/php8.4-fpm.sock {
+        # Pass Authorization header to PHP (required for API auth)
+        env HTTP_AUTHORIZATION {http.request.header.Authorization}
+    }
+
+    # Block access to Kirby core directories
+    @kirby_blocked path /kirby/* /site/* /content/*
+    respond @kirby_blocked 404
+
+    # Enable directory indexes (handled by index.php)
+    try_files {path} {path}/ /index.php?{query}
+}
+```
+
+**Usage example for a new Kirby site:**
+
+```caddy
+example.com, www.example.com {
+    root * /var/www/example.com
+    import www_to_naked example.com
+    import common_config
+    import security_headers
+    import content_security_policy
+    import kirby_config  # Add this line
+    file_server
+
+    # Optional: Cache static assets
+    header /fonts/* Cache-Control "public, max-age=31536000"
+    header /images/* Cache-Control "public, max-age=31536000"
+}
+```
+
+**Key differences from Apache `.htaccess`:**
+
+- MIME types: Caddy handles automatically, no manual configuration needed
+- Compression: Handled by `encode gzip` in `common_config`
+- CORS for images/fonts: Only add if serving assets cross-domain (not needed for most sites)
+- Security headers: Already covered in `security_headers` snippet
+- URL rewriting: Handled by `try_files` directive in `kirby_config`
+
+### Apache Web Server
+
+The included [.htaccess](.htaccess) file provides:
+- Kirby URL rewriting and directory protection
+- Security headers and file access restrictions
+- MIME type definitions and UTF-8 encoding
+- Compression and caching rules
+- www to non-www redirects
+
+The `.htaccess` file is production-ready and requires no modifications for most deployments.
+
 ## File References
 
 When working with brand colors or spacing, always check:
