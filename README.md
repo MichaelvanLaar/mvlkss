@@ -41,6 +41,24 @@ npm install
 
 This is only required on development machines. Once the build script has been run at least once, all essential assets are present and can be transferred to the production server. No npm or npm modules are necessary on the production server.
 
+### Step 3 (Optional): Configure Environment Variables for AI Development Tools
+
+If you want to use AI-powered development tools like the Context7 MCP server with Claude Code, you'll need to set up your environment variables:
+
+1. Copy the `.env.example` file to create your own `.env` file:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Open the `.env` file and add your Context7 API key:
+   ```
+   CONTEXT7_API_KEY=your-actual-api-key-here
+   ```
+
+3. Get your API key from [context7.com](https://context7.com)
+
+**Note:** The `.env` file is git-ignored and should never be committed to the repository. The Context7 MCP server provides up-to-date library documentation and code examples for AI assistants, enhancing AI-assisted development capabilities.
+
 ## Update
 
 ### General Rule
