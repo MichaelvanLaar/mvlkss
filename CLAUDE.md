@@ -253,4 +253,4 @@ When modifying page builder functionality:
 ## Notes
 
 - Always use Conventional Commits and gitmoji when creating git commit messages.
-- Always pull in the Kirby CMS documentation using Context7 as a context when working on n8n workflows.
+- Always pull in the Kirby CMS documentation using Context7 as a context when working on Kirby related partes of the project, e.g. files in the `/site` directory.
