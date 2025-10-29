@@ -211,3 +211,4 @@ When working with brand colors or spacing, always check:
 When modifying page builder functionality:
 - [site/snippets/fields/page-builder.controller.php](site/snippets/fields/page-builder.controller.php) - Main controller logic
 - [site/blueprints/fields/page-builder.yml](site/blueprints/fields/page-builder.yml) - Panel field definition
+- Always use Conventional Commits and gitmoji when creating git commit messages.

@@ -3,5 +3,8 @@
     "Tailwind CSS",
     "Kirby templates",
     "webpack"
-  ]
+  ],
+  "tailwindCSS.includeLanguages": {
+    "php": "html"
+  }
 }
