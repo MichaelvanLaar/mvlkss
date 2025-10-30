@@ -203,6 +203,71 @@ In such a situation, the included page cache prefill script comes in handy:
 
 **Warning:** The script has an artificial delay (of a random time between about one and five seconds) between two page visits built in to appear a little less robotic. However, you should make sure beforehand that the cache prefill script does not inadvertently trigger any security mechanisms your web hosting provider may have in place.
 
+## Claude Code Slash Commands
+
+If you're using [Claude Code](https://claude.com/code) as your AI-powered development assistant, this project includes custom slash commands that can pull in up-to-date documentation from [Context7](https://context7.com) to help with particularly difficult tasks.
+
+**Prerequisites:** Make sure you have configured your Context7 API key in the `.env` file (see "Step 3: Configure Environment Variables for AI Development Tools" above).
+
+### Available Commands
+
+#### `/context7:kirby [topic]`
+
+Pulls official Kirby CMS documentation from Context7 to assist with Kirby-specific development tasks.
+
+**Examples:**
+```
+/context7:kirby
+/context7:kirby blueprints
+/context7:kirby routing and controllers
+```
+
+**Best used for:**
+- Implementing Kirby blueprints, templates, controllers, or models
+- Working with Kirby's routing system
+- Configuring Kirby fields and blocks
+- Understanding Kirby panel customization
+
+#### `/context7:tailwindcss [topic]`
+
+Pulls official Tailwind CSS documentation from Context7 to assist with Tailwind-specific styling tasks.
+
+**Examples:**
+```
+/context7:tailwindcss
+/context7:tailwindcss responsive design
+/context7:tailwindcss custom colors and themes
+```
+
+**Best used for:**
+- Configuring Tailwind CSS (tailwind.config.js customization)
+- Working with Tailwind's utility classes and breakpoints
+- Setting up custom colors, fonts, and spacing
+- Implementing dark mode or working with Tailwind plugins
+
+#### `/context7:full [topic]`
+
+Pulls both Kirby CMS and Tailwind CSS documentation from Context7 for comprehensive context when working on features that span both systems.
+
+**Examples:**
+```
+/context7:full
+/context7:full styling and theming
+/context7:full page builder with custom styles
+```
+
+**Best used for:**
+- Building Kirby templates with complex Tailwind styling
+- Implementing page builders with custom Tailwind components
+- Setting up brand colors that work across both systems
+- Troubleshooting integration issues between Kirby and Tailwind
+
+### How It Works
+
+These slash commands use the Context7 MCP (Model Context Protocol) server to fetch up-to-date documentation and code examples directly from the official Kirby CMS and Tailwind CSS documentation. This provides Claude Code with current, authoritative information to help solve complex problems.
+
+The optional `[topic]` parameter allows you to narrow the scope of the documentation fetched, which can provide more focused and relevant information for specific tasks.
+
 ## File Locations
 
 ### Kirby Files (e.g. Content and Templates)
