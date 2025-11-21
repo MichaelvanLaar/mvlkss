@@ -34,7 +34,7 @@
     "distantnative/retour-for-kirby": "^5.0",
     "getkirby/cms": "^5.0",
     "johannschopplich/kirby-hashed-assets": "^3.0",
-    "johannschopplich/kirby-highlighter": "^3.0",
+    "bogdancondorachi/kirby-code-highlighter": "^1.0",
     "junohamburg/kirby-language-selector": "^2.0",
     "lukaskleinschmidt/kirby-snippet-controller": "^2.1",
     "microman/kirby-grid-blocks": "^1.0"
