@@ -13,5 +13,4 @@ return array(
     '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => $vendorDir . '/symfony/polyfill-mbstring/bootstrap.php',
     'f864ae44e8154e5ff6f4eec32f46d37f' => $baseDir . '/kirby/config/setup.php',
     '87988fc7b1c1f093da22a1a3de972f3a' => $baseDir . '/kirby/config/helpers.php',
-    'b6ec61354e97f32c0ae683041c78392a' => $vendorDir . '/scrivo/highlight.php/HighlightUtilities/functions.php',
 );

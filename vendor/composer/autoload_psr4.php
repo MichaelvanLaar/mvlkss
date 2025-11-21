@@ -16,6 +16,7 @@ return array(
     'Symfony\\Component\\Yaml\\' => array($vendorDir . '/symfony/yaml'),
     'Symfony\\Component\\CssSelector\\' => array($vendorDir . '/symfony/css-selector'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log/src'),
+    'Phiki\\' => array($vendorDir . '/phiki/phiki/src'),
     'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
     'MabeEnum\\' => array($vendorDir . '/marc-mabe/php-enum/src'),
     'League\\ColorExtractor\\' => array($vendorDir . '/league/color-extractor/src'),
