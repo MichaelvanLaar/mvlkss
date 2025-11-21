@@ -1,0 +1,159 @@
+#===============================================================================
+# Block: Columns
+#
+# Custom columns block extending kirby-column-blocks plugin
+# Replaces the deprecated grid block with column-blocks plugin
+#===============================================================================
+
+name:
+  en: Columns
+  de: Spalten
+icon: columns
+wysiwyg: true
+fields:
+  title:
+    type: text
+    label:
+      en: Title
+      de: Titel
+  sticky:
+    type: toggle
+    label:
+      en: Sticky
+      de: Fixiert (Sticky)
+    help:
+      en: If enabled and if the columns block is the first element in the column, the columns block as well as the rest of the column content will stick to the top of the browser window when scrolling down.
+      de: Wenn aktiviert und wenn der Spalten-Block das erste Element in der Spalte ist, bleibt der Spalten-Block sowie der restliche Spalteninhalt beim Scrollen am oberen Rand des Browserfensters haften.
+    text:
+      - en: Not sticky
+        de: Nicht fixiert
+      - en: Sticky
+        de: Fixiert
+    default: false
+    width: 1/2
+  stickyInfo:
+    type: info
+    label:
+      en: Attention
+      de: Achtung
+    text:
+      en: The "sticky" option only works if the columns block is the first element in the column. Otherwise you will see no effect. The "sticky" behavior will be applied to the whole column content, not only to this columns block.
+      de: Die Option „Fixiert" funktioniert nur, wenn der Spalten-Block das erste Element in der Spalte ist. Andernfalls wird keine Wirkung erzielt. Das „Fixiert"-Verhalten wird auf den gesamten Spalteninhalt angewendet, nicht nur auf diesen Spalten-Block.
+    theme: negative
+    width: 1/2
+  settingsInfo:
+    type: info
+    label:
+      en: Please Note
+      de: Bitte beachten
+    text:
+      en: All other layout settings like backgrounds and paddings can be set for each column row individually.
+      de: Alle anderen Layout-Einstellungen wie Hintergründe und Innenabstände können für jede Spaltenzeile einzeln festgelegt werden.
+  layout:
+    type: layout
+    layouts:
+      - "1/1"
+      - "1/2, 1/2"
+      - "1/3, 1/3, 1/3"
+      - "1/4, 1/4, 1/4, 1/4"
+      - "1/3, 2/3"
+      - "2/3, 1/3"
+    settings:
+      fields:
+        columnRowLayoutHeadline:
+          type: headline
+          label:
+            en: Column Row Layout
+            de: Spalten-Zeilenlayout
+          numbered: false
+        columnRowVerticalAlign:
+          extends: fields/vertical-align
+        columnRowPaddingTop:
+          extends: fields/spacing-select
+          label:
+            en: Padding Top
+            de: Innenabstand oben
+          width: 1/2
+        columnRowPaddingBottom:
+          extends: fields/spacing-select
+          label:
+            en: Padding Bottom
+            de: Innenabstand unten
+          width: 1/2
+        columnRowPaddingStart:
+          extends: fields/spacing-select
+          label:
+            en: Horizontal Padding at Row Start
+            de: Horizontaler Innenabstand am Zeilenanfang
+          help:
+            en: "Row start" refers to the reading direction (LTR or RTL) of the language in which the website is displayed to a visitor.
+            de: „Zeilenanfang" bezieht sich auf die Leserichtung (LTR oder RTL) der Sprache, in der die Website einem Besucher angezeigt wird.
+          width: 1/2
+        columnRowPaddingEnd:
+          extends: fields/spacing-select
+          label:
+            en: Horizontal Padding at Row End
+            de: Horizontaler Innenabstand am Zeilenende
+          help:
+            en: "Row end" refers to the reading direction (LTR or RTL) of the language in which the website is displayed to a visitor.
+            de: „Zeilenende" bezieht sich auf die Leserichtung (LTR oder RTL) der Sprache, in der die Website einem Besucher angezeigt wird.
+          width: 1/2
+        columnRowGap:
+          extends: fields/spacing-select
+          label:
+            en: Gap Between Columns
+            de: Abstand zwischen Spalten
+          default: medium
+        columnRowBackgroundHeadline:
+          type: headline
+          label:
+            en: Column Row Background
+            de: Spalten-Zeilenhintergrund
+          numbered: false
+        columnRowBackgroundColor:
+          extends: fields/brand-color-select
+          label:
+            en: Background Color
+            de: Hintergrundfarbe
+          width: 1/2
+        columnRowHtmlAttributesHeadline:
+          type: headline
+          label:
+            en: HTML Attributes of the Column Row
+            de: HTML-Attribute der Spalten-Zeile
+          numbered: false
+        columnRowId:
+          extends: fields/id
+          width: 1/2
+        columnRowClasses:
+          extends: fields/classes
+          width: 1/2
+    fieldsets:
+      textBlocks:
+        label:
+          en: Text
+          de: Text
+        type: group
+        fieldsets:
+          - heading
+          - text
+          - list
+          - markdown
+          - quote
+          - code
+      mediaBlocks:
+        label:
+          en: Media
+          de: Medien
+        type: group
+        fieldsets:
+          - image
+      miscBlocks:
+        label:
+          en: Misc
+          de: Sonstiges
+        type: group
+        fieldsets:
+          - mvlkssbutton
+          - line
+          - mvlkssbreadcrumb

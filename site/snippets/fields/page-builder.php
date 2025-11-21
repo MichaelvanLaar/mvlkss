@@ -139,7 +139,7 @@ $innerRowContainerClasses =
                   "textColorLight" => $breadcrumbTextColorLight,
                   "textColorDark" => $breadcrumbTextColorDark,
                 ]);
-              } elseif ($block->type() == "grid") {
+              } elseif ($block->type() == "columns") {
                 snippet("blocks/" . $block->type(), [
                   "block" => $block,
                   "layoutColumnWidth" => $layoutColumn->width(),

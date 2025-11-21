@@ -147,7 +147,7 @@ Uses Kirby's layout field with snippet controllers (via `kirby-snippet-controlle
 - **Controller**: [site/snippets/fields/page-builder.controller.php](site/snippets/fields/page-builder.controller.php)
 - Processes layout rows, columns, background colors/images, spacing
 - Custom blocks in `/site/blueprints/blocks/` and `/site/snippets/blocks/`
-- Supports: text, images, buttons, breadcrumbs, grids, headings, quotes, code
+- Supports: text, images, buttons, breadcrumbs, columns, headings, quotes, code
 
 ### Spacing System
 
@@ -159,7 +159,7 @@ Defined in [site/config/config.php](site/config/config.php) as the `$spacingUtil
 
 ## Key Kirby Plugins
 
-- **Grid Block**: Custom grid layouts for page builder
+- **Column Blocks**: Custom column layouts for page builder (plain/kirby-column-blocks)
 - **Hashed Assets**: Cache-busting for CSS/JS
 - **Retour**: 301/302 redirect management
 - **Snippet Controller**: Separation of logic and templates
