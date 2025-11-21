@@ -40,12 +40,21 @@
     "microman/kirby-grid-blocks": "^1.0"
   },
   "require-dev": {
-    "ergebnis/composer-normalize": "^2.39"
+    "ergebnis/composer-normalize": "^2.39",
+    "phpunit/phpunit": "^11.0",
+    "phpstan/phpstan": "^2.0",
+    "phpstan/extension-installer": "^1.4"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
   },
   "config": {
     "allow-plugins": {
       "ergebnis/composer-normalize": true,
-      "getkirby/composer-installer": true
+      "getkirby/composer-installer": true,
+      "phpstan/extension-installer": true
     },
     "optimize-autoloader": true
   },

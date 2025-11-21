@@ -1,0 +1,51 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "rules": {
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": [
+          "tailwind",
+          "apply",
+          "variants",
+          "responsive",
+          "screen",
+          "layer",
+          "import",
+          "theme",
+          "config",
+          "source",
+          "plugin",
+          "custom-variant",
+          "utility",
+          "variant"
+        ]
+      }
+    ],
+    "import-notation": null,
+    "block-no-empty": null,
+    "rule-empty-line-before": null,
+    "no-duplicate-selectors": null,
+    "function-no-unknown": [
+      true,
+      {
+        "ignoreFunctions": ["theme", "screen"]
+      }
+    ],
+    "no-descending-specificity": null,
+    "selector-class-pattern": null,
+    "custom-property-pattern": null,
+    "declaration-block-no-redundant-longhand-properties": null,
+    "shorthand-property-no-redundant-values": null
+  },
+  "ignoreFiles": [
+    "node_modules/**",
+    "vendor/**",
+    "kirby/**",
+    "assets/**",
+    ".phpunit.cache/**",
+    ".coverage/**",
+    "dist/**",
+    "build/**"
+  ]
+}
