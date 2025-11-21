@@ -1,0 +1,28 @@
+parameters:
+    level: 6
+    paths:
+        - site/controllers
+        - site/snippets
+        - site/plugins
+        - site/config
+        - tests
+
+    excludePaths:
+        - site/plugins/*/vendor/*
+        - vendor/*
+        - kirby/*
+
+    bootstrapFiles:
+        - vendor/autoload.php
+
+    ignoreErrors:
+        # Kirby uses magic methods and dynamic properties
+        - '#Access to an undefined property Kirby\\Cms\\.*::\$.*#'
+        - '#Call to an undefined method Kirby\\Cms\\.*::.*#'
+        # Allow mixed types for Kirby field values
+        - '#Method .* has parameter .* with no value type specified in iterable type array#'
+
+    # Enable strict rules for better code quality
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
+    reportUnmatchedIgnoredErrors: false
