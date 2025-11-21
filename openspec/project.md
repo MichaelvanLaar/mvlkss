@@ -14,7 +14,7 @@ A **Kirby CMS-based website** using modern build tools and a component-based app
 - **Web Server**: Caddy (preferred) or Apache with .htaccess
 
 ### Key Dependencies
-- **Kirby Plugins**: Grid Block, Hashed Assets, Retour (redirects), Snippet Controller, Minify HTML, Robots.txt
+- **Kirby Plugins**: Column Blocks, Hashed Assets, Retour (redirects), Snippet Controller, Minify HTML, Robots.txt
 - **Image Processing**: ImageMagick (preferred) or GD library fallback
 - **Cache**: APCU (preferred) or file-based fallback
 
@@ -43,7 +43,7 @@ A **Kirby CMS-based website** using modern build tools and a component-based app
 - Controller: `site/snippets/fields/page-builder.controller.php`
 - Processes layout rows, columns, background colors/images, spacing
 - Custom blocks in `/site/blueprints/blocks/` and `/site/snippets/blocks/`
-- Supports: text, images, buttons, breadcrumbs, grids, headings, quotes, code
+- Supports: text, images, buttons, breadcrumbs, columns, headings, quotes, code
 
 #### Brand Color System
 - Centralized in `site/config/config.php` as `$selectableBrandColors` array
@@ -70,7 +70,7 @@ A **Kirby CMS-based website** using modern build tools and a component-based app
 
 ### Git Workflow
 - **Commit Convention**: Conventional Commits with gitmoji
-  - Example: `✨ feat(page-builder): add custom grid block component`
+  - Example: `✨ feat(page-builder): add custom columns block component`
   - Example: `🐛 fix(images): correct AVIF fallback behavior`
   - Example: `🔧 chore(deps): update Tailwind CSS to 4.x`
 

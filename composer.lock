@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4a668ca77c5c128da1a471ca93676e63",
+    "content-hash": "e3a59ee4678d5c60204a80b79861dfa3",
     "packages": [
         {
             "name": "adspectus/date-extended",
@@ -969,42 +969,6 @@
             "time": "2016-12-13T01:01:17+00:00"
         },
         {
-            "name": "microman/kirby-grid-blocks",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/youngcut/kirby-grid-block.git",
-                "reference": "eb8b8423a5c0376d85980ec2862adc5f66268370"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/youngcut/kirby-grid-block/zipball/eb8b8423a5c0376d85980ec2862adc5f66268370",
-                "reference": "eb8b8423a5c0376d85980ec2862adc5f66268370",
-                "shasum": ""
-            },
-            "require": {
-                "getkirby/composer-installer": "^1.2"
-            },
-            "type": "kirby-plugin",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Roman Gsponer",
-                    "email": "mail@microman.ch"
-                }
-            ],
-            "description": "Use the layouts field as block",
-            "support": {
-                "issues": "https://github.com/youngcut/kirby-grid-block/issues",
-                "source": "https://github.com/youngcut/kirby-grid-block/tree/1.0.0"
-            },
-            "abandoned": true,
-            "time": "2021-10-05T10:11:05+00:00"
-        },
-        {
             "name": "phpmailer/phpmailer",
             "version": "v6.10.0",
             "source": {
@@ -1084,6 +1048,51 @@
                 }
             ],
             "time": "2025-04-24T15:19:31+00:00"
+        },
+        {
+            "name": "plain/kirby-column-blocks",
+            "version": "1.2.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/plain-solutions-gmbh/kirby-column-blocks.git",
+                "reference": "a10a2a62a35afff356c8febf9b9e3ac9d8c11ccc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/plain-solutions-gmbh/kirby-column-blocks/zipball/a10a2a62a35afff356c8febf9b9e3ac9d8c11ccc",
+                "reference": "a10a2a62a35afff356c8febf9b9e3ac9d8c11ccc",
+                "shasum": ""
+            },
+            "require": {
+                "getkirby/composer-installer": "^1.1"
+            },
+            "type": "kirby-plugin",
+            "extra": {
+                "title": "Column Block"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roman Gsponer",
+                    "email": "kirby@plain-solutions.net"
+                }
+            ],
+            "description": "Use columns in block fields based on the layout field.",
+            "homepage": "https://plain-solutions.net/801524",
+            "support": {
+                "issues": "https://github.com/plain-solutions-gmbh/kirby-column-blocks/issues",
+                "source": "https://github.com/plain-solutions-gmbh/kirby-column-blocks/tree/v1.2.7"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.com/donate/?hosted_button_id=ZMV4BV3X7EUT4",
+                    "type": "PayPal"
+                }
+            ],
+            "time": "2025-10-28T09:53:59+00:00"
         },
         {
             "name": "psr/log",
