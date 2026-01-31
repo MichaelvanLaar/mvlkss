@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4a668ca77c5c128da1a471ca93676e63",
+    "content-hash": "429ae757d043ecbb8a9547976b9d72ab",
     "packages": [
         {
             "name": "adspectus/date-extended",
@@ -148,6 +148,57 @@
                 "source": "https://github.com/bnomei/kirby3-robots-txt/tree/v5.1.0"
             },
             "time": "2025-05-18T13:27:46+00:00"
+        },
+        {
+            "name": "bogdancondorachi/kirby-code-highlighter",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bogdancondorachi/kirby-code-highlighter.git",
+                "reference": "fb689ea83100c47b0c28967917f6e6f2d8af9805"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bogdancondorachi/kirby-code-highlighter/zipball/fb689ea83100c47b0c28967917f6e6f2d8af9805",
+                "reference": "fb689ea83100c47b0c28967917f6e6f2d8af9805",
+                "shasum": ""
+            },
+            "require": {
+                "getkirby/composer-installer": "^1.2",
+                "phiki/phiki": "^0.3.2",
+                "php": ">=8.2"
+            },
+            "replace": {
+                "league/commonmark": "*"
+            },
+            "type": "kirby-plugin",
+            "extra": {
+                "installer-name": "code-highlighter"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bogdan Condorachi",
+                    "email": "bogdan.condorachi@gmail.com",
+                    "homepage": "https://plugins.getkirby.com/bogdancondorachi"
+                }
+            ],
+            "description": "Server-side syntax highlighter for Kirby CMS.",
+            "homepage": "https://github.com/bogdancondorachi/kirby-code-highlighter",
+            "support": {
+                "issues": "https://github.com/bogdancondorachi/kirby-code-highlighter/issues",
+                "source": "https://github.com/bogdancondorachi/kirby-code-highlighter/tree/v1.1.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/bogdancondorachi",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-04-10T02:35:43+00:00"
         },
         {
             "name": "christian-riesen/base32",
@@ -666,59 +717,6 @@
             "time": "2023-09-28T15:41:10+00:00"
         },
         {
-            "name": "johannschopplich/kirby-highlighter",
-            "version": "3.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/johannschopplich/kirby-highlighter.git",
-                "reference": "223962f389dce0920048a46fe6806f95ce3fe828"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/johannschopplich/kirby-highlighter/zipball/223962f389dce0920048a46fe6806f95ce3fe828",
-                "reference": "223962f389dce0920048a46fe6806f95ce3fe828",
-                "shasum": ""
-            },
-            "require": {
-                "getkirby/composer-installer": "^1.2",
-                "scrivo/highlight.php": "^9.18"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "@stable",
-                "getkirby/cms": "^4",
-                "phpunit/phpunit": "^11.1"
-            },
-            "type": "kirby-plugin",
-            "extra": {
-                "kirby-cms-path": "tests/fixtures/kirby"
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Johann Schopplich",
-                    "email": "hello@johannschopplich.com",
-                    "homepage": "https://johannschopplich.com"
-                }
-            ],
-            "description": "Server-side syntax highlighting for Kirby CMS",
-            "homepage": "https://github.com/johannschopplich/kirby-highlighter#readme",
-            "keywords": [
-                "highlight",
-                "highlighter",
-                "hljs",
-                "kirby"
-            ],
-            "support": {
-                "issues": "https://github.com/johannschopplich/kirby-highlighter/issues",
-                "source": "https://github.com/johannschopplich/kirby-highlighter/tree/v3.2.0"
-            },
-            "abandoned": true,
-            "time": "2024-07-19T08:41:49+00:00"
-        },
-        {
             "name": "junohamburg/kirby-language-selector",
             "version": "2.0.3",
             "source": {
@@ -1005,6 +1003,57 @@
             "time": "2021-10-05T10:11:05+00:00"
         },
         {
+            "name": "phiki/phiki",
+            "version": "v0.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phikiphp/phiki.git",
+                "reference": "c5c83cc88bb9dd8104a38c31b9d97414e7dd0b85"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phikiphp/phiki/zipball/c5c83cc88bb9dd8104a38c31b9d97414e7dd0b85",
+                "reference": "c5c83cc88bb9dd8104a38c31b9d97414e7dd0b85",
+                "shasum": ""
+            },
+            "require": {
+                "league/commonmark": "^2.5.3",
+                "php": "^8.2"
+            },
+            "require-dev": {
+                "illuminate/support": "^11.30",
+                "laravel/pint": "^1.18.1",
+                "pestphp/pest": "^3.5.1",
+                "phpstan/extension-installer": "^1.4.3",
+                "phpstan/phpstan": "^1.12.7",
+                "symfony/var-dumper": "^7.1.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Phiki\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ryan Chandler",
+                    "email": "support@ryangjchandler.co.uk",
+                    "homepage": "https://ryangjchandler.co.uk",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Syntax highlighting using TextMate grammars in PHP.",
+            "support": {
+                "issues": "https://github.com/phikiphp/phiki/issues",
+                "source": "https://github.com/phikiphp/phiki/tree/v0.3.2"
+            },
+            "time": "2024-11-05T01:17:30+00:00"
+        },
+        {
             "name": "phpmailer/phpmailer",
             "version": "v6.10.0",
             "source": {
@@ -1134,84 +1183,6 @@
                 "source": "https://github.com/php-fig/log/tree/3.0.2"
             },
             "time": "2024-09-11T13:17:53+00:00"
-        },
-        {
-            "name": "scrivo/highlight.php",
-            "version": "v9.18.1.10",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/scrivo/highlight.php.git",
-                "reference": "850f4b44697a2552e892ffe71490ba2733c2fc6e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/scrivo/highlight.php/zipball/850f4b44697a2552e892ffe71490ba2733c2fc6e",
-                "reference": "850f4b44697a2552e892ffe71490ba2733c2fc6e",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "php": ">=5.4"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4.8|^5.7",
-                "sabberworm/php-css-parser": "^8.3",
-                "symfony/finder": "^2.8|^3.4|^5.4",
-                "symfony/var-dumper": "^2.8|^3.4|^5.4"
-            },
-            "suggest": {
-                "ext-mbstring": "Allows highlighting code with unicode characters and supports language with unicode keywords"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "HighlightUtilities/functions.php"
-                ],
-                "psr-0": {
-                    "Highlight\\": "",
-                    "HighlightUtilities\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Geert Bergman",
-                    "homepage": "http://www.scrivo.org/",
-                    "role": "Project Author"
-                },
-                {
-                    "name": "Vladimir Jimenez",
-                    "homepage": "https://allejo.io",
-                    "role": "Maintainer"
-                },
-                {
-                    "name": "Martin Folkers",
-                    "homepage": "https://twobrain.io",
-                    "role": "Contributor"
-                }
-            ],
-            "description": "Server side syntax highlighter that supports 185 languages. It's a PHP port of highlight.js",
-            "keywords": [
-                "code",
-                "highlight",
-                "highlight.js",
-                "highlight.php",
-                "syntax"
-            ],
-            "support": {
-                "issues": "https://github.com/scrivo/highlight.php/issues",
-                "source": "https://github.com/scrivo/highlight.php"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/allejo",
-                    "type": "github"
-                }
-            ],
-            "time": "2022-12-17T21:53:22+00:00"
         },
         {
             "name": "symfony/css-selector",
