@@ -60,6 +60,7 @@ Always include `permissions.deny` for sensitive files. Adapt the patterns to wha
 ```
 
 Adjust deny rules based on what you found:
+
 - If there are credential files, add patterns for them.
 - If SSH keys or cloud credentials exist nearby, add those too.
 
@@ -88,6 +89,7 @@ If you identified a formatter in Step 1, add a PostToolUse hook:
 ```
 
 Common formatter commands by ecosystem:
+
 - JS/TS: `jq -r '.tool_input.file_path' | xargs npx prettier --write`
 - PHP: `jq -r '.tool_input.file_path' | xargs php-cs-fixer fix`
 - Rust: `jq -r '.tool_input.file_path' | xargs rustfmt`
@@ -141,12 +143,18 @@ Structure:
 - Don't commit secrets or credentials to git
 - Don't use --force flags — fix the underlying issue instead
 
+## Learnings
+
+When the user corrects a mistake or points out a recurring issue, append a one-line
+summary to .claude/learnings.md. Don't modify CLAUDE.md directly.
+
 ## Compact Instructions
 
 When compacting, preserve: list of modified files, current test status, open TODOs, and key decisions made.
 ```
 
 Rules for writing CLAUDE.md:
+
 - Never include standard language conventions Claude already knows.
 - Never include rules that the linter/formatter enforces — "never send an LLM to do a linter's job."
 - Never include personality instructions ("be a senior engineer").
@@ -172,7 +180,193 @@ Append these lines if they're not already present:
 .claude/local.md
 ```
 
-## Step 6: Present summary
+## Step 6: Create Key Config Files table auto-sync
+
+Add a "Key Config Files" table to CLAUDE.md and a pre-commit hook that keeps it in sync with the filesystem. This gives Claude instant orientation on every message without manual maintenance.
+
+### 6a: Add the table to CLAUDE.md
+
+After the project description line, add a `## Key Config Files` section with a Markdown table listing every config file you created in the previous steps. Use this format:
+
+```markdown
+## Key Config Files
+
+| File                    | Purpose                                    |
+| ----------------------- | ------------------------------------------ |
+| `CLAUDE.md`             | Project instructions, loaded every message |
+| `.claude/settings.json` | Permissions, hooks, environment variables  |
+| `.gitignore`            | Git ignore patterns                        |
+```
+
+Include only files that actually exist. Write a concise, specific purpose for each.
+
+### 6b: Create the sync script
+
+Create `scripts/sync-config-table.sh` — a bash script that automatically keeps the table in sync:
+
+```bash
+#!/usr/bin/env bash
+# Keeps the "Key Config Files" table in CLAUDE.md in sync with the filesystem.
+# - Removes rows for files that no longer exist
+# - Appends rows for new config files with a placeholder description
+# Preserves all existing hand-written descriptions.
+# Invoked automatically by the pre-commit hook.
+
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+CLAUDE_MD="$ROOT/CLAUDE.md"
+
+if [[ ! -f "$CLAUDE_MD" ]]; then
+  echo "sync-config-table: CLAUDE.md not found, skipping"
+  exit 0
+fi
+
+# Collect config files
+config_files=()
+
+# Root-level config files (by extension)
+while IFS= read -r -d '' f; do
+  name="$(basename "$f")"
+  # Skip non-config files
+  case "$name" in
+    package-lock.json|README.md|CHANGELOG.md|AGENTS.md|CLAUDE.md|LICENSE) continue ;;
+  esac
+  config_files+=("$name")
+done < <(find "$ROOT" -maxdepth 1 -type f \( -name '*.json' -o -name '*.js' -o -name '*.ts' -o -name '*.mjs' -o -name '*.cjs' -o -name '*.yaml' -o -name '*.yml' \) -print0 2>/dev/null | sort -z)
+
+# Root-level dotfiles that are config files
+for dotfile in .gitignore .npmignore .prettierignore .editorconfig .nvmrc .node-version; do
+  [[ -f "$ROOT/$dotfile" ]] && config_files+=("$dotfile")
+done
+
+# .claude/ direct children (skip subdirectories like skills/)
+if [[ -d "$ROOT/.claude" ]]; then
+  while IFS= read -r -d '' f; do
+    config_files+=(".claude/$(basename "$f")")
+  done < <(find "$ROOT/.claude" -maxdepth 1 -type f -print0 2>/dev/null | sort -z)
+fi
+
+# .claude/skills/ skill definitions
+if [[ -d "$ROOT/.claude/skills" ]]; then
+  while IFS= read -r -d '' f; do
+    relpath="${f#$ROOT/}"
+    config_files+=("$relpath")
+  done < <(find "$ROOT/.claude/skills" -maxdepth 2 -name 'SKILL.md' -type f -print0 2>/dev/null | sort -z)
+fi
+
+# .github/workflows/
+if [[ -d "$ROOT/.github/workflows" ]]; then
+  while IFS= read -r -d '' f; do
+    config_files+=(".github/workflows/$(basename "$f")")
+  done < <(find "$ROOT/.github/workflows" -maxdepth 1 -type f -print0 2>/dev/null | sort -z)
+fi
+
+# Sort config files
+IFS=$'\n' sorted_files=($(sort <<<"${config_files[*]}")); unset IFS
+
+# Parse existing descriptions from CLAUDE.md
+declare -A descriptions
+section_found=false
+while IFS= read -r line; do
+  if [[ "$line" == *"## Key Config Files"* ]]; then
+    section_found=true
+    continue
+  fi
+  if $section_found; then
+    if [[ "$line" =~ ^\|[[:space:]]*\`([^\`]+)\`[[:space:]]*\|[[:space:]]*(.+)[[:space:]]*\| ]]; then
+      file="${BASH_REMATCH[1]}"
+      desc="${BASH_REMATCH[2]}"
+      [[ "$file" == "File" ]] && continue
+      descriptions["$file"]="$desc"
+    fi
+  fi
+done < "$CLAUDE_MD"
+
+# Build new table
+new_table="| File | Purpose |
+|------|---------|"
+
+for file in "${sorted_files[@]}"; do
+  desc="${descriptions[$file]:-TODO: add description}"
+  new_table+=$'\n'"| \`$file\` | $desc |"
+done
+
+# Replace the table in CLAUDE.md
+# Find the section, skip old blank lines + table rows, emit new table
+tmpfile="$(mktemp)"
+in_section=false
+table_replaced=false
+
+while IFS= read -r line; do
+  if [[ "$line" == *"## Key Config Files"* ]]; then
+    in_section=true
+    echo "$line" >> "$tmpfile"
+    continue
+  fi
+
+  if $in_section && ! $table_replaced; then
+    # Skip blank lines and old table rows between heading and next content
+    if [[ "$line" == "" ]] || [[ "$line" == "|"* ]]; then
+      continue
+    fi
+    # First non-blank, non-table line: emit new table, then this line
+    echo "" >> "$tmpfile"
+    echo "$new_table" >> "$tmpfile"
+    echo "" >> "$tmpfile"
+    echo "$line" >> "$tmpfile"
+    table_replaced=true
+    in_section=false
+    continue
+  fi
+
+  echo "$line" >> "$tmpfile"
+done < "$CLAUDE_MD"
+
+# If we hit EOF while still in the section (table is the last thing)
+if $in_section && ! $table_replaced; then
+  echo "" >> "$tmpfile"
+  echo "$new_table" >> "$tmpfile"
+fi
+
+# Check for changes
+if diff -q "$CLAUDE_MD" "$tmpfile" > /dev/null 2>&1; then
+  echo "sync-config-table: no changes"
+  rm "$tmpfile"
+else
+  mv "$tmpfile" "$CLAUDE_MD"
+  echo "sync-config-table: updated CLAUDE.md"
+  git add CLAUDE.md
+fi
+```
+
+Make the script executable: `chmod +x scripts/sync-config-table.sh`
+
+### 6c: Create the pre-commit hook
+
+Create `.githooks/pre-commit`:
+
+```bash
+#!/usr/bin/env bash
+# Keep CLAUDE.md config file table in sync
+bash scripts/sync-config-table.sh
+```
+
+Make it executable: `chmod +x .githooks/pre-commit`
+
+### 6d: Activate the hooks directory
+
+Run this command to tell git to use `.githooks/` instead of the default `.git/hooks/`:
+
+```bash
+git config core.hooksPath .githooks
+```
+
+This needs to be run once per clone. Note this in the summary (Step 7) so the user is aware.
+
+**Important:** If the project already uses Husky or another hook manager, skip this entire step and note it in the summary. The sync script would conflict with existing hook infrastructure.
+
+## Step 7: Present summary
 
 After creating all files, give the user a concise summary:
 
@@ -183,7 +377,14 @@ After creating all files, give the user a concise summary:
    - Add test/build/lint commands to CLAUDE.md once they exist.
    - Run `/cc-optimize` after the project has some code to get a project-aware configuration pass.
    - Consider adding MCP servers to `.mcp.json` as needs arise (Context7 for docs, GitHub for PRs, etc.).
-5. Suggest committing the new config files to git.
+5. If the Key Config Files auto-sync was set up (Step 6), remind the user:
+   - The pre-commit hook requires a one-time activation per clone: `git config core.hooksPath .githooks`
+   - This command was already run for the current clone, but collaborators or fresh clones need to run it too.
+   - Suggest documenting it in the project README's setup instructions.
+6. Explain the Learnings mechanism:
+   - When the user corrects a mistake, Claude appends a one-line summary to `.claude/learnings.md` instead of modifying CLAUDE.md directly.
+   - This file grows uncurated over time. Running `/cc-optimize` reviews it and proposes promoting recurring patterns into CLAUDE.md or skills, and deleting one-off entries.
+7. Suggest committing the new config files to git.
 
 ## What NOT to do
 

@@ -29,6 +29,7 @@ Read and catalog everything that exists. Do this thoroughly before suggesting an
 - `.claude/skills/*/SKILL.md`
 - `.claude/commands/*.md` (legacy format)
 - `.claude/agents/*.md`
+- `.claude/learnings.md`
 - `.mcp.json` (project root)
 - `~/.claude/CLAUDE.md` (user level — read but don't modify without asking)
 - `~/.claude.json` (user-level MCP — read but don't modify without asking)
@@ -46,6 +47,7 @@ Read and catalog everything that exists. Do this thoroughly before suggesting an
 ### Current state metrics
 
 Count and report:
+
 - CLAUDE.md line count (target: 40–80, hard max: 200)
 - Number of `@`-imports in CLAUDE.md
 - Number of active MCP servers
@@ -53,6 +55,7 @@ Count and report:
 - Number of hooks
 - Permissions: what's allowed, what's denied
 - Environment variables set in settings.json
+- Number of entries in `.claude/learnings.md` (if it exists)
 
 ## Step 2: Analyze against best practices
 
@@ -63,6 +66,7 @@ Work through each area systematically. If `$ARGUMENTS` specified a focus area, p
 Check for these anti-patterns:
 
 **Bloat indicators** (things to remove or move):
+
 - Standard language conventions Claude already knows → remove
 - Rules that the configured linter/formatter already enforces → remove ("never send an LLM to do a linter's job")
 - Personality instructions ("be a senior engineer", "think carefully") → remove
@@ -72,14 +76,17 @@ Check for these anti-patterns:
 - Duplicated information that also exists in AGENTS.md or OpenSpec → remove from CLAUDE.md, reference instead
 
 **Missing essentials** (things to add if absent):
+
 - Exact build/test/lint/dev commands (not vague — actual command strings)
 - Key directory structure (only non-obvious parts)
 - Conventions that deviate from standard or that Claude commonly gets wrong
 - Explicit "Don't" section for known failure modes
 - Compact instructions (what to preserve when compacting)
 - Progressive disclosure pointers for reference docs (`@path **Read when:** <trigger>`)
+- Learnings section (instructs Claude to log corrections to `.claude/learnings.md` instead of modifying CLAUDE.md directly)
 
 **Structural checks:**
+
 - Is the file using `@`-imports for large reference material? (imports reduce token waste by up to 59%)
 - If AGENTS.md exists, does CLAUDE.md import it via `@AGENTS.md` instead of duplicating content?
 - If OpenSpec is used, does CLAUDE.md reference `@openspec/project.md` for project context?
@@ -95,18 +102,21 @@ Check for these anti-patterns:
 ### 2c: Settings audit
 
 **Permissions:**
+
 - Are sensitive files protected by `permissions.deny`? At minimum: `.env`, `.env.*`, `secrets/**`.
 - Is `permissions.deny` used instead of the deprecated `ignorePatterns`?
 - Are destructive commands blocked? (`rm -rf`, and consider `curl`/`wget` unless specifically needed)
 - Are safe, frequently-used commands in `permissions.allow`? (reduces approval fatigue)
 
 **Hooks:**
+
 - Is there a PostToolUse formatter hook? If a formatter exists in the project but no hook runs it, this is a high-impact gap.
 - Is there a PreToolUse hook protecting sensitive files? (defense in depth beyond permissions.deny)
 - Do all hooks use `|| true` for graceful degradation?
 - Are hooks doing "block at submit" rather than "block at write"? (fewer interrupts, smoother flow)
 
 **Environment variables:**
+
 - Is `CLAUDE_AUTOCOMPACT_PCT_OVERRIDE` set? Recommended: `50`. Default 83% is too late.
 - Is `MAX_THINKING_TOKENS` set? Consider `10000` (down from default 31999) for ~70% thinking cost savings.
 - Is `CLAUDE_CODE_MAX_OUTPUT_TOKENS` set? Consider `16000` to prevent unnecessarily verbose responses.
@@ -133,30 +143,58 @@ Check for these anti-patterns:
 ### 2f: Multi-tool consistency check
 
 If the project uses multiple AI tool directories:
+
 - Is there a single source of truth (ideally AGENTS.md) that all tools reference?
 - Are there contradictions between tool-specific configs?
 - Is duplicated content maintained in sync, or is it drifting?
+
+### 2g: Learnings review
+
+If `.claude/learnings.md` exists:
+
+1. Read all entries.
+2. Group similar entries to identify recurring patterns (3+ similar corrections suggest a real gap in the config).
+3. For each recurring pattern, propose one of:
+   - Adding a concrete rule to CLAUDE.md (if it's a universal project convention).
+   - Adding it to an existing or new skill (if it's domain-specific or rarely needed).
+   - Adding it as a hook (if it's something that should happen deterministically, not by instruction).
+4. For one-off entries that don't recur, propose deleting them.
+5. Present the full list to the user grouped as "promote to config" vs "delete as one-off", with rationale for each. Wait for approval before changing anything.
+
+If `.claude/learnings.md` does not exist but CLAUDE.md also has no Learnings section, suggest adding the Learnings section to CLAUDE.md:
+
+```markdown
+## Learnings
+
+When the user corrects a mistake or points out a recurring issue, append a one-line
+summary to .claude/learnings.md. Don't modify CLAUDE.md directly.
+```
 
 ## Step 3: Generate findings report
 
 Organize findings into three categories:
 
 ### Must fix (security or correctness issues)
+
 - Missing permissions.deny for sensitive files
 - Hardcoded secrets in config files
 - Deprecated patterns (ignorePatterns, npm-installed Claude Code)
 - Contradictory instructions
 
 ### Should fix (quality and cost improvements)
+
 - CLAUDE.md bloat (>80 lines without good reason)
 - Missing formatter hook
 - Missing cost-optimization env vars
 - Redundant content between files
 - Skills without proper frontmatter guards
+- Learnings entries that should be promoted to CLAUDE.md or a skill
 
 ### Nice to have (polish)
+
 - Missing progressive disclosure for reference docs
 - Missing compact instructions
+- Missing Learnings section in CLAUDE.md
 - Skills that could be created for recurring workflows
 - MCP servers that could be added or removed
 
@@ -165,8 +203,15 @@ Present the findings to the user as a concise list, grouped by category. For eac
 ## Step 4: Apply approved changes
 
 Make the approved changes. For each file modified:
+
 - Show a before/after summary (not full diffs for large files — just the key changes).
 - Explain briefly what changed and why.
+
+When applying learnings review results:
+
+- For entries promoted to CLAUDE.md or a skill, remove them from `.claude/learnings.md`.
+- For entries marked as one-off, remove them from `.claude/learnings.md`.
+- If all entries are processed, delete `.claude/learnings.md` entirely (it will be recreated naturally when the next correction occurs).
 
 Preserve things that work well. Don't refactor for the sake of refactoring. If an existing config is well-structured and correct, say so and move on.
 
@@ -177,9 +222,10 @@ After all changes:
 1. List every file modified or created, with one-line descriptions of changes.
 2. Report the new metrics: CLAUDE.md line count, number of active MCP servers, hooks configured, etc.
 3. Compare key metrics to before (e.g., "CLAUDE.md: 247 lines → 62 lines").
-4. Note anything you deliberately left unchanged and why.
-5. Suggest running `/cc-optimize` again periodically (e.g., after major features, after a few weeks of work) to prevent config drift.
-6. Remind the user to commit the changes.
+4. If learnings were reviewed: report how many entries were promoted, how many deleted, and how many remain.
+5. Note anything you deliberately left unchanged and why.
+6. Suggest running `/cc-optimize` again periodically (e.g., after major features, after a few weeks of work) to prevent config drift.
+7. Remind the user to commit the changes.
 
 ## Common optimization patterns
 
@@ -190,28 +236,36 @@ When CLAUDE.md contains domain knowledge that's only needed for specific tasks, 
 
 **Monolithic docs → Progressive disclosure:**
 Replace inline documentation in CLAUDE.md with `@`-import pointers:
+
 ```markdown
 ### API Architecture — @docs/api-architecture.md
+
 **Read when:** Adding or modifying API endpoints
 ```
 
 **AGENTS.md as single source of truth:**
 If the project has both CLAUDE.md and AGENTS.md with overlapping content, consolidate the universal parts into AGENTS.md and reduce CLAUDE.md to a slim adapter:
+
 ```markdown
 @AGENTS.md
 
 ## Claude-Code-specific
+
 - <only Claude-specific additions here>
 ```
 
 **OpenSpec integration:**
 If OpenSpec is present, CLAUDE.md should reference it rather than duplicate project context:
+
 ```markdown
 @openspec/project.md
 ```
 
 **Hook-ification of repeated instructions:**
 If CLAUDE.md says "always run prettier after editing" — that's a hook, not an instruction. Replace the instruction with a deterministic PostToolUse hook and remove the line from CLAUDE.md.
+
+**Learnings graduation:**
+When `.claude/learnings.md` has accumulated entries, recurring patterns graduate into CLAUDE.md rules, skills, or hooks. One-off corrections get deleted. The file stays lean or gets removed entirely until the next correction cycle.
 
 ## What NOT to do
 
