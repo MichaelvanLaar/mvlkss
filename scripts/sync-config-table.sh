@@ -2,6 +2,7 @@
 # Keeps the "Key Config Files" table in CLAUDE.md in sync with the filesystem.
 # - Removes rows for files that no longer exist
 # - Appends rows for new config files with a placeholder description
+# - Excludes gitignored files (they are per-machine, not part of the committed state)
 # Preserves all existing hand-written descriptions.
 # Invoked automatically by the pre-commit hook.
 
@@ -54,6 +55,18 @@ if [[ -d "$ROOT/.github/workflows" ]]; then
     config_files+=(".github/workflows/$(basename "$f")")
   done < <(find "$ROOT/.github/workflows" -maxdepth 1 -type f -print0 2>/dev/null | sort -z)
 fi
+
+# Filter out gitignored files (per-machine / personal files don't belong
+# in the committed config table — they may not exist on other clones).
+# git check-ignore exits 0 if the path is ignored, 1 if tracked/untracked-but-not-ignored.
+filtered_files=()
+cd "$ROOT"
+for file in "${config_files[@]}"; do
+  if ! git check-ignore -q "$file" 2>/dev/null; then
+    filtered_files+=("$file")
+  fi
+done
+config_files=("${filtered_files[@]}")
 
 # Sort config files
 IFS=$'\n' sorted_files=($(sort <<<"${config_files[*]}")); unset IFS

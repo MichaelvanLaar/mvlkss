@@ -43,6 +43,8 @@ Read and catalog everything that exists. Do this thoroughly before suggesting an
 - OpenSpec artifacts (`openspec/` directory, `openspec/project.md`, change specs)
 - Documentation (`docs/`, `README.md`, architecture docs)
 - Directory structure and apparent architecture patterns
+- Hook managers and their hook files (`.husky/`, `lefthook.yml`, `.pre-commit-config.yaml`)
+- Project-local git hooks directory (`.githooks/`) and sync scripts (`scripts/sync-config-table.{sh,js}`)
 
 ### Current state metrics
 
@@ -108,12 +110,27 @@ Check for these anti-patterns:
 - Are destructive commands blocked? (`rm -rf`, and consider `curl`/`wget` unless specifically needed)
 - Are safe, frequently-used commands in `permissions.allow`? (reduces approval fatigue)
 
-**Hooks:**
+**Hooks (Claude Code):**
 
 - Is there a PostToolUse formatter hook? If a formatter exists in the project but no hook runs it, this is a high-impact gap.
 - Is there a PreToolUse hook protecting sensitive files? (defense in depth beyond permissions.deny)
 - Do all hooks use `|| true` for graceful degradation?
 - Are hooks doing "block at submit" rather than "block at write"? (fewer interrupts, smoother flow)
+
+**Git hooks and hook-manager drift:**
+
+`/cc-init` creates a project-local `.githooks/pre-commit` that runs `scripts/sync-config-table.sh` and activates it via `git config core.hooksPath .githooks`. If a hook manager like Husky is added later, it takes over `core.hooksPath` — the `.githooks/pre-commit` is still present in the repo but silently stops running. This is a silent drift scenario. Check for it:
+
+1. Detect hook managers:
+   - Husky: `husky` in `package.json` devDependencies, or `.husky/` directory present
+   - Lefthook: `lefthook.yml` or `lefthook` in devDependencies
+   - pre-commit: `.pre-commit-config.yaml`
+2. Detect cc-init hook infrastructure: `.githooks/pre-commit` exists and references `sync-config-table`
+3. If both are present, flag as **conflict** and propose one of these migrations:
+   - **Migrate to the hook manager** (recommended if the hook manager is the project standard): move the `sync-config-table` invocation into the hook manager's pre-commit config (e.g., append it to `.husky/pre-commit`), then delete `.githooks/pre-commit` and — if empty — the `.githooks/` directory. Optionally run `git config --unset core.hooksPath` so the setting doesn't confuse future contributors.
+   - **Keep the project-local hook** (only if the hook manager was added by mistake or is being removed): leave `.githooks/` in place and note that the user needs to resolve which hook system owns `core.hooksPath`.
+4. Also check if `scripts/sync-config-table.*` exists but `.githooks/pre-commit` is missing entirely — the script is orphaned and never runs. Same proposal: wire it into the active hook manager or recreate the `.githooks/` setup.
+5. If the sync script exists in a variant that doesn't match the filesystem conventions of the project (e.g., a `.sh` script in a Node-only project where the team prefers `.js`), note it as a nice-to-have for harmonization but don't force the change.
 
 **Environment variables:**
 
@@ -180,6 +197,7 @@ Organize findings into three categories:
 - Hardcoded secrets in config files
 - Deprecated patterns (ignorePatterns, npm-installed Claude Code)
 - Contradictory instructions
+- Hook-manager conflict: `.githooks/pre-commit` present alongside an active hook manager (the sync script is not running)
 
 ### Should fix (quality and cost improvements)
 
@@ -189,6 +207,7 @@ Organize findings into three categories:
 - Redundant content between files
 - Skills without proper frontmatter guards
 - Learnings entries that should be promoted to CLAUDE.md or a skill
+- Orphaned `scripts/sync-config-table.*` with no active hook wiring
 
 ### Nice to have (polish)
 
@@ -197,6 +216,7 @@ Organize findings into three categories:
 - Missing Learnings section in CLAUDE.md
 - Skills that could be created for recurring workflows
 - MCP servers that could be added or removed
+- Sync script format mismatch with project conventions (e.g., `.sh` in a Node-only repo)
 
 Present the findings to the user as a concise list, grouped by category. For each finding, state: what the issue is, why it matters, and what you'd change. Ask for approval before making changes.
 
@@ -212,6 +232,12 @@ When applying learnings review results:
 - For entries promoted to CLAUDE.md or a skill, remove them from `.claude/learnings.md`.
 - For entries marked as one-off, remove them from `.claude/learnings.md`.
 - If all entries are processed, delete `.claude/learnings.md` entirely (it will be recreated naturally when the next correction occurs).
+
+When resolving hook-manager conflicts:
+
+- If migrating to Husky: append the sync-script call to `.husky/pre-commit` (create it if missing), delete `.githooks/pre-commit`, remove the empty `.githooks/` directory, and suggest the user runs `git config --unset core.hooksPath` on each clone.
+- If migrating to Lefthook or pre-commit: add the appropriate entry to the respective config file instead.
+- Never delete `scripts/sync-config-table.*` itself — the script is still useful, only the wiring changes.
 
 Preserve things that work well. Don't refactor for the sake of refactoring. If an existing config is well-structured and correct, say so and move on.
 
@@ -266,6 +292,9 @@ If CLAUDE.md says "always run prettier after editing" — that's a hook, not an 
 
 **Learnings graduation:**
 When `.claude/learnings.md` has accumulated entries, recurring patterns graduate into CLAUDE.md rules, skills, or hooks. One-off corrections get deleted. The file stays lean or gets removed entirely until the next correction cycle.
+
+**Hook-manager migration for sync-config-table:**
+When a project gains Husky or another hook manager after `/cc-init` was used, the `.githooks/pre-commit` goes silent because `core.hooksPath` is taken over. Migrate the sync script into the active hook manager's pre-commit hook and remove the now-dead `.githooks/` directory.
 
 ## What NOT to do
 
