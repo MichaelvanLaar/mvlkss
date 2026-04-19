@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bd1d1e8bb99f3fc55e1d5ea69f03960b",
+    "content-hash": "a604f680670f08fbf4c3d63013e3f4f1",
     "packages": [
         {
             "name": "adspectus/date-extended",
@@ -2567,7 +2567,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.1.0"
+        "php": ">=8.2.0"
     },
     "platform-dev": {},
     "plugin-api-version": "2.9.0"
