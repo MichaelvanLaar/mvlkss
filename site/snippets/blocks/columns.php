@@ -45,35 +45,52 @@ foreach ($block->layout()->toLayouts() as $columnLayoutRow): ?>
     ? " id=\"{$columnLayoutRow->columnRowId()}\""
     : "";
 
+  $spacingClasses = option("site-constants")["spacing-utility-classes"];
+
   // Set the gap related CSS class for the current column row
-  $columnRowGapClass =
-    option("site-constants")["spacing-utility-classes"]["gap"][
-      (string) $columnLayoutRow->columnRowGap()
-    ] ?? "gap-0";
+  $gapValue = (string) $columnLayoutRow->columnRowGap();
+  if (isset($spacingClasses["gap"][$gapValue])) {
+    $columnRowGapClass = $spacingClasses["gap"][$gapValue];
+  } else {
+    error_log("columns.php: Unknown gap value \"{$gapValue}\"");
+    $columnRowGapClass = "gap-0";
+  }
 
   // Set the top padding related CSS class for the current column row
-  $columnRowPaddingTopClass =
-    option("site-constants")["spacing-utility-classes"]["padding-top"][
-      (string) $columnLayoutRow->columnRowPaddingTop()
-    ] ?? "pt-0";
+  $paddingTopValue = (string) $columnLayoutRow->columnRowPaddingTop();
+  if (isset($spacingClasses["padding-top"][$paddingTopValue])) {
+    $columnRowPaddingTopClass = $spacingClasses["padding-top"][$paddingTopValue];
+  } else {
+    error_log("columns.php: Unknown padding-top value \"{$paddingTopValue}\"");
+    $columnRowPaddingTopClass = "pt-0";
+  }
 
   // Set the bottom padding related CSS class for the current column row
-  $columnRowPaddingBottomClass =
-    option("site-constants")["spacing-utility-classes"]["padding-bottom"][
-      (string) $columnLayoutRow->columnRowPaddingBottom()
-    ] ?? "pb-0";
+  $paddingBottomValue = (string) $columnLayoutRow->columnRowPaddingBottom();
+  if (isset($spacingClasses["padding-bottom"][$paddingBottomValue])) {
+    $columnRowPaddingBottomClass = $spacingClasses["padding-bottom"][$paddingBottomValue];
+  } else {
+    error_log("columns.php: Unknown padding-bottom value \"{$paddingBottomValue}\"");
+    $columnRowPaddingBottomClass = "pb-0";
+  }
 
   // Set the start padding related CSS class for the current column row
-  $columnRowPaddingStartClass =
-    option("site-constants")["spacing-utility-classes"]["padding-start"][
-      (string) $columnLayoutRow->columnRowPaddingStart()
-    ] ?? "ps-0";
+  $paddingStartValue = (string) $columnLayoutRow->columnRowPaddingStart();
+  if (isset($spacingClasses["padding-start"][$paddingStartValue])) {
+    $columnRowPaddingStartClass = $spacingClasses["padding-start"][$paddingStartValue];
+  } else {
+    error_log("columns.php: Unknown padding-start value \"{$paddingStartValue}\"");
+    $columnRowPaddingStartClass = "ps-0";
+  }
 
   // Set the end padding related CSS class for the current column row
-  $columnRowPaddingEndClass =
-    option("site-constants")["spacing-utility-classes"]["padding-end"][
-      (string) $columnLayoutRow->columnRowPaddingEnd()
-    ] ?? "pe-0";
+  $paddingEndValue = (string) $columnLayoutRow->columnRowPaddingEnd();
+  if (isset($spacingClasses["padding-end"][$paddingEndValue])) {
+    $columnRowPaddingEndClass = $spacingClasses["padding-end"][$paddingEndValue];
+  } else {
+    error_log("columns.php: Unknown padding-end value \"{$paddingEndValue}\"");
+    $columnRowPaddingEndClass = "pe-0";
+  }
 
   // Set the background color related CSS class for the current column row
   $columnRowBgColorValue = $columnLayoutRow->columnRowBackgroundColor()->isNotEmpty()
