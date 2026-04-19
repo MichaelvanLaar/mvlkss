@@ -13,8 +13,7 @@ use function in_array;
 use function str_starts_with;
 use ReflectionClass;
 
-final class ExcludeList
-{
+final class ExcludeList {
     /**
      * @var array<non-empty-string, true>
      */
@@ -48,40 +47,35 @@ final class ExcludeList
     /**
      * @param non-empty-string $variableName
      */
-    public function addGlobalVariable(string $variableName): void
-    {
+    public function addGlobalVariable(string $variableName): void {
         $this->globalVariables[$variableName] = true;
     }
 
     /**
      * @param non-empty-string $className
      */
-    public function addClass(string $className): void
-    {
+    public function addClass(string $className): void {
         $this->classes[] = $className;
     }
 
     /**
      * @param non-empty-string $className
      */
-    public function addSubclassesOf(string $className): void
-    {
+    public function addSubclassesOf(string $className): void {
         $this->parentClasses[] = $className;
     }
 
     /**
      * @param non-empty-string $interfaceName
      */
-    public function addImplementorsOf(string $interfaceName): void
-    {
+    public function addImplementorsOf(string $interfaceName): void {
         $this->interfaces[] = $interfaceName;
     }
 
     /**
      * @param non-empty-string $classNamePrefix
      */
-    public function addClassNamePrefix(string $classNamePrefix): void
-    {
+    public function addClassNamePrefix(string $classNamePrefix): void {
         $this->classNamePrefixes[] = $classNamePrefix;
     }
 
@@ -89,8 +83,10 @@ final class ExcludeList
      * @param non-empty-string $className
      * @param non-empty-string $propertyName
      */
-    public function addStaticProperty(string $className, string $propertyName): void
-    {
+    public function addStaticProperty(
+        string $className,
+        string $propertyName,
+    ): void {
         if (!isset($this->staticProperties[$className])) {
             $this->staticProperties[$className] = [];
         }
@@ -98,8 +94,7 @@ final class ExcludeList
         $this->staticProperties[$className][$propertyName] = true;
     }
 
-    public function isGlobalVariableExcluded(string $variableName): bool
-    {
+    public function isGlobalVariableExcluded(string $variableName): bool {
         return isset($this->globalVariables[$variableName]);
     }
 
@@ -107,8 +102,10 @@ final class ExcludeList
      * @param class-string     $className
      * @param non-empty-string $propertyName
      */
-    public function isStaticPropertyExcluded(string $className, string $propertyName): bool
-    {
+    public function isStaticPropertyExcluded(
+        string $className,
+        string $propertyName,
+    ): bool {
         if (in_array($className, $this->classes, true)) {
             return true;
         }

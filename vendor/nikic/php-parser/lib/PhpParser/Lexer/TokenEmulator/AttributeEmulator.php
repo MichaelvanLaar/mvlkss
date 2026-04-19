@@ -11,7 +11,7 @@ final class AttributeEmulator extends TokenEmulator {
     }
 
     public function isEmulationNeeded(string $code): bool {
-        return strpos($code, '#[') !== false;
+        return strpos($code, "#[") !== false;
     }
 
     public function emulate(string $code, array $tokens): array {
@@ -19,9 +19,13 @@ final class AttributeEmulator extends TokenEmulator {
         // the tokens array on the way.
         for ($i = 0, $c = count($tokens); $i < $c; ++$i) {
             $token = $tokens[$i];
-            if ($token->text === '#' && isset($tokens[$i + 1]) && $tokens[$i + 1]->text === '[') {
+            if (
+                $token->text === "#" &&
+                isset($tokens[$i + 1]) &&
+                $tokens[$i + 1]->text === "["
+            ) {
                 array_splice($tokens, $i, 2, [
-                    new Token(\T_ATTRIBUTE, '#[', $token->line, $token->pos),
+                    new Token(\T_ATTRIBUTE, "#[", $token->line, $token->pos),
                 ]);
                 $c--;
                 continue;
@@ -38,10 +42,10 @@ final class AttributeEmulator extends TokenEmulator {
 
     public function preprocessCode(string $code, array &$patches): string {
         $pos = 0;
-        while (false !== $pos = strpos($code, '#[', $pos)) {
+        while (false !== ($pos = strpos($code, "#[", $pos))) {
             // Replace #[ with %[
-            $code[$pos] = '%';
-            $patches[] = [$pos, 'replace', '#'];
+            $code[$pos] = "%";
+            $patches[] = [$pos, "replace", "#"];
             $pos += 2;
         }
         return $code;

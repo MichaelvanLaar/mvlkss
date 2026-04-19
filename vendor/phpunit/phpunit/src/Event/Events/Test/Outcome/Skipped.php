@@ -20,46 +20,40 @@ use PHPUnit\Event\Telemetry;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class Skipped implements Event
-{
+final readonly class Skipped implements Event {
     private Telemetry\Info $telemetryInfo;
     private Code\Test $test;
     private string $message;
 
-    public function __construct(Telemetry\Info $telemetryInfo, Code\Test $test, string $message)
-    {
+    public function __construct(
+        Telemetry\Info $telemetryInfo,
+        Code\Test $test,
+        string $message,
+    ) {
         $this->telemetryInfo = $telemetryInfo;
-        $this->test          = $test;
-        $this->message       = $message;
+        $this->test = $test;
+        $this->message = $message;
     }
 
-    public function telemetryInfo(): Telemetry\Info
-    {
+    public function telemetryInfo(): Telemetry\Info {
         return $this->telemetryInfo;
     }
 
-    public function test(): Code\Test
-    {
+    public function test(): Code\Test {
         return $this->test;
     }
 
-    public function message(): string
-    {
+    public function message(): string {
         return $this->message;
     }
 
-    public function asString(): string
-    {
+    public function asString(): string {
         $message = $this->message;
 
         if (!empty($message)) {
             $message = PHP_EOL . $message;
         }
 
-        return sprintf(
-            'Test Skipped (%s)%s',
-            $this->test->id(),
-            $message,
-        );
+        return sprintf("Test Skipped (%s)%s", $this->test->id(), $message);
     }
 }

@@ -11,6 +11,4 @@ namespace SebastianBergmann\CodeCoverage;
 
 use RuntimeException;
 
-final class ParserException extends RuntimeException implements Exception
-{
-}
+final class ParserException extends RuntimeException implements Exception {}

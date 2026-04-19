@@ -8,85 +8,85 @@
 
 // support running this tool from git checkout
 $projectDirectory = dirname(__DIR__);
-if (is_dir($projectDirectory . DIRECTORY_SEPARATOR . 'vendor')) {
+if (is_dir($projectDirectory . DIRECTORY_SEPARATOR . "vendor")) {
     set_include_path($projectDirectory . PATH_SEPARATOR . get_include_path());
 }
 
 // autoload composer classes
-$composerAutoload = stream_resolve_include_path('vendor/autoload.php');
+$composerAutoload = stream_resolve_include_path("vendor/autoload.php");
 if (!$composerAutoload) {
-    echo("Cannot load json-schema library\n");
+    echo "Cannot load json-schema library\n";
     exit(1);
 }
-require($composerAutoload);
+require $composerAutoload;
 
 $arOptions = [];
 $arArgs = [];
-array_shift($argv);//script itself
+array_shift($argv); //script itself
 foreach ($argv as $arg) {
-    if ($arg[0] == '-') {
+    if ($arg[0] == "-") {
         $arOptions[$arg] = true;
     } else {
         $arArgs[] = $arg;
     }
 }
 
-if (count($arArgs) == 0
-    || isset($arOptions['--help']) || isset($arOptions['-h'])
+if (
+    count($arArgs) == 0 ||
+    isset($arOptions["--help"]) ||
+    isset($arOptions["-h"])
 ) {
     echo <<<HLP
-Validate schema
-Usage: validate-json data.json
-   or: validate-json data.json schema.json
+    Validate schema
+    Usage: validate-json data.json
+       or: validate-json data.json schema.json
 
-Options:
-      --dump-schema     Output full schema and exit
-      --dump-schema-url Output URL of schema
-      --verbose         Show additional output
-      --quiet           Suppress all output
-   -h --help            Show this help
+    Options:
+          --dump-schema     Output full schema and exit
+          --dump-schema-url Output URL of schema
+          --verbose         Show additional output
+          --quiet           Suppress all output
+       -h --help            Show this help
 
-HLP;
+    HLP;
     exit(1);
 }
 
 if (count($arArgs) == 1) {
-    $pathData   = $arArgs[0];
+    $pathData = $arArgs[0];
     $pathSchema = null;
 } else {
-    $pathData   = $arArgs[0];
+    $pathData = $arArgs[0];
     $pathSchema = getUrlFromPath($arArgs[1]);
 }
 
 /**
  * Show the json parse error that happened last
  */
-function showJsonError(): void
-{
+function showJsonError(): void {
     $constants = get_defined_constants(true);
     $json_errors = [];
-    foreach ($constants['json'] as $name => $value) {
-        if (!strncmp($name, 'JSON_ERROR_', 11)) {
+    foreach ($constants["json"] as $name => $value) {
+        if (!strncmp($name, "JSON_ERROR_", 11)) {
             $json_errors[$value] = $name;
         }
     }
 
-    output('JSON parse error: ' . $json_errors[json_last_error()] . "\n");
+    output("JSON parse error: " . $json_errors[json_last_error()] . "\n");
 }
 
-function getUrlFromPath($path)
-{
+function getUrlFromPath($path) {
     if (parse_url($path, PHP_URL_SCHEME) !== null) {
         //already an URL
         return $path;
     }
-    if ($path[0] == '/') {
+    if ($path[0] == "/") {
         //absolute path
-        return 'file://' . $path;
+        return "file://" . $path;
     }
 
     //relative path: make absolute
-    return 'file://' . getcwd() . '/' . $path;
+    return "file://" . getcwd() . "/" . $path;
 }
 
 /**
@@ -96,16 +96,15 @@ function getUrlFromPath($path)
  * @return array Key "_value" contains the main value, all others
  *               as given in the header value
  */
-function parseHeaderValue($headerValue)
-{
-    if (strpos($headerValue, ';') === false) {
-        return ['_value' => $headerValue];
+function parseHeaderValue($headerValue) {
+    if (strpos($headerValue, ";") === false) {
+        return ["_value" => $headerValue];
     }
 
-    $parts = explode(';', $headerValue);
-    $arData = ['_value' => array_shift($parts)];
+    $parts = explode(";", $headerValue);
+    $arData = ["_value" => array_shift($parts)];
     foreach ($parts as $part) {
-        list($name, $value) = explode('=', $part);
+        [$name, $value] = explode("=", $part);
         $arData[$name] = trim($value, ' "\'');
     }
     return $arData;
@@ -118,26 +117,21 @@ function parseHeaderValue($headerValue)
  */
 function output($str) {
     global $arOptions;
-    if (!isset($arOptions['--quiet'])) {
+    if (!isset($arOptions["--quiet"])) {
         echo $str;
     }
 }
 
 $urlData = getUrlFromPath($pathData);
 
-$context = stream_context_create(
-    [
-        'http' => [
-            'header'        => [
-                'Accept: */*',
-                'Connection: Close'
-            ],
-            'max_redirects' => 5
-        ]
-    ]
-);
+$context = stream_context_create([
+    "http" => [
+        "header" => ["Accept: */*", "Connection: Close"],
+        "max_redirects" => 5,
+    ],
+]);
 $dataString = file_get_contents($pathData, false, $context);
-if ($dataString == '') {
+if ($dataString == "") {
     output("Data file is not readable or empty.\n");
     exit(3);
 }
@@ -152,24 +146,23 @@ if ($data === null) {
 
 if ($pathSchema === null) {
     if (isset($http_response_header)) {
-        array_shift($http_response_header);//HTTP/1.0 line
+        array_shift($http_response_header); //HTTP/1.0 line
         foreach ($http_response_header as $headerLine) {
-            list($hName, $hValue) = explode(':', $headerLine, 2);
+            [$hName, $hValue] = explode(":", $headerLine, 2);
             $hName = strtolower($hName);
-            if ($hName == 'link') {
+            if ($hName == "link") {
                 //Link: <http://example.org/schema#>; rel="describedBy"
                 $hParts = parseHeaderValue($hValue);
-                if (isset($hParts['rel']) && $hParts['rel'] == 'describedBy') {
-                    $pathSchema = trim($hParts['_value'], ' <>');
+                if (isset($hParts["rel"]) && $hParts["rel"] == "describedBy") {
+                    $pathSchema = trim($hParts["_value"], " <>");
                 }
-            } else if ($hName == 'content-type') {
+            } elseif ($hName == "content-type") {
                 //Content-Type: application/my-media-type+json;
                 //              profile=http://example.org/schema#
                 $hParts = parseHeaderValue($hValue);
-                if (isset($hParts['profile'])) {
-                    $pathSchema = $hParts['profile'];
+                if (isset($hParts["profile"])) {
+                    $pathSchema = $hParts["profile"];
                 }
-
             }
         }
     }
@@ -185,8 +178,8 @@ if ($pathSchema === null) {
         exit(6);
     }
 }
-if ($pathSchema[0] == '/') {
-    $pathSchema = 'file://' . $pathSchema;
+if ($pathSchema[0] == "/") {
+    $pathSchema = "file://" . $pathSchema;
 }
 
 $resolver = new JsonSchema\Uri\UriResolver();
@@ -194,7 +187,7 @@ $retriever = new JsonSchema\Uri\UriRetriever();
 try {
     $urlSchema = $resolver->resolve($pathSchema, $urlData);
 
-    if (isset($arOptions['--dump-schema-url'])) {
+    if (isset($arOptions["--dump-schema-url"])) {
         echo $urlSchema . "\n";
         exit();
     }
@@ -207,8 +200,8 @@ try {
 $refResolver = new JsonSchema\SchemaStorage($retriever, $resolver);
 $schema = $refResolver->resolveRef($urlSchema);
 
-if (isset($arOptions['--dump-schema'])) {
-    $options = defined('JSON_PRETTY_PRINT') ? JSON_PRETTY_PRINT : 0;
+if (isset($arOptions["--dump-schema"])) {
+    $options = defined("JSON_PRETTY_PRINT") ? JSON_PRETTY_PRINT : 0;
     echo json_encode($schema, $options) . "\n";
     exit();
 }
@@ -218,13 +211,13 @@ try {
     $validator->validate($data, $schema);
 
     if ($validator->isValid()) {
-        if(isset($arOptions['--verbose'])) {
+        if (isset($arOptions["--verbose"])) {
             output("OK. The supplied JSON validates against the schema.\n");
         }
     } else {
         output("JSON does not validate. Violations:\n");
         foreach ($validator->getErrors() as $error) {
-            output(sprintf("[%s] %s\n", $error['property'], $error['message']));
+            output(sprintf("[%s] %s\n", $error["property"], $error["message"]));
         }
         exit(23);
     }
@@ -234,3 +227,4 @@ try {
     output("Error code: " . $e->getCode() . "\n");
     exit(24);
 }
+

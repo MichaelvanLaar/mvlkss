@@ -18,8 +18,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\NodeVisitorAbstract;
 
-final class LineCountingVisitor extends NodeVisitorAbstract
-{
+final class LineCountingVisitor extends NodeVisitorAbstract {
     /**
      * @var non-negative-int
      */
@@ -38,32 +37,30 @@ final class LineCountingVisitor extends NodeVisitorAbstract
     /**
      * @param non-negative-int $linesOfCode
      */
-    public function __construct(int $linesOfCode)
-    {
+    public function __construct(int $linesOfCode) {
         $this->linesOfCode = $linesOfCode;
     }
 
-    public function enterNode(Node $node): void
-    {
+    public function enterNode(Node $node): void {
         $this->comments = array_merge($this->comments, $node->getComments());
 
-        if (!$node instanceof Expr) {
+        if (!($node instanceof Expr)) {
             return;
         }
 
         $this->linesWithStatements[] = $node->getStartLine();
     }
 
-    public function result(): LinesOfCode
-    {
+    public function result(): LinesOfCode {
         $commentLinesOfCode = 0;
 
         foreach ($this->comments() as $comment) {
-            $commentLinesOfCode += ($comment->getEndLine() - $comment->getStartLine() + 1);
+            $commentLinesOfCode +=
+                $comment->getEndLine() - $comment->getStartLine() + 1;
         }
 
         $nonCommentLinesOfCode = $this->linesOfCode - $commentLinesOfCode;
-        $logicalLinesOfCode    = count(array_unique($this->linesWithStatements));
+        $logicalLinesOfCode = count(array_unique($this->linesWithStatements));
 
         assert($commentLinesOfCode >= 0);
         assert($nonCommentLinesOfCode >= 0);
@@ -79,12 +76,19 @@ final class LineCountingVisitor extends NodeVisitorAbstract
     /**
      * @return Comment[]
      */
-    private function comments(): array
-    {
+    private function comments(): array {
         $comments = [];
 
         foreach ($this->comments as $comment) {
-            $comments[$comment->getStartLine() . '_' . $comment->getStartTokenPos() . '_' . $comment->getEndLine() . '_' . $comment->getEndTokenPos()] = $comment;
+            $comments[
+                $comment->getStartLine() .
+                    "_" .
+                    $comment->getStartTokenPos() .
+                    "_" .
+                    $comment->getEndLine() .
+                    "_" .
+                    $comment->getEndTokenPos()
+            ] = $comment;
         }
 
         return $comments;

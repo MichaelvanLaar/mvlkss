@@ -25,8 +25,7 @@ use function sort;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class PHP
-{
+final readonly class PHP {
     private string $version;
     private int $versionId;
     private int $majorVersion;
@@ -40,15 +39,14 @@ final readonly class PHP
      */
     private array $extensions;
 
-    public function __construct()
-    {
-        $this->version        = PHP_VERSION;
-        $this->versionId      = PHP_VERSION_ID;
-        $this->majorVersion   = PHP_MAJOR_VERSION;
-        $this->minorVersion   = PHP_MINOR_VERSION;
+    public function __construct() {
+        $this->version = PHP_VERSION;
+        $this->versionId = PHP_VERSION_ID;
+        $this->majorVersion = PHP_MAJOR_VERSION;
+        $this->minorVersion = PHP_MINOR_VERSION;
         $this->releaseVersion = PHP_RELEASE_VERSION;
-        $this->extraVersion   = PHP_EXTRA_VERSION;
-        $this->sapi           = PHP_SAPI;
+        $this->extraVersion = PHP_EXTRA_VERSION;
+        $this->sapi = PHP_SAPI;
 
         $extensions = array_merge(
             get_loaded_extensions(true),
@@ -60,46 +58,38 @@ final readonly class PHP
         $this->extensions = $extensions;
     }
 
-    public function version(): string
-    {
+    public function version(): string {
         return $this->version;
     }
 
-    public function sapi(): string
-    {
+    public function sapi(): string {
         return $this->sapi;
     }
 
-    public function majorVersion(): int
-    {
+    public function majorVersion(): int {
         return $this->majorVersion;
     }
 
-    public function minorVersion(): int
-    {
+    public function minorVersion(): int {
         return $this->minorVersion;
     }
 
-    public function releaseVersion(): int
-    {
+    public function releaseVersion(): int {
         return $this->releaseVersion;
     }
 
-    public function extraVersion(): string
-    {
+    public function extraVersion(): string {
         return $this->extraVersion;
     }
 
-    public function versionId(): int
-    {
+    public function versionId(): int {
         return $this->versionId;
     }
 
     /**
      * @return list<string>
      */
-    public function extensions(): array
-    {
+    public function extensions(): array {
         return $this->extensions;
     }
 }

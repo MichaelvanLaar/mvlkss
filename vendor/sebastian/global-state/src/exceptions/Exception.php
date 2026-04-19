@@ -11,6 +11,4 @@ namespace SebastianBergmann\GlobalState;
 
 use Throwable;
 
-interface Exception extends Throwable
-{
-}
+interface Exception extends Throwable {}

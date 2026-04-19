@@ -18,8 +18,7 @@ use function is_string;
 use function sprintf;
 use function str_replace;
 
-final class Template
-{
+final class Template {
     /**
      * @var non-empty-string
      */
@@ -47,18 +46,20 @@ final class Template
      *
      * @throws InvalidArgumentException
      */
-    public function __construct(string $templateFile, string $openDelimiter = '{', string $closeDelimiter = '}')
-    {
-        $this->template       = $this->loadTemplateFile($templateFile);
-        $this->openDelimiter  = $openDelimiter;
+    public function __construct(
+        string $templateFile,
+        string $openDelimiter = "{",
+        string $closeDelimiter = "}",
+    ) {
+        $this->template = $this->loadTemplateFile($templateFile);
+        $this->openDelimiter = $openDelimiter;
         $this->closeDelimiter = $closeDelimiter;
     }
 
     /**
      * @param array<string,string> $values
      */
-    public function setVar(array $values, bool $merge = true): void
-    {
+    public function setVar(array $values, bool $merge = true): void {
         if (!$merge || empty($this->values)) {
             $this->values = $values;
 
@@ -68,8 +69,7 @@ final class Template
         $this->values = array_merge($this->values, $values);
     }
 
-    public function render(): string
-    {
+    public function render(): string {
         $keys = [];
 
         foreach (array_keys($this->values) as $key) {
@@ -82,14 +82,10 @@ final class Template
     /**
      * @codeCoverageIgnore
      */
-    public function renderTo(string $target): void
-    {
+    public function renderTo(string $target): void {
         if (!@file_put_contents($target, $this->render())) {
             throw new RuntimeException(
-                sprintf(
-                    'Writing rendered result to "%s" failed',
-                    $target,
-                ),
+                sprintf('Writing rendered result to "%s" failed', $target),
             );
         }
     }
@@ -101,8 +97,7 @@ final class Template
      *
      * @return non-empty-string
      */
-    private function loadTemplateFile(string $file): string
-    {
+    private function loadTemplateFile(string $file): string {
         if (is_file($file)) {
             $template = file_get_contents($file);
 
@@ -111,7 +106,7 @@ final class Template
             }
         }
 
-        $distFile = $file . '.dist';
+        $distFile = $file . ".dist";
 
         if (is_file($distFile)) {
             $template = file_get_contents($distFile);
@@ -122,10 +117,7 @@ final class Template
         }
 
         throw new InvalidArgumentException(
-            sprintf(
-                'Failed to load template "%s"',
-                $file,
-            ),
+            sprintf('Failed to load template "%s"', $file),
         );
     }
 }

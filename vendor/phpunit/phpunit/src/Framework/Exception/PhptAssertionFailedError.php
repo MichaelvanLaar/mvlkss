@@ -16,8 +16,7 @@ namespace PHPUnit\Framework;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class PhptAssertionFailedError extends AssertionFailedError
-{
+final class PhptAssertionFailedError extends AssertionFailedError {
     private readonly string $syntheticFile;
     private readonly int $syntheticLine;
 
@@ -30,36 +29,38 @@ final class PhptAssertionFailedError extends AssertionFailedError
     /**
      * @param list<array{file: string, line: int, function: string, type: string}> $trace
      */
-    public function __construct(string $message, int $code, string $file, int $line, array $trace, string $diff)
-    {
+    public function __construct(
+        string $message,
+        int $code,
+        string $file,
+        int $line,
+        array $trace,
+        string $diff,
+    ) {
         parent::__construct($message, $code);
 
-        $this->syntheticFile  = $file;
-        $this->syntheticLine  = $line;
+        $this->syntheticFile = $file;
+        $this->syntheticLine = $line;
         $this->syntheticTrace = $trace;
-        $this->diff           = $diff;
+        $this->diff = $diff;
     }
 
-    public function syntheticFile(): string
-    {
+    public function syntheticFile(): string {
         return $this->syntheticFile;
     }
 
-    public function syntheticLine(): int
-    {
+    public function syntheticLine(): int {
         return $this->syntheticLine;
     }
 
     /**
      * @return list<array{file: string, line: int, function: string, type: string}>
      */
-    public function syntheticTrace(): array
-    {
+    public function syntheticTrace(): array {
         return $this->syntheticTrace;
     }
 
-    public function diff(): string
-    {
+    public function diff(): string {
         return $this->diff;
     }
 }

@@ -25,14 +25,15 @@ use SebastianBergmann\Timer\Timer;
  *
  * @codeCoverageIgnore
  */
-final readonly class WarmCodeCoverageCacheCommand implements Command
-{
+final readonly class WarmCodeCoverageCacheCommand implements Command {
     private Configuration $configuration;
     private CodeCoverageFilterRegistry $codeCoverageFilterRegistry;
 
-    public function __construct(Configuration $configuration, CodeCoverageFilterRegistry $codeCoverageFilterRegistry)
-    {
-        $this->configuration              = $configuration;
+    public function __construct(
+        Configuration $configuration,
+        CodeCoverageFilterRegistry $codeCoverageFilterRegistry,
+    ) {
+        $this->configuration = $configuration;
         $this->codeCoverageFilterRegistry = $codeCoverageFilterRegistry;
     }
 
@@ -40,11 +41,10 @@ final readonly class WarmCodeCoverageCacheCommand implements Command
      * @throws NoActiveTimerException
      * @throws NoCoverageCacheDirectoryException
      */
-    public function execute(): Result
-    {
+    public function execute(): Result {
         if (!$this->configuration->hasCoverageCacheDirectory()) {
             return Result::from(
-                'Cache for static analysis has not been configured' . PHP_EOL,
+                "Cache for static analysis has not been configured" . PHP_EOL,
                 Result::FAILURE,
             );
         }
@@ -53,28 +53,24 @@ final readonly class WarmCodeCoverageCacheCommand implements Command
 
         if (!$this->codeCoverageFilterRegistry->configured()) {
             return Result::from(
-                'Filter for code coverage has not been configured' . PHP_EOL,
+                "Filter for code coverage has not been configured" . PHP_EOL,
                 Result::FAILURE,
             );
         }
 
-        $timer = new Timer;
+        $timer = new Timer();
         $timer->start();
 
-        print 'Warming cache for static analysis ... ';
+        print "Warming cache for static analysis ... ";
 
-        (new CacheWarmer)->warmCache(
+        (new CacheWarmer())->warmCache(
             $this->configuration->coverageCacheDirectory(),
             !$this->configuration->disableCodeCoverageIgnore(),
             $this->configuration->ignoreDeprecatedCodeUnitsFromCodeCoverage(),
             $this->codeCoverageFilterRegistry->get(),
         );
 
-        printf(
-            '[%s]%s',
-            $timer->stop()->asString(),
-            PHP_EOL,
-        );
+        printf("[%s]%s", $timer->stop()->asString(), PHP_EOL);
 
         return Result::from();
     }

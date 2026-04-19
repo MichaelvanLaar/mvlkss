@@ -23,12 +23,10 @@ use UnitEnum;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class IsIdentical extends Constraint
-{
+final class IsIdentical extends Constraint {
     private readonly mixed $value;
 
-    public function __construct(mixed $value)
-    {
+    public function __construct(mixed $value) {
         $this->value = $value;
     }
 
@@ -44,8 +42,11 @@ final class IsIdentical extends Constraint
      *
      * @throws ExpectationFailedException
      */
-    public function evaluate(mixed $other, string $description = '', bool $returnResult = false): ?bool
-    {
+    public function evaluate(
+        mixed $other,
+        string $description = "",
+        bool $returnResult = false,
+    ): ?bool {
         $success = $this->value === $other;
 
         if ($returnResult) {
@@ -66,7 +67,10 @@ final class IsIdentical extends Constraint
             }
 
             // if both values are array or enums, make sure a diff is generated
-            if ((is_array($this->value) && is_array($other)) || ($this->value instanceof UnitEnum && $other instanceof UnitEnum)) {
+            if (
+                (is_array($this->value) && is_array($other)) ||
+                ($this->value instanceof UnitEnum && $other instanceof UnitEnum)
+            ) {
                 $f = new ComparisonFailure(
                     $this->value,
                     $other,
@@ -84,14 +88,14 @@ final class IsIdentical extends Constraint
     /**
      * Returns a string representation of the constraint.
      */
-    public function toString(): string
-    {
+    public function toString(): string {
         if (is_object($this->value)) {
             return 'is identical to an object of class "' .
-                $this->value::class . '"';
+                $this->value::class .
+                '"';
         }
 
-        return 'is identical to ' . Exporter::export($this->value);
+        return "is identical to " . Exporter::export($this->value);
     }
 
     /**
@@ -100,22 +104,24 @@ final class IsIdentical extends Constraint
      * The beginning of failure messages is "Failed asserting that" in most
      * cases. This method should return the second part of that sentence.
      */
-    protected function failureDescription(mixed $other): string
-    {
+    protected function failureDescription(mixed $other): string {
         if (is_object($this->value) && is_object($other)) {
-            return 'two variables reference the same object';
+            return "two variables reference the same object";
         }
 
-        if (explode(' ', gettype($this->value), 2)[0] === 'resource' && explode(' ', gettype($other), 2)[0] === 'resource') {
-            return 'two variables reference the same resource';
+        if (
+            explode(" ", gettype($this->value), 2)[0] === "resource" &&
+            explode(" ", gettype($other), 2)[0] === "resource"
+        ) {
+            return "two variables reference the same resource";
         }
 
         if (is_string($this->value) && is_string($other)) {
-            return 'two strings are identical';
+            return "two strings are identical";
         }
 
         if (is_array($this->value) && is_array($other)) {
-            return 'two arrays are identical';
+            return "two arrays are identical";
         }
 
         return parent::failureDescription($other);

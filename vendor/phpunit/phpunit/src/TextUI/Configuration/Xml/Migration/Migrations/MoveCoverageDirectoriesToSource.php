@@ -19,20 +19,18 @@ use DOMXPath;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class MoveCoverageDirectoriesToSource implements Migration
-{
+final readonly class MoveCoverageDirectoriesToSource implements Migration {
     /**
      * @throws MigrationException
      */
-    public function migrate(DOMDocument $document): void
-    {
-        $source = $document->getElementsByTagName('source')->item(0);
+    public function migrate(DOMDocument $document): void {
+        $source = $document->getElementsByTagName("source")->item(0);
 
         if ($source !== null) {
             return;
         }
 
-        $coverage = $document->getElementsByTagName('coverage')->item(0);
+        $coverage = $document->getElementsByTagName("coverage")->item(0);
 
         if ($coverage === null) {
             return;
@@ -42,13 +40,13 @@ final readonly class MoveCoverageDirectoriesToSource implements Migration
 
         assert($root instanceof DOMElement);
 
-        $source = $document->createElement('source');
+        $source = $document->createElement("source");
         $root->appendChild($source);
 
         $xpath = new DOMXPath($document);
 
-        foreach (['include', 'exclude'] as $element) {
-            $nodes = $xpath->query('//coverage/' . $element);
+        foreach (["include", "exclude"] as $element) {
+            $nodes = $xpath->query("//coverage/" . $element);
 
             assert($nodes !== false);
 

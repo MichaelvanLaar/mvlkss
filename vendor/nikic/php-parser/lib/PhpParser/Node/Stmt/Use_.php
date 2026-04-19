@@ -31,17 +31,21 @@ class Use_ extends Stmt {
      * @param Stmt\Use_::TYPE_* $type Type of alias
      * @param array<string, mixed> $attributes Additional attributes
      */
-    public function __construct(array $uses, int $type = self::TYPE_NORMAL, array $attributes = []) {
+    public function __construct(
+        array $uses,
+        int $type = self::TYPE_NORMAL,
+        array $attributes = [],
+    ) {
         $this->attributes = $attributes;
         $this->type = $type;
         $this->uses = $uses;
     }
 
     public function getSubNodeNames(): array {
-        return ['type', 'uses'];
+        return ["type", "uses"];
     }
 
     public function getType(): string {
-        return 'Stmt_Use';
+        return "Stmt_Use";
     }
 }

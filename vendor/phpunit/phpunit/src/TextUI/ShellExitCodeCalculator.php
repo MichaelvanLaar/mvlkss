@@ -17,34 +17,35 @@ use PHPUnit\TextUI\Configuration\Configuration;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class ShellExitCodeCalculator
-{
-    private const SUCCESS_EXIT   = 0;
-    private const FAILURE_EXIT   = 1;
+final readonly class ShellExitCodeCalculator {
+    private const SUCCESS_EXIT = 0;
+    private const FAILURE_EXIT = 1;
     private const EXCEPTION_EXIT = 2;
 
-    public function calculate(Configuration $configuration, TestResult $result): int
-    {
-        $failOnDeprecation        = false;
+    public function calculate(
+        Configuration $configuration,
+        TestResult $result,
+    ): int {
+        $failOnDeprecation = false;
         $failOnPhpunitDeprecation = false;
-        $failOnPhpunitWarning     = false;
-        $failOnEmptyTestSuite     = false;
-        $failOnIncomplete         = false;
-        $failOnNotice             = false;
-        $failOnRisky              = false;
-        $failOnSkipped            = false;
-        $failOnWarning            = false;
+        $failOnPhpunitWarning = false;
+        $failOnEmptyTestSuite = false;
+        $failOnIncomplete = false;
+        $failOnNotice = false;
+        $failOnRisky = false;
+        $failOnSkipped = false;
+        $failOnWarning = false;
 
         if ($configuration->failOnAllIssues()) {
-            $failOnDeprecation        = true;
+            $failOnDeprecation = true;
             $failOnPhpunitDeprecation = true;
-            $failOnPhpunitWarning     = true;
-            $failOnEmptyTestSuite     = true;
-            $failOnIncomplete         = true;
-            $failOnNotice             = true;
-            $failOnRisky              = true;
-            $failOnSkipped            = true;
-            $failOnWarning            = true;
+            $failOnPhpunitWarning = true;
+            $failOnEmptyTestSuite = true;
+            $failOnIncomplete = true;
+            $failOnNotice = true;
+            $failOnRisky = true;
+            $failOnSkipped = true;
+            $failOnWarning = true;
         }
 
         if ($configuration->failOnDeprecation()) {

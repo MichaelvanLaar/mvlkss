@@ -7,8 +7,7 @@ namespace Laminas\Escaper;
 /**
  * Interface for context specific methods for use in secure output escaping
  */
-interface EscaperInterface
-{
+interface EscaperInterface {
     /**
      * Escape a string for the HTML Body context where there are very few characters
      * of special meaning. Internally this will use htmlspecialchars().

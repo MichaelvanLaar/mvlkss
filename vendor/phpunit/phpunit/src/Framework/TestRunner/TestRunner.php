@@ -35,13 +35,11 @@ use Throwable;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class TestRunner
-{
+final class TestRunner {
     private ?bool $timeLimitCanBeEnforced = null;
     private readonly Configuration $configuration;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->configuration = ConfigurationRegistry::get();
     }
 
@@ -51,37 +49,39 @@ final class TestRunner
      * @throws InvalidArgumentException
      * @throws UnintentionallyCoveredCodeException
      */
-    public function run(TestCase $test): void
-    {
+    public function run(TestCase $test): void {
         Assert::resetCount();
 
-        $codeCoverageMetadataApi = new CodeCoverageMetadataApi;
+        $codeCoverageMetadataApi = new CodeCoverageMetadataApi();
 
         $shouldCodeCoverageBeCollected = $codeCoverageMetadataApi->shouldCodeCoverageBeCollectedFor(
             $test::class,
             $test->name(),
         );
 
-        $error      = false;
-        $failure    = false;
+        $error = false;
+        $failure = false;
         $incomplete = false;
-        $risky      = false;
-        $skipped    = false;
+        $risky = false;
+        $skipped = false;
 
         if ($this->shouldErrorHandlerBeUsed($test)) {
             ErrorHandler::instance()->enable();
         }
 
-        $collectCodeCoverage = CodeCoverage::instance()->isActive() &&
-                               $shouldCodeCoverageBeCollected;
+        $collectCodeCoverage =
+            CodeCoverage::instance()->isActive() &&
+            $shouldCodeCoverageBeCollected;
 
         if ($collectCodeCoverage) {
             CodeCoverage::instance()->start($test);
         }
 
         try {
-            if ($this->canTimeLimitBeEnforced() &&
-                $this->shouldTimeLimitBeEnforced($test)) {
+            if (
+                $this->canTimeLimitBeEnforced() &&
+                $this->shouldTimeLimitBeEnforced($test)
+            ) {
                 $risky = $this->runTestWithTimeout($test);
             } else {
                 $test->runBare();
@@ -98,17 +98,17 @@ final class TestRunner
             $test->addToAssertionCount(1);
 
             $failure = true;
-            $frame   = $e->getTrace()[0];
+            $frame = $e->getTrace()[0];
 
-            assert(isset($frame['file']));
-            assert(isset($frame['line']));
+            assert(isset($frame["file"]));
+            assert(isset($frame["line"]));
 
             $e = new AssertionFailedError(
                 sprintf(
-                    '%s in %s:%s',
+                    "%s in %s:%s",
                     $e->getMessage(),
-                    $frame['file'],
-                    $frame['line'],
+                    $frame["file"],
+                    $frame["line"],
                 ),
             );
         } catch (Throwable $e) {
@@ -117,27 +117,35 @@ final class TestRunner
 
         $test->addToAssertionCount(Assert::getCount());
 
-        if ($this->configuration->reportUselessTests() &&
+        if (
+            $this->configuration->reportUselessTests() &&
             !$test->doesNotPerformAssertions() &&
-            $test->numberOfAssertionsPerformed() === 0) {
+            $test->numberOfAssertionsPerformed() === 0
+        ) {
             $risky = true;
         }
 
-        if (!$error && !$failure && !$incomplete && !$skipped && !$risky &&
+        if (
+            !$error &&
+            !$failure &&
+            !$incomplete &&
+            !$skipped &&
+            !$risky &&
             $this->configuration->requireCoverageMetadata() &&
-            !$this->hasCoverageMetadata($test::class, $test->name())) {
+            !$this->hasCoverageMetadata($test::class, $test->name())
+        ) {
             Facade::emitter()->testConsideredRisky(
                 $test->valueObjectForEvents(),
-                'This test does not define a code coverage target but is expected to do so',
+                "This test does not define a code coverage target but is expected to do so",
             );
 
             $risky = true;
         }
 
         if ($collectCodeCoverage) {
-            $append           = !$risky && !$incomplete && !$skipped;
+            $append = !$risky && !$incomplete && !$skipped;
             $linesToBeCovered = [];
-            $linesToBeUsed    = [];
+            $linesToBeUsed = [];
 
             if ($append) {
                 try {
@@ -169,9 +177,9 @@ final class TestRunner
             } catch (UnintentionallyCoveredCodeException $cce) {
                 Facade::emitter()->testConsideredRisky(
                     $test->valueObjectForEvents(),
-                    'This test executed code that is not listed as code to be covered or used:' .
-                    PHP_EOL .
-                    $cce->getMessage(),
+                    "This test executed code that is not listed as code to be covered or used:" .
+                        PHP_EOL .
+                        $cce->getMessage(),
                 );
             } catch (OriginalCodeCoverageException $cce) {
                 $error = true;
@@ -182,26 +190,30 @@ final class TestRunner
 
         ErrorHandler::instance()->disable();
 
-        if (!$error &&
+        if (
+            !$error &&
             !$incomplete &&
             !$skipped &&
             $this->configuration->reportUselessTests() &&
             !$test->doesNotPerformAssertions() &&
-            $test->numberOfAssertionsPerformed() === 0) {
+            $test->numberOfAssertionsPerformed() === 0
+        ) {
             Facade::emitter()->testConsideredRisky(
                 $test->valueObjectForEvents(),
-                'This test did not perform any assertions',
+                "This test did not perform any assertions",
             );
         }
 
-        if ($test->doesNotPerformAssertions() &&
-            $test->numberOfAssertionsPerformed() > 0) {
+        if (
+            $test->doesNotPerformAssertions() &&
+            $test->numberOfAssertionsPerformed() > 0
+        ) {
             Facade::emitter()->testConsideredRisky(
                 $test->valueObjectForEvents(),
                 sprintf(
-                    'This test is not expected to perform assertions but performed %d assertion%s',
+                    "This test is not expected to perform assertions but performed %d assertion%s",
                     $test->numberOfAssertionsPerformed(),
-                    $test->numberOfAssertionsPerformed() > 1 ? 's' : '',
+                    $test->numberOfAssertionsPerformed() > 1 ? "s" : "",
                 ),
             );
         }
@@ -210,11 +222,14 @@ final class TestRunner
             Facade::emitter()->testPrintedUnexpectedOutput($test->output());
         }
 
-        if ($this->configuration->disallowTestOutput() && $test->hasUnexpectedOutput()) {
+        if (
+            $this->configuration->disallowTestOutput() &&
+            $test->hasUnexpectedOutput()
+        ) {
             Facade::emitter()->testConsideredRisky(
                 $test->valueObjectForEvents(),
                 sprintf(
-                    'Test code or tested code printed unexpected output: %s',
+                    "Test code or tested code printed unexpected output: %s",
                     $test->output(),
                 ),
             );
@@ -232,9 +247,17 @@ final class TestRunner
      * @param class-string     $className
      * @param non-empty-string $methodName
      */
-    private function hasCoverageMetadata(string $className, string $methodName): bool
-    {
-        foreach (MetadataRegistry::parser()->forClassAndMethod($className, $methodName) as $metadata) {
+    private function hasCoverageMetadata(
+        string $className,
+        string $methodName,
+    ): bool {
+        foreach (
+            MetadataRegistry::parser()->forClassAndMethod(
+                $className,
+                $methodName,
+            )
+            as $metadata
+        ) {
             if ($metadata->isCovers()) {
                 return true;
             }
@@ -263,28 +286,31 @@ final class TestRunner
         return false;
     }
 
-    private function canTimeLimitBeEnforced(): bool
-    {
+    private function canTimeLimitBeEnforced(): bool {
         if ($this->timeLimitCanBeEnforced !== null) {
             return $this->timeLimitCanBeEnforced;
         }
 
-        $this->timeLimitCanBeEnforced = (new Invoker)->canInvokeWithTimeout();
+        $this->timeLimitCanBeEnforced = (new Invoker())->canInvokeWithTimeout();
 
         return $this->timeLimitCanBeEnforced;
     }
 
-    private function shouldTimeLimitBeEnforced(TestCase $test): bool
-    {
+    private function shouldTimeLimitBeEnforced(TestCase $test): bool {
         if (!$this->configuration->enforceTimeLimit()) {
             return false;
         }
 
-        if (!(($this->configuration->defaultTimeLimit() || $test->size()->isKnown()))) {
+        if (
+            !(
+                $this->configuration->defaultTimeLimit() ||
+                $test->size()->isKnown()
+            )
+        ) {
             return false;
         }
 
-        if (extension_loaded('xdebug') && xdebug_is_debugger_active()) {
+        if (extension_loaded("xdebug") && xdebug_is_debugger_active()) {
             return false;
         }
 
@@ -294,8 +320,7 @@ final class TestRunner
     /**
      * @throws Throwable
      */
-    private function runTestWithTimeout(TestCase $test): bool
-    {
+    private function runTestWithTimeout(TestCase $test): bool {
         $_timeout = $this->configuration->defaultTimeLimit();
         $testSize = $test->size();
 
@@ -308,14 +333,14 @@ final class TestRunner
         }
 
         try {
-            (new Invoker)->invoke([$test, 'runBare'], [], $_timeout);
+            (new Invoker())->invoke([$test, "runBare"], [], $_timeout);
         } catch (TimeoutException) {
             Facade::emitter()->testConsideredRisky(
                 $test->valueObjectForEvents(),
                 sprintf(
-                    'This test was aborted after %d second%s',
+                    "This test was aborted after %d second%s",
                     $_timeout,
-                    $_timeout !== 1 ? 's' : '',
+                    $_timeout !== 1 ? "s" : "",
                 ),
             );
 
@@ -325,9 +350,13 @@ final class TestRunner
         return false;
     }
 
-    private function shouldErrorHandlerBeUsed(TestCase $test): bool
-    {
-        if (MetadataRegistry::parser()->forMethod($test::class, $test->name())->isWithoutErrorHandler()->isNotEmpty()) {
+    private function shouldErrorHandlerBeUsed(TestCase $test): bool {
+        if (
+            MetadataRegistry::parser()
+                ->forMethod($test::class, $test->name())
+                ->isWithoutErrorHandler()
+                ->isNotEmpty()
+        ) {
             return false;
         }
 

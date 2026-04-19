@@ -21,8 +21,7 @@ use Throwable;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class DirectDispatcher implements SubscribableDispatcher
-{
+final class DirectDispatcher implements SubscribableDispatcher {
     private readonly TypeMap $typeMap;
 
     /**
@@ -35,13 +34,11 @@ final class DirectDispatcher implements SubscribableDispatcher
      */
     private array $tracers = [];
 
-    public function __construct(TypeMap $map)
-    {
+    public function __construct(TypeMap $map) {
         $this->typeMap = $map;
     }
 
-    public function registerTracer(Tracer\Tracer $tracer): void
-    {
+    public function registerTracer(Tracer\Tracer $tracer): void {
         $this->tracers[] = $tracer;
     }
 
@@ -49,8 +46,7 @@ final class DirectDispatcher implements SubscribableDispatcher
      * @throws MapError
      * @throws UnknownSubscriberTypeException
      */
-    public function registerSubscriber(Subscriber $subscriber): void
-    {
+    public function registerSubscriber(Subscriber $subscriber): void {
         if (!$this->typeMap->isKnownSubscriberType($subscriber)) {
             throw new UnknownSubscriberTypeException(
                 sprintf(
@@ -73,16 +69,12 @@ final class DirectDispatcher implements SubscribableDispatcher
      * @throws Throwable
      * @throws UnknownEventTypeException
      */
-    public function dispatch(Event $event): void
-    {
+    public function dispatch(Event $event): void {
         $eventClassName = $event::class;
 
         if (!$this->typeMap->isKnownEventType($event)) {
             throw new UnknownEventTypeException(
-                sprintf(
-                    'Unknown event type "%s"',
-                    $eventClassName,
-                ),
+                sprintf('Unknown event type "%s"', $eventClassName),
             );
         }
 
@@ -113,12 +105,11 @@ final class DirectDispatcher implements SubscribableDispatcher
     /**
      * @throws Throwable
      */
-    public function handleThrowable(Throwable $t): void
-    {
+    public function handleThrowable(Throwable $t): void {
         if ($this->isThrowableFromThirdPartySubscriber($t)) {
             Facade::emitter()->testRunnerTriggeredPhpunitWarning(
                 sprintf(
-                    'Exception in third-party event subscriber: %s%s%s',
+                    "Exception in third-party event subscriber: %s%s%s",
                     $t->getMessage(),
                     PHP_EOL,
                     $t->getTraceAsString(),
@@ -133,8 +124,7 @@ final class DirectDispatcher implements SubscribableDispatcher
         // @codeCoverageIgnoreEnd
     }
 
-    private function isThrowableFromThirdPartySubscriber(Throwable $t): bool
-    {
+    private function isThrowableFromThirdPartySubscriber(Throwable $t): bool {
         return !str_starts_with($t->getFile(), dirname(__DIR__, 2));
     }
 }

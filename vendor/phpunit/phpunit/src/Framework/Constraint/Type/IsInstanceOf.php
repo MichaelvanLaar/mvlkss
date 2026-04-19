@@ -17,8 +17,7 @@ use PHPUnit\Framework\UnknownClassOrInterfaceException;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class IsInstanceOf extends Constraint
-{
+final class IsInstanceOf extends Constraint {
     /**
      * @var class-string
      */
@@ -32,12 +31,11 @@ final class IsInstanceOf extends Constraint
     /**
      * @throws UnknownClassOrInterfaceException
      */
-    public function __construct(string $name)
-    {
+    public function __construct(string $name) {
         if (class_exists($name)) {
-            $this->type = 'class';
+            $this->type = "class";
         } elseif (interface_exists($name)) {
-            $this->type = 'interface';
+            $this->type = "interface";
         } else {
             throw new UnknownClassOrInterfaceException($name);
         }
@@ -48,21 +46,15 @@ final class IsInstanceOf extends Constraint
     /**
      * Returns a string representation of the constraint.
      */
-    public function toString(): string
-    {
-        return sprintf(
-            'is an instance of %s %s',
-            $this->type,
-            $this->name,
-        );
+    public function toString(): string {
+        return sprintf("is an instance of %s %s", $this->type, $this->name);
     }
 
     /**
      * Evaluates the constraint for parameter $other. Returns true if the
      * constraint is met, false otherwise.
      */
-    protected function matches(mixed $other): bool
-    {
+    protected function matches(mixed $other): bool {
         return $other instanceof $this->name;
     }
 
@@ -72,8 +64,7 @@ final class IsInstanceOf extends Constraint
      * The beginning of failure messages is "Failed asserting that" in most
      * cases. This method should return the second part of that sentence.
      */
-    protected function failureDescription(mixed $other): string
-    {
+    protected function failureDescription(mixed $other): string {
         return $this->valueToTypeStringFragment($other) . $this->toString();
     }
 }

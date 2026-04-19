@@ -11,6 +11,5 @@ namespace SebastianBergmann\Timer;
 
 use LogicException;
 
-final class NoActiveTimerException extends LogicException implements Exception
-{
-}
+final class NoActiveTimerException extends LogicException implements
+    Exception {}

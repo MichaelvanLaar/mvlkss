@@ -13,9 +13,10 @@ declare(strict_types=1);
 
 namespace Ergebnis\Json\Normalizer\Exception;
 
-final class NormalizedInvalidAccordingToSchema extends \RuntimeException implements Exception
-{
-    private string $schemaUri = '';
+final class NormalizedInvalidAccordingToSchema
+    extends \RuntimeException
+    implements Exception {
+    private string $schemaUri = "";
 
     /**
      * @var list<string>
@@ -24,12 +25,14 @@ final class NormalizedInvalidAccordingToSchema extends \RuntimeException impleme
 
     public static function fromSchemaUriAndErrors(
         string $schemaUri,
-        string ...$errors
+        string ...$errors,
     ): self {
-        $exception = new self(\sprintf(
-            'Normalized JSON is not valid according to schema "%s".',
-            $schemaUri,
-        ));
+        $exception = new self(
+            \sprintf(
+                'Normalized JSON is not valid according to schema "%s".',
+                $schemaUri,
+            ),
+        );
 
         $exception->schemaUri = $schemaUri;
         $exception->errors = \array_values($errors);
@@ -37,16 +40,14 @@ final class NormalizedInvalidAccordingToSchema extends \RuntimeException impleme
         return $exception;
     }
 
-    public function schemaUri(): string
-    {
+    public function schemaUri(): string {
         return $this->schemaUri;
     }
 
     /**
      * @return list<string>
      */
-    public function errors(): array
-    {
+    public function errors(): array {
         return $this->errors;
     }
 }

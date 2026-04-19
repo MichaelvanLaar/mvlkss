@@ -14,17 +14,14 @@ namespace PHPUnit\TestRunner\TestResult;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-abstract readonly class Subscriber
-{
+abstract readonly class Subscriber {
     private Collector $collector;
 
-    public function __construct(Collector $collector)
-    {
+    public function __construct(Collector $collector) {
         $this->collector = $collector;
     }
 
-    protected function collector(): Collector
-    {
+    protected function collector(): Collector {
         return $this->collector;
     }
 }

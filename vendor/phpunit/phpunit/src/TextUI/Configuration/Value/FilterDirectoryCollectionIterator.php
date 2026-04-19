@@ -17,8 +17,7 @@ use Iterator;
  *
  * @template-implements Iterator<non-negative-int, FilterDirectory>
  */
-final class FilterDirectoryCollectionIterator implements Iterator
-{
+final class FilterDirectoryCollectionIterator implements Iterator {
     /**
      * @var list<FilterDirectory>
      */
@@ -29,36 +28,30 @@ final class FilterDirectoryCollectionIterator implements Iterator
      */
     private int $position = 0;
 
-    public function __construct(FilterDirectoryCollection $directories)
-    {
+    public function __construct(FilterDirectoryCollection $directories) {
         $this->directories = $directories->asArray();
     }
 
-    public function rewind(): void
-    {
+    public function rewind(): void {
         $this->position = 0;
     }
 
-    public function valid(): bool
-    {
+    public function valid(): bool {
         return $this->position < count($this->directories);
     }
 
     /**
      * @return non-negative-int
      */
-    public function key(): int
-    {
+    public function key(): int {
         return $this->position;
     }
 
-    public function current(): FilterDirectory
-    {
+    public function current(): FilterDirectory {
         return $this->directories[$this->position];
     }
 
-    public function next(): void
-    {
+    public function next(): void {
         $this->position++;
     }
 }

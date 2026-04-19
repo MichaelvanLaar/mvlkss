@@ -22,32 +22,33 @@ use PHPUnit\Util\Exporter;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class StringContains extends Constraint
-{
+final class StringContains extends Constraint {
     private readonly string $needle;
     private readonly bool $ignoreCase;
     private readonly bool $ignoreLineEndings;
 
-    public function __construct(string $needle, bool $ignoreCase = false, bool $ignoreLineEndings = false)
-    {
+    public function __construct(
+        string $needle,
+        bool $ignoreCase = false,
+        bool $ignoreLineEndings = false,
+    ) {
         if ($ignoreLineEndings) {
             $needle = $this->normalizeLineEndings($needle);
         }
 
-        $this->needle            = $needle;
-        $this->ignoreCase        = $ignoreCase;
+        $this->needle = $needle;
+        $this->ignoreCase = $ignoreCase;
         $this->ignoreLineEndings = $ignoreLineEndings;
     }
 
     /**
      * Returns a string representation of the constraint.
      */
-    public function toString(): string
-    {
+    public function toString(): string {
         $needle = $this->needle;
 
         if ($this->ignoreCase) {
-            $needle = mb_strtolower($this->needle, 'UTF-8');
+            $needle = mb_strtolower($this->needle, "UTF-8");
         }
 
         return sprintf(
@@ -58,14 +59,13 @@ final class StringContains extends Constraint
         );
     }
 
-    public function failureDescription(mixed $other): string
-    {
+    public function failureDescription(mixed $other): string {
         $stringifiedHaystack = Exporter::export($other);
-        $haystackEncoding    = $this->detectedEncoding($other);
-        $haystackLength      = $this->haystackLength($other);
+        $haystackEncoding = $this->detectedEncoding($other);
+        $haystackLength = $this->haystackLength($other);
 
         $haystackInformation = sprintf(
-            '%s [%s](length: %s) ',
+            "%s [%s](length: %s) ",
             $stringifiedHaystack,
             $haystackEncoding,
             $haystackLength,
@@ -80,11 +80,10 @@ final class StringContains extends Constraint
      * Evaluates the constraint for parameter $other. Returns true if the
      * constraint is met, false otherwise.
      */
-    protected function matches(mixed $other): bool
-    {
+    protected function matches(mixed $other): bool {
         $haystack = $other;
 
-        if ('' === $this->needle) {
+        if ("" === $this->needle) {
             return true;
         }
 
@@ -101,7 +100,7 @@ final class StringContains extends Constraint
              * We must use the multibyte-safe version, so we can accurately compare non-latin uppercase characters with
              * their lowercase equivalents.
              */
-            return mb_stripos($haystack, $this->needle, 0, 'UTF-8') !== false;
+            return mb_stripos($haystack, $this->needle, 0, "UTF-8") !== false;
         }
 
         /*
@@ -115,27 +114,25 @@ final class StringContains extends Constraint
         return str_contains($haystack, $this->needle);
     }
 
-    private function detectedEncoding(mixed $other): string
-    {
+    private function detectedEncoding(mixed $other): string {
         if ($this->ignoreCase) {
-            return 'Encoding ignored';
+            return "Encoding ignored";
         }
 
         if (!is_string($other)) {
-            return 'Encoding detection failed';
+            return "Encoding detection failed";
         }
 
         $detectedEncoding = mb_detect_encoding($other, null, true);
 
         if ($detectedEncoding === false) {
-            return 'Encoding detection failed';
+            return "Encoding detection failed";
         }
 
         return $detectedEncoding;
     }
 
-    private function haystackLength(mixed $haystack): int
-    {
+    private function haystackLength(mixed $haystack): int {
         if (!is_string($haystack)) {
             return 0;
         }
@@ -147,14 +144,10 @@ final class StringContains extends Constraint
         return strlen($haystack);
     }
 
-    private function normalizeLineEndings(string $string): string
-    {
-        return strtr(
-            $string,
-            [
-                "\r\n" => "\n",
-                "\r"   => "\n",
-            ],
-        );
+    private function normalizeLineEndings(string $string): string {
+        return strtr($string, [
+            "\r\n" => "\n",
+            "\r" => "\n",
+        ]);
     }
 }

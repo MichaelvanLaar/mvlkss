@@ -15,22 +15,19 @@ use function sprintf;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class DirectoryExists extends Constraint
-{
+final class DirectoryExists extends Constraint {
     /**
      * Returns a string representation of the constraint.
      */
-    public function toString(): string
-    {
-        return 'directory exists';
+    public function toString(): string {
+        return "directory exists";
     }
 
     /**
      * Evaluates the constraint for parameter $other. Returns true if the
      * constraint is met, false otherwise.
      */
-    protected function matches(mixed $other): bool
-    {
+    protected function matches(mixed $other): bool {
         return is_dir($other);
     }
 
@@ -40,11 +37,7 @@ final class DirectoryExists extends Constraint
      * The beginning of failure messages is "Failed asserting that" in most
      * cases. This method should return the second part of that sentence.
      */
-    protected function failureDescription(mixed $other): string
-    {
-        return sprintf(
-            'directory "%s" exists',
-            $other,
-        );
+    protected function failureDescription(mixed $other): string {
+        return sprintf('directory "%s" exists', $other);
     }
 }

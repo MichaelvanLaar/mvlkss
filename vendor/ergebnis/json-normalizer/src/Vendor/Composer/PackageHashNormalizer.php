@@ -17,23 +17,21 @@ use Ergebnis\Json\Json;
 use Ergebnis\Json\Normalizer\Format;
 use Ergebnis\Json\Normalizer\Normalizer;
 
-final class PackageHashNormalizer implements Normalizer
-{
+final class PackageHashNormalizer implements Normalizer {
     /**
      * @see https://github.com/composer/composer/blob/2.0.11/src/Composer/Repository/PlatformRepository.php#L33
      */
     private const PLATFORM_PACKAGE_REGEX = '{^(?:php(?:-64bit|-ipv6|-zts|-debug)?|hhvm|(?:ext|lib)-[a-z0-9](?:[_.-]?[a-z0-9]+)*|composer-(?:plugin|runtime)-api)$}iD';
     private const PROPERTIES_THAT_SHOULD_BE_NORMALIZED = [
-        'conflict',
-        'provide',
-        'replace',
-        'require',
-        'require-dev',
-        'suggest',
+        "conflict",
+        "provide",
+        "replace",
+        "require",
+        "require-dev",
+        "suggest",
     ];
 
-    public function normalize(Json $json): Json
-    {
+    public function normalize(Json $json): Json {
         $decoded = $json->decoded();
 
         if (!\is_object($decoded)) {
@@ -80,37 +78,23 @@ final class PackageHashNormalizer implements Normalizer
      *
      * @return array<string, string>
      */
-    private static function sortPackages(array $packages): array
-    {
+    private static function sortPackages(array $packages): array {
         $prefix = static function (string $requirement): string {
             if (1 === \preg_match(self::PLATFORM_PACKAGE_REGEX, $requirement)) {
                 return \preg_replace(
-                    [
-                        '/^php/',
-                        '/^hhvm/',
-                        '/^ext/',
-                        '/^lib/',
-                        '/^\D/',
-                    ],
-                    [
-                        '0-$0',
-                        '1-$0',
-                        '2-$0',
-                        '3-$0',
-                        '4-$0',
-                    ],
+                    ["/^php/", "/^hhvm/", "/^ext/", "/^lib/", "/^\D/"],
+                    ['0-$0', '1-$0', '2-$0', '3-$0', '4-$0'],
                     $requirement,
                 );
             }
 
-            return '5-' . $requirement;
+            return "5-" . $requirement;
         };
 
-        \uksort($packages, static function (string $a, string $b) use ($prefix): int {
-            return \strnatcmp(
-                $prefix($a),
-                $prefix($b),
-            );
+        \uksort($packages, static function (string $a, string $b) use (
+            $prefix,
+        ): int {
+            return \strnatcmp($prefix($a), $prefix($b));
         });
 
         return $packages;
@@ -126,21 +110,23 @@ final class PackageHashNormalizer implements Normalizer
      *
      * @return array<string, string>
      */
-    private static function mergeDuplicateExtensions($packages): array
-    {
+    private static function mergeDuplicateExtensions($packages): array {
         foreach ($packages as $name => $value) {
-            if (!isset($name[4]) || \strtolower(\substr($name, 0, 4)) !== 'ext-') {
+            if (
+                !isset($name[4]) ||
+                \strtolower(\substr($name, 0, 4)) !== "ext-"
+            ) {
                 continue;
             }
 
-            $newName = \str_replace(' ', '-', \strtolower($name));
+            $newName = \str_replace(" ", "-", \strtolower($name));
 
             if ($name === $newName) {
                 continue;
             }
 
             if (isset($packages[$newName])) {
-                $value .= '||' . $packages[$newName];
+                $value .= "||" . $packages[$newName];
             }
 
             $packages[$newName] = $value;

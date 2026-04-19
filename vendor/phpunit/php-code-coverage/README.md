@@ -29,26 +29,20 @@ use SebastianBergmann\CodeCoverage\Driver\Selector;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Report\Html\Facade as HtmlReport;
 
-$filter = new Filter;
+$filter = new Filter();
 
-$filter->includeFiles(
-    [
-        '/path/to/file.php',
-        '/path/to/another_file.php',
-    ]
-);
+$filter->includeFiles(["/path/to/file.php", "/path/to/another_file.php"]);
 
 $coverage = new CodeCoverage(
-    (new Selector)->forLineCoverage($filter),
-    $filter
+    (new Selector())->forLineCoverage($filter),
+    $filter,
 );
 
-$coverage->start('<name of test>');
+$coverage->start("<name of test>");
 
 // ...
 
 $coverage->stop();
 
-
-(new HtmlReport)->process($coverage, '/tmp/code-coverage-report');
+(new HtmlReport())->process($coverage, "/tmp/code-coverage-report");
 ```

@@ -20,22 +20,19 @@ use PHPUnit\TextUI\Configuration\Registry as ConfigurationRegistry;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class Facade
-{
+final class Facade {
     private static null|Collector|InIsolationCollector $collector = null;
-    private static bool $inIsolation                              = false;
+    private static bool $inIsolation = false;
 
     /**
      * @throws EventFacadeIsSealedException
      * @throws UnknownSubscriberTypeException
      */
-    public static function init(): void
-    {
+    public static function init(): void {
         self::collector();
     }
 
-    public static function initForIsolation(): void
-    {
+    public static function initForIsolation(): void {
         self::collector();
 
         self::$inIsolation = true;
@@ -47,8 +44,7 @@ final class Facade
      *
      * @return list<non-empty-string>
      */
-    public static function deprecations(): array
-    {
+    public static function deprecations(): array {
         return self::collector()->deprecations();
     }
 
@@ -58,8 +54,7 @@ final class Facade
      *
      * @return list<non-empty-string>
      */
-    public static function filteredDeprecations(): array
-    {
+    public static function filteredDeprecations(): array {
         return self::collector()->filteredDeprecations();
     }
 
@@ -67,28 +62,20 @@ final class Facade
      * @throws EventFacadeIsSealedException
      * @throws UnknownSubscriberTypeException
      */
-    public static function collector(): Collector|InIsolationCollector
-    {
+    public static function collector(): Collector|InIsolationCollector {
         if (self::$collector !== null) {
             return self::$collector;
         }
 
-        $issueFilter = new IssueFilter(
-            ConfigurationRegistry::get()->source(),
-        );
+        $issueFilter = new IssueFilter(ConfigurationRegistry::get()->source());
 
         if (self::$inIsolation) {
-            self::$collector = new InIsolationCollector(
-                $issueFilter,
-            );
+            self::$collector = new InIsolationCollector($issueFilter);
 
             return self::$collector;
         }
 
-        self::$collector = new Collector(
-            EventFacade::instance(),
-            $issueFilter,
-        );
+        self::$collector = new Collector(EventFacade::instance(), $issueFilter);
 
         return self::$collector;
     }

@@ -18,8 +18,7 @@ use function class_exists;
  *
  * @deprecated https://github.com/sebastianbergmann/phpunit/issues/5243
  */
-final readonly class MockTrait implements MockType
-{
+final readonly class MockTrait implements MockType {
     private string $classCode;
 
     /**
@@ -30,17 +29,15 @@ final readonly class MockTrait implements MockType
     /**
      * @param class-string $mockName
      */
-    public function __construct(string $classCode, string $mockName)
-    {
+    public function __construct(string $classCode, string $mockName) {
         $this->classCode = $classCode;
-        $this->mockName  = $mockName;
+        $this->mockName = $mockName;
     }
 
     /**
      * @return class-string
      */
-    public function generate(): string
-    {
+    public function generate(): string {
         if (!class_exists($this->mockName, false)) {
             eval($this->classCode);
         }

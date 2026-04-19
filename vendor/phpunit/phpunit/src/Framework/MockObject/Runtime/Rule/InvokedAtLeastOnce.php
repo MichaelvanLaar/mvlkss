@@ -17,11 +17,9 @@ use PHPUnit\Framework\MockObject\Invocation as BaseInvocation;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class InvokedAtLeastOnce extends InvocationOrder
-{
-    public function toString(): string
-    {
-        return 'invoked at least once';
+final class InvokedAtLeastOnce extends InvocationOrder {
+    public function toString(): string {
+        return "invoked at least once";
     }
 
     /**
@@ -30,19 +28,17 @@ final class InvokedAtLeastOnce extends InvocationOrder
      *
      * @throws ExpectationFailedException
      */
-    public function verify(): void
-    {
+    public function verify(): void {
         $count = $this->numberOfInvocations();
 
         if ($count < 1) {
             throw new ExpectationFailedException(
-                'Expected invocation at least once but it never occurred.',
+                "Expected invocation at least once but it never occurred.",
             );
         }
     }
 
-    public function matches(BaseInvocation $invocation): bool
-    {
+    public function matches(BaseInvocation $invocation): bool {
         return true;
     }
 }

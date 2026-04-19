@@ -16,31 +16,20 @@ use PHPUnit\Framework\TestStatus\TestStatus;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class NullResultCache implements ResultCache
-{
-    public function setStatus(ResultCacheId $id, TestStatus $status): void
-    {
-    }
+final readonly class NullResultCache implements ResultCache {
+    public function setStatus(ResultCacheId $id, TestStatus $status): void {}
 
-    public function status(ResultCacheId $id): TestStatus
-    {
+    public function status(ResultCacheId $id): TestStatus {
         return TestStatus::unknown();
     }
 
-    public function setTime(ResultCacheId $id, float $time): void
-    {
-    }
+    public function setTime(ResultCacheId $id, float $time): void {}
 
-    public function time(ResultCacheId $id): float
-    {
+    public function time(ResultCacheId $id): float {
         return 0;
     }
 
-    public function load(): void
-    {
-    }
+    public function load(): void {}
 
-    public function persist(): void
-    {
-    }
+    public function persist(): void {}
 }

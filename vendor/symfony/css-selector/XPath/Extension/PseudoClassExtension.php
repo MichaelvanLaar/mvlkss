@@ -24,99 +24,93 @@ use Symfony\Component\CssSelector\XPath\XPathExpr;
  *
  * @internal
  */
-class PseudoClassExtension extends AbstractExtension
-{
-    public function getPseudoClassTranslators(): array
-    {
+class PseudoClassExtension extends AbstractExtension {
+    public function getPseudoClassTranslators(): array {
         return [
-            'root' => $this->translateRoot(...),
-            'scope' => $this->translateScopePseudo(...),
-            'first-child' => $this->translateFirstChild(...),
-            'last-child' => $this->translateLastChild(...),
-            'first-of-type' => $this->translateFirstOfType(...),
-            'last-of-type' => $this->translateLastOfType(...),
-            'only-child' => $this->translateOnlyChild(...),
-            'only-of-type' => $this->translateOnlyOfType(...),
-            'empty' => $this->translateEmpty(...),
+            "root" => $this->translateRoot(...),
+            "scope" => $this->translateScopePseudo(...),
+            "first-child" => $this->translateFirstChild(...),
+            "last-child" => $this->translateLastChild(...),
+            "first-of-type" => $this->translateFirstOfType(...),
+            "last-of-type" => $this->translateLastOfType(...),
+            "only-child" => $this->translateOnlyChild(...),
+            "only-of-type" => $this->translateOnlyOfType(...),
+            "empty" => $this->translateEmpty(...),
         ];
     }
 
-    public function translateRoot(XPathExpr $xpath): XPathExpr
-    {
-        return $xpath->addCondition('not(parent::*)');
+    public function translateRoot(XPathExpr $xpath): XPathExpr {
+        return $xpath->addCondition("not(parent::*)");
     }
 
-    public function translateScopePseudo(XPathExpr $xpath): XPathExpr
-    {
-        return $xpath->addCondition('1');
+    public function translateScopePseudo(XPathExpr $xpath): XPathExpr {
+        return $xpath->addCondition("1");
     }
 
-    public function translateFirstChild(XPathExpr $xpath): XPathExpr
-    {
+    public function translateFirstChild(XPathExpr $xpath): XPathExpr {
         return $xpath
             ->addStarPrefix()
             ->addNameTest()
-            ->addCondition('position() = 1');
+            ->addCondition("position() = 1");
     }
 
-    public function translateLastChild(XPathExpr $xpath): XPathExpr
-    {
+    public function translateLastChild(XPathExpr $xpath): XPathExpr {
         return $xpath
             ->addStarPrefix()
             ->addNameTest()
-            ->addCondition('position() = last()');
+            ->addCondition("position() = last()");
     }
 
     /**
      * @throws ExpressionErrorException
      */
-    public function translateFirstOfType(XPathExpr $xpath): XPathExpr
-    {
-        if ('*' === $xpath->getElement()) {
-            throw new ExpressionErrorException('"*:first-of-type" is not implemented.');
+    public function translateFirstOfType(XPathExpr $xpath): XPathExpr {
+        if ("*" === $xpath->getElement()) {
+            throw new ExpressionErrorException(
+                '"*:first-of-type" is not implemented.',
+            );
         }
 
-        return $xpath
-            ->addStarPrefix()
-            ->addCondition('position() = 1');
+        return $xpath->addStarPrefix()->addCondition("position() = 1");
     }
 
     /**
      * @throws ExpressionErrorException
      */
-    public function translateLastOfType(XPathExpr $xpath): XPathExpr
-    {
-        if ('*' === $xpath->getElement()) {
-            throw new ExpressionErrorException('"*:last-of-type" is not implemented.');
+    public function translateLastOfType(XPathExpr $xpath): XPathExpr {
+        if ("*" === $xpath->getElement()) {
+            throw new ExpressionErrorException(
+                '"*:last-of-type" is not implemented.',
+            );
         }
 
-        return $xpath
-            ->addStarPrefix()
-            ->addCondition('position() = last()');
+        return $xpath->addStarPrefix()->addCondition("position() = last()");
     }
 
-    public function translateOnlyChild(XPathExpr $xpath): XPathExpr
-    {
+    public function translateOnlyChild(XPathExpr $xpath): XPathExpr {
         return $xpath
             ->addStarPrefix()
             ->addNameTest()
-            ->addCondition('last() = 1');
+            ->addCondition("last() = 1");
     }
 
-    public function translateOnlyOfType(XPathExpr $xpath): XPathExpr
-    {
+    public function translateOnlyOfType(XPathExpr $xpath): XPathExpr {
         $element = $xpath->getElement();
 
-        return $xpath->addCondition(\sprintf('count(preceding-sibling::%s)=0 and count(following-sibling::%s)=0', $element, $element));
+        return $xpath->addCondition(
+            \sprintf(
+                "count(preceding-sibling::%s)=0 and count(following-sibling::%s)=0",
+                $element,
+                $element,
+            ),
+        );
     }
 
-    public function translateEmpty(XPathExpr $xpath): XPathExpr
-    {
-        return $xpath->addCondition('not(*) and not(string-length())');
+    public function translateEmpty(XPathExpr $xpath): XPathExpr {
+        return $xpath->addCondition("not(*) and not(string-length())");
     }
 
-    public function getName(): string
-    {
-        return 'pseudo-class';
+    public function getName(): string {
+        return "pseudo-class";
     }
 }

@@ -50,8 +50,7 @@ use TheSeer\Tokenizer\Tokenizer;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class ExcludeList
-{
+final class ExcludeList {
     /**
      * @var array<string,int>
      */
@@ -145,7 +144,7 @@ final class ExcludeList
      * @var list<string>
      */
     private static array $directories = [];
-    private static bool $initialized  = false;
+    private static bool $initialized = false;
     private readonly bool $enabled;
 
     /**
@@ -153,8 +152,7 @@ final class ExcludeList
      *
      * @throws InvalidDirectoryException
      */
-    public static function addDirectory(string $directory): void
-    {
+    public static function addDirectory(string $directory): void {
         if (!is_dir($directory)) {
             throw new InvalidDirectoryException($directory);
         }
@@ -162,10 +160,9 @@ final class ExcludeList
         self::$directories[] = realpath($directory);
     }
 
-    public function __construct(?bool $enabled = null)
-    {
+    public function __construct(?bool $enabled = null) {
         if ($enabled === null) {
-            $enabled = !defined('PHPUNIT_TESTSUITE');
+            $enabled = !defined("PHPUNIT_TESTSUITE");
         }
 
         $this->enabled = $enabled;
@@ -174,15 +171,13 @@ final class ExcludeList
     /**
      * @return list<string>
      */
-    public function getExcludedDirectories(): array
-    {
+    public function getExcludedDirectories(): array {
         self::initialize();
 
         return self::$directories;
     }
 
-    public function isExcluded(string $file): bool
-    {
+    public function isExcluded(string $file): bool {
         if (!$this->enabled) {
             return false;
         }
@@ -198,8 +193,7 @@ final class ExcludeList
         return false;
     }
 
-    private static function initialize(): void
-    {
+    private static function initialize(): void {
         if (self::$initialized) {
             return;
         }
@@ -224,9 +218,9 @@ final class ExcludeList
          *
          * @see https://php.net/manual/en/function.tempnam.php
          */
-        if (PHP_OS_FAMILY === 'Windows') {
+        if (PHP_OS_FAMILY === "Windows") {
             // @codeCoverageIgnoreStart
-            self::$directories[] = sys_get_temp_dir() . '\\PHP';
+            self::$directories[] = sys_get_temp_dir() . "\\PHP";
             // @codeCoverageIgnoreEnd
         }
 

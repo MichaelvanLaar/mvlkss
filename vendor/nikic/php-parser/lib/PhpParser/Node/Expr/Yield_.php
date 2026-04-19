@@ -17,17 +17,21 @@ class Yield_ extends Expr {
      * @param null|Expr $key Key expression
      * @param array<string, mixed> $attributes Additional attributes
      */
-    public function __construct(?Expr $value = null, ?Expr $key = null, array $attributes = []) {
+    public function __construct(
+        ?Expr $value = null,
+        ?Expr $key = null,
+        array $attributes = [],
+    ) {
         $this->attributes = $attributes;
         $this->key = $key;
         $this->value = $value;
     }
 
     public function getSubNodeNames(): array {
-        return ['key', 'value'];
+        return ["key", "value"];
     }
 
     public function getType(): string {
-        return 'Expr_Yield';
+        return "Expr_Yield";
     }
 }

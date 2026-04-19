@@ -15,8 +15,7 @@ use Throwable;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-interface InvocationStubber
-{
+interface InvocationStubber {
     public function will(Stub $stub): Identity;
 
     /**

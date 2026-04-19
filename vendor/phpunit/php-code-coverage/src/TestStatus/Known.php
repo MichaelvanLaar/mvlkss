@@ -12,10 +12,8 @@ namespace SebastianBergmann\CodeCoverage\Test\TestStatus;
 /**
  * @immutable
  */
-abstract class Known extends TestStatus
-{
-    public function isKnown(): true
-    {
+abstract class Known extends TestStatus {
+    public function isKnown(): true {
         return true;
     }
 }

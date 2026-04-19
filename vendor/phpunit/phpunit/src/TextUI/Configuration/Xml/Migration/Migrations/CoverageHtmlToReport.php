@@ -16,19 +16,22 @@ use DOMElement;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class CoverageHtmlToReport extends LogToReportMigration
-{
-    protected function forType(): string
-    {
-        return 'coverage-html';
+final readonly class CoverageHtmlToReport extends LogToReportMigration {
+    protected function forType(): string {
+        return "coverage-html";
     }
 
-    protected function toReportFormat(DOMElement $logNode): DOMElement
-    {
-        $html = $logNode->ownerDocument->createElement('html');
-        $html->setAttribute('outputDirectory', $logNode->getAttribute('target'));
+    protected function toReportFormat(DOMElement $logNode): DOMElement {
+        $html = $logNode->ownerDocument->createElement("html");
+        $html->setAttribute(
+            "outputDirectory",
+            $logNode->getAttribute("target"),
+        );
 
-        $this->migrateAttributes($logNode, $html, ['lowUpperBound', 'highLowerBound']);
+        $this->migrateAttributes($logNode, $html, [
+            "lowUpperBound",
+            "highLowerBound",
+        ]);
 
         return $html;
     }

@@ -17,10 +17,9 @@ use RuntimeException;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class InvalidVersionOperatorException extends RuntimeException implements Exception
-{
-    public function __construct(string $operator)
-    {
+final class InvalidVersionOperatorException extends RuntimeException implements
+    Exception {
+    public function __construct(string $operator) {
         parent::__construct(
             sprintf(
                 '"%s" is not a valid version_compare() operator',

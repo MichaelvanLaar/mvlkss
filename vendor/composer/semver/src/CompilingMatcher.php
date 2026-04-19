@@ -17,18 +17,17 @@ use Composer\Semver\Constraint\ConstraintInterface;
 /**
  * Helper class to evaluate constraint by compiling and reusing the code to evaluate
  */
-class CompilingMatcher
-{
+class CompilingMatcher {
     /**
      * @var array
      * @phpstan-var array<string, callable>
      */
-    private static $compiledCheckerCache = array();
+    private static $compiledCheckerCache = [];
     /**
      * @var array
      * @phpstan-var array<string, bool>
      */
-    private static $resultCache = array();
+    private static $resultCache = [];
 
     /** @var bool */
     private static $enabled;
@@ -36,24 +35,23 @@ class CompilingMatcher
     /**
      * @phpstan-var array<Constraint::OP_*, Constraint::STR_OP_*>
      */
-    private static $transOpInt = array(
+    private static $transOpInt = [
         Constraint::OP_EQ => Constraint::STR_OP_EQ,
         Constraint::OP_LT => Constraint::STR_OP_LT,
         Constraint::OP_LE => Constraint::STR_OP_LE,
         Constraint::OP_GT => Constraint::STR_OP_GT,
         Constraint::OP_GE => Constraint::STR_OP_GE,
         Constraint::OP_NE => Constraint::STR_OP_NE,
-    );
+    ];
 
     /**
      * Clears the memoization cache once you are done
      *
      * @return void
      */
-    public static function clear()
-    {
-        self::$resultCache = array();
-        self::$compiledCheckerCache = array();
+    public static function clear() {
+        self::$resultCache = [];
+        self::$compiledCheckerCache = [];
     }
 
     /**
@@ -66,29 +64,43 @@ class CompilingMatcher
      *
      * @return bool
      */
-    public static function match(ConstraintInterface $constraint, $operator, $version)
-    {
-        $resultCacheKey = $operator.$constraint.';'.$version;
+    public static function match(
+        ConstraintInterface $constraint,
+        $operator,
+        $version,
+    ) {
+        $resultCacheKey = $operator . $constraint . ";" . $version;
 
         if (isset(self::$resultCache[$resultCacheKey])) {
             return self::$resultCache[$resultCacheKey];
         }
 
         if (self::$enabled === null) {
-            self::$enabled = !\in_array('eval', explode(',', (string) ini_get('disable_functions')), true);
+            self::$enabled = !\in_array(
+                "eval",
+                explode(",", (string) ini_get("disable_functions")),
+                true,
+            );
         }
         if (!self::$enabled) {
-            return self::$resultCache[$resultCacheKey] = $constraint->matches(new Constraint(self::$transOpInt[$operator], $version));
+            return self::$resultCache[$resultCacheKey] = $constraint->matches(
+                new Constraint(self::$transOpInt[$operator], $version),
+            );
         }
 
-        $cacheKey = $operator.$constraint;
+        $cacheKey = $operator . $constraint;
         if (!isset(self::$compiledCheckerCache[$cacheKey])) {
             $code = $constraint->compile($operator);
-            self::$compiledCheckerCache[$cacheKey] = $function = eval('return function($v, $b){return '.$code.';};');
+            self::$compiledCheckerCache[$cacheKey] = $function = eval(
+                'return function($v, $b){return ' . $code . ";};"
+            );
         } else {
             $function = self::$compiledCheckerCache[$cacheKey];
         }
 
-        return self::$resultCache[$resultCacheKey] = $function($version, strpos($version, 'dev-') === 0);
+        return self::$resultCache[$resultCacheKey] = $function(
+            $version,
+            strpos($version, "dev-") === 0,
+        );
     }
 }

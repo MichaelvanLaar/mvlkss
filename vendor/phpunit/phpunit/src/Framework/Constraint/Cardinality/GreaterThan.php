@@ -14,29 +14,25 @@ use PHPUnit\Util\Exporter;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class GreaterThan extends Constraint
-{
+final class GreaterThan extends Constraint {
     private readonly mixed $value;
 
-    public function __construct(mixed $value)
-    {
+    public function __construct(mixed $value) {
         $this->value = $value;
     }
 
     /**
      * Returns a string representation of the constraint.
      */
-    public function toString(): string
-    {
-        return 'is greater than ' . Exporter::export($this->value);
+    public function toString(): string {
+        return "is greater than " . Exporter::export($this->value);
     }
 
     /**
      * Evaluates the constraint for parameter $other. Returns true if the
      * constraint is met, false otherwise.
      */
-    protected function matches(mixed $other): bool
-    {
+    protected function matches(mixed $other): bool {
         return $this->value < $other;
     }
 }

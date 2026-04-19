@@ -19,34 +19,32 @@ use function pcntl_signal;
 use function sprintf;
 use Throwable;
 
-final class Invoker
-{
+final class Invoker {
     /**
      * @param array<mixed> $arguments
      *
      * @throws Throwable
      */
-    public function invoke(callable $callable, array $arguments, int $timeout): mixed
-    {
+    public function invoke(
+        callable $callable,
+        array $arguments,
+        int $timeout,
+    ): mixed {
         if (!$this->canInvokeWithTimeout()) {
             // @codeCoverageIgnoreStart
-            throw new ProcessControlExtensionNotLoadedException;
+            throw new ProcessControlExtensionNotLoadedException();
             // @codeCoverageIgnoreEnd
         }
 
-        pcntl_signal(
-            SIGALRM,
-            static function () use ($timeout): void
-            {
-                throw new TimeoutException(
-                    sprintf(
-                        'Execution aborted after %d second%s',
-                        $timeout,
-                        $timeout === 1 ? '' : 's',
-                    ),
-                );
-            },
-        );
+        pcntl_signal(SIGALRM, static function () use ($timeout): void {
+            throw new TimeoutException(
+                sprintf(
+                    "Execution aborted after %d second%s",
+                    $timeout,
+                    $timeout === 1 ? "" : "s",
+                ),
+            );
+        });
 
         pcntl_async_signals(true);
         pcntl_alarm($timeout);
@@ -58,8 +56,10 @@ final class Invoker
         }
     }
 
-    public function canInvokeWithTimeout(): bool
-    {
-        return extension_loaded('pcntl') && function_exists('pcntl_signal') && function_exists('pcntl_async_signals') && function_exists('pcntl_alarm');
+    public function canInvokeWithTimeout(): bool {
+        return extension_loaded("pcntl") &&
+            function_exists("pcntl_signal") &&
+            function_exists("pcntl_async_signals") &&
+            function_exists("pcntl_alarm");
     }
 }

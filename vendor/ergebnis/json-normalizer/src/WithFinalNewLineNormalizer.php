@@ -15,10 +15,8 @@ namespace Ergebnis\Json\Normalizer;
 
 use Ergebnis\Json\Json;
 
-final class WithFinalNewLineNormalizer implements Normalizer
-{
-    public function normalize(Json $json): Json
-    {
+final class WithFinalNewLineNormalizer implements Normalizer {
+    public function normalize(Json $json): Json {
         $withFinalNewLine = \rtrim($json->encoded()) . \PHP_EOL;
 
         return Json::fromString($withFinalNewLine);

@@ -16,9 +16,14 @@ use Attribute;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-#[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
-final readonly class RequiresPhpExtension
-{
+#[
+    Attribute(
+        Attribute::TARGET_CLASS |
+            Attribute::TARGET_METHOD |
+            Attribute::IS_REPEATABLE,
+    ),
+]
+final readonly class RequiresPhpExtension {
     /**
      * @var non-empty-string
      */
@@ -33,25 +38,25 @@ final readonly class RequiresPhpExtension
      * @param non-empty-string      $extension
      * @param null|non-empty-string $versionRequirement
      */
-    public function __construct(string $extension, ?string $versionRequirement = null)
-    {
-        $this->extension          = $extension;
+    public function __construct(
+        string $extension,
+        ?string $versionRequirement = null,
+    ) {
+        $this->extension = $extension;
         $this->versionRequirement = $versionRequirement;
     }
 
     /**
      * @return non-empty-string
      */
-    public function extension(): string
-    {
+    public function extension(): string {
         return $this->extension;
     }
 
     /**
      * @return null|non-empty-string
      */
-    public function versionRequirement(): ?string
-    {
+    public function versionRequirement(): ?string {
         return $this->versionRequirement;
     }
 }

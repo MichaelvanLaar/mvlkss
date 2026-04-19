@@ -25,20 +25,21 @@ use function ksort;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class Json
-{
+final readonly class Json {
     /**
      * @throws InvalidJsonException
      */
-    public static function prettify(string $json): string
-    {
+    public static function prettify(string $json): string {
         $decodedJson = json_decode($json, false);
 
         if (json_last_error()) {
-            throw new InvalidJsonException;
+            throw new InvalidJsonException();
         }
 
-        return json_encode($decodedJson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+        return json_encode(
+            $decodedJson,
+            JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE,
+        );
     }
 
     /**
@@ -48,8 +49,7 @@ final readonly class Json
      *
      * @return array{0: false, 1: mixed}|array{0: true, 1: null}
      */
-    public static function canonicalize(string $json): array
-    {
+    public static function canonicalize(string $json): array {
         $decodedJson = json_decode($json);
 
         if (json_last_error()) {
@@ -69,8 +69,7 @@ final readonly class Json
      * Sort all array keys to ensure both the expected and actual values have
      * their keys in the same order.
      */
-    private static function recursiveSort(mixed &$json): void
-    {
+    private static function recursiveSort(mixed &$json): void {
         // Nulls, empty arrays, and scalars need no further handling.
         if (!$json || is_scalar($json)) {
             return;

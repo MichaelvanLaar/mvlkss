@@ -22,8 +22,7 @@ use SplFileInfo;
  *
  * @internal This class is not covered by the backward compatibility promise for phpunit/php-file-iterator
  */
-final class Iterator extends FilterIterator
-{
+final class Iterator extends FilterIterator {
     public const PREFIX = 0;
     public const SUFFIX = 1;
     private false|string $basePath;
@@ -42,8 +41,12 @@ final class Iterator extends FilterIterator
      * @param list<string> $suffixes
      * @param list<string> $prefixes
      */
-    public function __construct(string $basePath, \Iterator $iterator, array $suffixes = [], array $prefixes = [])
-    {
+    public function __construct(
+        string $basePath,
+        \Iterator $iterator,
+        array $suffixes = [],
+        array $prefixes = [],
+    ) {
         $this->basePath = realpath($basePath);
         $this->prefixes = $prefixes;
         $this->suffixes = $suffixes;
@@ -51,8 +54,7 @@ final class Iterator extends FilterIterator
         parent::__construct($iterator);
     }
 
-    public function accept(): bool
-    {
+    public function accept(): bool {
         $current = $this->getInnerIterator()->current();
 
         $filename = $current->getFilename();
@@ -65,42 +67,50 @@ final class Iterator extends FilterIterator
         }
 
         return $this->acceptPath($realPath) &&
-               $this->acceptPrefix($filename) &&
-               $this->acceptSuffix($filename);
+            $this->acceptPrefix($filename) &&
+            $this->acceptSuffix($filename);
     }
 
-    private function acceptPath(string $path): bool
-    {
+    private function acceptPath(string $path): bool {
         // Filter files in hidden directories by checking path that is relative to the base path.
-        if (preg_match('=/\.[^/]*/=', str_replace((string) $this->basePath, '', $path))) {
+        if (
+            preg_match(
+                "=/\.[^/]*/=",
+                str_replace((string) $this->basePath, "", $path),
+            )
+        ) {
             return false;
         }
 
         return true;
     }
 
-    private function acceptPrefix(string $filename): bool
-    {
+    private function acceptPrefix(string $filename): bool {
         return $this->acceptSubString($filename, $this->prefixes, self::PREFIX);
     }
 
-    private function acceptSuffix(string $filename): bool
-    {
+    private function acceptSuffix(string $filename): bool {
         return $this->acceptSubString($filename, $this->suffixes, self::SUFFIX);
     }
 
     /**
      * @param list<string> $subStrings
      */
-    private function acceptSubString(string $filename, array $subStrings, int $type): bool
-    {
+    private function acceptSubString(
+        string $filename,
+        array $subStrings,
+        int $type,
+    ): bool {
         if (empty($subStrings)) {
             return true;
         }
 
         foreach ($subStrings as $string) {
-            if (($type === self::PREFIX && str_starts_with($filename, $string)) ||
-                ($type === self::SUFFIX && str_ends_with($filename, $string))) {
+            if (
+                ($type === self::PREFIX &&
+                    str_starts_with($filename, $string)) ||
+                ($type === self::SUFFIX && str_ends_with($filename, $string))
+            ) {
                 return true;
             }
         }

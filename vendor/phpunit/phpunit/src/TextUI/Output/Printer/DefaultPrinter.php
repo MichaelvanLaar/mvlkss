@@ -29,8 +29,7 @@ use PHPUnit\Util\Filesystem;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class DefaultPrinter implements Printer
-{
+final class DefaultPrinter implements Printer {
     /**
      * @var closed-resource|resource
      */
@@ -43,8 +42,7 @@ final class DefaultPrinter implements Printer
      * @throws DirectoryDoesNotExistException
      * @throws InvalidSocketException
      */
-    public static function from(string $out): self
-    {
+    public static function from(string $out): self {
         return new self($out);
     }
 
@@ -53,9 +51,8 @@ final class DefaultPrinter implements Printer
      * @throws DirectoryDoesNotExistException
      * @throws InvalidSocketException
      */
-    public static function standardOutput(): self
-    {
-        return new self('php://stdout');
+    public static function standardOutput(): self {
+        return new self("php://stdout");
     }
 
     /**
@@ -63,9 +60,8 @@ final class DefaultPrinter implements Printer
      * @throws DirectoryDoesNotExistException
      * @throws InvalidSocketException
      */
-    public static function standardError(): self
-    {
-        return new self('php://stderr');
+    public static function standardError(): self {
+        return new self("php://stderr");
     }
 
     /**
@@ -73,12 +69,11 @@ final class DefaultPrinter implements Printer
      * @throws DirectoryDoesNotExistException
      * @throws InvalidSocketException
      */
-    private function __construct(string $out)
-    {
-        $this->isPhpStream = str_starts_with($out, 'php://');
+    private function __construct(string $out) {
+        $this->isPhpStream = str_starts_with($out, "php://");
 
-        if (str_starts_with($out, 'socket://')) {
-            $tmp = explode(':', str_replace('socket://', '', $out));
+        if (str_starts_with($out, "socket://")) {
+            $tmp = explode(":", str_replace("socket://", "", $out));
 
             if (count($tmp) !== 2) {
                 throw new InvalidSocketException($out);
@@ -96,11 +91,14 @@ final class DefaultPrinter implements Printer
             return;
         }
 
-        if (!$this->isPhpStream && !Filesystem::createDirectory(dirname($out))) {
+        if (
+            !$this->isPhpStream &&
+            !Filesystem::createDirectory(dirname($out))
+        ) {
             throw new DirectoryDoesNotExistException(dirname($out));
         }
 
-        $stream = fopen($out, 'wb');
+        $stream = fopen($out, "wb");
 
         assert($stream !== false);
 
@@ -108,15 +106,13 @@ final class DefaultPrinter implements Printer
         $this->isOpen = true;
     }
 
-    public function print(string $buffer): void
-    {
+    public function print(string $buffer): void {
         assert($this->isOpen);
 
         fwrite($this->stream, $buffer);
     }
 
-    public function flush(): void
-    {
+    public function flush(): void {
         if ($this->isOpen && $this->isPhpStream) {
             fclose($this->stream);
 

@@ -31,62 +31,60 @@ use function trim;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class Color
-{
+final class Color {
     /**
      * @var array<string,string>
      */
     private const WHITESPACE_MAP = [
-        ' '  => '·',
-        "\t" => '⇥',
+        " " => "·",
+        "\t" => "⇥",
     ];
 
     /**
      * @var array<string,string>
      */
     private const WHITESPACE_EOL_MAP = [
-        ' '  => '·',
-        "\t" => '⇥',
-        "\n" => '↵',
-        "\r" => '⟵',
+        " " => "·",
+        "\t" => "⇥",
+        "\n" => "↵",
+        "\r" => "⟵",
     ];
 
     /**
      * @var array<string,string>
      */
     private static array $ansiCodes = [
-        'reset'      => '0',
-        'bold'       => '1',
-        'dim'        => '2',
-        'dim-reset'  => '22',
-        'underlined' => '4',
-        'fg-default' => '39',
-        'fg-black'   => '30',
-        'fg-red'     => '31',
-        'fg-green'   => '32',
-        'fg-yellow'  => '33',
-        'fg-blue'    => '34',
-        'fg-magenta' => '35',
-        'fg-cyan'    => '36',
-        'fg-white'   => '37',
-        'bg-default' => '49',
-        'bg-black'   => '40',
-        'bg-red'     => '41',
-        'bg-green'   => '42',
-        'bg-yellow'  => '43',
-        'bg-blue'    => '44',
-        'bg-magenta' => '45',
-        'bg-cyan'    => '46',
-        'bg-white'   => '47',
+        "reset" => "0",
+        "bold" => "1",
+        "dim" => "2",
+        "dim-reset" => "22",
+        "underlined" => "4",
+        "fg-default" => "39",
+        "fg-black" => "30",
+        "fg-red" => "31",
+        "fg-green" => "32",
+        "fg-yellow" => "33",
+        "fg-blue" => "34",
+        "fg-magenta" => "35",
+        "fg-cyan" => "36",
+        "fg-white" => "37",
+        "bg-default" => "49",
+        "bg-black" => "40",
+        "bg-red" => "41",
+        "bg-green" => "42",
+        "bg-yellow" => "43",
+        "bg-blue" => "44",
+        "bg-magenta" => "45",
+        "bg-cyan" => "46",
+        "bg-white" => "47",
     ];
 
-    public static function colorize(string $color, string $buffer): string
-    {
-        if (trim($buffer) === '') {
+    public static function colorize(string $color, string $buffer): string {
+        if (trim($buffer) === "") {
             return $buffer;
         }
 
-        $codes  = array_map('\trim', explode(',', $color));
+        $codes = array_map('\trim', explode(",", $color));
         $styles = [];
 
         foreach ($codes as $code) {
@@ -99,33 +97,43 @@ final class Color
             return $buffer;
         }
 
-        return self::optimizeColor(sprintf("\x1b[%sm", implode(';', $styles)) . $buffer . "\x1b[0m");
+        return self::optimizeColor(
+            sprintf("\x1b[%sm", implode(";", $styles)) . $buffer . "\x1b[0m",
+        );
     }
 
-    public static function colorizeTextBox(string $color, string $buffer, ?int $columns = null): string
-    {
-        $lines       = preg_split('/\r\n|\r|\n/', $buffer);
-        $maxBoxWidth = max(array_map('\strlen', $lines));
+    public static function colorizeTextBox(
+        string $color,
+        string $buffer,
+        ?int $columns = null,
+    ): string {
+        $lines = preg_split('/\r\n|\r|\n/', $buffer);
+        $maxBoxWidth = max(array_map("\strlen", $lines));
 
         if ($columns !== null) {
             $maxBoxWidth = min($maxBoxWidth, $columns);
         }
 
-        array_walk($lines, static function (string &$line) use ($color, $maxBoxWidth): void
-        {
+        array_walk($lines, static function (string &$line) use (
+            $color,
+            $maxBoxWidth,
+        ): void {
             $line = self::colorize($color, str_pad($line, $maxBoxWidth));
         });
 
         return implode(PHP_EOL, $lines);
     }
 
-    public static function colorizePath(string $path, ?string $previousPath = null, bool $colorizeFilename = false): string
-    {
+    public static function colorizePath(
+        string $path,
+        ?string $previousPath = null,
+        bool $colorizeFilename = false,
+    ): string {
         if ($previousPath === null) {
-            $previousPath = '';
+            $previousPath = "";
         }
 
-        $path         = explode(DIRECTORY_SEPARATOR, $path);
+        $path = explode(DIRECTORY_SEPARATOR, $path);
         $previousPath = explode(DIRECTORY_SEPARATOR, $previousPath);
 
         for ($i = 0; $i < min(count($path), count($previousPath)); $i++) {
@@ -135,50 +143,50 @@ final class Color
         }
 
         if ($colorizeFilename) {
-            $last        = count($path) - 1;
+            $last = count($path) - 1;
             $path[$last] = preg_replace_callback(
                 '/([\-_.]+|phpt$)/',
-                static fn ($matches) => self::dim($matches[0]),
+                static fn($matches) => self::dim($matches[0]),
                 $path[$last],
             );
         }
 
-        return self::optimizeColor(implode(self::dim(DIRECTORY_SEPARATOR), $path));
+        return self::optimizeColor(
+            implode(self::dim(DIRECTORY_SEPARATOR), $path),
+        );
     }
 
-    public static function dim(string $buffer): string
-    {
-        if (trim($buffer) === '') {
+    public static function dim(string $buffer): string {
+        if (trim($buffer) === "") {
             return $buffer;
         }
 
         return "\e[2m{$buffer}\e[22m";
     }
 
-    public static function visualizeWhitespace(string $buffer, bool $visualizeEOL = false): string
-    {
-        $replaceMap = $visualizeEOL ? self::WHITESPACE_EOL_MAP : self::WHITESPACE_MAP;
+    public static function visualizeWhitespace(
+        string $buffer,
+        bool $visualizeEOL = false,
+    ): string {
+        $replaceMap = $visualizeEOL
+            ? self::WHITESPACE_EOL_MAP
+            : self::WHITESPACE_MAP;
 
         return preg_replace_callback(
-            '/\s+/',
-            static fn ($matches) => self::dim(strtr($matches[0], $replaceMap)),
+            "/\s+/",
+            static fn($matches) => self::dim(strtr($matches[0], $replaceMap)),
             $buffer,
         );
     }
 
-    private static function optimizeColor(string $buffer): string
-    {
+    private static function optimizeColor(string $buffer): string {
         return preg_replace(
             [
                 "/\e\\[22m\e\\[2m/",
                 "/\e\\[([^m]*)m\e\\[([1-9][0-9;]*)m/",
                 "/(\e\\[[^m]*m)+(\e\\[0m)/",
             ],
-            [
-                '',
-                "\e[$1;$2m",
-                '$2',
-            ],
+            ["", "\e[$1;$2m", '$2'],
             $buffer,
         );
     }

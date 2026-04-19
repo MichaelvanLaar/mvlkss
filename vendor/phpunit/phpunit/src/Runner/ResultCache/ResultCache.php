@@ -16,8 +16,7 @@ use PHPUnit\Framework\TestStatus\TestStatus;
  *
  * @internal This interface is not covered by the backward compatibility promise for PHPUnit
  */
-interface ResultCache
-{
+interface ResultCache {
     public function setStatus(ResultCacheId $id, TestStatus $status): void;
 
     public function status(ResultCacheId $id): TestStatus;

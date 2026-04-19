@@ -6,8 +6,7 @@ use Phiki\Contracts\OutputGeneratorInterface;
 use Phiki\Support\Arr;
 use Phiki\Theme\ParsedTheme;
 
-class HtmlGenerator implements OutputGeneratorInterface
-{
+class HtmlGenerator implements OutputGeneratorInterface {
     /**
      * @param  array<string, ParsedTheme>  $themes
      */
@@ -17,16 +16,13 @@ class HtmlGenerator implements OutputGeneratorInterface
         protected bool $withWrapper = false,
     ) {}
 
-    public function generate(array $tokens): string
-    {
+    public function generate(array $tokens): string {
         $html = [];
         $defaultTheme = Arr::first($this->themes);
         $defaultThemeId = Arr::firstKey($this->themes);
 
         if ($this->withWrapper) {
-            $wrapperStyles = [
-                $defaultTheme->base()->toStyleString(),
-            ];
+            $wrapperStyles = [$defaultTheme->base()->toStyleString()];
 
             foreach ($this->themes as $id => $theme) {
                 if ($id === $defaultThemeId) {
@@ -38,15 +34,21 @@ class HtmlGenerator implements OutputGeneratorInterface
 
             $html[] = sprintf(
                 '<div class="phiki-wrapper" style="%s"%s>',
-                implode(';', $wrapperStyles),
-                $this->grammarName ? sprintf(' data-language="%s"', $this->grammarName) : '',
+                implode(";", $wrapperStyles),
+                $this->grammarName
+                    ? sprintf(' data-language="%s"', $this->grammarName)
+                    : "",
             );
         }
 
-        $preClasses = ['phiki', $this->grammarName ? 'language-'.$this->grammarName : null, $defaultTheme->name];
+        $preClasses = [
+            "phiki",
+            $this->grammarName ? "language-" . $this->grammarName : null,
+            $defaultTheme->name,
+        ];
 
         if (count($this->themes) > 1) {
-            $preClasses[] = 'phiki-themes';
+            $preClasses[] = "phiki-themes";
 
             foreach ($this->themes as $theme) {
                 if ($theme === $defaultTheme) {
@@ -57,9 +59,7 @@ class HtmlGenerator implements OutputGeneratorInterface
             }
         }
 
-        $preStyles = [
-            $defaultTheme->base()->toStyleString(),
-        ];
+        $preStyles = [$defaultTheme->base()->toStyleString()];
 
         foreach ($this->themes as $id => $theme) {
             if ($id === $defaultThemeId) {
@@ -71,18 +71,17 @@ class HtmlGenerator implements OutputGeneratorInterface
 
         $html[] = sprintf(
             '<pre class="%s" style="%s"%s>',
-            implode(' ', array_filter($preClasses)),
-            implode(';', $preStyles),
-            $this->grammarName ? sprintf(' data-language="%s"', $this->grammarName) : '',
+            implode(" ", array_filter($preClasses)),
+            implode(";", $preStyles),
+            $this->grammarName
+                ? sprintf(' data-language="%s"', $this->grammarName)
+                : "",
         );
 
-        $html[] = '<code>';
+        $html[] = "<code>";
 
         foreach ($tokens as $i => $line) {
-            $html[] = sprintf(
-                '<span class="line" data-line="%d">',
-                $i + 1,
-            );
+            $html[] = sprintf('<span class="line" data-line="%d">', $i + 1);
 
             foreach ($line as $token) {
                 if ($token->settings === []) {
@@ -95,7 +94,9 @@ class HtmlGenerator implements OutputGeneratorInterface
                 }
 
                 $tokenStyles = [
-                    ($token->settings[$defaultThemeId] ?? null)?->toStyleString(),
+                    (
+                        $token->settings[$defaultThemeId] ?? null
+                    )?->toStyleString(),
                 ];
 
                 foreach ($token->settings as $id => $settings) {
@@ -108,21 +109,21 @@ class HtmlGenerator implements OutputGeneratorInterface
 
                 $html[] = sprintf(
                     '<span class="token" style="%s">%s</span>',
-                    implode(';', array_filter($tokenStyles)),
+                    implode(";", array_filter($tokenStyles)),
                     htmlspecialchars($token->token->text),
                 );
             }
 
-            $html[] = '</span>';
+            $html[] = "</span>";
         }
 
-        $html[] = '</code>';
-        $html[] = '</pre>';
+        $html[] = "</code>";
+        $html[] = "</pre>";
 
         if ($this->withWrapper) {
-            $html[] = '</div>';
+            $html[] = "</div>";
         }
 
-        return implode('', $html);
+        return implode("", $html);
     }
 }

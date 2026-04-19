@@ -22,11 +22,13 @@ use function str_starts_with;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class Filesystem
-{
-    public static function createDirectory(string $directory): bool
-    {
-        return !(!is_dir($directory) && !@mkdir($directory, 0o777, true) && !is_dir($directory));
+final readonly class Filesystem {
+    public static function createDirectory(string $directory): bool {
+        return !(
+            !is_dir($directory) &&
+            !@mkdir($directory, 0o777, true) &&
+            !is_dir($directory)
+        );
     }
 
     /**
@@ -34,9 +36,11 @@ final readonly class Filesystem
      *
      * @return false|non-empty-string
      */
-    public static function resolveStreamOrFile(string $path): false|string
-    {
-        if (str_starts_with($path, 'php://') || str_starts_with($path, 'socket://')) {
+    public static function resolveStreamOrFile(string $path): false|string {
+        if (
+            str_starts_with($path, "php://") ||
+            str_starts_with($path, "socket://")
+        ) {
             return $path;
         }
 

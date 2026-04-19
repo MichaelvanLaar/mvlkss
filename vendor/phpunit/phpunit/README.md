@@ -28,7 +28,7 @@ Please refer to [CONTRIBUTING.md](https://github.com/sebastianbergmann/phpunit/b
 
 Thanks to everyone who has contributed to PHPUnit! You can find a detailed list of contributors on every PHPUnit related package on GitHub. This list shows only the major components:
 
-* [PHPUnit](https://github.com/sebastianbergmann/phpunit/graphs/contributors)
-* [php-code-coverage](https://github.com/sebastianbergmann/php-code-coverage/graphs/contributors)
+- [PHPUnit](https://github.com/sebastianbergmann/phpunit/graphs/contributors)
+- [php-code-coverage](https://github.com/sebastianbergmann/php-code-coverage/graphs/contributors)
 
 A very special thanks to everyone who has contributed to the [documentation](https://github.com/sebastianbergmann/phpunit-documentation-english/graphs/contributors).

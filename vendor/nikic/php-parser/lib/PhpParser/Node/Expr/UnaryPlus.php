@@ -20,10 +20,10 @@ class UnaryPlus extends Expr {
     }
 
     public function getSubNodeNames(): array {
-        return ['expr'];
+        return ["expr"];
     }
 
     public function getType(): string {
-        return 'Expr_UnaryPlus';
+        return "Expr_UnaryPlus";
     }
 }

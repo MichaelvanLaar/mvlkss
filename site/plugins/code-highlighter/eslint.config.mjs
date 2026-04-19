@@ -13,9 +13,12 @@ export default antfu(
     vue: {
       overrides: {
         "vue/attributes-order": "error",
-        "vue/block-order": ["error", {
-          order: ["template", "script", "style"],
-        }],
+        "vue/block-order": [
+          "error",
+          {
+            order: ["template", "script", "style"],
+          },
+        ],
         "vue/component-definition-name-casing": "off",
         "vue/multi-word-component-names": "off",
         "vue/prefer-template": "off",

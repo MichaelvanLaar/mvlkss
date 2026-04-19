@@ -23,16 +23,14 @@ use PHPUnit\TextUI\Configuration\Registry as ConfigurationRegistry;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class Facade
-{
+final class Facade {
     private static ?Collector $collector = null;
 
     /**
      * @throws EventFacadeIsSealedException
      * @throws UnknownSubscriberTypeException
      */
-    public static function init(): void
-    {
+    public static function init(): void {
         self::collector();
     }
 
@@ -40,8 +38,7 @@ final class Facade
      * @throws EventFacadeIsSealedException
      * @throws UnknownSubscriberTypeException
      */
-    public static function result(): TestResult
-    {
+    public static function result(): TestResult {
         return self::collector()->result();
     }
 
@@ -49,24 +46,37 @@ final class Facade
      * @throws EventFacadeIsSealedException
      * @throws UnknownSubscriberTypeException
      */
-    public static function shouldStop(): bool
-    {
+    public static function shouldStop(): bool {
         $configuration = ConfigurationRegistry::get();
-        $collector     = self::collector();
+        $collector = self::collector();
 
-        if (($configuration->stopOnDefect() || $configuration->stopOnError()) && $collector->hasErroredTests()) {
+        if (
+            ($configuration->stopOnDefect() || $configuration->stopOnError()) &&
+            $collector->hasErroredTests()
+        ) {
             return true;
         }
 
-        if (($configuration->stopOnDefect() || $configuration->stopOnFailure()) && $collector->hasFailedTests()) {
+        if (
+            ($configuration->stopOnDefect() ||
+                $configuration->stopOnFailure()) &&
+            $collector->hasFailedTests()
+        ) {
             return true;
         }
 
-        if (($configuration->stopOnDefect() || $configuration->stopOnWarning()) && $collector->hasWarnings()) {
+        if (
+            ($configuration->stopOnDefect() ||
+                $configuration->stopOnWarning()) &&
+            $collector->hasWarnings()
+        ) {
             return true;
         }
 
-        if (($configuration->stopOnDefect() || $configuration->stopOnRisky()) && $collector->hasRiskyTests()) {
+        if (
+            ($configuration->stopOnDefect() || $configuration->stopOnRisky()) &&
+            $collector->hasRiskyTests()
+        ) {
             return true;
         }
 
@@ -78,7 +88,10 @@ final class Facade
             return true;
         }
 
-        if ($configuration->stopOnIncomplete() && $collector->hasIncompleteTests()) {
+        if (
+            $configuration->stopOnIncomplete() &&
+            $collector->hasIncompleteTests()
+        ) {
             return true;
         }
 
@@ -93,8 +106,7 @@ final class Facade
      * @throws EventFacadeIsSealedException
      * @throws UnknownSubscriberTypeException
      */
-    private static function collector(): Collector
-    {
+    private static function collector(): Collector {
         if (self::$collector === null) {
             $configuration = ConfigurationRegistry::get();
 
@@ -107,8 +119,9 @@ final class Facade
         return self::$collector;
     }
 
-    private static function stopOnDeprecation(Configuration $configuration): bool
-    {
+    private static function stopOnDeprecation(
+        Configuration $configuration,
+    ): bool {
         if (!$configuration->stopOnDeprecation()) {
             return false;
         }
@@ -120,7 +133,12 @@ final class Facade
         }
 
         foreach ($deprecations as $deprecation) {
-            if (str_contains($deprecation, $configuration->specificDeprecationToStopOn())) {
+            if (
+                str_contains(
+                    $deprecation,
+                    $configuration->specificDeprecationToStopOn(),
+                )
+            ) {
                 return true;
             }
         }

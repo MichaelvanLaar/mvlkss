@@ -17,13 +17,11 @@ use PhpParser\Node;
 use PhpParser\NodeTraverser;
 use PhpParser\ParserFactory;
 
-final class Counter
-{
+final class Counter {
     /**
      * @throws RuntimeException
      */
-    public function countInSourceFile(string $sourceFile): LinesOfCode
-    {
+    public function countInSourceFile(string $sourceFile): LinesOfCode {
         $source = file_get_contents($sourceFile);
 
         assert($source !== false);
@@ -34,8 +32,7 @@ final class Counter
     /**
      * @throws RuntimeException
      */
-    public function countInSourceString(string $source): LinesOfCode
-    {
+    public function countInSourceString(string $source): LinesOfCode {
         $linesOfCode = substr_count($source, "\n");
 
         if ($linesOfCode === 0 && !empty($source)) {
@@ -43,7 +40,9 @@ final class Counter
         }
 
         try {
-            $nodes = (new ParserFactory)->createForHostVersion()->parse($source);
+            $nodes = (new ParserFactory())
+                ->createForHostVersion()
+                ->parse($source);
 
             assert($nodes !== null);
 
@@ -66,10 +65,12 @@ final class Counter
      *
      * @throws RuntimeException
      */
-    public function countInAbstractSyntaxTree(int $linesOfCode, array $nodes): LinesOfCode
-    {
-        $traverser = new NodeTraverser;
-        $visitor   = new LineCountingVisitor($linesOfCode);
+    public function countInAbstractSyntaxTree(
+        int $linesOfCode,
+        array $nodes,
+    ): LinesOfCode {
+        $traverser = new NodeTraverser();
+        $visitor = new LineCountingVisitor($linesOfCode);
 
         $traverser->addVisitor($visitor);
 

@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 /*
  * This file is part of PharIo\Manifest.
  *
@@ -56,9 +56,9 @@ abstract class ElementCollection implements Iterator {
 
     private function importNodes(DOMNodeList $nodeList): void {
         foreach ($nodeList as $node) {
-            if (!$node instanceof DOMElement) {
+            if (!($node instanceof DOMElement)) {
                 throw new ElementCollectionException(
-                    sprintf('\DOMElement expected, got \%s', get_class($node))
+                    sprintf("\DOMElement expected, got \%s", get_class($node)),
                 );
             }
 

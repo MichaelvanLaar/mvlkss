@@ -15,19 +15,27 @@ use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Driver\WriteOperationFailedException;
 use SebastianBergmann\CodeCoverage\Util\Filesystem;
 
-final class PHP
-{
+final class PHP {
     /**
      * @param null|non-empty-string $target
      *
      * @throws WriteOperationFailedException
      */
-    public function process(CodeCoverage $coverage, ?string $target = null): string
-    {
+    public function process(
+        CodeCoverage $coverage,
+        ?string $target = null,
+    ): string {
         $coverage->clearCache();
 
-        $buffer = "<?php
-return \unserialize(<<<'END_OF_COVERAGE_SERIALIZATION'" . PHP_EOL . serialize($coverage) . PHP_EOL . 'END_OF_COVERAGE_SERIALIZATION' . PHP_EOL . ');';
+        $buffer =
+            "<?php
+return \unserialize(<<<'END_OF_COVERAGE_SERIALIZATION'" .
+            PHP_EOL .
+            serialize($coverage) .
+            PHP_EOL .
+            "END_OF_COVERAGE_SERIALIZATION" .
+            PHP_EOL .
+            ");";
 
         if ($target !== null) {
             Filesystem::write($target, $buffer);

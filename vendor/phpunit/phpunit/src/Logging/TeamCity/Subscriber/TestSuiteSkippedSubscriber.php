@@ -18,13 +18,12 @@ use PHPUnit\Event\TestSuite\SkippedSubscriber;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestSuiteSkippedSubscriber extends Subscriber implements SkippedSubscriber
-{
+final readonly class TestSuiteSkippedSubscriber extends Subscriber implements
+    SkippedSubscriber {
     /**
      * @throws InvalidArgumentException
      */
-    public function notify(Skipped $event): void
-    {
+    public function notify(Skipped $event): void {
         $this->logger()->testSuiteSkipped($event);
     }
 }

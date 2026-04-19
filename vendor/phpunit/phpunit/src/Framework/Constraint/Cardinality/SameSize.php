@@ -15,15 +15,13 @@ use PHPUnit\Framework\Exception;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class SameSize extends Count
-{
+final class SameSize extends Count {
     /**
      * @param Countable|iterable<mixed> $expected
      *
      * @throws Exception
      */
-    public function __construct(Countable|iterable $expected)
-    {
+    public function __construct(Countable|iterable $expected) {
         parent::__construct((int) $this->getCountOf($expected));
     }
 }

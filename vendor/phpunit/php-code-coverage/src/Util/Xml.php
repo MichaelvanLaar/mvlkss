@@ -19,24 +19,22 @@ use SebastianBergmann\CodeCoverage\XmlException;
 /**
  * @internal This class is not covered by the backward compatibility promise for phpunit/php-code-coverage
  */
-final readonly class Xml
-{
+final readonly class Xml {
     /**
      * @throws XmlException
      *
      * @see https://bugs.php.net/bug.php?id=79191
      */
-    public static function asString(DOMDocument $document): string
-    {
+    public static function asString(DOMDocument $document): string {
         $xmlErrorHandling = libxml_use_internal_errors(true);
 
-        $document->formatOutput       = true;
+        $document->formatOutput = true;
         $document->preserveWhiteSpace = false;
 
         $buffer = $document->saveXML();
 
         if ($buffer === false) {
-            $message = 'Unable to generate the XML';
+            $message = "Unable to generate the XML";
 
             foreach (libxml_get_errors() as $error) {
                 $message .= PHP_EOL . $error->message;

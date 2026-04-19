@@ -21,42 +21,42 @@ use PHPUnit\TextUI\Configuration\FilterNotConfiguredException;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestSuiteFilterProcessor
-{
+final readonly class TestSuiteFilterProcessor {
     /**
      * @throws Event\RuntimeException
      * @throws FilterNotConfiguredException
      */
-    public function process(Configuration $configuration, TestSuite $suite): void
-    {
-        $factory = new Factory;
+    public function process(
+        Configuration $configuration,
+        TestSuite $suite,
+    ): void {
+        $factory = new Factory();
 
-        if (!$configuration->hasFilter() &&
+        if (
+            !$configuration->hasFilter() &&
             !$configuration->hasGroups() &&
             !$configuration->hasExcludeGroups() &&
             !$configuration->hasExcludeFilter() &&
             !$configuration->hasTestsCovering() &&
             !$configuration->hasTestsUsing() &&
-            !$configuration->hasTestsRequiringPhpExtension()) {
+            !$configuration->hasTestsRequiringPhpExtension()
+        ) {
             return;
         }
 
         if ($configuration->hasExcludeGroups()) {
-            $factory->addExcludeGroupFilter(
-                $configuration->excludeGroups(),
-            );
+            $factory->addExcludeGroupFilter($configuration->excludeGroups());
         }
 
         if ($configuration->hasGroups()) {
-            $factory->addIncludeGroupFilter(
-                $configuration->groups(),
-            );
+            $factory->addIncludeGroupFilter($configuration->groups());
         }
 
         if ($configuration->hasTestsCovering()) {
             $factory->addIncludeGroupFilter(
                 array_map(
-                    static fn (string $name): string => '__phpunit_covers_' . $name,
+                    static fn(string $name): string => "__phpunit_covers_" .
+                        $name,
                     $configuration->testsCovering(),
                 ),
             );
@@ -65,7 +65,8 @@ final readonly class TestSuiteFilterProcessor
         if ($configuration->hasTestsUsing()) {
             $factory->addIncludeGroupFilter(
                 array_map(
-                    static fn (string $name): string => '__phpunit_uses_' . $name,
+                    static fn(string $name): string => "__phpunit_uses_" .
+                        $name,
                     $configuration->testsUsing(),
                 ),
             );
@@ -74,22 +75,20 @@ final readonly class TestSuiteFilterProcessor
         if ($configuration->hasTestsRequiringPhpExtension()) {
             $factory->addIncludeGroupFilter(
                 array_map(
-                    static fn (string $name): string => '__phpunit_requires_php_extension' . $name,
+                    static fn(
+                        string $name,
+                    ): string => "__phpunit_requires_php_extension" . $name,
                     $configuration->testsRequiringPhpExtension(),
                 ),
             );
         }
 
         if ($configuration->hasExcludeFilter()) {
-            $factory->addExcludeNameFilter(
-                $configuration->excludeFilter(),
-            );
+            $factory->addExcludeNameFilter($configuration->excludeFilter());
         }
 
         if ($configuration->hasFilter()) {
-            $factory->addIncludeNameFilter(
-                $configuration->filter(),
-            );
+            $factory->addIncludeNameFilter($configuration->filter());
         }
 
         $suite->injectFilter($factory);

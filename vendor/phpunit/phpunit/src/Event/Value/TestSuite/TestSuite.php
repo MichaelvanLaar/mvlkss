@@ -16,8 +16,7 @@ use PHPUnit\Event\Code\TestCollection;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-abstract readonly class TestSuite
-{
+abstract readonly class TestSuite {
     /**
      * @var non-empty-string
      */
@@ -28,9 +27,12 @@ abstract readonly class TestSuite
     /**
      * @param non-empty-string $name
      */
-    public function __construct(string $name, int $size, TestCollection $tests)
-    {
-        $this->name  = $name;
+    public function __construct(
+        string $name,
+        int $size,
+        TestCollection $tests,
+    ) {
+        $this->name = $name;
         $this->count = $size;
         $this->tests = $tests;
     }
@@ -38,42 +40,36 @@ abstract readonly class TestSuite
     /**
      * @return non-empty-string
      */
-    public function name(): string
-    {
+    public function name(): string {
         return $this->name;
     }
 
-    public function count(): int
-    {
+    public function count(): int {
         return $this->count;
     }
 
-    public function tests(): TestCollection
-    {
+    public function tests(): TestCollection {
         return $this->tests;
     }
 
     /**
      * @phpstan-assert-if-true TestSuiteWithName $this
      */
-    public function isWithName(): bool
-    {
+    public function isWithName(): bool {
         return false;
     }
 
     /**
      * @phpstan-assert-if-true TestSuiteForTestClass $this
      */
-    public function isForTestClass(): bool
-    {
+    public function isForTestClass(): bool {
         return false;
     }
 
     /**
      * @phpstan-assert-if-true TestSuiteForTestMethodWithDataProvider $this
      */
-    public function isForTestMethodWithDataProvider(): bool
-    {
+    public function isForTestMethodWithDataProvider(): bool {
         return false;
     }
 }

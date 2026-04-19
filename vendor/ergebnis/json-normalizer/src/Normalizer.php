@@ -15,8 +15,7 @@ namespace Ergebnis\Json\Normalizer;
 
 use Ergebnis\Json\Json;
 
-interface Normalizer
-{
+interface Normalizer {
     /**
      * @throws Exception\SchemaUriCouldNotBeResolved
      * @throws Exception\SchemaUriCouldNotBeRead

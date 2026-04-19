@@ -23,26 +23,24 @@ use SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class StringMatchesFormatDescription extends Constraint
-{
+final class StringMatchesFormatDescription extends Constraint {
     private readonly string $formatDescription;
 
-    public function __construct(string $formatDescription)
-    {
+    public function __construct(string $formatDescription) {
         $this->formatDescription = $formatDescription;
     }
 
-    public function toString(): string
-    {
-        return 'matches format description:' . PHP_EOL . $this->formatDescription;
+    public function toString(): string {
+        return "matches format description:" .
+            PHP_EOL .
+            $this->formatDescription;
     }
 
     /**
      * Evaluates the constraint for parameter $other. Returns true if the
      * constraint is met, false otherwise.
      */
-    protected function matches(mixed $other): bool
-    {
+    protected function matches(mixed $other): bool {
         $other = $this->convertNewlines($other);
 
         $matches = preg_match(
@@ -55,9 +53,8 @@ final class StringMatchesFormatDescription extends Constraint
         return $matches > 0;
     }
 
-    protected function failureDescription(mixed $other): string
-    {
-        return 'string matches format description';
+    protected function failureDescription(mixed $other): string {
+        return "string matches format description";
     }
 
     /**
@@ -75,10 +72,9 @@ final class StringMatchesFormatDescription extends Constraint
      * And since they mess up the line sync between the expected and actual output
      * all following allowed changes will not be detected/removed anymore.
      */
-    protected function additionalFailureDescription(mixed $other): string
-    {
+    protected function additionalFailureDescription(mixed $other): string {
         $from = explode("\n", $this->formatDescription);
-        $to   = explode("\n", $this->convertNewlines($other));
+        $to = explode("\n", $this->convertNewlines($other));
 
         foreach ($from as $index => $line) {
             // is the expected output line different from the actual output line
@@ -94,42 +90,40 @@ final class StringMatchesFormatDescription extends Constraint
         }
 
         $from = implode("\n", $from);
-        $to   = implode("\n", $to);
+        $to = implode("\n", $to);
 
         return $this->differ()->diff($from, $to);
     }
 
-    private function regularExpressionForFormatDescription(string $string): string
-    {
-        $string = strtr(
-            preg_quote($string, '/'),
-            [
-                '%%' => '%',
-                '%e' => preg_quote(DIRECTORY_SEPARATOR, '/'),
-                '%s' => '[^\r\n]+',
-                '%S' => '[^\r\n]*',
-                '%a' => '.+?',
-                '%A' => '.*?',
-                '%w' => '\s*',
-                '%i' => '[+-]?\d+',
-                '%d' => '\d+',
-                '%x' => '[0-9a-fA-F]+',
-                '%f' => '[+-]?(?:\d+|(?=\.\d))(?:\.\d+)?(?:[Ee][+-]?\d+)?',
-                '%c' => '.',
-                '%0' => '\x00',
-            ],
-        );
+    private function regularExpressionForFormatDescription(
+        string $string,
+    ): string {
+        $string = strtr(preg_quote($string, "/"), [
+            "%%" => "%",
+            "%e" => preg_quote(DIRECTORY_SEPARATOR, "/"),
+            "%s" => '[^\r\n]+',
+            "%S" => '[^\r\n]*',
+            "%a" => ".+?",
+            "%A" => ".*?",
+            "%w" => "\s*",
+            "%i" => "[+-]?\d+",
+            "%d" => "\d+",
+            "%x" => "[0-9a-fA-F]+",
+            "%f" => "[+-]?(?:\d+|(?=\.\d))(?:\.\d+)?(?:[Ee][+-]?\d+)?",
+            "%c" => ".",
+            "%0" => '\x00',
+        ]);
 
-        return '/^' . $string . '$/s';
+        return "/^" . $string . '$/s';
     }
 
-    private function convertNewlines(string $text): string
-    {
+    private function convertNewlines(string $text): string {
         return preg_replace('/\r\n/', "\n", $text);
     }
 
-    private function differ(): Differ
-    {
-        return new Differ(new UnifiedDiffOutputBuilder("--- Expected\n+++ Actual\n"));
+    private function differ(): Differ {
+        return new Differ(
+            new UnifiedDiffOutputBuilder("--- Expected\n+++ Actual\n"),
+        );
     }
 }

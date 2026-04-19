@@ -13,8 +13,7 @@ use Whoops\Exception\Formatter;
  * response. Additionally can also return exception
  * frames for consumption by an API.
  */
-class JsonResponseHandler extends Handler
-{
+class JsonResponseHandler extends Handler {
     /**
      * @var bool
      */
@@ -30,8 +29,7 @@ class JsonResponseHandler extends Handler
      * @param bool $jsonApi Default is false
      * @return static
      */
-    public function setJsonApi($jsonApi = false)
-    {
+    public function setJsonApi($jsonApi = false) {
         $this->jsonApi = (bool) $jsonApi;
         return $this;
     }
@@ -40,8 +38,7 @@ class JsonResponseHandler extends Handler
      * @param  bool|null  $returnFrames
      * @return bool|static
      */
-    public function addTraceToOutput($returnFrames = null)
-    {
+    public function addTraceToOutput($returnFrames = null) {
         if (func_num_args() == 0) {
             return $this->returnFrames;
         }
@@ -53,29 +50,33 @@ class JsonResponseHandler extends Handler
     /**
      * @return int
      */
-    public function handle()
-    {
+    public function handle() {
         if ($this->jsonApi === true) {
             $response = [
-                'errors' => [
+                "errors" => [
                     Formatter::formatExceptionAsDataArray(
                         $this->getInspector(),
                         $this->addTraceToOutput(),
-                        $this->getRun()->getFrameFilters()
+                        $this->getRun()->getFrameFilters(),
                     ),
-                ]
+                ],
             ];
         } else {
             $response = [
-                'error' => Formatter::formatExceptionAsDataArray(
+                "error" => Formatter::formatExceptionAsDataArray(
                     $this->getInspector(),
                     $this->addTraceToOutput(),
-                    $this->getRun()->getFrameFilters()
+                    $this->getRun()->getFrameFilters(),
                 ),
             ];
         }
 
-        echo json_encode($response, defined('JSON_PARTIAL_OUTPUT_ON_ERROR') ? JSON_PARTIAL_OUTPUT_ON_ERROR : 0);
+        echo json_encode(
+            $response,
+            defined("JSON_PARTIAL_OUTPUT_ON_ERROR")
+                ? JSON_PARTIAL_OUTPUT_ON_ERROR
+                : 0,
+        );
 
         return Handler::QUIT;
     }
@@ -83,8 +84,7 @@ class JsonResponseHandler extends Handler
     /**
      * @return string
      */
-    public function contentType()
-    {
-        return 'application/json';
+    public function contentType() {
+        return "application/json";
     }
 }

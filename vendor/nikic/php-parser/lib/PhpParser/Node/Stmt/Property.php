@@ -31,7 +31,14 @@ class Property extends Node\Stmt {
      * @param Node\AttributeGroup[] $attrGroups PHP attribute groups
      * @param Node\PropertyHook[] $hooks Property hooks
      */
-    public function __construct(int $flags, array $props, array $attributes = [], ?Node $type = null, array $attrGroups = [], array $hooks = []) {
+    public function __construct(
+        int $flags,
+        array $props,
+        array $attributes = [],
+        ?Node $type = null,
+        array $attrGroups = [],
+        array $hooks = [],
+    ) {
         $this->attributes = $attributes;
         $this->flags = $flags;
         $this->props = $props;
@@ -41,15 +48,15 @@ class Property extends Node\Stmt {
     }
 
     public function getSubNodeNames(): array {
-        return ['attrGroups', 'flags', 'type', 'props', 'hooks'];
+        return ["attrGroups", "flags", "type", "props", "hooks"];
     }
 
     /**
      * Whether the property is explicitly or implicitly public.
      */
     public function isPublic(): bool {
-        return ($this->flags & Modifiers::PUBLIC) !== 0
-            || ($this->flags & Modifiers::VISIBILITY_MASK) === 0;
+        return ($this->flags & Modifiers::PUBLIC) !== 0 ||
+            ($this->flags & Modifiers::VISIBILITY_MASK) === 0;
     }
 
     /**
@@ -116,6 +123,6 @@ class Property extends Node\Stmt {
     }
 
     public function getType(): string {
-        return 'Stmt_Property';
+        return "Stmt_Property";
     }
 }

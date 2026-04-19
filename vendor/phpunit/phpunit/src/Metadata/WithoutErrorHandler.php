@@ -14,10 +14,8 @@ namespace PHPUnit\Metadata;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class WithoutErrorHandler extends Metadata
-{
-    public function isWithoutErrorHandler(): true
-    {
+final readonly class WithoutErrorHandler extends Metadata {
+    public function isWithoutErrorHandler(): true {
         return true;
     }
 }

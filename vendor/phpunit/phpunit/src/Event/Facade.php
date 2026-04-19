@@ -23,30 +23,26 @@ use PHPUnit\Runner\DeprecationCollector\Facade as DeprecationCollector;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class Facade
-{
+final class Facade {
     private static ?self $instance = null;
     private Emitter $emitter;
-    private ?TypeMap $typeMap                         = null;
+    private ?TypeMap $typeMap = null;
     private ?DeferringDispatcher $deferringDispatcher = null;
-    private bool $sealed                              = false;
+    private bool $sealed = false;
 
-    public static function instance(): self
-    {
+    public static function instance(): self {
         if (self::$instance === null) {
-            self::$instance = new self;
+            self::$instance = new self();
         }
 
         return self::$instance;
     }
 
-    public static function emitter(): Emitter
-    {
+    public static function emitter(): Emitter {
         return self::instance()->emitter;
     }
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->emitter = $this->createDispatchingEmitter();
     }
 
@@ -54,8 +50,7 @@ final class Facade
      * @throws EventFacadeIsSealedException
      * @throws UnknownSubscriberTypeException
      */
-    public function registerSubscribers(Subscriber ...$subscribers): void
-    {
+    public function registerSubscribers(Subscriber ...$subscribers): void {
         foreach ($subscribers as $subscriber) {
             $this->registerSubscriber($subscriber);
         }
@@ -65,10 +60,9 @@ final class Facade
      * @throws EventFacadeIsSealedException
      * @throws UnknownSubscriberTypeException
      */
-    public function registerSubscriber(Subscriber $subscriber): void
-    {
+    public function registerSubscriber(Subscriber $subscriber): void {
         if ($this->sealed) {
-            throw new EventFacadeIsSealedException;
+            throw new EventFacadeIsSealedException();
         }
 
         $this->deferredDispatcher()->registerSubscriber($subscriber);
@@ -77,10 +71,9 @@ final class Facade
     /**
      * @throws EventFacadeIsSealedException
      */
-    public function registerTracer(Tracer\Tracer $tracer): void
-    {
+    public function registerTracer(Tracer\Tracer $tracer): void {
         if ($this->sealed) {
-            throw new EventFacadeIsSealedException;
+            throw new EventFacadeIsSealedException();
         }
 
         $this->deferredDispatcher()->registerTracer($tracer);
@@ -91,8 +84,7 @@ final class Facade
      *
      * @noinspection PhpUnused
      */
-    public function initForIsolation(HRTime $offset): CollectingDispatcher
-    {
+    public function initForIsolation(HRTime $offset): CollectingDispatcher {
         DeprecationCollector::initForIsolation();
 
         $dispatcher = new CollectingDispatcher(
@@ -103,7 +95,7 @@ final class Facade
             $dispatcher,
             new Telemetry\System(
                 new Telemetry\SystemStopWatchWithOffset($offset),
-                new Telemetry\SystemMemoryMeter,
+                new Telemetry\SystemMemoryMeter(),
                 $this->garbageCollectorStatusProvider(),
             ),
         );
@@ -113,8 +105,7 @@ final class Facade
         return $dispatcher;
     }
 
-    public function forward(EventCollection $events): void
-    {
+    public function forward(EventCollection $events): void {
         $dispatcher = $this->deferredDispatcher();
 
         foreach ($events as $event) {
@@ -122,8 +113,7 @@ final class Facade
         }
     }
 
-    public function seal(): void
-    {
+    public function seal(): void {
         $this->deferredDispatcher()->flush();
 
         $this->sealed = true;
@@ -131,25 +121,22 @@ final class Facade
         $this->emitter->testRunnerEventFacadeSealed();
     }
 
-    private function createDispatchingEmitter(): DispatchingEmitter
-    {
+    private function createDispatchingEmitter(): DispatchingEmitter {
         return new DispatchingEmitter(
             $this->deferredDispatcher(),
             $this->createTelemetrySystem(),
         );
     }
 
-    private function createTelemetrySystem(): Telemetry\System
-    {
+    private function createTelemetrySystem(): Telemetry\System {
         return new Telemetry\System(
-            new Telemetry\SystemStopWatch,
-            new Telemetry\SystemMemoryMeter,
+            new Telemetry\SystemStopWatch(),
+            new Telemetry\SystemMemoryMeter(),
             $this->garbageCollectorStatusProvider(),
         );
     }
 
-    private function deferredDispatcher(): DeferringDispatcher
-    {
+    private function deferredDispatcher(): DeferringDispatcher {
         if ($this->deferringDispatcher === null) {
             $this->deferringDispatcher = new DeferringDispatcher(
                 new DirectDispatcher($this->typeMap()),
@@ -159,10 +146,9 @@ final class Facade
         return $this->deferringDispatcher;
     }
 
-    private function typeMap(): TypeMap
-    {
+    private function typeMap(): TypeMap {
         if ($this->typeMap === null) {
-            $typeMap = new TypeMap;
+            $typeMap = new TypeMap();
 
             $this->registerDefaultTypes($typeMap);
 
@@ -172,8 +158,7 @@ final class Facade
         return $this->typeMap;
     }
 
-    private function registerDefaultTypes(TypeMap $typeMap): void
-    {
+    private function registerDefaultTypes(TypeMap $typeMap): void {
         $defaultEvents = [
             Application\Started::class,
             Application\Finished::class,
@@ -258,7 +243,7 @@ final class Facade
         ];
 
         foreach ($defaultEvents as $eventClass) {
-            $subscriberInterface = $eventClass . 'Subscriber';
+            $subscriberInterface = $eventClass . "Subscriber";
 
             assert(interface_exists($subscriberInterface));
 
@@ -266,14 +251,13 @@ final class Facade
         }
     }
 
-    private function garbageCollectorStatusProvider(): Telemetry\GarbageCollectorStatusProvider
-    {
-        if (version_compare(PHP_VERSION, '8.3.0', '>=')) {
-            return new Php83GarbageCollectorStatusProvider;
+    private function garbageCollectorStatusProvider(): Telemetry\GarbageCollectorStatusProvider {
+        if (version_compare(PHP_VERSION, "8.3.0", ">=")) {
+            return new Php83GarbageCollectorStatusProvider();
         }
 
         // @codeCoverageIgnoreStart
-        return new Php81GarbageCollectorStatusProvider;
+        return new Php81GarbageCollectorStatusProvider();
         // @codeCoverageIgnoreEnd
     }
 }

@@ -28,7 +28,7 @@ Exporting:
 <?php
 use SebastianBergmann\Exporter\Exporter;
 
-$exporter = new Exporter;
+$exporter = new Exporter();
 
 /*
 Exception Object &0000000078de0f0d000000002003a261 (
@@ -41,7 +41,7 @@ Exception Object &0000000078de0f0d000000002003a261 (
 )
 */
 
-print $exporter->export(new Exception);
+print $exporter->export(new Exception());
 ```
 
 ## Data Types
@@ -52,7 +52,7 @@ Exporting simple types:
 <?php
 use SebastianBergmann\Exporter\Exporter;
 
-$exporter = new Exporter;
+$exporter = new Exporter();
 
 // 46
 print $exporter->export(46);
@@ -61,7 +61,7 @@ print $exporter->export(46);
 print $exporter->export(4.0);
 
 // 'hello, world!'
-print $exporter->export('hello, world!');
+print $exporter->export("hello, world!");
 
 // false
 print $exporter->export(false);
@@ -76,7 +76,7 @@ print $exporter->export(log(0));
 print $exporter->export(null);
 
 // resource(13) of type (stream)
-print $exporter->export(fopen('php://stderr', 'w'));
+print $exporter->export(fopen("php://stderr", "w"));
 
 // Binary String: 0x000102030405
 print $exporter->export(chr(0) . chr(1) . chr(2) . chr(3) . chr(4) . chr(5));
@@ -88,7 +88,7 @@ Exporting complex types:
 <?php
 use SebastianBergmann\Exporter\Exporter;
 
-$exporter = new Exporter;
+$exporter = new Exporter();
 
 /*
 Array &0 (
@@ -105,7 +105,7 @@ Array &0 (
 )
 */
 
-print $exporter->export(array(array(1,2,3), array("",0,FALSE)));
+print $exporter->export([[1, 2, 3], ["", 0, false]]);
 
 /*
 Array &0 (
@@ -115,8 +115,8 @@ Array &0 (
 )
 */
 
-$array = array();
-$array['self'] = &$array;
+$array = [];
+$array["self"] = &$array;
 print $exporter->export($array);
 
 /*
@@ -136,40 +136,41 @@ Compact exports:
 <?php
 use SebastianBergmann\Exporter\Exporter;
 
-$exporter = new Exporter;
+$exporter = new Exporter();
 
 // Array ()
-print $exporter->shortenedExport(array());
+print $exporter->shortenedExport([]);
 
 // Array (...)
-print $exporter->shortenedExport(array(1,2,3,4,5));
+print $exporter->shortenedExport([1, 2, 3, 4, 5]);
 
 // stdClass Object ()
-print $exporter->shortenedExport(new stdClass);
+print $exporter->shortenedExport(new stdClass());
 
 // Exception Object (...)
-print $exporter->shortenedExport(new Exception);
+print $exporter->shortenedExport(new Exception());
 
 // this\nis\na\nsuper\nlong\nstring\nt...\nspace
 print $exporter->shortenedExport(
-<<<LONG_STRING
-this
-is
-a
-super
-long
-string
-that
-wraps
-a
-lot
-and
-eats
-up
-a
-lot
-of
-space
-LONG_STRING
+    <<<LONG_STRING
+    this
+    is
+    a
+    super
+    long
+    string
+    that
+    wraps
+    a
+    lot
+    and
+    eats
+    up
+    a
+    lot
+    of
+    space
+    LONG_STRING
+    ,
 );
 ```

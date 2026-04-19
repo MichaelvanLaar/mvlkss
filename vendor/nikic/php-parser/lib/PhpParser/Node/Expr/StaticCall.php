@@ -24,7 +24,12 @@ class StaticCall extends CallLike {
      * @param array<Arg|VariadicPlaceholder> $args Arguments
      * @param array<string, mixed> $attributes Additional attributes
      */
-    public function __construct(Node $class, $name, array $args = [], array $attributes = []) {
+    public function __construct(
+        Node $class,
+        $name,
+        array $args = [],
+        array $attributes = [],
+    ) {
         $this->attributes = $attributes;
         $this->class = $class;
         $this->name = \is_string($name) ? new Identifier($name) : $name;
@@ -32,11 +37,11 @@ class StaticCall extends CallLike {
     }
 
     public function getSubNodeNames(): array {
-        return ['class', 'name', 'args'];
+        return ["class", "name", "args"];
     }
 
     public function getType(): string {
-        return 'Expr_StaticCall';
+        return "Expr_StaticCall";
     }
 
     public function getRawArgs(): array {

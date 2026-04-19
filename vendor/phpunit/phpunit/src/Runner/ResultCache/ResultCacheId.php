@@ -19,19 +19,16 @@ use PHPUnit\Framework\TestCase;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class ResultCacheId
-{
-    public static function fromTest(Test $test): self
-    {
+final readonly class ResultCacheId {
+    public static function fromTest(Test $test): self {
         if ($test instanceof TestMethod) {
-            return new self($test->className() . '::' . $test->name());
+            return new self($test->className() . "::" . $test->name());
         }
 
         return new self($test->id());
     }
 
-    public static function fromReorderable(Reorderable $reorderable): self
-    {
+    public static function fromReorderable(Reorderable $reorderable): self {
         return new self($reorderable->sortId());
     }
 
@@ -40,18 +37,16 @@ final readonly class ResultCacheId
      *
      * @param class-string<TestCase> $class
      */
-    public static function fromTestClassAndMethodName(string $class, string $methodName): self
-    {
-        return new self($class . '::' . $methodName);
+    public static function fromTestClassAndMethodName(
+        string $class,
+        string $methodName,
+    ): self {
+        return new self($class . "::" . $methodName);
     }
 
-    private function __construct(
-        private string $id,
-    ) {
-    }
+    private function __construct(private string $id) {}
 
-    public function asString(): string
-    {
+    public function asString(): string {
         return $this->id;
     }
 }

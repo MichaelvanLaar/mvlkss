@@ -14,7 +14,6 @@ use PHPUnit\Event\Subscriber;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-interface BeforeTestMethodErroredSubscriber extends Subscriber
-{
+interface BeforeTestMethodErroredSubscriber extends Subscriber {
     public function notify(BeforeTestMethodErrored $event): void;
 }

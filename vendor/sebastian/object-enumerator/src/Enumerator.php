@@ -15,15 +15,16 @@ use function is_object;
 use SebastianBergmann\ObjectReflector\ObjectReflector;
 use SebastianBergmann\RecursionContext\Context;
 
-final class Enumerator
-{
+final class Enumerator {
     /**
      * @param array<mixed>|object $variable
      *
      * @return list<object>
      */
-    public function enumerate(array|object $variable, Context $processed = new Context): array
-    {
+    public function enumerate(
+        array|object $variable,
+        Context $processed = new Context(),
+    ): array {
         $objects = [];
 
         if ($processed->contains($variable)) {
@@ -54,7 +55,7 @@ final class Enumerator
 
         $objects[] = $variable;
 
-        foreach ((new ObjectReflector)->getProperties($variable) as $value) {
+        foreach ((new ObjectReflector())->getProperties($variable) as $value) {
             if (!is_array($value) && !is_object($value)) {
                 continue;
             }

@@ -21,8 +21,7 @@ use PHPUnit\Event\Telemetry;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class AfterTestMethodErrored implements Event
-{
+final readonly class AfterTestMethodErrored implements Event {
     private Telemetry\Info $telemetryInfo;
 
     /**
@@ -35,39 +34,38 @@ final readonly class AfterTestMethodErrored implements Event
     /**
      * @param class-string $testClassName
      */
-    public function __construct(Telemetry\Info $telemetryInfo, string $testClassName, Code\ClassMethod $calledMethod, Throwable $throwable)
-    {
+    public function __construct(
+        Telemetry\Info $telemetryInfo,
+        string $testClassName,
+        Code\ClassMethod $calledMethod,
+        Throwable $throwable,
+    ) {
         $this->telemetryInfo = $telemetryInfo;
         $this->testClassName = $testClassName;
-        $this->calledMethod  = $calledMethod;
-        $this->throwable     = $throwable;
+        $this->calledMethod = $calledMethod;
+        $this->throwable = $throwable;
     }
 
-    public function telemetryInfo(): Telemetry\Info
-    {
+    public function telemetryInfo(): Telemetry\Info {
         return $this->telemetryInfo;
     }
 
     /**
      * @return class-string
      */
-    public function testClassName(): string
-    {
+    public function testClassName(): string {
         return $this->testClassName;
     }
 
-    public function calledMethod(): Code\ClassMethod
-    {
+    public function calledMethod(): Code\ClassMethod {
         return $this->calledMethod;
     }
 
-    public function throwable(): Throwable
-    {
+    public function throwable(): Throwable {
         return $this->throwable;
     }
 
-    public function asString(): string
-    {
+    public function asString(): string {
         $message = $this->throwable->message();
 
         if (!empty($message)) {
@@ -75,7 +73,7 @@ final readonly class AfterTestMethodErrored implements Event
         }
 
         return sprintf(
-            'After Test Method Errored (%s::%s)%s',
+            "After Test Method Errored (%s::%s)%s",
             $this->calledMethod->className(),
             $this->calledMethod->methodName(),
             $message,

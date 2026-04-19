@@ -46,98 +46,94 @@ use PHPUnit\TextUI\Output\Printer;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class TeamCityLogger
-{
+final class TeamCityLogger {
     private readonly Printer $printer;
     private bool $isSummaryTestCountPrinted = false;
-    private ?HRTime $time                   = null;
-    private ?int $flowId                    = null;
+    private ?HRTime $time = null;
+    private ?int $flowId = null;
 
     /**
      * @throws EventFacadeIsSealedException
      * @throws UnknownSubscriberTypeException
      */
-    public function __construct(Printer $printer, Facade $facade)
-    {
+    public function __construct(Printer $printer, Facade $facade) {
         $this->printer = $printer;
 
         $this->registerSubscribers($facade);
         $this->setFlowId();
     }
 
-    public function testSuiteStarted(TestSuiteStarted $event): void
-    {
+    public function testSuiteStarted(TestSuiteStarted $event): void {
         $testSuite = $event->testSuite();
 
         if (!$this->isSummaryTestCountPrinted) {
             $this->isSummaryTestCountPrinted = true;
 
-            $this->writeMessage(
-                'testCount',
-                ['count' => $testSuite->count()],
-            );
+            $this->writeMessage("testCount", ["count" => $testSuite->count()]);
         }
 
-        $parameters = ['name' => $testSuite->name()];
+        $parameters = ["name" => $testSuite->name()];
 
         if ($testSuite->isForTestClass()) {
             assert($testSuite instanceof TestSuiteForTestClass);
 
-            $parameters['locationHint'] = sprintf(
-                'php_qn://%s::\\%s',
+            $parameters["locationHint"] = sprintf(
+                "php_qn://%s::\\%s",
                 $testSuite->file(),
                 $testSuite->name(),
             );
         } elseif ($testSuite->isForTestMethodWithDataProvider()) {
-            assert($testSuite instanceof TestSuiteForTestMethodWithDataProvider);
+            assert(
+                $testSuite instanceof TestSuiteForTestMethodWithDataProvider,
+            );
 
-            $parameters['locationHint'] = sprintf(
-                'php_qn://%s::\\%s',
+            $parameters["locationHint"] = sprintf(
+                "php_qn://%s::\\%s",
                 $testSuite->file(),
                 $testSuite->name(),
             );
 
-            $parameters['name'] = $testSuite->methodName();
+            $parameters["name"] = $testSuite->methodName();
         }
 
-        $this->writeMessage('testSuiteStarted', $parameters);
+        $this->writeMessage("testSuiteStarted", $parameters);
     }
 
-    public function testSuiteFinished(TestSuiteFinished $event): void
-    {
+    public function testSuiteFinished(TestSuiteFinished $event): void {
         $testSuite = $event->testSuite();
 
-        $parameters = ['name' => $testSuite->name()];
+        $parameters = ["name" => $testSuite->name()];
 
         if ($testSuite->isForTestMethodWithDataProvider()) {
-            assert($testSuite instanceof TestSuiteForTestMethodWithDataProvider);
+            assert(
+                $testSuite instanceof TestSuiteForTestMethodWithDataProvider,
+            );
 
-            $parameters['name'] = $testSuite->methodName();
+            $parameters["name"] = $testSuite->methodName();
         }
 
-        $this->writeMessage('testSuiteFinished', $parameters);
+        $this->writeMessage("testSuiteFinished", $parameters);
     }
 
-    public function testPrepared(Prepared $event): void
-    {
+    public function testPrepared(Prepared $event): void {
         $test = $event->test();
 
         $parameters = [
-            'name' => $test->name(),
+            "name" => $test->name(),
         ];
 
         if ($test->isTestMethod()) {
             assert($test instanceof TestMethod);
 
-            $parameters['locationHint'] = sprintf(
-                'php_qn://%s::\\%s::%s',
+            $parameters["locationHint"] = sprintf(
+                "php_qn://%s::\\%s::%s",
                 $test->file(),
                 $test->className(),
                 $test->name(),
             );
         }
 
-        $this->writeMessage('testStarted', $parameters);
+        $this->writeMessage("testStarted", $parameters);
 
         $this->time = $event->telemetryInfo()->time();
     }
@@ -145,109 +141,99 @@ final class TeamCityLogger
     /**
      * @throws InvalidArgumentException
      */
-    public function testMarkedIncomplete(MarkedIncomplete $event): void
-    {
+    public function testMarkedIncomplete(MarkedIncomplete $event): void {
         if ($this->time === null) {
             // @codeCoverageIgnoreStart
             $this->time = $event->telemetryInfo()->time();
             // @codeCoverageIgnoreEnd
         }
 
-        $this->writeMessage(
-            'testIgnored',
-            [
-                'name'     => $event->test()->name(),
-                'message'  => $event->throwable()->message(),
-                'details'  => $this->details($event->throwable()),
-                'duration' => $this->duration($event),
-            ],
-        );
+        $this->writeMessage("testIgnored", [
+            "name" => $event->test()->name(),
+            "message" => $event->throwable()->message(),
+            "details" => $this->details($event->throwable()),
+            "duration" => $this->duration($event),
+        ]);
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    public function testSkipped(Skipped $event): void
-    {
+    public function testSkipped(Skipped $event): void {
         if ($this->time === null) {
             $this->time = $event->telemetryInfo()->time();
         }
 
         $parameters = [
-            'name'    => $event->test()->name(),
-            'message' => $event->message(),
+            "name" => $event->test()->name(),
+            "message" => $event->message(),
         ];
 
-        $parameters['duration'] = $this->duration($event);
+        $parameters["duration"] = $this->duration($event);
 
-        $this->writeMessage('testIgnored', $parameters);
+        $this->writeMessage("testIgnored", $parameters);
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    public function testSuiteSkipped(TestSuiteSkipped $event): void
-    {
+    public function testSuiteSkipped(TestSuiteSkipped $event): void {
         if ($this->time === null) {
             $this->time = $event->telemetryInfo()->time();
         }
 
         $parameters = [
-            'name'    => $event->testSuite()->name(),
-            'message' => $event->message(),
+            "name" => $event->testSuite()->name(),
+            "message" => $event->message(),
         ];
 
-        $parameters['duration'] = $this->duration($event);
+        $parameters["duration"] = $this->duration($event);
 
-        $this->writeMessage('testIgnored', $parameters);
-        $this->writeMessage('testSuiteFinished', $parameters);
+        $this->writeMessage("testIgnored", $parameters);
+        $this->writeMessage("testSuiteFinished", $parameters);
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    public function beforeFirstTestMethodErrored(BeforeFirstTestMethodErrored $event): void
-    {
+    public function beforeFirstTestMethodErrored(
+        BeforeFirstTestMethodErrored $event,
+    ): void {
         if ($this->time === null) {
             $this->time = $event->telemetryInfo()->time();
         }
 
         $parameters = [
-            'name'     => $event->testClassName(),
-            'message'  => $this->message($event->throwable()),
-            'details'  => $this->details($event->throwable()),
-            'duration' => $this->duration($event),
+            "name" => $event->testClassName(),
+            "message" => $this->message($event->throwable()),
+            "details" => $this->details($event->throwable()),
+            "duration" => $this->duration($event),
         ];
 
-        $this->writeMessage('testFailed', $parameters);
-        $this->writeMessage('testSuiteFinished', $parameters);
+        $this->writeMessage("testFailed", $parameters);
+        $this->writeMessage("testSuiteFinished", $parameters);
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    public function testErrored(Errored $event): void
-    {
+    public function testErrored(Errored $event): void {
         if ($this->time === null) {
             $this->time = $event->telemetryInfo()->time();
         }
 
-        $this->writeMessage(
-            'testFailed',
-            [
-                'name'     => $event->test()->name(),
-                'message'  => $this->message($event->throwable()),
-                'details'  => $this->details($event->throwable()),
-                'duration' => $this->duration($event),
-            ],
-        );
+        $this->writeMessage("testFailed", [
+            "name" => $event->test()->name(),
+            "message" => $this->message($event->throwable()),
+            "details" => $this->details($event->throwable()),
+            "duration" => $this->duration($event),
+        ]);
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    public function testFailed(Failed $event): void
-    {
+    public function testFailed(Failed $event): void {
         if ($this->time === null) {
             // @codeCoverageIgnoreStart
             $this->time = $event->telemetryInfo()->time();
@@ -255,61 +241,52 @@ final class TeamCityLogger
         }
 
         $parameters = [
-            'name'     => $event->test()->name(),
-            'message'  => $this->message($event->throwable()),
-            'details'  => $this->details($event->throwable()),
-            'duration' => $this->duration($event),
+            "name" => $event->test()->name(),
+            "message" => $this->message($event->throwable()),
+            "details" => $this->details($event->throwable()),
+            "duration" => $this->duration($event),
         ];
 
         if ($event->hasComparisonFailure()) {
-            $parameters['type']     = 'comparisonFailure';
-            $parameters['actual']   = $event->comparisonFailure()->actual();
-            $parameters['expected'] = $event->comparisonFailure()->expected();
+            $parameters["type"] = "comparisonFailure";
+            $parameters["actual"] = $event->comparisonFailure()->actual();
+            $parameters["expected"] = $event->comparisonFailure()->expected();
         }
 
-        $this->writeMessage('testFailed', $parameters);
+        $this->writeMessage("testFailed", $parameters);
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    public function testConsideredRisky(ConsideredRisky $event): void
-    {
+    public function testConsideredRisky(ConsideredRisky $event): void {
         if ($this->time === null) {
             // @codeCoverageIgnoreStart
             $this->time = $event->telemetryInfo()->time();
             // @codeCoverageIgnoreEnd
         }
 
-        $this->writeMessage(
-            'testFailed',
-            [
-                'name'     => $event->test()->name(),
-                'message'  => $event->message(),
-                'details'  => '',
-                'duration' => $this->duration($event),
-            ],
-        );
+        $this->writeMessage("testFailed", [
+            "name" => $event->test()->name(),
+            "message" => $event->message(),
+            "details" => "",
+            "duration" => $this->duration($event),
+        ]);
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    public function testFinished(Finished $event): void
-    {
-        $this->writeMessage(
-            'testFinished',
-            [
-                'name'     => $event->test()->name(),
-                'duration' => $this->duration($event),
-            ],
-        );
+    public function testFinished(Finished $event): void {
+        $this->writeMessage("testFinished", [
+            "name" => $event->test()->name(),
+            "duration" => $this->duration($event),
+        ]);
 
         $this->time = null;
     }
 
-    public function flush(): void
-    {
+    public function flush(): void {
         $this->printer->flush();
     }
 
@@ -317,8 +294,7 @@ final class TeamCityLogger
      * @throws EventFacadeIsSealedException
      * @throws UnknownSubscriberTypeException
      */
-    private function registerSubscribers(Facade $facade): void
-    {
+    private function registerSubscribers(Facade $facade): void {
         $facade->registerSubscribers(
             new TestSuiteStartedSubscriber($this),
             new TestSuiteFinishedSubscriber($this),
@@ -335,9 +311,8 @@ final class TeamCityLogger
         );
     }
 
-    private function setFlowId(): void
-    {
-        if (stripos(ini_get('disable_functions'), 'getmypid') === false) {
+    private function setFlowId(): void {
+        if (stripos(ini_get("disable_functions"), "getmypid") === false) {
             $this->flowId = getmypid();
         }
     }
@@ -345,26 +320,19 @@ final class TeamCityLogger
     /**
      * @param array<non-empty-string, int|string> $parameters
      */
-    private function writeMessage(string $eventName, array $parameters = []): void
-    {
-        $this->printer->print(
-            sprintf(
-                '##teamcity[%s',
-                $eventName,
-            ),
-        );
+    private function writeMessage(
+        string $eventName,
+        array $parameters = [],
+    ): void {
+        $this->printer->print(sprintf("##teamcity[%s", $eventName));
 
         if ($this->flowId !== null) {
-            $parameters['flowId'] = $this->flowId;
+            $parameters["flowId"] = $this->flowId;
         }
 
         foreach ($parameters as $key => $value) {
             $this->printer->print(
-                sprintf(
-                    " %s='%s'",
-                    $key,
-                    $this->escape((string) $value),
-                ),
+                sprintf(" %s='%s'", $key, $this->escape((string) $value)),
             );
         }
 
@@ -374,28 +342,28 @@ final class TeamCityLogger
     /**
      * @throws InvalidArgumentException
      */
-    private function duration(Event $event): int
-    {
+    private function duration(Event $event): int {
         if ($this->time === null) {
             // @codeCoverageIgnoreStart
             return 0;
             // @codeCoverageIgnoreEnd
         }
 
-        return (int) round($event->telemetryInfo()->time()->duration($this->time)->asFloat() * 1000);
+        return (int) round(
+            $event->telemetryInfo()->time()->duration($this->time)->asFloat() *
+                1000,
+        );
     }
 
-    private function escape(string $string): string
-    {
+    private function escape(string $string): string {
         return str_replace(
-            ['|', "'", "\n", "\r", ']', '['],
-            ['||', "|'", '|n', '|r', '|]', '|['],
+            ["|", "'", "\n", "\r", "]", "["],
+            ["||", "|'", "|n", "|r", "|]", "|["],
             $string,
         );
     }
 
-    private function message(Throwable $throwable): string
-    {
+    private function message(Throwable $throwable): string {
         if (is_a($throwable->className(), FrameworkException::class, true)) {
             return $throwable->message();
         }
@@ -403,14 +371,13 @@ final class TeamCityLogger
         $buffer = $throwable->className();
 
         if (!empty($throwable->message())) {
-            $buffer .= ': ' . $throwable->message();
+            $buffer .= ": " . $throwable->message();
         }
 
         return $buffer;
     }
 
-    private function details(Throwable $throwable): string
-    {
+    private function details(Throwable $throwable): string {
         $buffer = $throwable->stackTrace();
 
         while ($throwable->hasPrevious()) {

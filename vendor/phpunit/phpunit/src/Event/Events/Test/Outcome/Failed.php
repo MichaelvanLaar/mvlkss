@@ -23,68 +23,61 @@ use PHPUnit\Event\Telemetry;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class Failed implements Event
-{
+final readonly class Failed implements Event {
     private Telemetry\Info $telemetryInfo;
     private Code\Test $test;
     private Throwable $throwable;
     private ?ComparisonFailure $comparisonFailure;
 
-    public function __construct(Telemetry\Info $telemetryInfo, Code\Test $test, Throwable $throwable, ?ComparisonFailure $comparisonFailure)
-    {
-        $this->telemetryInfo     = $telemetryInfo;
-        $this->test              = $test;
-        $this->throwable         = $throwable;
+    public function __construct(
+        Telemetry\Info $telemetryInfo,
+        Code\Test $test,
+        Throwable $throwable,
+        ?ComparisonFailure $comparisonFailure,
+    ) {
+        $this->telemetryInfo = $telemetryInfo;
+        $this->test = $test;
+        $this->throwable = $throwable;
         $this->comparisonFailure = $comparisonFailure;
     }
 
-    public function telemetryInfo(): Telemetry\Info
-    {
+    public function telemetryInfo(): Telemetry\Info {
         return $this->telemetryInfo;
     }
 
-    public function test(): Code\Test
-    {
+    public function test(): Code\Test {
         return $this->test;
     }
 
-    public function throwable(): Throwable
-    {
+    public function throwable(): Throwable {
         return $this->throwable;
     }
 
     /**
      * @phpstan-assert-if-true !null $this->comparisonFailure
      */
-    public function hasComparisonFailure(): bool
-    {
+    public function hasComparisonFailure(): bool {
         return $this->comparisonFailure !== null;
     }
 
     /**
      * @throws NoComparisonFailureException
      */
-    public function comparisonFailure(): ComparisonFailure
-    {
+    public function comparisonFailure(): ComparisonFailure {
         if ($this->comparisonFailure === null) {
-            throw new NoComparisonFailureException;
+            throw new NoComparisonFailureException();
         }
 
         return $this->comparisonFailure;
     }
 
-    public function asString(): string
-    {
+    public function asString(): string {
         $message = trim($this->throwable->message());
 
         if (!empty($message)) {
             $message = PHP_EOL . $message;
         }
 
-        return sprintf(
-            'Test Failed (%s)%s',
-            $this->test->id(),
-            $message,
-        );
+        return sprintf("Test Failed (%s)%s", $this->test->id(), $message);
     }
 }

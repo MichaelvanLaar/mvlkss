@@ -16,8 +16,7 @@ use function in_array;
  *
  * @immutable
  */
-final readonly class VersionComparisonOperator
-{
+final readonly class VersionComparisonOperator {
     /**
      * @var '!='|'<'|'<='|'<>'|'='|'=='|'>'|'>='|'eq'|'ge'|'gt'|'le'|'lt'|'ne'
      */
@@ -28,8 +27,7 @@ final readonly class VersionComparisonOperator
      *
      * @throws InvalidVersionOperatorException
      */
-    public function __construct(string $operator)
-    {
+    public function __construct(string $operator) {
         $this->ensureOperatorIsValid($operator);
 
         $this->operator = $operator;
@@ -38,8 +36,7 @@ final readonly class VersionComparisonOperator
     /**
      * @return '!='|'<'|'<='|'<>'|'='|'=='|'>'|'>='|'eq'|'ge'|'gt'|'le'|'lt'|'ne'
      */
-    public function asString(): string
-    {
+    public function asString(): string {
         return $this->operator;
     }
 
@@ -48,9 +45,29 @@ final readonly class VersionComparisonOperator
      *
      * @throws InvalidVersionOperatorException
      */
-    private function ensureOperatorIsValid(string $operator): void
-    {
-        if (!in_array($operator, ['<', 'lt', '<=', 'le', '>', 'gt', '>=', 'ge', '==', '=', 'eq', '!=', '<>', 'ne'], true)) {
+    private function ensureOperatorIsValid(string $operator): void {
+        if (
+            !in_array(
+                $operator,
+                [
+                    "<",
+                    "lt",
+                    "<=",
+                    "le",
+                    ">",
+                    "gt",
+                    ">=",
+                    "ge",
+                    "==",
+                    "=",
+                    "eq",
+                    "!=",
+                    "<>",
+                    "ne",
+                ],
+                true,
+            )
+        ) {
             throw new InvalidVersionOperatorException($operator);
         }
     }

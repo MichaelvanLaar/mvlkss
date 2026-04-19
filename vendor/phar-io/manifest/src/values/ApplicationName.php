@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 /*
  * This file is part of PharIo\Manifest.
  *
@@ -31,10 +31,13 @@ class ApplicationName {
     }
 
     private function ensureValidFormat(string $name): void {
-        if (!preg_match('#\w/\w#', $name)) {
+        if (!preg_match("#\w/\w#", $name)) {
             throw new InvalidApplicationNameException(
-                sprintf('Format of name "%s" is not valid - expected: vendor/packagename', $name),
-                InvalidApplicationNameException::InvalidFormat
+                sprintf(
+                    'Format of name "%s" is not valid - expected: vendor/packagename',
+                    $name,
+                ),
+                InvalidApplicationNameException::InvalidFormat,
             );
         }
     }

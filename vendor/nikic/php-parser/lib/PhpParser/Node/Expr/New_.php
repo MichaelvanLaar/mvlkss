@@ -20,18 +20,22 @@ class New_ extends CallLike {
      * @param array<Arg|VariadicPlaceholder> $args Arguments
      * @param array<string, mixed> $attributes Additional attributes
      */
-    public function __construct(Node $class, array $args = [], array $attributes = []) {
+    public function __construct(
+        Node $class,
+        array $args = [],
+        array $attributes = [],
+    ) {
         $this->attributes = $attributes;
         $this->class = $class;
         $this->args = $args;
     }
 
     public function getSubNodeNames(): array {
-        return ['class', 'args'];
+        return ["class", "args"];
     }
 
     public function getType(): string {
-        return 'Expr_New';
+        return "Expr_New";
     }
 
     public function getRawArgs(): array {

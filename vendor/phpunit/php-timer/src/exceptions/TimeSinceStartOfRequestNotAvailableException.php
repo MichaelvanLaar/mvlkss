@@ -11,6 +11,6 @@ namespace SebastianBergmann\Timer;
 
 use RuntimeException;
 
-final class TimeSinceStartOfRequestNotAvailableException extends RuntimeException implements Exception
-{
-}
+final class TimeSinceStartOfRequestNotAvailableException
+    extends RuntimeException
+    implements Exception {}

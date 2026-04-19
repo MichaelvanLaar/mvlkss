@@ -30,23 +30,17 @@ use SebastianBergmann\CodeCoverage\StaticAnalysis\FileAnalyser;
  *
  * @phpstan-import-type TestType from \SebastianBergmann\CodeCoverage\CodeCoverage
  */
-final class Builder
-{
+final class Builder {
     private readonly FileAnalyser $analyser;
 
-    public function __construct(FileAnalyser $analyser)
-    {
+    public function __construct(FileAnalyser $analyser) {
         $this->analyser = $analyser;
     }
 
-    public function build(CodeCoverage $coverage): Directory
-    {
-        $data       = clone $coverage->getData(); // clone because path munging is destructive to the original data
+    public function build(CodeCoverage $coverage): Directory {
+        $data = clone $coverage->getData(); // clone because path munging is destructive to the original data
         $commonPath = $this->reducePaths($data);
-        $root       = new Directory(
-            $commonPath,
-            null,
-        );
+        $root = new Directory($commonPath, null);
 
         $this->addItems(
             $root,
@@ -60,13 +54,16 @@ final class Builder
     /**
      * @param array<string, TestType> $tests
      */
-    private function addItems(Directory $root, array $items, array $tests): void
-    {
+    private function addItems(
+        Directory $root,
+        array $items,
+        array $tests,
+    ): void {
         foreach ($items as $key => $value) {
             $key = (string) $key;
 
-            if (str_ends_with($key, '/f')) {
-                $key      = substr($key, 0, -2);
+            if (str_ends_with($key, "/f")) {
+                $key = substr($key, 0, -2);
                 $filename = $root->pathAsString() . DIRECTORY_SEPARATOR . $key;
 
                 if (is_file($filename)) {
@@ -74,8 +71,8 @@ final class Builder
                         new File(
                             $key,
                             $root,
-                            $value['lineCoverage'],
-                            $value['functionCoverage'],
+                            $value["lineCoverage"],
+                            $value["functionCoverage"],
                             $tests,
                             $this->analyser->classesIn($filename),
                             $this->analyser->traitsIn($filename),
@@ -134,28 +131,30 @@ final class Builder
      *
      * @return array<string, array<string, array{lineCoverage: array<int, int>, functionCoverage: array<string, array<int, int>>}>>
      */
-    private function buildDirectoryStructure(ProcessedCodeCoverageData $data): array
-    {
+    private function buildDirectoryStructure(
+        ProcessedCodeCoverageData $data,
+    ): array {
         $result = [];
 
         foreach ($data->coveredFiles() as $originalPath) {
-            $path    = explode(DIRECTORY_SEPARATOR, $originalPath);
+            $path = explode(DIRECTORY_SEPARATOR, $originalPath);
             $pointer = &$result;
-            $max     = count($path);
+            $max = count($path);
 
             for ($i = 0; $i < $max; $i++) {
-                $type = '';
+                $type = "";
 
-                if ($i === ($max - 1)) {
-                    $type = '/f';
+                if ($i === $max - 1) {
+                    $type = "/f";
                 }
 
                 $pointer = &$pointer[$path[$i] . $type];
             }
 
             $pointer = [
-                'lineCoverage'     => $data->lineCoverage()[$originalPath] ?? [],
-                'functionCoverage' => $data->functionCoverage()[$originalPath] ?? [],
+                "lineCoverage" => $data->lineCoverage()[$originalPath] ?? [],
+                "functionCoverage" =>
+                    $data->functionCoverage()[$originalPath] ?? [],
             ];
         }
 
@@ -199,14 +198,13 @@ final class Builder
      * )
      * </code>
      */
-    private function reducePaths(ProcessedCodeCoverageData $coverage): string
-    {
+    private function reducePaths(ProcessedCodeCoverageData $coverage): string {
         if (empty($coverage->coveredFiles())) {
-            return '.';
+            return ".";
         }
 
-        $commonPath = '';
-        $paths      = $coverage->coveredFiles();
+        $commonPath = "";
+        $paths = $coverage->coveredFiles();
 
         if (count($paths) === 1) {
             $commonPath = dirname($paths[0]) . DIRECTORY_SEPARATOR;
@@ -219,9 +217,9 @@ final class Builder
 
         for ($i = 0; $i < $max; $i++) {
             // strip phar:// prefixes
-            if (str_starts_with($paths[$i], 'phar://')) {
+            if (str_starts_with($paths[$i], "phar://")) {
                 $paths[$i] = substr($paths[$i], 7);
-                $paths[$i] = str_replace('/', DIRECTORY_SEPARATOR, $paths[$i]);
+                $paths[$i] = str_replace("/", DIRECTORY_SEPARATOR, $paths[$i]);
             }
             $paths[$i] = explode(DIRECTORY_SEPARATOR, $paths[$i]);
 
@@ -231,13 +229,15 @@ final class Builder
         }
 
         $done = false;
-        $max  = count($paths);
+        $max = count($paths);
 
         while (!$done) {
             for ($i = 0; $i < $max - 1; $i++) {
-                if (!isset($paths[$i][0]) ||
+                if (
+                    !isset($paths[$i][0]) ||
                     !isset($paths[$i + 1][0]) ||
-                    $paths[$i][0] !== $paths[$i + 1][0]) {
+                    $paths[$i][0] !== $paths[$i + 1][0]
+                ) {
                     $done = true;
 
                     break;
@@ -258,10 +258,13 @@ final class Builder
         }
 
         $original = $coverage->coveredFiles();
-        $max      = count($original);
+        $max = count($original);
 
         for ($i = 0; $i < $max; $i++) {
-            $coverage->renameFile($original[$i], implode(DIRECTORY_SEPARATOR, $paths[$i]));
+            $coverage->renameFile(
+                $original[$i],
+                implode(DIRECTORY_SEPARATOR, $paths[$i]),
+            );
         }
 
         return substr($commonPath, 0, -1);

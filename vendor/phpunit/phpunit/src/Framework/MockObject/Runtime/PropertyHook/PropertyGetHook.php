@@ -14,18 +14,13 @@ use function sprintf;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class PropertyGetHook extends PropertyHook
-{
+final readonly class PropertyGetHook extends PropertyHook {
     /**
      * @return non-empty-string
      *
      * @internal This method is not covered by the backward compatibility promise for PHPUnit
      */
-    public function asString(): string
-    {
-        return sprintf(
-            '$%s::get',
-            $this->propertyName(),
-        );
+    public function asString(): string {
+        return sprintf('$%s::get', $this->propertyName());
     }
 }

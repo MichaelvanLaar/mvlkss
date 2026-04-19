@@ -13,13 +13,8 @@ declare(strict_types=1);
 
 namespace Ergebnis\Json\Exception;
 
-final class FileDoesNotExist extends \InvalidArgumentException
-{
-    public static function file(string $name): self
-    {
-        return new self(\sprintf(
-            'File "%s" does not exist.',
-            $name,
-        ));
+final class FileDoesNotExist extends \InvalidArgumentException {
+    public static function file(string $name): self {
+        return new self(\sprintf('File "%s" does not exist.', $name));
     }
 }

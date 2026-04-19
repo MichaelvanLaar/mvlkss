@@ -6,8 +6,7 @@
 
 namespace Whoops\Inspector;
 
-interface InspectorFactoryInterface
-{
+interface InspectorFactoryInterface {
     /**
      * @param \Throwable $exception
      * @return InspectorInterface

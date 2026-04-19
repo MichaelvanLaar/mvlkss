@@ -19,18 +19,23 @@ use function sprintf;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class DuplicateMethodException extends \PHPUnit\Framework\Exception implements Exception
-{
+final class DuplicateMethodException
+    extends \PHPUnit\Framework\Exception
+    implements Exception {
     /**
      * @param list<string> $methods
      */
-    public function __construct(array $methods)
-    {
+    public function __construct(array $methods) {
         parent::__construct(
             sprintf(
                 'Cannot double using a method list that contains duplicates: "%s" (duplicate: "%s")',
-                implode(', ', $methods),
-                implode(', ', array_unique(array_diff_assoc($methods, array_unique($methods)))),
+                implode(", ", $methods),
+                implode(
+                    ", ",
+                    array_unique(
+                        array_diff_assoc($methods, array_unique($methods)),
+                    ),
+                ),
             ),
         );
     }

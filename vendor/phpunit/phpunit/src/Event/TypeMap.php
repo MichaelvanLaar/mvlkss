@@ -21,8 +21,7 @@ use function sprintf;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class TypeMap
-{
+final class TypeMap {
     /**
      * @var array<class-string, class-string>
      */
@@ -39,8 +38,10 @@ final class TypeMap
      * @throws UnknownEventException
      * @throws UnknownSubscriberException
      */
-    public function addMapping(string $subscriberInterface, string $eventClass): void
-    {
+    public function addMapping(
+        string $subscriberInterface,
+        string $eventClass,
+    ): void {
         $this->ensureSubscriberInterfaceExists($subscriberInterface);
         $this->ensureSubscriberInterfaceExtendsInterface($subscriberInterface);
         $this->ensureEventClassExists($eventClass);
@@ -51,8 +52,7 @@ final class TypeMap
         $this->mapping[$subscriberInterface] = $eventClass;
     }
 
-    public function isKnownSubscriberType(Subscriber $subscriber): bool
-    {
+    public function isKnownSubscriberType(Subscriber $subscriber): bool {
         foreach (class_implements($subscriber) as $interface) {
             if (array_key_exists($interface, $this->mapping)) {
                 return true;
@@ -62,8 +62,7 @@ final class TypeMap
         return false;
     }
 
-    public function isKnownEventType(Event $event): bool
-    {
+    public function isKnownEventType(Event $event): bool {
         return in_array($event::class, $this->mapping, true);
     }
 
@@ -72,8 +71,7 @@ final class TypeMap
      *
      * @return class-string
      */
-    public function map(Subscriber $subscriber): string
-    {
+    public function map(Subscriber $subscriber): string {
         foreach (class_implements($subscriber) as $interface) {
             if (array_key_exists($interface, $this->mapping)) {
                 return $this->mapping[$interface];
@@ -93,8 +91,9 @@ final class TypeMap
      *
      * @throws UnknownSubscriberException
      */
-    private function ensureSubscriberInterfaceExists(string $subscriberInterface): void
-    {
+    private function ensureSubscriberInterfaceExists(
+        string $subscriberInterface,
+    ): void {
         if (!interface_exists($subscriberInterface)) {
             throw new UnknownSubscriberException(
                 sprintf(
@@ -110,14 +109,10 @@ final class TypeMap
      *
      * @throws UnknownEventException
      */
-    private function ensureEventClassExists(string $eventClass): void
-    {
+    private function ensureEventClassExists(string $eventClass): void {
         if (!class_exists($eventClass)) {
             throw new UnknownEventException(
-                sprintf(
-                    'Event class "%s" does not exist',
-                    $eventClass,
-                ),
+                sprintf('Event class "%s" does not exist', $eventClass),
             );
         }
     }
@@ -127,9 +122,16 @@ final class TypeMap
      *
      * @throws InvalidSubscriberException
      */
-    private function ensureSubscriberInterfaceExtendsInterface(string $subscriberInterface): void
-    {
-        if (!in_array(Subscriber::class, class_implements($subscriberInterface), true)) {
+    private function ensureSubscriberInterfaceExtendsInterface(
+        string $subscriberInterface,
+    ): void {
+        if (
+            !in_array(
+                Subscriber::class,
+                class_implements($subscriberInterface),
+                true,
+            )
+        ) {
             throw new InvalidSubscriberException(
                 sprintf(
                     'Subscriber "%s" does not extend Subscriber interface',
@@ -144,8 +146,9 @@ final class TypeMap
      *
      * @throws InvalidEventException
      */
-    private function ensureEventClassImplementsEventInterface(string $eventClass): void
-    {
+    private function ensureEventClassImplementsEventInterface(
+        string $eventClass,
+    ): void {
         if (!in_array(Event::class, class_implements($eventClass), true)) {
             throw new InvalidEventException(
                 sprintf(
@@ -161,8 +164,9 @@ final class TypeMap
      *
      * @throws SubscriberTypeAlreadyRegisteredException
      */
-    private function ensureSubscriberWasNotAlreadyRegistered(string $subscriberInterface): void
-    {
+    private function ensureSubscriberWasNotAlreadyRegistered(
+        string $subscriberInterface,
+    ): void {
         if (array_key_exists($subscriberInterface, $this->mapping)) {
             throw new SubscriberTypeAlreadyRegisteredException(
                 sprintf(
@@ -178,14 +182,12 @@ final class TypeMap
      *
      * @throws EventAlreadyAssignedException
      */
-    private function ensureEventWasNotAlreadyAssigned(string $eventClass): void
-    {
+    private function ensureEventWasNotAlreadyAssigned(
+        string $eventClass,
+    ): void {
         if (in_array($eventClass, $this->mapping, true)) {
             throw new EventAlreadyAssignedException(
-                sprintf(
-                    'Event "%s" already assigned',
-                    $eventClass,
-                ),
+                sprintf('Event "%s" already assigned', $eventClass),
             );
         }
     }

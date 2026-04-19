@@ -14,6 +14,4 @@ namespace PHPUnit\Framework;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-class CodeCoverageException extends Exception
-{
-}
+class CodeCoverageException extends Exception {}

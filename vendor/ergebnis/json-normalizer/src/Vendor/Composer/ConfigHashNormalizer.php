@@ -17,34 +17,31 @@ use Ergebnis\Json\Json;
 use Ergebnis\Json\Normalizer\Format;
 use Ergebnis\Json\Normalizer\Normalizer;
 
-final class ConfigHashNormalizer implements Normalizer
-{
+final class ConfigHashNormalizer implements Normalizer {
     private const PROPERTIES_WITH_WILDCARDS = [
         /**
          * @see https://getcomposer.org/doc/06-config.md#allow-plugins
          */
-        'allow-plugins',
+        "allow-plugins",
         /**
          * @see https://getcomposer.org/doc/06-config.md#preferred-install
          */
-        'preferred-install',
+        "preferred-install",
     ];
     private WildcardSorter $wildcardSorter;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->wildcardSorter = new WildcardSorter();
     }
 
-    public function normalize(Json $json): Json
-    {
+    public function normalize(Json $json): Json {
         $decoded = $json->decoded();
 
         if (!\is_object($decoded)) {
             return $json;
         }
 
-        if (!\property_exists($decoded, 'config')) {
+        if (!\property_exists($decoded, "config")) {
             return $json;
         }
 
@@ -62,10 +59,7 @@ final class ConfigHashNormalizer implements Normalizer
         \ksort($config);
 
         foreach (self::PROPERTIES_WITH_WILDCARDS as $property) {
-            $this->wildcardSorter->sortPropertyWithWildcard(
-                $config,
-                $property,
-            );
+            $this->wildcardSorter->sortPropertyWithWildcard($config, $property);
         }
 
         $decoded->config = $config;

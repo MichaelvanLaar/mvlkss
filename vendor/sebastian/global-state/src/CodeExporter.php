@@ -16,11 +16,9 @@ use function serialize;
 use function sprintf;
 use function var_export;
 
-final class CodeExporter
-{
-    public function constants(Snapshot $snapshot): string
-    {
-        $result = '';
+final class CodeExporter {
+    public function constants(Snapshot $snapshot): string {
+        $result = "";
 
         foreach ($snapshot->constants() as $name => $value) {
             $result .= sprintf(
@@ -34,20 +32,19 @@ final class CodeExporter
         return $result;
     }
 
-    public function globalVariables(Snapshot $snapshot): string
-    {
+    public function globalVariables(Snapshot $snapshot): string {
         $result = <<<'EOT'
-call_user_func(
-    function ()
-    {
-        foreach (array_keys($GLOBALS) as $key) {
-            unset($GLOBALS[$key]);
-        }
-    }
-);
+        call_user_func(
+            function ()
+            {
+                foreach (array_keys($GLOBALS) as $key) {
+                    unset($GLOBALS[$key]);
+                }
+            }
+        );
 
 
-EOT;
+        EOT;
 
         foreach ($snapshot->globalVariables() as $name => $value) {
             $result .= sprintf(
@@ -60,13 +57,12 @@ EOT;
         return $result;
     }
 
-    public function iniSettings(Snapshot $snapshot): string
-    {
-        $result = '';
+    public function iniSettings(Snapshot $snapshot): string {
+        $result = "";
 
         foreach ($snapshot->iniSettings() as $key => $value) {
             $result .= sprintf(
-                '@ini_set(%s, %s);' . "\n",
+                "@ini_set(%s, %s);" . "\n",
                 $this->exportVariable($key),
                 $this->exportVariable($value),
             );
@@ -75,21 +71,22 @@ EOT;
         return $result;
     }
 
-    private function exportVariable(mixed $variable): string
-    {
-        if (is_scalar($variable) || null === $variable ||
-            (is_array($variable) && $this->arrayOnlyContainsScalars($variable))) {
+    private function exportVariable(mixed $variable): string {
+        if (
+            is_scalar($variable) ||
+            null === $variable ||
+            (is_array($variable) && $this->arrayOnlyContainsScalars($variable))
+        ) {
             return var_export($variable, true);
         }
 
-        return 'unserialize(' . var_export(serialize($variable), true) . ')';
+        return "unserialize(" . var_export(serialize($variable), true) . ")";
     }
 
     /**
      * @param array<mixed> $array
      */
-    private function arrayOnlyContainsScalars(array $array): bool
-    {
+    private function arrayOnlyContainsScalars(array $array): bool {
         $result = true;
 
         foreach ($array as $element) {

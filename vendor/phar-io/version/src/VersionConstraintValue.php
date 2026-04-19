@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 namespace PharIo\Version;
 
 class VersionConstraintValue {
@@ -12,13 +12,13 @@ class VersionConstraintValue {
     private $patch;
 
     /** @var string */
-    private $label = '';
+    private $label = "";
 
     /** @var string */
-    private $buildMetaData = '';
+    private $buildMetaData = "";
 
     /** @var string */
-    private $versionString = '';
+    private $versionString = "";
 
     public function __construct(string $versionString) {
         $this->versionString = $versionString;
@@ -55,32 +55,40 @@ class VersionConstraintValue {
         $this->extractLabel($versionString);
         $this->stripPotentialVPrefix($versionString);
 
-        $versionSegments = \explode('.', $versionString);
-        $this->major     = new VersionNumber(\is_numeric($versionSegments[0]) ? (int)$versionSegments[0] : null);
+        $versionSegments = \explode(".", $versionString);
+        $this->major = new VersionNumber(
+            \is_numeric($versionSegments[0]) ? (int) $versionSegments[0] : null,
+        );
 
-        $minorValue = isset($versionSegments[1]) && \is_numeric($versionSegments[1]) ? (int)$versionSegments[1] : null;
-        $patchValue = isset($versionSegments[2]) && \is_numeric($versionSegments[2]) ? (int)$versionSegments[2] : null;
+        $minorValue =
+            isset($versionSegments[1]) && \is_numeric($versionSegments[1])
+                ? (int) $versionSegments[1]
+                : null;
+        $patchValue =
+            isset($versionSegments[2]) && \is_numeric($versionSegments[2])
+                ? (int) $versionSegments[2]
+                : null;
 
         $this->minor = new VersionNumber($minorValue);
         $this->patch = new VersionNumber($patchValue);
     }
 
     private function extractBuildMetaData(string &$versionString): void {
-        if (\preg_match('/\+(.*)/', $versionString, $matches) === 1) {
+        if (\preg_match("/\+(.*)/", $versionString, $matches) === 1) {
             $this->buildMetaData = $matches[1];
-            $versionString       = \str_replace($matches[0], '', $versionString);
+            $versionString = \str_replace($matches[0], "", $versionString);
         }
     }
 
     private function extractLabel(string &$versionString): void {
-        if (\preg_match('/-(.*)/', $versionString, $matches) === 1) {
-            $this->label   = $matches[1];
-            $versionString = \str_replace($matches[0], '', $versionString);
+        if (\preg_match("/-(.*)/", $versionString, $matches) === 1) {
+            $this->label = $matches[1];
+            $versionString = \str_replace($matches[0], "", $versionString);
         }
     }
 
     private function stripPotentialVPrefix(string &$versionString): void {
-        if ($versionString[0] !== 'v') {
+        if ($versionString[0] !== "v") {
             return;
         }
         $versionString = \substr($versionString, 1);

@@ -17,10 +17,10 @@ use RuntimeException;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class NoTestCaseObjectOnCallStackException extends RuntimeException implements Exception
-{
-    public function __construct()
-    {
-        parent::__construct('Cannot find TestCase object on call stack');
+final class NoTestCaseObjectOnCallStackException
+    extends RuntimeException
+    implements Exception {
+    public function __construct() {
+        parent::__construct("Cannot find TestCase object on call stack");
     }
 }

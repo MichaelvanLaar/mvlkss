@@ -16,8 +16,7 @@ use PHPUnit\Metadata\Version\Requirement;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class RequiresPhpExtension extends Metadata
-{
+final readonly class RequiresPhpExtension extends Metadata {
     /**
      * @var non-empty-string
      */
@@ -28,42 +27,41 @@ final readonly class RequiresPhpExtension extends Metadata
      * @param 0|1              $level
      * @param non-empty-string $extension
      */
-    protected function __construct(int $level, string $extension, ?Requirement $versionRequirement)
-    {
+    protected function __construct(
+        int $level,
+        string $extension,
+        ?Requirement $versionRequirement,
+    ) {
         parent::__construct($level);
 
-        $this->extension          = $extension;
+        $this->extension = $extension;
         $this->versionRequirement = $versionRequirement;
     }
 
-    public function isRequiresPhpExtension(): true
-    {
+    public function isRequiresPhpExtension(): true {
         return true;
     }
 
     /**
      * @return non-empty-string
      */
-    public function extension(): string
-    {
+    public function extension(): string {
         return $this->extension;
     }
 
     /**
      * @phpstan-assert-if-true !null $this->versionRequirement
      */
-    public function hasVersionRequirement(): bool
-    {
+    public function hasVersionRequirement(): bool {
         return $this->versionRequirement !== null;
     }
 
     /**
      * @throws NoVersionRequirementException
      */
-    public function versionRequirement(): Requirement
-    {
+    public function versionRequirement(): Requirement {
         if ($this->versionRequirement === null) {
-            throw new NoVersionRequirementException;
+            throw new NoVersionRequirementException();
         }
 
         return $this->versionRequirement;

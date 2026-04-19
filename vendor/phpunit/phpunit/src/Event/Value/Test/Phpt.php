@@ -14,26 +14,22 @@ namespace PHPUnit\Event\Code;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class Phpt extends Test
-{
-    public function isPhpt(): true
-    {
+final readonly class Phpt extends Test {
+    public function isPhpt(): true {
         return true;
     }
 
     /**
      * @return non-empty-string
      */
-    public function id(): string
-    {
+    public function id(): string {
         return $this->file();
     }
 
     /**
      * @return non-empty-string
      */
-    public function name(): string
-    {
+    public function name(): string {
         return $this->file();
     }
 }

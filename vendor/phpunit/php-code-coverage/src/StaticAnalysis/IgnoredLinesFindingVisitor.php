@@ -24,8 +24,7 @@ use PhpParser\NodeVisitorAbstract;
 /**
  * @internal This class is not covered by the backward compatibility promise for phpunit/php-code-coverage
  */
-final class IgnoredLinesFindingVisitor extends NodeVisitorAbstract
-{
+final class IgnoredLinesFindingVisitor extends NodeVisitorAbstract {
     /**
      * @var array<int>
      */
@@ -33,21 +32,24 @@ final class IgnoredLinesFindingVisitor extends NodeVisitorAbstract
     private readonly bool $useAnnotationsForIgnoringCode;
     private readonly bool $ignoreDeprecated;
 
-    public function __construct(bool $useAnnotationsForIgnoringCode, bool $ignoreDeprecated)
-    {
+    public function __construct(
+        bool $useAnnotationsForIgnoringCode,
+        bool $ignoreDeprecated,
+    ) {
         $this->useAnnotationsForIgnoringCode = $useAnnotationsForIgnoringCode;
-        $this->ignoreDeprecated              = $ignoreDeprecated;
+        $this->ignoreDeprecated = $ignoreDeprecated;
     }
 
-    public function enterNode(Node $node): void
-    {
-        if (!$node instanceof Class_ &&
-            !$node instanceof Trait_ &&
-            !$node instanceof Interface_ &&
-            !$node instanceof Enum_ &&
-            !$node instanceof ClassMethod &&
-            !$node instanceof Function_ &&
-            !$node instanceof Attribute) {
+    public function enterNode(Node $node): void {
+        if (
+            !($node instanceof Class_) &&
+            !($node instanceof Trait_) &&
+            !($node instanceof Interface_) &&
+            !($node instanceof Enum_) &&
+            !($node instanceof ClassMethod) &&
+            !($node instanceof Function_) &&
+            !($node instanceof Attribute)
+        ) {
             return;
         }
 
@@ -55,10 +57,12 @@ final class IgnoredLinesFindingVisitor extends NodeVisitorAbstract
             return;
         }
 
-        if ($node instanceof Class_ ||
+        if (
+            $node instanceof Class_ ||
             $node instanceof Trait_ ||
             $node instanceof Interface_ ||
-            $node instanceof Attribute) {
+            $node instanceof Attribute
+        ) {
             $this->ignoredLines[] = $node->getStartLine();
 
             assert($node->name !== null);
@@ -75,12 +79,19 @@ final class IgnoredLinesFindingVisitor extends NodeVisitorAbstract
             return;
         }
 
-        if ($node instanceof Attribute &&
-            $node->name->toString() === 'PHPUnit\Framework\Attributes\CodeCoverageIgnore') {
-            $attributeGroup = $node->getAttribute('parent');
-            $attributedNode = $attributeGroup->getAttribute('parent');
+        if (
+            $node instanceof Attribute &&
+            $node->name->toString() ===
+                "PHPUnit\Framework\Attributes\CodeCoverageIgnore"
+        ) {
+            $attributeGroup = $node->getAttribute("parent");
+            $attributedNode = $attributeGroup->getAttribute("parent");
 
-            for ($line = $attributedNode->getStartLine(); $line <= $attributedNode->getEndLine(); $line++) {
+            for (
+                $line = $attributedNode->getStartLine();
+                $line <= $attributedNode->getEndLine();
+                $line++
+            ) {
                 $this->ignoredLines[] = $line;
             }
 
@@ -93,27 +104,36 @@ final class IgnoredLinesFindingVisitor extends NodeVisitorAbstract
     /**
      * @return array<int>
      */
-    public function ignoredLines(): array
-    {
+    public function ignoredLines(): array {
         return $this->ignoredLines;
     }
 
-    private function processDocComment(Node $node): void
-    {
+    private function processDocComment(Node $node): void {
         $docComment = $node->getDocComment();
 
         if ($docComment === null) {
             return;
         }
 
-        if (str_contains($docComment->getText(), '@codeCoverageIgnore')) {
-            for ($line = $node->getStartLine(); $line <= $node->getEndLine(); $line++) {
+        if (str_contains($docComment->getText(), "@codeCoverageIgnore")) {
+            for (
+                $line = $node->getStartLine();
+                $line <= $node->getEndLine();
+                $line++
+            ) {
                 $this->ignoredLines[] = $line;
             }
         }
 
-        if ($this->ignoreDeprecated && str_contains($docComment->getText(), '@deprecated')) {
-            for ($line = $node->getStartLine(); $line <= $node->getEndLine(); $line++) {
+        if (
+            $this->ignoreDeprecated &&
+            str_contains($docComment->getText(), "@deprecated")
+        ) {
+            for (
+                $line = $node->getStartLine();
+                $line <= $node->getEndLine();
+                $line++
+            ) {
                 $this->ignoredLines[] = $line;
             }
         }

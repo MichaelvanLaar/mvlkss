@@ -13,7 +13,7 @@ use PhpParser\PhpVersion;
  */
 class ReadonlyFunctionTokenEmulator extends KeywordEmulator {
     public function getKeywordString(): string {
-        return 'readonly';
+        return "readonly";
     }
 
     public function getKeywordToken(): int {

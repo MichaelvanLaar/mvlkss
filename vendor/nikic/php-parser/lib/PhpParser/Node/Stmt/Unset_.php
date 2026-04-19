@@ -20,10 +20,10 @@ class Unset_ extends Node\Stmt {
     }
 
     public function getSubNodeNames(): array {
-        return ['vars'];
+        return ["vars"];
     }
 
     public function getType(): string {
-        return 'Stmt_Unset';
+        return "Stmt_Unset";
     }
 }

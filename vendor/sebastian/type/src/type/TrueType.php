@@ -12,34 +12,29 @@ namespace SebastianBergmann\Type;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for this library
  */
-final class TrueType extends Type
-{
-    public function isAssignable(Type $other): bool
-    {
+final class TrueType extends Type {
+    public function isAssignable(Type $other): bool {
         if ($other instanceof self) {
             return true;
         }
 
         return $other instanceof SimpleType &&
-              $other->name() === 'bool' &&
-              $other->value() === true;
+            $other->name() === "bool" &&
+            $other->value() === true;
     }
 
     /**
      * @return 'true'
      */
-    public function name(): string
-    {
-        return 'true';
+    public function name(): string {
+        return "true";
     }
 
-    public function allowsNull(): bool
-    {
+    public function allowsNull(): bool {
         return false;
     }
 
-    public function isTrue(): bool
-    {
+    public function isTrue(): bool {
         return true;
     }
 }

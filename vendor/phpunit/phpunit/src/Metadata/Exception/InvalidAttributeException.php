@@ -19,8 +19,8 @@ use RuntimeException;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class InvalidAttributeException extends RuntimeException implements Exception
-{
+final class InvalidAttributeException extends RuntimeException implements
+    Exception {
     /**
      * @param non-empty-string $attributeName
      * @param non-empty-string $target
@@ -28,11 +28,16 @@ final class InvalidAttributeException extends RuntimeException implements Except
      * @param positive-int     $line
      * @param non-empty-string $message
      */
-    public function __construct(string $attributeName, string $target, string $file, int $line, string $message)
-    {
+    public function __construct(
+        string $attributeName,
+        string $target,
+        string $file,
+        int $line,
+        string $message,
+    ) {
         parent::__construct(
             sprintf(
-                'Invalid attribute %s for %s in %s:%d%s%s',
+                "Invalid attribute %s for %s in %s:%d%s%s",
                 $attributeName,
                 $target,
                 $file,

@@ -13,22 +13,26 @@ use function assert;
 use SebastianBergmann\Exporter\Exporter;
 use SplObjectStorage;
 
-final class SplObjectStorageComparator extends Comparator
-{
-    public function accepts(mixed $expected, mixed $actual): bool
-    {
-        return $expected instanceof SplObjectStorage && $actual instanceof SplObjectStorage;
+final class SplObjectStorageComparator extends Comparator {
+    public function accepts(mixed $expected, mixed $actual): bool {
+        return $expected instanceof SplObjectStorage &&
+            $actual instanceof SplObjectStorage;
     }
 
     /**
      * @throws ComparisonFailure
      */
-    public function assertEquals(mixed $expected, mixed $actual, float $delta = 0.0, bool $canonicalize = false, bool $ignoreCase = false): void
-    {
+    public function assertEquals(
+        mixed $expected,
+        mixed $actual,
+        float $delta = 0.0,
+        bool $canonicalize = false,
+        bool $ignoreCase = false,
+    ): void {
         assert($expected instanceof SplObjectStorage);
         assert($actual instanceof SplObjectStorage);
 
-        $exporter = new Exporter;
+        $exporter = new Exporter();
 
         foreach ($actual as $object) {
             if (!$expected->offsetExists($object)) {
@@ -37,7 +41,7 @@ final class SplObjectStorageComparator extends Comparator
                     $actual,
                     $exporter->export($expected),
                     $exporter->export($actual),
-                    'Failed asserting that two objects are equal.',
+                    "Failed asserting that two objects are equal.",
                 );
             }
         }
@@ -49,7 +53,7 @@ final class SplObjectStorageComparator extends Comparator
                     $actual,
                     $exporter->export($expected),
                     $exporter->export($actual),
-                    'Failed asserting that two objects are equal.',
+                    "Failed asserting that two objects are equal.",
                 );
             }
         }

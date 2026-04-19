@@ -25,8 +25,7 @@ use ReflectionClass;
 use ReflectionFunction;
 use ReflectionMethod;
 
-final class Wizard
-{
+final class Wizard {
     /**
      * @var array<string, array<int, string>>
      */
@@ -42,8 +41,7 @@ final class Wizard
      */
     private array $processedFunctions = [];
 
-    public function lookup(string $filename, int $lineNumber): string
-    {
+    public function lookup(string $filename, int $lineNumber): string {
         if (!isset($this->lookupTable[$filename][$lineNumber])) {
             $this->updateLookupTable();
         }
@@ -52,19 +50,17 @@ final class Wizard
             return $this->lookupTable[$filename][$lineNumber];
         }
 
-        return $filename . ':' . $lineNumber;
+        return $filename . ":" . $lineNumber;
     }
 
-    private function updateLookupTable(): void
-    {
+    private function updateLookupTable(): void {
         $this->processClassesAndTraits();
         $this->processFunctions();
     }
 
-    private function processClassesAndTraits(): void
-    {
+    private function processClassesAndTraits(): void {
         $classes = get_declared_classes();
-        $traits  = get_declared_traits();
+        $traits = get_declared_traits();
 
         assert(is_array($traits));
 
@@ -75,7 +71,10 @@ final class Wizard
                 continue;
             }
 
-            foreach ((new ReflectionClass($classOrTrait))->getMethods() as $method) {
+            foreach (
+                (new ReflectionClass($classOrTrait))->getMethods()
+                as $method
+            ) {
                 $this->processFunctionOrMethod($method);
             }
 
@@ -83,9 +82,8 @@ final class Wizard
         }
     }
 
-    private function processFunctions(): void
-    {
-        foreach (get_defined_functions()['user'] as $function) {
+    private function processFunctions(): void {
+        foreach (get_defined_functions()["user"] as $function) {
             assert(function_exists($function));
 
             if (isset($this->processedFunctions[$function])) {
@@ -98,8 +96,9 @@ final class Wizard
         }
     }
 
-    private function processFunctionOrMethod(ReflectionFunction|ReflectionMethod $functionOrMethod): void
-    {
+    private function processFunctionOrMethod(
+        ReflectionFunction|ReflectionMethod $functionOrMethod,
+    ): void {
         if ($functionOrMethod->isInternal()) {
             return;
         }
@@ -107,7 +106,10 @@ final class Wizard
         $name = $functionOrMethod->getName();
 
         if ($functionOrMethod instanceof ReflectionMethod) {
-            $name = $functionOrMethod->getDeclaringClass()->getName() . '::' . $name;
+            $name =
+                $functionOrMethod->getDeclaringClass()->getName() .
+                "::" .
+                $name;
         }
 
         $fileName = $functionOrMethod->getFileName();
@@ -119,7 +121,7 @@ final class Wizard
         }
 
         $startLine = $functionOrMethod->getStartLine();
-        $endLine   = $functionOrMethod->getEndLine();
+        $endLine = $functionOrMethod->getEndLine();
 
         assert(is_int($startLine));
         assert(is_int($endLine));

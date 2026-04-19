@@ -21,12 +21,14 @@ use SebastianBergmann\Template\Template;
 /**
  * @internal This class is not covered by the backward compatibility promise for phpunit/php-code-coverage
  */
-final class Directory extends Renderer
-{
-    public function render(DirectoryNode $node, string $file): void
-    {
-        $templateName = $this->templatePath . ($this->hasBranchCoverage ? 'directory_branch.html' : 'directory.html');
-        $template     = new Template($templateName, '{{', '}}');
+final class Directory extends Renderer {
+    public function render(DirectoryNode $node, string $file): void {
+        $templateName =
+            $this->templatePath .
+            ($this->hasBranchCoverage
+                ? "directory_branch.html"
+                : "directory.html");
+        $template = new Template($templateName, "{{", "}}");
 
         $this->setCommonTemplateVariables($template, $node);
 
@@ -40,12 +42,10 @@ final class Directory extends Renderer
             $items .= $this->renderItem($item);
         }
 
-        $template->setVar(
-            [
-                'id'    => $node->id(),
-                'items' => $items,
-            ],
-        );
+        $template->setVar([
+            "id" => $node->id(),
+            "items" => $items,
+        ]);
 
         try {
             $template->renderTo($file);
@@ -58,46 +58,71 @@ final class Directory extends Renderer
         }
     }
 
-    private function renderItem(Node $node, bool $total = false): string
-    {
+    private function renderItem(Node $node, bool $total = false): string {
         $data = [
-            'numClasses'                      => $node->numberOfClassesAndTraits(),
-            'numTestedClasses'                => $node->numberOfTestedClassesAndTraits(),
-            'numMethods'                      => $node->numberOfFunctionsAndMethods(),
-            'numTestedMethods'                => $node->numberOfTestedFunctionsAndMethods(),
-            'linesExecutedPercent'            => $node->percentageOfExecutedLines()->asFloat(),
-            'linesExecutedPercentAsString'    => $node->percentageOfExecutedLines()->asString(),
-            'numExecutedLines'                => $node->numberOfExecutedLines(),
-            'numExecutableLines'              => $node->numberOfExecutableLines(),
-            'branchesExecutedPercent'         => $node->percentageOfExecutedBranches()->asFloat(),
-            'branchesExecutedPercentAsString' => $node->percentageOfExecutedBranches()->asString(),
-            'numExecutedBranches'             => $node->numberOfExecutedBranches(),
-            'numExecutableBranches'           => $node->numberOfExecutableBranches(),
-            'pathsExecutedPercent'            => $node->percentageOfExecutedPaths()->asFloat(),
-            'pathsExecutedPercentAsString'    => $node->percentageOfExecutedPaths()->asString(),
-            'numExecutedPaths'                => $node->numberOfExecutedPaths(),
-            'numExecutablePaths'              => $node->numberOfExecutablePaths(),
-            'testedMethodsPercent'            => $node->percentageOfTestedFunctionsAndMethods()->asFloat(),
-            'testedMethodsPercentAsString'    => $node->percentageOfTestedFunctionsAndMethods()->asString(),
-            'testedClassesPercent'            => $node->percentageOfTestedClassesAndTraits()->asFloat(),
-            'testedClassesPercentAsString'    => $node->percentageOfTestedClassesAndTraits()->asString(),
+            "numClasses" => $node->numberOfClassesAndTraits(),
+            "numTestedClasses" => $node->numberOfTestedClassesAndTraits(),
+            "numMethods" => $node->numberOfFunctionsAndMethods(),
+            "numTestedMethods" => $node->numberOfTestedFunctionsAndMethods(),
+            "linesExecutedPercent" => $node
+                ->percentageOfExecutedLines()
+                ->asFloat(),
+            "linesExecutedPercentAsString" => $node
+                ->percentageOfExecutedLines()
+                ->asString(),
+            "numExecutedLines" => $node->numberOfExecutedLines(),
+            "numExecutableLines" => $node->numberOfExecutableLines(),
+            "branchesExecutedPercent" => $node
+                ->percentageOfExecutedBranches()
+                ->asFloat(),
+            "branchesExecutedPercentAsString" => $node
+                ->percentageOfExecutedBranches()
+                ->asString(),
+            "numExecutedBranches" => $node->numberOfExecutedBranches(),
+            "numExecutableBranches" => $node->numberOfExecutableBranches(),
+            "pathsExecutedPercent" => $node
+                ->percentageOfExecutedPaths()
+                ->asFloat(),
+            "pathsExecutedPercentAsString" => $node
+                ->percentageOfExecutedPaths()
+                ->asString(),
+            "numExecutedPaths" => $node->numberOfExecutedPaths(),
+            "numExecutablePaths" => $node->numberOfExecutablePaths(),
+            "testedMethodsPercent" => $node
+                ->percentageOfTestedFunctionsAndMethods()
+                ->asFloat(),
+            "testedMethodsPercentAsString" => $node
+                ->percentageOfTestedFunctionsAndMethods()
+                ->asString(),
+            "testedClassesPercent" => $node
+                ->percentageOfTestedClassesAndTraits()
+                ->asFloat(),
+            "testedClassesPercentAsString" => $node
+                ->percentageOfTestedClassesAndTraits()
+                ->asString(),
         ];
 
         if ($total) {
-            $data['name'] = 'Total';
+            $data["name"] = "Total";
         } else {
-            $up           = str_repeat('../', count($node->pathAsArray()) - 2);
-            $data['icon'] = sprintf('<img src="%s_icons/file-code.svg" class="octicon" />', $up);
+            $up = str_repeat("../", count($node->pathAsArray()) - 2);
+            $data["icon"] = sprintf(
+                '<img src="%s_icons/file-code.svg" class="octicon" />',
+                $up,
+            );
 
             if ($node instanceof DirectoryNode) {
-                $data['name'] = sprintf(
+                $data["name"] = sprintf(
                     '<a href="%s/index.html">%s</a>',
                     $node->name(),
                     $node->name(),
                 );
-                $data['icon'] = sprintf('<img src="%s_icons/file-directory.svg" class="octicon" />', $up);
+                $data["icon"] = sprintf(
+                    '<img src="%s_icons/file-directory.svg" class="octicon" />',
+                    $up,
+                );
             } elseif ($this->hasBranchCoverage) {
-                $data['name'] = sprintf(
+                $data["name"] = sprintf(
                     '%s <a class="small" href="%s.html">[line]</a> <a class="small" href="%s_branch.html">[branch]</a> <a class="small" href="%s_path.html">[path]</a>',
                     $node->name(),
                     $node->name(),
@@ -105,7 +130,7 @@ final class Directory extends Renderer
                     $node->name(),
                 );
             } else {
-                $data['name'] = sprintf(
+                $data["name"] = sprintf(
                     '<a href="%s.html">%s</a>',
                     $node->name(),
                     $node->name(),
@@ -113,10 +138,14 @@ final class Directory extends Renderer
             }
         }
 
-        $templateName = $this->templatePath . ($this->hasBranchCoverage ? 'directory_item_branch.html' : 'directory_item.html');
+        $templateName =
+            $this->templatePath .
+            ($this->hasBranchCoverage
+                ? "directory_item_branch.html"
+                : "directory_item.html");
 
         return $this->renderItemTemplate(
-            new Template($templateName, '{{', '}}'),
+            new Template($templateName, "{{", "}}"),
             $data,
         );
     }

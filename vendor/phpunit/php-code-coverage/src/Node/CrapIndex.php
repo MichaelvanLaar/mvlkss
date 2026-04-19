@@ -14,21 +14,22 @@ use function sprintf;
 /**
  * @internal This class is not covered by the backward compatibility promise for phpunit/php-code-coverage
  */
-final class CrapIndex
-{
+final class CrapIndex {
     private readonly int $cyclomaticComplexity;
     private readonly float $codeCoverage;
 
-    public function __construct(int $cyclomaticComplexity, float $codeCoverage)
-    {
+    public function __construct(
+        int $cyclomaticComplexity,
+        float $codeCoverage,
+    ) {
         $this->cyclomaticComplexity = $cyclomaticComplexity;
-        $this->codeCoverage         = $codeCoverage;
+        $this->codeCoverage = $codeCoverage;
     }
 
-    public function asString(): string
-    {
+    public function asString(): string {
         if ($this->codeCoverage === 0.0) {
-            return (string) ($this->cyclomaticComplexity ** 2 + $this->cyclomaticComplexity);
+            return (string) ($this->cyclomaticComplexity ** 2 +
+                $this->cyclomaticComplexity);
         }
 
         if ($this->codeCoverage >= 95) {
@@ -36,8 +37,10 @@ final class CrapIndex
         }
 
         return sprintf(
-            '%01.2F',
-            $this->cyclomaticComplexity ** 2 * (1 - $this->codeCoverage / 100) ** 3 + $this->cyclomaticComplexity,
+            "%01.2F",
+            $this->cyclomaticComplexity ** 2 *
+                (1 - $this->codeCoverage / 100) ** 3 +
+                $this->cyclomaticComplexity,
         );
     }
 }

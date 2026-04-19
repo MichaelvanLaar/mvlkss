@@ -23,16 +23,14 @@ use SplObjectStorage;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class SourceMapper
-{
+final class SourceMapper {
     /**
      * @var ?SplObjectStorage<Source, array<non-empty-string, true>>
      */
     private static ?SplObjectStorage $files = null;
 
-    public static function saveTo(string $path, Source $source): bool
-    {
-        $map = (new self)->map($source);
+    public static function saveTo(string $path, Source $source): bool {
+        $map = (new self())->map($source);
 
         return file_put_contents($path, serialize($map)) !== false;
     }
@@ -40,22 +38,21 @@ final class SourceMapper
     /**
      * @codeCoverageIgnore
      */
-    public static function loadFrom(string $path, Source $source): void
-    {
+    public static function loadFrom(string $path, Source $source): void {
         $content = file_get_contents($path);
 
         if ($content === false) {
             return;
         }
 
-        $map = unserialize($content, ['allowed_classes' => false]);
+        $map = unserialize($content, ["allowed_classes" => false]);
 
         if (!is_array($map)) {
             return;
         }
 
         if (self::$files === null) {
-            self::$files = new SplObjectStorage;
+            self::$files = new SplObjectStorage();
         }
 
         /** @phpstan-ignore offsetAssign.valueType */
@@ -65,10 +62,9 @@ final class SourceMapper
     /**
      * @return array<non-empty-string, true>
      */
-    public function map(Source $source): array
-    {
+    public function map(Source $source): array {
         if (self::$files === null) {
-            self::$files = new SplObjectStorage;
+            self::$files = new SplObjectStorage();
         }
 
         if (isset(self::$files[$source])) {
@@ -77,10 +73,19 @@ final class SourceMapper
 
         $files = [];
 
-        $directories = $this->aggregateDirectories($source->includeDirectories());
+        $directories = $this->aggregateDirectories(
+            $source->includeDirectories(),
+        );
 
         foreach ($directories as $path => [$prefixes, $suffixes]) {
-            foreach ((new FileIteratorFacade)->getFilesAsArray($path, $suffixes, $prefixes) as $file) {
+            foreach (
+                (new FileIteratorFacade())->getFilesAsArray(
+                    $path,
+                    $suffixes,
+                    $prefixes,
+                )
+                as $file
+            ) {
                 $file = realpath($file);
 
                 if (!$file) {
@@ -101,10 +106,19 @@ final class SourceMapper
             $files[$file] = true;
         }
 
-        $directories = $this->aggregateDirectories($source->excludeDirectories());
+        $directories = $this->aggregateDirectories(
+            $source->excludeDirectories(),
+        );
 
         foreach ($directories as $path => [$prefixes, $suffixes]) {
-            foreach ((new FileIteratorFacade)->getFilesAsArray($path, $suffixes, $prefixes) as $file) {
+            foreach (
+                (new FileIteratorFacade())->getFilesAsArray(
+                    $path,
+                    $suffixes,
+                    $prefixes,
+                )
+                as $file
+            ) {
                 $file = realpath($file);
 
                 if (!$file) {
@@ -141,8 +155,9 @@ final class SourceMapper
     /**
      * @return array<string,array{list<string>,list<string>}>
      */
-    private function aggregateDirectories(FilterDirectoryCollection $directories): array
-    {
+    private function aggregateDirectories(
+        FilterDirectoryCollection $directories,
+    ): array {
         $aggregated = [];
 
         foreach ($directories as $directory) {
@@ -155,13 +170,13 @@ final class SourceMapper
 
             $prefix = $directory->prefix();
 
-            if ($prefix !== '') {
+            if ($prefix !== "") {
                 $aggregated[$directory->path()][0][] = $prefix;
             }
 
             $suffix = $directory->suffix();
 
-            if ($suffix !== '') {
+            if ($suffix !== "") {
                 $aggregated[$directory->path()][1][] = $suffix;
             }
         }

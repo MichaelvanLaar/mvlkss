@@ -12,8 +12,7 @@ namespace PHPUnit\Framework\Constraint;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class IsAnything extends Constraint
-{
+final class IsAnything extends Constraint {
     /**
      * Evaluates the constraint for parameter $other.
      *
@@ -26,24 +25,25 @@ final class IsAnything extends Constraint
      *
      * @throws void
      */
-    public function evaluate(mixed $other, string $description = '', bool $returnResult = false): ?bool
-    {
+    public function evaluate(
+        mixed $other,
+        string $description = "",
+        bool $returnResult = false,
+    ): ?bool {
         return $returnResult ? true : null;
     }
 
     /**
      * Returns a string representation of the constraint.
      */
-    public function toString(): string
-    {
-        return 'is anything';
+    public function toString(): string {
+        return "is anything";
     }
 
     /**
      * Counts the number of constraint elements.
      */
-    public function count(): int
-    {
+    public function count(): int {
         return 0;
     }
 }

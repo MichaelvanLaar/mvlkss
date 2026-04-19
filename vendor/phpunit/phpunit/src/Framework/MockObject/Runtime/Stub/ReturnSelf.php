@@ -17,13 +17,11 @@ use PHPUnit\Framework\MockObject\RuntimeException;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class ReturnSelf implements Stub
-{
+final class ReturnSelf implements Stub {
     /**
      * @throws RuntimeException
      */
-    public function invoke(Invocation $invocation): object
-    {
+    public function invoke(Invocation $invocation): object {
         return $invocation->object();
     }
 }

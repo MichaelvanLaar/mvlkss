@@ -21,10 +21,8 @@ use Throwable;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class ThrowableToStringMapper
-{
-    public static function map(Throwable $t): string
-    {
+final readonly class ThrowableToStringMapper {
+    public static function map(Throwable $t): string {
         if ($t instanceof ErrorException) {
             return $t->getMessage();
         }
@@ -32,7 +30,10 @@ final readonly class ThrowableToStringMapper
         if ($t instanceof SelfDescribing) {
             $buffer = $t->toString();
 
-            if ($t instanceof ExpectationFailedException && $t->getComparisonFailure()) {
+            if (
+                $t instanceof ExpectationFailedException &&
+                $t->getComparisonFailure()
+            ) {
                 $buffer .= $t->getComparisonFailure()->getDiff();
             }
 
@@ -47,6 +48,6 @@ final readonly class ThrowableToStringMapper
             return $buffer;
         }
 
-        return $t::class . ': ' . $t->getMessage() . "\n";
+        return $t::class . ": " . $t->getMessage() . "\n";
     }
 }

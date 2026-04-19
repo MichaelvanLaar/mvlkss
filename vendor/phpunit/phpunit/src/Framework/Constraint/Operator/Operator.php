@@ -12,8 +12,7 @@ namespace PHPUnit\Framework\Constraint;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-abstract class Operator extends Constraint
-{
+abstract class Operator extends Constraint {
     /**
      * Returns the name of this operator.
      */
@@ -34,9 +33,8 @@ abstract class Operator extends Constraint
     /**
      * Validates $constraint argument.
      */
-    protected function checkConstraint(mixed $constraint): Constraint
-    {
-        if (!$constraint instanceof Constraint) {
+    protected function checkConstraint(mixed $constraint): Constraint {
+        if (!($constraint instanceof Constraint)) {
             return new IsEqual($constraint);
         }
 
@@ -46,10 +44,11 @@ abstract class Operator extends Constraint
     /**
      * Returns true if the $constraint needs to be wrapped with braces.
      */
-    protected function constraintNeedsParentheses(Constraint $constraint): bool
-    {
+    protected function constraintNeedsParentheses(
+        Constraint $constraint,
+    ): bool {
         return $constraint instanceof self &&
-               $constraint->arity() > 1 &&
-               $this->precedence() <= $constraint->precedence();
+            $constraint->arity() > 1 &&
+            $this->precedence() <= $constraint->precedence();
     }
 }

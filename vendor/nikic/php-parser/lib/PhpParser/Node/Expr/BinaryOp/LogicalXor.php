@@ -6,10 +6,10 @@ use PhpParser\Node\Expr\BinaryOp;
 
 class LogicalXor extends BinaryOp {
     public function getOperatorSigil(): string {
-        return 'xor';
+        return "xor";
     }
 
     public function getType(): string {
-        return 'Expr_BinaryOp_LogicalXor';
+        return "Expr_BinaryOp_LogicalXor";
     }
 }

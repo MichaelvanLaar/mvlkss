@@ -16,8 +16,7 @@ namespace PHPUnit\Util\PHP;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class Job
-{
+final readonly class Job {
     /**
      * @var non-empty-string
      */
@@ -52,70 +51,70 @@ final readonly class Job
      * @param list<non-empty-string> $arguments
      * @param ?non-empty-string      $input
      */
-    public function __construct(string $code, array $phpSettings = [], array $environmentVariables = [], array $arguments = [], ?string $input = null, bool $redirectErrors = false, bool $requiresXdebug = false)
-    {
-        $this->code                 = $code;
-        $this->phpSettings          = $phpSettings;
+    public function __construct(
+        string $code,
+        array $phpSettings = [],
+        array $environmentVariables = [],
+        array $arguments = [],
+        ?string $input = null,
+        bool $redirectErrors = false,
+        bool $requiresXdebug = false,
+    ) {
+        $this->code = $code;
+        $this->phpSettings = $phpSettings;
         $this->environmentVariables = $environmentVariables;
-        $this->arguments            = $arguments;
-        $this->input                = $input;
-        $this->redirectErrors       = $redirectErrors;
-        $this->requiresXdebug       = $requiresXdebug;
+        $this->arguments = $arguments;
+        $this->input = $input;
+        $this->redirectErrors = $redirectErrors;
+        $this->requiresXdebug = $requiresXdebug;
     }
 
     /**
      * @return non-empty-string
      */
-    public function code(): string
-    {
+    public function code(): string {
         return $this->code;
     }
 
     /**
      * @return list<string>
      */
-    public function phpSettings(): array
-    {
+    public function phpSettings(): array {
         return $this->phpSettings;
     }
 
     /**
      * @phpstan-assert-if-true !empty $this->environmentVariables
      */
-    public function hasEnvironmentVariables(): bool
-    {
+    public function hasEnvironmentVariables(): bool {
         return $this->environmentVariables !== [];
     }
 
     /**
      * @return array<string, string>
      */
-    public function environmentVariables(): array
-    {
+    public function environmentVariables(): array {
         return $this->environmentVariables;
     }
 
     /**
      * @phpstan-assert-if-true !empty $this->arguments
      */
-    public function hasArguments(): bool
-    {
+    public function hasArguments(): bool {
         return $this->arguments !== [];
     }
 
     /**
      * @return list<non-empty-string>
      */
-    public function arguments(): array
-    {
+    public function arguments(): array {
         return $this->arguments;
     }
 
     /**
      * @phpstan-assert-if-true !empty $this->input
      */
-    public function hasInput(): bool
-    {
+    public function hasInput(): bool {
         return $this->input !== null;
     }
 
@@ -124,22 +123,19 @@ final readonly class Job
      *
      * @return non-empty-string
      */
-    public function input(): string
-    {
+    public function input(): string {
         if ($this->input === null) {
-            throw new PhpProcessException('No input specified');
+            throw new PhpProcessException("No input specified");
         }
 
         return $this->input;
     }
 
-    public function redirectErrors(): bool
-    {
+    public function redirectErrors(): bool {
         return $this->redirectErrors;
     }
 
-    public function requiresXdebug(): bool
-    {
+    public function requiresXdebug(): bool {
         return $this->requiresXdebug;
     }
 }

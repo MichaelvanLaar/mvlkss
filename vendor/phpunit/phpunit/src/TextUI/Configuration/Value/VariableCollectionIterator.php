@@ -17,8 +17,7 @@ use Iterator;
  *
  * @template-implements Iterator<non-negative-int, Variable>
  */
-final class VariableCollectionIterator implements Iterator
-{
+final class VariableCollectionIterator implements Iterator {
     /**
      * @var list<Variable>
      */
@@ -29,36 +28,30 @@ final class VariableCollectionIterator implements Iterator
      */
     private int $position = 0;
 
-    public function __construct(VariableCollection $variables)
-    {
+    public function __construct(VariableCollection $variables) {
         $this->variables = $variables->asArray();
     }
 
-    public function rewind(): void
-    {
+    public function rewind(): void {
         $this->position = 0;
     }
 
-    public function valid(): bool
-    {
+    public function valid(): bool {
         return $this->position < count($this->variables);
     }
 
     /**
      * @return non-negative-int
      */
-    public function key(): int
-    {
+    public function key(): int {
         return $this->position;
     }
 
-    public function current(): Variable
-    {
+    public function current(): Variable {
         return $this->variables[$this->position];
     }
 
-    public function next(): void
-    {
+    public function next(): void {
         $this->position++;
     }
 }

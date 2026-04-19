@@ -30,30 +30,26 @@ use PHPUnit\Framework\TestStatus\TestStatus;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class ResultCacheHandler
-{
+final class ResultCacheHandler {
     private readonly ResultCache $cache;
-    private ?HRTime $time  = null;
+    private ?HRTime $time = null;
     private int $testSuite = 0;
 
     /**
      * @throws EventFacadeIsSealedException
      * @throws UnknownSubscriberTypeException
      */
-    public function __construct(ResultCache $cache, Facade $facade)
-    {
+    public function __construct(ResultCache $cache, Facade $facade) {
         $this->cache = $cache;
 
         $this->registerSubscribers($facade);
     }
 
-    public function testSuiteStarted(): void
-    {
+    public function testSuiteStarted(): void {
         $this->testSuite++;
     }
 
-    public function testSuiteFinished(): void
-    {
+    public function testSuiteFinished(): void {
         $this->testSuite--;
 
         if ($this->testSuite === 0) {
@@ -61,37 +57,32 @@ final class ResultCacheHandler
         }
     }
 
-    public function testPrepared(Prepared $event): void
-    {
+    public function testPrepared(Prepared $event): void {
         $this->time = $event->telemetryInfo()->time();
     }
 
-    public function testMarkedIncomplete(MarkedIncomplete $event): void
-    {
+    public function testMarkedIncomplete(MarkedIncomplete $event): void {
         $this->cache->setStatus(
             ResultCacheId::fromTest($event->test()),
             TestStatus::incomplete($event->throwable()->message()),
         );
     }
 
-    public function testConsideredRisky(ConsideredRisky $event): void
-    {
+    public function testConsideredRisky(ConsideredRisky $event): void {
         $this->cache->setStatus(
             ResultCacheId::fromTest($event->test()),
             TestStatus::risky($event->message()),
         );
     }
 
-    public function testErrored(Errored $event): void
-    {
+    public function testErrored(Errored $event): void {
         $this->cache->setStatus(
             ResultCacheId::fromTest($event->test()),
             TestStatus::error($event->throwable()->message()),
         );
     }
 
-    public function testFailed(Failed $event): void
-    {
+    public function testFailed(Failed $event): void {
         $this->cache->setStatus(
             ResultCacheId::fromTest($event->test()),
             TestStatus::failure($event->throwable()->message()),
@@ -102,23 +93,27 @@ final class ResultCacheHandler
      * @throws \PHPUnit\Event\InvalidArgumentException
      * @throws InvalidArgumentException
      */
-    public function testSkipped(Skipped $event): void
-    {
+    public function testSkipped(Skipped $event): void {
         $this->cache->setStatus(
             ResultCacheId::fromTest($event->test()),
             TestStatus::skipped($event->message()),
         );
 
-        $this->cache->setTime(ResultCacheId::fromTest($event->test()), $this->duration($event));
+        $this->cache->setTime(
+            ResultCacheId::fromTest($event->test()),
+            $this->duration($event),
+        );
     }
 
     /**
      * @throws \PHPUnit\Event\InvalidArgumentException
      * @throws InvalidArgumentException
      */
-    public function testFinished(Finished $event): void
-    {
-        $this->cache->setTime(ResultCacheId::fromTest($event->test()), $this->duration($event));
+    public function testFinished(Finished $event): void {
+        $this->cache->setTime(
+            ResultCacheId::fromTest($event->test()),
+            $this->duration($event),
+        );
 
         $this->time = null;
     }
@@ -127,21 +122,22 @@ final class ResultCacheHandler
      * @throws \PHPUnit\Event\InvalidArgumentException
      * @throws InvalidArgumentException
      */
-    private function duration(Event $event): float
-    {
+    private function duration(Event $event): float {
         if ($this->time === null) {
             return 0.0;
         }
 
-        return round($event->telemetryInfo()->time()->duration($this->time)->asFloat(), 3);
+        return round(
+            $event->telemetryInfo()->time()->duration($this->time)->asFloat(),
+            3,
+        );
     }
 
     /**
      * @throws EventFacadeIsSealedException
      * @throws UnknownSubscriberTypeException
      */
-    private function registerSubscribers(Facade $facade): void
-    {
+    private function registerSubscribers(Facade $facade): void {
         $facade->registerSubscribers(
             new TestSuiteStartedSubscriber($this),
             new TestSuiteFinishedSubscriber($this),

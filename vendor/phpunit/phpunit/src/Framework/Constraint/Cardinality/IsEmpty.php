@@ -19,22 +19,19 @@ use EmptyIterator;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class IsEmpty extends Constraint
-{
+final class IsEmpty extends Constraint {
     /**
      * Returns a string representation of the constraint.
      */
-    public function toString(): string
-    {
-        return 'is empty';
+    public function toString(): string {
+        return "is empty";
     }
 
     /**
      * Evaluates the constraint for parameter $other. Returns true if the
      * constraint is met, false otherwise.
      */
-    protected function matches(mixed $other): bool
-    {
+    protected function matches(mixed $other): bool {
         if ($other instanceof EmptyIterator) {
             return true;
         }
@@ -52,13 +49,14 @@ final class IsEmpty extends Constraint
      * The beginning of failure messages is "Failed asserting that" in most
      * cases. This method should return the second part of that sentence.
      */
-    protected function failureDescription(mixed $other): string
-    {
+    protected function failureDescription(mixed $other): string {
         $type = gettype($other);
 
         return sprintf(
-            '%s %s %s',
-            str_starts_with($type, 'a') || str_starts_with($type, 'o') ? 'an' : 'a',
+            "%s %s %s",
+            str_starts_with($type, "a") || str_starts_with($type, "o")
+                ? "an"
+                : "a",
             $type,
             $this->toString(),
         );

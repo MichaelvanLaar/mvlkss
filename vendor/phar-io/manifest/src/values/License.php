@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 /*
  * This file is part of PharIo\Manifest.
  *
@@ -19,7 +19,7 @@ class License {
 
     public function __construct(string $name, Url $url) {
         $this->name = $name;
-        $this->url  = $url;
+        $this->url = $url;
     }
 
     public function getName(): string {

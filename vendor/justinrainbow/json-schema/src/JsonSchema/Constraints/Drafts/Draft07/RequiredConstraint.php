@@ -10,18 +10,20 @@ use JsonSchema\Constraints\Factory;
 use JsonSchema\Entity\ErrorBagProxy;
 use JsonSchema\Entity\JsonPointer;
 
-class RequiredConstraint implements ConstraintInterface
-{
+class RequiredConstraint implements ConstraintInterface {
     use ErrorBagProxy;
 
-    public function __construct(?Factory $factory = null)
-    {
+    public function __construct(?Factory $factory = null) {
         $this->initialiseErrorBag($factory ?: new Factory());
     }
 
-    public function check(&$value, $schema = null, ?JsonPointer $path = null, $i = null): void
-    {
-        if (!property_exists($schema, 'required')) {
+    public function check(
+        &$value,
+        $schema = null,
+        ?JsonPointer $path = null,
+        $i = null,
+    ): void {
+        if (!property_exists($schema, "required")) {
             return;
         }
 
@@ -34,7 +36,11 @@ class RequiredConstraint implements ConstraintInterface
                 continue;
             }
 
-            $this->addError(ConstraintError::REQUIRED(), $this->incrementPath($path, $required), ['property' => $required]);
+            $this->addError(
+                ConstraintError::REQUIRED(),
+                $this->incrementPath($path, $required),
+                ["property" => $required],
+            );
         }
     }
 
@@ -45,14 +51,15 @@ class RequiredConstraint implements ConstraintInterface
      * @param JsonPointer|null $path Current path
      * @param mixed            $i    What to append to the path
      */
-    protected function incrementPath(?JsonPointer $path, $i): JsonPointer
-    {
-        $path = $path ?? new JsonPointer('');
+    protected function incrementPath(?JsonPointer $path, $i): JsonPointer {
+        $path = $path ?? new JsonPointer("");
 
-        if ($i === null || $i === '') {
+        if ($i === null || $i === "") {
             return $path;
         }
 
-        return $path->withPropertyPaths(array_merge($path->getPropertyPaths(), [$i]));
+        return $path->withPropertyPaths(
+            array_merge($path->getPropertyPaths(), [$i]),
+        );
     }
 }

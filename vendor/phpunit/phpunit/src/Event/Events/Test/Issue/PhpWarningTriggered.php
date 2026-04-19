@@ -21,8 +21,7 @@ use PHPUnit\Event\Telemetry;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class PhpWarningTriggered implements Event
-{
+final readonly class PhpWarningTriggered implements Event {
     private Telemetry\Info $telemetryInfo;
     private Test $test;
 
@@ -48,63 +47,62 @@ final readonly class PhpWarningTriggered implements Event
      * @param non-empty-string $file
      * @param positive-int     $line
      */
-    public function __construct(Telemetry\Info $telemetryInfo, Test $test, string $message, string $file, int $line, bool $suppressed, bool $ignoredByBaseline)
-    {
-        $this->telemetryInfo     = $telemetryInfo;
-        $this->test              = $test;
-        $this->message           = $message;
-        $this->file              = $file;
-        $this->line              = $line;
-        $this->suppressed        = $suppressed;
+    public function __construct(
+        Telemetry\Info $telemetryInfo,
+        Test $test,
+        string $message,
+        string $file,
+        int $line,
+        bool $suppressed,
+        bool $ignoredByBaseline,
+    ) {
+        $this->telemetryInfo = $telemetryInfo;
+        $this->test = $test;
+        $this->message = $message;
+        $this->file = $file;
+        $this->line = $line;
+        $this->suppressed = $suppressed;
         $this->ignoredByBaseline = $ignoredByBaseline;
     }
 
-    public function telemetryInfo(): Telemetry\Info
-    {
+    public function telemetryInfo(): Telemetry\Info {
         return $this->telemetryInfo;
     }
 
-    public function test(): Test
-    {
+    public function test(): Test {
         return $this->test;
     }
 
     /**
      * @return non-empty-string
      */
-    public function message(): string
-    {
+    public function message(): string {
         return $this->message;
     }
 
     /**
      * @return non-empty-string
      */
-    public function file(): string
-    {
+    public function file(): string {
         return $this->file;
     }
 
     /**
      * @return positive-int
      */
-    public function line(): int
-    {
+    public function line(): int {
         return $this->line;
     }
 
-    public function wasSuppressed(): bool
-    {
+    public function wasSuppressed(): bool {
         return $this->suppressed;
     }
 
-    public function ignoredByBaseline(): bool
-    {
+    public function ignoredByBaseline(): bool {
         return $this->ignoredByBaseline;
     }
 
-    public function asString(): string
-    {
+    public function asString(): string {
         $message = $this->message;
 
         if (!empty($message)) {
@@ -114,16 +112,16 @@ final readonly class PhpWarningTriggered implements Event
         $details = [$this->test->id()];
 
         if ($this->suppressed) {
-            $details[] = 'suppressed using operator';
+            $details[] = "suppressed using operator";
         }
 
         if ($this->ignoredByBaseline) {
-            $details[] = 'ignored by baseline';
+            $details[] = "ignored by baseline";
         }
 
         return sprintf(
-            'Test Triggered PHP Warning (%s) in %s:%d%s',
-            implode(', ', $details),
+            "Test Triggered PHP Warning (%s) in %s:%d%s",
+            implode(", ", $details),
             $this->file,
             $this->line,
             $message,

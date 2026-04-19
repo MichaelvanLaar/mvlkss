@@ -17,15 +17,9 @@ use RuntimeException;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class InvalidDirectoryException extends RuntimeException implements Exception
-{
-    public function __construct(string $directory)
-    {
-        parent::__construct(
-            sprintf(
-                '"%s" is not a directory',
-                $directory,
-            ),
-        );
+final class InvalidDirectoryException extends RuntimeException implements
+    Exception {
+    public function __construct(string $directory) {
+        parent::__construct(sprintf('"%s" is not a directory', $directory));
     }
 }

@@ -20,8 +20,7 @@ use PHPUnit\TestRunner\IssueFilter;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class Collector
-{
+final class Collector {
     private readonly IssueFilter $issueFilter;
 
     /**
@@ -38,8 +37,7 @@ final class Collector
      * @throws EventFacadeIsSealedException
      * @throws UnknownSubscriberTypeException
      */
-    public function __construct(Facade $facade, IssueFilter $issueFilter)
-    {
+    public function __construct(Facade $facade, IssueFilter $issueFilter) {
         $facade->registerSubscribers(
             new TestPreparedSubscriber($this),
             new TestTriggeredDeprecationSubscriber($this),
@@ -51,26 +49,24 @@ final class Collector
     /**
      * @return list<non-empty-string>
      */
-    public function deprecations(): array
-    {
+    public function deprecations(): array {
         return $this->deprecations;
     }
 
     /**
      * @return list<non-empty-string>
      */
-    public function filteredDeprecations(): array
-    {
+    public function filteredDeprecations(): array {
         return $this->filteredDeprecations;
     }
 
-    public function testPrepared(): void
-    {
+    public function testPrepared(): void {
         $this->deprecations = [];
     }
 
-    public function testTriggeredDeprecation(DeprecationTriggered $event): void
-    {
+    public function testTriggeredDeprecation(
+        DeprecationTriggered $event,
+    ): void {
         $this->deprecations[] = $event->message();
 
         if (!$this->issueFilter->shouldBeProcessed($event)) {

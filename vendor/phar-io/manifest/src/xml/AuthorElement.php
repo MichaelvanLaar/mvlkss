@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 /*
  * This file is part of PharIo\Manifest.
  *
@@ -12,14 +12,14 @@ namespace PharIo\Manifest;
 
 class AuthorElement extends ManifestElement {
     public function getName(): string {
-        return $this->getAttributeValue('name');
+        return $this->getAttributeValue("name");
     }
 
     public function getEmail(): string {
-        return $this->getAttributeValue('email');
+        return $this->getAttributeValue("email");
     }
 
     public function hasEMail(): bool {
-        return $this->hasAttribute('email');
+        return $this->hasAttribute("email");
     }
 }

@@ -15,21 +15,14 @@ namespace Symfony\Component\Yaml\Tag;
  * @author Nicolas Grekas <p@tchwork.com>
  * @author Guilhem N. <egetick@gmail.com>
  */
-final class TaggedValue
-{
-    public function __construct(
-        private string $tag,
-        private mixed $value,
-    ) {
-    }
+final class TaggedValue {
+    public function __construct(private string $tag, private mixed $value) {}
 
-    public function getTag(): string
-    {
+    public function getTag(): string {
         return $this->tag;
     }
 
-    public function getValue(): mixed
-    {
+    public function getValue(): mixed {
         return $this->value;
     }
 }

@@ -20,30 +20,29 @@ use PHPUnit\TestRunner\TestResult\PassedTests;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class JobRunnerRegistry
-{
+final class JobRunnerRegistry {
     private static ?JobRunner $runner = null;
 
-    public static function run(Job $job): Result
-    {
+    public static function run(Job $job): Result {
         return self::runner()->run($job);
     }
 
     /**
      * @param non-empty-string $processResultFile
      */
-    public static function runTestJob(Job $job, string $processResultFile, Test $test): void
-    {
+    public static function runTestJob(
+        Job $job,
+        string $processResultFile,
+        Test $test,
+    ): void {
         self::runner()->runTestJob($job, $processResultFile, $test);
     }
 
-    public static function set(JobRunner $runner): void
-    {
+    public static function set(JobRunner $runner): void {
         self::$runner = $runner;
     }
 
-    private static function runner(): JobRunner
-    {
+    private static function runner(): JobRunner {
         if (self::$runner === null) {
             self::$runner = new DefaultJobRunner(
                 new ChildProcessResultProcessor(

@@ -18,8 +18,7 @@ use function sort;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for this library
  */
-final class IntersectionType extends Type
-{
+final class IntersectionType extends Type {
     /**
      * @var non-empty-list<Type>
      */
@@ -28,8 +27,7 @@ final class IntersectionType extends Type
     /**
      * @throws RuntimeException
      */
-    public function __construct(Type ...$types)
-    {
+    public function __construct(Type ...$types) {
         $this->ensureMinimumOfTwoTypes(...$types);
         $this->ensureOnlyValidTypes(...$types);
         $this->ensureNoDuplicateTypes(...$types);
@@ -39,24 +37,21 @@ final class IntersectionType extends Type
         $this->types = $types;
     }
 
-    public function isAssignable(Type $other): bool
-    {
+    public function isAssignable(Type $other): bool {
         return $other->isObject();
     }
 
     /**
      * @return non-empty-string
      */
-    public function asString(): string
-    {
+    public function asString(): string {
         return $this->name();
     }
 
     /**
      * @return non-empty-string
      */
-    public function name(): string
-    {
+    public function name(): string {
         $types = [];
 
         foreach ($this->types as $type) {
@@ -65,35 +60,31 @@ final class IntersectionType extends Type
 
         sort($types);
 
-        return implode('&', $types);
+        return implode("&", $types);
     }
 
-    public function allowsNull(): bool
-    {
+    public function allowsNull(): bool {
         return false;
     }
 
-    public function isIntersection(): bool
-    {
+    public function isIntersection(): bool {
         return true;
     }
 
     /**
      * @return non-empty-list<Type>
      */
-    public function types(): array
-    {
+    public function types(): array {
         return $this->types;
     }
 
     /**
      * @throws RuntimeException
      */
-    private function ensureMinimumOfTwoTypes(Type ...$types): void
-    {
+    private function ensureMinimumOfTwoTypes(Type ...$types): void {
         if (count($types) < 2) {
             throw new RuntimeException(
-                'An intersection type must be composed of at least two types',
+                "An intersection type must be composed of at least two types",
             );
         }
     }
@@ -101,12 +92,11 @@ final class IntersectionType extends Type
     /**
      * @throws RuntimeException
      */
-    private function ensureOnlyValidTypes(Type ...$types): void
-    {
+    private function ensureOnlyValidTypes(Type ...$types): void {
         foreach ($types as $type) {
             if (!$type->isObject()) {
                 throw new RuntimeException(
-                    'An intersection type can only be composed of interfaces and classes',
+                    "An intersection type can only be composed of interfaces and classes",
                 );
             }
         }
@@ -115,8 +105,7 @@ final class IntersectionType extends Type
     /**
      * @throws RuntimeException
      */
-    private function ensureNoDuplicateTypes(Type ...$types): void
-    {
+    private function ensureNoDuplicateTypes(Type ...$types): void {
         $names = [];
 
         foreach ($types as $type) {
@@ -125,7 +114,9 @@ final class IntersectionType extends Type
             $classQualifiedName = $type->className()->qualifiedName();
 
             if (in_array($classQualifiedName, $names, true)) {
-                throw new RuntimeException('An intersection type must not contain duplicate types');
+                throw new RuntimeException(
+                    "An intersection type must not contain duplicate types",
+                );
             }
 
             $names[] = $classQualifiedName;

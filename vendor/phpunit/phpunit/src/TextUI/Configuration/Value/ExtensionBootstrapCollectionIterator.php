@@ -17,8 +17,7 @@ use Iterator;
  *
  * @template-implements Iterator<non-negative-int, ExtensionBootstrap>
  */
-final class ExtensionBootstrapCollectionIterator implements Iterator
-{
+final class ExtensionBootstrapCollectionIterator implements Iterator {
     /**
      * @var list<ExtensionBootstrap>
      */
@@ -29,36 +28,32 @@ final class ExtensionBootstrapCollectionIterator implements Iterator
      */
     private int $position = 0;
 
-    public function __construct(ExtensionBootstrapCollection $extensionBootstraps)
-    {
+    public function __construct(
+        ExtensionBootstrapCollection $extensionBootstraps,
+    ) {
         $this->extensionBootstraps = $extensionBootstraps->asArray();
     }
 
-    public function rewind(): void
-    {
+    public function rewind(): void {
         $this->position = 0;
     }
 
-    public function valid(): bool
-    {
+    public function valid(): bool {
         return $this->position < count($this->extensionBootstraps);
     }
 
     /**
      * @return non-negative-int
      */
-    public function key(): int
-    {
+    public function key(): int {
         return $this->position;
     }
 
-    public function current(): ExtensionBootstrap
-    {
+    public function current(): ExtensionBootstrap {
         return $this->extensionBootstraps[$this->position];
     }
 
-    public function next(): void
-    {
+    public function next(): void {
         $this->position++;
     }
 }

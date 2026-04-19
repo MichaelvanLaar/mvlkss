@@ -22,23 +22,24 @@ use PHPUnit\Framework\Test;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-abstract readonly class JobRunner
-{
+abstract readonly class JobRunner {
     private ChildProcessResultProcessor $processor;
 
-    public function __construct(ChildProcessResultProcessor $processor)
-    {
+    public function __construct(ChildProcessResultProcessor $processor) {
         $this->processor = $processor;
     }
 
     /**
      * @param non-empty-string $processResultFile
      */
-    final public function runTestJob(Job $job, string $processResultFile, Test $test): void
-    {
+    final public function runTestJob(
+        Job $job,
+        string $processResultFile,
+        Test $test,
+    ): void {
         $result = $this->run($job);
 
-        $processResult = '';
+        $processResult = "";
 
         if (is_file($processResultFile)) {
             $processResult = file_get_contents($processResultFile);
@@ -48,13 +49,12 @@ abstract readonly class JobRunner
             @unlink($processResultFile);
         }
 
-        $this->processor->process(
-            $test,
-            $processResult,
+        $this->processor->process($test, $processResult, $result->stderr());
+
+        EventFacade::emitter()->testRunnerFinishedChildProcess(
+            $result->stdout(),
             $result->stderr(),
         );
-
-        EventFacade::emitter()->testRunnerFinishedChildProcess($result->stdout(), $result->stderr());
     }
 
     abstract public function run(Job $job): Result;

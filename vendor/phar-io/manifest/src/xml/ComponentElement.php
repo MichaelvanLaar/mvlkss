@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 /*
  * This file is part of PharIo\Manifest.
  *
@@ -12,10 +12,10 @@ namespace PharIo\Manifest;
 
 class ComponentElement extends ManifestElement {
     public function getName(): string {
-        return $this->getAttributeValue('name');
+        return $this->getAttributeValue("name");
     }
 
     public function getVersion(): string {
-        return $this->getAttributeValue('version');
+        return $this->getAttributeValue("version");
     }
 }

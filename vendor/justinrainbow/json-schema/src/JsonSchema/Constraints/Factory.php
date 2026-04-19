@@ -22,8 +22,7 @@ use JsonSchema\Validator;
 /**
  * Factory for centralize constraint initialization.
  */
-class Factory
-{
+class Factory {
     /**
      * @var SchemaStorageInterface
      */
@@ -62,20 +61,20 @@ class Factory
      * @var array
      */
     protected $constraintMap = [
-        'array' => 'JsonSchema\Constraints\CollectionConstraint',
-        'collection' => 'JsonSchema\Constraints\CollectionConstraint',
-        'object' => 'JsonSchema\Constraints\ObjectConstraint',
-        'type' => 'JsonSchema\Constraints\TypeConstraint',
-        'undefined' => 'JsonSchema\Constraints\UndefinedConstraint',
-        'string' => 'JsonSchema\Constraints\StringConstraint',
-        'number' => 'JsonSchema\Constraints\NumberConstraint',
-        'enum' => 'JsonSchema\Constraints\EnumConstraint',
-        'const' => 'JsonSchema\Constraints\ConstConstraint',
-        'format' => 'JsonSchema\Constraints\FormatConstraint',
-        'schema' => 'JsonSchema\Constraints\SchemaConstraint',
-        'validator' => 'JsonSchema\Validator',
-        'draft06' => Drafts\Draft06\Draft06Constraint::class,
-        'draft07' => Drafts\Draft07\Draft07Constraint::class,
+        "array" => "JsonSchema\Constraints\CollectionConstraint",
+        "collection" => "JsonSchema\Constraints\CollectionConstraint",
+        "object" => "JsonSchema\Constraints\ObjectConstraint",
+        "type" => "JsonSchema\Constraints\TypeConstraint",
+        "undefined" => "JsonSchema\Constraints\UndefinedConstraint",
+        "string" => "JsonSchema\Constraints\StringConstraint",
+        "number" => "JsonSchema\Constraints\NumberConstraint",
+        "enum" => "JsonSchema\Constraints\EnumConstraint",
+        "const" => "JsonSchema\Constraints\ConstConstraint",
+        "format" => "JsonSchema\Constraints\FormatConstraint",
+        "schema" => "JsonSchema\Constraints\SchemaConstraint",
+        "validator" => "JsonSchema\Validator",
+        "draft06" => Drafts\Draft06\Draft06Constraint::class,
+        "draft07" => Drafts\Draft07\Draft07Constraint::class,
     ];
 
     /**
@@ -89,13 +88,14 @@ class Factory
     public function __construct(
         ?SchemaStorageInterface $schemaStorage = null,
         ?UriRetrieverInterface $uriRetriever = null,
-        int $checkMode = Constraint::CHECK_MODE_NORMAL
+        int $checkMode = Constraint::CHECK_MODE_NORMAL,
     ) {
         // set provided config options
         $this->setConfig($checkMode);
 
         $this->uriRetriever = $uriRetriever ?: new UriRetriever();
-        $this->schemaStorage = $schemaStorage ?: new SchemaStorage($this->uriRetriever);
+        $this->schemaStorage =
+            $schemaStorage ?: new SchemaStorage($this->uriRetriever);
     }
 
     /**
@@ -104,8 +104,9 @@ class Factory
      * @param int $checkMode Set checkMode options - does not preserve existing flags
      * @phpstan-param int-mask-of<Constraint::CHECK_MODE_*> $checkMode
      */
-    public function setConfig(int $checkMode = Constraint::CHECK_MODE_NORMAL): void
-    {
+    public function setConfig(
+        int $checkMode = Constraint::CHECK_MODE_NORMAL,
+    ): void {
         $this->checkMode = $checkMode;
     }
 
@@ -114,8 +115,7 @@ class Factory
      *
      * @phpstan-param int-mask-of<Constraint::CHECK_MODE_*> $options
      */
-    public function addConfig(int $options): void
-    {
+    public function addConfig(int $options): void {
         $this->checkMode |= $options;
     }
 
@@ -124,8 +124,7 @@ class Factory
      *
      * @phpstan-param int-mask-of<Constraint::CHECK_MODE_*> $options
      */
-    public function removeConfig(int $options): void
-    {
+    public function removeConfig(int $options): void {
         $this->checkMode &= ~$options;
     }
 
@@ -137,8 +136,7 @@ class Factory
      *
      * @phpstan-return int-mask-of<Constraint::CHECK_MODE_*>
      */
-    public function getConfig(?int $options = null): int
-    {
+    public function getConfig(?int $options = null): int {
         if ($options === null) {
             return $this->checkMode;
         }
@@ -146,36 +144,38 @@ class Factory
         return $this->checkMode & $options;
     }
 
-    public function getUriRetriever(): UriRetrieverInterface
-    {
+    public function getUriRetriever(): UriRetrieverInterface {
         return $this->uriRetriever;
     }
 
-    public function getSchemaStorage(): SchemaStorageInterface
-    {
+    public function getSchemaStorage(): SchemaStorageInterface {
         return $this->schemaStorage;
     }
 
-    public function getTypeCheck(): TypeCheck\TypeCheckInterface
-    {
+    public function getTypeCheck(): TypeCheck\TypeCheckInterface {
         if (!isset($this->typeCheck[$this->checkMode])) {
-            $this->typeCheck[$this->checkMode] = ($this->checkMode & Constraint::CHECK_MODE_TYPE_CAST)
-                ? new TypeCheck\LooseTypeCheck()
-                : new TypeCheck\StrictTypeCheck();
+            $this->typeCheck[$this->checkMode] =
+                $this->checkMode & Constraint::CHECK_MODE_TYPE_CAST
+                    ? new TypeCheck\LooseTypeCheck()
+                    : new TypeCheck\StrictTypeCheck();
         }
 
         return $this->typeCheck[$this->checkMode];
     }
 
-    public function setConstraintClass(string $name, string $class): Factory
-    {
+    public function setConstraintClass(string $name, string $class): Factory {
         // Ensure class exists
         if (!class_exists($class)) {
-            throw new InvalidArgumentException('Unknown constraint ' . $name);
+            throw new InvalidArgumentException("Unknown constraint " . $name);
         }
         // Ensure class is appropriate
-        if (!in_array('JsonSchema\Constraints\ConstraintInterface', class_implements($class))) {
-            throw new InvalidArgumentException('Invalid class ' . $name);
+        if (
+            !in_array(
+                "JsonSchema\Constraints\ConstraintInterface",
+                class_implements($class),
+            )
+        ) {
+            throw new InvalidArgumentException("Invalid class " . $name);
         }
         $this->constraintMap[$name] = $class;
 
@@ -192,14 +192,17 @@ class Factory
      * @return ConstraintInterface&BaseConstraint
      * @phpstan-return ConstraintInterface&BaseConstraint
      */
-    public function createInstanceFor($constraintName)
-    {
+    public function createInstanceFor($constraintName) {
         if (!isset($this->constraintMap[$constraintName])) {
-            throw new InvalidArgumentException('Unknown constraint ' . $constraintName);
+            throw new InvalidArgumentException(
+                "Unknown constraint " . $constraintName,
+            );
         }
 
         if (!isset($this->instanceCache[$constraintName])) {
-            $this->instanceCache[$constraintName] = new $this->constraintMap[$constraintName]($this);
+            $this->instanceCache[$constraintName] = new ($this->constraintMap[
+                $constraintName
+            ])($this);
         }
 
         return clone $this->instanceCache[$constraintName];
@@ -210,8 +213,7 @@ class Factory
      *
      * @return int-mask-of<Validator::ERROR_*>
      */
-    public function getErrorContext(): int
-    {
+    public function getErrorContext(): int {
         return $this->errorContext;
     }
 
@@ -220,18 +222,15 @@ class Factory
      *
      * @param int-mask-of<Validator::ERROR_*> $errorContext
      */
-    public function setErrorContext(int $errorContext): void
-    {
+    public function setErrorContext(int $errorContext): void {
         $this->errorContext = $errorContext;
     }
 
-    public function getDefaultDialect(): string
-    {
+    public function getDefaultDialect(): string {
         return $this->defaultDialect;
     }
 
-    public function setDefaultDialect(string $defaultDialect): void
-    {
+    public function setDefaultDialect(string $defaultDialect): void {
         $this->defaultDialect = $defaultDialect;
     }
 }

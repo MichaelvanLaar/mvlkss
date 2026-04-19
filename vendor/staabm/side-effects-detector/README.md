@@ -26,11 +26,14 @@ In case functions are called which are not known to have side-effects - e.g. use
 ```php
 use staabm\SideEffectsDetector\SideEffectsDetector;
 
-$code = '<?php userlandFunction();';
+$code = '<?php
+userlandFunction();
+';
 
 $detector = new SideEffectsDetector();
 // [SideEffect::MAYBE]
-var_dump($detector->getSideEffects($code));
+var_dump($detector->getSideEffects($code));';
+
 ```
 
 Code might have multiple side-effects:
@@ -38,17 +41,22 @@ Code might have multiple side-effects:
 ```php
 use staabm\SideEffectsDetector\SideEffectsDetector;
 
-$code = '<?php include "some-file.php"; echo "hello world"; exit(1);';
+$code = '<?php
+include "some-file.php";
+echo "hello world";
+exit(1);
+';
 
 $detector = new SideEffectsDetector();
 // [SideEffect::SCOPE_POLLUTION, SideEffect::STANDARD_OUTPUT, SideEffect::PROCESS_EXIT]
-var_dump($detector->getSideEffects($code));
-```
+var_dump($detector->getSideEffects($code));';
 
+```
 
 ## Disclaimer
 
 Non goals are:
+
 - find the best possible answer for all cases
 - add runtime dependencies
 

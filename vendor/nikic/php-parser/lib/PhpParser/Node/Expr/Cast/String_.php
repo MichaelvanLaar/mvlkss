@@ -10,6 +10,6 @@ class String_ extends Cast {
     public const KIND_BINARY = 2; // "binary" syntax
 
     public function getType(): string {
-        return 'Expr_Cast_String';
+        return "Expr_Cast_String";
     }
 }

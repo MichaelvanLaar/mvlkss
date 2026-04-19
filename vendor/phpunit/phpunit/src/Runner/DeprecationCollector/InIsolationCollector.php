@@ -17,8 +17,7 @@ use PHPUnit\TestRunner\IssueFilter;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class InIsolationCollector
-{
+final class InIsolationCollector {
     private readonly IssueFilter $issueFilter;
 
     /**
@@ -31,29 +30,27 @@ final class InIsolationCollector
      */
     private array $filteredDeprecations = [];
 
-    public function __construct(IssueFilter $issueFilter)
-    {
+    public function __construct(IssueFilter $issueFilter) {
         $this->issueFilter = $issueFilter;
     }
 
     /**
      * @return list<non-empty-string>
      */
-    public function deprecations(): array
-    {
+    public function deprecations(): array {
         return $this->deprecations;
     }
 
     /**
      * @return list<non-empty-string>
      */
-    public function filteredDeprecations(): array
-    {
+    public function filteredDeprecations(): array {
         return $this->filteredDeprecations;
     }
 
-    public function testTriggeredDeprecation(DeprecationTriggered $event): void
-    {
+    public function testTriggeredDeprecation(
+        DeprecationTriggered $event,
+    ): void {
         $this->deprecations[] = $event->message();
 
         if (!$this->issueFilter->shouldBeProcessed($event)) {

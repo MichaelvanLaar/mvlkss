@@ -23,8 +23,7 @@ use ReflectionMethod;
 /**
  * @immutable
  */
-abstract readonly class CodeUnit
-{
+abstract readonly class CodeUnit {
     /**
      * @var non-empty-string
      */
@@ -46,8 +45,7 @@ abstract readonly class CodeUnit
      * @throws InvalidCodeUnitException
      * @throws ReflectionException
      */
-    public static function forClass(string $className): ClassUnit
-    {
+    public static function forClass(string $className): ClassUnit {
         self::ensureUserDefinedClass($className);
 
         $reflector = new ReflectionClass($className);
@@ -71,14 +69,16 @@ abstract readonly class CodeUnit
      * @throws InvalidCodeUnitException
      * @throws ReflectionException
      */
-    public static function forClassMethod(string $className, string $methodName): ClassMethodUnit
-    {
+    public static function forClassMethod(
+        string $className,
+        string $methodName,
+    ): ClassMethodUnit {
         self::ensureUserDefinedClass($className);
 
         $reflector = self::reflectorForClassMethod($className, $methodName);
 
         return new ClassMethodUnit(
-            $className . '::' . $methodName,
+            $className . "::" . $methodName,
             // @phpstan-ignore argument.type
             $reflector->getFileName(),
             range(
@@ -95,22 +95,14 @@ abstract readonly class CodeUnit
      *
      * @throws InvalidCodeUnitException
      */
-    public static function forFileWithAbsolutePath(string $path): FileUnit
-    {
+    public static function forFileWithAbsolutePath(string $path): FileUnit {
         self::ensureFileExistsAndIsReadable($path);
 
         $lines = file($path);
 
         assert($lines !== false);
 
-        return new FileUnit(
-            $path,
-            $path,
-            range(
-                1,
-                count($lines),
-            ),
-        );
+        return new FileUnit($path, $path, range(1, count($lines)));
     }
 
     /**
@@ -119,8 +111,7 @@ abstract readonly class CodeUnit
      * @throws InvalidCodeUnitException
      * @throws ReflectionException
      */
-    public static function forInterface(string $interfaceName): InterfaceUnit
-    {
+    public static function forInterface(string $interfaceName): InterfaceUnit {
         self::ensureUserDefinedInterface($interfaceName);
 
         $reflector = new ReflectionClass($interfaceName);
@@ -144,14 +135,16 @@ abstract readonly class CodeUnit
      * @throws InvalidCodeUnitException
      * @throws ReflectionException
      */
-    public static function forInterfaceMethod(string $interfaceName, string $methodName): InterfaceMethodUnit
-    {
+    public static function forInterfaceMethod(
+        string $interfaceName,
+        string $methodName,
+    ): InterfaceMethodUnit {
         self::ensureUserDefinedInterface($interfaceName);
 
         $reflector = self::reflectorForClassMethod($interfaceName, $methodName);
 
         return new InterfaceMethodUnit(
-            $interfaceName . '::' . $methodName,
+            $interfaceName . "::" . $methodName,
             // @phpstan-ignore argument.type
             $reflector->getFileName(),
             range(
@@ -169,8 +162,7 @@ abstract readonly class CodeUnit
      * @throws InvalidCodeUnitException
      * @throws ReflectionException
      */
-    public static function forTrait(string $traitName): TraitUnit
-    {
+    public static function forTrait(string $traitName): TraitUnit {
         self::ensureUserDefinedTrait($traitName);
 
         $reflector = new ReflectionClass($traitName);
@@ -194,14 +186,16 @@ abstract readonly class CodeUnit
      * @throws InvalidCodeUnitException
      * @throws ReflectionException
      */
-    public static function forTraitMethod(string $traitName, string $methodName): TraitMethodUnit
-    {
+    public static function forTraitMethod(
+        string $traitName,
+        string $methodName,
+    ): TraitMethodUnit {
         self::ensureUserDefinedTrait($traitName);
 
         $reflector = self::reflectorForClassMethod($traitName, $methodName);
 
         return new TraitMethodUnit(
-            $traitName . '::' . $methodName,
+            $traitName . "::" . $methodName,
             // @phpstan-ignore argument.type
             $reflector->getFileName(),
             range(
@@ -219,16 +213,12 @@ abstract readonly class CodeUnit
      * @throws InvalidCodeUnitException
      * @throws ReflectionException
      */
-    public static function forFunction(string $functionName): FunctionUnit
-    {
+    public static function forFunction(string $functionName): FunctionUnit {
         $reflector = self::reflectorForFunction($functionName);
 
         if (!$reflector->isUserDefined()) {
             throw new InvalidCodeUnitException(
-                sprintf(
-                    '"%s" is not a user-defined function',
-                    $functionName,
-                ),
+                sprintf('"%s" is not a user-defined function', $functionName),
             );
         }
 
@@ -251,98 +241,90 @@ abstract readonly class CodeUnit
      * @param non-empty-string $sourceFileName
      * @param list<int>        $sourceLines
      */
-    private function __construct(string $name, string $sourceFileName, array $sourceLines)
-    {
-        $this->name           = $name;
+    private function __construct(
+        string $name,
+        string $sourceFileName,
+        array $sourceLines,
+    ) {
+        $this->name = $name;
         $this->sourceFileName = $sourceFileName;
-        $this->sourceLines    = $sourceLines;
+        $this->sourceLines = $sourceLines;
     }
 
     /**
      * @return non-empty-string
      */
-    public function name(): string
-    {
+    public function name(): string {
         return $this->name;
     }
 
     /**
      * @return non-empty-string
      */
-    public function sourceFileName(): string
-    {
+    public function sourceFileName(): string {
         return $this->sourceFileName;
     }
 
     /**
      * @return list<int>
      */
-    public function sourceLines(): array
-    {
+    public function sourceLines(): array {
         return $this->sourceLines;
     }
 
     /**
      * @phpstan-assert-if-true ClassUnit $this
      */
-    public function isClass(): bool
-    {
+    public function isClass(): bool {
         return false;
     }
 
     /**
      * @phpstan-assert-if-true ClassMethodUnit $this
      */
-    public function isClassMethod(): bool
-    {
+    public function isClassMethod(): bool {
         return false;
     }
 
     /**
      * @phpstan-assert-if-true InterfaceUnit $this
      */
-    public function isInterface(): bool
-    {
+    public function isInterface(): bool {
         return false;
     }
 
     /**
      * @phpstan-assert-if-true InterfaceMethodUnit $this
      */
-    public function isInterfaceMethod(): bool
-    {
+    public function isInterfaceMethod(): bool {
         return false;
     }
 
     /**
      * @phpstan-assert-if-true TraitUnit $this
      */
-    public function isTrait(): bool
-    {
+    public function isTrait(): bool {
         return false;
     }
 
     /**
      * @phpstan-assert-if-true TraitMethodUnit $this
      */
-    public function isTraitMethod(): bool
-    {
+    public function isTraitMethod(): bool {
         return false;
     }
 
     /**
      * @phpstan-assert-if-true FunctionUnit $this
      */
-    public function isFunction(): bool
-    {
+    public function isFunction(): bool {
         return false;
     }
 
     /**
      * @phpstan-assert-if-true FileUnit $this
      */
-    public function isFile(): bool
-    {
+    public function isFile(): bool {
         return false;
     }
 
@@ -351,14 +333,10 @@ abstract readonly class CodeUnit
      *
      * @throws InvalidCodeUnitException
      */
-    private static function ensureFileExistsAndIsReadable(string $path): void
-    {
+    private static function ensureFileExistsAndIsReadable(string $path): void {
         if (!(file_exists($path) && is_readable($path))) {
             throw new InvalidCodeUnitException(
-                sprintf(
-                    'File "%s" does not exist or is not readable',
-                    $path,
-                ),
+                sprintf('File "%s" does not exist or is not readable', $path),
             );
         }
     }
@@ -368,44 +346,30 @@ abstract readonly class CodeUnit
      *
      * @throws InvalidCodeUnitException
      */
-    private static function ensureUserDefinedClass(string $className): void
-    {
+    private static function ensureUserDefinedClass(string $className): void {
         try {
             $reflector = new ReflectionClass($className);
 
             if ($reflector->isInterface()) {
                 throw new InvalidCodeUnitException(
-                    sprintf(
-                        '"%s" is an interface and not a class',
-                        $className,
-                    ),
+                    sprintf('"%s" is an interface and not a class', $className),
                 );
             }
 
             if ($reflector->isTrait()) {
                 throw new InvalidCodeUnitException(
-                    sprintf(
-                        '"%s" is a trait and not a class',
-                        $className,
-                    ),
+                    sprintf('"%s" is a trait and not a class', $className),
                 );
             }
 
             if (!$reflector->isUserDefined()) {
                 throw new InvalidCodeUnitException(
-                    sprintf(
-                        '"%s" is not a user-defined class',
-                        $className,
-                    ),
+                    sprintf('"%s" is not a user-defined class', $className),
                 );
             }
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new ReflectionException(
-                $e->getMessage(),
-                $e->getCode(),
-                $e,
-            );
+            throw new ReflectionException($e->getMessage(), $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
     }
@@ -415,17 +379,15 @@ abstract readonly class CodeUnit
      *
      * @throws InvalidCodeUnitException
      */
-    private static function ensureUserDefinedInterface(string $interfaceName): void
-    {
+    private static function ensureUserDefinedInterface(
+        string $interfaceName,
+    ): void {
         try {
             $reflector = new ReflectionClass($interfaceName);
 
             if (!$reflector->isInterface()) {
                 throw new InvalidCodeUnitException(
-                    sprintf(
-                        '"%s" is not an interface',
-                        $interfaceName,
-                    ),
+                    sprintf('"%s" is not an interface', $interfaceName),
                 );
             }
 
@@ -439,11 +401,7 @@ abstract readonly class CodeUnit
             }
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new ReflectionException(
-                $e->getMessage(),
-                $e->getCode(),
-                $e,
-            );
+            throw new ReflectionException($e->getMessage(), $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
     }
@@ -453,35 +411,24 @@ abstract readonly class CodeUnit
      *
      * @throws InvalidCodeUnitException
      */
-    private static function ensureUserDefinedTrait(string $traitName): void
-    {
+    private static function ensureUserDefinedTrait(string $traitName): void {
         try {
             $reflector = new ReflectionClass($traitName);
 
             if (!$reflector->isTrait()) {
                 throw new InvalidCodeUnitException(
-                    sprintf(
-                        '"%s" is not a trait',
-                        $traitName,
-                    ),
+                    sprintf('"%s" is not a trait', $traitName),
                 );
             }
 
             // @codeCoverageIgnoreStart
             if (!$reflector->isUserDefined()) {
                 throw new InvalidCodeUnitException(
-                    sprintf(
-                        '"%s" is not a user-defined trait',
-                        $traitName,
-                    ),
+                    sprintf('"%s" is not a user-defined trait', $traitName),
                 );
             }
         } catch (\ReflectionException $e) {
-            throw new ReflectionException(
-                $e->getMessage(),
-                $e->getCode(),
-                $e,
-            );
+            throw new ReflectionException($e->getMessage(), $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
     }
@@ -491,17 +438,15 @@ abstract readonly class CodeUnit
      *
      * @throws ReflectionException
      */
-    private static function reflectorForClassMethod(string $className, string $methodName): ReflectionMethod
-    {
+    private static function reflectorForClassMethod(
+        string $className,
+        string $methodName,
+    ): ReflectionMethod {
         try {
             return new ReflectionMethod($className, $methodName);
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new ReflectionException(
-                $e->getMessage(),
-                $e->getCode(),
-                $e,
-            );
+            throw new ReflectionException($e->getMessage(), $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
     }
@@ -511,17 +456,14 @@ abstract readonly class CodeUnit
      *
      * @throws ReflectionException
      */
-    private static function reflectorForFunction(string $functionName): ReflectionFunction
-    {
+    private static function reflectorForFunction(
+        string $functionName,
+    ): ReflectionFunction {
         try {
             return new ReflectionFunction($functionName);
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new ReflectionException(
-                $e->getMessage(),
-                $e->getCode(),
-                $e,
-            );
+            throw new ReflectionException($e->getMessage(), $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
     }

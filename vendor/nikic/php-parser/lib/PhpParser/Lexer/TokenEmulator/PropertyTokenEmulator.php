@@ -10,7 +10,7 @@ final class PropertyTokenEmulator extends KeywordEmulator {
     }
 
     public function getKeywordString(): string {
-        return '__property__';
+        return "__property__";
     }
 
     public function getKeywordToken(): int {

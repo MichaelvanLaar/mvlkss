@@ -14,8 +14,7 @@ namespace PHPUnit\TextUI\Configuration;
  *
  * @immutable
  */
-final readonly class TestSuite
-{
+final readonly class TestSuite {
     /**
      * @var non-empty-string
      */
@@ -27,34 +26,34 @@ final readonly class TestSuite
     /**
      * @param non-empty-string $name
      */
-    public function __construct(string $name, TestDirectoryCollection $directories, TestFileCollection $files, FileCollection $exclude)
-    {
-        $this->name        = $name;
+    public function __construct(
+        string $name,
+        TestDirectoryCollection $directories,
+        TestFileCollection $files,
+        FileCollection $exclude,
+    ) {
+        $this->name = $name;
         $this->directories = $directories;
-        $this->files       = $files;
-        $this->exclude     = $exclude;
+        $this->files = $files;
+        $this->exclude = $exclude;
     }
 
     /**
      * @return non-empty-string
      */
-    public function name(): string
-    {
+    public function name(): string {
         return $this->name;
     }
 
-    public function directories(): TestDirectoryCollection
-    {
+    public function directories(): TestDirectoryCollection {
         return $this->directories;
     }
 
-    public function files(): TestFileCollection
-    {
+    public function files(): TestFileCollection {
         return $this->files;
     }
 
-    public function exclude(): FileCollection
-    {
+    public function exclude(): FileCollection {
         return $this->exclude;
     }
 }

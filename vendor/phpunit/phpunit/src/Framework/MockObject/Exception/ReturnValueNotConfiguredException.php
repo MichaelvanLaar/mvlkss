@@ -16,13 +16,13 @@ use function sprintf;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class ReturnValueNotConfiguredException extends \PHPUnit\Framework\Exception implements Exception
-{
-    public function __construct(Invocation $invocation)
-    {
+final class ReturnValueNotConfiguredException
+    extends \PHPUnit\Framework\Exception
+    implements Exception {
+    public function __construct(Invocation $invocation) {
         parent::__construct(
             sprintf(
-                'No return value is configured for %s::%s() and return value generation is disabled',
+                "No return value is configured for %s::%s() and return value generation is disabled",
                 $invocation->className(),
                 $invocation->methodName(),
             ),

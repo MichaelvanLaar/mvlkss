@@ -16,17 +16,14 @@ use PHPUnit\Framework\MockObject\Invocation;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class ReturnArgument implements Stub
-{
+final readonly class ReturnArgument implements Stub {
     private int $argumentIndex;
 
-    public function __construct(int $argumentIndex)
-    {
+    public function __construct(int $argumentIndex) {
         $this->argumentIndex = $argumentIndex;
     }
 
-    public function invoke(Invocation $invocation): mixed
-    {
+    public function invoke(Invocation $invocation): mixed {
         return $invocation->parameters()[$this->argumentIndex] ?? null;
     }
 }

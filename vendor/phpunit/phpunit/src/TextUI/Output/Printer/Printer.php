@@ -14,8 +14,7 @@ namespace PHPUnit\TextUI\Output;
  *
  * @internal This interface is not covered by the backward compatibility promise for PHPUnit
  */
-interface Printer
-{
+interface Printer {
     public function print(string $buffer): void;
 
     public function flush(): void;

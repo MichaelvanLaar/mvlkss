@@ -40,23 +40,22 @@ use Throwable;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-class Exception extends RuntimeException implements \PHPUnit\Exception
-{
+class Exception extends RuntimeException implements \PHPUnit\Exception {
     /**
      * @var list<array{file?: string, line?: int, function: string}>
      */
     protected array $serializableTrace;
 
-    public function __construct(string $message = '', int|string $code = 0, ?Throwable $previous = null)
-    {
+    public function __construct(
+        string $message = "",
+        int|string $code = 0,
+        ?Throwable $previous = null,
+    ) {
         /**
          * @see https://github.com/sebastianbergmann/phpunit/issues/5965
          */
         if (!is_int($code)) {
-            $message .= sprintf(
-                ' (exception code: %s)',
-                $code,
-            );
+            $message .= sprintf(" (exception code: %s)", $code);
 
             $code = 0;
         }
@@ -66,12 +65,11 @@ class Exception extends RuntimeException implements \PHPUnit\Exception
         $this->serializableTrace = $this->getTrace();
 
         foreach (array_keys($this->serializableTrace) as $key) {
-            unset($this->serializableTrace[$key]['args']);
+            unset($this->serializableTrace[$key]["args"]);
         }
     }
 
-    public function __serialize(): array
-    {
+    public function __serialize(): array {
         return get_object_vars($this);
     }
 
@@ -80,8 +78,7 @@ class Exception extends RuntimeException implements \PHPUnit\Exception
      *
      * @return list<array{file?: string, line?: int, function: string}>
      */
-    public function getSerializableTrace(): array
-    {
+    public function getSerializableTrace(): array {
         return $this->serializableTrace;
     }
 }

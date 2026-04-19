@@ -18,8 +18,7 @@ use SplFileInfo;
 /**
  * @internal This class is not covered by the backward compatibility promise for phpunit/php-file-iterator
  */
-final class ExcludeIterator extends RecursiveFilterIterator
-{
+final class ExcludeIterator extends RecursiveFilterIterator {
     /**
      * @var list<string>
      */
@@ -28,15 +27,16 @@ final class ExcludeIterator extends RecursiveFilterIterator
     /**
      * @param list<string> $exclude
      */
-    public function __construct(RecursiveDirectoryIterator $iterator, array $exclude)
-    {
+    public function __construct(
+        RecursiveDirectoryIterator $iterator,
+        array $exclude,
+    ) {
         parent::__construct($iterator);
 
         $this->exclude = $exclude;
     }
 
-    public function accept(): bool
-    {
+    public function accept(): bool {
         $current = $this->current();
 
         assert($current instanceof SplFileInfo);
@@ -56,21 +56,18 @@ final class ExcludeIterator extends RecursiveFilterIterator
         return true;
     }
 
-    public function hasChildren(): bool
-    {
+    public function hasChildren(): bool {
         return $this->getInnerIterator()->hasChildren();
     }
 
-    public function getChildren(): self
-    {
+    public function getChildren(): self {
         return new self(
             $this->getInnerIterator()->getChildren(),
             $this->exclude,
         );
     }
 
-    public function getInnerIterator(): RecursiveDirectoryIterator
-    {
+    public function getInnerIterator(): RecursiveDirectoryIterator {
         $innerIterator = parent::getInnerIterator();
 
         assert($innerIterator instanceof RecursiveDirectoryIterator);

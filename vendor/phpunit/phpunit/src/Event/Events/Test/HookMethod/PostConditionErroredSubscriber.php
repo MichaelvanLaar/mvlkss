@@ -14,7 +14,6 @@ use PHPUnit\Event\Subscriber;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-interface PostConditionErroredSubscriber extends Subscriber
-{
+interface PostConditionErroredSubscriber extends Subscriber {
     public function notify(PostConditionErrored $event): void;
 }

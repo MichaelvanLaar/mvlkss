@@ -13,14 +13,13 @@ declare(strict_types=1);
 
 namespace Ergebnis\Json\Printer;
 
-interface PrinterInterface
-{
+interface PrinterInterface {
     /**
      * @throws \InvalidArgumentException
      */
     public function print(
         string $json,
-        string $indent = '    ',
-        string $newLine = \PHP_EOL
+        string $indent = "    ",
+        string $newLine = \PHP_EOL,
     ): string;
 }

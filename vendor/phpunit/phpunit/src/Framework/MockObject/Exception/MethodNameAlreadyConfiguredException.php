@@ -14,10 +14,10 @@ namespace PHPUnit\Framework\MockObject;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class MethodNameAlreadyConfiguredException extends \PHPUnit\Framework\Exception implements Exception
-{
-    public function __construct()
-    {
-        parent::__construct('Method name is already configured');
+final class MethodNameAlreadyConfiguredException
+    extends \PHPUnit\Framework\Exception
+    implements Exception {
+    public function __construct() {
+        parent::__construct("Method name is already configured");
     }
 }

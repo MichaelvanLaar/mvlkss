@@ -17,15 +17,16 @@ use PhpCsFixer\Tokenizer\Token;
  *
  */
 class PhpdocSingleLineVarFixer implements FixerInterface {
-
     public function getDefinition(): FixerDefinition {
         return new FixerDefinition(
-            '`@var` annotation must be in single line when is the only content.',
-            [new CodeSample('<?php
+            "`@var` annotation must be in single line when is the only content.",
+            [
+                new CodeSample('<?php
                     /**
                      * @var string
                      */
-                ')]
+                '),
+            ],
         );
     }
 
@@ -38,18 +39,24 @@ class PhpdocSingleLineVarFixer implements FixerInterface {
     }
 
     public function fix(\SplFileInfo $file, Tokens $tokens): void {
-        foreach($tokens as $index => $token) {
+        foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(T_DOC_COMMENT)) {
                 continue;
             }
-            if (\stripos($token->getContent(), '@var') === false) {
+            if (\stripos($token->getContent(), "@var") === false) {
                 continue;
             }
 
-            if (preg_match('#^/\*\*[\s\*]+(@var[^\r\n]+)[\s\*]*\*\/$#u', $token->getContent(), $matches) !== 1) {
+            if (
+                preg_match(
+                    '#^/\*\*[\s\*]+(@var[^\r\n]+)[\s\*]*\*\/$#u',
+                    $token->getContent(),
+                    $matches,
+                ) !== 1
+            ) {
                 continue;
             }
-            $newContent = '/** ' . \rtrim($matches[1]) . ' */';
+            $newContent = "/** " . \rtrim($matches[1]) . " */";
             if ($newContent === $token->getContent()) {
                 continue;
             }
@@ -62,11 +69,10 @@ class PhpdocSingleLineVarFixer implements FixerInterface {
     }
 
     public function getName(): string {
-        return 'PharIo/phpdoc_single_line_var_fixer';
+        return "PharIo/phpdoc_single_line_var_fixer";
     }
 
     public function supports(\SplFileInfo $file): bool {
         return true;
     }
-
 }

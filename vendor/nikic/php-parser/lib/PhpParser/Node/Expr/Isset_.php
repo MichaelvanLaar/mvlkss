@@ -20,10 +20,10 @@ class Isset_ extends Expr {
     }
 
     public function getSubNodeNames(): array {
-        return ['vars'];
+        return ["vars"];
     }
 
     public function getType(): string {
-        return 'Expr_Isset';
+        return "Expr_Isset";
     }
 }

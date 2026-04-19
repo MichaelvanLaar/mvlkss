@@ -17,10 +17,9 @@ use PHPUnit\Event\TestSuite\SkippedSubscriber;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestSuiteSkippedSubscriber extends Subscriber implements SkippedSubscriber
-{
-    public function notify(Skipped $event): void
-    {
+final readonly class TestSuiteSkippedSubscriber extends Subscriber implements
+    SkippedSubscriber {
+    public function notify(Skipped $event): void {
         $this->printer()->testSuiteSkipped($event->testSuite()->count());
     }
 }

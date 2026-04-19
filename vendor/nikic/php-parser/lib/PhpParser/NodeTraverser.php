@@ -68,7 +68,7 @@ class NodeTraverser implements NodeTraverserInterface {
         $this->stopTraversal = false;
 
         foreach ($this->visitors as $visitor) {
-            if (null !== $return = $visitor->beforeTraverse($nodes)) {
+            if (null !== ($return = $visitor->beforeTraverse($nodes))) {
                 $nodes = $return;
             }
         }
@@ -77,7 +77,7 @@ class NodeTraverser implements NodeTraverserInterface {
 
         for ($i = \count($this->visitors) - 1; $i >= 0; --$i) {
             $visitor = $this->visitors[$i];
-            if (null !== $return = $visitor->afterTraverse($nodes)) {
+            if (null !== ($return = $visitor->afterTraverse($nodes))) {
                 $nodes = $return;
             }
         }
@@ -103,7 +103,7 @@ class NodeTraverser implements NodeTraverserInterface {
                 continue;
             }
 
-            if (!$subNode instanceof Node) {
+            if (!($subNode instanceof Node)) {
                 continue;
             }
 
@@ -118,7 +118,10 @@ class NodeTraverser implements NodeTraverserInterface {
                         $subNode = $node->$name = $return;
                     } elseif (NodeVisitor::DONT_TRAVERSE_CHILDREN === $return) {
                         $traverseChildren = false;
-                    } elseif (NodeVisitor::DONT_TRAVERSE_CURRENT_AND_CHILDREN === $return) {
+                    } elseif (
+                        NodeVisitor::DONT_TRAVERSE_CURRENT_AND_CHILDREN ===
+                        $return
+                    ) {
                         $traverseChildren = false;
                         break;
                     } elseif (NodeVisitor::STOP_TRAVERSAL === $return) {
@@ -129,7 +132,8 @@ class NodeTraverser implements NodeTraverserInterface {
                         continue 2;
                     } else {
                         throw new \LogicException(
-                            'enterNode() returned invalid value of type ' . gettype($return)
+                            "enterNode() returned invalid value of type " .
+                                gettype($return),
                         );
                     }
                 }
@@ -158,12 +162,13 @@ class NodeTraverser implements NodeTraverserInterface {
                         break;
                     } elseif (\is_array($return)) {
                         throw new \LogicException(
-                            'leaveNode() may only return an array ' .
-                            'if the parent structure is an array'
+                            "leaveNode() may only return an array " .
+                                "if the parent structure is an array",
                         );
                     } else {
                         throw new \LogicException(
-                            'leaveNode() returned invalid value of type ' . gettype($return)
+                            "leaveNode() returned invalid value of type " .
+                                gettype($return),
                         );
                     }
                 }
@@ -182,9 +187,11 @@ class NodeTraverser implements NodeTraverserInterface {
         $doNodes = [];
 
         foreach ($nodes as $i => $node) {
-            if (!$node instanceof Node) {
+            if (!($node instanceof Node)) {
                 if (\is_array($node)) {
-                    throw new \LogicException('Invalid node structure: Contains nested arrays');
+                    throw new \LogicException(
+                        "Invalid node structure: Contains nested arrays",
+                    );
                 }
                 continue;
             }
@@ -206,7 +213,10 @@ class NodeTraverser implements NodeTraverserInterface {
                         continue 2;
                     } elseif (NodeVisitor::DONT_TRAVERSE_CHILDREN === $return) {
                         $traverseChildren = false;
-                    } elseif (NodeVisitor::DONT_TRAVERSE_CURRENT_AND_CHILDREN === $return) {
+                    } elseif (
+                        NodeVisitor::DONT_TRAVERSE_CURRENT_AND_CHILDREN ===
+                        $return
+                    ) {
                         $traverseChildren = false;
                         break;
                     } elseif (NodeVisitor::STOP_TRAVERSAL === $return) {
@@ -214,10 +224,12 @@ class NodeTraverser implements NodeTraverserInterface {
                         break 2;
                     } elseif (NodeVisitor::REPLACE_WITH_NULL === $return) {
                         throw new \LogicException(
-                            'REPLACE_WITH_NULL can not be used if the parent structure is an array');
+                            "REPLACE_WITH_NULL can not be used if the parent structure is an array",
+                        );
                     } else {
                         throw new \LogicException(
-                            'enterNode() returned invalid value of type ' . gettype($return)
+                            "enterNode() returned invalid value of type " .
+                                gettype($return),
                         );
                     }
                 }
@@ -249,10 +261,12 @@ class NodeTraverser implements NodeTraverserInterface {
                         break 2;
                     } elseif (NodeVisitor::REPLACE_WITH_NULL === $return) {
                         throw new \LogicException(
-                            'REPLACE_WITH_NULL can not be used if the parent structure is an array');
+                            "REPLACE_WITH_NULL can not be used if the parent structure is an array",
+                        );
                     } else {
                         throw new \LogicException(
-                            'leaveNode() returned invalid value of type ' . gettype($return)
+                            "leaveNode() returned invalid value of type " .
+                                gettype($return),
                         );
                     }
                 }
@@ -260,7 +274,7 @@ class NodeTraverser implements NodeTraverserInterface {
         }
 
         if (!empty($doNodes)) {
-            while (list($i, $replace) = array_pop($doNodes)) {
+            while ([$i, $replace] = array_pop($doNodes)) {
                 array_splice($nodes, $i, 1, $replace);
             }
         }
@@ -272,15 +286,15 @@ class NodeTraverser implements NodeTraverserInterface {
         if ($old instanceof Node\Stmt && $new instanceof Node\Expr) {
             throw new \LogicException(
                 "Trying to replace statement ({$old->getType()}) " .
-                "with expression ({$new->getType()}). Are you missing a " .
-                "Stmt_Expression wrapper?"
+                    "with expression ({$new->getType()}). Are you missing a " .
+                    "Stmt_Expression wrapper?",
             );
         }
 
         if ($old instanceof Node\Expr && $new instanceof Node\Stmt) {
             throw new \LogicException(
                 "Trying to replace expression ({$old->getType()}) " .
-                "with statement ({$new->getType()})"
+                    "with statement ({$new->getType()})",
             );
         }
     }

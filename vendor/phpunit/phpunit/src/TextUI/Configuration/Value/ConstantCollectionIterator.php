@@ -17,8 +17,7 @@ use Iterator;
  *
  * @template-implements Iterator<non-negative-int, Constant>
  */
-final class ConstantCollectionIterator implements Iterator
-{
+final class ConstantCollectionIterator implements Iterator {
     /**
      * @var list<Constant>
      */
@@ -29,36 +28,30 @@ final class ConstantCollectionIterator implements Iterator
      */
     private int $position = 0;
 
-    public function __construct(ConstantCollection $constants)
-    {
+    public function __construct(ConstantCollection $constants) {
         $this->constants = $constants->asArray();
     }
 
-    public function rewind(): void
-    {
+    public function rewind(): void {
         $this->position = 0;
     }
 
-    public function valid(): bool
-    {
+    public function valid(): bool {
         return $this->position < count($this->constants);
     }
 
     /**
      * @return non-negative-int
      */
-    public function key(): int
-    {
+    public function key(): int {
         return $this->position;
     }
 
-    public function current(): Constant
-    {
+    public function current(): Constant {
         return $this->constants[$this->position];
     }
 
-    public function next(): void
-    {
+    public function next(): void {
         $this->position++;
     }
 }

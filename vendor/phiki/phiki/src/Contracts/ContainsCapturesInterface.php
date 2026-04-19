@@ -2,8 +2,7 @@
 
 namespace Phiki\Contracts;
 
-interface ContainsCapturesInterface
-{
+interface ContainsCapturesInterface {
     /**
      * Get the captures for this pattern.
      *

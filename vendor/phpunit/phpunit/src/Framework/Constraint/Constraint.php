@@ -28,8 +28,7 @@ use SebastianBergmann\Comparator\ComparisonFailure;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-abstract class Constraint implements Countable, SelfDescribing
-{
+abstract class Constraint implements Countable, SelfDescribing {
     /**
      * Evaluates the constraint for parameter $other.
      *
@@ -42,8 +41,11 @@ abstract class Constraint implements Countable, SelfDescribing
      *
      * @throws ExpectationFailedException
      */
-    public function evaluate(mixed $other, string $description = '', bool $returnResult = false): ?bool
-    {
+    public function evaluate(
+        mixed $other,
+        string $description = "",
+        bool $returnResult = false,
+    ): ?bool {
         $success = false;
 
         if ($this->matches($other)) {
@@ -64,8 +66,7 @@ abstract class Constraint implements Countable, SelfDescribing
     /**
      * Counts the number of constraint elements.
      */
-    public function count(): int
-    {
+    public function count(): int {
         return 1;
     }
 
@@ -75,8 +76,7 @@ abstract class Constraint implements Countable, SelfDescribing
      *
      * This method can be overridden to implement the evaluation algorithm.
      */
-    protected function matches(mixed $other): bool
-    {
+    protected function matches(mixed $other): bool {
         return false;
     }
 
@@ -85,14 +85,19 @@ abstract class Constraint implements Countable, SelfDescribing
      *
      * @throws ExpectationFailedException
      */
-    protected function fail(mixed $other, string $description, ?ComparisonFailure $comparisonFailure = null): never
-    {
+    protected function fail(
+        mixed $other,
+        string $description,
+        ?ComparisonFailure $comparisonFailure = null,
+    ): never {
         $failureDescription = sprintf(
-            'Failed asserting that %s.',
+            "Failed asserting that %s.",
             $this->failureDescription($other),
         );
 
-        $additionalFailureDescription = $this->additionalFailureDescription($other);
+        $additionalFailureDescription = $this->additionalFailureDescription(
+            $other,
+        );
 
         if ($additionalFailureDescription) {
             $failureDescription .= "\n" . $additionalFailureDescription;
@@ -114,9 +119,8 @@ abstract class Constraint implements Countable, SelfDescribing
      * The function can be overridden to provide additional failure
      * information like a diff
      */
-    protected function additionalFailureDescription(mixed $other): string
-    {
-        return '';
+    protected function additionalFailureDescription(mixed $other): string {
+        return "";
     }
 
     /**
@@ -128,9 +132,8 @@ abstract class Constraint implements Countable, SelfDescribing
      * To provide additional failure information additionalFailureDescription
      * can be used.
      */
-    protected function failureDescription(mixed $other): string
-    {
-        return Exporter::export($other) . ' ' . $this->toString();
+    protected function failureDescription(mixed $other): string {
+        return Exporter::export($other) . " " . $this->toString();
     }
 
     /**
@@ -145,9 +148,11 @@ abstract class Constraint implements Countable, SelfDescribing
      * The method shall return empty string, when it does not handle
      * customization by itself.
      */
-    protected function toStringInContext(Operator $operator, mixed $role): string
-    {
-        return '';
+    protected function toStringInContext(
+        Operator $operator,
+        mixed $role,
+    ): string {
+        return "";
     }
 
     /**
@@ -162,15 +167,18 @@ abstract class Constraint implements Countable, SelfDescribing
      * The method shall return empty string, when it does not handle
      * customization by itself.
      */
-    protected function failureDescriptionInContext(Operator $operator, mixed $role, mixed $other): string
-    {
+    protected function failureDescriptionInContext(
+        Operator $operator,
+        mixed $role,
+        mixed $other,
+    ): string {
         $string = $this->toStringInContext($operator, $role);
 
-        if ($string === '') {
-            return '';
+        if ($string === "") {
+            return "";
         }
 
-        return Exporter::export($other) . ' ' . $string;
+        return Exporter::export($other) . " " . $string;
     }
 
     /**
@@ -233,21 +241,23 @@ abstract class Constraint implements Countable, SelfDescribing
      *      LogicalNot
      *      + IsTrue
      */
-    protected function reduce(): self
-    {
+    protected function reduce(): self {
         return $this;
     }
 
     /**
      * @return non-empty-string
      */
-    protected function valueToTypeStringFragment(mixed $value): string
-    {
+    protected function valueToTypeStringFragment(mixed $value): string {
         if (is_object($value)) {
             $reflector = new ReflectionObject($value);
 
             if ($reflector->isAnonymous()) {
-                $name = str_replace('class@anonymous', '', $reflector->getName());
+                $name = str_replace(
+                    "class@anonymous",
+                    "",
+                    $reflector->getName(),
+                );
 
                 $length = strpos($name, '$');
 
@@ -255,27 +265,34 @@ abstract class Constraint implements Countable, SelfDescribing
 
                 $name = substr($name, 0, $length);
 
-                return 'an instance of anonymous class created at ' . $name . ' ';
+                return "an instance of anonymous class created at " .
+                    $name .
+                    " ";
             }
 
-            return 'an instance of class ' . $reflector->getName() . ' ';
+            return "an instance of class " . $reflector->getName() . " ";
         }
 
         $type = strtolower(gettype($value));
 
-        if ($type === 'double') {
-            $type = 'float';
+        if ($type === "double") {
+            $type = "float";
         }
 
-        if ($type === 'resource (closed)') {
-            $type = 'closed resource';
+        if ($type === "resource (closed)") {
+            $type = "closed resource";
         }
 
         return match ($type) {
-            'array', 'integer' => 'an ' . $type . ' ',
-            'boolean', 'closed resource', 'float', 'resource', 'string' => 'a ' . $type . ' ',
-            'null'  => 'null ',
-            default => 'a value of ' . $type . ' ',
+            "array", "integer" => "an " . $type . " ",
+            "boolean",
+            "closed resource",
+            "float",
+            "resource",
+            "string"
+                => "a " . $type . " ",
+            "null" => "null ",
+            default => "a value of " . $type . " ",
         };
     }
 }

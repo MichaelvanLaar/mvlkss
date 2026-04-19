@@ -20,10 +20,10 @@ class HaltCompiler extends Stmt {
     }
 
     public function getSubNodeNames(): array {
-        return ['remaining'];
+        return ["remaining"];
     }
 
     public function getType(): string {
-        return 'Stmt_HaltCompiler';
+        return "Stmt_HaltCompiler";
     }
 }

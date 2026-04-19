@@ -14,8 +14,7 @@ namespace PHPUnit\Metadata;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class UsesMethod extends Metadata
-{
+final readonly class UsesMethod extends Metadata {
     /**
      * @var class-string
      */
@@ -31,32 +30,32 @@ final readonly class UsesMethod extends Metadata
      * @param class-string     $className
      * @param non-empty-string $methodName
      */
-    protected function __construct(int $level, string $className, string $methodName)
-    {
+    protected function __construct(
+        int $level,
+        string $className,
+        string $methodName,
+    ) {
         parent::__construct($level);
 
-        $this->className  = $className;
+        $this->className = $className;
         $this->methodName = $methodName;
     }
 
-    public function isUsesMethod(): true
-    {
+    public function isUsesMethod(): true {
         return true;
     }
 
     /**
      * @return class-string
      */
-    public function className(): string
-    {
+    public function className(): string {
         return $this->className;
     }
 
     /**
      * @return non-empty-string
      */
-    public function methodName(): string
-    {
+    public function methodName(): string {
         return $this->methodName;
     }
 
@@ -65,8 +64,7 @@ final readonly class UsesMethod extends Metadata
      *
      * @internal This method is not covered by the backward compatibility promise for PHPUnit
      */
-    public function asStringForCodeUnitMapper(): string
-    {
-        return $this->className . '::' . $this->methodName;
+    public function asStringForCodeUnitMapper(): string {
+        return $this->className . "::" . $this->methodName;
     }
 }

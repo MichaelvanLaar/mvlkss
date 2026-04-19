@@ -19,22 +19,22 @@ use PHPUnit\Metadata\MetadataCollection;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class ParserChain implements Parser
-{
+final readonly class ParserChain implements Parser {
     private Parser $attributeReader;
     private Parser $annotationReader;
 
-    public function __construct(Parser $attributeReader, Parser $annotationReader)
-    {
-        $this->attributeReader  = $attributeReader;
+    public function __construct(
+        Parser $attributeReader,
+        Parser $annotationReader,
+    ) {
+        $this->attributeReader = $attributeReader;
         $this->annotationReader = $annotationReader;
     }
 
     /**
      * @param class-string $className
      */
-    public function forClass(string $className): MetadataCollection
-    {
+    public function forClass(string $className): MetadataCollection {
         assert(class_exists($className));
 
         $metadata = $this->attributeReader->forClass($className);
@@ -50,8 +50,10 @@ final readonly class ParserChain implements Parser
      * @param class-string     $className
      * @param non-empty-string $methodName
      */
-    public function forMethod(string $className, string $methodName): MetadataCollection
-    {
+    public function forMethod(
+        string $className,
+        string $methodName,
+    ): MetadataCollection {
         assert(class_exists($className));
         assert(method_exists($className, $methodName));
 
@@ -68,8 +70,10 @@ final readonly class ParserChain implements Parser
      * @param class-string     $className
      * @param non-empty-string $methodName
      */
-    public function forClassAndMethod(string $className, string $methodName): MetadataCollection
-    {
+    public function forClassAndMethod(
+        string $className,
+        string $methodName,
+    ): MetadataCollection {
         return $this->forClass($className)->mergeWith(
             $this->forMethod($className, $methodName),
         );

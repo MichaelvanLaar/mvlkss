@@ -11,6 +11,6 @@ namespace SebastianBergmann\CodeCoverage;
 
 use RuntimeException;
 
-final class StaticAnalysisCacheNotConfiguredException extends RuntimeException implements Exception
-{
-}
+final class StaticAnalysisCacheNotConfiguredException
+    extends RuntimeException
+    implements Exception {}

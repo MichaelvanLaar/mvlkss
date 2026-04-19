@@ -17,10 +17,9 @@ use PHPUnit\Event\Test\FinishedSubscriber;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestFinishedSubscriber extends Subscriber implements FinishedSubscriber
-{
-    public function notify(Finished $event): void
-    {
+final readonly class TestFinishedSubscriber extends Subscriber implements
+    FinishedSubscriber {
+    public function notify(Finished $event): void {
         $this->printer()->testFinished();
     }
 }

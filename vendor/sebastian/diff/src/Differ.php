@@ -28,17 +28,15 @@ use function str_ends_with;
 use function substr;
 use SebastianBergmann\Diff\Output\DiffOutputBuilderInterface;
 
-final class Differ
-{
-    public const OLD                     = 0;
-    public const ADDED                   = 1;
-    public const REMOVED                 = 2;
-    public const DIFF_LINE_END_WARNING   = 3;
+final class Differ {
+    public const OLD = 0;
+    public const ADDED = 1;
+    public const REMOVED = 2;
+    public const DIFF_LINE_END_WARNING = 3;
     public const NO_LINE_END_EOF_WARNING = 4;
     private DiffOutputBuilderInterface $outputBuilder;
 
-    public function __construct(DiffOutputBuilderInterface $outputBuilder)
-    {
+    public function __construct(DiffOutputBuilderInterface $outputBuilder) {
         $this->outputBuilder = $outputBuilder;
     }
 
@@ -46,8 +44,11 @@ final class Differ
      * @param list<string>|string $from
      * @param list<string>|string $to
      */
-    public function diff(array|string $from, array|string $to, ?LongestCommonSubsequenceCalculator $lcs = null): string
-    {
+    public function diff(
+        array|string $from,
+        array|string $to,
+        ?LongestCommonSubsequenceCalculator $lcs = null,
+    ): string {
         $diff = $this->diffToArray($from, $to, $lcs);
 
         return $this->outputBuilder->getDiff($diff);
@@ -57,8 +58,11 @@ final class Differ
      * @param list<string>|string $from
      * @param list<string>|string $to
      */
-    public function diffToArray(array|string $from, array|string $to, ?LongestCommonSubsequenceCalculator $lcs = null): array
-    {
+    public function diffToArray(
+        array|string $from,
+        array|string $to,
+        ?LongestCommonSubsequenceCalculator $lcs = null,
+    ): array {
         if (is_string($from)) {
             $from = $this->splitStringByLines($from);
         }
@@ -74,7 +78,7 @@ final class Differ
         }
 
         $common = $lcs->calculate(array_values($from), array_values($to));
-        $diff   = [];
+        $diff = [];
 
         foreach ($start as $token) {
             $diff[] = [$token, self::OLD];
@@ -111,19 +115,28 @@ final class Differ
         }
 
         if ($this->detectUnmatchedLineEndings($diff)) {
-            array_unshift($diff, ["#Warning: Strings contain different line endings!\n", self::DIFF_LINE_END_WARNING]);
+            array_unshift($diff, [
+                "#Warning: Strings contain different line endings!\n",
+                self::DIFF_LINE_END_WARNING,
+            ]);
         }
 
         return $diff;
     }
 
-    private function splitStringByLines(string $input): array
-    {
-        return preg_split('/(.*\R)/', $input, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
+    private function splitStringByLines(string $input): array {
+        return preg_split(
+            "/(.*\R)/",
+            $input,
+            -1,
+            PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY,
+        );
     }
 
-    private function selectLcsImplementation(array $from, array $to): LongestCommonSubsequenceCalculator
-    {
+    private function selectLcsImplementation(
+        array $from,
+        array $to,
+    ): LongestCommonSubsequenceCalculator {
         // We do not want to use the time-efficient implementation if its memory
         // footprint will probably exceed this value. Note that the footprint
         // calculation is only an estimation for the matrix and the LCS method
@@ -131,27 +144,28 @@ final class Differ
         $memoryLimit = 100 * 1024 * 1024;
 
         if ($this->calculateEstimatedFootprint($from, $to) > $memoryLimit) {
-            return new MemoryEfficientLongestCommonSubsequenceCalculator;
+            return new MemoryEfficientLongestCommonSubsequenceCalculator();
         }
 
-        return new TimeEfficientLongestCommonSubsequenceCalculator;
+        return new TimeEfficientLongestCommonSubsequenceCalculator();
     }
 
-    private function calculateEstimatedFootprint(array $from, array $to): float|int
-    {
+    private function calculateEstimatedFootprint(
+        array $from,
+        array $to,
+    ): float|int {
         $itemSize = PHP_INT_SIZE === 4 ? 76 : 144;
 
         return $itemSize * min(count($from), count($to)) ** 2;
     }
 
-    private function detectUnmatchedLineEndings(array $diff): bool
-    {
-        $newLineBreaks = ['' => true];
-        $oldLineBreaks = ['' => true];
+    private function detectUnmatchedLineEndings(array $diff): bool {
+        $newLineBreaks = ["" => true];
+        $oldLineBreaks = ["" => true];
 
         foreach ($diff as $entry) {
             if (self::OLD === $entry[1]) {
-                $ln                 = $this->getLinebreak($entry[0]);
+                $ln = $this->getLinebreak($entry[0]);
                 $oldLineBreaks[$ln] = true;
                 $newLineBreaks[$ln] = true;
             } elseif (self::ADDED === $entry[1]) {
@@ -162,7 +176,10 @@ final class Differ
         }
 
         // if either input or output is a single line without breaks than no warning should be raised
-        if (['' => true] === $newLineBreaks || ['' => true] === $oldLineBreaks) {
+        if (
+            ["" => true] === $newLineBreaks ||
+            ["" => true] === $oldLineBreaks
+        ) {
             return false;
         }
 
@@ -182,10 +199,9 @@ final class Differ
         return false;
     }
 
-    private function getLinebreak($line): string
-    {
+    private function getLinebreak($line): string {
         if (!is_string($line)) {
-            return '';
+            return "";
         }
 
         $lc = substr($line, -1);
@@ -195,7 +211,7 @@ final class Differ
         }
 
         if ("\n" !== $lc) {
-            return '';
+            return "";
         }
 
         if (str_ends_with($line, "\r\n")) {
@@ -205,10 +221,12 @@ final class Differ
         return "\n";
     }
 
-    private static function getArrayDiffParted(array &$from, array &$to): array
-    {
+    private static function getArrayDiffParted(
+        array &$from,
+        array &$to,
+    ): array {
         $start = [];
-        $end   = [];
+        $end = [];
 
         reset($to);
 
@@ -229,9 +247,13 @@ final class Differ
 
         do {
             $fromK = key($from);
-            $toK   = key($to);
+            $toK = key($to);
 
-            if (null === $fromK || null === $toK || current($from) !== current($to)) {
+            if (
+                null === $fromK ||
+                null === $toK ||
+                current($from) !== current($to)
+            ) {
                 break;
             }
 

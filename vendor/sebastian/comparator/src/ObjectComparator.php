@@ -16,10 +16,8 @@ use function sprintf;
 use function substr_replace;
 use SebastianBergmann\Exporter\Exporter;
 
-class ObjectComparator extends ArrayComparator
-{
-    public function accepts(mixed $expected, mixed $actual): bool
-    {
+class ObjectComparator extends ArrayComparator {
+    public function accepts(mixed $expected, mixed $actual): bool {
         return is_object($expected) && is_object($actual);
     }
 
@@ -28,13 +26,19 @@ class ObjectComparator extends ArrayComparator
      *
      * @throws ComparisonFailure
      */
-    public function assertEquals(mixed $expected, mixed $actual, float $delta = 0.0, bool $canonicalize = false, bool $ignoreCase = false, array &$processed = []): void
-    {
+    public function assertEquals(
+        mixed $expected,
+        mixed $actual,
+        float $delta = 0.0,
+        bool $canonicalize = false,
+        bool $ignoreCase = false,
+        array &$processed = [],
+    ): void {
         assert(is_object($expected));
         assert(is_object($actual));
 
         if ($actual::class !== $expected::class) {
-            $exporter = new Exporter;
+            $exporter = new Exporter();
 
             throw new ComparisonFailure(
                 $expected,
@@ -50,8 +54,10 @@ class ObjectComparator extends ArrayComparator
         }
 
         // don't compare twice to allow for cyclic dependencies
-        if (in_array([$actual, $expected], $processed, true) ||
-            in_array([$expected, $actual], $processed, true)) {
+        if (
+            in_array([$actual, $expected], $processed, true) ||
+            in_array([$expected, $actual], $processed, true)
+        ) {
             return;
         }
 
@@ -75,9 +81,19 @@ class ObjectComparator extends ArrayComparator
                     $expected,
                     $actual,
                     // replace "Array" with "MyClass object"
-                    substr_replace($e->getExpectedAsString(), $expected::class . ' Object', 0, 5),
-                    substr_replace($e->getActualAsString(), $actual::class . ' Object', 0, 5),
-                    'Failed asserting that two objects are equal.',
+                    substr_replace(
+                        $e->getExpectedAsString(),
+                        $expected::class . " Object",
+                        0,
+                        5,
+                    ),
+                    substr_replace(
+                        $e->getActualAsString(),
+                        $actual::class . " Object",
+                        0,
+                        5,
+                    ),
+                    "Failed asserting that two objects are equal.",
                 );
             }
         }
@@ -86,8 +102,7 @@ class ObjectComparator extends ArrayComparator
     /**
      * @return array<mixed>
      */
-    protected function toArray(object $object): array
-    {
-        return (new Exporter)->toArray($object);
+    protected function toArray(object $object): array {
+        return (new Exporter())->toArray($object);
     }
 }

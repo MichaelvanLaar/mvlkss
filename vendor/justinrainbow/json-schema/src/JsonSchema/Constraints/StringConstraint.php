@@ -20,40 +20,51 @@ use JsonSchema\Entity\JsonPointer;
  * @author Robert Schönthal <seroscho@googlemail.com>
  * @author Bruno Prieto Reis <bruno.p.reis@gmail.com>
  */
-class StringConstraint extends Constraint
-{
+class StringConstraint extends Constraint {
     /**
      * {@inheritdoc}
      */
-    public function check(&$element, $schema = null, ?JsonPointer $path = null, $i = null): void
-    {
+    public function check(
+        &$element,
+        $schema = null,
+        ?JsonPointer $path = null,
+        $i = null,
+    ): void {
         // Verify maxLength
-        if (isset($schema->maxLength) && $this->strlen($element) > $schema->maxLength) {
+        if (
+            isset($schema->maxLength) &&
+            $this->strlen($element) > $schema->maxLength
+        ) {
             $this->addError(ConstraintError::LENGTH_MAX(), $path, [
-                'maxLength' => $schema->maxLength,
+                "maxLength" => $schema->maxLength,
             ]);
         }
 
         //verify minLength
-        if (isset($schema->minLength) && $this->strlen($element) < $schema->minLength) {
+        if (
+            isset($schema->minLength) &&
+            $this->strlen($element) < $schema->minLength
+        ) {
             $this->addError(ConstraintError::LENGTH_MIN(), $path, [
-                'minLength' => $schema->minLength,
+                "minLength" => $schema->minLength,
             ]);
         }
 
         // Verify a regex pattern
-        if (isset($schema->pattern) && !preg_match(self::jsonPatternToPhpRegex($schema->pattern), $element)) {
+        if (
+            isset($schema->pattern) &&
+            !preg_match(self::jsonPatternToPhpRegex($schema->pattern), $element)
+        ) {
             $this->addError(ConstraintError::PATTERN(), $path, [
-                'pattern' => $schema->pattern,
+                "pattern" => $schema->pattern,
             ]);
         }
 
         $this->checkFormat($element, $schema, $path, $i);
     }
 
-    private function strlen($string)
-    {
-        if (extension_loaded('mbstring')) {
+    private function strlen($string) {
+        if (extension_loaded("mbstring")) {
             return mb_strlen($string, mb_detect_encoding($string));
         }
 

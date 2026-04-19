@@ -12,15 +12,12 @@ namespace SebastianBergmann\CodeCoverage\Test\TestStatus;
 /**
  * @immutable
  */
-final class Unknown extends TestStatus
-{
-    public function isUnknown(): true
-    {
+final class Unknown extends TestStatus {
+    public function isUnknown(): true {
         return true;
     }
 
-    public function asString(): string
-    {
-        return 'unknown';
+    public function asString(): string {
+        return "unknown";
     }
 }

@@ -20,10 +20,10 @@ class Eval_ extends Expr {
     }
 
     public function getSubNodeNames(): array {
-        return ['expr'];
+        return ["expr"];
     }
 
     public function getType(): string {
-        return 'Expr_Eval';
+        return "Expr_Eval";
     }
 }

@@ -18,14 +18,14 @@ use PHPUnit\Runner\FileDoesNotExistException;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestTriggeredPhpDeprecationSubscriber extends Subscriber implements PhpDeprecationTriggeredSubscriber
-{
+final readonly class TestTriggeredPhpDeprecationSubscriber
+    extends Subscriber
+    implements PhpDeprecationTriggeredSubscriber {
     /**
      * @throws FileDoesNotExistException
      * @throws FileDoesNotHaveLineException
      */
-    public function notify(PhpDeprecationTriggered $event): void
-    {
+    public function notify(PhpDeprecationTriggered $event): void {
         $this->generator()->testTriggeredIssue($event);
     }
 }

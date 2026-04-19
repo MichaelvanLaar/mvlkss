@@ -14,7 +14,11 @@ namespace PHPUnit\Framework;
  *
  * @internal This interface is not covered by the backward compatibility promise for PHPUnit
  */
-interface IsolatedTestRunner
-{
-    public function run(TestCase $test, bool $runEntireClass, bool $preserveGlobalState, bool $requiresXdebug): void;
+interface IsolatedTestRunner {
+    public function run(
+        TestCase $test,
+        bool $runEntireClass,
+        bool $preserveGlobalState,
+        bool $requiresXdebug,
+    ): void;
 }

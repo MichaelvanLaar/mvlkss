@@ -20,8 +20,7 @@ use IteratorAggregate;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestCollection implements Countable, IteratorAggregate
-{
+final readonly class TestCollection implements Countable, IteratorAggregate {
     /**
      * @var list<Test>
      */
@@ -30,31 +29,26 @@ final readonly class TestCollection implements Countable, IteratorAggregate
     /**
      * @param list<Test> $tests
      */
-    public static function fromArray(array $tests): self
-    {
+    public static function fromArray(array $tests): self {
         return new self(...$tests);
     }
 
-    private function __construct(Test ...$tests)
-    {
+    private function __construct(Test ...$tests) {
         $this->tests = $tests;
     }
 
     /**
      * @return list<Test>
      */
-    public function asArray(): array
-    {
+    public function asArray(): array {
         return $this->tests;
     }
 
-    public function count(): int
-    {
+    public function count(): int {
         return count($this->tests);
     }
 
-    public function getIterator(): TestCollectionIterator
-    {
+    public function getIterator(): TestCollectionIterator {
         return new TestCollectionIterator($this);
     }
 }

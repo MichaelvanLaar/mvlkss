@@ -22,20 +22,20 @@ use ReflectionUnionType;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for this library
  */
-final class ReflectionMapper
-{
+final class ReflectionMapper {
     /**
      * @return list<Parameter>
      */
-    public function fromParameterTypes(ReflectionFunction|ReflectionMethod $reflector): array
-    {
+    public function fromParameterTypes(
+        ReflectionFunction|ReflectionMethod $reflector,
+    ): array {
         $parameters = [];
 
         foreach ($reflector->getParameters() as $parameter) {
             $name = $parameter->getName();
 
             if (!$parameter->hasType()) {
-                $parameters[] = new Parameter($name, new UnknownType);
+                $parameters[] = new Parameter($name, new UnknownType());
 
                 continue;
             }
@@ -71,15 +71,20 @@ final class ReflectionMapper
         return $parameters;
     }
 
-    public function fromReturnType(ReflectionFunction|ReflectionMethod $reflector): Type
-    {
+    public function fromReturnType(
+        ReflectionFunction|ReflectionMethod $reflector,
+    ): Type {
         if (!$this->hasReturnType($reflector)) {
-            return new UnknownType;
+            return new UnknownType();
         }
 
         $returnType = $this->returnType($reflector);
 
-        assert($returnType instanceof ReflectionNamedType || $returnType instanceof ReflectionUnionType || $returnType instanceof ReflectionIntersectionType);
+        assert(
+            $returnType instanceof ReflectionNamedType ||
+                $returnType instanceof ReflectionUnionType ||
+                $returnType instanceof ReflectionIntersectionType,
+        );
 
         if ($returnType instanceof ReflectionNamedType) {
             return $this->mapNamedType($returnType, $reflector);
@@ -92,15 +97,18 @@ final class ReflectionMapper
         return $this->mapIntersectionType($returnType, $reflector);
     }
 
-    public function fromPropertyType(ReflectionProperty $reflector): Type
-    {
+    public function fromPropertyType(ReflectionProperty $reflector): Type {
         if (!$reflector->hasType()) {
-            return new UnknownType;
+            return new UnknownType();
         }
 
         $propertyType = $reflector->getType();
 
-        assert($propertyType instanceof ReflectionNamedType || $propertyType instanceof ReflectionUnionType || $propertyType instanceof ReflectionIntersectionType);
+        assert(
+            $propertyType instanceof ReflectionNamedType ||
+                $propertyType instanceof ReflectionUnionType ||
+                $propertyType instanceof ReflectionIntersectionType,
+        );
 
         if ($propertyType instanceof ReflectionNamedType) {
             return $this->mapNamedType($propertyType, $reflector);
@@ -113,32 +121,34 @@ final class ReflectionMapper
         return $this->mapIntersectionType($propertyType, $reflector);
     }
 
-    private function mapNamedType(ReflectionNamedType $type, ReflectionFunction|ReflectionMethod|ReflectionProperty $reflector): Type
-    {
-        $classScope = !$reflector instanceof ReflectionFunction;
-        $typeName   = $type->getName();
+    private function mapNamedType(
+        ReflectionNamedType $type,
+        ReflectionFunction|ReflectionMethod|ReflectionProperty $reflector,
+    ): Type {
+        $classScope = !($reflector instanceof ReflectionFunction);
+        $typeName = $type->getName();
 
-        assert($typeName !== '');
+        assert($typeName !== "");
 
-        if ($classScope && $typeName === 'self') {
+        if ($classScope && $typeName === "self") {
             return ObjectType::fromName(
                 $reflector->getDeclaringClass()->getName(),
                 $type->allowsNull(),
             );
         }
 
-        if ($classScope && $typeName === 'static') {
+        if ($classScope && $typeName === "static") {
             return new StaticType(
                 TypeName::fromReflection($reflector->getDeclaringClass()),
                 $type->allowsNull(),
             );
         }
 
-        if ($typeName === 'mixed') {
-            return new MixedType;
+        if ($typeName === "mixed") {
+            return new MixedType();
         }
 
-        if ($classScope && $typeName === 'parent') {
+        if ($classScope && $typeName === "parent") {
             $parentClass = $reflector->getDeclaringClass()->getParentClass();
 
             assert($parentClass !== false);
@@ -149,16 +159,15 @@ final class ReflectionMapper
             );
         }
 
-        return Type::fromName(
-            $typeName,
-            $type->allowsNull(),
-        );
+        return Type::fromName($typeName, $type->allowsNull());
     }
 
-    private function mapUnionType(ReflectionUnionType $type, ReflectionFunction|ReflectionMethod|ReflectionProperty $reflector): Type
-    {
-        $types             = [];
-        $objectType        = false;
+    private function mapUnionType(
+        ReflectionUnionType $type,
+        ReflectionFunction|ReflectionMethod|ReflectionProperty $reflector,
+    ): Type {
+        $types = [];
+        $objectType = false;
         $genericObjectType = false;
 
         foreach ($type->getTypes() as $_type) {
@@ -180,24 +189,22 @@ final class ReflectionMapper
         }
 
         if ($objectType && $genericObjectType) {
-            $types = array_filter(
-                $types,
-                static function (Type $type): bool
-                {
-                    if ($type instanceof ObjectType) {
-                        return false;
-                    }
+            $types = array_filter($types, static function (Type $type): bool {
+                if ($type instanceof ObjectType) {
+                    return false;
+                }
 
-                    return true;
-                },
-            );
+                return true;
+            });
         }
 
         return new UnionType(...$types);
     }
 
-    private function mapIntersectionType(ReflectionIntersectionType $type, ReflectionFunction|ReflectionMethod|ReflectionProperty $reflector): Type
-    {
+    private function mapIntersectionType(
+        ReflectionIntersectionType $type,
+        ReflectionFunction|ReflectionMethod|ReflectionProperty $reflector,
+    ): Type {
         $types = [];
 
         foreach ($type->getTypes() as $_type) {
@@ -209,8 +216,9 @@ final class ReflectionMapper
         return new IntersectionType(...$types);
     }
 
-    private function hasReturnType(ReflectionFunction|ReflectionMethod $reflector): bool
-    {
+    private function hasReturnType(
+        ReflectionFunction|ReflectionMethod $reflector,
+    ): bool {
         if ($reflector->hasReturnType()) {
             return true;
         }
@@ -218,8 +226,9 @@ final class ReflectionMapper
         return $reflector->hasTentativeReturnType();
     }
 
-    private function returnType(ReflectionFunction|ReflectionMethod $reflector): ?ReflectionType
-    {
+    private function returnType(
+        ReflectionFunction|ReflectionMethod $reflector,
+    ): ?ReflectionType {
         if ($reflector->hasReturnType()) {
             return $reflector->getReturnType();
         }

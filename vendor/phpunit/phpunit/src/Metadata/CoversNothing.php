@@ -14,10 +14,8 @@ namespace PHPUnit\Metadata;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class CoversNothing extends Metadata
-{
-    public function isCoversNothing(): true
-    {
+final readonly class CoversNothing extends Metadata {
+    public function isCoversNothing(): true {
         return true;
     }
 }

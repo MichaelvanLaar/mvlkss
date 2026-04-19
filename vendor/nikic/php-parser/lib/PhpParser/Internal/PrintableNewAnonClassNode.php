@@ -38,8 +38,13 @@ class PrintableNewAnonClassNode extends Expr {
      * @param array<string, mixed> $attributes Attributes
      */
     public function __construct(
-        array $attrGroups, int $flags, array $args, ?Node\Name $extends, array $implements,
-        array $stmts, array $attributes
+        array $attrGroups,
+        int $flags,
+        array $args,
+        ?Node\Name $extends,
+        array $implements,
+        array $stmts,
+        array $attributes,
     ) {
         parent::__construct($attributes);
         $this->attrGroups = $attrGroups;
@@ -56,16 +61,28 @@ class PrintableNewAnonClassNode extends Expr {
         // We don't assert that $class->name is null here, to allow consumers to assign unique names
         // to anonymous classes for their own purposes. We simplify ignore the name here.
         return new self(
-            $class->attrGroups, $class->flags, $newNode->args, $class->extends, $class->implements,
-            $class->stmts, $newNode->getAttributes()
+            $class->attrGroups,
+            $class->flags,
+            $newNode->args,
+            $class->extends,
+            $class->implements,
+            $class->stmts,
+            $newNode->getAttributes(),
         );
     }
 
     public function getType(): string {
-        return 'Expr_PrintableNewAnonClass';
+        return "Expr_PrintableNewAnonClass";
     }
 
     public function getSubNodeNames(): array {
-        return ['attrGroups', 'flags', 'args', 'extends', 'implements', 'stmts'];
+        return [
+            "attrGroups",
+            "flags",
+            "args",
+            "extends",
+            "implements",
+            "stmts",
+        ];
     }
 }

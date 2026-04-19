@@ -17,20 +17,17 @@ use ReflectionClass;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for this library
  */
-final class IterableType extends Type
-{
+final class IterableType extends Type {
     private bool $allowsNull;
 
-    public function __construct(bool $nullable)
-    {
+    public function __construct(bool $nullable) {
         $this->allowsNull = $nullable;
     }
 
     /**
      * @throws RuntimeException
      */
-    public function isAssignable(Type $other): bool
-    {
+    public function isAssignable(Type $other): bool {
         if ($this->allowsNull && $other instanceof NullType) {
             return true;
         }
@@ -57,18 +54,15 @@ final class IterableType extends Type
     /**
      * @return 'iterable'
      */
-    public function name(): string
-    {
-        return 'iterable';
+    public function name(): string {
+        return "iterable";
     }
 
-    public function allowsNull(): bool
-    {
+    public function allowsNull(): bool {
         return $this->allowsNull;
     }
 
-    public function isIterable(): bool
-    {
+    public function isIterable(): bool {
         return true;
     }
 }

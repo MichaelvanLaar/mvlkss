@@ -18,15 +18,10 @@ use function sprintf;
  *
  * @deprecated https://github.com/sebastianbergmann/phpunit/issues/5243
  */
-final class UnknownTraitException extends \PHPUnit\Framework\Exception implements Exception
-{
-    public function __construct(string $traitName)
-    {
-        parent::__construct(
-            sprintf(
-                'Trait "%s" does not exist',
-                $traitName,
-            ),
-        );
+final class UnknownTraitException
+    extends \PHPUnit\Framework\Exception
+    implements Exception {
+    public function __construct(string $traitName) {
+        parent::__construct(sprintf('Trait "%s" does not exist', $traitName));
     }
 }

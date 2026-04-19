@@ -16,8 +16,7 @@ namespace JsonSchema\Uri\Retrievers;
  *
  * @author Steven Garcia <webwhammy@gmail.com>
  */
-abstract class AbstractRetriever implements UriRetrieverInterface
-{
+abstract class AbstractRetriever implements UriRetrieverInterface {
     /**
      * Media content type
      *
@@ -30,8 +29,7 @@ abstract class AbstractRetriever implements UriRetrieverInterface
      *
      * @see \JsonSchema\Uri\Retrievers\UriRetrieverInterface::getContentType()
      */
-    public function getContentType()
-    {
+    public function getContentType() {
         return $this->contentType;
     }
 }

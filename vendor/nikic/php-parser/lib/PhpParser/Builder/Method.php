@@ -34,7 +34,10 @@ class Method extends FunctionLike {
      * @return $this The builder instance (for fluid interface)
      */
     public function makePublic() {
-        $this->flags = BuilderHelpers::addModifier($this->flags, Modifiers::PUBLIC);
+        $this->flags = BuilderHelpers::addModifier(
+            $this->flags,
+            Modifiers::PUBLIC,
+        );
 
         return $this;
     }
@@ -45,7 +48,10 @@ class Method extends FunctionLike {
      * @return $this The builder instance (for fluid interface)
      */
     public function makeProtected() {
-        $this->flags = BuilderHelpers::addModifier($this->flags, Modifiers::PROTECTED);
+        $this->flags = BuilderHelpers::addModifier(
+            $this->flags,
+            Modifiers::PROTECTED,
+        );
 
         return $this;
     }
@@ -56,7 +62,10 @@ class Method extends FunctionLike {
      * @return $this The builder instance (for fluid interface)
      */
     public function makePrivate() {
-        $this->flags = BuilderHelpers::addModifier($this->flags, Modifiers::PRIVATE);
+        $this->flags = BuilderHelpers::addModifier(
+            $this->flags,
+            Modifiers::PRIVATE,
+        );
 
         return $this;
     }
@@ -67,7 +76,10 @@ class Method extends FunctionLike {
      * @return $this The builder instance (for fluid interface)
      */
     public function makeStatic() {
-        $this->flags = BuilderHelpers::addModifier($this->flags, Modifiers::STATIC);
+        $this->flags = BuilderHelpers::addModifier(
+            $this->flags,
+            Modifiers::STATIC,
+        );
 
         return $this;
     }
@@ -79,10 +91,15 @@ class Method extends FunctionLike {
      */
     public function makeAbstract() {
         if (!empty($this->stmts)) {
-            throw new \LogicException('Cannot make method with statements abstract');
+            throw new \LogicException(
+                "Cannot make method with statements abstract",
+            );
         }
 
-        $this->flags = BuilderHelpers::addModifier($this->flags, Modifiers::ABSTRACT);
+        $this->flags = BuilderHelpers::addModifier(
+            $this->flags,
+            Modifiers::ABSTRACT,
+        );
         $this->stmts = null; // abstract methods don't have statements
 
         return $this;
@@ -94,7 +111,10 @@ class Method extends FunctionLike {
      * @return $this The builder instance (for fluid interface)
      */
     public function makeFinal() {
-        $this->flags = BuilderHelpers::addModifier($this->flags, Modifiers::FINAL);
+        $this->flags = BuilderHelpers::addModifier(
+            $this->flags,
+            Modifiers::FINAL,
+        );
 
         return $this;
     }
@@ -108,7 +128,9 @@ class Method extends FunctionLike {
      */
     public function addStmt($stmt) {
         if (null === $this->stmts) {
-            throw new \LogicException('Cannot add statements to an abstract method');
+            throw new \LogicException(
+                "Cannot add statements to an abstract method",
+            );
         }
 
         $this->stmts[] = BuilderHelpers::normalizeStmt($stmt);
@@ -124,7 +146,9 @@ class Method extends FunctionLike {
      * @return $this The builder instance (for fluid interface)
      */
     public function addAttribute($attribute) {
-        $this->attributeGroups[] = BuilderHelpers::normalizeAttribute($attribute);
+        $this->attributeGroups[] = BuilderHelpers::normalizeAttribute(
+            $attribute,
+        );
 
         return $this;
     }
@@ -135,13 +159,17 @@ class Method extends FunctionLike {
      * @return Stmt\ClassMethod The built method node
      */
     public function getNode(): Node {
-        return new Stmt\ClassMethod($this->name, [
-            'flags'      => $this->flags,
-            'byRef'      => $this->returnByRef,
-            'params'     => $this->params,
-            'returnType' => $this->returnType,
-            'stmts'      => $this->stmts,
-            'attrGroups' => $this->attributeGroups,
-        ], $this->attributes);
+        return new Stmt\ClassMethod(
+            $this->name,
+            [
+                "flags" => $this->flags,
+                "byRef" => $this->returnByRef,
+                "params" => $this->params,
+                "returnType" => $this->returnType,
+                "stmts" => $this->stmts,
+                "attrGroups" => $this->attributeGroups,
+            ],
+            $this->attributes,
+        );
     }
 }

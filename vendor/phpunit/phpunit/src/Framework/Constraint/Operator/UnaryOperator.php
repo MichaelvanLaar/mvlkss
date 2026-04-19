@@ -14,28 +14,24 @@ use function count;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-abstract class UnaryOperator extends Operator
-{
+abstract class UnaryOperator extends Operator {
     private readonly Constraint $constraint;
 
-    public function __construct(mixed $constraint)
-    {
+    public function __construct(mixed $constraint) {
         $this->constraint = $this->checkConstraint($constraint);
     }
 
     /**
      * Returns the number of operands (constraints).
      */
-    public function arity(): int
-    {
+    public function arity(): int {
         return 1;
     }
 
     /**
      * Returns a string representation of the constraint.
      */
-    public function toString(): string
-    {
+    public function toString(): string {
         $reduced = $this->reduce();
 
         if ($reduced !== $this) {
@@ -45,12 +41,12 @@ abstract class UnaryOperator extends Operator
         $constraint = $this->constraint->reduce();
 
         if ($this->constraintNeedsParentheses($constraint)) {
-            return $this->operator() . '( ' . $constraint->toString() . ' )';
+            return $this->operator() . "( " . $constraint->toString() . " )";
         }
 
         $string = $constraint->toStringInContext($this, 0);
 
-        if ($string === '') {
+        if ($string === "") {
             return $this->transformString($constraint->toString());
         }
 
@@ -60,8 +56,7 @@ abstract class UnaryOperator extends Operator
     /**
      * Counts the number of constraint elements.
      */
-    public function count(): int
-    {
+    public function count(): int {
         return count($this->constraint);
     }
 
@@ -71,8 +66,7 @@ abstract class UnaryOperator extends Operator
      * The beginning of failure messages is "Failed asserting that" in most
      * cases. This method should return the second part of that sentence.
      */
-    protected function failureDescription(mixed $other): string
-    {
+    protected function failureDescription(mixed $other): string {
         $reduced = $this->reduce();
 
         if ($reduced !== $this) {
@@ -82,13 +76,18 @@ abstract class UnaryOperator extends Operator
         $constraint = $this->constraint->reduce();
 
         if ($this->constraintNeedsParentheses($constraint)) {
-            return $this->operator() . '( ' . $constraint->failureDescription($other) . ' )';
+            return $this->operator() .
+                "( " .
+                $constraint->failureDescription($other) .
+                " )";
         }
 
         $string = $constraint->failureDescriptionInContext($this, 0, $other);
 
-        if ($string === '') {
-            return $this->transformString($constraint->failureDescription($other));
+        if ($string === "") {
+            return $this->transformString(
+                $constraint->failureDescription($other),
+            );
         }
 
         return $string;
@@ -103,26 +102,26 @@ abstract class UnaryOperator extends Operator
      * transformation in case the operand constraint does not provide its own
      * custom strings via toStringInContext() or failureDescriptionInContext().
      */
-    protected function transformString(string $string): string
-    {
+    protected function transformString(string $string): string {
         return $string;
     }
 
     /**
      * Provides access to $this->constraint for subclasses.
      */
-    final protected function constraint(): Constraint
-    {
+    final protected function constraint(): Constraint {
         return $this->constraint;
     }
 
     /**
      * Returns true if the $constraint needs to be wrapped with parentheses.
      */
-    protected function constraintNeedsParentheses(Constraint $constraint): bool
-    {
+    protected function constraintNeedsParentheses(
+        Constraint $constraint,
+    ): bool {
         $constraint = $constraint->reduce();
 
-        return $constraint instanceof self || parent::constraintNeedsParentheses($constraint);
+        return $constraint instanceof self ||
+            parent::constraintNeedsParentheses($constraint);
     }
 }

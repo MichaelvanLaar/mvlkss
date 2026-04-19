@@ -60,7 +60,9 @@ class Interface_ extends Declaration {
             $stmt->stmts = null;
             $this->methods[] = $stmt;
         } else {
-            throw new \LogicException(sprintf('Unexpected node of type "%s"', $stmt->getType()));
+            throw new \LogicException(
+                sprintf('Unexpected node of type "%s"', $stmt->getType()),
+            );
         }
 
         return $this;
@@ -74,7 +76,9 @@ class Interface_ extends Declaration {
      * @return $this The builder instance (for fluid interface)
      */
     public function addAttribute($attribute) {
-        $this->attributeGroups[] = BuilderHelpers::normalizeAttribute($attribute);
+        $this->attributeGroups[] = BuilderHelpers::normalizeAttribute(
+            $attribute,
+        );
 
         return $this;
     }
@@ -85,10 +89,14 @@ class Interface_ extends Declaration {
      * @return Stmt\Interface_ The built interface node
      */
     public function getNode(): PhpParser\Node {
-        return new Stmt\Interface_($this->name, [
-            'extends' => $this->extends,
-            'stmts' => array_merge($this->constants, $this->methods),
-            'attrGroups' => $this->attributeGroups,
-        ], $this->attributes);
+        return new Stmt\Interface_(
+            $this->name,
+            [
+                "extends" => $this->extends,
+                "stmts" => array_merge($this->constants, $this->methods),
+                "attrGroups" => $this->attributeGroups,
+            ],
+            $this->attributes,
+        );
     }
 }

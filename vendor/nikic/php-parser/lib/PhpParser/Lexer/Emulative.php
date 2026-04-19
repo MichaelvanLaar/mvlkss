@@ -36,7 +36,8 @@ class Emulative extends Lexer {
      * @param PhpVersion|null $phpVersion PHP version to emulate. Defaults to newest supported.
      */
     public function __construct(?PhpVersion $phpVersion = null) {
-        $this->targetPhpVersion = $phpVersion ?? PhpVersion::getNewestSupported();
+        $this->targetPhpVersion =
+            $phpVersion ?? PhpVersion::getNewestSupported();
         $this->hostPhpVersion = PhpVersion::getHostVersion();
 
         $emulators = [
@@ -65,8 +66,13 @@ class Emulative extends Lexer {
         }
     }
 
-    public function tokenize(string $code, ?ErrorHandler $errorHandler = null): array {
-        $emulators = array_filter($this->emulators, function ($emulator) use ($code) {
+    public function tokenize(
+        string $code,
+        ?ErrorHandler $errorHandler = null,
+    ): array {
+        $emulators = array_filter($this->emulators, function ($emulator) use (
+            $code,
+        ) {
             return $emulator->isEmulationNeeded($code);
         });
 
@@ -104,14 +110,18 @@ class Emulative extends Lexer {
         return $tokens;
     }
 
-    private function isForwardEmulationNeeded(PhpVersion $emulatorPhpVersion): bool {
-        return $this->hostPhpVersion->older($emulatorPhpVersion)
-            && $this->targetPhpVersion->newerOrEqual($emulatorPhpVersion);
+    private function isForwardEmulationNeeded(
+        PhpVersion $emulatorPhpVersion,
+    ): bool {
+        return $this->hostPhpVersion->older($emulatorPhpVersion) &&
+            $this->targetPhpVersion->newerOrEqual($emulatorPhpVersion);
     }
 
-    private function isReverseEmulationNeeded(PhpVersion $emulatorPhpVersion): bool {
-        return $this->hostPhpVersion->newerOrEqual($emulatorPhpVersion)
-            && $this->targetPhpVersion->older($emulatorPhpVersion);
+    private function isReverseEmulationNeeded(
+        PhpVersion $emulatorPhpVersion,
+    ): bool {
+        return $this->hostPhpVersion->newerOrEqual($emulatorPhpVersion) &&
+            $this->targetPhpVersion->older($emulatorPhpVersion);
     }
 
     private function sortPatches(): void {
@@ -133,7 +143,7 @@ class Emulative extends Lexer {
 
         // Load first patch
         $patchIdx = 0;
-        list($patchPos, $patchType, $patchText) = $this->patches[$patchIdx];
+        [$patchPos, $patchType, $patchText] = $this->patches[$patchIdx];
 
         // We use a manual loop over the tokens, because we modify the array on the fly
         $posDelta = 0;
@@ -147,7 +157,7 @@ class Emulative extends Lexer {
             $len = \strlen($token->text);
             while ($patchPos >= $pos && $patchPos < $pos + $len) {
                 $patchTextLen = \strlen($patchText);
-                if ($patchType === 'remove') {
+                if ($patchType === "remove") {
                     if ($patchPos === $pos && $patchTextLen === $len) {
                         // Remove token entirely
                         array_splice($tokens, $i, 1, []);
@@ -156,22 +166,31 @@ class Emulative extends Lexer {
                     } else {
                         // Remove from token string
                         $token->text = substr_replace(
-                            $token->text, '', $patchPos - $pos + $localPosDelta, $patchTextLen
+                            $token->text,
+                            "",
+                            $patchPos - $pos + $localPosDelta,
+                            $patchTextLen,
                         );
                         $localPosDelta -= $patchTextLen;
                     }
                     $lineDelta -= \substr_count($patchText, "\n");
-                } elseif ($patchType === 'add') {
+                } elseif ($patchType === "add") {
                     // Insert into the token string
                     $token->text = substr_replace(
-                        $token->text, $patchText, $patchPos - $pos + $localPosDelta, 0
+                        $token->text,
+                        $patchText,
+                        $patchPos - $pos + $localPosDelta,
+                        0,
                     );
                     $localPosDelta += $patchTextLen;
                     $lineDelta += \substr_count($patchText, "\n");
-                } elseif ($patchType === 'replace') {
+                } elseif ($patchType === "replace") {
                     // Replace inside the token string
                     $token->text = substr_replace(
-                        $token->text, $patchText, $patchPos - $pos + $localPosDelta, $patchTextLen
+                        $token->text,
+                        $patchText,
+                        $patchPos - $pos + $localPosDelta,
+                        $patchTextLen,
                     );
                 } else {
                     assert(false);
@@ -185,7 +204,7 @@ class Emulative extends Lexer {
                     break;
                 }
 
-                list($patchPos, $patchType, $patchText) = $this->patches[$patchIdx];
+                [$patchPos, $patchType, $patchText] = $this->patches[$patchIdx];
             }
 
             $posDelta += $localPosDelta;
@@ -205,25 +224,25 @@ class Emulative extends Lexer {
             $posDelta = 0;
             $lineDelta = 0;
             foreach ($this->patches as $patch) {
-                list($patchPos, $patchType, $patchText) = $patch;
-                if ($patchPos >= $attrs['startFilePos']) {
+                [$patchPos, $patchType, $patchText] = $patch;
+                if ($patchPos >= $attrs["startFilePos"]) {
                     // No longer relevant
                     break;
                 }
 
-                if ($patchType === 'add') {
+                if ($patchType === "add") {
                     $posDelta += strlen($patchText);
                     $lineDelta += substr_count($patchText, "\n");
-                } elseif ($patchType === 'remove') {
+                } elseif ($patchType === "remove") {
                     $posDelta -= strlen($patchText);
                     $lineDelta -= substr_count($patchText, "\n");
                 }
             }
 
-            $attrs['startFilePos'] += $posDelta;
-            $attrs['endFilePos'] += $posDelta;
-            $attrs['startLine'] += $lineDelta;
-            $attrs['endLine'] += $lineDelta;
+            $attrs["startFilePos"] += $posDelta;
+            $attrs["endFilePos"] += $posDelta;
+            $attrs["startLine"] += $lineDelta;
+            $attrs["endLine"] += $lineDelta;
             $error->setAttributes($attrs);
         }
     }

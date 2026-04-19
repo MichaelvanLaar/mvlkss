@@ -4,8 +4,7 @@ namespace Phiki\Contracts;
 
 use Phiki\Grammar\ParsedGrammar;
 
-interface GrammarRepositoryInterface
-{
+interface GrammarRepositoryInterface {
     /**
      * Get a grammar from the repository.
      *
@@ -39,5 +38,8 @@ interface GrammarRepositoryInterface
      * @param  string  $name  The name of the grammar.
      * @param  string|ParsedGrammar  $pathOrGrammar  The path to the grammar file or the grammar itself.
      */
-    public function register(string $name, string|ParsedGrammar $pathOrGrammar): void;
+    public function register(
+        string $name,
+        string|ParsedGrammar $pathOrGrammar,
+    ): void;
 }

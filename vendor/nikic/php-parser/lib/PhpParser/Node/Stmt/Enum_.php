@@ -24,21 +24,25 @@ class Enum_ extends ClassLike {
      *             'attrGroups'  => array() : PHP attribute groups
      * @param array<string, mixed> $attributes Additional attributes
      */
-    public function __construct($name, array $subNodes = [], array $attributes = []) {
+    public function __construct(
+        $name,
+        array $subNodes = [],
+        array $attributes = [],
+    ) {
         $this->name = \is_string($name) ? new Node\Identifier($name) : $name;
-        $this->scalarType = $subNodes['scalarType'] ?? null;
-        $this->implements = $subNodes['implements'] ?? [];
-        $this->stmts = $subNodes['stmts'] ?? [];
-        $this->attrGroups = $subNodes['attrGroups'] ?? [];
+        $this->scalarType = $subNodes["scalarType"] ?? null;
+        $this->implements = $subNodes["implements"] ?? [];
+        $this->stmts = $subNodes["stmts"] ?? [];
+        $this->attrGroups = $subNodes["attrGroups"] ?? [];
 
         parent::__construct($attributes);
     }
 
     public function getSubNodeNames(): array {
-        return ['attrGroups', 'name', 'scalarType', 'implements', 'stmts'];
+        return ["attrGroups", "name", "scalarType", "implements", "stmts"];
     }
 
     public function getType(): string {
-        return 'Stmt_Enum';
+        return "Stmt_Enum";
     }
 }

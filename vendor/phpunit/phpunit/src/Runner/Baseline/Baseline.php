@@ -14,8 +14,7 @@ namespace PHPUnit\Runner\Baseline;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class Baseline
-{
+final class Baseline {
     public const VERSION = 1;
 
     /**
@@ -23,8 +22,7 @@ final class Baseline
      */
     private array $issues = [];
 
-    public function add(Issue $issue): void
-    {
+    public function add(Issue $issue): void {
         if (!isset($this->issues[$issue->file()])) {
             $this->issues[$issue->file()] = [];
         }
@@ -36,8 +34,7 @@ final class Baseline
         $this->issues[$issue->file()][$issue->line()][] = $issue;
     }
 
-    public function has(Issue $issue): bool
-    {
+    public function has(Issue $issue): bool {
         if (!isset($this->issues[$issue->file()][$issue->line()])) {
             return false;
         }
@@ -54,8 +51,7 @@ final class Baseline
     /**
      * @return array<string, array<positive-int, list<Issue>>>
      */
-    public function groupedByFileAndLine(): array
-    {
+    public function groupedByFileAndLine(): array {
         return $this->issues;
     }
 }

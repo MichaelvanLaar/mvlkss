@@ -17,10 +17,9 @@ use PHPUnit\Event\Test\NoticeTriggeredSubscriber;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestTriggeredNoticeSubscriber extends Subscriber implements NoticeTriggeredSubscriber
-{
-    public function notify(NoticeTriggered $event): void
-    {
+final readonly class TestTriggeredNoticeSubscriber extends Subscriber implements
+    NoticeTriggeredSubscriber {
+    public function notify(NoticeTriggered $event): void {
         $this->collector()->testTriggeredNotice($event);
     }
 }

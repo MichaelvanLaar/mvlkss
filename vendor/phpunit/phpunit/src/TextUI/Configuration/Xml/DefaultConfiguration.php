@@ -31,10 +31,8 @@ use PHPUnit\TextUI\XmlConfiguration\Logging\Logging;
  *
  * @immutable
  */
-final readonly class DefaultConfiguration extends Configuration
-{
-    public static function create(): self
-    {
+final readonly class DefaultConfiguration extends Configuration {
+    public static function create(): self {
         return new self(
             ExtensionBootstrapCollection::fromArray([]),
             new Source(
@@ -55,8 +53,8 @@ final readonly class DefaultConfiguration extends Configuration
                 false,
                 false,
                 [
-                    'functions' => [],
-                    'methods'   => [],
+                    "functions" => [],
+                    "methods" => [],
                 ],
                 false,
                 false,
@@ -80,12 +78,7 @@ final readonly class DefaultConfiguration extends Configuration
                 GroupCollection::fromArray([]),
                 GroupCollection::fromArray([]),
             ),
-            new Logging(
-                null,
-                null,
-                null,
-                null,
-            ),
+            new Logging(null, null, null, null),
             new Php(
                 DirectoryCollection::fromArray([]),
                 IniSettingCollection::fromArray([]),
@@ -162,8 +155,7 @@ final readonly class DefaultConfiguration extends Configuration
         );
     }
 
-    public function isDefault(): bool
-    {
+    public function isDefault(): bool {
         return true;
     }
 }

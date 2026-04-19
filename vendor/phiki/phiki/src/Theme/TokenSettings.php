@@ -4,16 +4,14 @@ namespace Phiki\Theme;
 
 use Phiki\Support\Color;
 
-readonly class TokenSettings
-{
+readonly class TokenSettings {
     public function __construct(
         public ?string $background,
         public ?string $foreground,
         public ?string $fontStyle,
     ) {}
 
-    public function toAnsiEscape(): string
-    {
+    public function toAnsiEscape(): string {
         $codes = [];
 
         if (isset($this->background)) {
@@ -24,28 +22,31 @@ readonly class TokenSettings
             $codes[] = Color::hexToAnsi($this->foreground);
         }
 
-        $fontStyles = explode(' ', $this->fontStyle ?? '');
+        $fontStyles = explode(" ", $this->fontStyle ?? "");
         $decorations = [];
 
         foreach ($fontStyles as $fontStyle) {
-            if ($fontStyle === 'underline') {
+            if ($fontStyle === "underline") {
                 $decorations[] = Color::ANSI_UNDERLINE;
             }
 
-            if ($fontStyle === 'italic') {
+            if ($fontStyle === "italic") {
                 $decorations[] = Color::ANSI_ITALIC;
             }
 
-            if ($fontStyle === 'bold') {
+            if ($fontStyle === "bold") {
                 $decorations[] = Color::ANSI_BOLD;
             }
         }
 
-        return "\033[".implode(';', $decorations).';38;5;'.implode(';', $codes).'m';
+        return "\033[" .
+            implode(";", $decorations) .
+            ";38;5;" .
+            implode(";", $codes) .
+            "m";
     }
 
-    public function toCssVarString(string $prefix): string
-    {
+    public function toCssVarString(string $prefix): string {
         $styles = $this->toStyleArray();
         $vars = [];
 
@@ -53,48 +54,46 @@ readonly class TokenSettings
             $vars[] = "--phiki-{$prefix}-{$property}: {$value}";
         }
 
-        return implode(';', $vars);
+        return implode(";", $vars);
     }
 
-    public function toStyleArray(): array
-    {
+    public function toStyleArray(): array {
         $styles = [];
 
         if (isset($this->background)) {
-            $styles['background-color'] = $this->background;
+            $styles["background-color"] = $this->background;
         }
 
         if (isset($this->foreground)) {
-            $styles['color'] = $this->foreground;
+            $styles["color"] = $this->foreground;
         }
 
-        $fontStyles = explode(' ', $this->fontStyle ?? '');
+        $fontStyles = explode(" ", $this->fontStyle ?? "");
 
         foreach ($fontStyles as $fontStyle) {
-            if ($fontStyle === 'underline') {
-                $styles['text-decoration'] = 'underline';
+            if ($fontStyle === "underline") {
+                $styles["text-decoration"] = "underline";
             }
 
-            if ($fontStyle === 'italic') {
-                $styles['font-style'] = 'italic';
+            if ($fontStyle === "italic") {
+                $styles["font-style"] = "italic";
             }
 
-            if ($fontStyle === 'bold') {
-                $styles['font-weight'] = 'bold';
+            if ($fontStyle === "bold") {
+                $styles["font-weight"] = "bold";
             }
 
-            if ($fontStyle === 'strikethrough') {
-                $styles['text-decoration'] = 'line-through';
+            if ($fontStyle === "strikethrough") {
+                $styles["text-decoration"] = "line-through";
             }
         }
 
         return $styles;
     }
 
-    public function toStyleString(): string
-    {
+    public function toStyleString(): string {
         $styles = $this->toStyleArray();
-        $styleString = '';
+        $styleString = "";
 
         foreach ($styles as $property => $value) {
             $styleString .= "{$property}: {$value};";

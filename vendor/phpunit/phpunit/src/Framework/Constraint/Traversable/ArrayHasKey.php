@@ -17,29 +17,25 @@ use PHPUnit\Util\Exporter;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class ArrayHasKey extends Constraint
-{
+final class ArrayHasKey extends Constraint {
     private readonly mixed $key;
 
-    public function __construct(mixed $key)
-    {
+    public function __construct(mixed $key) {
         $this->key = $key;
     }
 
     /**
      * Returns a string representation of the constraint.
      */
-    public function toString(): string
-    {
-        return 'has the key ' . Exporter::export($this->key);
+    public function toString(): string {
+        return "has the key " . Exporter::export($this->key);
     }
 
     /**
      * Evaluates the constraint for parameter $other. Returns true if the
      * constraint is met, false otherwise.
      */
-    protected function matches(mixed $other): bool
-    {
+    protected function matches(mixed $other): bool {
         if (is_array($other)) {
             return array_key_exists($this->key, $other);
         }
@@ -57,8 +53,7 @@ final class ArrayHasKey extends Constraint
      * The beginning of failure messages is "Failed asserting that" in most
      * cases. This method should return the second part of that sentence.
      */
-    protected function failureDescription(mixed $other): string
-    {
-        return 'an array ' . $this->toString();
+    protected function failureDescription(mixed $other): string {
+        return "an array " . $this->toString();
     }
 }

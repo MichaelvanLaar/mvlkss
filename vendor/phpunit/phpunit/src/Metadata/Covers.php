@@ -14,8 +14,7 @@ namespace PHPUnit\Metadata;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class Covers extends Metadata
-{
+final readonly class Covers extends Metadata {
     /**
      * @var non-empty-string
      */
@@ -25,23 +24,20 @@ final readonly class Covers extends Metadata
      * @param 0|1              $level
      * @param non-empty-string $target
      */
-    protected function __construct(int $level, string $target)
-    {
+    protected function __construct(int $level, string $target) {
         parent::__construct($level);
 
         $this->target = $target;
     }
 
-    public function isCovers(): true
-    {
+    public function isCovers(): true {
         return true;
     }
 
     /**
      * @return non-empty-string
      */
-    public function target(): string
-    {
+    public function target(): string {
         return $this->target;
     }
 }

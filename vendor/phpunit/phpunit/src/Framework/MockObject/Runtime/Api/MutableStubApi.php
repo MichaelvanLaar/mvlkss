@@ -16,24 +16,20 @@ namespace PHPUnit\Framework\MockObject;
  *
  * @codeCoverageIgnore
  */
-trait MutableStubApi
-{
+trait MutableStubApi {
     private TestDoubleState $__phpunit_state;
 
-    public function __phpunit_state(): TestDoubleState
-    {
+    public function __phpunit_state(): TestDoubleState {
         return $this->__phpunit_state;
     }
 
     /** @noinspection MagicMethodsValidityInspection */
-    public function __phpunit_getInvocationHandler(): InvocationHandler
-    {
+    public function __phpunit_getInvocationHandler(): InvocationHandler {
         return $this->__phpunit_state()->invocationHandler();
     }
 
     /** @noinspection MagicMethodsValidityInspection */
-    public function __phpunit_unsetInvocationMocker(): void
-    {
+    public function __phpunit_unsetInvocationMocker(): void {
         $this->__phpunit_state()->unsetInvocationHandler();
     }
 }

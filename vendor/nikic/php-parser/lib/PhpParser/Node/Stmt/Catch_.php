@@ -22,7 +22,10 @@ class Catch_ extends Node\Stmt {
      * @param array<string, mixed> $attributes Additional attributes
      */
     public function __construct(
-        array $types, ?Expr\Variable $var = null, array $stmts = [], array $attributes = []
+        array $types,
+        ?Expr\Variable $var = null,
+        array $stmts = [],
+        array $attributes = [],
     ) {
         $this->attributes = $attributes;
         $this->types = $types;
@@ -31,10 +34,10 @@ class Catch_ extends Node\Stmt {
     }
 
     public function getSubNodeNames(): array {
-        return ['types', 'var', 'stmts'];
+        return ["types", "var", "stmts"];
     }
 
     public function getType(): string {
-        return 'Stmt_Catch';
+        return "Stmt_Catch";
     }
 }

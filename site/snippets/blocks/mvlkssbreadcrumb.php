@@ -38,7 +38,7 @@ if (!isset($includeCurrentPage)) {
     --breadcrumb-divider: '<?= $site->defaultBreadcrumbDivider()->or(">") ?>';"
 >
   <span class="me-1 hidden text-[80%] print:inline"><?= t(
-    "You are here"
+    "You are here",
   ) ?>:</span>
   <ol class="inline leading-4">
     <?php if (!$page->isHomePage()): ?>

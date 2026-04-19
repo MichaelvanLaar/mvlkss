@@ -18,13 +18,13 @@ use PHPUnit\Event\Test\BeforeFirstTestMethodErroredSubscriber;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestSuiteBeforeFirstTestMethodErroredSubscriber extends Subscriber implements BeforeFirstTestMethodErroredSubscriber
-{
+final readonly class TestSuiteBeforeFirstTestMethodErroredSubscriber
+    extends Subscriber
+    implements BeforeFirstTestMethodErroredSubscriber {
     /**
      * @throws InvalidArgumentException
      */
-    public function notify(BeforeFirstTestMethodErrored $event): void
-    {
+    public function notify(BeforeFirstTestMethodErrored $event): void {
         $this->logger()->beforeFirstTestMethodErrored($event);
     }
 }

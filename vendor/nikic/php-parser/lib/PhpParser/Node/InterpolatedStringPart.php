@@ -20,11 +20,11 @@ class InterpolatedStringPart extends NodeAbstract {
     }
 
     public function getSubNodeNames(): array {
-        return ['value'];
+        return ["value"];
     }
 
     public function getType(): string {
-        return 'InterpolatedStringPart';
+        return "InterpolatedStringPart";
     }
 }
 

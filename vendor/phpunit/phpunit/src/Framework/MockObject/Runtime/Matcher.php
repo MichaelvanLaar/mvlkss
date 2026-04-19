@@ -26,56 +26,46 @@ use PHPUnit\Util\ThrowableToStringMapper;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class Matcher
-{
+final class Matcher {
     private readonly InvocationOrder $invocationRule;
-    private ?string $afterMatchBuilderId    = null;
-    private ?MethodName $methodNameRule     = null;
+    private ?string $afterMatchBuilderId = null;
+    private ?MethodName $methodNameRule = null;
     private ?ParametersRule $parametersRule = null;
-    private ?Stub $stub                     = null;
+    private ?Stub $stub = null;
 
-    public function __construct(InvocationOrder $rule)
-    {
+    public function __construct(InvocationOrder $rule) {
         $this->invocationRule = $rule;
     }
 
-    public function hasMatchers(): bool
-    {
-        return !$this->invocationRule instanceof AnyInvokedCount;
+    public function hasMatchers(): bool {
+        return !($this->invocationRule instanceof AnyInvokedCount);
     }
 
-    public function hasMethodNameRule(): bool
-    {
+    public function hasMethodNameRule(): bool {
         return $this->methodNameRule !== null;
     }
 
-    public function methodNameRule(): MethodName
-    {
+    public function methodNameRule(): MethodName {
         return $this->methodNameRule;
     }
 
-    public function setMethodNameRule(MethodName $rule): void
-    {
+    public function setMethodNameRule(MethodName $rule): void {
         $this->methodNameRule = $rule;
     }
 
-    public function hasParametersRule(): bool
-    {
+    public function hasParametersRule(): bool {
         return $this->parametersRule !== null;
     }
 
-    public function setParametersRule(ParametersRule $rule): void
-    {
+    public function setParametersRule(ParametersRule $rule): void {
         $this->parametersRule = $rule;
     }
 
-    public function setStub(Stub $stub): void
-    {
+    public function setStub(Stub $stub): void {
         $this->stub = $stub;
     }
 
-    public function setAfterMatchBuilderId(string $id): void
-    {
+    public function setAfterMatchBuilderId(string $id): void {
         $this->afterMatchBuilderId = $id;
     }
 
@@ -86,19 +76,21 @@ final class Matcher
      * @throws MethodNameNotConfiguredException
      * @throws RuntimeException
      */
-    public function invoked(Invocation $invocation): mixed
-    {
+    public function invoked(Invocation $invocation): mixed {
         if ($this->methodNameRule === null) {
-            throw new MethodNameNotConfiguredException;
+            throw new MethodNameNotConfiguredException();
         }
 
         if ($this->afterMatchBuilderId !== null) {
-            $matcher = $invocation->object()
+            $matcher = $invocation
+                ->object()
                 ->__phpunit_getInvocationHandler()
                 ->lookupMatcher($this->afterMatchBuilderId);
 
             if (!$matcher) {
-                throw new MatchBuilderNotFoundException($this->afterMatchBuilderId);
+                throw new MatchBuilderNotFoundException(
+                    $this->afterMatchBuilderId,
+                );
             }
         }
 
@@ -131,15 +123,17 @@ final class Matcher
      * @throws MethodNameNotConfiguredException
      * @throws RuntimeException
      */
-    public function matches(Invocation $invocation): bool
-    {
+    public function matches(Invocation $invocation): bool {
         if ($this->afterMatchBuilderId !== null) {
-            $matcher = $invocation->object()
+            $matcher = $invocation
+                ->object()
                 ->__phpunit_getInvocationHandler()
                 ->lookupMatcher($this->afterMatchBuilderId);
 
             if (!$matcher) {
-                throw new MatchBuilderNotFoundException($this->afterMatchBuilderId);
+                throw new MatchBuilderNotFoundException(
+                    $this->afterMatchBuilderId,
+                );
             }
 
             if (!$matcher->invocationRule->hasBeenInvoked()) {
@@ -148,7 +142,7 @@ final class Matcher
         }
 
         if ($this->methodNameRule === null) {
-            throw new MethodNameNotConfiguredException;
+            throw new MethodNameNotConfiguredException();
         }
 
         if (!$this->invocationRule->matches($invocation)) {
@@ -178,24 +172,30 @@ final class Matcher
      * @throws ExpectationFailedException
      * @throws MethodNameNotConfiguredException
      */
-    public function verify(): void
-    {
+    public function verify(): void {
         if ($this->methodNameRule === null) {
-            throw new MethodNameNotConfiguredException;
+            throw new MethodNameNotConfiguredException();
         }
 
         try {
             $this->invocationRule->verify();
 
             if ($this->parametersRule === null) {
-                $this->parametersRule = new AnyParameters;
+                $this->parametersRule = new AnyParameters();
             }
 
-            $invocationIsAny    = $this->invocationRule instanceof AnyInvokedCount;
-            $invocationIsNever  = $this->invocationRule instanceof InvokedCount && $this->invocationRule->isNever();
-            $invocationIsAtMost = $this->invocationRule instanceof InvokedAtMostCount;
+            $invocationIsAny = $this->invocationRule instanceof AnyInvokedCount;
+            $invocationIsNever =
+                $this->invocationRule instanceof InvokedCount &&
+                $this->invocationRule->isNever();
+            $invocationIsAtMost =
+                $this->invocationRule instanceof InvokedAtMostCount;
 
-            if (!$invocationIsAny && !$invocationIsNever && !$invocationIsAtMost) {
+            if (
+                !$invocationIsAny &&
+                !$invocationIsNever &&
+                !$invocationIsAtMost
+            ) {
                 $this->parametersRule->verify();
             }
         } catch (ExpectationFailedException $e) {

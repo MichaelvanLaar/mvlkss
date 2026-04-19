@@ -14,8 +14,7 @@ namespace PHPUnit\Framework;
  *
  * @internal This interface is not covered by the backward compatibility promise for PHPUnit
  */
-interface SelfDescribing
-{
+interface SelfDescribing {
     /**
      * Returns a string representation of the object.
      */

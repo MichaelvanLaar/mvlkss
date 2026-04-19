@@ -17,16 +17,11 @@ use RuntimeException;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class ClassIsAbstractException extends RuntimeException implements Exception
-{
-    public function __construct(string $className, string $file)
-    {
+final class ClassIsAbstractException extends RuntimeException implements
+    Exception {
+    public function __construct(string $className, string $file) {
         parent::__construct(
-            sprintf(
-                'Class %s declared in %s is abstract',
-                $className,
-                $file,
-            ),
+            sprintf("Class %s declared in %s is abstract", $className, $file),
         );
     }
 }

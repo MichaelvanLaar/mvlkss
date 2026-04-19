@@ -2,8 +2,7 @@
 
 namespace Phiki\Contracts;
 
-interface OutputGeneratorInterface
-{
+interface OutputGeneratorInterface {
     /**
      * Take the list of highlighted tokens and produce the final output.
      *

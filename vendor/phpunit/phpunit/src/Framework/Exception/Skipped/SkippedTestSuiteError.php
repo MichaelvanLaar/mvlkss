@@ -14,6 +14,5 @@ namespace PHPUnit\Framework;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class SkippedTestSuiteError extends AssertionFailedError implements SkippedTest
-{
-}
+final class SkippedTestSuiteError extends AssertionFailedError implements
+    SkippedTest {}

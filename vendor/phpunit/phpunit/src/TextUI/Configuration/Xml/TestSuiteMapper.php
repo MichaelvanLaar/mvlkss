@@ -31,8 +31,7 @@ use SebastianBergmann\FileIterator\Facade;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestSuiteMapper
-{
+final readonly class TestSuiteMapper {
     /**
      * @param non-empty-string $xmlConfigurationFile,
      *
@@ -40,43 +39,78 @@ final readonly class TestSuiteMapper
      * @throws TestDirectoryNotFoundException
      * @throws TestFileNotFoundException
      */
-    public function map(string $xmlConfigurationFile, TestSuiteCollection $configuredTestSuites, string $namesOfIncludedTestSuites, string $namesOfExcludedTestSuites): TestSuiteObject
-    {
+    public function map(
+        string $xmlConfigurationFile,
+        TestSuiteCollection $configuredTestSuites,
+        string $namesOfIncludedTestSuites,
+        string $namesOfExcludedTestSuites,
+    ): TestSuiteObject {
         try {
-            $namesOfIncludedTestSuitesAsArray = $namesOfIncludedTestSuites ? explode(',', $namesOfIncludedTestSuites) : [];
-            $excludedTestSuitesAsArray        = $namesOfExcludedTestSuites ? explode(',', $namesOfExcludedTestSuites) : [];
-            $result                           = TestSuiteObject::empty($xmlConfigurationFile);
-            $processed                        = [];
+            $namesOfIncludedTestSuitesAsArray = $namesOfIncludedTestSuites
+                ? explode(",", $namesOfIncludedTestSuites)
+                : [];
+            $excludedTestSuitesAsArray = $namesOfExcludedTestSuites
+                ? explode(",", $namesOfExcludedTestSuites)
+                : [];
+            $result = TestSuiteObject::empty($xmlConfigurationFile);
+            $processed = [];
 
             foreach ($configuredTestSuites as $configuredTestSuite) {
-                if (!empty($namesOfIncludedTestSuitesAsArray) && !in_array($configuredTestSuite->name(), $namesOfIncludedTestSuitesAsArray, true)) {
+                if (
+                    !empty($namesOfIncludedTestSuitesAsArray) &&
+                    !in_array(
+                        $configuredTestSuite->name(),
+                        $namesOfIncludedTestSuitesAsArray,
+                        true,
+                    )
+                ) {
                     continue;
                 }
 
-                if (!empty($excludedTestSuitesAsArray) && in_array($configuredTestSuite->name(), $excludedTestSuitesAsArray, true)) {
+                if (
+                    !empty($excludedTestSuitesAsArray) &&
+                    in_array(
+                        $configuredTestSuite->name(),
+                        $excludedTestSuitesAsArray,
+                        true,
+                    )
+                ) {
                     continue;
                 }
 
                 $testSuiteName = $configuredTestSuite->name();
-                $exclude       = [];
+                $exclude = [];
 
                 foreach ($configuredTestSuite->exclude()->asArray() as $file) {
                     $exclude[] = $file->path();
                 }
 
-                $testSuite = TestSuiteObject::empty($configuredTestSuite->name());
-                $empty     = true;
+                $testSuite = TestSuiteObject::empty(
+                    $configuredTestSuite->name(),
+                );
+                $empty = true;
 
                 foreach ($configuredTestSuite->directories() as $directory) {
-                    if (!str_contains($directory->path(), '*') && !is_dir($directory->path())) {
-                        throw new TestDirectoryNotFoundException($directory->path());
+                    if (
+                        !str_contains($directory->path(), "*") &&
+                        !is_dir($directory->path())
+                    ) {
+                        throw new TestDirectoryNotFoundException(
+                            $directory->path(),
+                        );
                     }
 
-                    if (!version_compare(PHP_VERSION, $directory->phpVersion(), $directory->phpVersionOperator()->asString())) {
+                    if (
+                        !version_compare(
+                            PHP_VERSION,
+                            $directory->phpVersion(),
+                            $directory->phpVersionOperator()->asString(),
+                        )
+                    ) {
                         continue;
                     }
 
-                    $files = (new Facade)->getFilesAsArray(
+                    $files = (new Facade())->getFilesAsArray(
                         $directory->path(),
                         $directory->suffix(),
                         $directory->prefix(),
@@ -100,7 +134,7 @@ final readonly class TestSuiteMapper
                         }
 
                         $processed[$file] = $testSuiteName;
-                        $empty            = false;
+                        $empty = false;
 
                         $testSuite->addTestFile($file, $groups);
                     }
@@ -111,7 +145,13 @@ final readonly class TestSuiteMapper
                         throw new TestFileNotFoundException($file->path());
                     }
 
-                    if (!version_compare(PHP_VERSION, $file->phpVersion(), $file->phpVersionOperator()->asString())) {
+                    if (
+                        !version_compare(
+                            PHP_VERSION,
+                            $file->phpVersion(),
+                            $file->phpVersionOperator()->asString(),
+                        )
+                    ) {
                         continue;
                     }
 
@@ -129,7 +169,7 @@ final readonly class TestSuiteMapper
                     }
 
                     $processed[$file->path()] = $testSuiteName;
-                    $empty                    = false;
+                    $empty = false;
 
                     $testSuite->addTestFile($file->path(), $file->groups());
                 }
@@ -141,11 +181,7 @@ final readonly class TestSuiteMapper
 
             return $result;
         } catch (FrameworkException $e) {
-            throw new RuntimeException(
-                $e->getMessage(),
-                $e->getCode(),
-                $e,
-            );
+            throw new RuntimeException($e->getMessage(), $e->getCode(), $e);
         }
     }
 }

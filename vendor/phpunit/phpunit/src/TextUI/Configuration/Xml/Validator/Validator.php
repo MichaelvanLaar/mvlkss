@@ -21,10 +21,11 @@ use DOMDocument;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class Validator
-{
-    public function validate(DOMDocument $document, string $xsdFilename): ValidationResult
-    {
+final readonly class Validator {
+    public function validate(
+        DOMDocument $document,
+        string $xsdFilename,
+    ): ValidationResult {
         $buffer = file_get_contents($xsdFilename);
 
         assert($buffer !== false);

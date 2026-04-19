@@ -16,7 +16,6 @@ use DOMDocument;
  *
  * @internal This interface is not covered by the backward compatibility promise for PHPUnit
  */
-interface Migration
-{
+interface Migration {
     public function migrate(DOMDocument $document): void;
 }

@@ -111,101 +111,101 @@ use SebastianBergmann\Template\Template;
 /**
  * @internal This class is not covered by the backward compatibility promise for phpunit/php-code-coverage
  */
-final class File extends Renderer
-{
+final class File extends Renderer {
     /**
      * @var array<int,true>
      */
     private const KEYWORD_TOKENS = [
-        T_ABSTRACT      => true,
-        T_ARRAY         => true,
-        T_AS            => true,
-        T_BREAK         => true,
-        T_CALLABLE      => true,
-        T_CASE          => true,
-        T_CATCH         => true,
-        T_CLASS         => true,
-        T_CLONE         => true,
-        T_CONST         => true,
-        T_CONTINUE      => true,
-        T_DECLARE       => true,
-        T_DEFAULT       => true,
-        T_DO            => true,
-        T_ECHO          => true,
-        T_ELSE          => true,
-        T_ELSEIF        => true,
-        T_EMPTY         => true,
-        T_ENDDECLARE    => true,
-        T_ENDFOR        => true,
-        T_ENDFOREACH    => true,
-        T_ENDIF         => true,
-        T_ENDSWITCH     => true,
-        T_ENDWHILE      => true,
-        T_ENUM          => true,
-        T_EVAL          => true,
-        T_EXIT          => true,
-        T_EXTENDS       => true,
-        T_FINAL         => true,
-        T_FINALLY       => true,
-        T_FN            => true,
-        T_FOR           => true,
-        T_FOREACH       => true,
-        T_FUNCTION      => true,
-        T_GLOBAL        => true,
-        T_GOTO          => true,
+        T_ABSTRACT => true,
+        T_ARRAY => true,
+        T_AS => true,
+        T_BREAK => true,
+        T_CALLABLE => true,
+        T_CASE => true,
+        T_CATCH => true,
+        T_CLASS => true,
+        T_CLONE => true,
+        T_CONST => true,
+        T_CONTINUE => true,
+        T_DECLARE => true,
+        T_DEFAULT => true,
+        T_DO => true,
+        T_ECHO => true,
+        T_ELSE => true,
+        T_ELSEIF => true,
+        T_EMPTY => true,
+        T_ENDDECLARE => true,
+        T_ENDFOR => true,
+        T_ENDFOREACH => true,
+        T_ENDIF => true,
+        T_ENDSWITCH => true,
+        T_ENDWHILE => true,
+        T_ENUM => true,
+        T_EVAL => true,
+        T_EXIT => true,
+        T_EXTENDS => true,
+        T_FINAL => true,
+        T_FINALLY => true,
+        T_FN => true,
+        T_FOR => true,
+        T_FOREACH => true,
+        T_FUNCTION => true,
+        T_GLOBAL => true,
+        T_GOTO => true,
         T_HALT_COMPILER => true,
-        T_IF            => true,
-        T_IMPLEMENTS    => true,
-        T_INCLUDE       => true,
-        T_INCLUDE_ONCE  => true,
-        T_INSTANCEOF    => true,
-        T_INSTEADOF     => true,
-        T_INTERFACE     => true,
-        T_ISSET         => true,
-        T_LIST          => true,
-        T_MATCH         => true,
-        T_NAMESPACE     => true,
-        T_NEW           => true,
-        T_PRINT         => true,
-        T_PRIVATE       => true,
-        T_PROTECTED     => true,
-        T_PUBLIC        => true,
-        T_READONLY      => true,
-        T_REQUIRE       => true,
-        T_REQUIRE_ONCE  => true,
-        T_RETURN        => true,
-        T_STATIC        => true,
-        T_SWITCH        => true,
-        T_THROW         => true,
-        T_TRAIT         => true,
-        T_TRY           => true,
-        T_UNSET         => true,
-        T_USE           => true,
-        T_VAR           => true,
-        T_WHILE         => true,
-        T_YIELD         => true,
-        T_YIELD_FROM    => true,
+        T_IF => true,
+        T_IMPLEMENTS => true,
+        T_INCLUDE => true,
+        T_INCLUDE_ONCE => true,
+        T_INSTANCEOF => true,
+        T_INSTEADOF => true,
+        T_INTERFACE => true,
+        T_ISSET => true,
+        T_LIST => true,
+        T_MATCH => true,
+        T_NAMESPACE => true,
+        T_NEW => true,
+        T_PRINT => true,
+        T_PRIVATE => true,
+        T_PROTECTED => true,
+        T_PUBLIC => true,
+        T_READONLY => true,
+        T_REQUIRE => true,
+        T_REQUIRE_ONCE => true,
+        T_RETURN => true,
+        T_STATIC => true,
+        T_SWITCH => true,
+        T_THROW => true,
+        T_TRAIT => true,
+        T_TRY => true,
+        T_UNSET => true,
+        T_USE => true,
+        T_VAR => true,
+        T_WHILE => true,
+        T_YIELD => true,
+        T_YIELD_FROM => true,
     ];
     private static array $formattedSourceCache = [];
-    private int $htmlSpecialCharsFlags         = ENT_COMPAT | ENT_HTML401 | ENT_SUBSTITUTE;
+    private int $htmlSpecialCharsFlags =
+        ENT_COMPAT | ENT_HTML401 | ENT_SUBSTITUTE;
 
-    public function render(FileNode $node, string $file): void
-    {
-        $templateName = $this->templatePath . ($this->hasBranchCoverage ? 'file_branch.html' : 'file.html');
-        $template     = new Template($templateName, '{{', '}}');
+    public function render(FileNode $node, string $file): void {
+        $templateName =
+            $this->templatePath .
+            ($this->hasBranchCoverage ? "file_branch.html" : "file.html");
+        $template = new Template($templateName, "{{", "}}");
         $this->setCommonTemplateVariables($template, $node);
 
-        $template->setVar(
-            [
-                'items'     => $this->renderItems($node),
-                'lines'     => $this->renderSourceWithLineCoverage($node),
-                'legend'    => '<p><span class="legend covered-by-small-tests">Covered by small (and larger) tests</span><span class="legend covered-by-medium-tests">Covered by medium (and large) tests</span><span class="legend covered-by-large-tests">Covered by large tests (and tests of unknown size)</span><span class="legend not-covered">Not covered</span><span class="legend not-coverable">Not coverable</span></p>',
-                'structure' => '',
-            ],
-        );
+        $template->setVar([
+            "items" => $this->renderItems($node),
+            "lines" => $this->renderSourceWithLineCoverage($node),
+            "legend" =>
+                '<p><span class="legend covered-by-small-tests">Covered by small (and larger) tests</span><span class="legend covered-by-medium-tests">Covered by medium (and large) tests</span><span class="legend covered-by-large-tests">Covered by large tests (and tests of unknown size)</span><span class="legend not-covered">Not covered</span><span class="legend not-coverable">Not coverable</span></p>',
+            "structure" => "",
+        ]);
 
         try {
-            $template->renderTo($file . '.html');
+            $template->renderTo($file . ".html");
         } catch (Exception $e) {
             throw new FileCouldNotBeWrittenException(
                 $e->getMessage(),
@@ -215,17 +215,16 @@ final class File extends Renderer
         }
 
         if ($this->hasBranchCoverage) {
-            $template->setVar(
-                [
-                    'items'     => $this->renderItems($node),
-                    'lines'     => $this->renderSourceWithBranchCoverage($node),
-                    'legend'    => '<p><span class="success"><strong>Fully covered</strong></span><span class="warning"><strong>Partially covered</strong></span><span class="danger"><strong>Not covered</strong></span></p>',
-                    'structure' => $this->renderBranchStructure($node),
-                ],
-            );
+            $template->setVar([
+                "items" => $this->renderItems($node),
+                "lines" => $this->renderSourceWithBranchCoverage($node),
+                "legend" =>
+                    '<p><span class="success"><strong>Fully covered</strong></span><span class="warning"><strong>Partially covered</strong></span><span class="danger"><strong>Not covered</strong></span></p>',
+                "structure" => $this->renderBranchStructure($node),
+            ]);
 
             try {
-                $template->renderTo($file . '_branch.html');
+                $template->renderTo($file . "_branch.html");
             } catch (Exception $e) {
                 throw new FileCouldNotBeWrittenException(
                     $e->getMessage(),
@@ -234,17 +233,16 @@ final class File extends Renderer
                 );
             }
 
-            $template->setVar(
-                [
-                    'items'     => $this->renderItems($node),
-                    'lines'     => $this->renderSourceWithPathCoverage($node),
-                    'legend'    => '<p><span class="success"><strong>Fully covered</strong></span><span class="warning"><strong>Partially covered</strong></span><span class="danger"><strong>Not covered</strong></span></p>',
-                    'structure' => $this->renderPathStructure($node),
-                ],
-            );
+            $template->setVar([
+                "items" => $this->renderItems($node),
+                "lines" => $this->renderSourceWithPathCoverage($node),
+                "legend" =>
+                    '<p><span class="success"><strong>Fully covered</strong></span><span class="warning"><strong>Partially covered</strong></span><span class="danger"><strong>Not covered</strong></span></p>',
+                "structure" => $this->renderPathStructure($node),
+            ]);
 
             try {
-                $template->renderTo($file . '_path.html');
+                $template->renderTo($file . "_path.html");
             } catch (Exception $e) {
                 throw new FileCouldNotBeWrittenException(
                     $e->getMessage(),
@@ -255,45 +253,66 @@ final class File extends Renderer
         }
     }
 
-    private function renderItems(FileNode $node): string
-    {
-        $templateName = $this->templatePath . ($this->hasBranchCoverage ? 'file_item_branch.html' : 'file_item.html');
-        $template     = new Template($templateName, '{{', '}}');
+    private function renderItems(FileNode $node): string {
+        $templateName =
+            $this->templatePath .
+            ($this->hasBranchCoverage
+                ? "file_item_branch.html"
+                : "file_item.html");
+        $template = new Template($templateName, "{{", "}}");
 
-        $methodTemplateName = $this->templatePath . ($this->hasBranchCoverage ? 'method_item_branch.html' : 'method_item.html');
-        $methodItemTemplate = new Template(
-            $methodTemplateName,
-            '{{',
-            '}}',
-        );
+        $methodTemplateName =
+            $this->templatePath .
+            ($this->hasBranchCoverage
+                ? "method_item_branch.html"
+                : "method_item.html");
+        $methodItemTemplate = new Template($methodTemplateName, "{{", "}}");
 
-        $items = $this->renderItemTemplate(
-            $template,
-            [
-                'name'                            => 'Total',
-                'numClasses'                      => $node->numberOfClassesAndTraits(),
-                'numTestedClasses'                => $node->numberOfTestedClassesAndTraits(),
-                'numMethods'                      => $node->numberOfFunctionsAndMethods(),
-                'numTestedMethods'                => $node->numberOfTestedFunctionsAndMethods(),
-                'linesExecutedPercent'            => $node->percentageOfExecutedLines()->asFloat(),
-                'linesExecutedPercentAsString'    => $node->percentageOfExecutedLines()->asString(),
-                'numExecutedLines'                => $node->numberOfExecutedLines(),
-                'numExecutableLines'              => $node->numberOfExecutableLines(),
-                'branchesExecutedPercent'         => $node->percentageOfExecutedBranches()->asFloat(),
-                'branchesExecutedPercentAsString' => $node->percentageOfExecutedBranches()->asString(),
-                'numExecutedBranches'             => $node->numberOfExecutedBranches(),
-                'numExecutableBranches'           => $node->numberOfExecutableBranches(),
-                'pathsExecutedPercent'            => $node->percentageOfExecutedPaths()->asFloat(),
-                'pathsExecutedPercentAsString'    => $node->percentageOfExecutedPaths()->asString(),
-                'numExecutedPaths'                => $node->numberOfExecutedPaths(),
-                'numExecutablePaths'              => $node->numberOfExecutablePaths(),
-                'testedMethodsPercent'            => $node->percentageOfTestedFunctionsAndMethods()->asFloat(),
-                'testedMethodsPercentAsString'    => $node->percentageOfTestedFunctionsAndMethods()->asString(),
-                'testedClassesPercent'            => $node->percentageOfTestedClassesAndTraits()->asFloat(),
-                'testedClassesPercentAsString'    => $node->percentageOfTestedClassesAndTraits()->asString(),
-                'crap'                            => '<abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr>',
-            ],
-        );
+        $items = $this->renderItemTemplate($template, [
+            "name" => "Total",
+            "numClasses" => $node->numberOfClassesAndTraits(),
+            "numTestedClasses" => $node->numberOfTestedClassesAndTraits(),
+            "numMethods" => $node->numberOfFunctionsAndMethods(),
+            "numTestedMethods" => $node->numberOfTestedFunctionsAndMethods(),
+            "linesExecutedPercent" => $node
+                ->percentageOfExecutedLines()
+                ->asFloat(),
+            "linesExecutedPercentAsString" => $node
+                ->percentageOfExecutedLines()
+                ->asString(),
+            "numExecutedLines" => $node->numberOfExecutedLines(),
+            "numExecutableLines" => $node->numberOfExecutableLines(),
+            "branchesExecutedPercent" => $node
+                ->percentageOfExecutedBranches()
+                ->asFloat(),
+            "branchesExecutedPercentAsString" => $node
+                ->percentageOfExecutedBranches()
+                ->asString(),
+            "numExecutedBranches" => $node->numberOfExecutedBranches(),
+            "numExecutableBranches" => $node->numberOfExecutableBranches(),
+            "pathsExecutedPercent" => $node
+                ->percentageOfExecutedPaths()
+                ->asFloat(),
+            "pathsExecutedPercentAsString" => $node
+                ->percentageOfExecutedPaths()
+                ->asString(),
+            "numExecutedPaths" => $node->numberOfExecutedPaths(),
+            "numExecutablePaths" => $node->numberOfExecutablePaths(),
+            "testedMethodsPercent" => $node
+                ->percentageOfTestedFunctionsAndMethods()
+                ->asFloat(),
+            "testedMethodsPercentAsString" => $node
+                ->percentageOfTestedFunctionsAndMethods()
+                ->asString(),
+            "testedClassesPercent" => $node
+                ->percentageOfTestedClassesAndTraits()
+                ->asFloat(),
+            "testedClassesPercentAsString" => $node
+                ->percentageOfTestedClassesAndTraits()
+                ->asString(),
+            "crap" =>
+                '<abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr>',
+        ]);
 
         $items .= $this->renderFunctionItems(
             $node->functions(),
@@ -315,49 +334,54 @@ final class File extends Renderer
         return $items;
     }
 
-    private function renderTraitOrClassItems(array $items, Template $template, Template $methodItemTemplate): string
-    {
-        $buffer = '';
+    private function renderTraitOrClassItems(
+        array $items,
+        Template $template,
+        Template $methodItemTemplate,
+    ): string {
+        $buffer = "";
 
         if (empty($items)) {
             return $buffer;
         }
 
         foreach ($items as $name => $item) {
-            $numMethods       = 0;
+            $numMethods = 0;
             $numTestedMethods = 0;
 
-            foreach ($item['methods'] as $method) {
-                if ($method['executableLines'] > 0) {
+            foreach ($item["methods"] as $method) {
+                if ($method["executableLines"] > 0) {
                     $numMethods++;
 
-                    if ($method['executedLines'] === $method['executableLines']) {
+                    if (
+                        $method["executedLines"] === $method["executableLines"]
+                    ) {
                         $numTestedMethods++;
                     }
                 }
             }
 
-            if ($item['executableLines'] > 0) {
-                $numClasses                   = 1;
-                $numTestedClasses             = $numTestedMethods === $numMethods ? 1 : 0;
+            if ($item["executableLines"] > 0) {
+                $numClasses = 1;
+                $numTestedClasses = $numTestedMethods === $numMethods ? 1 : 0;
                 $linesExecutedPercentAsString = Percentage::fromFractionAndTotal(
-                    $item['executedLines'],
-                    $item['executableLines'],
+                    $item["executedLines"],
+                    $item["executableLines"],
                 )->asString();
                 $branchesExecutedPercentAsString = Percentage::fromFractionAndTotal(
-                    $item['executedBranches'],
-                    $item['executableBranches'],
+                    $item["executedBranches"],
+                    $item["executableBranches"],
                 )->asString();
                 $pathsExecutedPercentAsString = Percentage::fromFractionAndTotal(
-                    $item['executedPaths'],
-                    $item['executablePaths'],
+                    $item["executedPaths"],
+                    $item["executablePaths"],
                 )->asString();
             } else {
-                $numClasses                      = 0;
-                $numTestedClasses                = 0;
-                $linesExecutedPercentAsString    = 'n/a';
-                $branchesExecutedPercentAsString = 'n/a';
-                $pathsExecutedPercentAsString    = 'n/a';
+                $numClasses = 0;
+                $numTestedClasses = 0;
+                $linesExecutedPercentAsString = "n/a";
+                $branchesExecutedPercentAsString = "n/a";
+                $pathsExecutedPercentAsString = "n/a";
             }
 
             $testedMethodsPercentage = Percentage::fromFractionAndTotal(
@@ -370,48 +394,45 @@ final class File extends Renderer
                 1,
             );
 
-            $buffer .= $this->renderItemTemplate(
-                $template,
-                [
-                    'name'                 => $this->abbreviateClassName($name),
-                    'numClasses'           => $numClasses,
-                    'numTestedClasses'     => $numTestedClasses,
-                    'numMethods'           => $numMethods,
-                    'numTestedMethods'     => $numTestedMethods,
-                    'linesExecutedPercent' => Percentage::fromFractionAndTotal(
-                        $item['executedLines'],
-                        $item['executableLines'],
-                    )->asFloat(),
-                    'linesExecutedPercentAsString' => $linesExecutedPercentAsString,
-                    'numExecutedLines'             => $item['executedLines'],
-                    'numExecutableLines'           => $item['executableLines'],
-                    'branchesExecutedPercent'      => Percentage::fromFractionAndTotal(
-                        $item['executedBranches'],
-                        $item['executableBranches'],
-                    )->asFloat(),
-                    'branchesExecutedPercentAsString' => $branchesExecutedPercentAsString,
-                    'numExecutedBranches'             => $item['executedBranches'],
-                    'numExecutableBranches'           => $item['executableBranches'],
-                    'pathsExecutedPercent'            => Percentage::fromFractionAndTotal(
-                        $item['executedPaths'],
-                        $item['executablePaths'],
-                    )->asFloat(),
-                    'pathsExecutedPercentAsString' => $pathsExecutedPercentAsString,
-                    'numExecutedPaths'             => $item['executedPaths'],
-                    'numExecutablePaths'           => $item['executablePaths'],
-                    'testedMethodsPercent'         => $testedMethodsPercentage->asFloat(),
-                    'testedMethodsPercentAsString' => $testedMethodsPercentage->asString(),
-                    'testedClassesPercent'         => $testedClassesPercentage->asFloat(),
-                    'testedClassesPercentAsString' => $testedClassesPercentage->asString(),
-                    'crap'                         => $item['crap'],
-                ],
-            );
+            $buffer .= $this->renderItemTemplate($template, [
+                "name" => $this->abbreviateClassName($name),
+                "numClasses" => $numClasses,
+                "numTestedClasses" => $numTestedClasses,
+                "numMethods" => $numMethods,
+                "numTestedMethods" => $numTestedMethods,
+                "linesExecutedPercent" => Percentage::fromFractionAndTotal(
+                    $item["executedLines"],
+                    $item["executableLines"],
+                )->asFloat(),
+                "linesExecutedPercentAsString" => $linesExecutedPercentAsString,
+                "numExecutedLines" => $item["executedLines"],
+                "numExecutableLines" => $item["executableLines"],
+                "branchesExecutedPercent" => Percentage::fromFractionAndTotal(
+                    $item["executedBranches"],
+                    $item["executableBranches"],
+                )->asFloat(),
+                "branchesExecutedPercentAsString" => $branchesExecutedPercentAsString,
+                "numExecutedBranches" => $item["executedBranches"],
+                "numExecutableBranches" => $item["executableBranches"],
+                "pathsExecutedPercent" => Percentage::fromFractionAndTotal(
+                    $item["executedPaths"],
+                    $item["executablePaths"],
+                )->asFloat(),
+                "pathsExecutedPercentAsString" => $pathsExecutedPercentAsString,
+                "numExecutedPaths" => $item["executedPaths"],
+                "numExecutablePaths" => $item["executablePaths"],
+                "testedMethodsPercent" => $testedMethodsPercentage->asFloat(),
+                "testedMethodsPercentAsString" => $testedMethodsPercentage->asString(),
+                "testedClassesPercent" => $testedClassesPercentage->asFloat(),
+                "testedClassesPercentAsString" => $testedClassesPercentage->asString(),
+                "crap" => $item["crap"],
+            ]);
 
-            foreach ($item['methods'] as $method) {
+            foreach ($item["methods"] as $method) {
                 $buffer .= $this->renderFunctionOrMethodItem(
                     $methodItemTemplate,
                     $method,
-                    '&nbsp;',
+                    "&nbsp;",
                 );
             }
         }
@@ -419,50 +440,52 @@ final class File extends Renderer
         return $buffer;
     }
 
-    private function renderFunctionItems(array $functions, Template $template): string
-    {
+    private function renderFunctionItems(
+        array $functions,
+        Template $template,
+    ): string {
         if (empty($functions)) {
-            return '';
+            return "";
         }
 
-        $buffer = '';
+        $buffer = "";
 
         foreach ($functions as $function) {
-            $buffer .= $this->renderFunctionOrMethodItem(
-                $template,
-                $function,
-            );
+            $buffer .= $this->renderFunctionOrMethodItem($template, $function);
         }
 
         return $buffer;
     }
 
-    private function renderFunctionOrMethodItem(Template $template, array $item, string $indent = ''): string
-    {
-        $numMethods       = 0;
+    private function renderFunctionOrMethodItem(
+        Template $template,
+        array $item,
+        string $indent = "",
+    ): string {
+        $numMethods = 0;
         $numTestedMethods = 0;
 
-        if ($item['executableLines'] > 0) {
+        if ($item["executableLines"] > 0) {
             $numMethods = 1;
 
-            if ($item['executedLines'] === $item['executableLines']) {
+            if ($item["executedLines"] === $item["executableLines"]) {
                 $numTestedMethods = 1;
             }
         }
 
         $executedLinesPercentage = Percentage::fromFractionAndTotal(
-            $item['executedLines'],
-            $item['executableLines'],
+            $item["executedLines"],
+            $item["executableLines"],
         );
 
         $executedBranchesPercentage = Percentage::fromFractionAndTotal(
-            $item['executedBranches'],
-            $item['executableBranches'],
+            $item["executedBranches"],
+            $item["executableBranches"],
         );
 
         $executedPathsPercentage = Percentage::fromFractionAndTotal(
-            $item['executedPaths'],
-            $item['executablePaths'],
+            $item["executedPaths"],
+            $item["executablePaths"],
         );
 
         $testedMethodsPercentage = Percentage::fromFractionAndTotal(
@@ -470,530 +493,730 @@ final class File extends Renderer
             1,
         );
 
-        return $this->renderItemTemplate(
-            $template,
-            [
-                'name' => sprintf(
-                    '%s<a href="#%d"><abbr title="%s">%s</abbr></a>',
-                    $indent,
-                    $item['startLine'],
-                    htmlspecialchars($item['signature'], $this->htmlSpecialCharsFlags),
-                    $item['functionName'] ?? $item['methodName'],
+        return $this->renderItemTemplate($template, [
+            "name" => sprintf(
+                '%s<a href="#%d"><abbr title="%s">%s</abbr></a>',
+                $indent,
+                $item["startLine"],
+                htmlspecialchars(
+                    $item["signature"],
+                    $this->htmlSpecialCharsFlags,
                 ),
-                'numMethods'                      => $numMethods,
-                'numTestedMethods'                => $numTestedMethods,
-                'linesExecutedPercent'            => $executedLinesPercentage->asFloat(),
-                'linesExecutedPercentAsString'    => $executedLinesPercentage->asString(),
-                'numExecutedLines'                => $item['executedLines'],
-                'numExecutableLines'              => $item['executableLines'],
-                'branchesExecutedPercent'         => $executedBranchesPercentage->asFloat(),
-                'branchesExecutedPercentAsString' => $executedBranchesPercentage->asString(),
-                'numExecutedBranches'             => $item['executedBranches'],
-                'numExecutableBranches'           => $item['executableBranches'],
-                'pathsExecutedPercent'            => $executedPathsPercentage->asFloat(),
-                'pathsExecutedPercentAsString'    => $executedPathsPercentage->asString(),
-                'numExecutedPaths'                => $item['executedPaths'],
-                'numExecutablePaths'              => $item['executablePaths'],
-                'testedMethodsPercent'            => $testedMethodsPercentage->asFloat(),
-                'testedMethodsPercentAsString'    => $testedMethodsPercentage->asString(),
-                'crap'                            => $item['crap'],
-            ],
-        );
+                $item["functionName"] ?? $item["methodName"],
+            ),
+            "numMethods" => $numMethods,
+            "numTestedMethods" => $numTestedMethods,
+            "linesExecutedPercent" => $executedLinesPercentage->asFloat(),
+            "linesExecutedPercentAsString" => $executedLinesPercentage->asString(),
+            "numExecutedLines" => $item["executedLines"],
+            "numExecutableLines" => $item["executableLines"],
+            "branchesExecutedPercent" => $executedBranchesPercentage->asFloat(),
+            "branchesExecutedPercentAsString" => $executedBranchesPercentage->asString(),
+            "numExecutedBranches" => $item["executedBranches"],
+            "numExecutableBranches" => $item["executableBranches"],
+            "pathsExecutedPercent" => $executedPathsPercentage->asFloat(),
+            "pathsExecutedPercentAsString" => $executedPathsPercentage->asString(),
+            "numExecutedPaths" => $item["executedPaths"],
+            "numExecutablePaths" => $item["executablePaths"],
+            "testedMethodsPercent" => $testedMethodsPercentage->asFloat(),
+            "testedMethodsPercentAsString" => $testedMethodsPercentage->asString(),
+            "crap" => $item["crap"],
+        ]);
     }
 
-    private function renderSourceWithLineCoverage(FileNode $node): string
-    {
-        $linesTemplate      = new Template($this->templatePath . 'lines.html.dist', '{{', '}}');
-        $singleLineTemplate = new Template($this->templatePath . 'line.html.dist', '{{', '}}');
+    private function renderSourceWithLineCoverage(FileNode $node): string {
+        $linesTemplate = new Template(
+            $this->templatePath . "lines.html.dist",
+            "{{",
+            "}}",
+        );
+        $singleLineTemplate = new Template(
+            $this->templatePath . "line.html.dist",
+            "{{",
+            "}}",
+        );
 
         $coverageData = $node->lineCoverageData();
-        $testData     = $node->testData();
-        $codeLines    = $this->loadFile($node->pathAsString());
-        $lines        = '';
-        $i            = 1;
+        $testData = $node->testData();
+        $codeLines = $this->loadFile($node->pathAsString());
+        $lines = "";
+        $i = 1;
 
         foreach ($codeLines as $line) {
-            $trClass        = '';
-            $popoverContent = '';
-            $popoverTitle   = '';
+            $trClass = "";
+            $popoverContent = "";
+            $popoverTitle = "";
 
             if (array_key_exists($i, $coverageData)) {
-                $numTests = ($coverageData[$i] ? count($coverageData[$i]) : 0);
+                $numTests = $coverageData[$i] ? count($coverageData[$i]) : 0;
 
                 if ($coverageData[$i] === null) {
-                    $trClass = 'warning';
+                    $trClass = "warning";
                 } elseif ($numTests === 0) {
-                    $trClass = 'danger';
+                    $trClass = "danger";
                 } else {
                     if ($numTests > 1) {
-                        $popoverTitle = $numTests . ' tests cover line ' . $i;
+                        $popoverTitle = $numTests . " tests cover line " . $i;
                     } else {
-                        $popoverTitle = '1 test covers line ' . $i;
+                        $popoverTitle = "1 test covers line " . $i;
                     }
 
-                    $lineCss        = 'covered-by-large-tests';
-                    $popoverContent = '<ul>';
+                    $lineCss = "covered-by-large-tests";
+                    $popoverContent = "<ul>";
 
                     foreach ($coverageData[$i] as $test) {
-                        if ($lineCss === 'covered-by-large-tests' && $testData[$test]['size'] === 'medium') {
-                            $lineCss = 'covered-by-medium-tests';
-                        } elseif ($testData[$test]['size'] === 'small') {
-                            $lineCss = 'covered-by-small-tests';
+                        if (
+                            $lineCss === "covered-by-large-tests" &&
+                            $testData[$test]["size"] === "medium"
+                        ) {
+                            $lineCss = "covered-by-medium-tests";
+                        } elseif ($testData[$test]["size"] === "small") {
+                            $lineCss = "covered-by-small-tests";
                         }
 
-                        $popoverContent .= $this->createPopoverContentForTest($test, $testData[$test]);
+                        $popoverContent .= $this->createPopoverContentForTest(
+                            $test,
+                            $testData[$test],
+                        );
                     }
 
-                    $popoverContent .= '</ul>';
-                    $trClass = $lineCss . ' popin';
+                    $popoverContent .= "</ul>";
+                    $trClass = $lineCss . " popin";
                 }
             }
 
-            $popover = '';
+            $popover = "";
 
             if (!empty($popoverTitle)) {
                 $popover = sprintf(
                     ' data-bs-title="%s" data-bs-content="%s" data-bs-placement="top" data-bs-html="true"',
                     $popoverTitle,
-                    htmlspecialchars($popoverContent, $this->htmlSpecialCharsFlags),
+                    htmlspecialchars(
+                        $popoverContent,
+                        $this->htmlSpecialCharsFlags,
+                    ),
                 );
             }
 
-            $lines .= $this->renderLine($singleLineTemplate, $i, $line, $trClass, $popover);
+            $lines .= $this->renderLine(
+                $singleLineTemplate,
+                $i,
+                $line,
+                $trClass,
+                $popover,
+            );
 
             $i++;
         }
 
-        $linesTemplate->setVar(['lines' => $lines]);
+        $linesTemplate->setVar(["lines" => $lines]);
 
         return $linesTemplate->render();
     }
 
-    private function renderSourceWithBranchCoverage(FileNode $node): string
-    {
-        $linesTemplate      = new Template($this->templatePath . 'lines.html.dist', '{{', '}}');
-        $singleLineTemplate = new Template($this->templatePath . 'line.html.dist', '{{', '}}');
+    private function renderSourceWithBranchCoverage(FileNode $node): string {
+        $linesTemplate = new Template(
+            $this->templatePath . "lines.html.dist",
+            "{{",
+            "}}",
+        );
+        $singleLineTemplate = new Template(
+            $this->templatePath . "line.html.dist",
+            "{{",
+            "}}",
+        );
 
         $functionCoverageData = $node->functionCoverageData();
-        $testData             = $node->testData();
-        $codeLines            = $this->loadFile($node->pathAsString());
+        $testData = $node->testData();
+        $codeLines = $this->loadFile($node->pathAsString());
 
         $lineData = [];
 
         /** @var int $line */
         foreach (array_keys($codeLines) as $line) {
             $lineData[$line + 1] = [
-                'includedInBranches'    => 0,
-                'includedInHitBranches' => 0,
-                'tests'                 => [],
+                "includedInBranches" => 0,
+                "includedInHitBranches" => 0,
+                "tests" => [],
             ];
         }
 
         foreach ($functionCoverageData as $method) {
-            foreach ($method['branches'] as $branch) {
-                foreach (range($branch['line_start'], $branch['line_end']) as $line) {
-                    if (!isset($lineData[$line])) { // blank line at end of file is sometimes included here
+            foreach ($method["branches"] as $branch) {
+                foreach (
+                    range($branch["line_start"], $branch["line_end"])
+                    as $line
+                ) {
+                    if (!isset($lineData[$line])) {
+                        // blank line at end of file is sometimes included here
                         continue;
                     }
 
-                    $lineData[$line]['includedInBranches']++;
+                    $lineData[$line]["includedInBranches"]++;
 
-                    if ($branch['hit']) {
-                        $lineData[$line]['includedInHitBranches']++;
-                        $lineData[$line]['tests'] = array_unique(array_merge($lineData[$line]['tests'], $branch['hit']));
+                    if ($branch["hit"]) {
+                        $lineData[$line]["includedInHitBranches"]++;
+                        $lineData[$line]["tests"] = array_unique(
+                            array_merge(
+                                $lineData[$line]["tests"],
+                                $branch["hit"],
+                            ),
+                        );
                     }
                 }
             }
         }
 
-        $lines = '';
-        $i     = 1;
+        $lines = "";
+        $i = 1;
 
         /** @var string $line */
         foreach ($codeLines as $line) {
-            $trClass = '';
-            $popover = '';
+            $trClass = "";
+            $popover = "";
 
-            if ($lineData[$i]['includedInBranches'] > 0) {
-                $lineCss = 'success';
+            if ($lineData[$i]["includedInBranches"] > 0) {
+                $lineCss = "success";
 
-                if ($lineData[$i]['includedInHitBranches'] === 0) {
-                    $lineCss = 'danger';
-                } elseif ($lineData[$i]['includedInHitBranches'] !== $lineData[$i]['includedInBranches']) {
-                    $lineCss = 'warning';
+                if ($lineData[$i]["includedInHitBranches"] === 0) {
+                    $lineCss = "danger";
+                } elseif (
+                    $lineData[$i]["includedInHitBranches"] !==
+                    $lineData[$i]["includedInBranches"]
+                ) {
+                    $lineCss = "warning";
                 }
 
-                $popoverContent = '<ul>';
+                $popoverContent = "<ul>";
 
-                if (count($lineData[$i]['tests']) === 1) {
-                    $popoverTitle = '1 test covers line ' . $i;
+                if (count($lineData[$i]["tests"]) === 1) {
+                    $popoverTitle = "1 test covers line " . $i;
                 } else {
-                    $popoverTitle = count($lineData[$i]['tests']) . ' tests cover line ' . $i;
+                    $popoverTitle =
+                        count($lineData[$i]["tests"]) .
+                        " tests cover line " .
+                        $i;
                 }
-                $popoverTitle .= '. These are covering ' . $lineData[$i]['includedInHitBranches'] . ' out of the ' . $lineData[$i]['includedInBranches'] . ' code branches.';
+                $popoverTitle .=
+                    ". These are covering " .
+                    $lineData[$i]["includedInHitBranches"] .
+                    " out of the " .
+                    $lineData[$i]["includedInBranches"] .
+                    " code branches.";
 
-                foreach ($lineData[$i]['tests'] as $test) {
-                    $popoverContent .= $this->createPopoverContentForTest($test, $testData[$test]);
+                foreach ($lineData[$i]["tests"] as $test) {
+                    $popoverContent .= $this->createPopoverContentForTest(
+                        $test,
+                        $testData[$test],
+                    );
                 }
 
-                $popoverContent .= '</ul>';
-                $trClass = $lineCss . ' popin';
+                $popoverContent .= "</ul>";
+                $trClass = $lineCss . " popin";
 
                 $popover = sprintf(
                     ' data-bs-title="%s" data-bs-content="%s" data-bs-placement="top" data-bs-html="true"',
                     $popoverTitle,
-                    htmlspecialchars($popoverContent, $this->htmlSpecialCharsFlags),
+                    htmlspecialchars(
+                        $popoverContent,
+                        $this->htmlSpecialCharsFlags,
+                    ),
                 );
             }
 
-            $lines .= $this->renderLine($singleLineTemplate, $i, $line, $trClass, $popover);
+            $lines .= $this->renderLine(
+                $singleLineTemplate,
+                $i,
+                $line,
+                $trClass,
+                $popover,
+            );
 
             $i++;
         }
 
-        $linesTemplate->setVar(['lines' => $lines]);
+        $linesTemplate->setVar(["lines" => $lines]);
 
         return $linesTemplate->render();
     }
 
-    private function renderSourceWithPathCoverage(FileNode $node): string
-    {
-        $linesTemplate      = new Template($this->templatePath . 'lines.html.dist', '{{', '}}');
-        $singleLineTemplate = new Template($this->templatePath . 'line.html.dist', '{{', '}}');
+    private function renderSourceWithPathCoverage(FileNode $node): string {
+        $linesTemplate = new Template(
+            $this->templatePath . "lines.html.dist",
+            "{{",
+            "}}",
+        );
+        $singleLineTemplate = new Template(
+            $this->templatePath . "line.html.dist",
+            "{{",
+            "}}",
+        );
 
         $functionCoverageData = $node->functionCoverageData();
-        $testData             = $node->testData();
-        $codeLines            = $this->loadFile($node->pathAsString());
+        $testData = $node->testData();
+        $codeLines = $this->loadFile($node->pathAsString());
 
         $lineData = [];
 
         /** @var int $line */
         foreach (array_keys($codeLines) as $line) {
             $lineData[$line + 1] = [
-                'includedInPaths'    => [],
-                'includedInHitPaths' => [],
-                'tests'              => [],
+                "includedInPaths" => [],
+                "includedInHitPaths" => [],
+                "tests" => [],
             ];
         }
 
         foreach ($functionCoverageData as $method) {
-            foreach ($method['paths'] as $pathId => $path) {
-                foreach ($path['path'] as $branchTaken) {
-                    foreach (range($method['branches'][$branchTaken]['line_start'], $method['branches'][$branchTaken]['line_end']) as $line) {
+            foreach ($method["paths"] as $pathId => $path) {
+                foreach ($path["path"] as $branchTaken) {
+                    foreach (
+                        range(
+                            $method["branches"][$branchTaken]["line_start"],
+                            $method["branches"][$branchTaken]["line_end"],
+                        )
+                        as $line
+                    ) {
                         if (!isset($lineData[$line])) {
                             continue;
                         }
-                        $lineData[$line]['includedInPaths'][] = $pathId;
+                        $lineData[$line]["includedInPaths"][] = $pathId;
 
-                        if ($path['hit']) {
-                            $lineData[$line]['includedInHitPaths'][] = $pathId;
-                            $lineData[$line]['tests']                = array_unique(array_merge($lineData[$line]['tests'], $path['hit']));
+                        if ($path["hit"]) {
+                            $lineData[$line]["includedInHitPaths"][] = $pathId;
+                            $lineData[$line]["tests"] = array_unique(
+                                array_merge(
+                                    $lineData[$line]["tests"],
+                                    $path["hit"],
+                                ),
+                            );
                         }
                     }
                 }
             }
         }
 
-        $lines = '';
-        $i     = 1;
+        $lines = "";
+        $i = 1;
 
         /** @var string $line */
         foreach ($codeLines as $line) {
-            $trClass                 = '';
-            $popover                 = '';
-            $includedInPathsCount    = count(array_unique($lineData[$i]['includedInPaths']));
-            $includedInHitPathsCount = count(array_unique($lineData[$i]['includedInHitPaths']));
+            $trClass = "";
+            $popover = "";
+            $includedInPathsCount = count(
+                array_unique($lineData[$i]["includedInPaths"]),
+            );
+            $includedInHitPathsCount = count(
+                array_unique($lineData[$i]["includedInHitPaths"]),
+            );
 
             if ($includedInPathsCount > 0) {
-                $lineCss = 'success';
+                $lineCss = "success";
 
                 if ($includedInHitPathsCount === 0) {
-                    $lineCss = 'danger';
+                    $lineCss = "danger";
                 } elseif ($includedInHitPathsCount !== $includedInPathsCount) {
-                    $lineCss = 'warning';
+                    $lineCss = "warning";
                 }
 
-                $popoverContent = '<ul>';
+                $popoverContent = "<ul>";
 
-                if (count($lineData[$i]['tests']) === 1) {
-                    $popoverTitle = '1 test covers line ' . $i;
+                if (count($lineData[$i]["tests"]) === 1) {
+                    $popoverTitle = "1 test covers line " . $i;
                 } else {
-                    $popoverTitle = count($lineData[$i]['tests']) . ' tests cover line ' . $i;
+                    $popoverTitle =
+                        count($lineData[$i]["tests"]) .
+                        " tests cover line " .
+                        $i;
                 }
-                $popoverTitle .= '. These are covering ' . $includedInHitPathsCount . ' out of the ' . $includedInPathsCount . ' code paths.';
+                $popoverTitle .=
+                    ". These are covering " .
+                    $includedInHitPathsCount .
+                    " out of the " .
+                    $includedInPathsCount .
+                    " code paths.";
 
-                foreach ($lineData[$i]['tests'] as $test) {
-                    $popoverContent .= $this->createPopoverContentForTest($test, $testData[$test]);
+                foreach ($lineData[$i]["tests"] as $test) {
+                    $popoverContent .= $this->createPopoverContentForTest(
+                        $test,
+                        $testData[$test],
+                    );
                 }
 
-                $popoverContent .= '</ul>';
-                $trClass = $lineCss . ' popin';
+                $popoverContent .= "</ul>";
+                $trClass = $lineCss . " popin";
 
                 $popover = sprintf(
                     ' data-bs-title="%s" data-bs-content="%s" data-bs-placement="top" data-bs-html="true"',
                     $popoverTitle,
-                    htmlspecialchars($popoverContent, $this->htmlSpecialCharsFlags),
+                    htmlspecialchars(
+                        $popoverContent,
+                        $this->htmlSpecialCharsFlags,
+                    ),
                 );
             }
 
-            $lines .= $this->renderLine($singleLineTemplate, $i, $line, $trClass, $popover);
+            $lines .= $this->renderLine(
+                $singleLineTemplate,
+                $i,
+                $line,
+                $trClass,
+                $popover,
+            );
 
             $i++;
         }
 
-        $linesTemplate->setVar(['lines' => $lines]);
+        $linesTemplate->setVar(["lines" => $lines]);
 
         return $linesTemplate->render();
     }
 
-    private function renderBranchStructure(FileNode $node): string
-    {
-        $branchesTemplate = new Template($this->templatePath . 'branches.html.dist', '{{', '}}');
+    private function renderBranchStructure(FileNode $node): string {
+        $branchesTemplate = new Template(
+            $this->templatePath . "branches.html.dist",
+            "{{",
+            "}}",
+        );
 
         $coverageData = $node->functionCoverageData();
-        $testData     = $node->testData();
-        $codeLines    = $this->loadFile($node->pathAsString());
-        $branches     = '';
+        $testData = $node->testData();
+        $codeLines = $this->loadFile($node->pathAsString());
+        $branches = "";
 
         ksort($coverageData);
 
         foreach ($coverageData as $methodName => $methodData) {
-            if (!$methodData['branches']) {
+            if (!$methodData["branches"]) {
                 continue;
             }
 
-            $branchStructure = '';
+            $branchStructure = "";
 
-            foreach ($methodData['branches'] as $branch) {
-                $branchStructure .= $this->renderBranchLines($branch, $codeLines, $testData);
+            foreach ($methodData["branches"] as $branch) {
+                $branchStructure .= $this->renderBranchLines(
+                    $branch,
+                    $codeLines,
+                    $testData,
+                );
             }
 
-            if ($branchStructure !== '') { // don't show empty branches
-                $branches .= '<h5 class="structure-heading"><a name="' . htmlspecialchars($methodName, $this->htmlSpecialCharsFlags) . '">' . $this->abbreviateMethodName($methodName) . '</a></h5>' . "\n";
+            if ($branchStructure !== "") {
+                // don't show empty branches
+                $branches .=
+                    '<h5 class="structure-heading"><a name="' .
+                    htmlspecialchars(
+                        $methodName,
+                        $this->htmlSpecialCharsFlags,
+                    ) .
+                    '">' .
+                    $this->abbreviateMethodName($methodName) .
+                    "</a></h5>" .
+                    "\n";
                 $branches .= $branchStructure;
             }
         }
 
-        $branchesTemplate->setVar(['branches' => $branches]);
+        $branchesTemplate->setVar(["branches" => $branches]);
 
         return $branchesTemplate->render();
     }
 
-    private function renderBranchLines(array $branch, array $codeLines, array $testData): string
-    {
-        $linesTemplate      = new Template($this->templatePath . 'lines.html.dist', '{{', '}}');
-        $singleLineTemplate = new Template($this->templatePath . 'line.html.dist', '{{', '}}');
+    private function renderBranchLines(
+        array $branch,
+        array $codeLines,
+        array $testData,
+    ): string {
+        $linesTemplate = new Template(
+            $this->templatePath . "lines.html.dist",
+            "{{",
+            "}}",
+        );
+        $singleLineTemplate = new Template(
+            $this->templatePath . "line.html.dist",
+            "{{",
+            "}}",
+        );
 
-        $lines = '';
+        $lines = "";
 
-        $branchLines = range($branch['line_start'], $branch['line_end']);
+        $branchLines = range($branch["line_start"], $branch["line_end"]);
         sort($branchLines); // sometimes end_line < start_line
 
         /** @var int $line */
         foreach ($branchLines as $line) {
-            if (!isset($codeLines[$line])) { // blank line at end of file is sometimes included here
+            if (!isset($codeLines[$line])) {
+                // blank line at end of file is sometimes included here
                 continue;
             }
 
-            $popoverContent = '';
-            $popoverTitle   = '';
+            $popoverContent = "";
+            $popoverTitle = "";
 
-            $numTests = count($branch['hit']);
+            $numTests = count($branch["hit"]);
 
             if ($numTests === 0) {
-                $trClass = 'danger';
+                $trClass = "danger";
             } else {
-                $lineCss        = 'covered-by-large-tests';
-                $popoverContent = '<ul>';
+                $lineCss = "covered-by-large-tests";
+                $popoverContent = "<ul>";
 
                 if ($numTests > 1) {
-                    $popoverTitle = $numTests . ' tests cover this branch';
+                    $popoverTitle = $numTests . " tests cover this branch";
                 } else {
-                    $popoverTitle = '1 test covers this branch';
+                    $popoverTitle = "1 test covers this branch";
                 }
 
-                foreach ($branch['hit'] as $test) {
-                    if ($lineCss === 'covered-by-large-tests' && $testData[$test]['size'] === 'medium') {
-                        $lineCss = 'covered-by-medium-tests';
-                    } elseif ($testData[$test]['size'] === 'small') {
-                        $lineCss = 'covered-by-small-tests';
+                foreach ($branch["hit"] as $test) {
+                    if (
+                        $lineCss === "covered-by-large-tests" &&
+                        $testData[$test]["size"] === "medium"
+                    ) {
+                        $lineCss = "covered-by-medium-tests";
+                    } elseif ($testData[$test]["size"] === "small") {
+                        $lineCss = "covered-by-small-tests";
                     }
 
-                    $popoverContent .= $this->createPopoverContentForTest($test, $testData[$test]);
+                    $popoverContent .= $this->createPopoverContentForTest(
+                        $test,
+                        $testData[$test],
+                    );
                 }
-                $trClass = $lineCss . ' popin';
+                $trClass = $lineCss . " popin";
             }
 
-            $popover = '';
+            $popover = "";
 
             if (!empty($popoverTitle)) {
                 $popover = sprintf(
                     ' data-bs-title="%s" data-bs-content="%s" data-bs-placement="top" data-bs-html="true"',
                     $popoverTitle,
-                    htmlspecialchars($popoverContent, $this->htmlSpecialCharsFlags),
+                    htmlspecialchars(
+                        $popoverContent,
+                        $this->htmlSpecialCharsFlags,
+                    ),
                 );
             }
 
-            $lines .= $this->renderLine($singleLineTemplate, $line, $codeLines[$line - 1], $trClass, $popover);
+            $lines .= $this->renderLine(
+                $singleLineTemplate,
+                $line,
+                $codeLines[$line - 1],
+                $trClass,
+                $popover,
+            );
         }
 
-        if ($lines === '') {
-            return '';
+        if ($lines === "") {
+            return "";
         }
 
-        $linesTemplate->setVar(['lines' => $lines]);
+        $linesTemplate->setVar(["lines" => $lines]);
 
         return $linesTemplate->render();
     }
 
-    private function renderPathStructure(FileNode $node): string
-    {
-        $pathsTemplate = new Template($this->templatePath . 'paths.html.dist', '{{', '}}');
+    private function renderPathStructure(FileNode $node): string {
+        $pathsTemplate = new Template(
+            $this->templatePath . "paths.html.dist",
+            "{{",
+            "}}",
+        );
 
         $coverageData = $node->functionCoverageData();
-        $testData     = $node->testData();
-        $codeLines    = $this->loadFile($node->pathAsString());
-        $paths        = '';
+        $testData = $node->testData();
+        $codeLines = $this->loadFile($node->pathAsString());
+        $paths = "";
 
         ksort($coverageData);
 
         foreach ($coverageData as $methodName => $methodData) {
-            if (!$methodData['paths']) {
+            if (!$methodData["paths"]) {
                 continue;
             }
 
-            $pathStructure = '';
+            $pathStructure = "";
 
-            if (count($methodData['paths']) > 100) {
-                $pathStructure .= '<p>' . count($methodData['paths']) . ' is too many paths to sensibly render, consider refactoring your code to bring this number down.</p>';
+            if (count($methodData["paths"]) > 100) {
+                $pathStructure .=
+                    "<p>" .
+                    count($methodData["paths"]) .
+                    " is too many paths to sensibly render, consider refactoring your code to bring this number down.</p>";
 
                 continue;
             }
 
-            foreach ($methodData['paths'] as $path) {
-                $pathStructure .= $this->renderPathLines($path, $methodData['branches'], $codeLines, $testData);
+            foreach ($methodData["paths"] as $path) {
+                $pathStructure .= $this->renderPathLines(
+                    $path,
+                    $methodData["branches"],
+                    $codeLines,
+                    $testData,
+                );
             }
 
-            if ($pathStructure !== '') {
-                $paths .= '<h5 class="structure-heading"><a name="' . htmlspecialchars($methodName, $this->htmlSpecialCharsFlags) . '">' . $this->abbreviateMethodName($methodName) . '</a></h5>' . "\n";
+            if ($pathStructure !== "") {
+                $paths .=
+                    '<h5 class="structure-heading"><a name="' .
+                    htmlspecialchars(
+                        $methodName,
+                        $this->htmlSpecialCharsFlags,
+                    ) .
+                    '">' .
+                    $this->abbreviateMethodName($methodName) .
+                    "</a></h5>" .
+                    "\n";
                 $paths .= $pathStructure;
             }
         }
 
-        $pathsTemplate->setVar(['paths' => $paths]);
+        $pathsTemplate->setVar(["paths" => $paths]);
 
         return $pathsTemplate->render();
     }
 
-    private function renderPathLines(array $path, array $branches, array $codeLines, array $testData): string
-    {
-        $linesTemplate      = new Template($this->templatePath . 'lines.html.dist', '{{', '}}');
-        $singleLineTemplate = new Template($this->templatePath . 'line.html.dist', '{{', '}}');
+    private function renderPathLines(
+        array $path,
+        array $branches,
+        array $codeLines,
+        array $testData,
+    ): string {
+        $linesTemplate = new Template(
+            $this->templatePath . "lines.html.dist",
+            "{{",
+            "}}",
+        );
+        $singleLineTemplate = new Template(
+            $this->templatePath . "line.html.dist",
+            "{{",
+            "}}",
+        );
 
-        $lines = '';
+        $lines = "";
         $first = true;
 
-        foreach ($path['path'] as $branchId) {
+        foreach ($path["path"] as $branchId) {
             if ($first) {
                 $first = false;
             } else {
                 $lines .= '    <tr><td colspan="2">&nbsp;</td></tr>' . "\n";
             }
 
-            $branchLines = range($branches[$branchId]['line_start'], $branches[$branchId]['line_end']);
+            $branchLines = range(
+                $branches[$branchId]["line_start"],
+                $branches[$branchId]["line_end"],
+            );
             sort($branchLines); // sometimes end_line < start_line
 
             /** @var int $line */
             foreach ($branchLines as $line) {
-                if (!isset($codeLines[$line])) { // blank line at end of file is sometimes included here
+                if (!isset($codeLines[$line])) {
+                    // blank line at end of file is sometimes included here
                     continue;
                 }
 
-                $popoverContent = '';
-                $popoverTitle   = '';
+                $popoverContent = "";
+                $popoverTitle = "";
 
-                $numTests = count($path['hit']);
+                $numTests = count($path["hit"]);
 
                 if ($numTests === 0) {
-                    $trClass = 'danger';
+                    $trClass = "danger";
                 } else {
-                    $lineCss        = 'covered-by-large-tests';
-                    $popoverContent = '<ul>';
+                    $lineCss = "covered-by-large-tests";
+                    $popoverContent = "<ul>";
 
                     if ($numTests > 1) {
-                        $popoverTitle = $numTests . ' tests cover this path';
+                        $popoverTitle = $numTests . " tests cover this path";
                     } else {
-                        $popoverTitle = '1 test covers this path';
+                        $popoverTitle = "1 test covers this path";
                     }
 
-                    foreach ($path['hit'] as $test) {
-                        if ($lineCss === 'covered-by-large-tests' && $testData[$test]['size'] === 'medium') {
-                            $lineCss = 'covered-by-medium-tests';
-                        } elseif ($testData[$test]['size'] === 'small') {
-                            $lineCss = 'covered-by-small-tests';
+                    foreach ($path["hit"] as $test) {
+                        if (
+                            $lineCss === "covered-by-large-tests" &&
+                            $testData[$test]["size"] === "medium"
+                        ) {
+                            $lineCss = "covered-by-medium-tests";
+                        } elseif ($testData[$test]["size"] === "small") {
+                            $lineCss = "covered-by-small-tests";
                         }
 
-                        $popoverContent .= $this->createPopoverContentForTest($test, $testData[$test]);
+                        $popoverContent .= $this->createPopoverContentForTest(
+                            $test,
+                            $testData[$test],
+                        );
                     }
 
-                    $trClass = $lineCss . ' popin';
+                    $trClass = $lineCss . " popin";
                 }
 
-                $popover = '';
+                $popover = "";
 
                 if (!empty($popoverTitle)) {
                     $popover = sprintf(
                         ' data-bs-title="%s" data-bs-content="%s" data-bs-placement="top" data-bs-html="true"',
                         $popoverTitle,
-                        htmlspecialchars($popoverContent, $this->htmlSpecialCharsFlags),
+                        htmlspecialchars(
+                            $popoverContent,
+                            $this->htmlSpecialCharsFlags,
+                        ),
                     );
                 }
 
-                $lines .= $this->renderLine($singleLineTemplate, $line, $codeLines[$line - 1], $trClass, $popover);
+                $lines .= $this->renderLine(
+                    $singleLineTemplate,
+                    $line,
+                    $codeLines[$line - 1],
+                    $trClass,
+                    $popover,
+                );
             }
         }
 
-        if ($lines === '') {
-            return '';
+        if ($lines === "") {
+            return "";
         }
 
-        $linesTemplate->setVar(['lines' => $lines]);
+        $linesTemplate->setVar(["lines" => $lines]);
 
         return $linesTemplate->render();
     }
 
-    private function renderLine(Template $template, int $lineNumber, string $lineContent, string $class, string $popover): string
-    {
-        $template->setVar(
-            [
-                'lineNumber'  => $lineNumber,
-                'lineContent' => $lineContent,
-                'class'       => $class,
-                'popover'     => $popover,
-            ],
-        );
+    private function renderLine(
+        Template $template,
+        int $lineNumber,
+        string $lineContent,
+        string $class,
+        string $popover,
+    ): string {
+        $template->setVar([
+            "lineNumber" => $lineNumber,
+            "lineContent" => $lineContent,
+            "class" => $class,
+            "popover" => $popover,
+        ]);
 
         return $template->render();
     }
 
-    private function loadFile(string $file): array
-    {
+    private function loadFile(string $file): array {
         if (isset(self::$formattedSourceCache[$file])) {
             return self::$formattedSourceCache[$file];
         }
 
-        $buffer              = file_get_contents($file);
-        $tokens              = token_get_all($buffer, TOKEN_PARSE);
-        $result              = [''];
-        $i                   = 0;
-        $stringFlag          = false;
+        $buffer = file_get_contents($file);
+        $tokens = token_get_all($buffer, TOKEN_PARSE);
+        $result = [""];
+        $i = 0;
+        $stringFlag = false;
         $fileEndsWithNewLine = str_ends_with($buffer, "\n");
 
         unset($buffer);
 
         foreach ($tokens as $j => $token) {
             if (is_string($token)) {
-                if ($token === '"' && $tokens[$j - 1] !== '\\') {
+                if ($token === '"' && $tokens[$j - 1] !== "\\") {
                     $result[$i] .= sprintf(
                         '<span class="string">%s</span>',
                         htmlspecialchars($token, $this->htmlSpecialCharsFlags),
@@ -1013,31 +1236,31 @@ final class File extends Renderer
             [$token, $value] = $token;
 
             $value = str_replace(
-                ["\t", ' '],
-                ['&nbsp;&nbsp;&nbsp;&nbsp;', '&nbsp;'],
+                ["\t", " "],
+                ["&nbsp;&nbsp;&nbsp;&nbsp;", "&nbsp;"],
                 htmlspecialchars($value, $this->htmlSpecialCharsFlags),
             );
 
             if ($value === "\n") {
-                $result[++$i] = '';
+                $result[++$i] = "";
             } else {
                 $lines = explode("\n", $value);
 
                 foreach ($lines as $jj => $line) {
                     $line = trim($line);
 
-                    if ($line !== '') {
+                    if ($line !== "") {
                         if ($stringFlag) {
-                            $colour = 'string';
+                            $colour = "string";
                         } else {
-                            $colour = 'default';
+                            $colour = "default";
 
                             if ($this->isInlineHtml($token)) {
-                                $colour = 'html';
+                                $colour = "html";
                             } elseif ($this->isComment($token)) {
-                                $colour = 'comment';
+                                $colour = "comment";
                             } elseif ($this->isKeyword($token)) {
-                                $colour = 'keyword';
+                                $colour = "keyword";
                             }
                         }
 
@@ -1049,7 +1272,7 @@ final class File extends Renderer
                     }
 
                     if (isset($lines[$jj + 1])) {
-                        $result[++$i] = '';
+                        $result[++$i] = "";
                     }
                 }
             }
@@ -1064,9 +1287,8 @@ final class File extends Renderer
         return $result;
     }
 
-    private function abbreviateClassName(string $className): string
-    {
-        $tmp = explode('\\', $className);
+    private function abbreviateClassName(string $className): string {
+        $tmp = explode("\\", $className);
 
         if (count($tmp) > 1) {
             $className = sprintf(
@@ -1079,57 +1301,55 @@ final class File extends Renderer
         return $className;
     }
 
-    private function abbreviateMethodName(string $methodName): string
-    {
-        $parts = explode('->', $methodName);
+    private function abbreviateMethodName(string $methodName): string {
+        $parts = explode("->", $methodName);
 
         if (count($parts) === 2) {
-            return $this->abbreviateClassName($parts[0]) . '->' . $parts[1];
+            return $this->abbreviateClassName($parts[0]) . "->" . $parts[1];
         }
 
         return $methodName;
     }
 
-    private function createPopoverContentForTest(string $test, array $testData): string
-    {
-        $testCSS = '';
+    private function createPopoverContentForTest(
+        string $test,
+        array $testData,
+    ): string {
+        $testCSS = "";
 
-        switch ($testData['status']) {
-            case 'success':
-                $testCSS = match ($testData['size']) {
-                    'small'  => ' class="covered-by-small-tests"',
-                    'medium' => ' class="covered-by-medium-tests"',
+        switch ($testData["status"]) {
+            case "success":
+                $testCSS = match ($testData["size"]) {
+                    "small" => ' class="covered-by-small-tests"',
+                    "medium" => ' class="covered-by-medium-tests"',
                     // no break
                     default => ' class="covered-by-large-tests"',
                 };
 
                 break;
 
-            case 'failure':
+            case "failure":
                 $testCSS = ' class="danger"';
 
                 break;
         }
 
         return sprintf(
-            '<li%s>%s</li>',
+            "<li%s>%s</li>",
             $testCSS,
             htmlspecialchars($test, $this->htmlSpecialCharsFlags),
         );
     }
 
-    private function isComment(int $token): bool
-    {
+    private function isComment(int $token): bool {
         return $token === T_COMMENT || $token === T_DOC_COMMENT;
     }
 
-    private function isInlineHtml(int $token): bool
-    {
+    private function isInlineHtml(int $token): bool {
         return $token === T_INLINE_HTML;
     }
 
-    private function isKeyword(int $token): bool
-    {
+    private function isKeyword(int $token): bool {
         return isset(self::KEYWORD_TOKENS[$token]);
     }
 }

@@ -11,6 +11,4 @@ namespace SebastianBergmann\CodeCoverage;
 
 use RuntimeException;
 
-final class XmlException extends RuntimeException implements Exception
-{
-}
+final class XmlException extends RuntimeException implements Exception {}

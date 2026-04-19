@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 /*
  * This file is part of PharIo\Manifest.
  *
@@ -20,7 +20,7 @@ class BundledComponent {
     private $version;
 
     public function __construct(string $name, Version $version) {
-        $this->name    = $name;
+        $this->name = $name;
         $this->version = $version;
     }
 

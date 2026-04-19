@@ -16,20 +16,16 @@ namespace PHPUnit\Framework\TestStatus;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class Skipped extends Known
-{
-    public function isSkipped(): true
-    {
+final readonly class Skipped extends Known {
+    public function isSkipped(): true {
         return true;
     }
 
-    public function asInt(): int
-    {
+    public function asInt(): int {
         return 1;
     }
 
-    public function asString(): string
-    {
-        return 'skipped';
+    public function asString(): string {
+        return "skipped";
     }
 }

@@ -21,8 +21,7 @@ use PHPUnit\Runner\PhptTestCase;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class ListTestsAsTextCommand implements Command
-{
+final readonly class ListTestsAsTextCommand implements Command {
     /**
      * @var list<PhptTestCase|TestCase>
      */
@@ -31,33 +30,32 @@ final readonly class ListTestsAsTextCommand implements Command
     /**
      * @param list<PhptTestCase|TestCase> $tests
      */
-    public function __construct(array $tests)
-    {
+    public function __construct(array $tests) {
         $this->tests = $tests;
     }
 
-    public function execute(): Result
-    {
+    public function execute(): Result {
         $buffer = sprintf(
-            'Available test%s:' . PHP_EOL,
-            count($this->tests) > 1 ? 's' : '',
+            "Available test%s:" . PHP_EOL,
+            count($this->tests) > 1 ? "s" : "",
         );
 
         foreach ($this->tests as $test) {
             if ($test instanceof TestCase) {
                 $name = sprintf(
-                    '%s::%s',
+                    "%s::%s",
                     $test::class,
-                    str_replace(' with data set ', '', $test->nameWithDataSet()),
+                    str_replace(
+                        " with data set ",
+                        "",
+                        $test->nameWithDataSet(),
+                    ),
                 );
             } else {
                 $name = $test->getName();
             }
 
-            $buffer .= sprintf(
-                ' - %s' . PHP_EOL,
-                $name,
-            );
+            $buffer .= sprintf(" - %s" . PHP_EOL, $name);
         }
 
         return Result::from($buffer);

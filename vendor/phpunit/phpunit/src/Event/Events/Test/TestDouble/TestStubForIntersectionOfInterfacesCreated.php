@@ -19,8 +19,8 @@ use PHPUnit\Event\Telemetry;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestStubForIntersectionOfInterfacesCreated implements Event
-{
+final readonly class TestStubForIntersectionOfInterfacesCreated implements
+    Event {
     private Telemetry\Info $telemetryInfo;
 
     /**
@@ -31,30 +31,29 @@ final readonly class TestStubForIntersectionOfInterfacesCreated implements Event
     /**
      * @param list<class-string> $interfaces
      */
-    public function __construct(Telemetry\Info $telemetryInfo, array $interfaces)
-    {
+    public function __construct(
+        Telemetry\Info $telemetryInfo,
+        array $interfaces,
+    ) {
         $this->telemetryInfo = $telemetryInfo;
-        $this->interfaces    = $interfaces;
+        $this->interfaces = $interfaces;
     }
 
-    public function telemetryInfo(): Telemetry\Info
-    {
+    public function telemetryInfo(): Telemetry\Info {
         return $this->telemetryInfo;
     }
 
     /**
      * @return list<class-string>
      */
-    public function interfaces(): array
-    {
+    public function interfaces(): array {
         return $this->interfaces;
     }
 
-    public function asString(): string
-    {
+    public function asString(): string {
         return sprintf(
-            'Test Stub Created (%s)',
-            implode('&', $this->interfaces),
+            "Test Stub Created (%s)",
+            implode("&", $this->interfaces),
         );
     }
 }

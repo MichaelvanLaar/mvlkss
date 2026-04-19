@@ -5,43 +5,37 @@ namespace Kirby\Retour\Panel;
 use Kirby\Retour\Retour;
 use Kirby\Toolkit\I18n;
 
-class FailureResolveDrawer extends RedirectCreateDrawer
-{
-	public function __construct(
-		protected string $path
-	) {
-		$this->path = urldecode($path);
-	}
+class FailureResolveDrawer extends RedirectCreateDrawer {
+    public function __construct(protected string $path) {
+        $this->path = urldecode($path);
+    }
 
-	public function submit(): bool|array
-	{
-		$redirects = $this->redirects();
-		$input     = $this->data();
+    public function submit(): bool|array {
+        $redirects = $this->redirects();
+        $input = $this->data();
 
-		$redirects->create([
-			'creator' => $this->kirby()->user()?->email(),
-			...$input
-		]);
+        $redirects->create([
+            "creator" => $this->kirby()->user()?->email(),
+            ...$input,
+        ]);
 
-		$redirects->save();
+        $redirects->save();
 
-		$log = Retour::instance()->log();
-		$log->resolve($this->path);
+        $log = Retour::instance()->log();
+        $log->resolve($this->path);
 
-		return [
-			'redirect' => 'retour/redirects'
-		];
-	}
+        return [
+            "redirect" => "retour/redirects",
+        ];
+    }
 
-	protected function title(): string
-	{
-		return I18n::translate('retour.failures.resolve');
-	}
+    protected function title(): string {
+        return I18n::translate("retour.failures.resolve");
+    }
 
-	protected function value(): array
-	{
-		return parent::value() + [
-			'from' => str_replace("\x1D", '/', $this->path)
-		];
-	}
+    protected function value(): array {
+        return parent::value() + [
+            "from" => str_replace("\x1D", "/", $this->path),
+        ];
+    }
 }

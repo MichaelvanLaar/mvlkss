@@ -17,22 +17,18 @@ use PHPUnit\Event\Telemetry;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class ExecutionAborted implements Event
-{
+final readonly class ExecutionAborted implements Event {
     private Telemetry\Info $telemetryInfo;
 
-    public function __construct(Telemetry\Info $telemetryInfo)
-    {
+    public function __construct(Telemetry\Info $telemetryInfo) {
         $this->telemetryInfo = $telemetryInfo;
     }
 
-    public function telemetryInfo(): Telemetry\Info
-    {
+    public function telemetryInfo(): Telemetry\Info {
         return $this->telemetryInfo;
     }
 
-    public function asString(): string
-    {
-        return 'Test Runner Execution Aborted';
+    public function asString(): string {
+        return "Test Runner Execution Aborted";
     }
 }

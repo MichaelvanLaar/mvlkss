@@ -17,13 +17,11 @@ use PHPUnit\Event\InvalidArgumentException;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class SystemStopWatch implements StopWatch
-{
+final readonly class SystemStopWatch implements StopWatch {
     /**
      * @throws InvalidArgumentException
      */
-    public function current(): HRTime
-    {
+    public function current(): HRTime {
         return HRTime::fromSecondsAndNanoseconds(...hrtime());
     }
 }

@@ -32,8 +32,8 @@ class TokenStream {
      * @param int $endPos End position
      */
     public function haveParens(int $startPos, int $endPos): bool {
-        return $this->haveTokenImmediatelyBefore($startPos, '(')
-            && $this->haveTokenImmediatelyAfter($endPos, ')');
+        return $this->haveTokenImmediatelyBefore($startPos, "(") &&
+            $this->haveTokenImmediatelyAfter($endPos, ")");
     }
 
     /**
@@ -43,9 +43,9 @@ class TokenStream {
      * @param int $endPos End position
      */
     public function haveBraces(int $startPos, int $endPos): bool {
-        return ($this->haveTokenImmediatelyBefore($startPos, '{')
-                || $this->haveTokenImmediatelyBefore($startPos, T_CURLY_OPEN))
-            && $this->haveTokenImmediatelyAfter($endPos, '}');
+        return ($this->haveTokenImmediatelyBefore($startPos, "{") ||
+            $this->haveTokenImmediatelyBefore($startPos, T_CURLY_OPEN)) &&
+            $this->haveTokenImmediatelyAfter($endPos, "}");
     }
 
     /**
@@ -58,7 +58,10 @@ class TokenStream {
      *
      * @return bool Whether the expected token was found
      */
-    public function haveTokenImmediatelyBefore(int $pos, $expectedTokenType): bool {
+    public function haveTokenImmediatelyBefore(
+        int $pos,
+        $expectedTokenType,
+    ): bool {
         $tokens = $this->tokens;
         $pos--;
         for (; $pos >= 0; $pos--) {
@@ -83,7 +86,10 @@ class TokenStream {
      *
      * @return bool Whether the expected token was found
      */
-    public function haveTokenImmediatelyAfter(int $pos, $expectedTokenType): bool {
+    public function haveTokenImmediatelyAfter(
+        int $pos,
+        $expectedTokenType,
+    ): bool {
         $tokens = $this->tokens;
         $pos++;
         for ($c = \count($tokens); $pos < $c; $pos++) {
@@ -109,7 +115,7 @@ class TokenStream {
 
         if (!$tokens[$pos]->is($skipTokenType)) {
             // Shouldn't happen. The skip token MUST be there
-            throw new \Exception('Encountered unexpected token');
+            throw new \Exception("Encountered unexpected token");
         }
         $pos--;
 
@@ -127,7 +133,7 @@ class TokenStream {
 
         if (!$tokens[$pos]->is($skipTokenType)) {
             // Shouldn't happen. The skip token MUST be there
-            throw new \Exception('Encountered unexpected token');
+            throw new \Exception("Encountered unexpected token");
         }
         $pos++;
 
@@ -185,7 +191,11 @@ class TokenStream {
      * @param int|string $tokenType Token type to look for
      * @return bool Whether the token occurs in the given range
      */
-    public function haveTokenInRange(int $startPos, int $endPos, $tokenType): bool {
+    public function haveTokenInRange(
+        int $startPos,
+        int $endPos,
+        $tokenType,
+    ): bool {
         $tokens = $this->tokens;
         for ($pos = $startPos; $pos < $endPos; $pos++) {
             if ($tokens[$pos]->is($tokenType)) {
@@ -196,8 +206,8 @@ class TokenStream {
     }
 
     public function haveTagInRange(int $startPos, int $endPos): bool {
-        return $this->haveTokenInRange($startPos, $endPos, \T_OPEN_TAG)
-            || $this->haveTokenInRange($startPos, $endPos, \T_CLOSE_TAG);
+        return $this->haveTokenInRange($startPos, $endPos, \T_OPEN_TAG) ||
+            $this->haveTokenInRange($startPos, $endPos, \T_CLOSE_TAG);
     }
 
     /**
@@ -222,19 +232,30 @@ class TokenStream {
      */
     public function getTokenCode(int $from, int $to, int $indent): string {
         $tokens = $this->tokens;
-        $result = '';
+        $result = "";
         for ($pos = $from; $pos < $to; $pos++) {
             $token = $tokens[$pos];
             $id = $token->id;
             $text = $token->text;
-            if ($id === \T_CONSTANT_ENCAPSED_STRING || $id === \T_ENCAPSED_AND_WHITESPACE) {
+            if (
+                $id === \T_CONSTANT_ENCAPSED_STRING ||
+                $id === \T_ENCAPSED_AND_WHITESPACE
+            ) {
                 $result .= $text;
             } else {
                 // TODO Handle non-space indentation
                 if ($indent < 0) {
-                    $result .= str_replace("\n" . str_repeat(" ", -$indent), "\n", $text);
+                    $result .= str_replace(
+                        "\n" . str_repeat(" ", -$indent),
+                        "\n",
+                        $text,
+                    );
                 } elseif ($indent > 0) {
-                    $result .= str_replace("\n", "\n" . str_repeat(" ", $indent), $text);
+                    $result .= str_replace(
+                        "\n",
+                        "\n" . str_repeat(" ", $indent),
+                        $text,
+                    );
                 } else {
                     $result .= $text;
                 }
@@ -258,9 +279,17 @@ class TokenStream {
                 $content = $token->text;
                 $newlinePos = \strrpos($content, "\n");
                 if (false !== $newlinePos) {
-                    $indent = $this->getIndent(\substr($content, $newlinePos + 1), $tabWidth);
-                } elseif ($i === 1 && $this->tokens[0]->id === \T_OPEN_TAG &&
-                          $this->tokens[0]->text[\strlen($this->tokens[0]->text) - 1] === "\n") {
+                    $indent = $this->getIndent(
+                        \substr($content, $newlinePos + 1),
+                        $tabWidth,
+                    );
+                } elseif (
+                    $i === 1 &&
+                    $this->tokens[0]->id === \T_OPEN_TAG &&
+                    $this->tokens[0]->text[
+                        \strlen($this->tokens[0]->text) - 1
+                    ] === "\n"
+                ) {
                     // Special case: Newline at the end of opening tag followed by whitespace.
                     $indent = $this->getIndent($content, $tabWidth);
                 }

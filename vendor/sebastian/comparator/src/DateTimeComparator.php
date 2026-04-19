@@ -18,12 +18,12 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
 
-final class DateTimeComparator extends ObjectComparator
-{
-    public function accepts(mixed $expected, mixed $actual): bool
-    {
-        return ($expected instanceof DateTime || $expected instanceof DateTimeImmutable) &&
-               ($actual instanceof DateTime || $actual instanceof DateTimeImmutable);
+final class DateTimeComparator extends ObjectComparator {
+    public function accepts(mixed $expected, mixed $actual): bool {
+        return ($expected instanceof DateTime ||
+            $expected instanceof DateTimeImmutable) &&
+            ($actual instanceof DateTime ||
+                $actual instanceof DateTimeImmutable);
     }
 
     /**
@@ -31,33 +31,43 @@ final class DateTimeComparator extends ObjectComparator
      *
      * @throws ComparisonFailure
      */
-    public function assertEquals(mixed $expected, mixed $actual, float $delta = 0.0, bool $canonicalize = false, bool $ignoreCase = false, array &$processed = []): void
-    {
-        assert($expected instanceof DateTime || $expected instanceof DateTimeImmutable);
-        assert($actual instanceof DateTime || $actual instanceof DateTimeImmutable);
+    public function assertEquals(
+        mixed $expected,
+        mixed $actual,
+        float $delta = 0.0,
+        bool $canonicalize = false,
+        bool $ignoreCase = false,
+        array &$processed = [],
+    ): void {
+        assert(
+            $expected instanceof DateTime ||
+                $expected instanceof DateTimeImmutable,
+        );
+        assert(
+            $actual instanceof DateTime || $actual instanceof DateTimeImmutable,
+        );
 
         $absDelta = abs($delta);
-        $delta    = new DateInterval(sprintf('PT%dS', $absDelta));
+        $delta = new DateInterval(sprintf("PT%dS", $absDelta));
         $delta->f = $absDelta - floor($absDelta);
 
-        $actualClone = (clone $actual)
-            ->setTimezone(new DateTimeZone('UTC'));
+        $actualClone = (clone $actual)->setTimezone(new DateTimeZone("UTC"));
 
         $expectedLower = (clone $expected)
-            ->setTimezone(new DateTimeZone('UTC'))
+            ->setTimezone(new DateTimeZone("UTC"))
             ->sub($delta);
 
         $expectedUpper = (clone $expected)
-            ->setTimezone(new DateTimeZone('UTC'))
+            ->setTimezone(new DateTimeZone("UTC"))
             ->add($delta);
 
         if ($actualClone < $expectedLower || $actualClone > $expectedUpper) {
             throw new ComparisonFailure(
                 $expected,
                 $actual,
-                $expected->format('Y-m-d\TH:i:s.uO'),
-                $actual->format('Y-m-d\TH:i:s.uO'),
-                'Failed asserting that two DateTime objects are equal.',
+                $expected->format("Y-m-d\TH:i:s.uO"),
+                $actual->format("Y-m-d\TH:i:s.uO"),
+                "Failed asserting that two DateTime objects are equal.",
             );
         }
     }

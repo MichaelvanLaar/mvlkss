@@ -16,15 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [
-            7.0,
-            7.1,
-            7.2,
-            7.3,
-            7.4,
-            8.0,
-            8.1
-        ]
+        php: [7.0, 7.1, 7.2, 7.3, 7.4, 8.0, 8.1]
         composer: [basic]
     timeout-minutes: 10
     steps:
@@ -79,16 +71,16 @@ jobs:
 
       - name: Upload coverage results to Coveralls
         env:
-            COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-            composer global require php-coveralls/php-coveralls
-            php-coveralls --coverage_clover=build/logs/clover.xml -v
+          composer global require php-coveralls/php-coveralls
+          php-coveralls --coverage_clover=build/logs/clover.xml -v
 
       - name: Upload coverage results to Codecov
         uses: codecov/codecov-action@v1
         with:
           files: build/logs/clover.xml
-          
+
       - name: Archive logs artifacts
         if: ${{ failure() }}
         uses: actions/upload-artifact@v2

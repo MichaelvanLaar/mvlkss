@@ -22,33 +22,25 @@ use DOMDocument;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class Loader
-{
+final readonly class Loader {
     /**
      * @throws XmlException
      */
-    public function loadFile(string $filename): DOMDocument
-    {
+    public function loadFile(string $filename): DOMDocument {
         $reporting = error_reporting(0);
-        $contents  = file_get_contents($filename);
+        $contents = file_get_contents($filename);
 
         error_reporting($reporting);
 
         if ($contents === false) {
             throw new XmlException(
-                sprintf(
-                    'Could not read XML from file "%s"',
-                    $filename,
-                ),
+                sprintf('Could not read XML from file "%s"', $filename),
             );
         }
 
-        if (trim($contents) === '') {
+        if (trim($contents) === "") {
             throw new XmlException(
-                sprintf(
-                    'Could not parse XML from empty file "%s"',
-                    $filename,
-                ),
+                sprintf('Could not parse XML from empty file "%s"', $filename),
             );
         }
 
@@ -58,19 +50,18 @@ final readonly class Loader
     /**
      * @throws XmlException
      */
-    public function load(string $actual): DOMDocument
-    {
-        if ($actual === '') {
-            throw new XmlException('Could not parse XML from empty string');
+    public function load(string $actual): DOMDocument {
+        if ($actual === "") {
+            throw new XmlException("Could not parse XML from empty string");
         }
 
-        $document                     = new DOMDocument;
+        $document = new DOMDocument();
         $document->preserveWhiteSpace = false;
 
-        $internal  = libxml_use_internal_errors(true);
-        $message   = '';
+        $internal = libxml_use_internal_errors(true);
+        $message = "";
         $reporting = error_reporting(0);
-        $loaded    = $document->loadXML($actual);
+        $loaded = $document->loadXML($actual);
 
         foreach (libxml_get_errors() as $error) {
             $message .= "\n" . $error->message;
@@ -80,9 +71,9 @@ final readonly class Loader
         error_reporting($reporting);
 
         if ($loaded === false) {
-            if ($message === '') {
+            if ($message === "") {
                 // @codeCoverageIgnoreStart
-                $message = 'Could not load XML for unknown reason';
+                $message = "Could not load XML for unknown reason";
                 // @codeCoverageIgnoreEnd
             }
 

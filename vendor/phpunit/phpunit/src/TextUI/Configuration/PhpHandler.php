@@ -24,25 +24,24 @@ use function putenv;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class PhpHandler
-{
-    public function handle(Php $configuration): void
-    {
+final readonly class PhpHandler {
+    public function handle(Php $configuration): void {
         $this->handleIncludePaths($configuration->includePaths());
         $this->handleIniSettings($configuration->iniSettings());
         $this->handleConstants($configuration->constants());
         $this->handleGlobalVariables($configuration->globalVariables());
         $this->handleServerVariables($configuration->serverVariables());
         $this->handleEnvVariables($configuration->envVariables());
-        $this->handleVariables('_POST', $configuration->postVariables());
-        $this->handleVariables('_GET', $configuration->getVariables());
-        $this->handleVariables('_COOKIE', $configuration->cookieVariables());
-        $this->handleVariables('_FILES', $configuration->filesVariables());
-        $this->handleVariables('_REQUEST', $configuration->requestVariables());
+        $this->handleVariables("_POST", $configuration->postVariables());
+        $this->handleVariables("_GET", $configuration->getVariables());
+        $this->handleVariables("_COOKIE", $configuration->cookieVariables());
+        $this->handleVariables("_FILES", $configuration->filesVariables());
+        $this->handleVariables("_REQUEST", $configuration->requestVariables());
     }
 
-    private function handleIncludePaths(DirectoryCollection $includePaths): void
-    {
+    private function handleIncludePaths(
+        DirectoryCollection $includePaths,
+    ): void {
         if (!$includePaths->isEmpty()) {
             $includePathsAsStrings = [];
 
@@ -51,16 +50,17 @@ final readonly class PhpHandler
             }
 
             ini_set(
-                'include_path',
+                "include_path",
                 implode(PATH_SEPARATOR, $includePathsAsStrings) .
-                PATH_SEPARATOR .
-                ini_get('include_path'),
+                    PATH_SEPARATOR .
+                    ini_get("include_path"),
             );
         }
     }
 
-    private function handleIniSettings(IniSettingCollection $iniSettings): void
-    {
+    private function handleIniSettings(
+        IniSettingCollection $iniSettings,
+    ): void {
         foreach ($iniSettings as $iniSetting) {
             $value = $iniSetting->value();
 
@@ -72,8 +72,7 @@ final readonly class PhpHandler
         }
     }
 
-    private function handleConstants(ConstantCollection $constants): void
-    {
+    private function handleConstants(ConstantCollection $constants): void {
         foreach ($constants as $constant) {
             if (!defined($constant->name())) {
                 define($constant->name(), $constant->value());
@@ -81,31 +80,34 @@ final readonly class PhpHandler
         }
     }
 
-    private function handleGlobalVariables(VariableCollection $variables): void
-    {
+    private function handleGlobalVariables(
+        VariableCollection $variables,
+    ): void {
         foreach ($variables as $variable) {
             $GLOBALS[$variable->name()] = $variable->value();
         }
     }
 
-    private function handleServerVariables(VariableCollection $variables): void
-    {
+    private function handleServerVariables(
+        VariableCollection $variables,
+    ): void {
         foreach ($variables as $variable) {
             $_SERVER[$variable->name()] = $variable->value();
         }
     }
 
-    private function handleVariables(string $target, VariableCollection $variables): void
-    {
+    private function handleVariables(
+        string $target,
+        VariableCollection $variables,
+    ): void {
         foreach ($variables as $variable) {
             $GLOBALS[$target][$variable->name()] = $variable->value();
         }
     }
 
-    private function handleEnvVariables(VariableCollection $variables): void
-    {
+    private function handleEnvVariables(VariableCollection $variables): void {
         foreach ($variables as $variable) {
-            $name  = $variable->name();
+            $name = $variable->name();
             $value = $variable->value();
             $force = $variable->force();
 

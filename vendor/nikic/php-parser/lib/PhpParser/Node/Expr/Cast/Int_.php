@@ -10,6 +10,6 @@ class Int_ extends Cast {
     public const KIND_INTEGER = 2; // "integer" syntax
 
     public function getType(): string {
-        return 'Expr_Cast_Int';
+        return "Expr_Cast_Int";
     }
 }

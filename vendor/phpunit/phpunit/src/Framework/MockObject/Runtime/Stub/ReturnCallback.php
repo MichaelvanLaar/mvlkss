@@ -17,20 +17,17 @@ use PHPUnit\Framework\MockObject\Invocation;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class ReturnCallback implements Stub
-{
+final class ReturnCallback implements Stub {
     /**
      * @var callable
      */
     private $callback;
 
-    public function __construct(callable $callback)
-    {
+    public function __construct(callable $callback) {
         $this->callback = $callback;
     }
 
-    public function invoke(Invocation $invocation): mixed
-    {
+    public function invoke(Invocation $invocation): mixed {
         return call_user_func_array($this->callback, $invocation->parameters());
     }
 }

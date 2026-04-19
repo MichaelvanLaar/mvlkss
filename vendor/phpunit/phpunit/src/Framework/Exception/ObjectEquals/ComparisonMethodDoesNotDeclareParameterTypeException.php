@@ -16,13 +16,12 @@ use function sprintf;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class ComparisonMethodDoesNotDeclareParameterTypeException extends Exception
-{
-    public function __construct(string $className, string $methodName)
-    {
+final class ComparisonMethodDoesNotDeclareParameterTypeException extends
+    Exception {
+    public function __construct(string $className, string $methodName) {
         parent::__construct(
             sprintf(
-                'Parameter of comparison method %s::%s() does not have a declared type.',
+                "Parameter of comparison method %s::%s() does not have a declared type.",
                 $className,
                 $methodName,
             ),

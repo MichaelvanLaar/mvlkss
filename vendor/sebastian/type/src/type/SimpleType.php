@@ -14,8 +14,7 @@ use function strtolower;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for this library
  */
-final class SimpleType extends Type
-{
+final class SimpleType extends Type {
     /**
      * @var non-empty-string
      */
@@ -26,24 +25,26 @@ final class SimpleType extends Type
     /**
      * @param non-empty-string $name
      */
-    public function __construct(string $name, bool $nullable, mixed $value = null)
-    {
-        $this->name       = $this->normalize($name);
+    public function __construct(
+        string $name,
+        bool $nullable,
+        mixed $value = null,
+    ) {
+        $this->name = $this->normalize($name);
         $this->allowsNull = $nullable;
-        $this->value      = $value;
+        $this->value = $value;
     }
 
-    public function isAssignable(Type $other): bool
-    {
+    public function isAssignable(Type $other): bool {
         if ($this->allowsNull && $other instanceof NullType) {
             return true;
         }
 
-        if ($this->name === 'bool' && $other->name() === 'true') {
+        if ($this->name === "bool" && $other->name() === "true") {
             return true;
         }
 
-        if ($this->name === 'bool' && $other->name() === 'false') {
+        if ($this->name === "bool" && $other->name() === "false") {
             return true;
         }
 
@@ -57,23 +58,19 @@ final class SimpleType extends Type
     /**
      * @return non-empty-string
      */
-    public function name(): string
-    {
+    public function name(): string {
         return $this->name;
     }
 
-    public function allowsNull(): bool
-    {
+    public function allowsNull(): bool {
         return $this->allowsNull;
     }
 
-    public function value(): mixed
-    {
+    public function value(): mixed {
         return $this->value;
     }
 
-    public function isSimple(): bool
-    {
+    public function isSimple(): bool {
         return true;
     }
 
@@ -82,16 +79,15 @@ final class SimpleType extends Type
      *
      * @return non-empty-string
      */
-    private function normalize(string $name): string
-    {
+    private function normalize(string $name): string {
         $name = strtolower($name);
 
         return match ($name) {
-            'boolean' => 'bool',
-            'real', 'double' => 'float',
-            'integer' => 'int',
-            '[]'      => 'array',
-            default   => $name,
+            "boolean" => "bool",
+            "real", "double" => "float",
+            "integer" => "int",
+            "[]" => "array",
+            default => $name,
         };
     }
 }

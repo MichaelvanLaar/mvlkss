@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 /*
  * This file is part of PharIo\Manifest.
  *
@@ -29,7 +29,7 @@ class Email {
 
     private function ensureEmailIsValid(string $url): void {
         if (filter_var($url, FILTER_VALIDATE_EMAIL) === false) {
-            throw new InvalidEmailException;
+            throw new InvalidEmailException();
         }
     }
 }

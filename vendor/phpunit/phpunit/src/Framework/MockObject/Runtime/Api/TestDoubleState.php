@@ -16,8 +16,7 @@ use function assert;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class TestDoubleState
-{
+final class TestDoubleState {
     /**
      * @var array<non-empty-string, true>
      */
@@ -29,19 +28,20 @@ final class TestDoubleState
     private readonly array $configurableMethods;
     private readonly bool $generateReturnValues;
     private ?InvocationHandler $invocationHandler = null;
-    private ?object $proxyTarget                  = null;
+    private ?object $proxyTarget = null;
 
     /**
      * @param list<ConfigurableMethod> $configurableMethods
      */
-    public function __construct(array $configurableMethods, bool $generateReturnValues)
-    {
-        $this->configurableMethods  = $configurableMethods;
+    public function __construct(
+        array $configurableMethods,
+        bool $generateReturnValues,
+    ) {
+        $this->configurableMethods = $configurableMethods;
         $this->generateReturnValues = $generateReturnValues;
     }
 
-    public function invocationHandler(): InvocationHandler
-    {
+    public function invocationHandler(): InvocationHandler {
         if ($this->invocationHandler !== null) {
             return $this->invocationHandler;
         }
@@ -54,8 +54,7 @@ final class TestDoubleState
         return $this->invocationHandler;
     }
 
-    public function cloneInvocationHandler(): void
-    {
+    public function cloneInvocationHandler(): void {
         if ($this->invocationHandler === null) {
             return;
         }
@@ -63,18 +62,15 @@ final class TestDoubleState
         $this->invocationHandler = clone $this->invocationHandler;
     }
 
-    public function unsetInvocationHandler(): void
-    {
+    public function unsetInvocationHandler(): void {
         $this->invocationHandler = null;
     }
 
-    public function setProxyTarget(object $proxyTarget): void
-    {
+    public function setProxyTarget(object $proxyTarget): void {
         $this->proxyTarget = $proxyTarget;
     }
 
-    public function proxyTarget(): object
-    {
+    public function proxyTarget(): object {
         assert($this->proxyTarget !== null);
 
         return $this->proxyTarget;
@@ -83,29 +79,25 @@ final class TestDoubleState
     /**
      * @param non-empty-string $testId
      */
-    public function deprecationWasEmittedFor(string $testId): void
-    {
+    public function deprecationWasEmittedFor(string $testId): void {
         self::$deprecationEmittedForTest[$testId] = true;
     }
 
     /**
      * @param non-empty-string $testId
      */
-    public function wasDeprecationAlreadyEmittedFor(string $testId): bool
-    {
+    public function wasDeprecationAlreadyEmittedFor(string $testId): bool {
         return isset(self::$deprecationEmittedForTest[$testId]);
     }
 
     /**
      * @return list<ConfigurableMethod>
      */
-    public function configurableMethods(): array
-    {
+    public function configurableMethods(): array {
         return $this->configurableMethods;
     }
 
-    public function generateReturnValues(): bool
-    {
+    public function generateReturnValues(): bool {
         return $this->generateReturnValues;
     }
 }

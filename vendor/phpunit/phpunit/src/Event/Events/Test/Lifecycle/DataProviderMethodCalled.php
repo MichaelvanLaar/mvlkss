@@ -19,38 +19,36 @@ use PHPUnit\Event\Telemetry\Info;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class DataProviderMethodCalled implements Event
-{
+final readonly class DataProviderMethodCalled implements Event {
     private Info $telemetryInfo;
     private ClassMethod $testMethod;
     private ClassMethod $dataProviderMethod;
 
-    public function __construct(Info $telemetryInfo, ClassMethod $testMethod, ClassMethod $dataProviderMethod)
-    {
-        $this->telemetryInfo      = $telemetryInfo;
-        $this->testMethod         = $testMethod;
+    public function __construct(
+        Info $telemetryInfo,
+        ClassMethod $testMethod,
+        ClassMethod $dataProviderMethod,
+    ) {
+        $this->telemetryInfo = $telemetryInfo;
+        $this->testMethod = $testMethod;
         $this->dataProviderMethod = $dataProviderMethod;
     }
 
-    public function telemetryInfo(): Info
-    {
+    public function telemetryInfo(): Info {
         return $this->telemetryInfo;
     }
 
-    public function testMethod(): ClassMethod
-    {
+    public function testMethod(): ClassMethod {
         return $this->testMethod;
     }
 
-    public function dataProviderMethod(): ClassMethod
-    {
+    public function dataProviderMethod(): ClassMethod {
         return $this->dataProviderMethod;
     }
 
-    public function asString(): string
-    {
+    public function asString(): string {
         return sprintf(
-            'Data Provider Method Called (%s::%s for test method %s::%s)',
+            "Data Provider Method Called (%s::%s for test method %s::%s)",
             $this->dataProviderMethod->className(),
             $this->dataProviderMethod->methodName(),
             $this->testMethod->className(),

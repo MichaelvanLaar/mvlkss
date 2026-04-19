@@ -14,15 +14,13 @@ namespace Symfony\Polyfill\Intl\Idn\Resources\unidata;
 /**
  * @internal
  */
-final class DisallowedRanges
-{
+final class DisallowedRanges {
     /**
      * @param int $codePoint
      *
      * @return bool
      */
-    public static function inRange($codePoint)
-    {
+    public static function inRange($codePoint) {
         if ($codePoint >= 128 && $codePoint <= 159) {
             return true;
         }

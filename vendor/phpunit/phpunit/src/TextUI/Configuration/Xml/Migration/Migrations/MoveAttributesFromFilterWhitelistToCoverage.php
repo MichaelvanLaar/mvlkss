@@ -17,28 +17,29 @@ use DOMElement;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class MoveAttributesFromFilterWhitelistToCoverage implements Migration
-{
+final readonly class MoveAttributesFromFilterWhitelistToCoverage implements
+    Migration {
     /**
      * @throws MigrationException
      */
-    public function migrate(DOMDocument $document): void
-    {
-        $whitelist = $document->getElementsByTagName('whitelist')->item(0);
+    public function migrate(DOMDocument $document): void {
+        $whitelist = $document->getElementsByTagName("whitelist")->item(0);
 
         if (!$whitelist) {
             return;
         }
 
-        $coverage = $document->getElementsByTagName('coverage')->item(0);
+        $coverage = $document->getElementsByTagName("coverage")->item(0);
 
-        if (!$coverage instanceof DOMElement) {
-            throw new MigrationException('Unexpected state - No coverage element');
+        if (!($coverage instanceof DOMElement)) {
+            throw new MigrationException(
+                "Unexpected state - No coverage element",
+            );
         }
 
         $map = [
-            'addUncoveredFilesFromWhitelist'     => 'includeUncoveredFiles',
-            'processUncoveredFilesFromWhitelist' => 'processUncoveredFiles',
+            "addUncoveredFilesFromWhitelist" => "includeUncoveredFiles",
+            "processUncoveredFilesFromWhitelist" => "processUncoveredFiles",
         ];
 
         foreach ($map as $old => $new) {

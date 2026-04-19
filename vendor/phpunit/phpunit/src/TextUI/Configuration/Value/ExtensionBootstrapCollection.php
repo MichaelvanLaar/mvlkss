@@ -18,8 +18,7 @@ use IteratorAggregate;
  *
  * @immutable
  */
-final readonly class ExtensionBootstrapCollection implements IteratorAggregate
-{
+final readonly class ExtensionBootstrapCollection implements IteratorAggregate {
     /**
      * @var list<ExtensionBootstrap>
      */
@@ -28,26 +27,22 @@ final readonly class ExtensionBootstrapCollection implements IteratorAggregate
     /**
      * @param list<ExtensionBootstrap> $extensionBootstraps
      */
-    public static function fromArray(array $extensionBootstraps): self
-    {
+    public static function fromArray(array $extensionBootstraps): self {
         return new self(...$extensionBootstraps);
     }
 
-    private function __construct(ExtensionBootstrap ...$extensionBootstraps)
-    {
+    private function __construct(ExtensionBootstrap ...$extensionBootstraps) {
         $this->extensionBootstraps = $extensionBootstraps;
     }
 
     /**
      * @return list<ExtensionBootstrap>
      */
-    public function asArray(): array
-    {
+    public function asArray(): array {
         return $this->extensionBootstraps;
     }
 
-    public function getIterator(): ExtensionBootstrapCollectionIterator
-    {
+    public function getIterator(): ExtensionBootstrapCollectionIterator {
         return new ExtensionBootstrapCollectionIterator($this);
     }
 }

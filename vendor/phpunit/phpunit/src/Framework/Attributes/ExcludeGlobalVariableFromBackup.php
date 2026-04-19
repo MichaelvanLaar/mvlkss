@@ -16,9 +16,14 @@ use Attribute;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-#[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
-final readonly class ExcludeGlobalVariableFromBackup
-{
+#[
+    Attribute(
+        Attribute::TARGET_CLASS |
+            Attribute::TARGET_METHOD |
+            Attribute::IS_REPEATABLE,
+    ),
+]
+final readonly class ExcludeGlobalVariableFromBackup {
     /**
      * @var non-empty-string
      */
@@ -27,16 +32,14 @@ final readonly class ExcludeGlobalVariableFromBackup
     /**
      * @param non-empty-string $globalVariableName
      */
-    public function __construct(string $globalVariableName)
-    {
+    public function __construct(string $globalVariableName) {
         $this->globalVariableName = $globalVariableName;
     }
 
     /**
      * @return non-empty-string
      */
-    public function globalVariableName(): string
-    {
+    public function globalVariableName(): string {
         return $this->globalVariableName;
     }
 }

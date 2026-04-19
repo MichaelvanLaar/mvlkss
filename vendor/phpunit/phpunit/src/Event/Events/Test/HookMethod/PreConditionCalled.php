@@ -19,9 +19,8 @@ use PHPUnit\Event\Telemetry;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class PreConditionCalled implements Event
-{
-    private Telemetry\Info$telemetryInfo;
+final readonly class PreConditionCalled implements Event {
+    private Telemetry\Info $telemetryInfo;
 
     /**
      * @var class-string
@@ -32,35 +31,34 @@ final readonly class PreConditionCalled implements Event
     /**
      * @param class-string $testClassName
      */
-    public function __construct(Telemetry\Info $telemetryInfo, string $testClassName, Code\ClassMethod $calledMethod)
-    {
+    public function __construct(
+        Telemetry\Info $telemetryInfo,
+        string $testClassName,
+        Code\ClassMethod $calledMethod,
+    ) {
         $this->telemetryInfo = $telemetryInfo;
         $this->testClassName = $testClassName;
-        $this->calledMethod  = $calledMethod;
+        $this->calledMethod = $calledMethod;
     }
 
-    public function telemetryInfo(): Telemetry\Info
-    {
+    public function telemetryInfo(): Telemetry\Info {
         return $this->telemetryInfo;
     }
 
     /**
      * @return class-string
      */
-    public function testClassName(): string
-    {
+    public function testClassName(): string {
         return $this->testClassName;
     }
 
-    public function calledMethod(): Code\ClassMethod
-    {
+    public function calledMethod(): Code\ClassMethod {
         return $this->calledMethod;
     }
 
-    public function asString(): string
-    {
+    public function asString(): string {
         return sprintf(
-            'Pre Condition Method Called (%s::%s)',
+            "Pre Condition Method Called (%s::%s)",
             $this->calledMethod->className(),
             $this->calledMethod->methodName(),
         );

@@ -13,8 +13,7 @@ use ReflectionException;
  *
  * @final
  */
-class PropertyTypeMatcher implements Matcher
-{
+class PropertyTypeMatcher implements Matcher {
     /**
      * @var string
      */
@@ -23,18 +22,19 @@ class PropertyTypeMatcher implements Matcher
     /**
      * @param string $propertyType Property type
      */
-    public function __construct($propertyType)
-    {
+    public function __construct($propertyType) {
         $this->propertyType = $propertyType;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function matches($object, $property)
-    {
+    public function matches($object, $property) {
         try {
-            $reflectionProperty = ReflectionHelper::getProperty($object, $property);
+            $reflectionProperty = ReflectionHelper::getProperty(
+                $object,
+                $property,
+            );
         } catch (ReflectionException $exception) {
             return false;
         }
@@ -44,11 +44,15 @@ class PropertyTypeMatcher implements Matcher
         }
 
         // Uninitialized properties (for PHP >7.4)
-        if (method_exists($reflectionProperty, 'isInitialized') && !$reflectionProperty->isInitialized($object)) {
+        if (
+            method_exists($reflectionProperty, "isInitialized") &&
+            !$reflectionProperty->isInitialized($object)
+        ) {
             // null instanceof $this->propertyType
             return false;
         }
 
-        return $reflectionProperty->getValue($object) instanceof $this->propertyType;
+        return $reflectionProperty->getValue($object) instanceof
+            $this->propertyType;
     }
 }

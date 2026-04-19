@@ -17,14 +17,14 @@ use RuntimeException;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class PhptExternalFileCannotBeLoadedException extends RuntimeException implements Exception
-{
-    public function __construct(string $section, string $file)
-    {
+final class PhptExternalFileCannotBeLoadedException
+    extends RuntimeException
+    implements Exception {
+    public function __construct(string $section, string $file) {
         parent::__construct(
             sprintf(
-                'Could not load --%s-- %s for PHPT file',
-                $section . '_EXTERNAL',
+                "Could not load --%s-- %s for PHPT file",
+                $section . "_EXTERNAL",
                 $file,
             ),
         );

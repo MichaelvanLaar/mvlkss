@@ -22,8 +22,7 @@ use UnexpectedValueException;
  * @license http://github.com/marc-mabe/php-enum/blob/master/LICENSE.txt New BSD License
  * @link http://github.com/marc-mabe/php-enum for the canonical source repository
  */
-class EnumMap implements ArrayAccess, Countable, IteratorAggregate
-{
+class EnumMap implements ArrayAccess, Countable, IteratorAggregate {
     /**
      * The classname of the enumeration type
      * @var class-string<T>
@@ -42,14 +41,15 @@ class EnumMap implements ArrayAccess, Countable, IteratorAggregate
      * @param null|iterable<T|null|bool|int|float|string|array<mixed>, mixed> $map Initialize map
      * @throws InvalidArgumentException
      */
-    public function __construct(string $enumeration, ?iterable $map = null)
-    {
+    public function __construct(string $enumeration, ?iterable $map = null) {
         if (!\is_subclass_of($enumeration, Enum::class)) {
-            throw new InvalidArgumentException(\sprintf(
-                '%s can handle subclasses of %s only',
-                 __CLASS__,
-                Enum::class
-            ));
+            throw new InvalidArgumentException(
+                \sprintf(
+                    "%s can handle subclasses of %s only",
+                    __CLASS__,
+                    Enum::class,
+                ),
+            );
         }
         $this->enumeration = $enumeration;
 
@@ -67,10 +67,14 @@ class EnumMap implements ArrayAccess, Countable, IteratorAggregate
      * @return array<string, mixed>
      */
     public function __debugInfo(): array {
-        $dbg = (array)$this;
-        $dbg["\0" . self::class . "\0__pairs"] = array_map(function ($k, $v) {
-            return [$k, $v];
-        }, $this->getKeys(), $this->getValues());
+        $dbg = (array) $this;
+        $dbg["\0" . self::class . "\0__pairs"] = array_map(
+            function ($k, $v) {
+                return [$k, $v];
+            },
+            $this->getKeys(),
+            $this->getValues(),
+        );
         return $dbg;
     }
 
@@ -83,9 +87,8 @@ class EnumMap implements ArrayAccess, Countable, IteratorAggregate
      * @throws InvalidArgumentException On an invalid given enumerator
      * @see offsetSet()
      */
-    public function add($enumerator, $value): void
-    {
-        $ord = ($this->enumeration)::get($enumerator)->getOrdinal();
+    public function add($enumerator, $value): void {
+        $ord = $this->enumeration::get($enumerator)->getOrdinal();
         $this->map[$ord] = $value;
     }
 
@@ -94,11 +97,10 @@ class EnumMap implements ArrayAccess, Countable, IteratorAggregate
      * @param iterable<T|null|bool|int|float|string|array<mixed>, mixed> $map
      * @throws InvalidArgumentException On an invalid given enumerator
      */
-    public function addIterable(iterable $map): void
-    {
+    public function addIterable(iterable $map): void {
         $innerMap = $this->map;
         foreach ($map as $enumerator => $value) {
-            $ord = ($this->enumeration)::get($enumerator)->getOrdinal();
+            $ord = $this->enumeration::get($enumerator)->getOrdinal();
             $innerMap[$ord] = $value;
         }
         $this->map = $innerMap;
@@ -110,9 +112,8 @@ class EnumMap implements ArrayAccess, Countable, IteratorAggregate
      * @throws InvalidArgumentException On an invalid given enumerator
      * @see offsetUnset()
      */
-    public function remove($enumerator): void
-    {
-        $ord = ($this->enumeration)::get($enumerator)->getOrdinal();
+    public function remove($enumerator): void {
+        $ord = $this->enumeration::get($enumerator)->getOrdinal();
         unset($this->map[$ord]);
     }
 
@@ -121,11 +122,10 @@ class EnumMap implements ArrayAccess, Countable, IteratorAggregate
      * @param iterable<T|null|bool|int|float|string|array<mixed>> $enumerators
      * @throws InvalidArgumentException On an invalid given enumerator
      */
-    public function removeIterable(iterable $enumerators): void
-    {
+    public function removeIterable(iterable $enumerators): void {
         $map = $this->map;
         foreach ($enumerators as $enumerator) {
-            $ord = ($this->enumeration)::get($enumerator)->getOrdinal();
+            $ord = $this->enumeration::get($enumerator)->getOrdinal();
             unset($map[$ord]);
         }
 
@@ -141,8 +141,7 @@ class EnumMap implements ArrayAccess, Countable, IteratorAggregate
      * @return static
      * @throws InvalidArgumentException On an invalid given enumerator
      */
-    public function with($enumerator, $value): self
-    {
+    public function with($enumerator, $value): self {
         $clone = clone $this;
         $clone->add($enumerator, $value);
         return $clone;
@@ -154,8 +153,7 @@ class EnumMap implements ArrayAccess, Countable, IteratorAggregate
      * @return static
      * @throws InvalidArgumentException On an invalid given enumerator
      */
-    public function withIterable(iterable $map): self
-    {
+    public function withIterable(iterable $map): self {
         $clone = clone $this;
         $clone->addIterable($map);
         return $clone;
@@ -167,8 +165,7 @@ class EnumMap implements ArrayAccess, Countable, IteratorAggregate
      * @return static
      * @throws InvalidArgumentException On an invalid given enumerator
      */
-    public function without($enumerator): self
-    {
+    public function without($enumerator): self {
         $clone = clone $this;
         $clone->remove($enumerator);
         return $clone;
@@ -180,8 +177,7 @@ class EnumMap implements ArrayAccess, Countable, IteratorAggregate
      * @return static
      * @throws InvalidArgumentException On an invalid given enumerator
      */
-    public function withoutIterable(iterable $enumerators): self
-    {
+    public function withoutIterable(iterable $enumerators): self {
         $clone = clone $this;
         $clone->removeIterable($enumerators);
         return $clone;
@@ -193,8 +189,7 @@ class EnumMap implements ArrayAccess, Countable, IteratorAggregate
      * Get the classname of the enumeration type.
      * @return class-string<T>
      */
-    public function getEnumeration(): string
-    {
+    public function getEnumeration(): string {
         return $this->enumeration;
     }
 
@@ -206,15 +201,16 @@ class EnumMap implements ArrayAccess, Countable, IteratorAggregate
      * @throws UnexpectedValueException If the given enumerator does not exist in this map
      * @see offsetGet()
      */
-    public function get($enumerator)
-    {
-        $enumerator = ($this->enumeration)::get($enumerator);
+    public function get($enumerator) {
+        $enumerator = $this->enumeration::get($enumerator);
         $ord = $enumerator->getOrdinal();
         if (!\array_key_exists($ord, $this->map)) {
-            throw new UnexpectedValueException(sprintf(
-                'Enumerator %s could not be found',
-                \var_export($enumerator->getValue(), true)
-            ));
+            throw new UnexpectedValueException(
+                sprintf(
+                    "Enumerator %s could not be found",
+                    \var_export($enumerator->getValue(), true),
+                ),
+            );
         }
 
         return $this->map[$ord];
@@ -227,10 +223,9 @@ class EnumMap implements ArrayAccess, Countable, IteratorAggregate
      * @phpstan-return array<int, T>
      * @psalm-return list<T>
      */
-    public function getKeys(): array
-    {
+    public function getKeys(): array {
         /** @var callable $byOrdinalFn */
-        $byOrdinalFn = [$this->enumeration, 'byOrdinal'];
+        $byOrdinalFn = [$this->enumeration, "byOrdinal"];
 
         return \array_map($byOrdinalFn, \array_keys($this->map));
     }
@@ -242,8 +237,7 @@ class EnumMap implements ArrayAccess, Countable, IteratorAggregate
      * @phpstan-return array<int, mixed>
      * @psalm-return list<mixed>
      */
-    public function getValues(): array
-    {
+    public function getValues(): array {
         return \array_values($this->map);
     }
 
@@ -253,12 +247,11 @@ class EnumMap implements ArrayAccess, Countable, IteratorAggregate
      * @param bool $strict Use strict type comparison
      * @return T|null The enumerator object of the first matching data value or NULL
      */
-    public function search($value, bool $strict = false)
-    {
+    public function search($value, bool $strict = false) {
         /** @var false|int $ord */
         $ord = \array_search($value, $this->map, $strict);
         if ($ord !== false) {
-            return ($this->enumeration)::byOrdinal($ord);
+            return $this->enumeration::byOrdinal($ord);
         }
 
         return null;
@@ -270,10 +263,9 @@ class EnumMap implements ArrayAccess, Countable, IteratorAggregate
      * @return bool
      * @see offsetExists()
      */
-    public function has($enumerator): bool
-    {
+    public function has($enumerator): bool {
         try {
-            $ord = ($this->enumeration)::get($enumerator)->getOrdinal();
+            $ord = $this->enumeration::get($enumerator)->getOrdinal();
             return \array_key_exists($ord, $this->map);
         } catch (InvalidArgumentException $e) {
             // An invalid enumerator can't be contained in this map
@@ -289,8 +281,7 @@ class EnumMap implements ArrayAccess, Countable, IteratorAggregate
      * @see has()
      * @deprecated Will trigger deprecation warning in last 4.x and removed in 5.x
      */
-    public function contains($enumerator): bool
-    {
+    public function contains($enumerator): bool {
         return $this->has($enumerator);
     }
 
@@ -302,10 +293,11 @@ class EnumMap implements ArrayAccess, Countable, IteratorAggregate
      * @return bool
      * @see contains()
      */
-    public function offsetExists($enumerator): bool
-    {
+    public function offsetExists($enumerator): bool {
         try {
-            return isset($this->map[($this->enumeration)::get($enumerator)->getOrdinal()]);
+            return isset(
+                $this->map[$this->enumeration::get($enumerator)->getOrdinal()],
+            );
         } catch (InvalidArgumentException $e) {
             // An invalid enumerator can't be an offset of this map
             return false;
@@ -320,8 +312,7 @@ class EnumMap implements ArrayAccess, Countable, IteratorAggregate
      * @see get()
      */
     #[\ReturnTypeWillChange]
-    public function offsetGet($enumerator)
-    {
+    public function offsetGet($enumerator) {
         try {
             return $this->get($enumerator);
         } catch (UnexpectedValueException $e) {
@@ -337,8 +328,7 @@ class EnumMap implements ArrayAccess, Countable, IteratorAggregate
      * @throws InvalidArgumentException On an invalid given enumerator
      * @see add()
      */
-    public function offsetSet($enumerator, $value = null): void
-    {
+    public function offsetSet($enumerator, $value = null): void {
         $this->add($enumerator, $value);
     }
 
@@ -349,8 +339,7 @@ class EnumMap implements ArrayAccess, Countable, IteratorAggregate
      * @throws InvalidArgumentException On an invalid given enumerator
      * @see remove()
      */
-    public function offsetUnset($enumerator): void
-    {
+    public function offsetUnset($enumerator): void {
         $this->remove($enumerator);
     }
 
@@ -361,11 +350,10 @@ class EnumMap implements ArrayAccess, Countable, IteratorAggregate
      *
      * @return Iterator<T, mixed> Iterator<K extends Enum, V>
      */
-    public function getIterator(): Iterator
-    {
+    public function getIterator(): Iterator {
         $map = $this->map;
         foreach ($map as $ordinal => $value) {
-            yield ($this->enumeration)::byOrdinal($ordinal) => $value;
+            yield $this->enumeration::byOrdinal($ordinal) => $value;
         }
     }
 
@@ -376,8 +364,7 @@ class EnumMap implements ArrayAccess, Countable, IteratorAggregate
      *
      * @return int
      */
-    public function count(): int
-    {
+    public function count(): int {
         return \count($this->map);
     }
 
@@ -386,8 +373,7 @@ class EnumMap implements ArrayAccess, Countable, IteratorAggregate
      *
      * @return bool
      */
-    public function isEmpty(): bool
-    {
+    public function isEmpty(): bool {
         return empty($this->map);
     }
 }

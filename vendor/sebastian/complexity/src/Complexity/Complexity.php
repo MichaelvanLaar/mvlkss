@@ -14,8 +14,7 @@ use function str_contains;
 /**
  * @immutable
  */
-final readonly class Complexity
-{
+final readonly class Complexity {
     /**
      * @var non-empty-string
      */
@@ -30,35 +29,30 @@ final readonly class Complexity
      * @param non-empty-string $name
      * @param positive-int     $cyclomaticComplexity
      */
-    public function __construct(string $name, int $cyclomaticComplexity)
-    {
-        $this->name                 = $name;
+    public function __construct(string $name, int $cyclomaticComplexity) {
+        $this->name = $name;
         $this->cyclomaticComplexity = $cyclomaticComplexity;
     }
 
     /**
      * @return non-empty-string
      */
-    public function name(): string
-    {
+    public function name(): string {
         return $this->name;
     }
 
     /**
      * @return positive-int
      */
-    public function cyclomaticComplexity(): int
-    {
+    public function cyclomaticComplexity(): int {
         return $this->cyclomaticComplexity;
     }
 
-    public function isFunction(): bool
-    {
+    public function isFunction(): bool {
         return !$this->isMethod();
     }
 
-    public function isMethod(): bool
-    {
-        return str_contains($this->name, '::');
+    public function isMethod(): bool {
+        return str_contains($this->name, "::");
     }
 }

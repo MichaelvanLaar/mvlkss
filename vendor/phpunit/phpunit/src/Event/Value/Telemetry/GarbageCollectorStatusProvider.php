@@ -14,7 +14,6 @@ namespace PHPUnit\Event\Telemetry;
  *
  * @internal This interface is not covered by the backward compatibility promise for PHPUnit
  */
-interface GarbageCollectorStatusProvider
-{
+interface GarbageCollectorStatusProvider {
     public function status(): GarbageCollectorStatus;
 }

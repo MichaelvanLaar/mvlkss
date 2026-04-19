@@ -16,21 +16,18 @@ use PHPUnit\Util\Exporter;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-abstract class TraversableContains extends Constraint
-{
+abstract class TraversableContains extends Constraint {
     private readonly mixed $value;
 
-    public function __construct(mixed $value)
-    {
+    public function __construct(mixed $value) {
         $this->value = $value;
     }
 
     /**
      * Returns a string representation of the constraint.
      */
-    public function toString(): string
-    {
-        return 'contains ' . Exporter::export($this->value);
+    public function toString(): string {
+        return "contains " . Exporter::export($this->value);
     }
 
     /**
@@ -39,17 +36,15 @@ abstract class TraversableContains extends Constraint
      * The beginning of failure messages is "Failed asserting that" in most
      * cases. This method should return the second part of that sentence.
      */
-    protected function failureDescription(mixed $other): string
-    {
+    protected function failureDescription(mixed $other): string {
         return sprintf(
-            '%s %s',
-            is_array($other) ? 'an array' : 'a traversable',
+            "%s %s",
+            is_array($other) ? "an array" : "a traversable",
             $this->toString(),
         );
     }
 
-    protected function value(): mixed
-    {
+    protected function value(): mixed {
         return $this->value;
     }
 }

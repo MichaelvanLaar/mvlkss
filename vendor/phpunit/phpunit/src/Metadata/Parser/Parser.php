@@ -16,8 +16,7 @@ use PHPUnit\Metadata\MetadataCollection;
  *
  * @internal This interface is not covered by the backward compatibility promise for PHPUnit
  */
-interface Parser
-{
+interface Parser {
     /**
      * @param class-string $className
      */
@@ -27,11 +26,17 @@ interface Parser
      * @param class-string     $className
      * @param non-empty-string $methodName
      */
-    public function forMethod(string $className, string $methodName): MetadataCollection;
+    public function forMethod(
+        string $className,
+        string $methodName,
+    ): MetadataCollection;
 
     /**
      * @param class-string     $className
      * @param non-empty-string $methodName
      */
-    public function forClassAndMethod(string $className, string $methodName): MetadataCollection;
+    public function forClassAndMethod(
+        string $className,
+        string $methodName,
+    ): MetadataCollection;
 }

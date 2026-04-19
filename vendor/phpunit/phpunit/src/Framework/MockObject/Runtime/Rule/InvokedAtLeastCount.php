@@ -18,21 +18,18 @@ use PHPUnit\Framework\MockObject\Invocation as BaseInvocation;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class InvokedAtLeastCount extends InvocationOrder
-{
+final class InvokedAtLeastCount extends InvocationOrder {
     private readonly int $requiredInvocations;
 
-    public function __construct(int $requiredInvocations)
-    {
+    public function __construct(int $requiredInvocations) {
         $this->requiredInvocations = $requiredInvocations;
     }
 
-    public function toString(): string
-    {
+    public function toString(): string {
         return sprintf(
-            'invoked at least %d time%s',
+            "invoked at least %d time%s",
             $this->requiredInvocations,
-            $this->requiredInvocations !== 1 ? 's' : '',
+            $this->requiredInvocations !== 1 ? "s" : "",
         );
     }
 
@@ -42,25 +39,23 @@ final class InvokedAtLeastCount extends InvocationOrder
      *
      * @throws ExpectationFailedException
      */
-    public function verify(): void
-    {
+    public function verify(): void {
         $actualInvocations = $this->numberOfInvocations();
 
         if ($actualInvocations < $this->requiredInvocations) {
             throw new ExpectationFailedException(
                 sprintf(
-                    'Expected invocation at least %d time%s but it occurred %d time%s.',
+                    "Expected invocation at least %d time%s but it occurred %d time%s.",
                     $this->requiredInvocations,
-                    $this->requiredInvocations !== 1 ? 's' : '',
+                    $this->requiredInvocations !== 1 ? "s" : "",
                     $actualInvocations,
-                    $actualInvocations !== 1 ? 's' : '',
+                    $actualInvocations !== 1 ? "s" : "",
                 ),
             );
         }
     }
 
-    public function matches(BaseInvocation $invocation): bool
-    {
+    public function matches(BaseInvocation $invocation): bool {
         return true;
     }
 }

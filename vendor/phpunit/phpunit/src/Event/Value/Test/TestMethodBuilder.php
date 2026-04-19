@@ -25,23 +25,27 @@ use PHPUnit\Util\Test as TestUtil;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestMethodBuilder
-{
-    public static function fromTestCase(TestCase $testCase): TestMethod
-    {
+final readonly class TestMethodBuilder {
+    public static function fromTestCase(TestCase $testCase): TestMethod {
         $methodName = $testCase->name();
 
         assert(!empty($methodName));
 
-        $location = Reflection::sourceLocationFor($testCase::class, $methodName);
+        $location = Reflection::sourceLocationFor(
+            $testCase::class,
+            $methodName,
+        );
 
         return new TestMethod(
             $testCase::class,
             $methodName,
-            $location['file'],
-            $location['line'],
+            $location["file"],
+            $location["line"],
             TestDoxBuilder::fromTestCase($testCase),
-            MetadataRegistry::parser()->forClassAndMethod($testCase::class, $methodName),
+            MetadataRegistry::parser()->forClassAndMethod(
+                $testCase::class,
+                $methodName,
+            ),
             self::dataFor($testCase),
         );
     }
@@ -49,13 +53,11 @@ final readonly class TestMethodBuilder
     /**
      * @throws NoTestCaseObjectOnCallStackException
      */
-    public static function fromCallStack(): TestMethod
-    {
+    public static function fromCallStack(): TestMethod {
         return TestUtil::currentTestCase()->valueObjectForEvents();
     }
 
-    private static function dataFor(TestCase $testCase): TestDataCollection
-    {
+    private static function dataFor(TestCase $testCase): TestDataCollection {
         $testData = [];
 
         if ($testCase->usesDataProvider()) {
@@ -74,7 +76,9 @@ final readonly class TestMethodBuilder
 
         if ($testCase->hasDependencyInput()) {
             $testData[] = DataFromTestDependency::from(
-                Exporter::shortenedRecursiveExport($testCase->dependencyInput()),
+                Exporter::shortenedRecursiveExport(
+                    $testCase->dependencyInput(),
+                ),
             );
         }
 

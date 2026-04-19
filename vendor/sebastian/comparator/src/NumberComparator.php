@@ -17,13 +17,15 @@ use function max;
 use function number_format;
 use BcMath\Number;
 
-final class NumberComparator extends ObjectComparator
-{
-    public function accepts(mixed $expected, mixed $actual): bool
-    {
+final class NumberComparator extends ObjectComparator {
+    public function accepts(mixed $expected, mixed $actual): bool {
         return ($expected instanceof Number || $actual instanceof Number) &&
-            ($expected instanceof Number || is_int($expected) || is_string($expected) && is_numeric($expected)) &&
-            ($actual instanceof Number || is_int($actual) || is_string($actual) && is_numeric($actual));
+            ($expected instanceof Number ||
+                is_int($expected) ||
+                (is_string($expected) && is_numeric($expected))) &&
+            ($actual instanceof Number ||
+                is_int($actual) ||
+                (is_string($actual) && is_numeric($actual)));
     }
 
     /**
@@ -31,29 +33,40 @@ final class NumberComparator extends ObjectComparator
      *
      * @throws ComparisonFailure
      */
-    public function assertEquals(mixed $expected, mixed $actual, float $delta = 0.0, bool $canonicalize = false, bool $ignoreCase = false, array &$processed = []): void
-    {
-        if (!$expected instanceof Number) {
+    public function assertEquals(
+        mixed $expected,
+        mixed $actual,
+        float $delta = 0.0,
+        bool $canonicalize = false,
+        bool $ignoreCase = false,
+        array &$processed = [],
+    ): void {
+        if (!($expected instanceof Number)) {
             assert(is_string($expected) || is_int($expected));
 
             $expected = new Number($expected);
         }
 
-        if (!$actual instanceof Number) {
+        if (!($actual instanceof Number)) {
             assert(is_string($actual) || is_int($actual));
 
             $actual = new Number($actual);
         }
 
-        $deltaNumber = new Number(number_format($delta, max($expected->scale, $actual->scale)));
+        $deltaNumber = new Number(
+            number_format($delta, max($expected->scale, $actual->scale)),
+        );
 
-        if ($actual < $expected - $deltaNumber || $actual > $expected + $deltaNumber) {
+        if (
+            $actual < $expected - $deltaNumber ||
+            $actual > $expected + $deltaNumber
+        ) {
             throw new ComparisonFailure(
                 $expected,
                 $actual,
                 (string) $expected,
                 (string) $actual,
-                'Failed asserting that two Number objects are equal.',
+                "Failed asserting that two Number objects are equal.",
             );
         }
     }

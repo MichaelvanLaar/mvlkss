@@ -17,10 +17,10 @@ use PHPUnit\Event\Test\MarkedIncompleteSubscriber;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestMarkedIncompleteSubscriber extends Subscriber implements MarkedIncompleteSubscriber
-{
-    public function notify(MarkedIncomplete $event): void
-    {
+final readonly class TestMarkedIncompleteSubscriber
+    extends Subscriber
+    implements MarkedIncompleteSubscriber {
+    public function notify(MarkedIncomplete $event): void {
         $this->handler()->testMarkedIncomplete($event);
     }
 }

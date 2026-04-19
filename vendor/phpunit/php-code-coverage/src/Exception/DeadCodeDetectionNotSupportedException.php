@@ -11,6 +11,6 @@ namespace SebastianBergmann\CodeCoverage;
 
 use RuntimeException;
 
-final class DeadCodeDetectionNotSupportedException extends RuntimeException implements Exception
-{
-}
+final class DeadCodeDetectionNotSupportedException
+    extends RuntimeException
+    implements Exception {}

@@ -16,16 +16,14 @@ use SebastianBergmann\Template\Template;
  *
  * @internal This trait is not covered by the backward compatibility promise for PHPUnit
  */
-trait TemplateLoader
-{
+trait TemplateLoader {
     /**
      * @var array<string,Template>
      */
     private static array $templates = [];
 
-    private function loadTemplate(string $template): Template
-    {
-        $filename = __DIR__ . '/templates/' . $template;
+    private function loadTemplate(string $template): Template {
+        $filename = __DIR__ . "/templates/" . $template;
 
         if (!isset(self::$templates[$filename])) {
             self::$templates[$filename] = new Template($filename);

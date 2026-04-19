@@ -24,32 +24,33 @@ use ReflectionMethod;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class Reflection
-{
+final readonly class Reflection {
     /**
      * @param class-string     $className
      * @param non-empty-string $methodName
      *
      * @return array{file: non-empty-string, line: non-negative-int}
      */
-    public static function sourceLocationFor(string $className, string $methodName): array
-    {
+    public static function sourceLocationFor(
+        string $className,
+        string $methodName,
+    ): array {
         try {
             $reflector = new ReflectionMethod($className, $methodName);
 
             $file = $reflector->getFileName();
             $line = $reflector->getStartLine();
         } catch (ReflectionException) {
-            $file = 'unknown';
+            $file = "unknown";
             $line = 0;
         }
 
-        assert($file !== false && $file !== '');
+        assert($file !== false && $file !== "");
         assert($line !== false && $line >= 0);
 
         return [
-            'file' => $file,
-            'line' => $line,
+            "file" => $file,
+            "line" => $line,
         ];
     }
 
@@ -58,9 +59,14 @@ final readonly class Reflection
      *
      * @return list<ReflectionMethod>
      */
-    public static function publicMethodsDeclaredDirectlyInTestClass(ReflectionClass $class): array
-    {
-        return self::filterAndSortMethods($class, ReflectionMethod::IS_PUBLIC, true);
+    public static function publicMethodsDeclaredDirectlyInTestClass(
+        ReflectionClass $class,
+    ): array {
+        return self::filterAndSortMethods(
+            $class,
+            ReflectionMethod::IS_PUBLIC,
+            true,
+        );
     }
 
     /**
@@ -68,8 +74,9 @@ final readonly class Reflection
      *
      * @return list<ReflectionMethod>
      */
-    public static function methodsDeclaredDirectlyInTestClass(ReflectionClass $class): array
-    {
+    public static function methodsDeclaredDirectlyInTestClass(
+        ReflectionClass $class,
+    ): array {
         return self::filterAndSortMethods($class, null, false);
     }
 
@@ -78,8 +85,11 @@ final readonly class Reflection
      *
      * @return list<ReflectionMethod>
      */
-    private static function filterAndSortMethods(ReflectionClass $class, ?int $filter, bool $sortHighestToLowest): array
-    {
+    private static function filterAndSortMethods(
+        ReflectionClass $class,
+        ?int $filter,
+        bool $sortHighestToLowest,
+    ): array {
         $methodsByClass = [];
 
         foreach ($class->getMethods($filter) as $method) {

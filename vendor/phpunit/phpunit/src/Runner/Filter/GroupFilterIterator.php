@@ -24,8 +24,7 @@ use RecursiveIterator;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-abstract class GroupFilterIterator extends RecursiveFilterIterator
-{
+abstract class GroupFilterIterator extends RecursiveFilterIterator {
     /**
      * @var list<non-empty-string>
      */
@@ -35,8 +34,11 @@ abstract class GroupFilterIterator extends RecursiveFilterIterator
      * @param RecursiveIterator<int, Test> $iterator
      * @param list<non-empty-string>       $groups
      */
-    public function __construct(RecursiveIterator $iterator, array $groups, TestSuite $suite)
-    {
+    public function __construct(
+        RecursiveIterator $iterator,
+        array $groups,
+        TestSuite $suite,
+    ) {
         parent::__construct($iterator);
 
         $groupTests = [];
@@ -52,8 +54,7 @@ abstract class GroupFilterIterator extends RecursiveFilterIterator
         $this->groupTests = $groupTests;
     }
 
-    public function accept(): bool
-    {
+    public function accept(): bool {
         $test = $this->getInnerIterator()->current();
 
         if ($test instanceof TestSuite) {
@@ -61,7 +62,10 @@ abstract class GroupFilterIterator extends RecursiveFilterIterator
         }
 
         if ($test instanceof TestCase || $test instanceof PhptTestCase) {
-            return $this->doAccept($test->valueObjectForEvents()->id(), $this->groupTests);
+            return $this->doAccept(
+                $test->valueObjectForEvents()->id(),
+                $this->groupTests,
+            );
         }
 
         return true;

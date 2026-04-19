@@ -20,11 +20,9 @@ use Throwable;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class ComparisonFailureBuilder
-{
-    public static function from(Throwable $t): ?ComparisonFailure
-    {
-        if (!$t instanceof ExpectationFailedException) {
+final readonly class ComparisonFailureBuilder {
+    public static function from(Throwable $t): ?ComparisonFailure {
+        if (!($t instanceof ExpectationFailedException)) {
             return null;
         }
 
@@ -35,13 +33,17 @@ final readonly class ComparisonFailureBuilder
         $expectedAsString = $t->getComparisonFailure()->getExpectedAsString();
 
         if (empty($expectedAsString)) {
-            $expectedAsString = self::mapScalarValueToString($t->getComparisonFailure()->getExpected());
+            $expectedAsString = self::mapScalarValueToString(
+                $t->getComparisonFailure()->getExpected(),
+            );
         }
 
         $actualAsString = $t->getComparisonFailure()->getActualAsString();
 
         if (empty($actualAsString)) {
-            $actualAsString = self::mapScalarValueToString($t->getComparisonFailure()->getActual());
+            $actualAsString = self::mapScalarValueToString(
+                $t->getComparisonFailure()->getActual(),
+            );
         }
 
         return new ComparisonFailure(
@@ -51,20 +53,19 @@ final readonly class ComparisonFailureBuilder
         );
     }
 
-    private static function mapScalarValueToString(mixed $value): string
-    {
+    private static function mapScalarValueToString(mixed $value): string {
         if ($value === null) {
-            return 'null';
+            return "null";
         }
 
         if (is_bool($value)) {
-            return $value ? 'true' : 'false';
+            return $value ? "true" : "false";
         }
 
         if (is_scalar($value)) {
             return print_r($value, true);
         }
 
-        return '';
+        return "";
     }
 }

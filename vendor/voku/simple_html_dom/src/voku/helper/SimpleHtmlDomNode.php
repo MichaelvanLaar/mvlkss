@@ -7,8 +7,8 @@ namespace voku\helper;
 /**
  * {@inheritdoc}
  */
-class SimpleHtmlDomNode extends AbstractSimpleHtmlDomNode implements SimpleHtmlDomNodeInterface
-{
+class SimpleHtmlDomNode extends AbstractSimpleHtmlDomNode implements
+    SimpleHtmlDomNodeInterface {
     /**
      * Find list of nodes with a CSS selector.
      *
@@ -17,8 +17,7 @@ class SimpleHtmlDomNode extends AbstractSimpleHtmlDomNode implements SimpleHtmlD
      *
      * @return SimpleHtmlDomNodeInterface<SimpleHtmlDomInterface>|SimpleHtmlDomNodeInterface[]|null
      */
-    public function find(string $selector, $idx = null)
-    {
+    public function find(string $selector, $idx = null) {
         // init
         $elements = new static();
 
@@ -54,8 +53,7 @@ class SimpleHtmlDomNode extends AbstractSimpleHtmlDomNode implements SimpleHtmlD
      *
      * @return SimpleHtmlDomInterface[]|SimpleHtmlDomNodeInterface<SimpleHtmlDomInterface>
      */
-    public function findMulti(string $selector): SimpleHtmlDomNodeInterface
-    {
+    public function findMulti(string $selector): SimpleHtmlDomNodeInterface {
         return $this->find($selector, null);
     }
 
@@ -66,8 +64,7 @@ class SimpleHtmlDomNode extends AbstractSimpleHtmlDomNode implements SimpleHtmlD
      *
      * @return false|SimpleHtmlDomInterface[]|SimpleHtmlDomNodeInterface<SimpleHtmlDomInterface>
      */
-    public function findMultiOrFalse(string $selector)
-    {
+    public function findMultiOrFalse(string $selector) {
         $return = $this->find($selector, null);
 
         if ($return instanceof SimpleHtmlDomNodeBlank) {
@@ -84,8 +81,7 @@ class SimpleHtmlDomNode extends AbstractSimpleHtmlDomNode implements SimpleHtmlD
      *
      * @return SimpleHtmlDomNodeInterface<SimpleHtmlDomInterface>
      */
-    public function findOne(string $selector)
-    {
+    public function findOne(string $selector) {
         $return = $this->find($selector, 0);
 
         return $return ?? new SimpleHtmlDomNodeBlank();
@@ -98,8 +94,7 @@ class SimpleHtmlDomNode extends AbstractSimpleHtmlDomNode implements SimpleHtmlD
      *
      * @return false|SimpleHtmlDomNodeInterface<SimpleHtmlDomInterface>
      */
-    public function findOneOrFalse(string $selector)
-    {
+    public function findOneOrFalse(string $selector) {
         $return = $this->find($selector, 0);
 
         return $return ?? false;
@@ -110,8 +105,7 @@ class SimpleHtmlDomNode extends AbstractSimpleHtmlDomNode implements SimpleHtmlD
      *
      * @return string[]
      */
-    public function innerHtml(): array
-    {
+    public function innerHtml(): array {
         // init
         $html = [];
 
@@ -127,8 +121,7 @@ class SimpleHtmlDomNode extends AbstractSimpleHtmlDomNode implements SimpleHtmlD
      *
      * @return string[]
      */
-    public function innertext()
-    {
+    public function innertext() {
         return $this->innerHtml();
     }
 
@@ -137,8 +130,7 @@ class SimpleHtmlDomNode extends AbstractSimpleHtmlDomNode implements SimpleHtmlD
      *
      * @return string[]
      */
-    public function outertext()
-    {
+    public function outertext() {
         return $this->innerHtml();
     }
 
@@ -147,8 +139,7 @@ class SimpleHtmlDomNode extends AbstractSimpleHtmlDomNode implements SimpleHtmlD
      *
      * @return string[]
      */
-    public function text(): array
-    {
+    public function text(): array {
         // init
         $text = [];
 

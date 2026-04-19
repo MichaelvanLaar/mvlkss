@@ -21,12 +21,10 @@ use SebastianBergmann\Comparator\Factory as ComparatorFactory;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class IsEqualCanonicalizing extends Constraint
-{
+final class IsEqualCanonicalizing extends Constraint {
     private readonly mixed $value;
 
-    public function __construct(mixed $value)
-    {
+    public function __construct(mixed $value) {
         $this->value = $value;
     }
 
@@ -42,8 +40,11 @@ final class IsEqualCanonicalizing extends Constraint
      *
      * @throws ExpectationFailedException
      */
-    public function evaluate(mixed $other, string $description = '', bool $returnResult = false): bool
-    {
+    public function evaluate(
+        mixed $other,
+        string $description = "",
+        bool $returnResult = false,
+    ): bool {
         // If $this->value and $other are identical, they are also equal.
         // This is the most common path and will allow us to skip
         // initialization of all the comparators.
@@ -59,12 +60,7 @@ final class IsEqualCanonicalizing extends Constraint
                 $other,
             );
 
-            $comparator->assertEquals(
-                $this->value,
-                $other,
-                0.0,
-                true,
-            );
+            $comparator->assertEquals($this->value, $other, 0.0, true);
         } catch (ComparisonFailure $f) {
             if ($returnResult) {
                 return false;
@@ -82,22 +78,15 @@ final class IsEqualCanonicalizing extends Constraint
     /**
      * Returns a string representation of the constraint.
      */
-    public function toString(): string
-    {
+    public function toString(): string {
         if (is_string($this->value)) {
             if (str_contains($this->value, "\n")) {
-                return 'is equal to <text>';
+                return "is equal to <text>";
             }
 
-            return sprintf(
-                "is equal to '%s'",
-                $this->value,
-            );
+            return sprintf("is equal to '%s'", $this->value);
         }
 
-        return sprintf(
-            'is equal to %s',
-            Exporter::export($this->value),
-        );
+        return sprintf("is equal to %s", Exporter::export($this->value));
     }
 }

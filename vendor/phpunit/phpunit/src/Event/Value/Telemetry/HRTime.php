@@ -17,48 +17,42 @@ use PHPUnit\Event\InvalidArgumentException;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class HRTime
-{
+final readonly class HRTime {
     private int $seconds;
     private int $nanoseconds;
 
     /**
      * @throws InvalidArgumentException
      */
-    public static function fromSecondsAndNanoseconds(int $seconds, int $nanoseconds): self
-    {
-        return new self(
-            $seconds,
-            $nanoseconds,
-        );
+    public static function fromSecondsAndNanoseconds(
+        int $seconds,
+        int $nanoseconds,
+    ): self {
+        return new self($seconds, $nanoseconds);
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    private function __construct(int $seconds, int $nanoseconds)
-    {
-        $this->ensureNotNegative($seconds, 'seconds');
-        $this->ensureNotNegative($nanoseconds, 'nanoseconds');
+    private function __construct(int $seconds, int $nanoseconds) {
+        $this->ensureNotNegative($seconds, "seconds");
+        $this->ensureNotNegative($nanoseconds, "nanoseconds");
         $this->ensureNanoSecondsInRange($nanoseconds);
 
-        $this->seconds     = $seconds;
+        $this->seconds = $seconds;
         $this->nanoseconds = $nanoseconds;
     }
 
-    public function seconds(): int
-    {
+    public function seconds(): int {
         return $this->seconds;
     }
 
-    public function nanoseconds(): int
-    {
+    public function nanoseconds(): int {
         return $this->nanoseconds;
     }
 
-    public function duration(self $start): Duration
-    {
-        $seconds     = $this->seconds - $start->seconds();
+    public function duration(self $start): Duration {
+        $seconds = $this->seconds - $start->seconds();
         $nanoseconds = $this->nanoseconds - $start->nanoseconds();
 
         if ($nanoseconds < 0) {
@@ -71,23 +65,16 @@ final readonly class HRTime
             return Duration::fromSecondsAndNanoseconds(0, 0);
         }
 
-        return Duration::fromSecondsAndNanoseconds(
-            $seconds,
-            $nanoseconds,
-        );
+        return Duration::fromSecondsAndNanoseconds($seconds, $nanoseconds);
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    private function ensureNotNegative(int $value, string $type): void
-    {
+    private function ensureNotNegative(int $value, string $type): void {
         if ($value < 0) {
             throw new InvalidArgumentException(
-                sprintf(
-                    'Value for %s must not be negative.',
-                    $type,
-                ),
+                sprintf("Value for %s must not be negative.", $type),
             );
         }
     }
@@ -95,11 +82,10 @@ final readonly class HRTime
     /**
      * @throws InvalidArgumentException
      */
-    private function ensureNanoSecondsInRange(int $nanoseconds): void
-    {
+    private function ensureNanoSecondsInRange(int $nanoseconds): void {
         if ($nanoseconds > 999999999) {
             throw new InvalidArgumentException(
-                'Value for nanoseconds must not be greater than 999999999.',
+                "Value for nanoseconds must not be greater than 999999999.",
             );
         }
     }

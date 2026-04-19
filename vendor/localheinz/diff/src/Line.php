@@ -9,11 +9,10 @@
  */
 namespace Localheinz\Diff;
 
-final class Line
-{
-    public const ADDED     = 1;
+final class Line {
+    public const ADDED = 1;
 
-    public const REMOVED   = 2;
+    public const REMOVED = 2;
 
     public const UNCHANGED = 3;
 
@@ -27,19 +26,19 @@ final class Line
      */
     private $content;
 
-    public function __construct(int $type = self::UNCHANGED, string $content = '')
-    {
-        $this->type    = $type;
+    public function __construct(
+        int $type = self::UNCHANGED,
+        string $content = "",
+    ) {
+        $this->type = $type;
         $this->content = $content;
     }
 
-    public function getContent(): string
-    {
+    public function getContent(): string {
         return $this->content;
     }
 
-    public function getType(): int
-    {
+    public function getType(): int {
         return $this->type;
     }
 }

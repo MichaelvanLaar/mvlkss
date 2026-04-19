@@ -3,8 +3,7 @@
 namespace PhpParser\Internal;
 
 if (\PHP_VERSION_ID >= 80000) {
-    class TokenPolyfill extends \PhpToken {
-    }
+    class TokenPolyfill extends \PhpToken {}
     return;
 }
 
@@ -39,7 +38,12 @@ class TokenPolyfill {
     /**
      * Create a Token with the given ID and text, as well optional line and position information.
      */
-    final public function __construct(int $id, string $text, int $line = -1, int $pos = -1) {
+    final public function __construct(
+        int $id,
+        string $text,
+        int $line = -1,
+        int $pos = -1,
+    ) {
         $this->id = $id;
         $this->text = $text;
         $this->line = $line;
@@ -56,7 +60,7 @@ class TokenPolyfill {
         }
 
         $name = token_name($this->id);
-        return $name === 'UNKNOWN' ? null : $name;
+        return $name === "UNKNOWN" ? null : $name;
     }
 
     /**
@@ -86,13 +90,18 @@ class TokenPolyfill {
                 } else {
                     throw new \TypeError(
                         'Argument #1 ($kind) must only have elements of type string|int, ' .
-                        gettype($entry) . ' given');
+                            gettype($entry) .
+                            " given",
+                    );
                 }
             }
             return false;
         }
         throw new \TypeError(
-            'Argument #1 ($kind) must be of type string|int|array, ' .gettype($kind) . ' given');
+            'Argument #1 ($kind) must be of type string|int|array, ' .
+                gettype($kind) .
+                " given",
+        );
     }
 
     /**
@@ -146,7 +155,9 @@ class TokenPolyfill {
                 $text = $token[1];
 
                 // Emulate PHP 8.0 comment format, which does not include trailing whitespace anymore.
-                if ($id === \T_COMMENT && \substr($text, 0, 2) !== '/*' &&
+                if (
+                    $id === \T_COMMENT &&
+                    \substr($text, 0, 2) !== "/*" &&
                     \preg_match('/(\r\n|\n|\r)$/D', $text, $matches)
                 ) {
                     $trailingNewline = $matches[0];
@@ -154,13 +165,22 @@ class TokenPolyfill {
                     $tokens[] = new static($id, $text, $line, $pos);
                     $pos += \strlen($text);
 
-                    if ($i + 1 < $numTokens && $origTokens[$i + 1][0] === \T_WHITESPACE) {
+                    if (
+                        $i + 1 < $numTokens &&
+                        $origTokens[$i + 1][0] === \T_WHITESPACE
+                    ) {
                         // Move trailing newline into following T_WHITESPACE token, if it already exists.
-                        $origTokens[$i + 1][1] = $trailingNewline . $origTokens[$i + 1][1];
+                        $origTokens[$i + 1][1] =
+                            $trailingNewline . $origTokens[$i + 1][1];
                         $origTokens[$i + 1][2]--;
                     } else {
                         // Otherwise, we need to create a new T_WHITESPACE token.
-                        $tokens[] = new static(\T_WHITESPACE, $trailingNewline, $line, $pos);
+                        $tokens[] = new static(
+                            \T_WHITESPACE,
+                            $trailingNewline,
+                            $line,
+                            $pos,
+                        );
                         $line++;
                         $pos += \strlen($trailingNewline);
                     }
@@ -169,12 +189,19 @@ class TokenPolyfill {
 
                 // Emulate PHP 8.0 T_NAME_* tokens, by combining sequences of T_NS_SEPARATOR and
                 // T_STRING into a single token.
-                if (($id === \T_NS_SEPARATOR || isset(self::$identifierTokens[$id]))) {
+                if (
+                    $id === \T_NS_SEPARATOR ||
+                    isset(self::$identifierTokens[$id])
+                ) {
                     $newText = $text;
                     $lastWasSeparator = $id === \T_NS_SEPARATOR;
                     for ($j = $i + 1; $j < $numTokens; $j++) {
                         if ($lastWasSeparator) {
-                            if (!isset(self::$identifierTokens[$origTokens[$j][0]])) {
+                            if (
+                                !isset(
+                                    self::$identifierTokens[$origTokens[$j][0]],
+                                )
+                            ) {
                                 break;
                             }
                             $lastWasSeparator = false;
@@ -221,17 +248,88 @@ class TokenPolyfill {
         }
 
         // Based on semi_reserved production.
-        self::$identifierTokens = \array_fill_keys([
-            \T_STRING,
-            \T_STATIC, \T_ABSTRACT, \T_FINAL, \T_PRIVATE, \T_PROTECTED, \T_PUBLIC, \T_READONLY,
-            \T_INCLUDE, \T_INCLUDE_ONCE, \T_EVAL, \T_REQUIRE, \T_REQUIRE_ONCE, \T_LOGICAL_OR, \T_LOGICAL_XOR, \T_LOGICAL_AND,
-            \T_INSTANCEOF, \T_NEW, \T_CLONE, \T_EXIT, \T_IF, \T_ELSEIF, \T_ELSE, \T_ENDIF, \T_ECHO, \T_DO, \T_WHILE,
-            \T_ENDWHILE, \T_FOR, \T_ENDFOR, \T_FOREACH, \T_ENDFOREACH, \T_DECLARE, \T_ENDDECLARE, \T_AS, \T_TRY, \T_CATCH,
-            \T_FINALLY, \T_THROW, \T_USE, \T_INSTEADOF, \T_GLOBAL, \T_VAR, \T_UNSET, \T_ISSET, \T_EMPTY, \T_CONTINUE, \T_GOTO,
-            \T_FUNCTION, \T_CONST, \T_RETURN, \T_PRINT, \T_YIELD, \T_LIST, \T_SWITCH, \T_ENDSWITCH, \T_CASE, \T_DEFAULT,
-            \T_BREAK, \T_ARRAY, \T_CALLABLE, \T_EXTENDS, \T_IMPLEMENTS, \T_NAMESPACE, \T_TRAIT, \T_INTERFACE, \T_CLASS,
-            \T_CLASS_C, \T_TRAIT_C, \T_FUNC_C, \T_METHOD_C, \T_LINE, \T_FILE, \T_DIR, \T_NS_C, \T_HALT_COMPILER, \T_FN,
-            \T_MATCH,
-        ], true);
+        self::$identifierTokens = \array_fill_keys(
+            [
+                \T_STRING,
+                \T_STATIC,
+                \T_ABSTRACT,
+                \T_FINAL,
+                \T_PRIVATE,
+                \T_PROTECTED,
+                \T_PUBLIC,
+                \T_READONLY,
+                \T_INCLUDE,
+                \T_INCLUDE_ONCE,
+                \T_EVAL,
+                \T_REQUIRE,
+                \T_REQUIRE_ONCE,
+                \T_LOGICAL_OR,
+                \T_LOGICAL_XOR,
+                \T_LOGICAL_AND,
+                \T_INSTANCEOF,
+                \T_NEW,
+                \T_CLONE,
+                \T_EXIT,
+                \T_IF,
+                \T_ELSEIF,
+                \T_ELSE,
+                \T_ENDIF,
+                \T_ECHO,
+                \T_DO,
+                \T_WHILE,
+                \T_ENDWHILE,
+                \T_FOR,
+                \T_ENDFOR,
+                \T_FOREACH,
+                \T_ENDFOREACH,
+                \T_DECLARE,
+                \T_ENDDECLARE,
+                \T_AS,
+                \T_TRY,
+                \T_CATCH,
+                \T_FINALLY,
+                \T_THROW,
+                \T_USE,
+                \T_INSTEADOF,
+                \T_GLOBAL,
+                \T_VAR,
+                \T_UNSET,
+                \T_ISSET,
+                \T_EMPTY,
+                \T_CONTINUE,
+                \T_GOTO,
+                \T_FUNCTION,
+                \T_CONST,
+                \T_RETURN,
+                \T_PRINT,
+                \T_YIELD,
+                \T_LIST,
+                \T_SWITCH,
+                \T_ENDSWITCH,
+                \T_CASE,
+                \T_DEFAULT,
+                \T_BREAK,
+                \T_ARRAY,
+                \T_CALLABLE,
+                \T_EXTENDS,
+                \T_IMPLEMENTS,
+                \T_NAMESPACE,
+                \T_TRAIT,
+                \T_INTERFACE,
+                \T_CLASS,
+                \T_CLASS_C,
+                \T_TRAIT_C,
+                \T_FUNC_C,
+                \T_METHOD_C,
+                \T_LINE,
+                \T_FILE,
+                \T_DIR,
+                \T_NS_C,
+                \T_HALT_COMPILER,
+                \T_FN,
+                \T_MATCH,
+            ],
+            true,
+        );
     }
 }

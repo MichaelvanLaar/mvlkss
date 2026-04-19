@@ -18,8 +18,9 @@ use IteratorAggregate;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestDataCollection implements Countable, IteratorAggregate
-{
+final readonly class TestDataCollection implements
+    Countable,
+    IteratorAggregate {
     /**
      * @var list<TestData>
      */
@@ -29,13 +30,11 @@ final readonly class TestDataCollection implements Countable, IteratorAggregate
     /**
      * @param list<TestData> $data
      */
-    public static function fromArray(array $data): self
-    {
+    public static function fromArray(array $data): self {
         return new self(...$data);
     }
 
-    private function __construct(TestData ...$data)
-    {
+    private function __construct(TestData ...$data) {
         $fromDataProvider = null;
 
         foreach ($data as $_data) {
@@ -44,45 +43,40 @@ final readonly class TestDataCollection implements Countable, IteratorAggregate
             }
         }
 
-        $this->data             = $data;
+        $this->data = $data;
         $this->fromDataProvider = $fromDataProvider;
     }
 
     /**
      * @return list<TestData>
      */
-    public function asArray(): array
-    {
+    public function asArray(): array {
         return $this->data;
     }
 
-    public function count(): int
-    {
+    public function count(): int {
         return count($this->data);
     }
 
     /**
      * @phpstan-assert-if-true !null $this->fromDataProvider
      */
-    public function hasDataFromDataProvider(): bool
-    {
+    public function hasDataFromDataProvider(): bool {
         return $this->fromDataProvider !== null;
     }
 
     /**
      * @throws NoDataSetFromDataProviderException
      */
-    public function dataFromDataProvider(): DataFromDataProvider
-    {
+    public function dataFromDataProvider(): DataFromDataProvider {
         if (!$this->hasDataFromDataProvider()) {
-            throw new NoDataSetFromDataProviderException;
+            throw new NoDataSetFromDataProviderException();
         }
 
         return $this->fromDataProvider;
     }
 
-    public function getIterator(): TestDataCollectionIterator
-    {
+    public function getIterator(): TestDataCollectionIterator {
         return new TestDataCollectionIterator($this);
     }
 }

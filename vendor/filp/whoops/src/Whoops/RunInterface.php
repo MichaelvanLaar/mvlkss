@@ -10,11 +10,10 @@ use InvalidArgumentException;
 use Whoops\Exception\ErrorException;
 use Whoops\Handler\HandlerInterface;
 
-interface RunInterface
-{
+interface RunInterface {
     const EXCEPTION_HANDLER = "handleException";
-    const ERROR_HANDLER     = "handleError";
-    const SHUTDOWN_HANDLER  = "handleShutdown";
+    const ERROR_HANDLER = "handleError";
+    const SHUTDOWN_HANDLER = "handleShutdown";
 
     /**
      * Pushes a handler to the end of the stack

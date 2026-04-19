@@ -20,7 +20,8 @@ abstract class CallLike extends Expr {
      */
     public function isFirstClassCallable(): bool {
         $rawArgs = $this->getRawArgs();
-        return count($rawArgs) === 1 && current($rawArgs) instanceof VariadicPlaceholder;
+        return count($rawArgs) === 1 &&
+            current($rawArgs) instanceof VariadicPlaceholder;
     }
 
     /**
@@ -49,8 +50,8 @@ abstract class CallLike extends Expr {
                 continue;
             }
             if (
-                ($arg->name !== null && $arg->name->toString() === $name)
-                || ($arg->name === null && $i === $position)
+                ($arg->name !== null && $arg->name->toString() === $name) ||
+                ($arg->name === null && $i === $position)
             ) {
                 return $arg;
             }

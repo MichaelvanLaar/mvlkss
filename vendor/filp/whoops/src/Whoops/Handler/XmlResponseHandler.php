@@ -14,8 +14,7 @@ use Whoops\Exception\Formatter;
  * response. Additionally can also return exception
  * frames for consumption by an API.
  */
-class XmlResponseHandler extends Handler
-{
+class XmlResponseHandler extends Handler {
     /**
      * @var bool
      */
@@ -25,8 +24,7 @@ class XmlResponseHandler extends Handler
      * @param  bool|null  $returnFrames
      * @return bool|static
      */
-    public function addTraceToOutput($returnFrames = null)
-    {
+    public function addTraceToOutput($returnFrames = null) {
         if (func_num_args() == 0) {
             return $this->returnFrames;
         }
@@ -38,13 +36,12 @@ class XmlResponseHandler extends Handler
     /**
      * @return int
      */
-    public function handle()
-    {
+    public function handle() {
         $response = [
-            'error' => Formatter::formatExceptionAsDataArray(
+            "error" => Formatter::formatExceptionAsDataArray(
                 $this->getInspector(),
                 $this->addTraceToOutput(),
-                $this->getRun()->getFrameFilters()
+                $this->getRun()->getFrameFilters(),
             ),
         ];
 
@@ -56,9 +53,8 @@ class XmlResponseHandler extends Handler
     /**
      * @return string
      */
-    public function contentType()
-    {
-        return 'application/xml';
+    public function contentType() {
+        return "application/xml";
     }
 
     /**
@@ -66,24 +62,23 @@ class XmlResponseHandler extends Handler
      * @param  array|\Traversable $data
      * @return SimpleXMLElement  The modified node, for chaining
      */
-    private static function addDataToNode(\SimpleXMLElement $node, $data)
-    {
+    private static function addDataToNode(\SimpleXMLElement $node, $data) {
         assert(is_array($data) || $data instanceof Traversable);
 
         foreach ($data as $key => $value) {
             if (is_numeric($key)) {
                 // Convert the key to a valid string
-                $key = "unknownNode_". (string) $key;
+                $key = "unknownNode_" . (string) $key;
             }
 
             // Delete any char not allowed in XML element names
-            $key = preg_replace('/[^a-z0-9\-\_\.\:]/i', '', $key);
+            $key = preg_replace("/[^a-z0-9\-\_\.\:]/i", "", $key);
 
             if (is_array($value)) {
                 $child = $node->addChild($key);
                 self::addDataToNode($child, $value);
             } else {
-                $value = str_replace('&', '&amp;', print_r($value, true));
+                $value = str_replace("&", "&amp;", print_r($value, true));
                 $node->addChild($key, $value);
             }
         }
@@ -97,11 +92,12 @@ class XmlResponseHandler extends Handler
      * @param  array|\Traversable $data
      * @return string            XML
      */
-    private static function toXml($data)
-    {
+    private static function toXml($data) {
         assert(is_array($data) || $data instanceof Traversable);
 
-        $node = simplexml_load_string("<?xml version='1.0' encoding='utf-8'?><root />");
+        $node = simplexml_load_string(
+            "<?xml version='1.0' encoding='utf-8'?><root />",
+        );
 
         return self::addDataToNode($node, $data)->asXML();
     }

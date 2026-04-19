@@ -14,8 +14,7 @@ namespace PHPUnit\Metadata;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class CoversTrait extends Metadata
-{
+final readonly class CoversTrait extends Metadata {
     /**
      * @var trait-string
      */
@@ -25,23 +24,20 @@ final readonly class CoversTrait extends Metadata
      * @param 0|1          $level
      * @param trait-string $traitName
      */
-    protected function __construct(int $level, string $traitName)
-    {
+    protected function __construct(int $level, string $traitName) {
         parent::__construct($level);
 
         $this->traitName = $traitName;
     }
 
-    public function isCoversTrait(): true
-    {
+    public function isCoversTrait(): true {
         return true;
     }
 
     /**
      * @return trait-string
      */
-    public function traitName(): string
-    {
+    public function traitName(): string {
         return $this->traitName;
     }
 
@@ -50,8 +46,7 @@ final readonly class CoversTrait extends Metadata
      *
      * @internal This method is not covered by the backward compatibility promise for PHPUnit
      */
-    public function asStringForCodeUnitMapper(): string
-    {
+    public function asStringForCodeUnitMapper(): string {
         return $this->traitName;
     }
 }

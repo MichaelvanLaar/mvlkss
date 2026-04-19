@@ -1,9 +1,5 @@
 {
-  "conventionalCommits.scopes": [
-    "Tailwind CSS",
-    "Kirby templates",
-    "webpack"
-  ],
+  "conventionalCommits.scopes": ["Tailwind CSS", "Kirby templates", "webpack"],
   "tailwindCSS.includeLanguages": {
     "php": "html"
   }

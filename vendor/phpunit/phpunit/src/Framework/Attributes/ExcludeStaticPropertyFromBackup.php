@@ -16,9 +16,14 @@ use Attribute;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-#[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
-final readonly class ExcludeStaticPropertyFromBackup
-{
+#[
+    Attribute(
+        Attribute::TARGET_CLASS |
+            Attribute::TARGET_METHOD |
+            Attribute::IS_REPEATABLE,
+    ),
+]
+final readonly class ExcludeStaticPropertyFromBackup {
     /**
      * @var class-string
      */
@@ -33,25 +38,22 @@ final readonly class ExcludeStaticPropertyFromBackup
      * @param class-string     $className
      * @param non-empty-string $propertyName
      */
-    public function __construct(string $className, string $propertyName)
-    {
-        $this->className    = $className;
+    public function __construct(string $className, string $propertyName) {
+        $this->className = $className;
         $this->propertyName = $propertyName;
     }
 
     /**
      * @return class-string
      */
-    public function className(): string
-    {
+    public function className(): string {
         return $this->className;
     }
 
     /**
      * @return non-empty-string
      */
-    public function propertyName(): string
-    {
+    public function propertyName(): string {
         return $this->propertyName;
     }
 }

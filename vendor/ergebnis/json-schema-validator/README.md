@@ -40,20 +40,18 @@ use Ergebnis\Json\Json;
 use Ergebnis\Json\Pointer;
 use Ergebnis\Json\SchemaValidator;
 
-$json = Json::fromFile('composer.json');
-$schema = Json::fromString(file_get_contents('https://getcomposer.org/schema.json'));
+$json = Json::fromFile("composer.json");
+$schema = Json::fromString(
+    file_get_contents("https://getcomposer.org/schema.json"),
+);
 $jsonPointer = Pointer\JsonPointer::document();
 
 $schemaValidator = new SchemaValidator\SchemaValidator();
 
-$result = $schemaValidator->validate(
-    $json,
-    $schema,
-    $jsonPointer
-);
+$result = $schemaValidator->validate($json, $schema, $jsonPointer);
 
 var_dump($result->isValid()); // bool
-var_dump($result->errors());  // flat list of `ValidationError` value objects
+var_dump($result->errors()); // flat list of `ValidationError` value objects
 ```
 
 ## Changelog

@@ -14,8 +14,7 @@ namespace PHPUnit\Framework\MockObject\Builder;
  *
  * @internal This interface is not covered by the backward compatibility promise for PHPUnit
  */
-interface Identity
-{
+interface Identity {
     /**
      * Sets the identification of the expectation to $id.
      *

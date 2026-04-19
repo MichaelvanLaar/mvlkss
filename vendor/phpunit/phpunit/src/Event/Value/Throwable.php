@@ -17,8 +17,7 @@ use PHPUnit\Event\NoPreviousThrowableException;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class Throwable
-{
+final readonly class Throwable {
     /**
      * @var class-string
      */
@@ -31,20 +30,24 @@ final readonly class Throwable
     /**
      * @param class-string $className
      */
-    public function __construct(string $className, string $message, string $description, string $stackTrace, ?self $previous)
-    {
-        $this->className   = $className;
-        $this->message     = $message;
+    public function __construct(
+        string $className,
+        string $message,
+        string $description,
+        string $stackTrace,
+        ?self $previous,
+    ) {
+        $this->className = $className;
+        $this->message = $message;
         $this->description = $description;
-        $this->stackTrace  = $stackTrace;
-        $this->previous    = $previous;
+        $this->stackTrace = $stackTrace;
+        $this->previous = $previous;
     }
 
     /**
      * @throws NoPreviousThrowableException
      */
-    public function asString(): string
-    {
+    public function asString(): string {
         $buffer = $this->description();
 
         if (!empty($this->stackTrace())) {
@@ -52,7 +55,8 @@ final readonly class Throwable
         }
 
         if ($this->hasPrevious()) {
-            $buffer .= PHP_EOL . 'Caused by' . PHP_EOL . $this->previous()->asString();
+            $buffer .=
+                PHP_EOL . "Caused by" . PHP_EOL . $this->previous()->asString();
         }
 
         return $buffer;
@@ -61,41 +65,35 @@ final readonly class Throwable
     /**
      * @return class-string
      */
-    public function className(): string
-    {
+    public function className(): string {
         return $this->className;
     }
 
-    public function message(): string
-    {
+    public function message(): string {
         return $this->message;
     }
 
-    public function description(): string
-    {
+    public function description(): string {
         return $this->description;
     }
 
-    public function stackTrace(): string
-    {
+    public function stackTrace(): string {
         return $this->stackTrace;
     }
 
     /**
      * @phpstan-assert-if-true !null $this->previous
      */
-    public function hasPrevious(): bool
-    {
+    public function hasPrevious(): bool {
         return $this->previous !== null;
     }
 
     /**
      * @throws NoPreviousThrowableException
      */
-    public function previous(): self
-    {
+    public function previous(): self {
         if ($this->previous === null) {
-            throw new NoPreviousThrowableException;
+            throw new NoPreviousThrowableException();
         }
 
         return $this->previous;

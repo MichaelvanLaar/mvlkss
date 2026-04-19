@@ -15,29 +15,38 @@ use function strcasecmp;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for this library
  */
-final class ObjectType extends Type
-{
+final class ObjectType extends Type {
     private TypeName $className;
     private bool $allowsNull;
 
-    public function __construct(TypeName $className, bool $allowsNull)
-    {
-        $this->className  = $className;
+    public function __construct(TypeName $className, bool $allowsNull) {
+        $this->className = $className;
         $this->allowsNull = $allowsNull;
     }
 
-    public function isAssignable(Type $other): bool
-    {
+    public function isAssignable(Type $other): bool {
         if ($this->allowsNull && $other instanceof NullType) {
             return true;
         }
 
         if ($other instanceof self) {
-            if (0 === strcasecmp($this->className->qualifiedName(), $other->className->qualifiedName())) {
+            if (
+                0 ===
+                strcasecmp(
+                    $this->className->qualifiedName(),
+                    $other->className->qualifiedName(),
+                )
+            ) {
                 return true;
             }
 
-            if (is_subclass_of($other->className->qualifiedName(), $this->className->qualifiedName(), true)) {
+            if (
+                is_subclass_of(
+                    $other->className->qualifiedName(),
+                    $this->className->qualifiedName(),
+                    true,
+                )
+            ) {
                 return true;
             }
         }
@@ -48,23 +57,19 @@ final class ObjectType extends Type
     /**
      * @return non-empty-string
      */
-    public function name(): string
-    {
+    public function name(): string {
         return $this->className->qualifiedName();
     }
 
-    public function allowsNull(): bool
-    {
+    public function allowsNull(): bool {
         return $this->allowsNull;
     }
 
-    public function className(): TypeName
-    {
+    public function className(): TypeName {
         return $this->className;
     }
 
-    public function isObject(): bool
-    {
+    public function isObject(): bool {
         return true;
     }
 }

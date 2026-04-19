@@ -17,8 +17,7 @@ use Iterator;
  *
  * @template-implements Iterator<non-negative-int, TestFile>
  */
-final class TestFileCollectionIterator implements Iterator
-{
+final class TestFileCollectionIterator implements Iterator {
     /**
      * @var list<TestFile>
      */
@@ -29,36 +28,30 @@ final class TestFileCollectionIterator implements Iterator
      */
     private int $position = 0;
 
-    public function __construct(TestFileCollection $files)
-    {
+    public function __construct(TestFileCollection $files) {
         $this->files = $files->asArray();
     }
 
-    public function rewind(): void
-    {
+    public function rewind(): void {
         $this->position = 0;
     }
 
-    public function valid(): bool
-    {
+    public function valid(): bool {
         return $this->position < count($this->files);
     }
 
     /**
      * @return non-negative-int
      */
-    public function key(): int
-    {
+    public function key(): int {
         return $this->position;
     }
 
-    public function current(): TestFile
-    {
+    public function current(): TestFile {
         return $this->files[$this->position];
     }
 
-    public function next(): void
-    {
+    public function next(): void {
         $this->position++;
     }
 }

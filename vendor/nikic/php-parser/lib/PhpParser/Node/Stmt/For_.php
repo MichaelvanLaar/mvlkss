@@ -31,17 +31,17 @@ class For_ extends Node\Stmt {
      */
     public function __construct(array $subNodes = [], array $attributes = []) {
         $this->attributes = $attributes;
-        $this->init = $subNodes['init'] ?? [];
-        $this->cond = $subNodes['cond'] ?? [];
-        $this->loop = $subNodes['loop'] ?? [];
-        $this->stmts = $subNodes['stmts'] ?? [];
+        $this->init = $subNodes["init"] ?? [];
+        $this->cond = $subNodes["cond"] ?? [];
+        $this->loop = $subNodes["loop"] ?? [];
+        $this->stmts = $subNodes["stmts"] ?? [];
     }
 
     public function getSubNodeNames(): array {
-        return ['init', 'cond', 'loop', 'stmts'];
+        return ["init", "cond", "loop", "stmts"];
     }
 
     public function getType(): string {
-        return 'Stmt_For';
+        return "Stmt_For";
     }
 }

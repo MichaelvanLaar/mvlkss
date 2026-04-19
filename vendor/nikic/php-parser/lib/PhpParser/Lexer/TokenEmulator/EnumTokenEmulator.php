@@ -10,7 +10,7 @@ final class EnumTokenEmulator extends KeywordEmulator {
     }
 
     public function getKeywordString(): string {
-        return 'enum';
+        return "enum";
     }
 
     public function getKeywordToken(): int {
@@ -18,9 +18,9 @@ final class EnumTokenEmulator extends KeywordEmulator {
     }
 
     protected function isKeywordContext(array $tokens, int $pos): bool {
-        return parent::isKeywordContext($tokens, $pos)
-            && isset($tokens[$pos + 2])
-            && $tokens[$pos + 1]->id === \T_WHITESPACE
-            && $tokens[$pos + 2]->id === \T_STRING;
+        return parent::isKeywordContext($tokens, $pos) &&
+            isset($tokens[$pos + 2]) &&
+            $tokens[$pos + 1]->id === \T_WHITESPACE &&
+            $tokens[$pos + 2]->id === \T_STRING;
     }
 }

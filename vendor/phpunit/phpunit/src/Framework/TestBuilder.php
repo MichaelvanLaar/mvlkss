@@ -28,8 +28,7 @@ use ReflectionClass;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestBuilder
-{
+final readonly class TestBuilder {
     /**
      * @param ReflectionClass<TestCase> $theClass
      * @param non-empty-string          $methodName
@@ -37,14 +36,17 @@ final readonly class TestBuilder
      *
      * @throws InvalidDataProviderException
      */
-    public function build(ReflectionClass $theClass, string $methodName, array $groups = []): Test
-    {
+    public function build(
+        ReflectionClass $theClass,
+        string $methodName,
+        array $groups = [],
+    ): Test {
         $className = $theClass->getName();
 
         $data = null;
 
         if ($this->requirementsSatisfied($className, $methodName)) {
-            $data = (new DataProvider)->providedData($className, $methodName);
+            $data = (new DataProvider())->providedData($className, $methodName);
         }
 
         if ($data !== null) {
@@ -52,9 +54,14 @@ final readonly class TestBuilder
                 $methodName,
                 $className,
                 $data,
-                $this->shouldTestMethodBeRunInSeparateProcess($className, $methodName),
+                $this->shouldTestMethodBeRunInSeparateProcess(
+                    $className,
+                    $methodName,
+                ),
                 $this->shouldGlobalStateBePreserved($className, $methodName),
-                $this->shouldAllTestMethodsOfTestClassBeRunInSingleSeparateProcess($className),
+                $this->shouldAllTestMethodsOfTestClassBeRunInSingleSeparateProcess(
+                    $className,
+                ),
                 $this->backupSettings($className, $methodName),
                 $groups,
             );
@@ -64,9 +71,14 @@ final readonly class TestBuilder
 
         $this->configureTestCase(
             $test,
-            $this->shouldTestMethodBeRunInSeparateProcess($className, $methodName),
+            $this->shouldTestMethodBeRunInSeparateProcess(
+                $className,
+                $methodName,
+            ),
             $this->shouldGlobalStateBePreserved($className, $methodName),
-            $this->shouldAllTestMethodsOfTestClassBeRunInSingleSeparateProcess($className),
+            $this->shouldAllTestMethodsOfTestClassBeRunInSingleSeparateProcess(
+                $className,
+            ),
             $this->backupSettings($className, $methodName),
         );
 
@@ -80,15 +92,23 @@ final readonly class TestBuilder
      * @param array{backupGlobals: ?true, backupGlobalsExcludeList: list<string>, backupStaticProperties: ?true, backupStaticPropertiesExcludeList: array<string,list<string>>} $backupSettings
      * @param list<non-empty-string>                                                                                                                                            $groups
      */
-    private function buildDataProviderTestSuite(string $methodName, string $className, array $data, bool $runTestInSeparateProcess, ?bool $preserveGlobalState, bool $runClassInSeparateProcess, array $backupSettings, array $groups): DataProviderTestSuite
-    {
+    private function buildDataProviderTestSuite(
+        string $methodName,
+        string $className,
+        array $data,
+        bool $runTestInSeparateProcess,
+        ?bool $preserveGlobalState,
+        bool $runClassInSeparateProcess,
+        array $backupSettings,
+        array $groups,
+    ): DataProviderTestSuite {
         $dataProviderTestSuite = DataProviderTestSuite::empty(
-            $className . '::' . $methodName,
+            $className . "::" . $methodName,
         );
 
         $groups = array_merge(
             $groups,
-            (new Groups)->groups($className, $methodName),
+            (new Groups())->groups($className, $methodName),
         );
 
         foreach ($data as $_dataName => $_data) {
@@ -113,8 +133,13 @@ final readonly class TestBuilder
     /**
      * @param array{backupGlobals: ?true, backupGlobalsExcludeList: list<string>, backupStaticProperties: ?true, backupStaticPropertiesExcludeList: array<string,list<string>>} $backupSettings
      */
-    private function configureTestCase(TestCase $test, bool $runTestInSeparateProcess, ?bool $preserveGlobalState, bool $runClassInSeparateProcess, array $backupSettings): void
-    {
+    private function configureTestCase(
+        TestCase $test,
+        bool $runTestInSeparateProcess,
+        ?bool $preserveGlobalState,
+        bool $runClassInSeparateProcess,
+        array $backupSettings,
+    ): void {
         if ($runTestInSeparateProcess) {
             $test->setRunTestInSeparateProcess(true);
         }
@@ -127,21 +152,31 @@ final readonly class TestBuilder
             $test->setPreserveGlobalState($preserveGlobalState);
         }
 
-        if ($backupSettings['backupGlobals'] !== null) {
-            $test->setBackupGlobals($backupSettings['backupGlobals']);
+        if ($backupSettings["backupGlobals"] !== null) {
+            $test->setBackupGlobals($backupSettings["backupGlobals"]);
         } else {
-            $test->setBackupGlobals(ConfigurationRegistry::get()->backupGlobals());
+            $test->setBackupGlobals(
+                ConfigurationRegistry::get()->backupGlobals(),
+            );
         }
 
-        $test->setBackupGlobalsExcludeList($backupSettings['backupGlobalsExcludeList']);
+        $test->setBackupGlobalsExcludeList(
+            $backupSettings["backupGlobalsExcludeList"],
+        );
 
-        if ($backupSettings['backupStaticProperties'] !== null) {
-            $test->setBackupStaticProperties($backupSettings['backupStaticProperties']);
+        if ($backupSettings["backupStaticProperties"] !== null) {
+            $test->setBackupStaticProperties(
+                $backupSettings["backupStaticProperties"],
+            );
         } else {
-            $test->setBackupStaticProperties(ConfigurationRegistry::get()->backupStaticProperties());
+            $test->setBackupStaticProperties(
+                ConfigurationRegistry::get()->backupStaticProperties(),
+            );
         }
 
-        $test->setBackupStaticPropertiesExcludeList($backupSettings['backupStaticPropertiesExcludeList']);
+        $test->setBackupStaticPropertiesExcludeList(
+            $backupSettings["backupStaticPropertiesExcludeList"],
+        );
     }
 
     /**
@@ -150,13 +185,21 @@ final readonly class TestBuilder
      *
      * @return array{backupGlobals: ?true, backupGlobalsExcludeList: list<string>, backupStaticProperties: ?true, backupStaticPropertiesExcludeList: array<string,list<string>>}
      */
-    private function backupSettings(string $className, string $methodName): array
-    {
-        $metadataForClass          = MetadataRegistry::parser()->forClass($className);
-        $metadataForMethod         = MetadataRegistry::parser()->forMethod($className, $methodName);
-        $metadataForClassAndMethod = MetadataRegistry::parser()->forClassAndMethod($className, $methodName);
+    private function backupSettings(
+        string $className,
+        string $methodName,
+    ): array {
+        $metadataForClass = MetadataRegistry::parser()->forClass($className);
+        $metadataForMethod = MetadataRegistry::parser()->forMethod(
+            $className,
+            $methodName,
+        );
+        $metadataForClassAndMethod = MetadataRegistry::parser()->forClassAndMethod(
+            $className,
+            $methodName,
+        );
 
-        $backupGlobals            = null;
+        $backupGlobals = null;
         $backupGlobalsExcludeList = [];
 
         if ($metadataForMethod->isBackupGlobals()->isNotEmpty()) {
@@ -177,17 +220,22 @@ final readonly class TestBuilder
             }
         }
 
-        foreach ($metadataForClassAndMethod->isExcludeGlobalVariableFromBackup() as $metadata) {
+        foreach (
+            $metadataForClassAndMethod->isExcludeGlobalVariableFromBackup()
+            as $metadata
+        ) {
             assert($metadata instanceof ExcludeGlobalVariableFromBackup);
 
             $backupGlobalsExcludeList[] = $metadata->globalVariableName();
         }
 
-        $backupStaticProperties            = null;
+        $backupStaticProperties = null;
         $backupStaticPropertiesExcludeList = [];
 
         if ($metadataForMethod->isBackupStaticProperties()->isNotEmpty()) {
-            $metadata = $metadataForMethod->isBackupStaticProperties()->asArray()[0];
+            $metadata = $metadataForMethod
+                ->isBackupStaticProperties()
+                ->asArray()[0];
 
             assert($metadata instanceof BackupStaticProperties);
 
@@ -195,7 +243,9 @@ final readonly class TestBuilder
                 $backupStaticProperties = true;
             }
         } elseif ($metadataForClass->isBackupStaticProperties()->isNotEmpty()) {
-            $metadata = $metadataForClass->isBackupStaticProperties()->asArray()[0];
+            $metadata = $metadataForClass
+                ->isBackupStaticProperties()
+                ->asArray()[0];
 
             assert($metadata instanceof BackupStaticProperties);
 
@@ -204,21 +254,30 @@ final readonly class TestBuilder
             }
         }
 
-        foreach ($metadataForClassAndMethod->isExcludeStaticPropertyFromBackup() as $metadata) {
+        foreach (
+            $metadataForClassAndMethod->isExcludeStaticPropertyFromBackup()
+            as $metadata
+        ) {
             assert($metadata instanceof ExcludeStaticPropertyFromBackup);
 
-            if (!isset($backupStaticPropertiesExcludeList[$metadata->className()])) {
+            if (
+                !isset(
+                    $backupStaticPropertiesExcludeList[$metadata->className()],
+                )
+            ) {
                 $backupStaticPropertiesExcludeList[$metadata->className()] = [];
             }
 
-            $backupStaticPropertiesExcludeList[$metadata->className()][] = $metadata->propertyName();
+            $backupStaticPropertiesExcludeList[
+                $metadata->className()
+            ][] = $metadata->propertyName();
         }
 
         return [
-            'backupGlobals'                     => $backupGlobals,
-            'backupGlobalsExcludeList'          => $backupGlobalsExcludeList,
-            'backupStaticProperties'            => $backupStaticProperties,
-            'backupStaticPropertiesExcludeList' => $backupStaticPropertiesExcludeList,
+            "backupGlobals" => $backupGlobals,
+            "backupGlobalsExcludeList" => $backupGlobalsExcludeList,
+            "backupStaticProperties" => $backupStaticProperties,
+            "backupStaticPropertiesExcludeList" => $backupStaticPropertiesExcludeList,
         ];
     }
 
@@ -226,12 +285,19 @@ final readonly class TestBuilder
      * @param class-string<TestCase> $className
      * @param non-empty-string       $methodName
      */
-    private function shouldGlobalStateBePreserved(string $className, string $methodName): ?bool
-    {
-        $metadataForMethod = MetadataRegistry::parser()->forMethod($className, $methodName);
+    private function shouldGlobalStateBePreserved(
+        string $className,
+        string $methodName,
+    ): ?bool {
+        $metadataForMethod = MetadataRegistry::parser()->forMethod(
+            $className,
+            $methodName,
+        );
 
         if ($metadataForMethod->isPreserveGlobalState()->isNotEmpty()) {
-            $metadata = $metadataForMethod->isPreserveGlobalState()->asArray()[0];
+            $metadata = $metadataForMethod
+                ->isPreserveGlobalState()
+                ->asArray()[0];
 
             assert($metadata instanceof PreserveGlobalState);
 
@@ -241,7 +307,9 @@ final readonly class TestBuilder
         $metadataForClass = MetadataRegistry::parser()->forClass($className);
 
         if ($metadataForClass->isPreserveGlobalState()->isNotEmpty()) {
-            $metadata = $metadataForClass->isPreserveGlobalState()->asArray()[0];
+            $metadata = $metadataForClass
+                ->isPreserveGlobalState()
+                ->asArray()[0];
 
             assert($metadata instanceof PreserveGlobalState);
 
@@ -255,13 +323,25 @@ final readonly class TestBuilder
      * @param class-string<TestCase> $className
      * @param non-empty-string       $methodName
      */
-    private function shouldTestMethodBeRunInSeparateProcess(string $className, string $methodName): bool
-    {
-        if (MetadataRegistry::parser()->forClass($className)->isRunTestsInSeparateProcesses()->isNotEmpty()) {
+    private function shouldTestMethodBeRunInSeparateProcess(
+        string $className,
+        string $methodName,
+    ): bool {
+        if (
+            MetadataRegistry::parser()
+                ->forClass($className)
+                ->isRunTestsInSeparateProcesses()
+                ->isNotEmpty()
+        ) {
             return true;
         }
 
-        if (MetadataRegistry::parser()->forMethod($className, $methodName)->isRunInSeparateProcess()->isNotEmpty()) {
+        if (
+            MetadataRegistry::parser()
+                ->forMethod($className, $methodName)
+                ->isRunInSeparateProcess()
+                ->isNotEmpty()
+        ) {
             return true;
         }
 
@@ -271,17 +351,26 @@ final readonly class TestBuilder
     /**
      * @param class-string<TestCase> $className
      */
-    private function shouldAllTestMethodsOfTestClassBeRunInSingleSeparateProcess(string $className): bool
-    {
-        return MetadataRegistry::parser()->forClass($className)->isRunClassInSeparateProcess()->isNotEmpty();
+    private function shouldAllTestMethodsOfTestClassBeRunInSingleSeparateProcess(
+        string $className,
+    ): bool {
+        return MetadataRegistry::parser()
+            ->forClass($className)
+            ->isRunClassInSeparateProcess()
+            ->isNotEmpty();
     }
 
     /**
      * @param class-string     $className
      * @param non-empty-string $methodName
      */
-    private function requirementsSatisfied(string $className, string $methodName): bool
-    {
-        return (new Requirements)->requirementsNotSatisfiedFor($className, $methodName) === [];
+    private function requirementsSatisfied(
+        string $className,
+        string $methodName,
+    ): bool {
+        return (new Requirements())->requirementsNotSatisfiedFor(
+            $className,
+            $methodName,
+        ) === [];
     }
 }

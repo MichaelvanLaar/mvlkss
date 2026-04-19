@@ -14,17 +14,14 @@ namespace PHPUnit\Runner\DeprecationCollector;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-abstract class Subscriber
-{
+abstract class Subscriber {
     private readonly Collector|InIsolationCollector $collector;
 
-    public function __construct(Collector|InIsolationCollector $collector)
-    {
+    public function __construct(Collector|InIsolationCollector $collector) {
         $this->collector = $collector;
     }
 
-    protected function collector(): Collector|InIsolationCollector
-    {
+    protected function collector(): Collector|InIsolationCollector {
         return $this->collector;
     }
 }

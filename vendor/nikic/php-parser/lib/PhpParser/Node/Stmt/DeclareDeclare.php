@@ -4,7 +4,7 @@ namespace PhpParser\Node\Stmt;
 
 use PhpParser\Node\DeclareItem;
 
-require __DIR__ . '/../DeclareItem.php';
+require __DIR__ . "/../DeclareItem.php";
 
 if (false) {
     /**
@@ -12,6 +12,5 @@ if (false) {
      *
      * @deprecated use \PhpParser\Node\DeclareItem instead.
      */
-    class DeclareDeclare extends DeclareItem {
-    }
+    class DeclareDeclare extends DeclareItem {}
 }

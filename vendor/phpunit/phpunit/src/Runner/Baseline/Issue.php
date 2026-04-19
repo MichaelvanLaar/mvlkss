@@ -21,8 +21,7 @@ use PHPUnit\Runner\FileDoesNotExistException;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class Issue
-{
+final readonly class Issue {
     /**
      * @var non-empty-string
      */
@@ -52,8 +51,12 @@ final readonly class Issue
      * @throws FileDoesNotExistException
      * @throws FileDoesNotHaveLineException
      */
-    public static function from(string $file, int $line, ?string $hash, string $description): self
-    {
+    public static function from(
+        string $file,
+        int $line,
+        ?string $hash,
+        string $description,
+    ): self {
         if ($hash === null) {
             $hash = self::calculateHash($file, $line);
         }
@@ -67,52 +70,51 @@ final readonly class Issue
      * @param non-empty-string $hash
      * @param non-empty-string $description
      */
-    private function __construct(string $file, int $line, string $hash, string $description)
-    {
-        $this->file        = $file;
-        $this->line        = $line;
-        $this->hash        = $hash;
+    private function __construct(
+        string $file,
+        int $line,
+        string $hash,
+        string $description,
+    ) {
+        $this->file = $file;
+        $this->line = $line;
+        $this->hash = $hash;
         $this->description = $description;
     }
 
     /**
      * @return non-empty-string
      */
-    public function file(): string
-    {
+    public function file(): string {
         return $this->file;
     }
 
     /**
      * @return positive-int
      */
-    public function line(): int
-    {
+    public function line(): int {
         return $this->line;
     }
 
     /**
      * @return non-empty-string
      */
-    public function hash(): string
-    {
+    public function hash(): string {
         return $this->hash;
     }
 
     /**
      * @return non-empty-string
      */
-    public function description(): string
-    {
+    public function description(): string {
         return $this->description;
     }
 
-    public function equals(self $other): bool
-    {
+    public function equals(self $other): bool {
         return $this->file() === $other->file() &&
-               $this->line() === $other->line() &&
-               $this->hash() === $other->hash() &&
-               $this->description() === $other->description();
+            $this->line() === $other->line() &&
+            $this->hash() === $other->hash() &&
+            $this->description() === $other->description();
     }
 
     /**
@@ -124,8 +126,7 @@ final readonly class Issue
      *
      * @return non-empty-string
      */
-    private static function calculateHash(string $file, int $line): string
-    {
+    private static function calculateHash(string $file, int $line): string {
         $lines = @file($file, FILE_IGNORE_NEW_LINES);
 
         if ($lines === false && !is_file($file)) {
@@ -140,7 +141,7 @@ final readonly class Issue
 
         $hash = sha1($lines[$key]);
 
-        assert($hash !== '');
+        assert($hash !== "");
 
         return $hash;
     }

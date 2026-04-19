@@ -21,16 +21,14 @@ use SebastianBergmann\CodeCoverage\Filter;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class CodeCoverageFilterRegistry
-{
+final class CodeCoverageFilterRegistry {
     private static ?self $instance = null;
-    private ?Filter $filter        = null;
-    private bool $configured       = false;
+    private ?Filter $filter = null;
+    private bool $configured = false;
 
-    public static function instance(): self
-    {
+    public static function instance(): self {
         if (self::$instance === null) {
-            self::$instance = new self;
+            self::$instance = new self();
         }
 
         return self::$instance;
@@ -39,8 +37,7 @@ final class CodeCoverageFilterRegistry
     /**
      * @codeCoverageIgnore
      */
-    public function get(): Filter
-    {
+    public function get(): Filter {
         assert($this->filter !== null);
 
         return $this->filter;
@@ -49,8 +46,10 @@ final class CodeCoverageFilterRegistry
     /**
      * @codeCoverageIgnore
      */
-    public function init(Configuration $configuration, bool $force = false): void
-    {
+    public function init(
+        Configuration $configuration,
+        bool $force = false,
+    ): void {
         if (!$configuration->hasCoverageReport() && !$force) {
             return;
         }
@@ -59,10 +58,12 @@ final class CodeCoverageFilterRegistry
             return;
         }
 
-        $this->filter = new Filter;
+        $this->filter = new Filter();
 
         if ($configuration->source()->notEmpty()) {
-            $this->filter->includeFiles(array_keys((new SourceMapper)->map($configuration->source())));
+            $this->filter->includeFiles(
+                array_keys((new SourceMapper())->map($configuration->source())),
+            );
 
             $this->configured = true;
         }
@@ -71,8 +72,7 @@ final class CodeCoverageFilterRegistry
     /**
      * @codeCoverageIgnore
      */
-    public function configured(): bool
-    {
+    public function configured(): bool {
         return $this->configured;
     }
 }

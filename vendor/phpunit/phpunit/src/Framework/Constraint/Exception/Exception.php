@@ -18,32 +18,25 @@ use Throwable;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class Exception extends Constraint
-{
+final class Exception extends Constraint {
     private readonly string $className;
 
-    public function __construct(string $className)
-    {
+    public function __construct(string $className) {
         $this->className = $className;
     }
 
     /**
      * Returns a string representation of the constraint.
      */
-    public function toString(): string
-    {
-        return sprintf(
-            'exception of type "%s"',
-            $this->className,
-        );
+    public function toString(): string {
+        return sprintf('exception of type "%s"', $this->className);
     }
 
     /**
      * Evaluates the constraint for parameter $other. Returns true if the
      * constraint is met, false otherwise.
      */
-    protected function matches(mixed $other): bool
-    {
+    protected function matches(mixed $other): bool {
         return $other instanceof $this->className;
     }
 
@@ -55,8 +48,7 @@ final class Exception extends Constraint
      *
      * @throws \PHPUnit\Framework\Exception
      */
-    protected function failureDescription(mixed $other): string
-    {
+    protected function failureDescription(mixed $other): string {
         if ($other === null) {
             return sprintf(
                 'exception of type "%s" is thrown',
@@ -64,11 +56,15 @@ final class Exception extends Constraint
             );
         }
 
-        $message = '';
+        $message = "";
 
         if ($other instanceof Throwable) {
-            $message = '. Message was: "' . $other->getMessage() . '" at'
-                . "\n" . Filter::stackTraceFromThrowableAsString($other);
+            $message =
+                '. Message was: "' .
+                $other->getMessage() .
+                '" at' .
+                "\n" .
+                Filter::stackTraceFromThrowableAsString($other);
         }
 
         return sprintf(

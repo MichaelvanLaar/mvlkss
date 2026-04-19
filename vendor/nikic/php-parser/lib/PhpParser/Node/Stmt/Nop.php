@@ -11,6 +11,6 @@ class Nop extends Node\Stmt {
     }
 
     public function getType(): string {
-        return 'Stmt_Nop';
+        return "Stmt_Nop";
     }
 }

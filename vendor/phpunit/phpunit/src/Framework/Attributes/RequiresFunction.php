@@ -16,9 +16,14 @@ use Attribute;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-#[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
-final readonly class RequiresFunction
-{
+#[
+    Attribute(
+        Attribute::TARGET_CLASS |
+            Attribute::TARGET_METHOD |
+            Attribute::IS_REPEATABLE,
+    ),
+]
+final readonly class RequiresFunction {
     /**
      * @var non-empty-string
      */
@@ -27,16 +32,14 @@ final readonly class RequiresFunction
     /**
      * @param non-empty-string $functionName
      */
-    public function __construct(string $functionName)
-    {
+    public function __construct(string $functionName) {
         $this->functionName = $functionName;
     }
 
     /**
      * @return non-empty-string
      */
-    public function functionName(): string
-    {
+    public function functionName(): string {
         return $this->functionName;
     }
 }

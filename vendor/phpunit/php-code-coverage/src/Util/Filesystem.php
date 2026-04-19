@@ -20,21 +20,20 @@ use SebastianBergmann\CodeCoverage\Driver\WriteOperationFailedException;
 /**
  * @internal This class is not covered by the backward compatibility promise for phpunit/php-code-coverage
  */
-final class Filesystem
-{
+final class Filesystem {
     /**
      * @throws DirectoryCouldNotBeCreatedException
      */
-    public static function createDirectory(string $directory): void
-    {
-        $success = !(!is_dir($directory) && !@mkdir($directory, 0o777, true) && !is_dir($directory));
+    public static function createDirectory(string $directory): void {
+        $success = !(
+            !is_dir($directory) &&
+            !@mkdir($directory, 0o777, true) &&
+            !is_dir($directory)
+        );
 
         if (!$success) {
             throw new DirectoryCouldNotBeCreatedException(
-                sprintf(
-                    'Directory "%s" could not be created',
-                    $directory,
-                ),
+                sprintf('Directory "%s" could not be created', $directory),
             );
         }
     }
@@ -44,9 +43,8 @@ final class Filesystem
      *
      * @throws WriteOperationFailedException
      */
-    public static function write(string $target, string $buffer): void
-    {
-        if (!str_contains($target, '://')) {
+    public static function write(string $target, string $buffer): void {
+        if (!str_contains($target, "://")) {
             self::createDirectory(dirname($target));
         }
 

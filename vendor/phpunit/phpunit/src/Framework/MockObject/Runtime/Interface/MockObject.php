@@ -17,7 +17,6 @@ use PHPUnit\Framework\MockObject\Rule\InvocationOrder;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-interface MockObject extends Stub
-{
+interface MockObject extends Stub {
     public function expects(InvocationOrder $invocationRule): InvocationMocker;
 }

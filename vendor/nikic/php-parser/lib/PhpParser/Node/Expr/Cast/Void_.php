@@ -6,6 +6,6 @@ use PhpParser\Node\Expr\Cast;
 
 class Void_ extends Cast {
     public function getType(): string {
-        return 'Expr_Cast_Void';
+        return "Expr_Cast_Void";
     }
 }

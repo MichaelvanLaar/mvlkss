@@ -16,6 +16,5 @@ namespace PHPUnit\TextUI\XmlConfiguration;
  *
  * @immutable
  */
-final readonly class FailedSchemaDetectionResult extends SchemaDetectionResult
-{
-}
+final readonly class FailedSchemaDetectionResult extends
+    SchemaDetectionResult {}

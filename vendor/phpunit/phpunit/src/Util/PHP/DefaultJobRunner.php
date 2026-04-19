@@ -39,24 +39,22 @@ use SebastianBergmann\Environment\Runtime;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class DefaultJobRunner extends JobRunner
-{
+final readonly class DefaultJobRunner extends JobRunner {
     /**
      * @throws PhpProcessException
      */
-    public function run(Job $job): Result
-    {
+    public function run(Job $job): Result {
         $temporaryFile = null;
 
         if ($job->hasInput()) {
-            $temporaryFile = tempnam(sys_get_temp_dir(), 'phpunit_');
+            $temporaryFile = tempnam(sys_get_temp_dir(), "phpunit_");
 
-            if ($temporaryFile === false ||
-                file_put_contents($temporaryFile, $job->code()) === false) {
+            if (
+                $temporaryFile === false ||
+                file_put_contents($temporaryFile, $job->code()) === false
+            ) {
                 // @codeCoverageIgnoreStart
-                throw new PhpProcessException(
-                    'Unable to write temporary file',
-                );
+                throw new PhpProcessException("Unable to write temporary file");
                 // @codeCoverageIgnoreEnd
             }
 
@@ -71,7 +69,7 @@ final readonly class DefaultJobRunner extends JobRunner
             );
         }
 
-        assert($temporaryFile !== '');
+        assert($temporaryFile !== "");
 
         return $this->runProcess($job, $temporaryFile);
     }
@@ -81,17 +79,19 @@ final readonly class DefaultJobRunner extends JobRunner
      *
      * @throws PhpProcessException
      */
-    private function runProcess(Job $job, ?string $temporaryFile): Result
-    {
+    private function runProcess(Job $job, ?string $temporaryFile): Result {
         $environmentVariables = null;
 
         if ($job->hasEnvironmentVariables()) {
             /** @phpstan-ignore nullCoalesce.variable */
             $environmentVariables = $_SERVER ?? [];
 
-            unset($environmentVariables['argv'], $environmentVariables['argc']);
+            unset($environmentVariables["argv"], $environmentVariables["argc"]);
 
-            $environmentVariables = array_merge($environmentVariables, $job->environmentVariables());
+            $environmentVariables = array_merge(
+                $environmentVariables,
+                $job->environmentVariables(),
+            );
 
             foreach ($environmentVariables as $key => $value) {
                 if (is_array($value)) {
@@ -103,13 +103,13 @@ final readonly class DefaultJobRunner extends JobRunner
         }
 
         $pipeSpec = [
-            0 => ['pipe', 'r'],
-            1 => ['pipe', 'w'],
-            2 => ['pipe', 'w'],
+            0 => ["pipe", "r"],
+            1 => ["pipe", "w"],
+            2 => ["pipe", "w"],
         ];
 
         if ($job->redirectErrors()) {
-            $pipeSpec[2] = ['redirect', 1];
+            $pipeSpec[2] = ["redirect", 1];
         }
 
         $process = proc_open(
@@ -122,9 +122,7 @@ final readonly class DefaultJobRunner extends JobRunner
 
         if (!is_resource($process)) {
             // @codeCoverageIgnoreStart
-            throw new PhpProcessException(
-                'Unable to spawn worker process',
-            );
+            throw new PhpProcessException("Unable to spawn worker process");
             // @codeCoverageIgnoreEnd
         }
 
@@ -133,8 +131,8 @@ final readonly class DefaultJobRunner extends JobRunner
         fwrite($pipes[0], $job->code());
         fclose($pipes[0]);
 
-        $stdout = '';
-        $stderr = '';
+        $stdout = "";
+        $stderr = "";
 
         if (isset($pipes[1])) {
             $stdout = stream_get_contents($pipes[1]);
@@ -163,16 +161,15 @@ final readonly class DefaultJobRunner extends JobRunner
     /**
      * @return non-empty-list<string>
      */
-    private function buildCommand(Job $job, ?string $file): array
-    {
-        $runtime     = new Runtime;
-        $command     = [PHP_BINARY];
+    private function buildCommand(Job $job, ?string $file): array {
+        $runtime = new Runtime();
+        $command = [PHP_BINARY];
         $phpSettings = $job->phpSettings();
 
         $xdebugModeConfiguredExplicitly = false;
 
         foreach ($phpSettings as $phpSetting) {
-            if (str_starts_with($phpSetting, 'xdebug.mode')) {
+            if (str_starts_with($phpSetting, "xdebug.mode")) {
                 $xdebugModeConfiguredExplicitly = true;
 
                 break;
@@ -180,28 +177,24 @@ final readonly class DefaultJobRunner extends JobRunner
         }
 
         if ($runtime->hasPCOV()) {
-            $pcovSettings = ini_get_all('pcov');
+            $pcovSettings = ini_get_all("pcov");
 
             assert($pcovSettings !== false);
 
             $phpSettings = array_merge(
                 $phpSettings,
-                $runtime->getCurrentSettings(
-                    array_keys($pcovSettings),
-                ),
+                $runtime->getCurrentSettings(array_keys($pcovSettings)),
             );
         } elseif ($runtime->hasXdebug()) {
-            assert(function_exists('xdebug_is_debugger_active'));
+            assert(function_exists("xdebug_is_debugger_active"));
 
-            $xdebugSettings = ini_get_all('xdebug');
+            $xdebugSettings = ini_get_all("xdebug");
 
             assert($xdebugSettings !== false);
 
             $phpSettings = array_merge(
                 $phpSettings,
-                $runtime->getCurrentSettings(
-                    array_keys($xdebugSettings),
-                ),
+                $runtime->getCurrentSettings(array_keys($xdebugSettings)),
             );
 
             if (
@@ -211,28 +204,31 @@ final readonly class DefaultJobRunner extends JobRunner
                 !$job->requiresXdebug()
             ) {
                 // disable xdebug to speedup test execution
-                $phpSettings['xdebug.mode'] = 'xdebug.mode=off';
+                $phpSettings["xdebug.mode"] = "xdebug.mode=off";
             }
         }
 
-        $command = array_merge($command, $this->settingsToParameters($phpSettings));
+        $command = array_merge(
+            $command,
+            $this->settingsToParameters($phpSettings),
+        );
 
-        if (PHP_SAPI === 'phpdbg') {
-            $command[] = '-qrr';
+        if (PHP_SAPI === "phpdbg") {
+            $command[] = "-qrr";
 
             if ($file === null) {
-                $command[] = 's=';
+                $command[] = "s=";
             }
         }
 
         if ($file !== null) {
-            $command[] = '-f';
+            $command[] = "-f";
             $command[] = $file;
         }
 
         if ($job->hasArguments()) {
             if ($file === null) {
-                $command[] = '--';
+                $command[] = "--";
             }
 
             foreach ($job->arguments() as $argument) {
@@ -248,12 +244,11 @@ final readonly class DefaultJobRunner extends JobRunner
      *
      * @return list<string>
      */
-    private function settingsToParameters(array $settings): array
-    {
+    private function settingsToParameters(array $settings): array {
         $buffer = [];
 
         foreach ($settings as $setting) {
-            $buffer[] = '-d';
+            $buffer[] = "-d";
             $buffer[] = $setting;
         }
 

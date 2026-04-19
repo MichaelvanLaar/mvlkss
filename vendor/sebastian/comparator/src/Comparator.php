@@ -9,12 +9,10 @@
  */
 namespace SebastianBergmann\Comparator;
 
-abstract class Comparator
-{
+abstract class Comparator {
     private Factory $factory;
 
-    public function setFactory(Factory $factory): void
-    {
+    public function setFactory(Factory $factory): void {
         $this->factory = $factory;
     }
 
@@ -23,10 +21,15 @@ abstract class Comparator
     /**
      * @throws ComparisonFailure
      */
-    abstract public function assertEquals(mixed $expected, mixed $actual, float $delta = 0.0, bool $canonicalize = false, bool $ignoreCase = false): void;
+    abstract public function assertEquals(
+        mixed $expected,
+        mixed $actual,
+        float $delta = 0.0,
+        bool $canonicalize = false,
+        bool $ignoreCase = false,
+    ): void;
 
-    protected function factory(): Factory
-    {
+    protected function factory(): Factory {
         return $this->factory;
     }
 }

@@ -18,21 +18,18 @@ use PHPUnit\Util\Xml\XmlException;
  *
  * @immutable
  */
-abstract readonly class SchemaDetectionResult
-{
+abstract readonly class SchemaDetectionResult {
     /**
      * @phpstan-assert-if-true SuccessfulSchemaDetectionResult $this
      */
-    public function detected(): bool
-    {
+    public function detected(): bool {
         return false;
     }
 
     /**
      * @throws XmlException
      */
-    public function version(): string
-    {
-        throw new XmlException('No supported schema was detected');
+    public function version(): string {
+        throw new XmlException("No supported schema was detected");
     }
 }

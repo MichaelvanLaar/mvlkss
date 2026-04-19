@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 /*
  * This file is part of PharIo\Version.
  *
@@ -14,7 +14,7 @@ class ExactVersionConstraint extends AbstractVersionConstraint {
         $other = $version->getVersionString();
 
         if ($version->hasBuildMetaData()) {
-            $other .= '+' . $version->getBuildMetaData()->asString();
+            $other .= "+" . $version->getBuildMetaData()->asString();
         }
 
         return $this->asString() === $other;

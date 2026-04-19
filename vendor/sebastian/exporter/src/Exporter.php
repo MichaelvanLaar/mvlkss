@@ -42,8 +42,7 @@ use SplObjectStorage;
 use stdClass;
 use UnitEnum;
 
-final readonly class Exporter
-{
+final readonly class Exporter {
     /**
      * @var non-negative-int
      */
@@ -58,10 +57,12 @@ final readonly class Exporter
      * @param non-negative-int $shortenArraysLongerThan
      * @param positive-int     $maxLengthForStrings
      */
-    public function __construct(int $shortenArraysLongerThan = 0, int $maxLengthForStrings = 40)
-    {
+    public function __construct(
+        int $shortenArraysLongerThan = 0,
+        int $maxLengthForStrings = 40,
+    ) {
         $this->shortenArraysLongerThan = $shortenArraysLongerThan;
-        $this->maxLengthForStrings     = $maxLengthForStrings;
+        $this->maxLengthForStrings = $maxLengthForStrings;
     }
 
     /**
@@ -77,8 +78,7 @@ final readonly class Exporter
      *  - Carriage returns and newlines are normalized to \n
      *  - Recursion and repeated rendering is treated properly
      */
-    public function export(mixed $value, int $indentation = 0): string
-    {
+    public function export(mixed $value, int $indentation = 0): string {
         return $this->recursiveExport($value, $indentation);
     }
 
@@ -86,24 +86,37 @@ final readonly class Exporter
      * @param array<mixed> $data
      * @param positive-int $maxLengthForStrings
      */
-    public function shortenedRecursiveExport(array &$data, int $maxLengthForStrings = 40, ?RecursionContext $processed = null): string
-    {
+    public function shortenedRecursiveExport(
+        array &$data,
+        int $maxLengthForStrings = 40,
+        ?RecursionContext $processed = null,
+    ): string {
         if ($maxLengthForStrings === 40) {
             $maxLengthForStrings = $this->maxLengthForStrings;
         }
 
         if (!$processed) {
-            $processed = new RecursionContext;
+            $processed = new RecursionContext();
         }
 
         $overallCount = @count($data, COUNT_RECURSIVE);
-        $counter      = 0;
+        $counter = 0;
 
-        $export = $this->shortenedCountedRecursiveExport($data, $processed, $counter, $maxLengthForStrings);
+        $export = $this->shortenedCountedRecursiveExport(
+            $data,
+            $processed,
+            $counter,
+            $maxLengthForStrings,
+        );
 
-        if ($this->shortenArraysLongerThan > 0 &&
-            $overallCount > $this->shortenArraysLongerThan) {
-            $export .= sprintf(', ...%d more elements', $overallCount - $this->shortenArraysLongerThan);
+        if (
+            $this->shortenArraysLongerThan > 0 &&
+            $overallCount > $this->shortenArraysLongerThan
+        ) {
+            $export .= sprintf(
+                ", ...%d more elements",
+                $overallCount - $this->shortenArraysLongerThan,
+            );
         }
 
         return $export;
@@ -120,17 +133,21 @@ final readonly class Exporter
      *
      * @param positive-int $maxLengthForStrings
      */
-    public function shortenedExport(mixed $value, int $maxLengthForStrings = 40): string
-    {
+    public function shortenedExport(
+        mixed $value,
+        int $maxLengthForStrings = 40,
+    ): string {
         if ($maxLengthForStrings === 40) {
             $maxLengthForStrings = $this->maxLengthForStrings;
         }
 
         if (is_string($value)) {
-            $string = str_replace("\n", '', $this->exportString($value));
+            $string = str_replace("\n", "", $this->exportString($value));
 
             if (mb_strlen($string) > $maxLengthForStrings) {
-                return mb_substr($string, 0, $maxLengthForStrings - 10) . '...' . mb_substr($string, -7);
+                return mb_substr($string, 0, $maxLengthForStrings - 10) .
+                    "..." .
+                    mb_substr($string, -7);
             }
 
             return $string;
@@ -138,7 +155,7 @@ final readonly class Exporter
 
         if ($value instanceof BackedEnum) {
             return sprintf(
-                '%s Enum (%s, %s)',
+                "%s Enum (%s, %s)",
                 $value::class,
                 $value->name,
                 $this->export($value->value),
@@ -146,26 +163,19 @@ final readonly class Exporter
         }
 
         if ($value instanceof UnitEnum) {
-            return sprintf(
-                '%s Enum (%s)',
-                $value::class,
-                $value->name,
-            );
+            return sprintf("%s Enum (%s)", $value::class, $value->name);
         }
 
         if (is_object($value)) {
             return sprintf(
-                '%s Object (%s)',
+                "%s Object (%s)",
                 $value::class,
-                $this->countProperties($value) > 0 ? '...' : '',
+                $this->countProperties($value) > 0 ? "..." : "",
             );
         }
 
         if (is_array($value)) {
-            return sprintf(
-                '[%s]',
-                count($value) > 0 ? '...' : '',
-            );
+            return sprintf("[%s]", count($value) > 0 ? "..." : "");
         }
 
         return $this->export($value);
@@ -177,8 +187,7 @@ final readonly class Exporter
      *
      * @return array<mixed>
      */
-    public function toArray(mixed $value): array
-    {
+    public function toArray(mixed $value): array {
         if (!is_object($value)) {
             return (array) $value;
         }
@@ -214,9 +223,9 @@ final readonly class Exporter
         // Format the output similarly to print_r() in this case
         if ($value instanceof SplObjectStorage) {
             foreach ($value as $_value) {
-                $array['Object #' . spl_object_id($_value)] = [
-                    'obj' => $_value,
-                    'inf' => $value->getInfo(),
+                $array["Object #" . spl_object_id($_value)] = [
+                    "obj" => $_value,
+                    "inf" => $value->getInfo(),
                 ];
             }
 
@@ -226,15 +235,14 @@ final readonly class Exporter
         return $array;
     }
 
-    public function countProperties(object $value): int
-    {
+    public function countProperties(object $value): int {
         if (!$this->canBeReflected($value)) {
             // @codeCoverageIgnoreStart
             return count($this->toArray($value));
             // @codeCoverageIgnoreEnd
         }
 
-        if (!$value instanceof stdClass) {
+        if (!($value instanceof stdClass)) {
             // using ReflectionClass prevents initialization of potential lazy objects
             return count((new ReflectionClass($value))->getProperties());
         }
@@ -246,8 +254,12 @@ final readonly class Exporter
      * @param array<mixed> $data
      * @param positive-int $maxLengthForStrings
      */
-    private function shortenedCountedRecursiveExport(array &$data, RecursionContext $processed, int &$counter, int $maxLengthForStrings): string
-    {
+    private function shortenedCountedRecursiveExport(
+        array &$data,
+        RecursionContext $processed,
+        int &$counter,
+        int $maxLengthForStrings,
+    ): string {
         $result = [];
 
         $array = $data;
@@ -256,8 +268,10 @@ final readonly class Exporter
         $processed->add($data);
 
         foreach ($array as $key => $value) {
-            if ($this->shortenArraysLongerThan > 0 &&
-                $counter > $this->shortenArraysLongerThan) {
+            if (
+                $this->shortenArraysLongerThan > 0 &&
+                $counter > $this->shortenArraysLongerThan
+            ) {
                 break;
             }
 
@@ -265,43 +279,57 @@ final readonly class Exporter
                 assert(is_array($data[$key]) || is_object($data[$key]));
 
                 if ($processed->contains($data[$key]) !== false) {
-                    $result[] = '*RECURSION*';
+                    $result[] = "*RECURSION*";
                 } else {
                     assert(is_array($data[$key]));
 
-                    $result[] = '[' . $this->shortenedCountedRecursiveExport($data[$key], $processed, $counter, $maxLengthForStrings) . ']';
+                    $result[] =
+                        "[" .
+                        $this->shortenedCountedRecursiveExport(
+                            $data[$key],
+                            $processed,
+                            $counter,
+                            $maxLengthForStrings,
+                        ) .
+                        "]";
                 }
             } else {
-                $result[] = $this->shortenedExport($value, $maxLengthForStrings);
+                $result[] = $this->shortenedExport(
+                    $value,
+                    $maxLengthForStrings,
+                );
             }
 
             $counter++;
         }
 
-        return implode(', ', $result);
+        return implode(", ", $result);
     }
 
-    private function recursiveExport(mixed &$value, int $indentation = 0, ?RecursionContext $processed = null): string
-    {
+    private function recursiveExport(
+        mixed &$value,
+        int $indentation = 0,
+        ?RecursionContext $processed = null,
+    ): string {
         if ($value === null) {
-            return 'null';
+            return "null";
         }
 
         if (is_bool($value)) {
-            return $value ? 'true' : 'false';
+            return $value ? "true" : "false";
         }
 
         if (is_float($value)) {
             return $this->exportFloat($value);
         }
 
-        if (gettype($value) === 'resource (closed)') {
-            return 'resource (closed)';
+        if (gettype($value) === "resource (closed)") {
+            return "resource (closed)";
         }
 
         if (is_resource($value)) {
             return sprintf(
-                'resource(%d) of type (%s)',
+                "resource(%d) of type (%s)",
                 (int) $value,
                 get_resource_type($value),
             );
@@ -309,7 +337,7 @@ final readonly class Exporter
 
         if ($value instanceof BackedEnum) {
             return sprintf(
-                '%s Enum #%d (%s, %s)',
+                "%s Enum #%d (%s, %s)",
                 $value::class,
                 spl_object_id($value),
                 $value->name,
@@ -319,7 +347,7 @@ final readonly class Exporter
 
         if ($value instanceof UnitEnum) {
             return sprintf(
-                '%s Enum #%d (%s)',
+                "%s Enum #%d (%s)",
                 $value::class,
                 spl_object_id($value),
                 $value->name,
@@ -331,7 +359,7 @@ final readonly class Exporter
         }
 
         if (!$processed) {
-            $processed = new RecursionContext;
+            $processed = new RecursionContext();
         }
 
         if (is_array($value)) {
@@ -345,110 +373,119 @@ final readonly class Exporter
         return var_export($value, true);
     }
 
-    private function exportFloat(float $value): string
-    {
-        $precisionBackup = ini_get('precision');
+    private function exportFloat(float $value): string {
+        $precisionBackup = ini_get("precision");
 
-        ini_set('precision', '-1');
+        ini_set("precision", "-1");
 
         $valueAsString = @(string) $value;
 
-        ini_set('precision', $precisionBackup);
+        ini_set("precision", $precisionBackup);
 
         if ((string) @(int) $value === $valueAsString) {
-            return $valueAsString . '.0';
+            return $valueAsString . ".0";
         }
 
         return $valueAsString;
     }
 
-    private function exportString(string $value): string
-    {
+    private function exportString(string $value): string {
         // Match for most non-printable chars somewhat taking multibyte chars into account
         if (preg_match('/[^\x09-\x0d\x1b\x20-\xff]/', $value)) {
-            return 'Binary String: 0x' . bin2hex($value);
+            return "Binary String: 0x" . bin2hex($value);
         }
 
         return "'" .
-            strtr(
-                $value,
-                [
-                    "\r\n" => '\r\n' . "\n",
-                    "\n\r" => '\n\r' . "\n",
-                    "\r"   => '\r' . "\n",
-                    "\n"   => '\n' . "\n",
-                ],
-            ) .
+            strtr($value, [
+                "\r\n" => '\r\n' . "\n",
+                "\n\r" => '\n\r' . "\n",
+                "\r" => '\r' . "\n",
+                "\n" => '\n' . "\n",
+            ]) .
             "'";
     }
 
     /**
      * @param array<mixed> $value
      */
-    private function exportArray(array &$value, RecursionContext $processed, int $indentation): string
-    {
+    private function exportArray(
+        array &$value,
+        RecursionContext $processed,
+        int $indentation,
+    ): string {
         if (($key = $processed->contains($value)) !== false) {
-            return 'Array &' . $key;
+            return "Array &" . $key;
         }
 
-        $array  = $value;
-        $key    = $processed->add($value);
-        $values = '';
+        $array = $value;
+        $key = $processed->add($value);
+        $values = "";
 
         if (count($array) > 0) {
-            $whitespace = str_repeat(' ', 4 * $indentation);
+            $whitespace = str_repeat(" ", 4 * $indentation);
 
             foreach ($array as $k => $v) {
                 $values .=
-                    $whitespace
-                    . '    ' .
-                    $this->recursiveExport($k, $indentation)
-                    . ' => ' .
+                    $whitespace .
+                    "    " .
+                    $this->recursiveExport($k, $indentation) .
+                    " => " .
                     /** @phpstan-ignore offsetAccess.invalidOffset */
-                    $this->recursiveExport($value[$k], $indentation + 1, $processed)
-                    . ",\n";
+                    $this->recursiveExport(
+                        $value[$k],
+                        $indentation + 1,
+                        $processed,
+                    ) .
+                    ",\n";
             }
 
             $values = "\n" . $values . $whitespace;
         }
 
-        return 'Array &' . (string) $key . ' [' . $values . ']';
+        return "Array &" . (string) $key . " [" . $values . "]";
     }
 
-    private function exportObject(object $value, RecursionContext $processed, int $indentation): string
-    {
+    private function exportObject(
+        object $value,
+        RecursionContext $processed,
+        int $indentation,
+    ): string {
         $class = $value::class;
 
         if ($processed->contains($value) !== false) {
-            return $class . ' Object #' . spl_object_id($value);
+            return $class . " Object #" . spl_object_id($value);
         }
 
         $processed->add($value);
 
-        $array  = $this->toArray($value);
-        $buffer = '';
+        $array = $this->toArray($value);
+        $buffer = "";
 
         if (count($array) > 0) {
-            $whitespace = str_repeat(' ', 4 * $indentation);
+            $whitespace = str_repeat(" ", 4 * $indentation);
 
             foreach ($array as $k => $v) {
                 $buffer .=
-                    $whitespace
-                    . '    ' .
-                    $this->recursiveExport($k, $indentation)
-                    . ' => ' .
-                    $this->recursiveExport($v, $indentation + 1, $processed)
-                    . ",\n";
+                    $whitespace .
+                    "    " .
+                    $this->recursiveExport($k, $indentation) .
+                    " => " .
+                    $this->recursiveExport($v, $indentation + 1, $processed) .
+                    ",\n";
             }
 
             $buffer = "\n" . $buffer . $whitespace;
         }
 
-        return $class . ' Object #' . spl_object_id($value) . ' (' . $buffer . ')';
+        return $class .
+            " Object #" .
+            spl_object_id($value) .
+            " (" .
+            $buffer .
+            ")";
     }
 
-    private function canBeReflected(object $object): bool
-    {
+    private function canBeReflected(object $object): bool {
         /** @phpstan-ignore class.notFound */
         if ($object instanceof Message) {
             // @codeCoverageIgnoreStart

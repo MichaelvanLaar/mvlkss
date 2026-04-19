@@ -31,16 +31,14 @@ use SebastianBergmann\FileIterator\Facade as FileIteratorFacade;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestSuiteBuilder
-{
+final readonly class TestSuiteBuilder {
     /**
      * @throws \PHPUnit\Framework\Exception
      * @throws RuntimeException
      * @throws TestDirectoryNotFoundException
      * @throws TestFileNotFoundException
      */
-    public function build(Configuration $configuration): TestSuite
-    {
+    public function build(Configuration $configuration): TestSuite {
         if ($configuration->hasCliArguments()) {
             $arguments = [];
 
@@ -68,11 +66,13 @@ final readonly class TestSuiteBuilder
         }
 
         if (!isset($testSuite)) {
-            $xmlConfigurationFile = $configuration->hasConfigurationFile() ? $configuration->configurationFile() : 'Root Test Suite';
+            $xmlConfigurationFile = $configuration->hasConfigurationFile()
+                ? $configuration->configurationFile()
+                : "Root Test Suite";
 
             assert(!empty($xmlConfigurationFile));
 
-            $testSuite = (new TestSuiteMapper)->map(
+            $testSuite = (new TestSuiteMapper())->map(
                 $xmlConfigurationFile,
                 $configuration->testSuite(),
                 $configuration->includeTestSuite(),
@@ -80,7 +80,9 @@ final readonly class TestSuiteBuilder
             );
         }
 
-        EventFacade::emitter()->testSuiteLoaded(\PHPUnit\Event\TestSuite\TestSuiteBuilder::from($testSuite));
+        EventFacade::emitter()->testSuiteLoaded(
+            \PHPUnit\Event\TestSuite\TestSuiteBuilder::from($testSuite),
+        );
 
         return $testSuite;
     }
@@ -91,9 +93,12 @@ final readonly class TestSuiteBuilder
      *
      * @throws \PHPUnit\Framework\Exception
      */
-    private function testSuiteFromPath(string $path, array $suffixes, ?TestSuite $suite = null): TestSuite
-    {
-        if (str_ends_with($path, '.phpt') && is_file($path)) {
+    private function testSuiteFromPath(
+        string $path,
+        array $suffixes,
+        ?TestSuite $suite = null,
+    ): TestSuite {
+        if (str_ends_with($path, ".phpt") && is_file($path)) {
             $suite = $suite ?: TestSuite::empty($path);
             $suite->addTestFile($path);
 
@@ -101,16 +106,19 @@ final readonly class TestSuiteBuilder
         }
 
         if (is_dir($path)) {
-            $files = (new FileIteratorFacade)->getFilesAsArray($path, $suffixes);
+            $files = (new FileIteratorFacade())->getFilesAsArray(
+                $path,
+                $suffixes,
+            );
 
-            $suite = $suite ?: TestSuite::empty('CLI Arguments');
+            $suite = $suite ?: TestSuite::empty("CLI Arguments");
             $suite->addTestFiles($files);
 
             return $suite;
         }
 
         try {
-            $testClass = (new TestSuiteLoader)->load($path);
+            $testClass = (new TestSuiteLoader())->load($path);
         } catch (Exception $e) {
             print $e->getMessage() . PHP_EOL;
 
@@ -132,9 +140,11 @@ final readonly class TestSuiteBuilder
      *
      * @throws \PHPUnit\Framework\Exception
      */
-    private function testSuiteFromPathList(array $paths, array $suffixes): TestSuite
-    {
-        $suite = TestSuite::empty('CLI Arguments');
+    private function testSuiteFromPathList(
+        array $paths,
+        array $suffixes,
+    ): TestSuite {
+        $suite = TestSuite::empty("CLI Arguments");
 
         foreach ($paths as $path) {
             $this->testSuiteFromPath($path, $suffixes, $suite);

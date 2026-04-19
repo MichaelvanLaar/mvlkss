@@ -24,8 +24,7 @@ use Symfony\Component\CssSelector\XPath\Translator;
  *
  * @author Christophe Coevoet <stof@notk.org>
  */
-class CssSelectorConverter
-{
+class CssSelectorConverter {
     public static int $maxCachedItems = 1024;
 
     private Translator $translator;
@@ -37,12 +36,13 @@ class CssSelectorConverter
     /**
      * @param bool $html Whether HTML support should be enabled. Disable it for XML documents
      */
-    public function __construct(bool $html = true)
-    {
+    public function __construct(bool $html = true) {
         $this->translator = new Translator();
 
         if ($html) {
-            $this->translator->registerExtension(new HtmlExtension($this->translator));
+            $this->translator->registerExtension(
+                new HtmlExtension($this->translator),
+            );
             $this->cache = &self::$htmlCache;
         } else {
             $this->cache = &self::$xmlCache;
@@ -52,8 +52,7 @@ class CssSelectorConverter
             ->registerParserShortcut(new EmptyStringParser())
             ->registerParserShortcut(new ElementParser())
             ->registerParserShortcut(new ClassParser())
-            ->registerParserShortcut(new HashParser())
-        ;
+            ->registerParserShortcut(new HashParser());
     }
 
     /**
@@ -62,9 +61,11 @@ class CssSelectorConverter
      * Optionally, a prefix can be added to the resulting XPath
      * expression with the $prefix parameter.
      */
-    public function toXPath(string $cssExpr, string $prefix = 'descendant-or-self::'): string
-    {
-        $cacheKey = $prefix."\0".$cssExpr;
+    public function toXPath(
+        string $cssExpr,
+        string $prefix = "descendant-or-self::",
+    ): string {
+        $cacheKey = $prefix . "\0" . $cssExpr;
 
         if (isset($this->cache[$cacheKey])) {
             // Move the item last in cache (LRU)
@@ -79,6 +80,9 @@ class CssSelectorConverter
             unset($this->cache[array_key_first($this->cache)]);
         }
 
-        return $this->cache[$cacheKey] = $this->translator->cssToXPath($cssExpr, $prefix);
+        return $this->cache[$cacheKey] = $this->translator->cssToXPath(
+            $cssExpr,
+            $prefix,
+        );
     }
 }

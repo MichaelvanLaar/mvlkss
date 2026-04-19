@@ -16,24 +16,20 @@ namespace PHPUnit\Util\PHP;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class Result
-{
+final readonly class Result {
     private string $stdout;
     private string $stderr;
 
-    public function __construct(string $stdout, string $stderr)
-    {
+    public function __construct(string $stdout, string $stderr) {
         $this->stdout = $stdout;
         $this->stderr = $stderr;
     }
 
-    public function stdout(): string
-    {
+    public function stdout(): string {
         return $this->stdout;
     }
 
-    public function stderr(): string
-    {
+    public function stderr(): string {
         return $this->stderr;
     }
 }

@@ -46,8 +46,10 @@ class TraitUse implements Builder {
     public function with($adaptation) {
         $adaptation = BuilderHelpers::normalizeNode($adaptation);
 
-        if (!$adaptation instanceof Stmt\TraitUseAdaptation) {
-            throw new \LogicException('Adaptation must have type TraitUseAdaptation');
+        if (!($adaptation instanceof Stmt\TraitUseAdaptation)) {
+            throw new \LogicException(
+                "Adaptation must have type TraitUseAdaptation",
+            );
         }
 
         $this->adaptations[] = $adaptation;

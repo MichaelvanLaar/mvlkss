@@ -18,13 +18,12 @@ use PHPUnit\Event\Test\FinishedSubscriber;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestFinishedSubscriber extends Subscriber implements FinishedSubscriber
-{
+final readonly class TestFinishedSubscriber extends Subscriber implements
+    FinishedSubscriber {
     /**
      * @throws InvalidArgumentException
      */
-    public function notify(Finished $event): void
-    {
+    public function notify(Finished $event): void {
         $this->collector()->testFinished($event);
     }
 }

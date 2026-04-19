@@ -47,6 +47,7 @@ composer require --dev phpstan/extension-installer
 ```
 
 Starting from Composer 2.2.0 you'll get the following question:
+
 ```
 phpstan/extension-installer contains a Composer plugin which is currently not in your allow-plugins config. See https://getcomposer.org/allow-plugins
 Do you trust "phpstan/extension-installer" to execute code and wish to enable it now? (writes "allow-plugins" to composer.json) [y,n,d,?]
@@ -62,13 +63,11 @@ Add `phpstan` key in the extension `composer.json`'s `extra` section:
 
 ```json
 {
-  "extra": {
-    "phpstan": {
-      "includes": [
-        "extension.neon"
-      ]
+    "extra": {
+        "phpstan": {
+            "includes": ["extension.neon"]
+        }
     }
-  }
 }
 ```
 
@@ -78,13 +77,11 @@ You may want to disable auto-installation of a particular extension to handle in
 
 ```json
 {
-  "extra": {
-    "phpstan/extension-installer": {
-      "ignore": [
-        "phpstan/phpstan-phpunit"
-      ]
+    "extra": {
+        "phpstan/extension-installer": {
+            "ignore": ["phpstan/phpstan-phpunit"]
+        }
     }
-  }
 }
 ```
 

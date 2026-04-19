@@ -12,7 +12,7 @@
 	<a href="https://phpstan.org/"><img src="https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat" alt="PHPStan Enabled"></a>
 </p>
 
-------
+---
 
 PHPStan focuses on finding errors in your code without actually running it. It catches whole classes of bugs
 even before you write tests for the code. It moves PHP closer to compiled languages in the sense that the correctness of each line of the code
@@ -82,8 +82,6 @@ Want your logo here? [Learn more »](https://phpstan.org/sponsor)
 <a href="https://inviqa.com/"><img src="website/src/images/sponsor/inviqa.png" alt="Inviqa" width="254" height="65"></a>
 <br>
 
-
-
 [**You can sponsor my open-source work on PHPStan through GitHub Sponsors and also directly.**](https://phpstan.org/sponsor)
 
 One-time donations [through Revolut.me](https://revolut.me/ondrejmirtes) are also accepted. To request an invoice, [contact me](mailto:ondrej@mirtes.cz) through e-mail.
@@ -92,19 +90,19 @@ One-time donations [through Revolut.me](https://revolut.me/ondrejmirtes) are als
 
 All the documentation lives on the [phpstan.org website](https://phpstan.org/):
 
-* [Getting Started & User Guide](https://phpstan.org/user-guide/getting-started)
-* [Config Reference](https://phpstan.org/config-reference)
-* [PHPDocs Basics](https://phpstan.org/writing-php-code/phpdocs-basics) & [PHPDoc Types](https://phpstan.org/writing-php-code/phpdoc-types)
-* [Extension Library](https://phpstan.org/user-guide/extension-library)
-* [Developing Extensions](https://phpstan.org/developing-extensions/extension-types)
-* [API Reference](https://apiref.phpstan.org/)
+- [Getting Started & User Guide](https://phpstan.org/user-guide/getting-started)
+- [Config Reference](https://phpstan.org/config-reference)
+- [PHPDocs Basics](https://phpstan.org/writing-php-code/phpdocs-basics) & [PHPDoc Types](https://phpstan.org/writing-php-code/phpdoc-types)
+- [Extension Library](https://phpstan.org/user-guide/extension-library)
+- [Developing Extensions](https://phpstan.org/developing-extensions/extension-types)
+- [API Reference](https://apiref.phpstan.org/)
 
 ## PHPStan Pro
 
 PHPStan Pro is a paid add-on on top of open-source PHPStan Static Analysis Tool with these premium features:
 
-* Web UI for browsing found errors, you can click and open your editor of choice on the offending line.
-* Continuous analysis (watch mode): scans changed files in the background, refreshes the UI automatically.
+- Web UI for browsing found errors, you can click and open your editor of choice on the offending line.
+- Continuous analysis (watch mode): scans changed files in the background, refreshes the UI automatically.
 
 Try it on PHPStan 0.12.45 or later by running it with the `--pro` option. You can create an account either by following the on-screen instructions, or by visiting [account.phpstan.com](https://account.phpstan.com/).
 

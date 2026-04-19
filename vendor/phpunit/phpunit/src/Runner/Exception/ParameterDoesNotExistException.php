@@ -17,15 +17,9 @@ use RuntimeException;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class ParameterDoesNotExistException extends RuntimeException implements Exception
-{
-    public function __construct(string $name)
-    {
-        parent::__construct(
-            sprintf(
-                'Parameter "%s" does not exist',
-                $name,
-            ),
-        );
+final class ParameterDoesNotExistException extends RuntimeException implements
+    Exception {
+    public function __construct(string $name) {
+        parent::__construct(sprintf('Parameter "%s" does not exist', $name));
     }
 }

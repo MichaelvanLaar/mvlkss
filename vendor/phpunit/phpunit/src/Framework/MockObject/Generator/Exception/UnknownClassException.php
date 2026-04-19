@@ -16,15 +16,10 @@ use function sprintf;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class UnknownClassException extends \PHPUnit\Framework\Exception implements Exception
-{
-    public function __construct(string $className)
-    {
-        parent::__construct(
-            sprintf(
-                'Class "%s" does not exist',
-                $className,
-            ),
-        );
+final class UnknownClassException
+    extends \PHPUnit\Framework\Exception
+    implements Exception {
+    public function __construct(string $className) {
+        parent::__construct(sprintf('Class "%s" does not exist', $className));
     }
 }

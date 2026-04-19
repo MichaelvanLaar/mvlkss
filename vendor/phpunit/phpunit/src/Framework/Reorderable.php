@@ -14,8 +14,7 @@ namespace PHPUnit\Framework;
  *
  * @internal This interface is not covered by the backward compatibility promise for PHPUnit
  */
-interface Reorderable
-{
+interface Reorderable {
     public function sortId(): string;
 
     /**

@@ -12,23 +12,23 @@ The current `microman/kirby-grid-blocks` plugin is deprecated and no longer acti
 - Rename custom snippet from `site/snippets/blocks/grid.php` to `site/snippets/blocks/columns.php`
 - Update all blueprint references from `grid` block to `columns` block
 - Adapt custom blueprint to extend new `blocks/columns` schema while maintaining all current features:
-  - Vertical alignment settings
-  - Spacing controls (padding top/bottom/start/end, gap)
-  - Background color selection
-  - HTML attributes (ID, classes)
-  - Sticky behavior toggle
-  - Title field
+    - Vertical alignment settings
+    - Spacing controls (padding top/bottom/start/end, gap)
+    - Background color selection
+    - HTML attributes (ID, classes)
+    - Sticky behavior toggle
+    - Title field
 - Maintain full compatibility with existing custom functionality:
-  - Tailwind CSS integration
-  - Brand color system integration
-  - Spacing utility classes system
-  - Light/dark mode support
-  - Reading-direction awareness (LTR/RTL)
-  - Print styles
-  - Special handling for images and breadcrumbs within columns
+    - Tailwind CSS integration
+    - Brand color system integration
+    - Spacing utility classes system
+    - Light/dark mode support
+    - Reading-direction awareness (LTR/RTL)
+    - Print styles
+    - Special handling for images and breadcrumbs within columns
 - Add new layout options from kirby-column-blocks:
-  - Four equal columns: `1/4, 1/4, 1/4, 1/4`
-  - Asymmetric layouts: `1/3, 2/3` and `2/3, 1/3`
+    - Four equal columns: `1/4, 1/4, 1/4, 1/4`
+    - Asymmetric layouts: `1/3, 2/3` and `2/3, 1/3`
 - Update page builder field definition to use `columns` instead of `grid` fieldset
 - Update page builder controller/snippet to detect and handle `columns` blocks
 - Update image block snippet to detect column context using new block type name
@@ -36,36 +36,40 @@ The current `microman/kirby-grid-blocks` plugin is deprecated and no longer acti
 ## Impact
 
 ### Affected Specs
+
 - `page-builder` - Core page builder system specification
 
 ### Affected Code
+
 - **Composer dependencies:**
-  - `composer.json` - Replace grid-blocks with column-blocks dependency
+    - `composer.json` - Replace grid-blocks with column-blocks dependency
 
 - **Blueprints:**
-  - `site/blueprints/blocks/grid.yml` → `site/blueprints/blocks/columns.yml` (rename + adapt)
-  - `site/blueprints/fields/page-builder.yml` - Update fieldset reference
+    - `site/blueprints/blocks/grid.yml` → `site/blueprints/blocks/columns.yml` (rename + adapt)
+    - `site/blueprints/fields/page-builder.yml` - Update fieldset reference
 
 - **Snippets:**
-  - `site/snippets/blocks/grid.php` → `site/snippets/blocks/columns.php` (rename + adapt)
-  - `site/snippets/fields/page-builder.php` - Update block type detection
-  - `site/snippets/blocks/image.php` - Update column context detection
+    - `site/snippets/blocks/grid.php` → `site/snippets/blocks/columns.php` (rename + adapt)
+    - `site/snippets/fields/page-builder.php` - Update block type detection
+    - `site/snippets/blocks/image.php` - Update column context detection
 
 - **Plugin removal:**
-  - Remove `site/plugins/kirby-grid-blocks/` directory after migration
+    - Remove `site/plugins/kirby-grid-blocks/` directory after migration
 
 ### Breaking Changes
+
 - **Content migration required**: Existing pages using grid blocks will need conversion
-  - Block type changes from `grid` to `columns` in content files
-  - Field structure remains compatible (uses same layout field)
-  - Content structure is preserved (no data loss expected)
+    - Block type changes from `grid` to `columns` in content files
+    - Field structure remains compatible (uses same layout field)
+    - Content structure is preserved (no data loss expected)
 
 - **Editor impact**: Panel interface changes slightly with new WYSIWYG features
-  - Improved paste functionality (cmd+v to insert blocks)
-  - Enhanced drag-and-drop between columns
-  - Same visual appearance for editors
+    - Improved paste functionality (cmd+v to insert blocks)
+    - Enhanced drag-and-drop between columns
+    - Same visual appearance for editors
 
 ### Benefits
+
 - Active maintenance and bug fixes from kirby-column-blocks maintainers
 - More layout options (6 layouts vs 3 layouts)
 - Better editing experience with enhanced WYSIWYG features
@@ -73,6 +77,7 @@ The current `microman/kirby-grid-blocks` plugin is deprecated and no longer acti
 - Simplified plugin foundation (easier to customize and maintain)
 
 ### Risks
+
 - Content migration complexity for existing grid blocks in production
 - Potential for edge cases in custom rendering logic
 - Requires thorough testing of all page builder features

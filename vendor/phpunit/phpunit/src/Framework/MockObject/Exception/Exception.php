@@ -14,6 +14,4 @@ namespace PHPUnit\Framework\MockObject;
  *
  * @internal This interface is not covered by the backward compatibility promise for PHPUnit
  */
-interface Exception extends \PHPUnit\Exception
-{
-}
+interface Exception extends \PHPUnit\Exception {}

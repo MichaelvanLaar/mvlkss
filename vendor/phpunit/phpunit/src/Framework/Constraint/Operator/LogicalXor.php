@@ -16,19 +16,16 @@ use PHPUnit\Framework\ExpectationFailedException;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class LogicalXor extends BinaryOperator
-{
-    public static function fromConstraints(mixed ...$constraints): self
-    {
+final class LogicalXor extends BinaryOperator {
+    public static function fromConstraints(mixed ...$constraints): self {
         return new self(...$constraints);
     }
 
     /**
      * Returns the name of this operator.
      */
-    public function operator(): string
-    {
-        return 'xor';
+    public function operator(): string {
+        return "xor";
     }
 
     /**
@@ -36,8 +33,7 @@ final class LogicalXor extends BinaryOperator
      *
      * @see https://www.php.net/manual/en/language.operators.precedence.php.
      */
-    public function precedence(): int
-    {
+    public function precedence(): int {
         return 23;
     }
 
@@ -47,8 +43,7 @@ final class LogicalXor extends BinaryOperator
      *
      * @throws ExpectationFailedException
      */
-    public function matches(mixed $other): bool
-    {
+    public function matches(mixed $other): bool {
         $constraints = $this->constraints();
 
         $initial = array_shift($constraints);
@@ -59,8 +54,11 @@ final class LogicalXor extends BinaryOperator
 
         return array_reduce(
             $constraints,
-            static fn (bool $matches, Constraint $constraint): bool => $matches xor $constraint->evaluate($other, '', true),
-            $initial->evaluate($other, '', true),
+            static fn(
+                bool $matches,
+                Constraint $constraint,
+            ): bool => $matches xor $constraint->evaluate($other, "", true),
+            $initial->evaluate($other, "", true),
         );
     }
 }

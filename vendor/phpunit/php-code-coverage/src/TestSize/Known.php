@@ -12,10 +12,8 @@ namespace SebastianBergmann\CodeCoverage\Test\TestSize;
 /**
  * @immutable
  */
-abstract class Known extends TestSize
-{
-    public function isKnown(): true
-    {
+abstract class Known extends TestSize {
+    public function isKnown(): true {
         return true;
     }
 

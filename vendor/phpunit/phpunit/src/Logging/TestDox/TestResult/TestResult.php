@@ -20,39 +20,37 @@ use PHPUnit\Framework\TestStatus\TestStatus;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestResult
-{
+final readonly class TestResult {
     private TestMethod $test;
     private TestStatus $status;
     private ?Throwable $throwable;
 
-    public function __construct(TestMethod $test, TestStatus $status, ?Throwable $throwable)
-    {
-        $this->test      = $test;
-        $this->status    = $status;
+    public function __construct(
+        TestMethod $test,
+        TestStatus $status,
+        ?Throwable $throwable,
+    ) {
+        $this->test = $test;
+        $this->status = $status;
         $this->throwable = $throwable;
     }
 
-    public function test(): TestMethod
-    {
+    public function test(): TestMethod {
         return $this->test;
     }
 
-    public function status(): TestStatus
-    {
+    public function status(): TestStatus {
         return $this->status;
     }
 
     /**
      * @phpstan-assert-if-true !null $this->throwable
      */
-    public function hasThrowable(): bool
-    {
+    public function hasThrowable(): bool {
         return $this->throwable !== null;
     }
 
-    public function throwable(): ?Throwable
-    {
+    public function throwable(): ?Throwable {
         return $this->throwable;
     }
 }

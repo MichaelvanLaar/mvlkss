@@ -16,13 +16,16 @@ use function sprintf;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class NoMoreReturnValuesConfiguredException extends \PHPUnit\Framework\Exception implements Exception
-{
-    public function __construct(Invocation $invocation, int $numberOfConfiguredReturnValues)
-    {
+final class NoMoreReturnValuesConfiguredException
+    extends \PHPUnit\Framework\Exception
+    implements Exception {
+    public function __construct(
+        Invocation $invocation,
+        int $numberOfConfiguredReturnValues,
+    ) {
         parent::__construct(
             sprintf(
-                'Only %d return values have been configured for %s::%s()',
+                "Only %d return values have been configured for %s::%s()",
                 $numberOfConfiguredReturnValues,
                 $invocation->className(),
                 $invocation->methodName(),

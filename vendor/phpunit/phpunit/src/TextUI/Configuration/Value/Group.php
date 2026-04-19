@@ -14,17 +14,14 @@ namespace PHPUnit\TextUI\Configuration;
  *
  * @immutable
  */
-final readonly class Group
-{
+final readonly class Group {
     private string $name;
 
-    public function __construct(string $name)
-    {
+    public function __construct(string $name) {
         $this->name = $name;
     }
 
-    public function name(): string
-    {
+    public function name(): string {
         return $this->name;
     }
 }

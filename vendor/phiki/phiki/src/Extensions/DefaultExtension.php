@@ -7,13 +7,11 @@ use Phiki\Environment\Environment;
 use Phiki\Grammar\GrammarRepository;
 use Phiki\Theme\ThemeRepository;
 
-class DefaultExtension implements ExtensionInterface
-{
-    public function register(Environment $environment): void
-    {
+class DefaultExtension implements ExtensionInterface {
+    public function register(Environment $environment): void {
         $environment
             ->disableStrictMode()
-            ->useGrammarRepository(new GrammarRepository)
-            ->useThemeRepository(new ThemeRepository);
+            ->useGrammarRepository(new GrammarRepository())
+            ->useThemeRepository(new ThemeRepository());
     }
 }

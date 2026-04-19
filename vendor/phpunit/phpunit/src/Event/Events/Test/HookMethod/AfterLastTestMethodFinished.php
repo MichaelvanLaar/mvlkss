@@ -20,8 +20,7 @@ use PHPUnit\Event\Telemetry;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class AfterLastTestMethodFinished implements Event
-{
+final readonly class AfterLastTestMethodFinished implements Event {
     private Telemetry\Info $telemetryInfo;
 
     /**
@@ -37,41 +36,40 @@ final readonly class AfterLastTestMethodFinished implements Event
     /**
      * @param class-string $testClassName
      */
-    public function __construct(Telemetry\Info $telemetryInfo, string $testClassName, Code\ClassMethod ...$calledMethods)
-    {
+    public function __construct(
+        Telemetry\Info $telemetryInfo,
+        string $testClassName,
+        Code\ClassMethod ...$calledMethods,
+    ) {
         $this->telemetryInfo = $telemetryInfo;
         $this->testClassName = $testClassName;
         $this->calledMethods = $calledMethods;
     }
 
-    public function telemetryInfo(): Telemetry\Info
-    {
+    public function telemetryInfo(): Telemetry\Info {
         return $this->telemetryInfo;
     }
 
     /**
      * @return class-string
      */
-    public function testClassName(): string
-    {
+    public function testClassName(): string {
         return $this->testClassName;
     }
 
     /**
      * @return list<Code\ClassMethod>
      */
-    public function calledMethods(): array
-    {
+    public function calledMethods(): array {
         return $this->calledMethods;
     }
 
-    public function asString(): string
-    {
-        $buffer = 'After Last Test Method Finished:';
+    public function asString(): string {
+        $buffer = "After Last Test Method Finished:";
 
         foreach ($this->calledMethods as $calledMethod) {
             $buffer .= sprintf(
-                PHP_EOL . '- %s::%s',
+                PHP_EOL . "- %s::%s",
                 $calledMethod->className(),
                 $calledMethod->methodName(),
             );

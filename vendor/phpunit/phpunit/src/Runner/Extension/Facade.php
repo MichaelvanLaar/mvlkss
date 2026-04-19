@@ -18,19 +18,17 @@ use PHPUnit\Event\UnknownSubscriberTypeException;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class Facade
-{
-    private bool $replacesOutput                 = false;
-    private bool $replacesProgressOutput         = false;
-    private bool $replacesResultOutput           = false;
+final class Facade {
+    private bool $replacesOutput = false;
+    private bool $replacesProgressOutput = false;
+    private bool $replacesResultOutput = false;
     private bool $requiresCodeCoverageCollection = false;
 
     /**
      * @throws EventFacadeIsSealedException
      * @throws UnknownSubscriberTypeException
      */
-    public function registerSubscribers(Subscriber ...$subscribers): void
-    {
+    public function registerSubscribers(Subscriber ...$subscribers): void {
         EventFacade::instance()->registerSubscribers(...$subscribers);
     }
 
@@ -38,56 +36,46 @@ final class Facade
      * @throws EventFacadeIsSealedException
      * @throws UnknownSubscriberTypeException
      */
-    public function registerSubscriber(Subscriber $subscriber): void
-    {
+    public function registerSubscriber(Subscriber $subscriber): void {
         EventFacade::instance()->registerSubscriber($subscriber);
     }
 
     /**
      * @throws EventFacadeIsSealedException
      */
-    public function registerTracer(Tracer $tracer): void
-    {
+    public function registerTracer(Tracer $tracer): void {
         EventFacade::instance()->registerTracer($tracer);
     }
 
-    public function replaceOutput(): void
-    {
+    public function replaceOutput(): void {
         $this->replacesOutput = true;
     }
 
-    public function replacesOutput(): bool
-    {
+    public function replacesOutput(): bool {
         return $this->replacesOutput;
     }
 
-    public function replaceProgressOutput(): void
-    {
+    public function replaceProgressOutput(): void {
         $this->replacesProgressOutput = true;
     }
 
-    public function replacesProgressOutput(): bool
-    {
+    public function replacesProgressOutput(): bool {
         return $this->replacesOutput || $this->replacesProgressOutput;
     }
 
-    public function replaceResultOutput(): void
-    {
+    public function replaceResultOutput(): void {
         $this->replacesResultOutput = true;
     }
 
-    public function replacesResultOutput(): bool
-    {
+    public function replacesResultOutput(): bool {
         return $this->replacesOutput || $this->replacesResultOutput;
     }
 
-    public function requireCodeCoverageCollection(): void
-    {
+    public function requireCodeCoverageCollection(): void {
         $this->requiresCodeCoverageCollection = true;
     }
 
-    public function requiresCodeCoverageCollection(): bool
-    {
+    public function requiresCodeCoverageCollection(): bool {
         return $this->requiresCodeCoverageCollection;
     }
 }

@@ -19,8 +19,7 @@ use Whoops\Inspector\InspectorInterface;
 use Whoops\Util\Misc;
 use Whoops\Util\SystemFacade;
 
-final class Run implements RunInterface
-{
+final class Run implements RunInterface {
     /**
      * @var bool
      */
@@ -29,22 +28,22 @@ final class Run implements RunInterface
     /**
      * @var bool
      */
-    private $allowQuit       = true;
+    private $allowQuit = true;
 
     /**
      * @var bool
      */
-    private $sendOutput      = true;
+    private $sendOutput = true;
 
     /**
      * @var integer|false
      */
-    private $sendHttpCode    = 500;
+    private $sendHttpCode = 500;
 
     /**
      * @var integer|false
      */
-    private $sendExitCode    = 1;
+    private $sendExitCode = 1;
 
     /**
      * @var HandlerInterface[]
@@ -81,14 +80,12 @@ final class Run implements RunInterface
      */
     private $frameFilters = [];
 
-    public function __construct(?SystemFacade $system = null)
-    {
-        $this->system = $system ?: new SystemFacade;
+    public function __construct(?SystemFacade $system = null) {
+        $this->system = $system ?: new SystemFacade();
         $this->inspectorFactory = new InspectorFactory();
     }
 
-    public function __destruct()
-    {
+    public function __destruct() {
         $this->unregister();
     }
 
@@ -99,8 +96,7 @@ final class Run implements RunInterface
      *
      * @return Run
      */
-    public function appendHandler($handler)
-    {
+    public function appendHandler($handler) {
         array_unshift($this->handlerStack, $this->resolveHandler($handler));
         return $this;
     }
@@ -112,8 +108,7 @@ final class Run implements RunInterface
      *
      * @return Run
      */
-    public function prependHandler($handler)
-    {
+    public function prependHandler($handler) {
         return $this->pushHandler($handler);
     }
 
@@ -127,8 +122,7 @@ final class Run implements RunInterface
      *
      * @throws InvalidArgumentException If argument is not callable or instance of HandlerInterface.
      */
-    public function pushHandler($handler)
-    {
+    public function pushHandler($handler) {
         $this->handlerStack[] = $this->resolveHandler($handler);
         return $this;
     }
@@ -140,8 +134,7 @@ final class Run implements RunInterface
      *
      * @return HandlerInterface|null
      */
-    public function popHandler()
-    {
+    public function popHandler() {
         return array_pop($this->handlerStack);
     }
 
@@ -150,8 +143,7 @@ final class Run implements RunInterface
      *
      * @return void
      */
-    public function removeFirstHandler()
-    {
+    public function removeFirstHandler() {
         array_pop($this->handlerStack);
     }
 
@@ -160,8 +152,7 @@ final class Run implements RunInterface
      *
      * @return void
      */
-    public function removeLastHandler()
-    {
+    public function removeLastHandler() {
         array_shift($this->handlerStack);
     }
 
@@ -170,8 +161,7 @@ final class Run implements RunInterface
      *
      * @return array
      */
-    public function getHandlers()
-    {
+    public function getHandlers() {
         return $this->handlerStack;
     }
 
@@ -180,19 +170,16 @@ final class Run implements RunInterface
      *
      * @return Run
      */
-    public function clearHandlers()
-    {
+    public function clearHandlers() {
         $this->handlerStack = [];
         return $this;
     }
 
-    public function getFrameFilters()
-    {
+    public function getFrameFilters() {
         return $this->frameFilters;
     }
 
-    public function clearFrameFilters()
-    {
+    public function clearFrameFilters() {
         $this->frameFilters = [];
         return $this;
     }
@@ -202,8 +189,7 @@ final class Run implements RunInterface
      *
      * @return Run
      */
-    public function register()
-    {
+    public function register() {
         if (!$this->isRegistered) {
             // Workaround PHP bug 42098
             // https://bugs.php.net/bug.php?id=42098
@@ -214,8 +200,14 @@ final class Run implements RunInterface
             class_exists("\\Whoops\\Inspector\\InspectorFactory");
 
             $this->system->setErrorHandler([$this, self::ERROR_HANDLER]);
-            $this->system->setExceptionHandler([$this, self::EXCEPTION_HANDLER]);
-            $this->system->registerShutdownFunction([$this, self::SHUTDOWN_HANDLER]);
+            $this->system->setExceptionHandler([
+                $this,
+                self::EXCEPTION_HANDLER,
+            ]);
+            $this->system->registerShutdownFunction([
+                $this,
+                self::SHUTDOWN_HANDLER,
+            ]);
 
             $this->isRegistered = true;
         }
@@ -228,8 +220,7 @@ final class Run implements RunInterface
      *
      * @return Run
      */
-    public function unregister()
-    {
+    public function unregister() {
         if ($this->isRegistered) {
             $this->system->restoreExceptionHandler();
             $this->system->restoreErrorHandler();
@@ -247,8 +238,7 @@ final class Run implements RunInterface
      *
      * @return bool
      */
-    public function allowQuit($exit = null)
-    {
+    public function allowQuit($exit = null) {
         if (func_num_args() == 0) {
             return $this->allowQuit;
         }
@@ -264,19 +254,15 @@ final class Run implements RunInterface
      *
      * @return Run
      */
-    public function silenceErrorsInPaths($patterns, $levels = 10240)
-    {
+    public function silenceErrorsInPaths($patterns, $levels = 10240) {
         $this->silencedPatterns = array_merge(
             $this->silencedPatterns,
-            array_map(
-                function ($pattern) use ($levels) {
-                    return [
-                        "pattern" => $pattern,
-                        "levels" => $levels,
-                    ];
-                },
-                (array) $patterns
-            )
+            array_map(function ($pattern) use ($levels) {
+                return [
+                    "pattern" => $pattern,
+                    "levels" => $levels,
+                ];
+            }, (array) $patterns),
         );
 
         return $this;
@@ -287,8 +273,7 @@ final class Run implements RunInterface
      *
      * @return array
      */
-    public function getSilenceErrorsInPaths()
-    {
+    public function getSilenceErrorsInPaths() {
         return $this->silencedPatterns;
     }
 
@@ -303,8 +288,7 @@ final class Run implements RunInterface
      *
      * @throws InvalidArgumentException
      */
-    public function sendHttpCode($code = null)
-    {
+    public function sendHttpCode($code = null) {
         if (func_num_args() == 0) {
             return $this->sendHttpCode;
         }
@@ -319,7 +303,7 @@ final class Run implements RunInterface
 
         if ($code < 400 || 600 <= $code) {
             throw new InvalidArgumentException(
-                "Invalid status code '$code', must be 4xx or 5xx"
+                "Invalid status code '$code', must be 4xx or 5xx",
             );
         }
 
@@ -336,15 +320,14 @@ final class Run implements RunInterface
      *
      * @throws InvalidArgumentException
      */
-    public function sendExitCode($code = null)
-    {
+    public function sendExitCode($code = null) {
         if (func_num_args() == 0) {
             return $this->sendExitCode;
         }
 
         if ($code < 0 || 255 <= $code) {
             throw new InvalidArgumentException(
-                "Invalid status code '$code', must be between 0 and 254"
+                "Invalid status code '$code', must be between 0 and 254",
             );
         }
 
@@ -359,8 +342,7 @@ final class Run implements RunInterface
      *
      * @return bool
      */
-    public function writeToOutput($send = null)
-    {
+    public function writeToOutput($send = null) {
         if (func_num_args() == 0) {
             return $this->sendOutput;
         }
@@ -375,8 +357,7 @@ final class Run implements RunInterface
      *
      * @return string Output generated by handlers.
      */
-    public function handleException($exception)
-    {
+    public function handleException($exception) {
         // Walk the registered handlers in the reverse order
         // they were registered, and pass off the exception
         $inspector = $this->getInspector($exception);
@@ -403,9 +384,16 @@ final class Run implements RunInterface
                 $handlerResponse = $handler->handle($exception);
 
                 // Collect the content type for possible sending in the headers.
-                $handlerContentType = method_exists($handler, 'contentType') ? $handler->contentType() : null;
+                $handlerContentType = method_exists($handler, "contentType")
+                    ? $handler->contentType()
+                    : null;
 
-                if (in_array($handlerResponse, [Handler::LAST_HANDLER, Handler::QUIT])) {
+                if (
+                    in_array($handlerResponse, [
+                        Handler::LAST_HANDLER,
+                        Handler::QUIT,
+                    ])
+                ) {
                     // The Handler has handled the exception in some way, and
                     // wishes to quit execution (Handler::QUIT), or skip any
                     // other handlers (Handler::LAST_HANDLER). If $this->allowQuit
@@ -443,9 +431,7 @@ final class Run implements RunInterface
             // HHVM fix for https://github.com/facebook/hhvm/issues/4055
             $this->system->flushOutputBuffer();
 
-            $this->system->stopExecution(
-                $this->sendExitCode()
-            );
+            $this->system->stopExecution($this->sendExitCode());
         }
 
         return $output;
@@ -465,8 +451,7 @@ final class Run implements RunInterface
      *
      * @throws ErrorException
      */
-    public function handleError($level, $message, $file = null, $line = null)
-    {
+    public function handleError($level, $message, $file = null, $line = null) {
         if ($level & $this->system->getErrorReportingLevel()) {
             foreach ($this->silencedPatterns as $entry) {
                 $pathMatches = (bool) preg_match($entry["pattern"], $file);
@@ -480,7 +465,13 @@ final class Run implements RunInterface
 
             // XXX we pass $level for the "code" param only for BC reasons.
             // see https://github.com/filp/whoops/issues/267
-            $exception = new ErrorException($message, /*code*/ $level, /*severity*/ $level, $file, $line);
+            $exception = new ErrorException(
+                $message,
+                /*code*/ $level,
+                /*severity*/ $level,
+                $file,
+                $line,
+            );
             if ($this->canThrowExceptions) {
                 throw $exception;
             } else {
@@ -500,8 +491,7 @@ final class Run implements RunInterface
      *
      * @return void
      */
-    public function handleShutdown()
-    {
+    public function handleShutdown() {
         // If we reached this step, we are in shutdown handler.
         // An exception thrown in a shutdown handler will not be propagated
         // to the exception handler. Pass that information along.
@@ -513,37 +503,36 @@ final class Run implements RunInterface
         }
 
         $error = $this->system->getLastError();
-        if ($error && Misc::isLevelFatal($error['type'])) {
+        if ($error && Misc::isLevelFatal($error["type"])) {
             // If there was a fatal error,
             // it was not handled in handleError yet.
             $this->allowQuit = false;
             $this->handleError(
-                $error['type'],
-                $error['message'],
-                $error['file'],
-                $error['line']
+                $error["type"],
+                $error["message"],
+                $error["file"],
+                $error["line"],
             );
         }
     }
-
 
     /**
      * @param InspectorFactoryInterface $factory
      *
      * @return void
      */
-    public function setInspectorFactory(InspectorFactoryInterface $factory)
-    {
+    public function setInspectorFactory(InspectorFactoryInterface $factory) {
         $this->inspectorFactory = $factory;
     }
 
-    public function addFrameFilter($filterCallback)
-    {
+    public function addFrameFilter($filterCallback) {
         if (!is_callable($filterCallback)) {
-            throw new \InvalidArgumentException(sprintf(
-                "A frame filter must be of type callable, %s type given.",
-                gettype($filterCallback)
-            ));
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "A frame filter must be of type callable, %s type given.",
+                    gettype($filterCallback),
+                ),
+            );
         }
 
         $this->frameFilters[] = $filterCallback;
@@ -555,8 +544,7 @@ final class Run implements RunInterface
      *
      * @return InspectorInterface
      */
-    private function getInspector($exception)
-    {
+    private function getInspector($exception) {
         return $this->inspectorFactory->create($exception);
     }
 
@@ -569,16 +557,15 @@ final class Run implements RunInterface
      *
      * @throws InvalidArgumentException
      */
-    private function resolveHandler($handler)
-    {
+    private function resolveHandler($handler) {
         if (is_callable($handler)) {
             $handler = new CallbackHandler($handler);
         }
 
-        if (!$handler instanceof HandlerInterface) {
+        if (!($handler instanceof HandlerInterface)) {
             throw new InvalidArgumentException(
-                "Handler must be a callable, or instance of "
-                . "Whoops\\Handler\\HandlerInterface"
+                "Handler must be a callable, or instance of " .
+                    "Whoops\\Handler\\HandlerInterface",
             );
         }
 
@@ -592,12 +579,9 @@ final class Run implements RunInterface
      *
      * @return Run
      */
-    private function writeToOutputNow($output)
-    {
+    private function writeToOutputNow($output) {
         if ($this->sendHttpCode() && Misc::canSendHeaders()) {
-            $this->system->setHttpResponseCode(
-                $this->sendHttpCode()
-            );
+            $this->system->setHttpResponseCode($this->sendHttpCode());
         }
 
         echo $output;

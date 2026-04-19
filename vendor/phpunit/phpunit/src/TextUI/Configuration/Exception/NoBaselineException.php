@@ -16,6 +16,4 @@ use RuntimeException;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class NoBaselineException extends RuntimeException implements Exception
-{
-}
+final class NoBaselineException extends RuntimeException implements Exception {}

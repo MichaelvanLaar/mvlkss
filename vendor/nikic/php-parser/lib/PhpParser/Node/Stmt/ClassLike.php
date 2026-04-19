@@ -66,7 +66,10 @@ abstract class ClassLike extends Node\Stmt {
         foreach ($this->stmts as $stmt) {
             if ($stmt instanceof Property) {
                 foreach ($stmt->props as $prop) {
-                    if ($prop instanceof PropertyItem && $name === $prop->name->toString()) {
+                    if (
+                        $prop instanceof PropertyItem &&
+                        $name === $prop->name->toString()
+                    ) {
                         return $stmt;
                     }
                 }
@@ -100,7 +103,10 @@ abstract class ClassLike extends Node\Stmt {
     public function getMethod(string $name): ?ClassMethod {
         $lowerName = strtolower($name);
         foreach ($this->stmts as $stmt) {
-            if ($stmt instanceof ClassMethod && $lowerName === $stmt->name->toLowerString()) {
+            if (
+                $stmt instanceof ClassMethod &&
+                $lowerName === $stmt->name->toLowerString()
+            ) {
                 return $stmt;
             }
         }

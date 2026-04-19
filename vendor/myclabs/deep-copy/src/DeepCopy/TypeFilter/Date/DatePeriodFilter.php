@@ -8,8 +8,7 @@ use DeepCopy\TypeFilter\TypeFilter;
 /**
  * @final
  */
-class DatePeriodFilter implements TypeFilter
-{
+class DatePeriodFilter implements TypeFilter {
     /**
      * {@inheritdoc}
      *
@@ -17,8 +16,7 @@ class DatePeriodFilter implements TypeFilter
      *
      * @see http://news.php.net/php.bugs/205076
      */
-    public function apply($element)
-    {
+    public function apply($element) {
         $options = 0;
         if (PHP_VERSION_ID >= 80200 && $element->include_end_date) {
             $options |= DatePeriod::INCLUDE_END_DATE;
@@ -28,7 +26,12 @@ class DatePeriodFilter implements TypeFilter
         }
 
         if ($element->getEndDate()) {
-            return new DatePeriod($element->getStartDate(), $element->getDateInterval(), $element->getEndDate(), $options);
+            return new DatePeriod(
+                $element->getStartDate(),
+                $element->getDateInterval(),
+                $element->getEndDate(),
+                $options,
+            );
         }
 
         if (PHP_VERSION_ID >= 70217) {
@@ -37,6 +40,11 @@ class DatePeriodFilter implements TypeFilter
             $recurrences = $element->recurrences - $element->include_start_date;
         }
 
-        return new DatePeriod($element->getStartDate(), $element->getDateInterval(), $recurrences, $options);
+        return new DatePeriod(
+            $element->getStartDate(),
+            $element->getDateInterval(),
+            $recurrences,
+            $options,
+        );
     }
 }

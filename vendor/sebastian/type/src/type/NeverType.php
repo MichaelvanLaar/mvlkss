@@ -12,28 +12,23 @@ namespace SebastianBergmann\Type;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for this library
  */
-final class NeverType extends Type
-{
-    public function isAssignable(Type $other): bool
-    {
+final class NeverType extends Type {
+    public function isAssignable(Type $other): bool {
         return $other instanceof self;
     }
 
     /**
      * @return 'never'
      */
-    public function name(): string
-    {
-        return 'never';
+    public function name(): string {
+        return "never";
     }
 
-    public function allowsNull(): bool
-    {
+    public function allowsNull(): bool {
         return false;
     }
 
-    public function isNever(): bool
-    {
+    public function isNever(): bool {
         return true;
     }
 }

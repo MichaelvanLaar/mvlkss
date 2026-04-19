@@ -18,15 +18,17 @@ use UnexpectedValueException;
  * Exposes a fluent interface for dealing with an ordered list
  * of stack-trace frames.
  */
-class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, Countable
-{
+class FrameCollection implements
+    ArrayAccess,
+    IteratorAggregate,
+    Serializable,
+    Countable {
     /**
      * @var array[]
      */
     private $frames;
 
-    public function __construct(array $frames)
-    {
+    public function __construct(array $frames) {
         $this->frames = array_map(function ($frame) {
             return new Frame($frame);
         }, $frames);
@@ -38,8 +40,7 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
      * @param  callable        $callable
      * @return FrameCollection
      */
-    public function filter($callable)
-    {
+    public function filter($callable) {
         $this->frames = array_values(array_filter($this->frames, $callable));
         return $this;
     }
@@ -50,16 +51,17 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
      * @param  callable        $callable
      * @return FrameCollection
      */
-    public function map($callable)
-    {
+    public function map($callable) {
         // Contain the map within a higher-order callable
         // that enforces type-correctness for the $callable
         $this->frames = array_map(function ($frame) use ($callable) {
             $frame = call_user_func($callable, $frame);
 
-            if (!$frame instanceof Frame) {
+            if (!($frame instanceof Frame)) {
                 throw new UnexpectedValueException(
-                    "Callable to " . __CLASS__ . "::map must return a Frame object"
+                    "Callable to " .
+                        __CLASS__ .
+                        "::map must return a Frame object",
                 );
             }
 
@@ -78,8 +80,7 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
      * @see    FrameCollection::getIterator
      * @return array
      */
-    public function getArray()
-    {
+    public function getArray() {
         return $this->frames;
     }
 
@@ -88,8 +89,7 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
      * @return ArrayIterator
      */
     #[ReturnTypeWillChange]
-    public function getIterator()
-    {
+    public function getIterator() {
         return new ArrayIterator($this->frames);
     }
 
@@ -98,8 +98,7 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
      * @param int $offset
      */
     #[ReturnTypeWillChange]
-    public function offsetExists($offset)
-    {
+    public function offsetExists($offset) {
         return isset($this->frames[$offset]);
     }
 
@@ -108,8 +107,7 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
      * @param int $offset
      */
     #[ReturnTypeWillChange]
-    public function offsetGet($offset)
-    {
+    public function offsetGet($offset) {
         return $this->frames[$offset];
     }
 
@@ -118,9 +116,8 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
      * @param int $offset
      */
     #[ReturnTypeWillChange]
-    public function offsetSet($offset, $value)
-    {
-        throw new \Exception(__CLASS__ . ' is read only');
+    public function offsetSet($offset, $value) {
+        throw new \Exception(__CLASS__ . " is read only");
     }
 
     /**
@@ -128,9 +125,8 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
      * @param int $offset
      */
     #[ReturnTypeWillChange]
-    public function offsetUnset($offset)
-    {
-        throw new \Exception(__CLASS__ . ' is read only');
+    public function offsetUnset($offset) {
+        throw new \Exception(__CLASS__ . " is read only");
     }
 
     /**
@@ -138,8 +134,7 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
      * @return int
      */
     #[ReturnTypeWillChange]
-    public function count()
-    {
+    public function count() {
         return count($this->frames);
     }
 
@@ -148,11 +143,12 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
      *
      * @return int
      */
-    public function countIsApplication()
-    {
-        return count(array_filter($this->frames, function (Frame $f) {
-            return $f->isApplication();
-        }));
+    public function countIsApplication() {
+        return count(
+            array_filter($this->frames, function (Frame $f) {
+                return $f->isApplication();
+            }),
+        );
     }
 
     /**
@@ -160,8 +156,7 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
      * @return string
      */
     #[ReturnTypeWillChange]
-    public function serialize()
-    {
+    public function serialize() {
         return serialize($this->frames);
     }
 
@@ -170,26 +165,22 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
      * @param string $serializedFrames
      */
     #[ReturnTypeWillChange]
-    public function unserialize($serializedFrames)
-    {
+    public function unserialize($serializedFrames) {
         $this->frames = unserialize($serializedFrames);
     }
 
-    public function __serialize()
-    {
+    public function __serialize() {
         return $this->frames;
     }
 
-    public function __unserialize(array $serializedFrames)
-    {
+    public function __unserialize(array $serializedFrames) {
         $this->frames = $serializedFrames;
     }
 
     /**
      * @param Frame[] $frames Array of Frame instances, usually from $e->getPrevious()
      */
-    public function prependFrames(array $frames)
-    {
+    public function prependFrames(array $frames) {
         $this->frames = array_merge($frames, $this->frames);
     }
 
@@ -199,14 +190,13 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
      * @param  FrameCollection $parentFrames Outer exception frames to compare tail against
      * @return Frame[]
      */
-    public function topDiff(FrameCollection $parentFrames)
-    {
+    public function topDiff(FrameCollection $parentFrames) {
         $diff = $this->frames;
 
         $parentFrames = $parentFrames->getArray();
-        $p = count($parentFrames)-1;
+        $p = count($parentFrames) - 1;
 
-        for ($i = count($diff)-1; $i >= 0 && $p >= 0; $i--) {
+        for ($i = count($diff) - 1; $i >= 0 && $p >= 0; $i--) {
             /** @var Frame $tailFrame */
             $tailFrame = $diff[$i];
             if ($tailFrame->equals($parentFrames[$p])) {

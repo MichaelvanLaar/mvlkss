@@ -20,8 +20,9 @@ use IteratorAggregate;
  *
  * @template-implements IteratorAggregate<non-negative-int, TestSuite>
  */
-final readonly class TestSuiteCollection implements Countable, IteratorAggregate
-{
+final readonly class TestSuiteCollection implements
+    Countable,
+    IteratorAggregate {
     /**
      * @var list<TestSuite>
      */
@@ -30,36 +31,30 @@ final readonly class TestSuiteCollection implements Countable, IteratorAggregate
     /**
      * @param list<TestSuite> $testSuites
      */
-    public static function fromArray(array $testSuites): self
-    {
+    public static function fromArray(array $testSuites): self {
         return new self(...$testSuites);
     }
 
-    private function __construct(TestSuite ...$testSuites)
-    {
+    private function __construct(TestSuite ...$testSuites) {
         $this->testSuites = $testSuites;
     }
 
     /**
      * @return list<TestSuite>
      */
-    public function asArray(): array
-    {
+    public function asArray(): array {
         return $this->testSuites;
     }
 
-    public function count(): int
-    {
+    public function count(): int {
         return count($this->testSuites);
     }
 
-    public function getIterator(): TestSuiteCollectionIterator
-    {
+    public function getIterator(): TestSuiteCollectionIterator {
         return new TestSuiteCollectionIterator($this);
     }
 
-    public function isEmpty(): bool
-    {
+    public function isEmpty(): bool {
         return $this->count() === 0;
     }
 }

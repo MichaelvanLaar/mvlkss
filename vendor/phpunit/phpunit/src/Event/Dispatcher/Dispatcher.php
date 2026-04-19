@@ -14,8 +14,7 @@ namespace PHPUnit\Event;
  *
  * @internal This interface is not covered by the backward compatibility promise for PHPUnit
  */
-interface Dispatcher
-{
+interface Dispatcher {
     /**
      * @throws UnknownEventTypeException
      */

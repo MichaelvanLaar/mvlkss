@@ -18,17 +18,14 @@ use PHPUnit\TextUI\Configuration\Directory;
  *
  * @immutable
  */
-final readonly class Xml
-{
+final readonly class Xml {
     private Directory $target;
 
-    public function __construct(Directory $target)
-    {
+    public function __construct(Directory $target) {
         $this->target = $target;
     }
 
-    public function target(): Directory
-    {
+    public function target(): Directory {
         return $this->target;
     }
 }

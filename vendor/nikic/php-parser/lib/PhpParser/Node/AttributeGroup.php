@@ -18,10 +18,10 @@ class AttributeGroup extends NodeAbstract {
     }
 
     public function getSubNodeNames(): array {
-        return ['attrs'];
+        return ["attrs"];
     }
 
     public function getType(): string {
-        return 'AttributeGroup';
+        return "AttributeGroup";
     }
 }

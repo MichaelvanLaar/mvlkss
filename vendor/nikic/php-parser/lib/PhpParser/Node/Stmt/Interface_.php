@@ -22,19 +22,23 @@ class Interface_ extends ClassLike {
      *             'attrGroups' => array(): PHP attribute groups
      * @param array<string, mixed> $attributes Additional attributes
      */
-    public function __construct($name, array $subNodes = [], array $attributes = []) {
+    public function __construct(
+        $name,
+        array $subNodes = [],
+        array $attributes = [],
+    ) {
         $this->attributes = $attributes;
         $this->name = \is_string($name) ? new Node\Identifier($name) : $name;
-        $this->extends = $subNodes['extends'] ?? [];
-        $this->stmts = $subNodes['stmts'] ?? [];
-        $this->attrGroups = $subNodes['attrGroups'] ?? [];
+        $this->extends = $subNodes["extends"] ?? [];
+        $this->stmts = $subNodes["stmts"] ?? [];
+        $this->attrGroups = $subNodes["attrGroups"] ?? [];
     }
 
     public function getSubNodeNames(): array {
-        return ['attrGroups', 'name', 'extends', 'stmts'];
+        return ["attrGroups", "name", "extends", "stmts"];
     }
 
     public function getType(): string {
-        return 'Stmt_Interface';
+        return "Stmt_Interface";
     }
 }

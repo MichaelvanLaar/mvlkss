@@ -16,10 +16,8 @@ use DOMDocument;
 use DOMNode;
 use ValueError;
 
-final class DOMNodeComparator extends ObjectComparator
-{
-    public function accepts(mixed $expected, mixed $actual): bool
-    {
+final class DOMNodeComparator extends ObjectComparator {
+    public function accepts(mixed $expected, mixed $actual): bool {
         return $expected instanceof DOMNode && $actual instanceof DOMNode;
     }
 
@@ -28,16 +26,22 @@ final class DOMNodeComparator extends ObjectComparator
      *
      * @throws ComparisonFailure
      */
-    public function assertEquals(mixed $expected, mixed $actual, float $delta = 0.0, bool $canonicalize = false, bool $ignoreCase = false, array &$processed = []): void
-    {
+    public function assertEquals(
+        mixed $expected,
+        mixed $actual,
+        float $delta = 0.0,
+        bool $canonicalize = false,
+        bool $ignoreCase = false,
+        array &$processed = [],
+    ): void {
         assert($expected instanceof DOMNode);
         assert($actual instanceof DOMNode);
 
         $expectedAsString = $this->nodeToText($expected, true, $ignoreCase);
-        $actualAsString   = $this->nodeToText($actual, true, $ignoreCase);
+        $actualAsString = $this->nodeToText($actual, true, $ignoreCase);
 
         if ($expectedAsString !== $actualAsString) {
-            $type = $expected instanceof DOMDocument ? 'documents' : 'nodes';
+            $type = $expected instanceof DOMDocument ? "documents" : "nodes";
 
             throw new ComparisonFailure(
                 $expected,
@@ -53,10 +57,13 @@ final class DOMNodeComparator extends ObjectComparator
      * Returns the normalized, whitespace-cleaned, and indented textual
      * representation of a DOMNode.
      */
-    private function nodeToText(DOMNode $node, bool $canonicalize, bool $ignoreCase): string
-    {
+    private function nodeToText(
+        DOMNode $node,
+        bool $canonicalize,
+        bool $ignoreCase,
+    ): string {
         if ($canonicalize) {
-            $document = new DOMDocument;
+            $document = new DOMDocument();
 
             try {
                 $c14n = $node->C14N();
@@ -90,7 +97,7 @@ final class DOMNodeComparator extends ObjectComparator
         assert($text !== false);
 
         if ($ignoreCase) {
-            return mb_strtolower($text, 'UTF-8');
+            return mb_strtolower($text, "UTF-8");
         }
 
         return $text;

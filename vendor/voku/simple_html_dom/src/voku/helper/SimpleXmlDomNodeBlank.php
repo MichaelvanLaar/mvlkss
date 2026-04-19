@@ -7,16 +7,15 @@ namespace voku\helper;
 /**
  * {@inheritdoc}
  */
-class SimpleXmlDomNodeBlank extends AbstractSimpleXmlDomNode implements SimpleXmlDomNodeInterface
-{
+class SimpleXmlDomNodeBlank extends AbstractSimpleXmlDomNode implements
+    SimpleXmlDomNodeInterface {
     /**
      * @param string   $selector
      * @param int|null $idx
      *
      * @return null
      */
-    public function find(string $selector, $idx = null)
-    {
+    public function find(string $selector, $idx = null) {
         return null;
     }
 
@@ -27,8 +26,7 @@ class SimpleXmlDomNodeBlank extends AbstractSimpleXmlDomNode implements SimpleXm
      *
      * @return SimpleXmlDomInterface[]|SimpleXmlDomNodeInterface<SimpleXmlDomInterface>
      */
-    public function findMulti(string $selector): SimpleXmlDomNodeInterface
-    {
+    public function findMulti(string $selector): SimpleXmlDomNodeInterface {
         return new self();
     }
 
@@ -39,8 +37,7 @@ class SimpleXmlDomNodeBlank extends AbstractSimpleXmlDomNode implements SimpleXm
      *
      * @return false
      */
-    public function findMultiOrFalse(string $selector)
-    {
+    public function findMultiOrFalse(string $selector) {
         return false;
     }
 
@@ -51,8 +48,7 @@ class SimpleXmlDomNodeBlank extends AbstractSimpleXmlDomNode implements SimpleXm
      *
      * @return SimpleXmlDomInterface
      */
-    public function findOne(string $selector)
-    {
+    public function findOne(string $selector) {
         return new SimpleXmlDomBlank();
     }
 
@@ -61,16 +57,14 @@ class SimpleXmlDomNodeBlank extends AbstractSimpleXmlDomNode implements SimpleXm
      *
      * @return false
      */
-    public function findOneOrFalse(string $selector)
-    {
+    public function findOneOrFalse(string $selector) {
         return false;
     }
 
     /**
      * @return string[]
      */
-    public function innerHtml(): array
-    {
+    public function innerHtml(): array {
         return [];
     }
 
@@ -79,8 +73,7 @@ class SimpleXmlDomNodeBlank extends AbstractSimpleXmlDomNode implements SimpleXm
      *
      * @return string[]
      */
-    public function innertext()
-    {
+    public function innertext() {
         return [];
     }
 
@@ -89,16 +82,14 @@ class SimpleXmlDomNodeBlank extends AbstractSimpleXmlDomNode implements SimpleXm
      *
      * @return string[]
      */
-    public function outertext()
-    {
+    public function outertext() {
         return [];
     }
 
     /**
      * @return string[]
      */
-    public function text(): array
-    {
+    public function text(): array {
         return [];
     }
 }

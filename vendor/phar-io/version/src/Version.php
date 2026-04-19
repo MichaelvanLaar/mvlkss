@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 /*
  * This file is part of PharIo\Version.
  *
@@ -38,7 +38,7 @@ class Version {
      */
     public function getPreReleaseSuffix(): PreReleaseSuffix {
         if ($this->preReleaseSuffix === null) {
-            throw new NoPreReleaseSuffixException('No pre-release suffix set');
+            throw new NoPreReleaseSuffixException("No pre-release suffix set");
         }
 
         return $this->preReleaseSuffix;
@@ -50,17 +50,17 @@ class Version {
 
     public function getVersionString(): string {
         $str = \sprintf(
-            '%d.%d.%d',
+            "%d.%d.%d",
             $this->getMajor()->getValue() ?? 0,
             $this->getMinor()->getValue() ?? 0,
-            $this->getPatch()->getValue() ?? 0
+            $this->getPatch()->getValue() ?? 0,
         );
 
         if (!$this->hasPreReleaseSuffix()) {
             return $str;
         }
 
-        return $str . '-' . $this->getPreReleaseSuffix()->asString();
+        return $str . "-" . $this->getPreReleaseSuffix()->asString();
     }
 
     public function hasPreReleaseSuffix(): bool {
@@ -76,8 +76,11 @@ class Version {
             return false;
         }
 
-        if ($this->hasBuildMetaData() && $other->hasBuildMetaData() &&
-            !$this->getBuildMetaData()->equals($other->getBuildMetaData())) {
+        if (
+            $this->hasBuildMetaData() &&
+            $other->hasBuildMetaData() &&
+            !$this->getBuildMetaData()->equals($other->getBuildMetaData())
+        ) {
             return false;
         }
 
@@ -121,7 +124,9 @@ class Version {
             return false;
         }
 
-        return $this->getPreReleaseSuffix()->isGreaterThan($version->getPreReleaseSuffix());
+        return $this->getPreReleaseSuffix()->isGreaterThan(
+            $version->getPreReleaseSuffix(),
+        );
     }
 
     public function getMajor(): VersionNumber {
@@ -149,7 +154,7 @@ class Version {
      */
     public function getBuildMetaData(): BuildMetaData {
         if (!$this->hasBuildMetaData()) {
-            throw new NoBuildMetaDataException('No build metadata set');
+            throw new NoBuildMetaDataException("No build metadata set");
         }
 
         return $this->buildMetadata;
@@ -161,16 +166,23 @@ class Version {
      * @throws InvalidPreReleaseSuffixException
      */
     private function parseVersion(array $matches): void {
-        $this->major = new VersionNumber((int)$matches['Major']);
-        $this->minor = new VersionNumber((int)$matches['Minor']);
-        $this->patch = isset($matches['Patch']) ? new VersionNumber((int)$matches['Patch']) : new VersionNumber(0);
+        $this->major = new VersionNumber((int) $matches["Major"]);
+        $this->minor = new VersionNumber((int) $matches["Minor"]);
+        $this->patch = isset($matches["Patch"])
+            ? new VersionNumber((int) $matches["Patch"])
+            : new VersionNumber(0);
 
-        if (isset($matches['PreReleaseSuffix']) && $matches['PreReleaseSuffix'] !== '') {
-            $this->preReleaseSuffix = new PreReleaseSuffix($matches['PreReleaseSuffix']);
+        if (
+            isset($matches["PreReleaseSuffix"]) &&
+            $matches["PreReleaseSuffix"] !== ""
+        ) {
+            $this->preReleaseSuffix = new PreReleaseSuffix(
+                $matches["PreReleaseSuffix"],
+            );
         }
 
-        if (isset($matches['BuildMetadata'])) {
-            $this->buildMetadata = new BuildMetaData($matches['BuildMetadata']);
+        if (isset($matches["BuildMetadata"])) {
+            $this->buildMetadata = new BuildMetaData($matches["BuildMetadata"]);
         }
     }
 
@@ -199,7 +211,10 @@ class Version {
 
         if (\preg_match($regex, $version, $matches) !== 1) {
             throw new InvalidVersionException(
-                \sprintf("Version string '%s' does not follow SemVer semantics", $version)
+                \sprintf(
+                    "Version string '%s' does not follow SemVer semantics",
+                    $version,
+                ),
             );
         }
 

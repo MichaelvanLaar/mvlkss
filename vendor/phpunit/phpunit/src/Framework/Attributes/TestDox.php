@@ -17,8 +17,7 @@ use Attribute;
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
 #[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD)]
-final readonly class TestDox
-{
+final readonly class TestDox {
     /**
      * @var non-empty-string
      */
@@ -27,16 +26,14 @@ final readonly class TestDox
     /**
      * @param non-empty-string $text
      */
-    public function __construct(string $text)
-    {
+    public function __construct(string $text) {
         $this->text = $text;
     }
 
     /**
      * @return non-empty-string
      */
-    public function text(): string
-    {
+    public function text(): string {
         return $this->text;
     }
 }

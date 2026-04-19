@@ -11,6 +11,4 @@ namespace SebastianBergmann\CodeUnit;
 
 use RuntimeException;
 
-final class NoTraitException extends RuntimeException implements Exception
-{
-}
+final class NoTraitException extends RuntimeException implements Exception {}

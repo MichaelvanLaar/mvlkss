@@ -18,17 +18,21 @@ class Declare_ extends Node\Stmt {
      * @param Node\Stmt[]|null $stmts Statements
      * @param array<string, mixed> $attributes Additional attributes
      */
-    public function __construct(array $declares, ?array $stmts = null, array $attributes = []) {
+    public function __construct(
+        array $declares,
+        ?array $stmts = null,
+        array $attributes = [],
+    ) {
         $this->attributes = $attributes;
         $this->declares = $declares;
         $this->stmts = $stmts;
     }
 
     public function getSubNodeNames(): array {
-        return ['declares', 'stmts'];
+        return ["declares", "stmts"];
     }
 
     public function getType(): string {
-        return 'Stmt_Declare';
+        return "Stmt_Declare";
     }
 }

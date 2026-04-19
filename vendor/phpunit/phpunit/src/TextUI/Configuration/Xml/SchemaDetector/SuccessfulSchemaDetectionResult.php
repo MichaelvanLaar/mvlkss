@@ -16,8 +16,8 @@ namespace PHPUnit\TextUI\XmlConfiguration;
  *
  * @immutable
  */
-final readonly class SuccessfulSchemaDetectionResult extends SchemaDetectionResult
-{
+final readonly class SuccessfulSchemaDetectionResult extends
+    SchemaDetectionResult {
     /**
      * @var non-empty-string
      */
@@ -26,13 +26,11 @@ final readonly class SuccessfulSchemaDetectionResult extends SchemaDetectionResu
     /**
      * @param non-empty-string $version
      */
-    public function __construct(string $version)
-    {
+    public function __construct(string $version) {
         $this->version = $version;
     }
 
-    public function detected(): bool
-    {
+    public function detected(): bool {
         return true;
     }
 
@@ -41,8 +39,7 @@ final readonly class SuccessfulSchemaDetectionResult extends SchemaDetectionResu
      *
      * @return non-empty-string
      */
-    public function version(): string
-    {
+    public function version(): string {
         return $this->version;
     }
 }

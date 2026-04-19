@@ -14,10 +14,8 @@ namespace PHPUnit\Runner\Filter;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class ExcludeNameFilterIterator extends NameFilterIterator
-{
-    protected function doAccept(bool $result): bool
-    {
+final class ExcludeNameFilterIterator extends NameFilterIterator {
+    protected function doAccept(bool $result): bool {
         return !$result;
     }
 }

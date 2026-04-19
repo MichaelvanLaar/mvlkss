@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 /*
  * This file is part of PharIo\Manifest.
  *
@@ -12,8 +12,6 @@ namespace PharIo\Manifest;
 
 class AuthorElementCollection extends ElementCollection {
     public function current(): AuthorElement {
-        return new AuthorElement(
-            $this->getCurrentElement()
-        );
+        return new AuthorElement($this->getCurrentElement());
     }
 }

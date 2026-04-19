@@ -18,7 +18,7 @@ class VariadicPlaceholder extends NodeAbstract {
     }
 
     public function getType(): string {
-        return 'VariadicPlaceholder';
+        return "VariadicPlaceholder";
     }
 
     public function getSubNodeNames(): array {

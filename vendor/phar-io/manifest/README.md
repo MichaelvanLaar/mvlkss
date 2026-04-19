@@ -15,15 +15,16 @@ If you only need this library during development, for instance to run your proje
 ## Usage Examples
 
 ### Read from `manifest.xml`
+
 ```php
 use PharIo\Manifest\ManifestLoader;
 use PharIo\Manifest\ManifestSerializer;
 
-$manifest = ManifestLoader::fromFile('manifest.xml');
+$manifest = ManifestLoader::fromFile("manifest.xml");
 
 var_dump($manifest);
 
-echo (new ManifestSerializer)->serializeToString($manifest);
+echo (new ManifestSerializer())->serializeToString($manifest);
 ```
 
 <details>
@@ -130,29 +131,34 @@ object(PharIo\Manifest\Manifest)#14 (6) {
 </details>
 
 ### Create via API
+
 ```php
 $bundled = new \PharIo\Manifest\BundledComponentCollection();
 $bundled->add(
-    new \PharIo\Manifest\BundledComponent('vendor/packageA', new \PharIo\Version\Version('1.2.3-dev')
-    )
+    new \PharIo\Manifest\BundledComponent(
+        "vendor/packageA",
+        new \PharIo\Version\Version("1.2.3-dev"),
+    ),
 );
 
 $manifest = new PharIo\Manifest\Manifest(
-    new \PharIo\Manifest\ApplicationName('vendor/package'),
-    new \PharIo\Version\Version('1.0.0'),
+    new \PharIo\Manifest\ApplicationName("vendor/package"),
+    new \PharIo\Version\Version("1.0.0"),
     new \PharIo\Manifest\Library(),
     new \PharIo\Manifest\CopyrightInformation(
         new \PharIo\Manifest\AuthorCollection(),
         new \PharIo\Manifest\License(
-            'BSD-3-Clause',
-            new \PharIo\Manifest\Url('https://spdx.org/licenses/BSD-3-Clause.html')
-        )
+            "BSD-3-Clause",
+            new \PharIo\Manifest\Url(
+                "https://spdx.org/licenses/BSD-3-Clause.html",
+            ),
+        ),
     ),
     new \PharIo\Manifest\RequirementCollection(),
-    $bundled
+    $bundled,
 );
 
-echo (new ManifestSerializer)->serializeToString($manifest);
+echo (new ManifestSerializer())->serializeToString($manifest);
 ```
 
 <details>
@@ -175,4 +181,3 @@ echo (new ManifestSerializer)->serializeToString($manifest);
 ```
     
 </details>
-

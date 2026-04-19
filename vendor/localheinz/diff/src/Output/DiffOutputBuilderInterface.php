@@ -13,7 +13,6 @@ namespace Localheinz\Diff\Output;
  * Defines how an output builder should take a generated
  * diff array and return a string representation of that diff.
  */
-interface DiffOutputBuilderInterface
-{
+interface DiffOutputBuilderInterface {
     public function getDiff(array $diff): string;
 }

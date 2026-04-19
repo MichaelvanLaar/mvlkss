@@ -14,8 +14,7 @@ namespace PHPUnit\Framework\MockObject\Generator;
  *
  * @internal This interface is not covered by the backward compatibility promise for PHPUnit
  */
-interface MockType
-{
+interface MockType {
     /**
      * @return class-string
      */

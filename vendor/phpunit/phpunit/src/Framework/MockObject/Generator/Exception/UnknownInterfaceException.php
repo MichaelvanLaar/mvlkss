@@ -16,15 +16,12 @@ use function sprintf;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class UnknownInterfaceException extends \PHPUnit\Framework\Exception implements Exception
-{
-    public function __construct(string $interfaceName)
-    {
+final class UnknownInterfaceException
+    extends \PHPUnit\Framework\Exception
+    implements Exception {
+    public function __construct(string $interfaceName) {
         parent::__construct(
-            sprintf(
-                'Interface "%s" does not exist',
-                $interfaceName,
-            ),
+            sprintf('Interface "%s" does not exist', $interfaceName),
         );
     }
 }

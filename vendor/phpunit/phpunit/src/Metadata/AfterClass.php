@@ -14,27 +14,23 @@ namespace PHPUnit\Metadata;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class AfterClass extends Metadata
-{
+final readonly class AfterClass extends Metadata {
     private int $priority;
 
     /**
      * @param 0|1 $level
      */
-    protected function __construct(int $level, int $priority)
-    {
+    protected function __construct(int $level, int $priority) {
         parent::__construct($level);
 
         $this->priority = $priority;
     }
 
-    public function isAfterClass(): true
-    {
+    public function isAfterClass(): true {
         return true;
     }
 
-    public function priority(): int
-    {
+    public function priority(): int {
         return $this->priority;
     }
 }

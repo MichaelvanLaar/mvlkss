@@ -19,20 +19,17 @@ use PHPUnit\Event\InvalidArgumentException;
  *
  * @codeCoverageIgnore
  */
-final class SystemStopWatchWithOffset implements StopWatch
-{
+final class SystemStopWatchWithOffset implements StopWatch {
     private ?HRTime $offset;
 
-    public function __construct(HRTime $offset)
-    {
+    public function __construct(HRTime $offset) {
         $this->offset = $offset;
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    public function current(): HRTime
-    {
+    public function current(): HRTime {
         if ($this->offset !== null) {
             $offset = $this->offset;
 

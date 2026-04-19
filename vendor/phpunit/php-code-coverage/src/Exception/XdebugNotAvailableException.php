@@ -12,10 +12,9 @@ namespace SebastianBergmann\CodeCoverage\Driver;
 use RuntimeException;
 use SebastianBergmann\CodeCoverage\Exception;
 
-final class XdebugNotAvailableException extends RuntimeException implements Exception
-{
-    public function __construct()
-    {
-        parent::__construct('The Xdebug extension is not available');
+final class XdebugNotAvailableException extends RuntimeException implements
+    Exception {
+    public function __construct() {
+        parent::__construct("The Xdebug extension is not available");
     }
 }

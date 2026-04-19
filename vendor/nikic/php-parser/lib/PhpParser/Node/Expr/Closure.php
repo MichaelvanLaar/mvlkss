@@ -46,17 +46,25 @@ class Closure extends Expr implements FunctionLike {
      */
     public function __construct(array $subNodes = [], array $attributes = []) {
         $this->attributes = $attributes;
-        $this->static = $subNodes['static'] ?? false;
-        $this->byRef = $subNodes['byRef'] ?? false;
-        $this->params = $subNodes['params'] ?? [];
-        $this->uses = $subNodes['uses'] ?? [];
-        $this->returnType = $subNodes['returnType'] ?? null;
-        $this->stmts = $subNodes['stmts'] ?? [];
-        $this->attrGroups = $subNodes['attrGroups'] ?? [];
+        $this->static = $subNodes["static"] ?? false;
+        $this->byRef = $subNodes["byRef"] ?? false;
+        $this->params = $subNodes["params"] ?? [];
+        $this->uses = $subNodes["uses"] ?? [];
+        $this->returnType = $subNodes["returnType"] ?? null;
+        $this->stmts = $subNodes["stmts"] ?? [];
+        $this->attrGroups = $subNodes["attrGroups"] ?? [];
     }
 
     public function getSubNodeNames(): array {
-        return ['attrGroups', 'static', 'byRef', 'params', 'uses', 'returnType', 'stmts'];
+        return [
+            "attrGroups",
+            "static",
+            "byRef",
+            "params",
+            "uses",
+            "returnType",
+            "stmts",
+        ];
     }
 
     public function returnsByRef(): bool {
@@ -81,6 +89,6 @@ class Closure extends Expr implements FunctionLike {
     }
 
     public function getType(): string {
-        return 'Expr_Closure';
+        return "Expr_Closure";
     }
 }

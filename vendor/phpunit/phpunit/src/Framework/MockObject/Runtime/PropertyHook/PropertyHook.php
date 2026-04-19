@@ -12,8 +12,7 @@ namespace PHPUnit\Framework\MockObject\Runtime;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-abstract readonly class PropertyHook
-{
+abstract readonly class PropertyHook {
     /**
      * @var non-empty-string
      */
@@ -22,32 +21,28 @@ abstract readonly class PropertyHook
     /**
      * @param non-empty-string $propertyName
      */
-    public static function get(string $propertyName): PropertyGetHook
-    {
+    public static function get(string $propertyName): PropertyGetHook {
         return new PropertyGetHook($propertyName);
     }
 
     /**
      * @param non-empty-string $propertyName
      */
-    public static function set(string $propertyName): PropertySetHook
-    {
+    public static function set(string $propertyName): PropertySetHook {
         return new PropertySetHook($propertyName);
     }
 
     /**
      * @param non-empty-string $propertyName
      */
-    protected function __construct(string $propertyName)
-    {
+    protected function __construct(string $propertyName) {
         $this->propertyName = $propertyName;
     }
 
     /**
      * @return non-empty-string
      */
-    public function propertyName(): string
-    {
+    public function propertyName(): string {
         return $this->propertyName;
     }
 

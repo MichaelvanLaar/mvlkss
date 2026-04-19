@@ -19,20 +19,24 @@ use function is_string;
 use function sprintf;
 use SebastianBergmann\Exporter\Exporter;
 
-final class NumericComparator extends ScalarComparator
-{
-    public function accepts(mixed $expected, mixed $actual): bool
-    {
+final class NumericComparator extends ScalarComparator {
+    public function accepts(mixed $expected, mixed $actual): bool {
         // all numerical values, but not if both of them are strings
-        return is_numeric($expected) && is_numeric($actual) &&
-               !(is_string($expected) && is_string($actual));
+        return is_numeric($expected) &&
+            is_numeric($actual) &&
+            !(is_string($expected) && is_string($actual));
     }
 
     /**
      * @throws ComparisonFailure
      */
-    public function assertEquals(mixed $expected, mixed $actual, float $delta = 0.0, bool $canonicalize = false, bool $ignoreCase = false): void
-    {
+    public function assertEquals(
+        mixed $expected,
+        mixed $actual,
+        float $delta = 0.0,
+        bool $canonicalize = false,
+        bool $ignoreCase = false,
+    ): void {
         assert(is_numeric($expected));
         assert(is_numeric($actual));
 
@@ -46,18 +50,20 @@ final class NumericComparator extends ScalarComparator
             }
         }
 
-        if (($this->isInfinite($actual) xor $this->isInfinite($expected)) ||
+        if (
+            ($this->isInfinite($actual) xor $this->isInfinite($expected)) ||
             ($this->isNan($actual) || $this->isNan($expected)) ||
-            abs($actual - $expected) > $delta) {
-            $exporter = new Exporter;
+            abs($actual - $expected) > $delta
+        ) {
+            $exporter = new Exporter();
 
             throw new ComparisonFailure(
                 $expected,
                 $actual,
-                '',
-                '',
+                "",
+                "",
                 sprintf(
-                    'Failed asserting that %s matches expected %s.',
+                    "Failed asserting that %s matches expected %s.",
                     $exporter->export($actual),
                     $exporter->export($expected),
                 ),
@@ -65,13 +71,11 @@ final class NumericComparator extends ScalarComparator
         }
     }
 
-    private function isInfinite(mixed $value): bool
-    {
+    private function isInfinite(mixed $value): bool {
         return is_float($value) && is_infinite($value);
     }
 
-    private function isNan(mixed $value): bool
-    {
+    private function isNan(mixed $value): bool {
         return is_float($value) && is_nan($value);
     }
 }

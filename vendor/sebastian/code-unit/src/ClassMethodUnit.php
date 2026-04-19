@@ -12,10 +12,8 @@ namespace SebastianBergmann\CodeUnit;
 /**
  * @immutable
  */
-final readonly class ClassMethodUnit extends CodeUnit
-{
-    public function isClassMethod(): bool
-    {
+final readonly class ClassMethodUnit extends CodeUnit {
+    public function isClassMethod(): bool {
         return true;
     }
 }

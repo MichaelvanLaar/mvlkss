@@ -23,8 +23,7 @@ use RecursiveIterator;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class TestIdFilterIterator extends RecursiveFilterIterator
-{
+final class TestIdFilterIterator extends RecursiveFilterIterator {
     /**
      * @var non-empty-list<non-empty-string>
      */
@@ -34,27 +33,29 @@ final class TestIdFilterIterator extends RecursiveFilterIterator
      * @param RecursiveIterator<int, Test>     $iterator
      * @param non-empty-list<non-empty-string> $testIds
      */
-    public function __construct(RecursiveIterator $iterator, array $testIds)
-    {
+    public function __construct(RecursiveIterator $iterator, array $testIds) {
         parent::__construct($iterator);
 
         $this->testIds = $testIds;
     }
 
-    public function accept(): bool
-    {
+    public function accept(): bool {
         $test = $this->getInnerIterator()->current();
 
         if ($test instanceof TestSuite) {
             return true;
         }
 
-        if (!$test instanceof TestCase && !$test instanceof PhptTestCase) {
+        if (!($test instanceof TestCase) && !($test instanceof PhptTestCase)) {
             return false;
         }
 
         try {
-            return in_array($test->valueObjectForEvents()->id(), $this->testIds, true);
+            return in_array(
+                $test->valueObjectForEvents()->id(),
+                $this->testIds,
+                true,
+            );
         } catch (NoDataSetFromDataProviderException) {
             return false;
         }

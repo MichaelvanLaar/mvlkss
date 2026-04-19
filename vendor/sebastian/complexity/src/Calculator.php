@@ -21,15 +21,15 @@ use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\NodeVisitor\ParentConnectingVisitor;
 use PhpParser\ParserFactory;
 
-final class Calculator
-{
+final class Calculator {
     /**
      * @param non-empty-string $sourceFile
      *
      * @throws RuntimeException
      */
-    public function calculateForSourceFile(string $sourceFile): ComplexityCollection
-    {
+    public function calculateForSourceFile(
+        string $sourceFile,
+    ): ComplexityCollection {
         assert(file_exists($sourceFile));
         assert(is_readable($sourceFile));
 
@@ -43,10 +43,13 @@ final class Calculator
     /**
      * @throws RuntimeException
      */
-    public function calculateForSourceString(string $source): ComplexityCollection
-    {
+    public function calculateForSourceString(
+        string $source,
+    ): ComplexityCollection {
         try {
-            $nodes = (new ParserFactory)->createForHostVersion()->parse($source);
+            $nodes = (new ParserFactory())
+                ->createForHostVersion()
+                ->parse($source);
 
             assert($nodes !== null);
 
@@ -68,13 +71,14 @@ final class Calculator
      *
      * @throws RuntimeException
      */
-    public function calculateForAbstractSyntaxTree(array $nodes): ComplexityCollection
-    {
-        $traverser                    = new NodeTraverser;
+    public function calculateForAbstractSyntaxTree(
+        array $nodes,
+    ): ComplexityCollection {
+        $traverser = new NodeTraverser();
         $complexityCalculatingVisitor = new ComplexityCalculatingVisitor(true);
 
-        $traverser->addVisitor(new NameResolver);
-        $traverser->addVisitor(new ParentConnectingVisitor);
+        $traverser->addVisitor(new NameResolver());
+        $traverser->addVisitor(new ParentConnectingVisitor());
         $traverser->addVisitor($complexityCalculatingVisitor);
 
         try {

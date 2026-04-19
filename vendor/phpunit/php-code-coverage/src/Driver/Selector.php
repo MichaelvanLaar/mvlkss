@@ -14,17 +14,15 @@ use SebastianBergmann\CodeCoverage\NoCodeCoverageDriverAvailableException;
 use SebastianBergmann\CodeCoverage\NoCodeCoverageDriverWithPathCoverageSupportAvailableException;
 use SebastianBergmann\Environment\Runtime;
 
-final class Selector
-{
+final class Selector {
     /**
      * @throws NoCodeCoverageDriverAvailableException
      * @throws PcovNotAvailableException
      * @throws XdebugNotAvailableException
      * @throws XdebugNotEnabledException
      */
-    public function forLineCoverage(Filter $filter): Driver
-    {
-        $runtime = new Runtime;
+    public function forLineCoverage(Filter $filter): Driver {
+        $runtime = new Runtime();
 
         if ($runtime->hasPCOV()) {
             return new PcovDriver($filter);
@@ -38,7 +36,7 @@ final class Selector
             return $driver;
         }
 
-        throw new NoCodeCoverageDriverAvailableException;
+        throw new NoCodeCoverageDriverAvailableException();
     }
 
     /**
@@ -46,9 +44,8 @@ final class Selector
      * @throws XdebugNotAvailableException
      * @throws XdebugNotEnabledException
      */
-    public function forLineAndPathCoverage(Filter $filter): Driver
-    {
-        if ((new Runtime)->hasXdebug()) {
+    public function forLineAndPathCoverage(Filter $filter): Driver {
+        if ((new Runtime())->hasXdebug()) {
             $driver = new XdebugDriver($filter);
 
             $driver->enableDeadCodeDetection();
@@ -57,6 +54,6 @@ final class Selector
             return $driver;
         }
 
-        throw new NoCodeCoverageDriverWithPathCoverageSupportAvailableException;
+        throw new NoCodeCoverageDriverWithPathCoverageSupportAvailableException();
     }
 }

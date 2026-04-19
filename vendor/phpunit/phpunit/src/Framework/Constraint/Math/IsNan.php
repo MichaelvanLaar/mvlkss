@@ -14,22 +14,19 @@ use function is_nan;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class IsNan extends Constraint
-{
+final class IsNan extends Constraint {
     /**
      * Returns a string representation of the constraint.
      */
-    public function toString(): string
-    {
-        return 'is nan';
+    public function toString(): string {
+        return "is nan";
     }
 
     /**
      * Evaluates the constraint for parameter $other. Returns true if the
      * constraint is met, false otherwise.
      */
-    protected function matches(mixed $other): bool
-    {
+    protected function matches(mixed $other): bool {
         return is_nan($other);
     }
 }

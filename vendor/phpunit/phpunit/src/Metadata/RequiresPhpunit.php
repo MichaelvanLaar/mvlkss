@@ -16,27 +16,26 @@ use PHPUnit\Metadata\Version\Requirement;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class RequiresPhpunit extends Metadata
-{
+final readonly class RequiresPhpunit extends Metadata {
     private Requirement $versionRequirement;
 
     /**
      * @param 0|1 $level
      */
-    protected function __construct(int $level, Requirement $versionRequirement)
-    {
+    protected function __construct(
+        int $level,
+        Requirement $versionRequirement,
+    ) {
         parent::__construct($level);
 
         $this->versionRequirement = $versionRequirement;
     }
 
-    public function isRequiresPhpunit(): true
-    {
+    public function isRequiresPhpunit(): true {
         return true;
     }
 
-    public function versionRequirement(): Requirement
-    {
+    public function versionRequirement(): Requirement {
         return $this->versionRequirement;
     }
 }

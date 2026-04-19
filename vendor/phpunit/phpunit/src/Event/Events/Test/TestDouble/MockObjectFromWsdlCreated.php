@@ -18,8 +18,7 @@ use PHPUnit\Event\Telemetry;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class MockObjectFromWsdlCreated implements Event
-{
+final readonly class MockObjectFromWsdlCreated implements Event {
     private Telemetry\Info $telemetryInfo;
     private string $wsdlFile;
 
@@ -50,69 +49,65 @@ final readonly class MockObjectFromWsdlCreated implements Event
      * @param list<string> $methods
      * @param list<mixed>  $options
      */
-    public function __construct(Telemetry\Info $telemetryInfo, string $wsdlFile, string $originalClassName, string $mockClassName, array $methods, bool $callOriginalConstructor, array $options)
-    {
-        $this->telemetryInfo           = $telemetryInfo;
-        $this->wsdlFile                = $wsdlFile;
-        $this->originalClassName       = $originalClassName;
-        $this->mockClassName           = $mockClassName;
-        $this->methods                 = $methods;
+    public function __construct(
+        Telemetry\Info $telemetryInfo,
+        string $wsdlFile,
+        string $originalClassName,
+        string $mockClassName,
+        array $methods,
+        bool $callOriginalConstructor,
+        array $options,
+    ) {
+        $this->telemetryInfo = $telemetryInfo;
+        $this->wsdlFile = $wsdlFile;
+        $this->originalClassName = $originalClassName;
+        $this->mockClassName = $mockClassName;
+        $this->methods = $methods;
         $this->callOriginalConstructor = $callOriginalConstructor;
-        $this->options                 = $options;
+        $this->options = $options;
     }
 
-    public function telemetryInfo(): Telemetry\Info
-    {
+    public function telemetryInfo(): Telemetry\Info {
         return $this->telemetryInfo;
     }
 
-    public function wsdlFile(): string
-    {
+    public function wsdlFile(): string {
         return $this->wsdlFile;
     }
 
     /**
      * @return class-string
      */
-    public function originalClassName(): string
-    {
+    public function originalClassName(): string {
         return $this->originalClassName;
     }
 
     /**
      * @return class-string
      */
-    public function mockClassName(): string
-    {
+    public function mockClassName(): string {
         return $this->mockClassName;
     }
 
     /**
      * @return list<string>
      */
-    public function methods(): array
-    {
+    public function methods(): array {
         return $this->methods;
     }
 
-    public function callOriginalConstructor(): bool
-    {
+    public function callOriginalConstructor(): bool {
         return $this->callOriginalConstructor;
     }
 
     /**
      * @return list<mixed>
      */
-    public function options(): array
-    {
+    public function options(): array {
         return $this->options;
     }
 
-    public function asString(): string
-    {
-        return sprintf(
-            'Mock Object Created (%s)',
-            $this->wsdlFile,
-        );
+    public function asString(): string {
+        return sprintf("Mock Object Created (%s)", $this->wsdlFile);
     }
 }

@@ -1,5 +1,6 @@
 #!/usr/bin/env php
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,47 +10,59 @@
  * file that was distributed with this source code.
  */
 
-if (!version_compare(PHP_VERSION, PHP_VERSION, '=')) {
+if (!version_compare(PHP_VERSION, PHP_VERSION, "=")) {
     fwrite(
         STDERR,
         sprintf(
-            '%s declares an invalid value for PHP_VERSION.' . PHP_EOL .
-            'This breaks fundamental functionality such as version_compare().' . PHP_EOL .
-            'Please use a different PHP interpreter.' . PHP_EOL,
+            "%s declares an invalid value for PHP_VERSION." .
+                PHP_EOL .
+                "This breaks fundamental functionality such as version_compare()." .
+                PHP_EOL .
+                "Please use a different PHP interpreter." .
+                PHP_EOL,
 
-            PHP_BINARY
-        )
+            PHP_BINARY,
+        ),
     );
 
     die(1);
 }
 
-if (version_compare('8.2.0', PHP_VERSION, '>')) {
+if (version_compare("8.2.0", PHP_VERSION, ">")) {
     fwrite(
         STDERR,
         sprintf(
-            'This version of PHPUnit requires PHP >= 8.2.' . PHP_EOL .
-            'You are using PHP %s (%s).' . PHP_EOL,
+            "This version of PHPUnit requires PHP >= 8.2." .
+                PHP_EOL .
+                "You are using PHP %s (%s)." .
+                PHP_EOL,
             PHP_VERSION,
-            PHP_BINARY
-        )
+            PHP_BINARY,
+        ),
     );
 
     die(1);
 }
 
-if (!ini_get('date.timezone')) {
-    ini_set('date.timezone', 'UTC');
+if (!ini_get("date.timezone")) {
+    ini_set("date.timezone", "UTC");
 }
 
-if (isset($GLOBALS['_composer_autoload_path'])) {
-    define('PHPUNIT_COMPOSER_INSTALL', $GLOBALS['_composer_autoload_path']);
+if (isset($GLOBALS["_composer_autoload_path"])) {
+    define("PHPUNIT_COMPOSER_INSTALL", $GLOBALS["_composer_autoload_path"]);
 
-    unset($GLOBALS['_composer_autoload_path']);
+    unset($GLOBALS["_composer_autoload_path"]);
 } else {
-    foreach (array(__DIR__ . '/../../autoload.php', __DIR__ . '/../vendor/autoload.php', __DIR__ . '/vendor/autoload.php') as $file) {
+    foreach (
+        [
+            __DIR__ . "/../../autoload.php",
+            __DIR__ . "/../vendor/autoload.php",
+            __DIR__ . "/vendor/autoload.php",
+        ]
+        as $file
+    ) {
         if (file_exists($file)) {
-            define('PHPUNIT_COMPOSER_INSTALL', $file);
+            define("PHPUNIT_COMPOSER_INSTALL", $file);
 
             break;
         }
@@ -58,12 +71,17 @@ if (isset($GLOBALS['_composer_autoload_path'])) {
     unset($file);
 }
 
-if (!defined('PHPUNIT_COMPOSER_INSTALL')) {
+if (!defined("PHPUNIT_COMPOSER_INSTALL")) {
     fwrite(
         STDERR,
-        'You need to set up the project dependencies using Composer:' . PHP_EOL . PHP_EOL .
-        '    composer install' . PHP_EOL . PHP_EOL .
-        'You can learn all about Composer on https://getcomposer.org/.' . PHP_EOL
+        "You need to set up the project dependencies using Composer:" .
+            PHP_EOL .
+            PHP_EOL .
+            "    composer install" .
+            PHP_EOL .
+            PHP_EOL .
+            "You can learn all about Composer on https://getcomposer.org/." .
+            PHP_EOL,
     );
 
     die(1);
@@ -71,29 +89,39 @@ if (!defined('PHPUNIT_COMPOSER_INSTALL')) {
 
 require PHPUNIT_COMPOSER_INSTALL;
 
-$requiredExtensions = ['dom', 'json', 'libxml', 'mbstring', 'tokenizer', 'xml', 'xmlwriter'];
+$requiredExtensions = [
+    "dom",
+    "json",
+    "libxml",
+    "mbstring",
+    "tokenizer",
+    "xml",
+    "xmlwriter",
+];
 
-$unavailableExtensions = array_filter(
-    $requiredExtensions,
-    static function ($extension) {
-        return !extension_loaded($extension);
-    }
-);
+$unavailableExtensions = array_filter($requiredExtensions, static function (
+    $extension,
+) {
+    return !extension_loaded($extension);
+});
 
 // Workaround for https://github.com/sebastianbergmann/phpunit/issues/5662
-if (!function_exists('ctype_alnum')) {
-    $unavailableExtensions[] = 'ctype';
+if (!function_exists("ctype_alnum")) {
+    $unavailableExtensions[] = "ctype";
 }
 
 if ([] !== $unavailableExtensions) {
     fwrite(
         STDERR,
         sprintf(
-            'PHPUnit requires the "%s" extensions, but the "%s" %s not available.' . PHP_EOL,
+            'PHPUnit requires the "%s" extensions, but the "%s" %s not available.' .
+                PHP_EOL,
             implode('", "', $requiredExtensions),
             implode('", "', $unavailableExtensions),
-            count($unavailableExtensions) === 1 ? 'extension is' : 'extensions are'
-        )
+            count($unavailableExtensions) === 1
+                ? "extension is"
+                : "extensions are",
+        ),
     );
 
     die(1);
@@ -101,4 +129,5 @@ if ([] !== $unavailableExtensions) {
 
 unset($requiredExtensions, $unavailableExtensions);
 
-exit((new PHPUnit\TextUI\Application)->run($_SERVER['argv']));
+exit((new PHPUnit\TextUI\Application())->run($_SERVER["argv"]));
+

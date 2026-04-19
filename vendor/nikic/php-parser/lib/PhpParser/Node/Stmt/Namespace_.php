@@ -21,17 +21,21 @@ class Namespace_ extends Node\Stmt {
      * @param null|Node\Stmt[] $stmts Statements
      * @param array<string, mixed> $attributes Additional attributes
      */
-    public function __construct(?Node\Name $name = null, ?array $stmts = [], array $attributes = []) {
+    public function __construct(
+        ?Node\Name $name = null,
+        ?array $stmts = [],
+        array $attributes = [],
+    ) {
         $this->attributes = $attributes;
         $this->name = $name;
         $this->stmts = $stmts;
     }
 
     public function getSubNodeNames(): array {
-        return ['name', 'stmts'];
+        return ["name", "stmts"];
     }
 
     public function getType(): string {
-        return 'Stmt_Namespace';
+        return "Stmt_Namespace";
     }
 }

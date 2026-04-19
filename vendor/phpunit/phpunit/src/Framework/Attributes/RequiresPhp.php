@@ -17,8 +17,7 @@ use Attribute;
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
 #[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD)]
-final readonly class RequiresPhp
-{
+final readonly class RequiresPhp {
     /**
      * @var non-empty-string
      */
@@ -27,16 +26,14 @@ final readonly class RequiresPhp
     /**
      * @param non-empty-string $versionRequirement
      */
-    public function __construct(string $versionRequirement)
-    {
+    public function __construct(string $versionRequirement) {
         $this->versionRequirement = $versionRequirement;
     }
 
     /**
      * @return non-empty-string
      */
-    public function versionRequirement(): string
-    {
+    public function versionRequirement(): string {
         return $this->versionRequirement;
     }
 }

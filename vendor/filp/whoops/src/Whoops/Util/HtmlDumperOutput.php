@@ -11,26 +11,22 @@ namespace Whoops\Util;
  *
  * @see TemplateHelper::dump()
  */
-class HtmlDumperOutput
-{
+class HtmlDumperOutput {
     private $output;
 
-    public function __invoke($line, $depth)
-    {
+    public function __invoke($line, $depth) {
         // A negative depth means "end of dump"
         if ($depth >= 0) {
             // Adds a two spaces indentation to the line
-            $this->output .= str_repeat('  ', $depth) . $line . "\n";
+            $this->output .= str_repeat("  ", $depth) . $line . "\n";
         }
     }
 
-    public function getOutput()
-    {
+    public function getOutput() {
         return $this->output;
     }
 
-    public function clear()
-    {
+    public function clear() {
         $this->output = null;
     }
 }

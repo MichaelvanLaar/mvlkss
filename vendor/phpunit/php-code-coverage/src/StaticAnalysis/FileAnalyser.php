@@ -24,8 +24,7 @@ namespace SebastianBergmann\CodeCoverage\StaticAnalysis;
  * }
  * @phpstan-type LinesType = array<int, int>
  */
-interface FileAnalyser
-{
+interface FileAnalyser {
     /**
      * @return array<string, CodeUnitClassType>
      */

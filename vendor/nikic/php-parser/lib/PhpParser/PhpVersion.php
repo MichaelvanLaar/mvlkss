@@ -11,20 +11,20 @@ class PhpVersion {
 
     /** @var int[] Minimum versions for builtin types */
     private const BUILTIN_TYPE_VERSIONS = [
-        'array'    => 50100,
-        'callable' => 50400,
-        'bool'     => 70000,
-        'int'      => 70000,
-        'float'    => 70000,
-        'string'   => 70000,
-        'iterable' => 70100,
-        'void'     => 70100,
-        'object'   => 70200,
-        'null'     => 80000,
-        'false'    => 80000,
-        'mixed'    => 80000,
-        'never'    => 80100,
-        'true'     => 80200,
+        "array" => 50100,
+        "callable" => 50400,
+        "bool" => 70000,
+        "int" => 70000,
+        "float" => 70000,
+        "string" => 70000,
+        "iterable" => 70100,
+        "void" => 70100,
+        "object" => 70200,
+        "null" => 80000,
+        "false" => 80000,
+        "mixed" => 80000,
+        "never" => 80100,
+        "true" => 80200,
     ];
 
     private function __construct(int $id) {
@@ -57,7 +57,7 @@ class PhpVersion {
      * Parse the version from a string like "8.1".
      */
     public static function fromString(string $version): self {
-        if (!preg_match('/^(\d+)\.(\d+)/', $version, $matches)) {
+        if (!preg_match("/^(\d+)\.(\d+)/", $version, $matches)) {
             throw new \LogicException("Invalid PHP version \"$version\"");
         }
         return self::fromComponents((int) $matches[1], (int) $matches[2]);

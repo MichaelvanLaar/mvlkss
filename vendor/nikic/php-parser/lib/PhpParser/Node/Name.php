@@ -13,9 +13,9 @@ class Name extends NodeAbstract {
 
     /** @var array<string, bool> */
     private static array $specialClassNames = [
-        'self'   => true,
-        'parent' => true,
-        'static' => true,
+        "self" => true,
+        "parent" => true,
+        "static" => true,
     ];
 
     /**
@@ -30,7 +30,7 @@ class Name extends NodeAbstract {
     }
 
     public function getSubNodeNames(): array {
-        return ['name'];
+        return ["name"];
     }
 
     /**
@@ -40,7 +40,7 @@ class Name extends NodeAbstract {
      * @return string[] Parts of name
      */
     public function getParts(): array {
-        return \explode('\\', $this->name);
+        return \explode("\\", $this->name);
     }
 
     /**
@@ -49,7 +49,7 @@ class Name extends NodeAbstract {
      * @return string First part of the name
      */
     public function getFirst(): string {
-        if (false !== $pos = \strpos($this->name, '\\')) {
+        if (false !== ($pos = \strpos($this->name, "\\"))) {
             return \substr($this->name, 0, $pos);
         }
         return $this->name;
@@ -61,7 +61,7 @@ class Name extends NodeAbstract {
      * @return string Last part of the name
      */
     public function getLast(): string {
-        if (false !== $pos = \strrpos($this->name, '\\')) {
+        if (false !== ($pos = \strrpos($this->name, "\\"))) {
             return \substr($this->name, $pos + 1);
         }
         return $this->name;
@@ -73,7 +73,7 @@ class Name extends NodeAbstract {
      * @return bool Whether the name is unqualified
      */
     public function isUnqualified(): bool {
-        return false === \strpos($this->name, '\\');
+        return false === \strpos($this->name, "\\");
     }
 
     /**
@@ -82,7 +82,7 @@ class Name extends NodeAbstract {
      * @return bool Whether the name is qualified
      */
     public function isQualified(): bool {
-        return false !== \strpos($this->name, '\\');
+        return false !== \strpos($this->name, "\\");
     }
 
     /**
@@ -175,26 +175,31 @@ class Name extends NodeAbstract {
     public function slice(int $offset, ?int $length = null) {
         if ($offset === 1 && $length === null) {
             // Short-circuit the common case.
-            if (false !== $pos = \strpos($this->name, '\\')) {
+            if (false !== ($pos = \strpos($this->name, "\\"))) {
                 return new static(\substr($this->name, $pos + 1));
             }
             return null;
         }
 
-        $parts = \explode('\\', $this->name);
+        $parts = \explode("\\", $this->name);
         $numParts = \count($parts);
 
         $realOffset = $offset < 0 ? $offset + $numParts : $offset;
         if ($realOffset < 0 || $realOffset > $numParts) {
-            throw new \OutOfBoundsException(sprintf('Offset %d is out of bounds', $offset));
+            throw new \OutOfBoundsException(
+                sprintf("Offset %d is out of bounds", $offset),
+            );
         }
 
         if (null === $length) {
             $realLength = $numParts - $realOffset;
         } else {
-            $realLength = $length < 0 ? $length + $numParts - $realOffset : $length;
+            $realLength =
+                $length < 0 ? $length + $numParts - $realOffset : $length;
             if ($realLength < 0 || $realLength > $numParts - $realOffset) {
-                throw new \OutOfBoundsException(sprintf('Length %d is out of bounds', $length));
+                throw new \OutOfBoundsException(
+                    sprintf("Length %d is out of bounds", $length),
+                );
             }
         }
 
@@ -203,7 +208,10 @@ class Name extends NodeAbstract {
             return null;
         }
 
-        return new static(array_slice($parts, $realOffset, $realLength), $this->attributes);
+        return new static(
+            array_slice($parts, $realOffset, $realLength),
+            $this->attributes,
+        );
     }
 
     /**
@@ -234,7 +242,8 @@ class Name extends NodeAbstract {
             return new static($name1, $attributes);
         } else {
             return new static(
-                self::prepareName($name1) . '\\' . self::prepareName($name2), $attributes
+                self::prepareName($name1) . "\\" . self::prepareName($name2),
+                $attributes,
             );
         }
     }
@@ -250,29 +259,29 @@ class Name extends NodeAbstract {
      */
     private static function prepareName($name): string {
         if (\is_string($name)) {
-            if ('' === $name) {
-                throw new \InvalidArgumentException('Name cannot be empty');
+            if ("" === $name) {
+                throw new \InvalidArgumentException("Name cannot be empty");
             }
 
             return $name;
         }
         if (\is_array($name)) {
             if (empty($name)) {
-                throw new \InvalidArgumentException('Name cannot be empty');
+                throw new \InvalidArgumentException("Name cannot be empty");
             }
 
-            return implode('\\', $name);
+            return implode("\\", $name);
         }
         if ($name instanceof self) {
             return $name->name;
         }
 
         throw new \InvalidArgumentException(
-            'Expected string, array of parts or Name instance'
+            "Expected string, array of parts or Name instance",
         );
     }
 
     public function getType(): string {
-        return 'Name';
+        return "Name";
     }
 }

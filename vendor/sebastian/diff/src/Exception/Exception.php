@@ -11,6 +11,4 @@ namespace SebastianBergmann\Diff;
 
 use Throwable;
 
-interface Exception extends Throwable
-{
-}
+interface Exception extends Throwable {}

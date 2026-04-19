@@ -14,8 +14,7 @@ namespace PHPUnit\Util\Http;
  *
  * @internal This interface is not covered by the backward compatibility promise for PHPUnit
  */
-interface Downloader
-{
+interface Downloader {
     /**
      * @param non-empty-string $url
      */

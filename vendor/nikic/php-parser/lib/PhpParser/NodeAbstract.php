@@ -22,7 +22,7 @@ abstract class NodeAbstract implements Node, \JsonSerializable {
      * @phpstan-return -1|positive-int
      */
     public function getLine(): int {
-        return $this->attributes['startLine'] ?? -1;
+        return $this->attributes["startLine"] ?? -1;
     }
 
     /**
@@ -34,7 +34,7 @@ abstract class NodeAbstract implements Node, \JsonSerializable {
      * @phpstan-return -1|positive-int
      */
     public function getStartLine(): int {
-        return $this->attributes['startLine'] ?? -1;
+        return $this->attributes["startLine"] ?? -1;
     }
 
     /**
@@ -46,7 +46,7 @@ abstract class NodeAbstract implements Node, \JsonSerializable {
      * @phpstan-return -1|positive-int
      */
     public function getEndLine(): int {
-        return $this->attributes['endLine'] ?? -1;
+        return $this->attributes["endLine"] ?? -1;
     }
 
     /**
@@ -59,7 +59,7 @@ abstract class NodeAbstract implements Node, \JsonSerializable {
      * @return int Token start position (or -1 if not available)
      */
     public function getStartTokenPos(): int {
-        return $this->attributes['startTokenPos'] ?? -1;
+        return $this->attributes["startTokenPos"] ?? -1;
     }
 
     /**
@@ -72,7 +72,7 @@ abstract class NodeAbstract implements Node, \JsonSerializable {
      * @return int Token end position (or -1 if not available)
      */
     public function getEndTokenPos(): int {
-        return $this->attributes['endTokenPos'] ?? -1;
+        return $this->attributes["endTokenPos"] ?? -1;
     }
 
     /**
@@ -83,7 +83,7 @@ abstract class NodeAbstract implements Node, \JsonSerializable {
      * @return int File start position (or -1 if not available)
      */
     public function getStartFilePos(): int {
-        return $this->attributes['startFilePos'] ?? -1;
+        return $this->attributes["startFilePos"] ?? -1;
     }
 
     /**
@@ -94,7 +94,7 @@ abstract class NodeAbstract implements Node, \JsonSerializable {
      * @return int File end position (or -1 if not available)
      */
     public function getEndFilePos(): int {
-        return $this->attributes['endFilePos'] ?? -1;
+        return $this->attributes["endFilePos"] ?? -1;
     }
 
     /**
@@ -105,7 +105,7 @@ abstract class NodeAbstract implements Node, \JsonSerializable {
      * @return Comment[]
      */
     public function getComments(): array {
-        return $this->attributes['comments'] ?? [];
+        return $this->attributes["comments"] ?? [];
     }
 
     /**
@@ -138,14 +138,14 @@ abstract class NodeAbstract implements Node, \JsonSerializable {
             if ($comments[$i] instanceof Comment\Doc) {
                 // Replace existing doc comment.
                 $comments[$i] = $docComment;
-                $this->setAttribute('comments', $comments);
+                $this->setAttribute("comments", $comments);
                 return;
             }
         }
 
         // Append new doc comment.
         $comments[] = $docComment;
-        $this->setAttribute('comments', $comments);
+        $this->setAttribute("comments", $comments);
     }
 
     public function setAttribute(string $key, $value): void {
@@ -176,6 +176,6 @@ abstract class NodeAbstract implements Node, \JsonSerializable {
      * @return array<string, mixed>
      */
     public function jsonSerialize(): array {
-        return ['nodeType' => $this->getType()] + get_object_vars($this);
+        return ["nodeType" => $this->getType()] + get_object_vars($this);
     }
 }

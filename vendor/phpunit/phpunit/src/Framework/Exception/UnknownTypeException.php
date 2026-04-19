@@ -16,15 +16,8 @@ use function sprintf;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class UnknownTypeException extends InvalidArgumentException
-{
-    public function __construct(string $name)
-    {
-        parent::__construct(
-            sprintf(
-                'Type "%s" is not known',
-                $name,
-            ),
-        );
+final class UnknownTypeException extends InvalidArgumentException {
+    public function __construct(string $name) {
+        parent::__construct(sprintf('Type "%s" is not known', $name));
     }
 }

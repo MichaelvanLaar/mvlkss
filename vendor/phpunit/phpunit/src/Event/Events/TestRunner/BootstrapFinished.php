@@ -18,32 +18,27 @@ use PHPUnit\Event\Telemetry;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class BootstrapFinished implements Event
-{
+final readonly class BootstrapFinished implements Event {
     private Telemetry\Info $telemetryInfo;
     private string $filename;
 
-    public function __construct(Telemetry\Info $telemetryInfo, string $filename)
-    {
+    public function __construct(
+        Telemetry\Info $telemetryInfo,
+        string $filename,
+    ) {
         $this->telemetryInfo = $telemetryInfo;
-        $this->filename      = $filename;
+        $this->filename = $filename;
     }
 
-    public function telemetryInfo(): Telemetry\Info
-    {
+    public function telemetryInfo(): Telemetry\Info {
         return $this->telemetryInfo;
     }
 
-    public function filename(): string
-    {
+    public function filename(): string {
         return $this->filename;
     }
 
-    public function asString(): string
-    {
-        return sprintf(
-            'Bootstrap Finished (%s)',
-            $this->filename,
-        );
+    public function asString(): string {
+        return sprintf("Bootstrap Finished (%s)", $this->filename);
     }
 }

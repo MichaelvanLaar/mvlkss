@@ -4,7 +4,7 @@ namespace PhpParser\Node\Stmt;
 
 use PhpParser\Node\UseItem;
 
-require __DIR__ . '/../UseItem.php';
+require __DIR__ . "/../UseItem.php";
 
 if (false) {
     /**
@@ -12,6 +12,5 @@ if (false) {
      *
      * @deprecated use \PhpParser\Node\UseItem instead.
      */
-    class UseUse extends UseItem {
-    }
+    class UseUse extends UseItem {}
 }

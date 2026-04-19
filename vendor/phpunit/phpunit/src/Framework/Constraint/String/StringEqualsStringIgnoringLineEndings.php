@@ -15,43 +15,32 @@ use function strtr;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class StringEqualsStringIgnoringLineEndings extends Constraint
-{
+final class StringEqualsStringIgnoringLineEndings extends Constraint {
     private readonly string $string;
 
-    public function __construct(string $string)
-    {
+    public function __construct(string $string) {
         $this->string = $this->normalizeLineEndings($string);
     }
 
     /**
      * Returns a string representation of the constraint.
      */
-    public function toString(): string
-    {
-        return sprintf(
-            'is equal to "%s" ignoring line endings',
-            $this->string,
-        );
+    public function toString(): string {
+        return sprintf('is equal to "%s" ignoring line endings', $this->string);
     }
 
     /**
      * Evaluates the constraint for parameter $other. Returns true if the
      * constraint is met, false otherwise.
      */
-    protected function matches(mixed $other): bool
-    {
+    protected function matches(mixed $other): bool {
         return $this->string === $this->normalizeLineEndings((string) $other);
     }
 
-    private function normalizeLineEndings(string $string): string
-    {
-        return strtr(
-            $string,
-            [
-                "\r\n" => "\n",
-                "\r"   => "\n",
-            ],
-        );
+    private function normalizeLineEndings(string $string): string {
+        return strtr($string, [
+            "\r\n" => "\n",
+            "\r" => "\n",
+        ]);
     }
 }

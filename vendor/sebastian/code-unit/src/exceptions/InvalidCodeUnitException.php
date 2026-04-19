@@ -11,6 +11,5 @@ namespace SebastianBergmann\CodeUnit;
 
 use RuntimeException;
 
-final class InvalidCodeUnitException extends RuntimeException implements Exception
-{
-}
+final class InvalidCodeUnitException extends RuntimeException implements
+    Exception {}

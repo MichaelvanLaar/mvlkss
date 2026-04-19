@@ -20,10 +20,10 @@ class ErrorSuppress extends Expr {
     }
 
     public function getSubNodeNames(): array {
-        return ['expr'];
+        return ["expr"];
     }
 
     public function getType(): string {
-        return 'Expr_ErrorSuppress';
+        return "Expr_ErrorSuppress";
     }
 }

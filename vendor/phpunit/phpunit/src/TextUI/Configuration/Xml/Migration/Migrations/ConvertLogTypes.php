@@ -17,28 +17,26 @@ use DOMElement;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class ConvertLogTypes implements Migration
-{
-    public function migrate(DOMDocument $document): void
-    {
-        $logging = $document->getElementsByTagName('logging')->item(0);
+final readonly class ConvertLogTypes implements Migration {
+    public function migrate(DOMDocument $document): void {
+        $logging = $document->getElementsByTagName("logging")->item(0);
 
-        if (!$logging instanceof DOMElement) {
+        if (!($logging instanceof DOMElement)) {
             return;
         }
         $types = [
-            'junit'        => 'junit',
-            'teamcity'     => 'teamcity',
-            'testdox-html' => 'testdoxHtml',
-            'testdox-text' => 'testdoxText',
-            'testdox-xml'  => 'testdoxXml',
-            'plain'        => 'text',
+            "junit" => "junit",
+            "teamcity" => "teamcity",
+            "testdox-html" => "testdoxHtml",
+            "testdox-text" => "testdoxText",
+            "testdox-xml" => "testdoxXml",
+            "plain" => "text",
         ];
 
         $logNodes = [];
 
-        foreach ($logging->getElementsByTagName('log') as $logNode) {
-            if (!isset($types[$logNode->getAttribute('type')])) {
+        foreach ($logging->getElementsByTagName("log") as $logNode) {
+            if (!isset($types[$logNode->getAttribute("type")])) {
                 continue;
             }
 
@@ -46,8 +44,13 @@ final readonly class ConvertLogTypes implements Migration
         }
 
         foreach ($logNodes as $oldNode) {
-            $newLogNode = $document->createElement($types[$oldNode->getAttribute('type')]);
-            $newLogNode->setAttribute('outputFile', $oldNode->getAttribute('target'));
+            $newLogNode = $document->createElement(
+                $types[$oldNode->getAttribute("type")],
+            );
+            $newLogNode->setAttribute(
+                "outputFile",
+                $oldNode->getAttribute("target"),
+            );
 
             $logging->replaceChild($newLogNode, $oldNode);
         }

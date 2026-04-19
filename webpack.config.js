@@ -3,10 +3,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-  entry: [
-    "./src/js/main.js",
-    "./src/js/maincss.js",
-  ],
+  entry: ["./src/js/main.js", "./src/js/maincss.js"],
   output: {
     path: path.resolve(__dirname, "assets/js"),
     filename: "main.js",

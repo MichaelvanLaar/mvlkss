@@ -18,10 +18,10 @@ class IntersectionType extends ComplexType {
     }
 
     public function getSubNodeNames(): array {
-        return ['types'];
+        return ["types"];
     }
 
     public function getType(): string {
-        return 'IntersectionType';
+        return "IntersectionType";
     }
 }

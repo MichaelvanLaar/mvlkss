@@ -14,17 +14,14 @@ namespace PHPUnit\Logging\TeamCity;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-abstract readonly class Subscriber
-{
+abstract readonly class Subscriber {
     private TeamCityLogger $logger;
 
-    public function __construct(TeamCityLogger $logger)
-    {
+    public function __construct(TeamCityLogger $logger) {
         $this->logger = $logger;
     }
 
-    protected function logger(): TeamCityLogger
-    {
+    protected function logger(): TeamCityLogger {
         return $this->logger;
     }
 }

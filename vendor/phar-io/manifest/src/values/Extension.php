@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 /*
  * This file is part of PharIo\Manifest.
  *
@@ -20,8 +20,11 @@ class Extension extends Type {
     /** @var VersionConstraint */
     private $versionConstraint;
 
-    public function __construct(ApplicationName $application, VersionConstraint $versionConstraint) {
-        $this->application       = $application;
+    public function __construct(
+        ApplicationName $application,
+        VersionConstraint $versionConstraint,
+    ) {
+        $this->application = $application;
         $this->versionConstraint = $versionConstraint;
     }
 
@@ -41,7 +44,11 @@ class Extension extends Type {
         return $this->application->isEqual($name);
     }
 
-    public function isCompatibleWith(ApplicationName $name, Version $version): bool {
-        return $this->isExtensionFor($name) && $this->versionConstraint->complies($version);
+    public function isCompatibleWith(
+        ApplicationName $name,
+        Version $version,
+    ): bool {
+        return $this->isExtensionFor($name) &&
+            $this->versionConstraint->complies($version);
     }
 }

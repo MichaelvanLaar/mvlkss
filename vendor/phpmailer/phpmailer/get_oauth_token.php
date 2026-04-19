@@ -47,8 +47,7 @@ use Stevenmaguire\OAuth2\Client\Provider\Microsoft;
 //@see https://github.com/greew/oauth2-azure-provider
 use Greew\OAuth2\Client\Provider\Azure;
 
-if (!isset($_GET['code']) && !isset($_POST['provider'])) {
-    ?>
+if (!isset($_GET["code"]) && !isset($_POST["provider"])) { ?>
 <html>
 <body>
 <form method="post">
@@ -71,33 +70,31 @@ if (!isset($_GET['code']) && !isset($_POST['provider'])) {
 </form>
 </body>
 </html>
-    <?php
-    exit;
-}
+    <?php exit();}
 
-require 'vendor/autoload.php';
+require "vendor/autoload.php";
 
 session_start();
 
-$providerName = '';
-$clientId = '';
-$clientSecret = '';
-$tenantId = '';
+$providerName = "";
+$clientId = "";
+$clientSecret = "";
+$tenantId = "";
 
-if (array_key_exists('provider', $_POST)) {
-    $providerName = $_POST['provider'];
-    $clientId = $_POST['clientId'];
-    $clientSecret = $_POST['clientSecret'];
-    $tenantId = $_POST['tenantId'];
-    $_SESSION['provider'] = $providerName;
-    $_SESSION['clientId'] = $clientId;
-    $_SESSION['clientSecret'] = $clientSecret;
-    $_SESSION['tenantId'] = $tenantId;
-} elseif (array_key_exists('provider', $_SESSION)) {
-    $providerName = $_SESSION['provider'];
-    $clientId = $_SESSION['clientId'];
-    $clientSecret = $_SESSION['clientSecret'];
-    $tenantId = $_SESSION['tenantId'];
+if (array_key_exists("provider", $_POST)) {
+    $providerName = $_POST["provider"];
+    $clientId = $_POST["clientId"];
+    $clientSecret = $_POST["clientSecret"];
+    $tenantId = $_POST["tenantId"];
+    $_SESSION["provider"] = $providerName;
+    $_SESSION["clientId"] = $clientId;
+    $_SESSION["clientSecret"] = $clientSecret;
+    $_SESSION["tenantId"] = $tenantId;
+} elseif (array_key_exists("provider", $_SESSION)) {
+    $providerName = $_SESSION["provider"];
+    $clientId = $_SESSION["clientId"];
+    $clientSecret = $_SESSION["clientSecret"];
+    $tenantId = $_SESSION["tenantId"];
 }
 
 //If you don't want to use the built-in form, set your client id and secret here
@@ -105,78 +102,80 @@ if (array_key_exists('provider', $_POST)) {
 //$clientSecret = 'RANDOMCHARS-----lGyjPcRtvP';
 
 //If this automatic URL doesn't work, set it yourself manually to the URL of this script
-$redirectUri = (isset($_SERVER['HTTPS']) ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
+$redirectUri =
+    (isset($_SERVER["HTTPS"]) ? "https://" : "http://") .
+    $_SERVER["HTTP_HOST"] .
+    $_SERVER["PHP_SELF"];
 //$redirectUri = 'http://localhost/PHPMailer/redirect';
 
 $params = [
-    'clientId' => $clientId,
-    'clientSecret' => $clientSecret,
-    'redirectUri' => $redirectUri,
-    'accessType' => 'offline'
+    "clientId" => $clientId,
+    "clientSecret" => $clientSecret,
+    "redirectUri" => $redirectUri,
+    "accessType" => "offline",
 ];
 
 $options = [];
 $provider = null;
 
 switch ($providerName) {
-    case 'Google':
+    case "Google":
         $provider = new Google($params);
         $options = [
-            'scope' => [
-                'https://mail.google.com/'
-            ]
+            "scope" => ["https://mail.google.com/"],
         ];
         break;
-    case 'Yahoo':
+    case "Yahoo":
         $provider = new Yahoo($params);
         break;
-    case 'Microsoft':
+    case "Microsoft":
         $provider = new Microsoft($params);
         $options = [
-            'scope' => [
-                'wl.imap',
-                'wl.offline_access'
-            ]
+            "scope" => ["wl.imap", "wl.offline_access"],
         ];
         break;
-    case 'Azure':
-        $params['tenantId'] = $tenantId;
+    case "Azure":
+        $params["tenantId"] = $tenantId;
 
         $provider = new Azure($params);
         $options = [
-            'scope' => [
-                'https://outlook.office.com/SMTP.Send',
-                'offline_access'
-            ]
+            "scope" => [
+                "https://outlook.office.com/SMTP.Send",
+                "offline_access",
+            ],
         ];
         break;
 }
 
 if (null === $provider) {
-    exit('Provider missing');
+    exit("Provider missing");
 }
 
-if (!isset($_GET['code'])) {
+if (!isset($_GET["code"])) {
     //If we don't have an authorization code then get one
     $authUrl = $provider->getAuthorizationUrl($options);
-    $_SESSION['oauth2state'] = $provider->getState();
-    header('Location: ' . $authUrl);
-    exit;
+    $_SESSION["oauth2state"] = $provider->getState();
+    header("Location: " . $authUrl);
+    exit();
     //Check given state against previously stored one to mitigate CSRF attack
-} elseif (empty($_GET['state']) || ($_GET['state'] !== $_SESSION['oauth2state'])) {
-    unset($_SESSION['oauth2state']);
-    unset($_SESSION['provider']);
-    exit('Invalid state');
+} elseif (
+    empty($_GET["state"]) ||
+    $_GET["state"] !== $_SESSION["oauth2state"]
+) {
+    unset($_SESSION["oauth2state"]);
+    unset($_SESSION["provider"]);
+    exit("Invalid state");
 } else {
-    unset($_SESSION['provider']);
+    unset($_SESSION["provider"]);
     //Try to get an access token (using the authorization code grant)
-    $token = $provider->getAccessToken(
-        'authorization_code',
-        [
-            'code' => $_GET['code']
-        ]
-    );
+    $token = $provider->getAccessToken("authorization_code", [
+        "code" => $_GET["code"],
+    ]);
     //Use this to interact with an API on the users behalf
     //Use this to get a new access token if the old one expires
-    echo 'Refresh Token: ', htmlspecialchars($token->getRefreshToken(), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401);
+    echo "Refresh Token: ",
+        htmlspecialchars(
+            $token->getRefreshToken(),
+            ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401,
+        );
 }

@@ -20,8 +20,7 @@ use PHPUnit\Framework\TestSuite;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class Factory
-{
+final class Factory {
     /**
      * @var list<array{className: class-string<FilterIterator<int, Test, Iterator<int, Test>>>, argument: list<non-empty-string>|non-empty-string}>
      */
@@ -30,55 +29,50 @@ final class Factory
     /**
      * @param list<non-empty-string> $testIds
      */
-    public function addTestIdFilter(array $testIds): void
-    {
+    public function addTestIdFilter(array $testIds): void {
         $this->filters[] = [
-            'className' => TestIdFilterIterator::class,
-            'argument'  => $testIds,
+            "className" => TestIdFilterIterator::class,
+            "argument" => $testIds,
         ];
     }
 
     /**
      * @param list<non-empty-string> $groups
      */
-    public function addIncludeGroupFilter(array $groups): void
-    {
+    public function addIncludeGroupFilter(array $groups): void {
         $this->filters[] = [
-            'className' => IncludeGroupFilterIterator::class,
-            'argument'  => $groups,
+            "className" => IncludeGroupFilterIterator::class,
+            "argument" => $groups,
         ];
     }
 
     /**
      * @param list<non-empty-string> $groups
      */
-    public function addExcludeGroupFilter(array $groups): void
-    {
+    public function addExcludeGroupFilter(array $groups): void {
         $this->filters[] = [
-            'className' => ExcludeGroupFilterIterator::class,
-            'argument'  => $groups,
+            "className" => ExcludeGroupFilterIterator::class,
+            "argument" => $groups,
         ];
     }
 
     /**
      * @param non-empty-string $name
      */
-    public function addIncludeNameFilter(string $name): void
-    {
+    public function addIncludeNameFilter(string $name): void {
         $this->filters[] = [
-            'className' => IncludeNameFilterIterator::class,
-            'argument'  => $name,
+            "className" => IncludeNameFilterIterator::class,
+            "argument" => $name,
         ];
     }
 
     /**
      * @param non-empty-string $name
      */
-    public function addExcludeNameFilter(string $name): void
-    {
+    public function addExcludeNameFilter(string $name): void {
         $this->filters[] = [
-            'className' => ExcludeNameFilterIterator::class,
-            'argument'  => $name,
+            "className" => ExcludeNameFilterIterator::class,
+            "argument" => $name,
         ];
     }
 
@@ -87,12 +81,14 @@ final class Factory
      *
      * @return FilterIterator<int, Test, Iterator<int, Test>>
      */
-    public function factory(Iterator $iterator, TestSuite $suite): FilterIterator
-    {
+    public function factory(
+        Iterator $iterator,
+        TestSuite $suite,
+    ): FilterIterator {
         foreach ($this->filters as $filter) {
-            $iterator = new $filter['className'](
+            $iterator = new ($filter["className"])(
                 $iterator,
-                $filter['argument'],
+                $filter["argument"],
                 $suite,
             );
         }

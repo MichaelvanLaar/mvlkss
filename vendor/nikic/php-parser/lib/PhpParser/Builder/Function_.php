@@ -45,7 +45,9 @@ class Function_ extends FunctionLike {
      * @return $this The builder instance (for fluid interface)
      */
     public function addAttribute($attribute) {
-        $this->attributeGroups[] = BuilderHelpers::normalizeAttribute($attribute);
+        $this->attributeGroups[] = BuilderHelpers::normalizeAttribute(
+            $attribute,
+        );
 
         return $this;
     }
@@ -56,12 +58,16 @@ class Function_ extends FunctionLike {
      * @return Stmt\Function_ The built function node
      */
     public function getNode(): Node {
-        return new Stmt\Function_($this->name, [
-            'byRef'      => $this->returnByRef,
-            'params'     => $this->params,
-            'returnType' => $this->returnType,
-            'stmts'      => $this->stmts,
-            'attrGroups' => $this->attributeGroups,
-        ], $this->attributes);
+        return new Stmt\Function_(
+            $this->name,
+            [
+                "byRef" => $this->returnByRef,
+                "params" => $this->params,
+                "returnType" => $this->returnType,
+                "stmts" => $this->stmts,
+                "attrGroups" => $this->attributeGroups,
+            ],
+            $this->attributes,
+        );
     }
 }

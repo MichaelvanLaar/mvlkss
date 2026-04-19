@@ -18,10 +18,10 @@ class UnionType extends ComplexType {
     }
 
     public function getSubNodeNames(): array {
-        return ['types'];
+        return ["types"];
     }
 
     public function getType(): string {
-        return 'UnionType';
+        return "UnionType";
     }
 }

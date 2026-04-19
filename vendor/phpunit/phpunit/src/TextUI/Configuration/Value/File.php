@@ -14,8 +14,7 @@ namespace PHPUnit\TextUI\Configuration;
  *
  * @immutable
  */
-final readonly class File
-{
+final readonly class File {
     /**
      * @var non-empty-string
      */
@@ -24,16 +23,14 @@ final readonly class File
     /**
      * @param non-empty-string $path
      */
-    public function __construct(string $path)
-    {
+    public function __construct(string $path) {
         $this->path = $path;
     }
 
     /**
      * @return non-empty-string
      */
-    public function path(): string
-    {
+    public function path(): string {
         return $this->path;
     }
 }

@@ -18,15 +18,18 @@ abstract class KeywordEmulator extends TokenEmulator {
         if ($prevToken === null) {
             return false;
         }
-        return $prevToken->id !== \T_OBJECT_OPERATOR
-            && $prevToken->id !== \T_NULLSAFE_OBJECT_OPERATOR;
+        return $prevToken->id !== \T_OBJECT_OPERATOR &&
+            $prevToken->id !== \T_NULLSAFE_OBJECT_OPERATOR;
     }
 
     public function emulate(string $code, array $tokens): array {
         $keywordString = $this->getKeywordString();
         foreach ($tokens as $i => $token) {
-            if ($token->id === T_STRING && strtolower($token->text) === $keywordString
-                    && $this->isKeywordContext($tokens, $i)) {
+            if (
+                $token->id === T_STRING &&
+                strtolower($token->text) === $keywordString &&
+                $this->isKeywordContext($tokens, $i)
+            ) {
                 $token->id = $this->getKeywordToken();
             }
         }
@@ -35,7 +38,10 @@ abstract class KeywordEmulator extends TokenEmulator {
     }
 
     /** @param Token[] $tokens */
-    private function getPreviousNonSpaceToken(array $tokens, int $start): ?Token {
+    private function getPreviousNonSpaceToken(
+        array $tokens,
+        int $start,
+    ): ?Token {
         for ($i = $start - 1; $i >= 0; --$i) {
             if ($tokens[$i]->id === T_WHITESPACE) {
                 continue;

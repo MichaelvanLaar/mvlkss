@@ -18,7 +18,9 @@ If you only need this library during development, for instance to run your proje
 
 ```php
 $tokenizer = new TheSeer\Tokenizer\Tokenizer();
-$tokens = $tokenizer->parse(file_get_contents(__DIR__ . '/src/XMLSerializer.php'));
+$tokens = $tokenizer->parse(
+    file_get_contents(__DIR__ . "/src/XMLSerializer.php"),
+);
 
 $serializer = new TheSeer\Tokenizer\XMLSerializer();
 $xml = $serializer->toXML($tokens);

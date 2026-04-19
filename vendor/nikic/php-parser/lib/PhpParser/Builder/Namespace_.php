@@ -18,7 +18,8 @@ class Namespace_ extends Declaration {
      * @param Node\Name|string|null $name Name of the namespace
      */
     public function __construct($name) {
-        $this->name = null !== $name ? BuilderHelpers::normalizeName($name) : null;
+        $this->name =
+            null !== $name ? BuilderHelpers::normalizeName($name) : null;
     }
 
     /**
@@ -40,6 +41,10 @@ class Namespace_ extends Declaration {
      * @return Stmt\Namespace_ The built node
      */
     public function getNode(): Node {
-        return new Stmt\Namespace_($this->name, $this->stmts, $this->attributes);
+        return new Stmt\Namespace_(
+            $this->name,
+            $this->stmts,
+            $this->attributes,
+        );
     }
 }

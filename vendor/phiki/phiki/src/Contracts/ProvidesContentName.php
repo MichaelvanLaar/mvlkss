@@ -2,8 +2,7 @@
 
 namespace Phiki\Contracts;
 
-interface ProvidesContentName
-{
+interface ProvidesContentName {
     /**
      * Get the name to apply to nested content.
      */

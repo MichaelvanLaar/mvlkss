@@ -20,8 +20,9 @@ use IteratorAggregate;
  *
  * @template-implements IteratorAggregate<non-negative-int, FilterDirectory>
  */
-final readonly class FilterDirectoryCollection implements Countable, IteratorAggregate
-{
+final readonly class FilterDirectoryCollection implements
+    Countable,
+    IteratorAggregate {
     /**
      * @var list<FilterDirectory>
      */
@@ -30,36 +31,30 @@ final readonly class FilterDirectoryCollection implements Countable, IteratorAgg
     /**
      * @param list<FilterDirectory> $directories
      */
-    public static function fromArray(array $directories): self
-    {
+    public static function fromArray(array $directories): self {
         return new self(...$directories);
     }
 
-    private function __construct(FilterDirectory ...$directories)
-    {
+    private function __construct(FilterDirectory ...$directories) {
         $this->directories = $directories;
     }
 
     /**
      * @return list<FilterDirectory>
      */
-    public function asArray(): array
-    {
+    public function asArray(): array {
         return $this->directories;
     }
 
-    public function count(): int
-    {
+    public function count(): int {
         return count($this->directories);
     }
 
-    public function notEmpty(): bool
-    {
+    public function notEmpty(): bool {
         return !empty($this->directories);
     }
 
-    public function getIterator(): FilterDirectoryCollectionIterator
-    {
+    public function getIterator(): FilterDirectoryCollectionIterator {
         return new FilterDirectoryCollectionIterator($this);
     }
 }

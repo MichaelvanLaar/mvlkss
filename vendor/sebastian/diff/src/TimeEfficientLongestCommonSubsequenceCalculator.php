@@ -14,18 +14,17 @@ use function count;
 use function max;
 use SplFixedArray;
 
-final class TimeEfficientLongestCommonSubsequenceCalculator implements LongestCommonSubsequenceCalculator
-{
+final class TimeEfficientLongestCommonSubsequenceCalculator implements
+    LongestCommonSubsequenceCalculator {
     /**
      * @inheritDoc
      */
-    public function calculate(array $from, array $to): array
-    {
-        $common     = [];
+    public function calculate(array $from, array $to): array {
+        $common = [];
         $fromLength = count($from);
-        $toLength   = count($to);
-        $width      = $fromLength + 1;
-        $matrix     = new SplFixedArray($width * ($toLength + 1));
+        $toLength = count($to);
+        $width = $fromLength + 1;
+        $matrix = new SplFixedArray($width * ($toLength + 1));
 
         for ($i = 0; $i <= $fromLength; $i++) {
             $matrix[$i] = 0;
@@ -37,10 +36,13 @@ final class TimeEfficientLongestCommonSubsequenceCalculator implements LongestCo
 
         for ($i = 1; $i <= $fromLength; $i++) {
             for ($j = 1; $j <= $toLength; $j++) {
-                $o = ($j * $width) + $i;
+                $o = $j * $width + $i;
 
                 // don't use max() to avoid function call overhead
-                $firstOrLast = $from[$i - 1] === $to[$j - 1] ? $matrix[$o - $width - 1] + 1 : 0;
+                $firstOrLast =
+                    $from[$i - 1] === $to[$j - 1]
+                        ? $matrix[$o - $width - 1] + 1
+                        : 0;
 
                 if ($matrix[$o - 1] > $matrix[$o - $width]) {
                     if ($firstOrLast > $matrix[$o - 1]) {
@@ -67,7 +69,7 @@ final class TimeEfficientLongestCommonSubsequenceCalculator implements LongestCo
                 $i--;
                 $j--;
             } else {
-                $o = ($j * $width) + $i;
+                $o = $j * $width + $i;
 
                 if ($matrix[$o - $width] > $matrix[$o - 1]) {
                     $j--;

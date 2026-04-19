@@ -20,17 +20,17 @@ use DOMXPath;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-abstract readonly class LogToReportMigration implements Migration
-{
+abstract readonly class LogToReportMigration implements Migration {
     /**
      * @throws MigrationException
      */
-    public function migrate(DOMDocument $document): void
-    {
-        $coverage = $document->getElementsByTagName('coverage')->item(0);
+    public function migrate(DOMDocument $document): void {
+        $coverage = $document->getElementsByTagName("coverage")->item(0);
 
-        if (!$coverage instanceof DOMElement) {
-            throw new MigrationException('Unexpected state - No coverage element');
+        if (!($coverage instanceof DOMElement)) {
+            throw new MigrationException(
+                "Unexpected state - No coverage element",
+            );
         }
 
         $logNode = $this->findLogNode($document);
@@ -41,10 +41,12 @@ abstract readonly class LogToReportMigration implements Migration
 
         $reportChild = $this->toReportFormat($logNode);
 
-        $report = $coverage->getElementsByTagName('report')->item(0);
+        $report = $coverage->getElementsByTagName("report")->item(0);
 
         if ($report === null) {
-            $report = $coverage->appendChild($document->createElement('report'));
+            $report = $coverage->appendChild(
+                $document->createElement("report"),
+            );
         }
 
         $report->appendChild($reportChild);
@@ -54,8 +56,11 @@ abstract readonly class LogToReportMigration implements Migration
     /**
      * @param list<non-empty-string> $attributes
      */
-    protected function migrateAttributes(DOMElement $src, DOMElement $dest, array $attributes): void
-    {
+    protected function migrateAttributes(
+        DOMElement $src,
+        DOMElement $dest,
+        array $attributes,
+    ): void {
         foreach ($attributes as $attr) {
             if (!$src->hasAttribute($attr)) {
                 continue;
@@ -70,22 +75,18 @@ abstract readonly class LogToReportMigration implements Migration
 
     abstract protected function toReportFormat(DOMElement $logNode): DOMElement;
 
-    private function findLogNode(DOMDocument $document): ?DOMElement
-    {
+    private function findLogNode(DOMDocument $document): ?DOMElement {
         $xpath = new DOMXPath($document);
 
         $logNode = $xpath->query(
-            sprintf(
-                '//logging/log[@type="%s"]',
-                $this->forType(),
-            ),
+            sprintf('//logging/log[@type="%s"]', $this->forType()),
         );
 
         assert($logNode !== false);
 
         $logNode = $logNode->item(0);
 
-        if (!$logNode instanceof DOMElement) {
+        if (!($logNode instanceof DOMElement)) {
             return null;
         }
 

@@ -20,8 +20,7 @@ use IteratorAggregate;
  *
  * @template-implements IteratorAggregate<non-negative-int, File>
  */
-final readonly class FileCollection implements Countable, IteratorAggregate
-{
+final readonly class FileCollection implements Countable, IteratorAggregate {
     /**
      * @var list<File>
      */
@@ -30,36 +29,30 @@ final readonly class FileCollection implements Countable, IteratorAggregate
     /**
      * @param list<File> $files
      */
-    public static function fromArray(array $files): self
-    {
+    public static function fromArray(array $files): self {
         return new self(...$files);
     }
 
-    private function __construct(File ...$files)
-    {
+    private function __construct(File ...$files) {
         $this->files = $files;
     }
 
     /**
      * @return list<File>
      */
-    public function asArray(): array
-    {
+    public function asArray(): array {
         return $this->files;
     }
 
-    public function count(): int
-    {
+    public function count(): int {
         return count($this->files);
     }
 
-    public function notEmpty(): bool
-    {
+    public function notEmpty(): bool {
         return !empty($this->files);
     }
 
-    public function getIterator(): FileCollectionIterator
-    {
+    public function getIterator(): FileCollectionIterator {
         return new FileCollectionIterator($this);
     }
 }

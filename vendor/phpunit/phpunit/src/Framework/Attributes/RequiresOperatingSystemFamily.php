@@ -17,8 +17,7 @@ use Attribute;
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
 #[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD)]
-final readonly class RequiresOperatingSystemFamily
-{
+final readonly class RequiresOperatingSystemFamily {
     /**
      * @var non-empty-string
      */
@@ -27,16 +26,14 @@ final readonly class RequiresOperatingSystemFamily
     /**
      * @param non-empty-string $operatingSystemFamily
      */
-    public function __construct(string $operatingSystemFamily)
-    {
+    public function __construct(string $operatingSystemFamily) {
         $this->operatingSystemFamily = $operatingSystemFamily;
     }
 
     /**
      * @return non-empty-string
      */
-    public function operatingSystemFamily(): string
-    {
+    public function operatingSystemFamily(): string {
         return $this->operatingSystemFamily;
     }
 }

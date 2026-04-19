@@ -20,10 +20,10 @@ class Throw_ extends Node\Expr {
     }
 
     public function getSubNodeNames(): array {
-        return ['expr'];
+        return ["expr"];
     }
 
     public function getType(): string {
-        return 'Expr_Throw';
+        return "Expr_Throw";
     }
 }

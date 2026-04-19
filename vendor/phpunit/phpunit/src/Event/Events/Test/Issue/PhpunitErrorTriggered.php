@@ -21,8 +21,7 @@ use PHPUnit\Event\Telemetry;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class PhpunitErrorTriggered implements Event
-{
+final readonly class PhpunitErrorTriggered implements Event {
     private Telemetry\Info $telemetryInfo;
     private Test $test;
 
@@ -34,33 +33,32 @@ final readonly class PhpunitErrorTriggered implements Event
     /**
      * @param non-empty-string $message
      */
-    public function __construct(Telemetry\Info $telemetryInfo, Test $test, string $message)
-    {
+    public function __construct(
+        Telemetry\Info $telemetryInfo,
+        Test $test,
+        string $message,
+    ) {
         $this->telemetryInfo = $telemetryInfo;
-        $this->test          = $test;
-        $this->message       = $message;
+        $this->test = $test;
+        $this->message = $message;
     }
 
-    public function telemetryInfo(): Telemetry\Info
-    {
+    public function telemetryInfo(): Telemetry\Info {
         return $this->telemetryInfo;
     }
 
-    public function test(): Test
-    {
+    public function test(): Test {
         return $this->test;
     }
 
     /**
      * @return non-empty-string
      */
-    public function message(): string
-    {
+    public function message(): string {
         return $this->message;
     }
 
-    public function asString(): string
-    {
+    public function asString(): string {
         $message = trim($this->message);
 
         if (!empty($message)) {
@@ -68,7 +66,7 @@ final readonly class PhpunitErrorTriggered implements Event
         }
 
         return sprintf(
-            'Test Triggered PHPUnit Error (%s)%s',
+            "Test Triggered PHPUnit Error (%s)%s",
             $this->test->id(),
             $message,
         );

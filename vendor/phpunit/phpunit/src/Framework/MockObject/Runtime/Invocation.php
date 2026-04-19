@@ -25,8 +25,7 @@ use PHPUnit\Util\Exporter;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class Invocation implements SelfDescribing
-{
+final readonly class Invocation implements SelfDescribing {
     /**
      * @var class-string
      */
@@ -51,19 +50,26 @@ final readonly class Invocation implements SelfDescribing
      * @param non-empty-string $methodName
      * @param array<mixed>     $parameters
      */
-    public function __construct(string $className, string $methodName, array $parameters, string $returnType, MockObjectInternal|StubInternal $object, bool $cloneObjects = false, bool $proxiedCall = false)
-    {
-        $this->className   = $className;
-        $this->methodName  = $methodName;
-        $this->object      = $object;
+    public function __construct(
+        string $className,
+        string $methodName,
+        array $parameters,
+        string $returnType,
+        MockObjectInternal|StubInternal $object,
+        bool $cloneObjects = false,
+        bool $proxiedCall = false,
+    ) {
+        $this->className = $className;
+        $this->methodName = $methodName;
+        $this->object = $object;
         $this->proxiedCall = $proxiedCall;
 
-        if (strtolower($methodName) === '__tostring') {
-            $returnType = 'string';
+        if (strtolower($methodName) === "__tostring") {
+            $returnType = "string";
         }
 
-        if (str_starts_with($returnType, '?')) {
-            $returnType                 = substr($returnType, 1);
+        if (str_starts_with($returnType, "?")) {
+            $returnType = substr($returnType, 1);
             $this->isReturnTypeNullable = true;
         } else {
             $this->isReturnTypeNullable = false;
@@ -89,33 +95,29 @@ final readonly class Invocation implements SelfDescribing
     /**
      * @return class-string
      */
-    public function className(): string
-    {
+    public function className(): string {
         return $this->className;
     }
 
     /**
      * @return non-empty-string
      */
-    public function methodName(): string
-    {
+    public function methodName(): string {
         return $this->methodName;
     }
 
     /**
      * @return array<mixed>
      */
-    public function parameters(): array
-    {
+    public function parameters(): array {
         return $this->parameters;
     }
 
     /**
      * @throws Exception
      */
-    public function generateReturnValue(): mixed
-    {
-        if ($this->returnType === 'never') {
+    public function generateReturnValue(): mixed {
+        if ($this->returnType === "never") {
             throw new NeverReturningMethodException(
                 $this->className,
                 $this->methodName,
@@ -126,7 +128,7 @@ final readonly class Invocation implements SelfDescribing
             return null;
         }
 
-        return (new ReturnValueGenerator)->generate(
+        return (new ReturnValueGenerator())->generate(
             $this->className,
             $this->methodName,
             $this->object,
@@ -134,25 +136,23 @@ final readonly class Invocation implements SelfDescribing
         );
     }
 
-    public function toString(): string
-    {
+    public function toString(): string {
         return sprintf(
-            '%s::%s(%s)%s',
+            "%s::%s(%s)%s",
             $this->className,
             $this->methodName,
             implode(
-                ', ',
+                ", ",
                 array_map(
-                    [Exporter::class, 'shortenedExport'],
+                    [Exporter::class, "shortenedExport"],
                     $this->parameters,
                 ),
             ),
-            $this->returnType ? sprintf(': %s', $this->returnType) : '',
+            $this->returnType ? sprintf(": %s", $this->returnType) : "",
         );
     }
 
-    public function object(): MockObjectInternal|StubInternal
-    {
+    public function object(): MockObjectInternal|StubInternal {
         return $this->object;
     }
 }

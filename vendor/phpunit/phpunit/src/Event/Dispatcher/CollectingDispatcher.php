@@ -17,21 +17,22 @@ use PHPUnit\Runner\DeprecationCollector\TestTriggeredDeprecationSubscriber;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class CollectingDispatcher implements Dispatcher
-{
+final class CollectingDispatcher implements Dispatcher {
     private EventCollection $events;
     private DirectDispatcher $isolatedDirectDispatcher;
 
-    public function __construct(DirectDispatcher $directDispatcher)
-    {
+    public function __construct(DirectDispatcher $directDispatcher) {
         $this->isolatedDirectDispatcher = $directDispatcher;
-        $this->events                   = new EventCollection;
+        $this->events = new EventCollection();
 
-        $this->isolatedDirectDispatcher->registerSubscriber(new TestTriggeredDeprecationSubscriber(DeprecationCollector::collector()));
+        $this->isolatedDirectDispatcher->registerSubscriber(
+            new TestTriggeredDeprecationSubscriber(
+                DeprecationCollector::collector(),
+            ),
+        );
     }
 
-    public function dispatch(Event $event): void
-    {
+    public function dispatch(Event $event): void {
         $this->events->add($event);
 
         try {
@@ -41,11 +42,10 @@ final class CollectingDispatcher implements Dispatcher
         }
     }
 
-    public function flush(): EventCollection
-    {
+    public function flush(): EventCollection {
         $events = $this->events;
 
-        $this->events = new EventCollection;
+        $this->events = new EventCollection();
 
         return $events;
     }

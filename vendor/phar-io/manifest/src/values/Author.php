@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 /*
  * This file is part of PharIo\Manifest.
  *
@@ -20,7 +20,7 @@ class Author {
     private $email;
 
     public function __construct(string $name, ?Email $email = null) {
-        $this->name  = $name;
+        $this->name = $name;
         $this->email = $email;
     }
 
@@ -29,11 +29,7 @@ class Author {
             return $this->name;
         }
 
-        return sprintf(
-            '%s <%s>',
-            $this->name,
-            $this->email->asString()
-        );
+        return sprintf("%s <%s>", $this->name, $this->email->asString());
     }
 
     public function getName(): string {

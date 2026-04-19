@@ -16,24 +16,23 @@ use function sprintf;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class HookedPropertyGenerator
-{
+final class HookedPropertyGenerator {
     /**
      * @param class-string         $className
      * @param list<HookedProperty> $properties
      *
      * @return non-empty-string
      */
-    public function generate(string $className, array $properties): string
-    {
-        $code = '';
+    public function generate(string $className, array $properties): string {
+        $code = "";
 
         foreach ($properties as $property) {
             $code .= sprintf(
                 <<<'EOT'
 
-    public %s $%s {
-EOT,
+                    public %s $%s {
+                EOT
+                ,
                 $property->type()->asString(),
                 $property->name(),
             );
@@ -42,15 +41,16 @@ EOT,
                 $code .= sprintf(
                     <<<'EOT'
 
-        get {
-            return $this->__phpunit_getInvocationHandler()->invoke(
-                new \PHPUnit\Framework\MockObject\Invocation(
-                    '%s', '$%s::get', [], '%s', $this, false
-                )
-            );
-        }
+                            get {
+                                return $this->__phpunit_getInvocationHandler()->invoke(
+                                    new \PHPUnit\Framework\MockObject\Invocation(
+                                        '%s', '$%s::get', [], '%s', $this, false
+                                    )
+                                );
+                            }
 
-EOT,
+                    EOT
+                    ,
                     $className,
                     $property->name(),
                     $property->type()->asString(),
@@ -61,15 +61,16 @@ EOT,
                 $code .= sprintf(
                     <<<'EOT'
 
-        set (%s $value) {
-            $this->__phpunit_getInvocationHandler()->invoke(
-                new \PHPUnit\Framework\MockObject\Invocation(
-                    '%s', '$%s::set', [$value], 'void', $this, false
-                )
-            );
-        }
+                            set (%s $value) {
+                                $this->__phpunit_getInvocationHandler()->invoke(
+                                    new \PHPUnit\Framework\MockObject\Invocation(
+                                        '%s', '$%s::set', [$value], 'void', $this, false
+                                    )
+                                );
+                            }
 
-EOT,
+                    EOT
+                    ,
                     $property->setterType()->asString(),
                     $className,
                     $property->name(),
@@ -77,9 +78,9 @@ EOT,
             }
 
             $code .= <<<'EOT'
-    }
+                }
 
-EOT;
+            EOT;
         }
 
         return $code;

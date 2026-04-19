@@ -19,8 +19,7 @@ use PHPUnit\Framework\MockObject\NoMoreReturnValuesConfiguredException;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class ConsecutiveCalls implements Stub
-{
+final class ConsecutiveCalls implements Stub {
     /**
      * @var array<mixed>
      */
@@ -30,17 +29,15 @@ final class ConsecutiveCalls implements Stub
     /**
      * @param array<mixed> $stack
      */
-    public function __construct(array $stack)
-    {
-        $this->stack                          = $stack;
+    public function __construct(array $stack) {
+        $this->stack = $stack;
         $this->numberOfConfiguredReturnValues = count($stack);
     }
 
     /**
      * @throws NoMoreReturnValuesConfiguredException
      */
-    public function invoke(Invocation $invocation): mixed
-    {
+    public function invoke(Invocation $invocation): mixed {
         if (empty($this->stack)) {
             throw new NoMoreReturnValuesConfiguredException(
                 $invocation,

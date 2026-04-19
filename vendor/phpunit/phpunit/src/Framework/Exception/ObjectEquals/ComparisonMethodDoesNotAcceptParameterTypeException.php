@@ -16,13 +16,16 @@ use function sprintf;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class ComparisonMethodDoesNotAcceptParameterTypeException extends Exception
-{
-    public function __construct(string $className, string $methodName, string $type)
-    {
+final class ComparisonMethodDoesNotAcceptParameterTypeException extends
+    Exception {
+    public function __construct(
+        string $className,
+        string $methodName,
+        string $type,
+    ) {
         parent::__construct(
             sprintf(
-                '%s is not an accepted argument type for comparison method %s::%s().',
+                "%s is not an accepted argument type for comparison method %s::%s().",
                 $type,
                 $className,
                 $methodName,

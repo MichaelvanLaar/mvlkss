@@ -4,7 +4,6 @@ namespace LukasKleinschmidt;
 
 use Exception;
 
-class PreventSnippetException extends Exception
-{
+class PreventSnippetException extends Exception {
     //
 }

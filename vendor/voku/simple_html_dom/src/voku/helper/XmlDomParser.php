@@ -13,8 +13,7 @@ namespace voku\helper;
  * @method static XmlDomParser str_get_xml($xml, $libXMLExtraOptions = null)
  *                                 <p>Load XML from string.</p>
  */
-class XmlDomParser extends AbstractDomParser
-{
+class XmlDomParser extends AbstractDomParser {
     /**
      * @var callable|null
      *
@@ -54,9 +53,8 @@ class XmlDomParser extends AbstractDomParser
     /**
      * @param \DOMNode|SimpleXmlDomInterface|string $element HTML code or SimpleXmlDomInterface, \DOMNode
      */
-    public function __construct($element = null)
-    {
-        $this->document = new \DOMDocument('1.0', $this->getEncoding());
+    public function __construct($element = null) {
+        $this->document = new \DOMDocument("1.0", $this->getEncoding());
 
         // DOMDocument settings
         $this->document->preserveWhiteSpace = true;
@@ -91,25 +89,24 @@ class XmlDomParser extends AbstractDomParser
      *
      * @return static
      */
-    public static function __callStatic($name, $arguments)
-    {
-        $arguments0 = $arguments[0] ?? '';
+    public static function __callStatic($name, $arguments) {
+        $arguments0 = $arguments[0] ?? "";
 
         $arguments1 = $arguments[1] ?? null;
 
-        if ($name === 'str_get_xml') {
+        if ($name === "str_get_xml") {
             $parser = new static();
 
             return $parser->loadXml($arguments0, $arguments1);
         }
 
-        if ($name === 'file_get_xml') {
+        if ($name === "file_get_xml") {
             $parser = new static();
 
             return $parser->loadXmlFile($arguments0, $arguments1);
         }
 
-        throw new \BadMethodCallException('Method does not exist');
+        throw new \BadMethodCallException("Method does not exist");
     }
 
     /** @noinspection MagicMethodsValidityInspection */
@@ -119,11 +116,10 @@ class XmlDomParser extends AbstractDomParser
      *
      * @return string|null
      */
-    public function __get($name)
-    {
+    public function __get($name) {
         $name = \strtolower($name);
 
-        if ($name === 'plaintext') {
+        if ($name === "plaintext") {
             return $this->text();
         }
 
@@ -133,8 +129,7 @@ class XmlDomParser extends AbstractDomParser
     /**
      * @return string
      */
-    public function __toString()
-    {
+    public function __toString() {
         return $this->xml(false, false, true, 0);
     }
 
@@ -147,8 +142,11 @@ class XmlDomParser extends AbstractDomParser
      *
      * @return \DOMDocument
      */
-    protected function createDOMDocument(string $xml, $libXMLExtraOptions = null, $useDefaultLibXMLOptions = true): \DOMDocument
-    {
+    protected function createDOMDocument(
+        string $xml,
+        $libXMLExtraOptions = null,
+        $useDefaultLibXMLOptions = true,
+    ): \DOMDocument {
         if ($this->callbackBeforeCreateDom) {
             $xml = \call_user_func($this->callbackBeforeCreateDom, $xml, $this);
         }
@@ -164,11 +162,11 @@ class XmlDomParser extends AbstractDomParser
         if ($useDefaultLibXMLOptions) {
             $optionsXml = \LIBXML_DTDLOAD | \LIBXML_DTDATTR | \LIBXML_NONET;
 
-            if (\defined('LIBXML_BIGLINES')) {
+            if (\defined("LIBXML_BIGLINES")) {
                 $optionsXml |= \LIBXML_BIGLINES;
             }
 
-            if (\defined('LIBXML_COMPACT')) {
+            if (\defined("LIBXML_COMPACT")) {
                 $optionsXml |= \LIBXML_COMPACT;
             }
         }
@@ -179,10 +177,15 @@ class XmlDomParser extends AbstractDomParser
 
         $this->xPathNamespaces = []; // reset
         $matches = [];
-        \preg_match_all('#xmlns:(?<namespaceKey>.*)=(["\'])(?<namespaceValue>.*)\\2#Ui', $xml, $matches);
-        foreach ($matches['namespaceKey'] ?? [] as $index => $key) {
+        \preg_match_all(
+            '#xmlns:(?<namespaceKey>.*)=(["\'])(?<namespaceValue>.*)\\2#Ui',
+            $xml,
+            $matches,
+        );
+        foreach ($matches["namespaceKey"] ?? [] as $index => $key) {
             if ($key) {
-                $this->xPathNamespaces[\trim($key, ':')] = $matches['namespaceValue'][$index];
+                $this->xPathNamespaces[\trim($key, ":")] =
+                    $matches["namespaceValue"][$index];
             }
         }
 
@@ -193,7 +196,11 @@ class XmlDomParser extends AbstractDomParser
         $xml = self::replaceToPreserveHtmlEntities($xml);
 
         $documentFound = false;
-        $sxe = \simplexml_load_string($xml, \SimpleXMLElement::class, $optionsXml);
+        $sxe = \simplexml_load_string(
+            $xml,
+            \SimpleXMLElement::class,
+            $optionsXml,
+        );
         $xmlErrors = \libxml_get_errors();
         if ($sxe !== false && \count($xmlErrors) === 0) {
             $domElementTmp = \dom_import_simplexml($sxe);
@@ -207,9 +214,10 @@ class XmlDomParser extends AbstractDomParser
             // UTF-8 hack: http://php.net/manual/en/domdocument.loadhtml.php#95251
             $xmlHackUsed = false;
             /** @noinspection StringFragmentMisplacedInspection */
-            if (\stripos('<?xml', $xml) !== 0) {
+            if (\stripos("<?xml", $xml) !== 0) {
                 $xmlHackUsed = true;
-                $xml = '<?xml encoding="' . $this->getEncoding() . '" ?>' . $xml;
+                $xml =
+                    '<?xml encoding="' . $this->getEncoding() . '" ?>' . $xml;
             }
 
             $documentFound = $this->document->loadXML($xml, $optionsXml);
@@ -227,12 +235,12 @@ class XmlDomParser extends AbstractDomParser
             }
         }
 
-        if (
-            $documentFound === false
-            &&
-            \count($xmlErrors) > 0
-        ) {
-            $errorStr = 'XML-Errors: ' . \print_r($xmlErrors, true) . ' in ' . \print_r($xml, true);
+        if ($documentFound === false && \count($xmlErrors) > 0) {
+            $errorStr =
+                "XML-Errors: " .
+                \print_r($xmlErrors, true) .
+                " in " .
+                \print_r($xml, true);
 
             if (!$this->reportXmlErrorsAsException) {
                 \trigger_error($errorStr, \E_USER_WARNING);
@@ -262,8 +270,7 @@ class XmlDomParser extends AbstractDomParser
      *
      * @return SimpleXmlDomInterface|SimpleXmlDomInterface[]|SimpleXmlDomNodeInterface<SimpleXmlDomInterface>
      */
-    public function find(string $selector, $idx = null)
-    {
+    public function find(string $selector, $idx = null) {
         $xPathQuery = SelectorConverter::toXPath($selector, true, false);
 
         $xPath = new \DOMXPath($this->document);
@@ -275,7 +282,13 @@ class XmlDomParser extends AbstractDomParser
         }
 
         if ($this->callbackXPathBeforeQuery) {
-            $xPathQuery = \call_user_func($this->callbackXPathBeforeQuery, $selector, $xPathQuery, $xPath, $this);
+            $xPathQuery = \call_user_func(
+                $this->callbackXPathBeforeQuery,
+                $selector,
+                $xPathQuery,
+                $xPath,
+                $this,
+            );
         }
 
         $nodesList = $xPath->query($xPathQuery);
@@ -313,8 +326,7 @@ class XmlDomParser extends AbstractDomParser
      *
      * @return SimpleXmlDomInterface[]|SimpleXmlDomNodeInterface<SimpleXmlDomInterface>
      */
-    public function findMulti(string $selector): SimpleXmlDomNodeInterface
-    {
+    public function findMulti(string $selector): SimpleXmlDomNodeInterface {
         return $this->find($selector, null);
     }
 
@@ -325,8 +337,7 @@ class XmlDomParser extends AbstractDomParser
      *
      * @return false|SimpleXmlDomInterface[]|SimpleXmlDomNodeInterface<SimpleXmlDomInterface>
      */
-    public function findMultiOrFalse(string $selector)
-    {
+    public function findMultiOrFalse(string $selector) {
         $return = $this->find($selector, null);
 
         if ($return instanceof SimpleXmlDomNodeBlank) {
@@ -343,8 +354,7 @@ class XmlDomParser extends AbstractDomParser
      *
      * @return SimpleXmlDomInterface
      */
-    public function findOne(string $selector): SimpleXmlDomInterface
-    {
+    public function findOne(string $selector): SimpleXmlDomInterface {
         return $this->find($selector, 0);
     }
 
@@ -355,8 +365,7 @@ class XmlDomParser extends AbstractDomParser
      *
      * @return false|SimpleXmlDomInterface
      */
-    public function findOneOrFalse(string $selector)
-    {
+    public function findOneOrFalse(string $selector) {
         $return = $this->find($selector, 0);
 
         if ($return instanceof SimpleXmlDomBlank) {
@@ -376,11 +385,14 @@ class XmlDomParser extends AbstractDomParser
     public function fixHtmlOutput(
         string $content,
         bool $multiDecodeNewHtmlEntity = false,
-        bool $putBrokenReplacedBack = true
+        bool $putBrokenReplacedBack = true,
     ): string {
         $content = $this->decodeHtmlEntity($content, $multiDecodeNewHtmlEntity);
 
-        return self::putReplacedBackToPreserveHtmlEntities($content, $putBrokenReplacedBack);
+        return self::putReplacedBackToPreserveHtmlEntities(
+            $content,
+            $putBrokenReplacedBack,
+        );
     }
 
     /**
@@ -390,8 +402,9 @@ class XmlDomParser extends AbstractDomParser
      *
      * @return SimpleXmlDomInterface[]|SimpleXmlDomNodeInterface<SimpleXmlDomInterface>
      */
-    public function getElementByClass(string $class): SimpleXmlDomNodeInterface
-    {
+    public function getElementByClass(
+        string $class,
+    ): SimpleXmlDomNodeInterface {
         return $this->findMulti(".{$class}");
     }
 
@@ -402,8 +415,7 @@ class XmlDomParser extends AbstractDomParser
      *
      * @return SimpleXmlDomInterface
      */
-    public function getElementById(string $id): SimpleXmlDomInterface
-    {
+    public function getElementById(string $id): SimpleXmlDomInterface {
         return $this->findOne("#{$id}");
     }
 
@@ -414,8 +426,7 @@ class XmlDomParser extends AbstractDomParser
      *
      * @return SimpleXmlDomInterface
      */
-    public function getElementByTagName(string $name): SimpleXmlDomInterface
-    {
+    public function getElementByTagName(string $name): SimpleXmlDomInterface {
         $node = $this->document->getElementsByTagName($name)->item(0);
 
         if ($node === null) {
@@ -433,8 +444,7 @@ class XmlDomParser extends AbstractDomParser
      *
      * @return SimpleXmlDomInterface|SimpleXmlDomInterface[]|SimpleXmlDomNodeInterface<SimpleXmlDomInterface>
      */
-    public function getElementsById(string $id, $idx = null)
-    {
+    public function getElementsById(string $id, $idx = null) {
         return $this->find("#{$id}", $idx);
     }
 
@@ -446,8 +456,7 @@ class XmlDomParser extends AbstractDomParser
      *
      * @return SimpleXmlDomInterface|SimpleXmlDomInterface[]|SimpleXmlDomNodeInterface<SimpleXmlDomInterface>
      */
-    public function getElementsByTagName(string $name, $idx = null)
-    {
+    public function getElementsByTagName(string $name, $idx = null) {
         $nodesList = $this->document->getElementsByTagName($name);
 
         $elements = new SimpleXmlDomNode();
@@ -482,8 +491,10 @@ class XmlDomParser extends AbstractDomParser
      *
      * @return string
      */
-    public function html(bool $multiDecodeNewHtmlEntity = false, bool $putBrokenReplacedBack = true): string
-    {
+    public function html(
+        bool $multiDecodeNewHtmlEntity = false,
+        bool $putBrokenReplacedBack = true,
+    ): string {
         if (static::$callback !== null) {
             \call_user_func(static::$callback, [$this]);
         }
@@ -491,10 +502,14 @@ class XmlDomParser extends AbstractDomParser
         $content = $this->document->saveHTML();
 
         if ($content === false) {
-            return '';
+            return "";
         }
 
-        return $this->fixHtmlOutput($content, $multiDecodeNewHtmlEntity, $putBrokenReplacedBack);
+        return $this->fixHtmlOutput(
+            $content,
+            $multiDecodeNewHtmlEntity,
+            $putBrokenReplacedBack,
+        );
     }
 
     /**
@@ -505,8 +520,10 @@ class XmlDomParser extends AbstractDomParser
      *
      * @return $this
      */
-    public function loadHtml(string $html, $libXMLExtraOptions = null): DomParserInterface
-    {
+    public function loadHtml(
+        string $html,
+        $libXMLExtraOptions = null,
+    ): DomParserInterface {
         $this->document = $this->createDOMDocument($html, $libXMLExtraOptions);
 
         return $this;
@@ -522,11 +539,12 @@ class XmlDomParser extends AbstractDomParser
      *
      * @return $this
      */
-    public function loadHtmlFile(string $filePath, $libXMLExtraOptions = null): DomParserInterface
-    {
+    public function loadHtmlFile(
+        string $filePath,
+        $libXMLExtraOptions = null,
+    ): DomParserInterface {
         if (
-            !\preg_match("/^https?:\/\//i", $filePath)
-            &&
+            !\preg_match("/^https?:\/\//i", $filePath) &&
             !\file_exists($filePath)
         ) {
             throw new \RuntimeException("File {$filePath} not found");
@@ -555,8 +573,7 @@ class XmlDomParser extends AbstractDomParser
      *
      * @return SimpleXmlDomInterface|SimpleXmlDomInterface[]|SimpleXmlDomNodeInterface<SimpleXmlDomInterface>
      */
-    public function __invoke($selector, $idx = null)
-    {
+    public function __invoke($selector, $idx = null) {
         return $this->find($selector, $idx);
     }
 
@@ -565,13 +582,16 @@ class XmlDomParser extends AbstractDomParser
      *
      * @return string
      */
-    private function removeXPathNamespaces(string $xml): string
-    {
+    private function removeXPathNamespaces(string $xml): string {
         foreach ($this->xPathNamespaces as $key => $value) {
-            $xml = \str_replace($key . ':', '', $xml);
+            $xml = \str_replace($key . ":", "", $xml);
         }
 
-        return (string) \preg_replace('#xmlns:?.*=(["\'])(?:.*)\\1#Ui', '', $xml);
+        return (string) \preg_replace(
+            '#xmlns:?.*=(["\'])(?:.*)\\1#Ui',
+            "",
+            $xml,
+        );
     }
 
     /**
@@ -583,9 +603,16 @@ class XmlDomParser extends AbstractDomParser
      *
      * @return $this
      */
-    public function loadXml(string $xml, $libXMLExtraOptions = null, $useDefaultLibXMLOptions = true): self
-    {
-        $this->document = $this->createDOMDocument($xml, $libXMLExtraOptions, $useDefaultLibXMLOptions);
+    public function loadXml(
+        string $xml,
+        $libXMLExtraOptions = null,
+        $useDefaultLibXMLOptions = true,
+    ): self {
+        $this->document = $this->createDOMDocument(
+            $xml,
+            $libXMLExtraOptions,
+            $useDefaultLibXMLOptions,
+        );
 
         return $this;
     }
@@ -601,11 +628,13 @@ class XmlDomParser extends AbstractDomParser
      *
      * @return $this
      */
-    public function loadXmlFile(string $filePath, $libXMLExtraOptions = null, $useDefaultLibXMLOptions = true): self
-    {
+    public function loadXmlFile(
+        string $filePath,
+        $libXMLExtraOptions = null,
+        $useDefaultLibXMLOptions = true,
+    ): self {
         if (
-            !\preg_match("/^https?:\/\//i", $filePath)
-            &&
+            !\preg_match("/^https?:\/\//i", $filePath) &&
             !\file_exists($filePath)
         ) {
             throw new \RuntimeException("File {$filePath} not found");
@@ -625,7 +654,11 @@ class XmlDomParser extends AbstractDomParser
             throw new \RuntimeException("Could not load file {$filePath}");
         }
 
-        return $this->loadXml($xml, $libXMLExtraOptions, $useDefaultLibXMLOptions);
+        return $this->loadXml(
+            $xml,
+            $libXMLExtraOptions,
+            $useDefaultLibXMLOptions,
+        );
     }
 
     /**
@@ -634,8 +667,10 @@ class XmlDomParser extends AbstractDomParser
      *
      * @return void
      */
-    public function replaceTextWithCallback($callback, \DOMNode $domNode = null)
-    {
+    public function replaceTextWithCallback(
+        $callback,
+        \DOMNode $domNode = null,
+    ) {
         if ($domNode === null) {
             $domNode = $this->document;
         }
@@ -654,10 +689,14 @@ class XmlDomParser extends AbstractDomParser
                     /** @var \DOMText $child */
                     $child = $child;
 
-                    $oldText = self::putReplacedBackToPreserveHtmlEntities($child->wholeText);
+                    $oldText = self::putReplacedBackToPreserveHtmlEntities(
+                        $child->wholeText,
+                    );
                     $newText = $callback($oldText);
                     if ($domNode->ownerDocument) {
-                        $newTextNode = $domNode->ownerDocument->createTextNode(self::replaceToPreserveHtmlEntities($newText));
+                        $newTextNode = $domNode->ownerDocument->createTextNode(
+                            self::replaceToPreserveHtmlEntities($newText),
+                        );
                         $domNode->replaceChild($newTextNode, $child);
                     }
                 } else {
@@ -672,8 +711,9 @@ class XmlDomParser extends AbstractDomParser
      *
      * @return $this
      */
-    public function autoRemoveXPathNamespaces(bool $autoRemoveXPathNamespaces = true): self
-    {
+    public function autoRemoveXPathNamespaces(
+        bool $autoRemoveXPathNamespaces = true,
+    ): self {
         $this->autoRemoveXPathNamespaces = $autoRemoveXPathNamespaces;
 
         return $this;
@@ -684,8 +724,9 @@ class XmlDomParser extends AbstractDomParser
      *
      * @return $this
      */
-    public function autoRegisterXPathNamespaces(bool $autoRegisterXPathNamespaces = true): self
-    {
+    public function autoRegisterXPathNamespaces(
+        bool $autoRegisterXPathNamespaces = true,
+    ): self {
         $this->autoRegisterXPathNamespaces = $autoRegisterXPathNamespaces;
 
         return $this;
@@ -698,8 +739,9 @@ class XmlDomParser extends AbstractDomParser
      *
      * @return $this
      */
-    public function setCallbackXPathBeforeQuery(callable $callbackXPathBeforeQuery): self
-    {
+    public function setCallbackXPathBeforeQuery(
+        callable $callbackXPathBeforeQuery,
+    ): self {
         $this->callbackXPathBeforeQuery = $callbackXPathBeforeQuery;
 
         return $this;
@@ -712,8 +754,9 @@ class XmlDomParser extends AbstractDomParser
      *
      * @return $this
      */
-    public function setCallbackBeforeCreateDom(callable $callbackBeforeCreateDom): self
-    {
+    public function setCallbackBeforeCreateDom(
+        callable $callbackBeforeCreateDom,
+    ): self {
         $this->callbackBeforeCreateDom = $callbackBeforeCreateDom;
 
         return $this;
@@ -724,8 +767,9 @@ class XmlDomParser extends AbstractDomParser
      *
      * @return $this
      */
-    public function reportXmlErrorsAsException(bool $reportXmlErrorsAsException = true): self
-    {
+    public function reportXmlErrorsAsException(
+        bool $reportXmlErrorsAsException = true,
+    ): self {
         $this->reportXmlErrorsAsException = $reportXmlErrorsAsException;
 
         return $this;

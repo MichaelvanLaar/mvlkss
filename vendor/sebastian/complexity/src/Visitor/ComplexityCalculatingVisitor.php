@@ -24,27 +24,24 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor;
 use PhpParser\NodeVisitorAbstract;
 
-final class ComplexityCalculatingVisitor extends NodeVisitorAbstract
-{
+final class ComplexityCalculatingVisitor extends NodeVisitorAbstract {
     /**
      * @var list<Complexity>
      */
     private array $result = [];
     private bool $shortCircuitTraversal;
 
-    public function __construct(bool $shortCircuitTraversal)
-    {
+    public function __construct(bool $shortCircuitTraversal) {
         $this->shortCircuitTraversal = $shortCircuitTraversal;
     }
 
-    public function enterNode(Node $node): ?int
-    {
-        if (!$node instanceof ClassMethod && !$node instanceof Function_) {
+    public function enterNode(Node $node): ?int {
+        if (!($node instanceof ClassMethod) && !($node instanceof Function_)) {
             return null;
         }
 
         if ($node instanceof ClassMethod) {
-            if ($node->getAttribute('parent') instanceof Interface_) {
+            if ($node->getAttribute("parent") instanceof Interface_) {
                 return null;
             }
 
@@ -73,8 +70,7 @@ final class ComplexityCalculatingVisitor extends NodeVisitorAbstract
         return null;
     }
 
-    public function result(): ComplexityCollection
-    {
+    public function result(): ComplexityCollection {
         return ComplexityCollection::fromList(...$this->result);
     }
 
@@ -83,11 +79,10 @@ final class ComplexityCalculatingVisitor extends NodeVisitorAbstract
      *
      * @return positive-int
      */
-    private function cyclomaticComplexity(array $statements): int
-    {
-        $traverser = new NodeTraverser;
+    private function cyclomaticComplexity(array $statements): int {
+        $traverser = new NodeTraverser();
 
-        $cyclomaticComplexityCalculatingVisitor = new CyclomaticComplexityCalculatingVisitor;
+        $cyclomaticComplexityCalculatingVisitor = new CyclomaticComplexityCalculatingVisitor();
 
         $traverser->addVisitor($cyclomaticComplexityCalculatingVisitor);
 
@@ -100,33 +95,33 @@ final class ComplexityCalculatingVisitor extends NodeVisitorAbstract
     /**
      * @return non-empty-string
      */
-    private function classMethodName(ClassMethod $node): string
-    {
-        $parent = $node->getAttribute('parent');
+    private function classMethodName(ClassMethod $node): string {
+        $parent = $node->getAttribute("parent");
 
         assert($parent instanceof Class_ || $parent instanceof Trait_);
 
-        if ($parent->getAttribute('parent') instanceof New_) {
-            return 'anonymous class';
+        if ($parent->getAttribute("parent") instanceof New_) {
+            return "anonymous class";
         }
 
         assert(isset($parent->namespacedName));
         assert($parent->namespacedName instanceof Name);
 
-        return $parent->namespacedName->toString() . '::' . $node->name->toString();
+        return $parent->namespacedName->toString() .
+            "::" .
+            $node->name->toString();
     }
 
     /**
      * @return non-empty-string
      */
-    private function functionName(Function_ $node): string
-    {
+    private function functionName(Function_ $node): string {
         assert(isset($node->namespacedName));
         assert($node->namespacedName instanceof Name);
 
         $functionName = $node->namespacedName->toString();
 
-        assert($functionName !== '');
+        assert($functionName !== "");
 
         return $functionName;
     }

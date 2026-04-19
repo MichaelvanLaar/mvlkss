@@ -18,16 +18,11 @@ use RuntimeException;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class FileDoesNotHaveLineException extends RuntimeException implements Exception
-{
-    public function __construct(string $file, int $line)
-    {
+final class FileDoesNotHaveLineException extends RuntimeException implements
+    Exception {
+    public function __construct(string $file, int $line) {
         parent::__construct(
-            sprintf(
-                'File "%s" does not have line %d',
-                $file,
-                $line,
-            ),
+            sprintf('File "%s" does not have line %d', $file, $line),
         );
     }
 }

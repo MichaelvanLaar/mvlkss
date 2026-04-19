@@ -16,18 +16,15 @@ use DOMElement;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class CoverageCloverToReport extends LogToReportMigration
-{
-    protected function forType(): string
-    {
-        return 'coverage-clover';
+final readonly class CoverageCloverToReport extends LogToReportMigration {
+    protected function forType(): string {
+        return "coverage-clover";
     }
 
-    protected function toReportFormat(DOMElement $logNode): DOMElement
-    {
-        $clover = $logNode->ownerDocument->createElement('clover');
+    protected function toReportFormat(DOMElement $logNode): DOMElement {
+        $clover = $logNode->ownerDocument->createElement("clover");
 
-        $clover->setAttribute('outputFile', $logNode->getAttribute('target'));
+        $clover->setAttribute("outputFile", $logNode->getAttribute("target"));
 
         return $clover;
     }

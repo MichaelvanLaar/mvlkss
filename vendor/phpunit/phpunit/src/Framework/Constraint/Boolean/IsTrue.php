@@ -12,22 +12,19 @@ namespace PHPUnit\Framework\Constraint;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class IsTrue extends Constraint
-{
+final class IsTrue extends Constraint {
     /**
      * Returns a string representation of the constraint.
      */
-    public function toString(): string
-    {
-        return 'is true';
+    public function toString(): string {
+        return "is true";
     }
 
     /**
      * Evaluates the constraint for parameter $other. Returns true if the
      * constraint is met, false otherwise.
      */
-    protected function matches(mixed $other): bool
-    {
+    protected function matches(mixed $other): bool {
         return $other === true;
     }
 }

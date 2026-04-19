@@ -13,10 +13,8 @@ declare(strict_types=1);
 
 namespace Ergebnis\Composer\Normalize\Exception;
 
-final class ShouldNotHappen extends \LogicException implements Exception
-{
-    public static function create(): self
-    {
-        return new self('This should not happen.');
+final class ShouldNotHappen extends \LogicException implements Exception {
+    public static function create(): self {
+        return new self("This should not happen.");
     }
 }

@@ -11,6 +11,5 @@ namespace SebastianBergmann\LinesOfCode;
 
 use InvalidArgumentException;
 
-final class NegativeValueException extends InvalidArgumentException implements Exception
-{
-}
+final class NegativeValueException extends InvalidArgumentException implements
+    Exception {}

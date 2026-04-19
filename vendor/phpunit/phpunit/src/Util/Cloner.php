@@ -16,8 +16,7 @@ use Throwable;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class Cloner
-{
+final readonly class Cloner {
     /**
      * @template OriginalType of object
      *
@@ -25,8 +24,7 @@ final readonly class Cloner
      *
      * @return OriginalType
      */
-    public static function clone(object $original): object
-    {
+    public static function clone(object $original): object {
         try {
             return clone $original;
 

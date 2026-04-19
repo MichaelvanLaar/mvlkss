@@ -29,8 +29,7 @@ use ReflectionClass;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class HookMethods
-{
+final class HookMethods {
     /**
      * @var array<class-string, array{beforeClass: HookMethodCollection, before: HookMethodCollection, preCondition: HookMethodCollection, postCondition: HookMethodCollection, after: HookMethodCollection, afterClass: HookMethodCollection}>
      */
@@ -41,8 +40,7 @@ final class HookMethods
      *
      * @return array{beforeClass: HookMethodCollection, before: HookMethodCollection, preCondition: HookMethodCollection, postCondition: HookMethodCollection, after: HookMethodCollection, afterClass: HookMethodCollection}
      */
-    public function hookMethods(string $className): array
-    {
+    public function hookMethods(string $className): array {
         if (!class_exists($className)) {
             return self::emptyHookMethodsArray();
         }
@@ -53,7 +51,12 @@ final class HookMethods
 
         self::$hookMethods[$className] = self::emptyHookMethodsArray();
 
-        foreach (Reflection::methodsDeclaredDirectlyInTestClass(new ReflectionClass($className)) as $method) {
+        foreach (
+            Reflection::methodsDeclaredDirectlyInTestClass(
+                new ReflectionClass($className),
+            )
+            as $method
+        ) {
             $methodName = $method->getName();
 
             assert(!empty($methodName));
@@ -65,7 +68,7 @@ final class HookMethods
                     $beforeClass = $metadata->isBeforeClass()->asArray()[0];
                     assert($beforeClass instanceof BeforeClass);
 
-                    self::$hookMethods[$className]['beforeClass']->add(
+                    self::$hookMethods[$className]["beforeClass"]->add(
                         new HookMethod($methodName, $beforeClass->priority()),
                     );
                 }
@@ -74,7 +77,7 @@ final class HookMethods
                     $afterClass = $metadata->isAfterClass()->asArray()[0];
                     assert($afterClass instanceof AfterClass);
 
-                    self::$hookMethods[$className]['afterClass']->add(
+                    self::$hookMethods[$className]["afterClass"]->add(
                         new HookMethod($methodName, $afterClass->priority()),
                     );
                 }
@@ -84,7 +87,7 @@ final class HookMethods
                 $before = $metadata->isBefore()->asArray()[0];
                 assert($before instanceof Before);
 
-                self::$hookMethods[$className]['before']->add(
+                self::$hookMethods[$className]["before"]->add(
                     new HookMethod($methodName, $before->priority()),
                 );
             }
@@ -93,7 +96,7 @@ final class HookMethods
                 $preCondition = $metadata->isPreCondition()->asArray()[0];
                 assert($preCondition instanceof PreCondition);
 
-                self::$hookMethods[$className]['preCondition']->add(
+                self::$hookMethods[$className]["preCondition"]->add(
                     new HookMethod($methodName, $preCondition->priority()),
                 );
             }
@@ -102,7 +105,7 @@ final class HookMethods
                 $postCondition = $metadata->isPostCondition()->asArray()[0];
                 assert($postCondition instanceof PostCondition);
 
-                self::$hookMethods[$className]['postCondition']->add(
+                self::$hookMethods[$className]["postCondition"]->add(
                     new HookMethod($methodName, $postCondition->priority()),
                 );
             }
@@ -111,7 +114,7 @@ final class HookMethods
                 $after = $metadata->isAfter()->asArray()[0];
                 assert($after instanceof After);
 
-                self::$hookMethods[$className]['after']->add(
+                self::$hookMethods[$className]["after"]->add(
                     new HookMethod($methodName, $after->priority()),
                 );
             }
@@ -123,15 +126,14 @@ final class HookMethods
     /**
      * @return array{beforeClass: HookMethodCollection, before: HookMethodCollection, preCondition: HookMethodCollection, postCondition: HookMethodCollection, after: HookMethodCollection, afterClass: HookMethodCollection}
      */
-    private function emptyHookMethodsArray(): array
-    {
+    private function emptyHookMethodsArray(): array {
         return [
-            'beforeClass'   => HookMethodCollection::defaultBeforeClass(),
-            'before'        => HookMethodCollection::defaultBefore(),
-            'preCondition'  => HookMethodCollection::defaultPreCondition(),
-            'postCondition' => HookMethodCollection::defaultPostCondition(),
-            'after'         => HookMethodCollection::defaultAfter(),
-            'afterClass'    => HookMethodCollection::defaultAfterClass(),
+            "beforeClass" => HookMethodCollection::defaultBeforeClass(),
+            "before" => HookMethodCollection::defaultBefore(),
+            "preCondition" => HookMethodCollection::defaultPreCondition(),
+            "postCondition" => HookMethodCollection::defaultPostCondition(),
+            "after" => HookMethodCollection::defaultAfter(),
+            "afterClass" => HookMethodCollection::defaultAfterClass(),
         ];
     }
 }

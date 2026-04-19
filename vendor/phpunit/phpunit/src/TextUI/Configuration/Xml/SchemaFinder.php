@@ -22,21 +22,19 @@ use PHPUnit\Runner\Version;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class SchemaFinder
-{
+final readonly class SchemaFinder {
     /**
      * @return non-empty-list<non-empty-string>
      */
-    public function available(): array
-    {
+    public function available(): array {
         $result = [Version::series()];
 
-        foreach ((new DirectoryIterator($this->path() . 'schema')) as $file) {
+        foreach (new DirectoryIterator($this->path() . "schema") as $file) {
             if ($file->isDot()) {
                 continue;
             }
 
-            $version = $file->getBasename('.xsd');
+            $version = $file->getBasename(".xsd");
 
             assert(!empty($version));
 
@@ -51,32 +49,27 @@ final readonly class SchemaFinder
     /**
      * @throws CannotFindSchemaException
      */
-    public function find(string $version): string
-    {
+    public function find(string $version): string {
         if ($version === Version::series()) {
-            $filename = $this->path() . 'phpunit.xsd';
+            $filename = $this->path() . "phpunit.xsd";
         } else {
-            $filename = $this->path() . 'schema/' . $version . '.xsd';
+            $filename = $this->path() . "schema/" . $version . ".xsd";
         }
 
         if (!is_file($filename)) {
             throw new CannotFindSchemaException(
-                sprintf(
-                    'Schema for PHPUnit %s is not available',
-                    $version,
-                ),
+                sprintf("Schema for PHPUnit %s is not available", $version),
             );
         }
 
         return $filename;
     }
 
-    private function path(): string
-    {
-        if (defined('__PHPUNIT_PHAR_ROOT__')) {
-            return __PHPUNIT_PHAR_ROOT__ . '/';
+    private function path(): string {
+        if (defined("__PHPUNIT_PHAR_ROOT__")) {
+            return __PHPUNIT_PHAR_ROOT__ . "/";
         }
 
-        return __DIR__ . '/../../../../';
+        return __DIR__ . "/../../../../";
     }
 }

@@ -17,8 +17,7 @@ use Attribute;
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
 #[Attribute(Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
-final readonly class DependsOnClassUsingShallowClone
-{
+final readonly class DependsOnClassUsingShallowClone {
     /**
      * @var class-string
      */
@@ -27,16 +26,14 @@ final readonly class DependsOnClassUsingShallowClone
     /**
      * @param class-string $className
      */
-    public function __construct(string $className)
-    {
+    public function __construct(string $className) {
         $this->className = $className;
     }
 
     /**
      * @return class-string
      */
-    public function className(): string
-    {
+    public function className(): string {
         return $this->className;
     }
 }

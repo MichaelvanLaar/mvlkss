@@ -16,8 +16,7 @@ namespace JsonSchema\Iterator;
  *
  * @author Joost Nijhuis <jnijhuis81@gmail.com>
  */
-class ObjectIterator implements \Iterator, \Countable
-{
+class ObjectIterator implements \Iterator, \Countable {
     /** @var object */
     private $object;
 
@@ -33,8 +32,7 @@ class ObjectIterator implements \Iterator, \Countable
     /**
      * @param object $object
      */
-    public function __construct($object)
-    {
+    public function __construct($object) {
         $this->object = $object;
     }
 
@@ -42,8 +40,7 @@ class ObjectIterator implements \Iterator, \Countable
      * {@inheritdoc}
      */
     #[\ReturnTypeWillChange]
-    public function current()
-    {
+    public function current() {
         $this->initialize();
 
         return $this->data[$this->position];
@@ -52,8 +49,7 @@ class ObjectIterator implements \Iterator, \Countable
     /**
      * {@inheritdoc}
      */
-    public function next(): void
-    {
+    public function next(): void {
         $this->initialize();
         $this->position++;
     }
@@ -61,8 +57,7 @@ class ObjectIterator implements \Iterator, \Countable
     /**
      * {@inheritdoc}
      */
-    public function key(): int
-    {
+    public function key(): int {
         $this->initialize();
 
         return $this->position;
@@ -71,8 +66,7 @@ class ObjectIterator implements \Iterator, \Countable
     /**
      * {@inheritdoc}
      */
-    public function valid(): bool
-    {
+    public function valid(): bool {
         $this->initialize();
 
         return isset($this->data[$this->position]);
@@ -81,8 +75,7 @@ class ObjectIterator implements \Iterator, \Countable
     /**
      * {@inheritdoc}
      */
-    public function rewind(): void
-    {
+    public function rewind(): void {
         $this->initialize();
         $this->position = 0;
     }
@@ -90,8 +83,7 @@ class ObjectIterator implements \Iterator, \Countable
     /**
      * {@inheritdoc}
      */
-    public function count(): int
-    {
+    public function count(): int {
         $this->initialize();
 
         return count($this->data);
@@ -100,8 +92,7 @@ class ObjectIterator implements \Iterator, \Countable
     /**
      * Initializer
      */
-    private function initialize()
-    {
+    private function initialize() {
         if (!$this->initialized) {
             $this->data = $this->buildDataFromObject($this->object);
             $this->initialized = true;
@@ -113,8 +104,7 @@ class ObjectIterator implements \Iterator, \Countable
      *
      * @return array
      */
-    private function buildDataFromObject($object)
-    {
+    private function buildDataFromObject($object) {
         $result = [];
 
         $stack = new \SplStack();
@@ -126,7 +116,10 @@ class ObjectIterator implements \Iterator, \Countable
                 array_push($result, $current);
             }
 
-            foreach ($this->getDataFromItem($current) as $propertyName => $propertyValue) {
+            foreach (
+                $this->getDataFromItem($current)
+                as $propertyName => $propertyValue
+            ) {
                 if (is_object($propertyValue) || is_array($propertyValue)) {
                     $stack->push($propertyValue);
                 }
@@ -141,8 +134,7 @@ class ObjectIterator implements \Iterator, \Countable
      *
      * @return array
      */
-    private function getDataFromItem($item)
-    {
+    private function getDataFromItem($item) {
         if (!is_object($item) && !is_array($item)) {
             return [];
         }

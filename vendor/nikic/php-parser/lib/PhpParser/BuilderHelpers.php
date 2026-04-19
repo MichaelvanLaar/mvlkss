@@ -33,7 +33,7 @@ final class BuilderHelpers {
             return $node;
         }
 
-        throw new \LogicException('Expected node or builder object');
+        throw new \LogicException("Expected node or builder object");
     }
 
     /**
@@ -55,7 +55,7 @@ final class BuilderHelpers {
             return new Stmt\Expression($node);
         }
 
-        throw new \LogicException('Expected statement or expression node');
+        throw new \LogicException("Expected statement or expression node");
     }
 
     /**
@@ -74,7 +74,9 @@ final class BuilderHelpers {
             return new Identifier($name);
         }
 
-        throw new \LogicException('Expected string or instance of Node\Identifier');
+        throw new \LogicException(
+            "Expected string or instance of Node\Identifier",
+        );
     }
 
     /**
@@ -93,7 +95,9 @@ final class BuilderHelpers {
             return new Identifier($name);
         }
 
-        throw new \LogicException('Expected string or instance of Node\Identifier or Node\Expr');
+        throw new \LogicException(
+            "Expected string or instance of Node\Identifier or Node\Expr",
+        );
     }
 
     /**
@@ -110,21 +114,23 @@ final class BuilderHelpers {
 
         if (is_string($name)) {
             if (!$name) {
-                throw new \LogicException('Name cannot be empty');
+                throw new \LogicException("Name cannot be empty");
             }
 
-            if ($name[0] === '\\') {
+            if ($name[0] === "\\") {
                 return new Name\FullyQualified(substr($name, 1));
             }
 
-            if (0 === strpos($name, 'namespace\\')) {
-                return new Name\Relative(substr($name, strlen('namespace\\')));
+            if (0 === strpos($name, "namespace\\")) {
+                return new Name\Relative(substr($name, strlen("namespace\\")));
             }
 
             return new Name($name);
         }
 
-        throw new \LogicException('Name must be a string or an instance of Node\Name');
+        throw new \LogicException(
+            "Name must be a string or an instance of Node\Name",
+        );
     }
 
     /**
@@ -141,7 +147,7 @@ final class BuilderHelpers {
 
         if (!is_string($name) && !($name instanceof Name)) {
             throw new \LogicException(
-                'Name must be a string or an instance of Node\Name or Node\Expr'
+                "Name must be a string or an instance of Node\Name or Node\Expr",
             );
         }
 
@@ -161,37 +167,38 @@ final class BuilderHelpers {
     public static function normalizeType($type) {
         if (!is_string($type)) {
             if (
-                !$type instanceof Name && !$type instanceof Identifier &&
-                !$type instanceof ComplexType
+                !($type instanceof Name) &&
+                !($type instanceof Identifier) &&
+                !($type instanceof ComplexType)
             ) {
                 throw new \LogicException(
-                    'Type must be a string, or an instance of Name, Identifier or ComplexType'
+                    "Type must be a string, or an instance of Name, Identifier or ComplexType",
                 );
             }
             return $type;
         }
 
         $nullable = false;
-        if (strlen($type) > 0 && $type[0] === '?') {
+        if (strlen($type) > 0 && $type[0] === "?") {
             $nullable = true;
             $type = substr($type, 1);
         }
 
         $builtinTypes = [
-            'array',
-            'callable',
-            'bool',
-            'int',
-            'float',
-            'string',
-            'iterable',
-            'void',
-            'object',
-            'null',
-            'false',
-            'mixed',
-            'never',
-            'true',
+            "array",
+            "callable",
+            "bool",
+            "int",
+            "float",
+            "string",
+            "iterable",
+            "void",
+            "object",
+            "null",
+            "false",
+            "mixed",
+            "never",
+            "true",
         ];
 
         $lowerType = strtolower($type);
@@ -201,11 +208,11 @@ final class BuilderHelpers {
             $type = self::normalizeName($type);
         }
 
-        $notNullableTypes = [
-            'void', 'mixed', 'never',
-        ];
+        $notNullableTypes = ["void", "mixed", "never"];
         if ($nullable && in_array((string) $type, $notNullableTypes)) {
-            throw new \LogicException(sprintf('%s type cannot be nullable', $type));
+            throw new \LogicException(
+                sprintf("%s type cannot be nullable", $type),
+            );
         }
 
         return $nullable ? new NullableType($type) : $type;
@@ -225,15 +232,11 @@ final class BuilderHelpers {
         }
 
         if (is_null($value)) {
-            return new Expr\ConstFetch(
-                new Name('null')
-            );
+            return new Expr\ConstFetch(new Name("null"));
         }
 
         if (is_bool($value)) {
-            return new Expr\ConstFetch(
-                new Name($value ? 'true' : 'false')
-            );
+            return new Expr\ConstFetch(new Name($value ? "true" : "false"));
         }
 
         if (is_int($value)) {
@@ -255,13 +258,13 @@ final class BuilderHelpers {
                 // for consecutive, numeric keys don't generate keys
                 if (null !== $lastKey && ++$lastKey === $itemKey) {
                     $items[] = new Node\ArrayItem(
-                        self::normalizeValue($itemValue)
+                        self::normalizeValue($itemValue),
                     );
                 } else {
                     $lastKey = null;
                     $items[] = new Node\ArrayItem(
                         self::normalizeValue($itemValue),
-                        self::normalizeValue($itemKey)
+                        self::normalizeValue($itemKey),
                     );
                 }
             }
@@ -270,10 +273,13 @@ final class BuilderHelpers {
         }
 
         if ($value instanceof \UnitEnum) {
-            return new Expr\ClassConstFetch(new FullyQualified(\get_class($value)), new Identifier($value->name));
+            return new Expr\ClassConstFetch(
+                new FullyQualified(\get_class($value)),
+                new Identifier($value->name),
+            );
         }
 
-        throw new \LogicException('Invalid value');
+        throw new \LogicException("Invalid value");
     }
 
     /**
@@ -292,7 +298,9 @@ final class BuilderHelpers {
             return new Comment\Doc($docComment);
         }
 
-        throw new \LogicException('Doc comment must be a string or an instance of PhpParser\Comment\Doc');
+        throw new \LogicException(
+            "Doc comment must be a string or an instance of PhpParser\Comment\Doc",
+        );
     }
 
     /**
@@ -308,7 +316,9 @@ final class BuilderHelpers {
         }
 
         if (!($attribute instanceof Node\Attribute)) {
-            throw new \LogicException('Attribute must be an instance of PhpParser\Node\Attribute or PhpParser\Node\AttributeGroup');
+            throw new \LogicException(
+                "Attribute must be an instance of PhpParser\Node\Attribute or PhpParser\Node\AttributeGroup",
+            );
         }
 
         return new Node\AttributeGroup([$attribute]);
@@ -331,7 +341,10 @@ final class BuilderHelpers {
      * Adds a modifier and returns new modifier bitmask.
      * @return int New modifiers
      */
-    public static function addClassModifier(int $existingModifiers, int $modifierToSet): int {
+    public static function addClassModifier(
+        int $existingModifiers,
+        int $modifierToSet,
+    ): int {
         Modifiers::verifyClassModifier($existingModifiers, $modifierToSet);
         return $existingModifiers | $modifierToSet;
     }

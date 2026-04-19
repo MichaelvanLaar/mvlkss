@@ -24,35 +24,26 @@ use Stringable;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class ExecutionOrderDependency implements Stringable
-{
-    private string $className  = '';
-    private string $methodName = '';
+final class ExecutionOrderDependency implements Stringable {
+    private string $className = "";
+    private string $methodName = "";
     private readonly bool $shallowClone;
     private readonly bool $deepClone;
 
-    public static function invalid(): self
-    {
-        return new self(
-            '',
-            '',
-            false,
-            false,
-        );
+    public static function invalid(): self {
+        return new self("", "", false, false);
     }
 
-    public static function forClass(DependsOnClass $metadata): self
-    {
+    public static function forClass(DependsOnClass $metadata): self {
         return new self(
             $metadata->className(),
-            'class',
+            "class",
             $metadata->deepClone(),
             $metadata->shallowClone(),
         );
     }
 
-    public static function forMethod(DependsOnMethod $metadata): self
-    {
+    public static function forMethod(DependsOnMethod $metadata): self {
         return new self(
             $metadata->className(),
             $metadata->methodName(),
@@ -66,13 +57,9 @@ final class ExecutionOrderDependency implements Stringable
      *
      * @return list<ExecutionOrderDependency>
      */
-    public static function filterInvalid(array $dependencies): array
-    {
+    public static function filterInvalid(array $dependencies): array {
         return array_values(
-            array_filter(
-                $dependencies,
-                static fn (self $d) => $d->isValid(),
-            ),
+            array_filter($dependencies, static fn(self $d) => $d->isValid()),
         );
     }
 
@@ -82,10 +69,12 @@ final class ExecutionOrderDependency implements Stringable
      *
      * @return list<ExecutionOrderDependency>
      */
-    public static function mergeUnique(array $existing, array $additional): array
-    {
+    public static function mergeUnique(
+        array $existing,
+        array $additional,
+    ): array {
         $existingTargets = array_map(
-            static fn ($dependency) => $dependency->getTarget(),
+            static fn($dependency) => $dependency->getTarget(),
             $existing,
         );
 
@@ -97,7 +86,7 @@ final class ExecutionOrderDependency implements Stringable
             }
 
             $existingTargets[] = $additionalTarget;
-            $existing[]        = $dependency;
+            $existing[] = $dependency;
         }
 
         return $existing;
@@ -109,8 +98,7 @@ final class ExecutionOrderDependency implements Stringable
      *
      * @return list<ExecutionOrderDependency>
      */
-    public static function diff(array $left, array $right): array
-    {
+    public static function diff(array $left, array $right): array {
         if ($right === []) {
             return $left;
         }
@@ -119,9 +107,9 @@ final class ExecutionOrderDependency implements Stringable
             return [];
         }
 
-        $diff         = [];
+        $diff = [];
         $rightTargets = array_map(
-            static fn ($dependency) => $dependency->getTarget(),
+            static fn($dependency) => $dependency->getTarget(),
             $right,
         );
 
@@ -136,58 +124,58 @@ final class ExecutionOrderDependency implements Stringable
         return $diff;
     }
 
-    public function __construct(string $classOrCallableName, ?string $methodName = null, bool $deepClone = false, bool $shallowClone = false)
-    {
-        $this->deepClone    = $deepClone;
+    public function __construct(
+        string $classOrCallableName,
+        ?string $methodName = null,
+        bool $deepClone = false,
+        bool $shallowClone = false,
+    ) {
+        $this->deepClone = $deepClone;
         $this->shallowClone = $shallowClone;
 
-        if ($classOrCallableName === '') {
+        if ($classOrCallableName === "") {
             return;
         }
 
-        if (str_contains($classOrCallableName, '::')) {
-            [$this->className, $this->methodName] = explode('::', $classOrCallableName);
+        if (str_contains($classOrCallableName, "::")) {
+            [$this->className, $this->methodName] = explode(
+                "::",
+                $classOrCallableName,
+            );
         } else {
-            $this->className  = $classOrCallableName;
-            $this->methodName = !empty($methodName) ? $methodName : 'class';
+            $this->className = $classOrCallableName;
+            $this->methodName = !empty($methodName) ? $methodName : "class";
         }
     }
 
-    public function __toString(): string
-    {
+    public function __toString(): string {
         return $this->getTarget();
     }
 
-    public function isValid(): bool
-    {
+    public function isValid(): bool {
         // Invalid dependencies can be declared and are skipped by the runner
-        return $this->className !== '' && $this->methodName !== '';
+        return $this->className !== "" && $this->methodName !== "";
     }
 
-    public function shallowClone(): bool
-    {
+    public function shallowClone(): bool {
         return $this->shallowClone;
     }
 
-    public function deepClone(): bool
-    {
+    public function deepClone(): bool {
         return $this->deepClone;
     }
 
-    public function targetIsClass(): bool
-    {
-        return $this->methodName === 'class';
+    public function targetIsClass(): bool {
+        return $this->methodName === "class";
     }
 
-    public function getTarget(): string
-    {
+    public function getTarget(): string {
         return $this->isValid()
-            ? $this->className . '::' . $this->methodName
-            : '';
+            ? $this->className . "::" . $this->methodName
+            : "";
     }
 
-    public function getTargetClassName(): string
-    {
+    public function getTargetClassName(): string {
         return $this->className;
     }
 }

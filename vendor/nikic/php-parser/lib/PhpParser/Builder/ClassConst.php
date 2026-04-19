@@ -31,7 +31,9 @@ class ClassConst implements PhpParser\Builder {
      * @param Node\Expr|bool|null|int|float|string|array|\UnitEnum $value Value
      */
     public function __construct($name, $value) {
-        $this->constants = [new Const_($name, BuilderHelpers::normalizeValue($value))];
+        $this->constants = [
+            new Const_($name, BuilderHelpers::normalizeValue($value)),
+        ];
     }
 
     /**
@@ -43,7 +45,10 @@ class ClassConst implements PhpParser\Builder {
      * @return $this The builder instance (for fluid interface)
      */
     public function addConst($name, $value) {
-        $this->constants[] = new Const_($name, BuilderHelpers::normalizeValue($value));
+        $this->constants[] = new Const_(
+            $name,
+            BuilderHelpers::normalizeValue($value),
+        );
 
         return $this;
     }
@@ -54,7 +59,10 @@ class ClassConst implements PhpParser\Builder {
      * @return $this The builder instance (for fluid interface)
      */
     public function makePublic() {
-        $this->flags = BuilderHelpers::addModifier($this->flags, Modifiers::PUBLIC);
+        $this->flags = BuilderHelpers::addModifier(
+            $this->flags,
+            Modifiers::PUBLIC,
+        );
 
         return $this;
     }
@@ -65,7 +73,10 @@ class ClassConst implements PhpParser\Builder {
      * @return $this The builder instance (for fluid interface)
      */
     public function makeProtected() {
-        $this->flags = BuilderHelpers::addModifier($this->flags, Modifiers::PROTECTED);
+        $this->flags = BuilderHelpers::addModifier(
+            $this->flags,
+            Modifiers::PROTECTED,
+        );
 
         return $this;
     }
@@ -76,7 +87,10 @@ class ClassConst implements PhpParser\Builder {
      * @return $this The builder instance (for fluid interface)
      */
     public function makePrivate() {
-        $this->flags = BuilderHelpers::addModifier($this->flags, Modifiers::PRIVATE);
+        $this->flags = BuilderHelpers::addModifier(
+            $this->flags,
+            Modifiers::PRIVATE,
+        );
 
         return $this;
     }
@@ -87,7 +101,10 @@ class ClassConst implements PhpParser\Builder {
      * @return $this The builder instance (for fluid interface)
      */
     public function makeFinal() {
-        $this->flags = BuilderHelpers::addModifier($this->flags, Modifiers::FINAL);
+        $this->flags = BuilderHelpers::addModifier(
+            $this->flags,
+            Modifiers::FINAL,
+        );
 
         return $this;
     }
@@ -101,7 +118,7 @@ class ClassConst implements PhpParser\Builder {
      */
     public function setDocComment($docComment) {
         $this->attributes = [
-            'comments' => [BuilderHelpers::normalizeDocComment($docComment)]
+            "comments" => [BuilderHelpers::normalizeDocComment($docComment)],
         ];
 
         return $this;
@@ -115,7 +132,9 @@ class ClassConst implements PhpParser\Builder {
      * @return $this The builder instance (for fluid interface)
      */
     public function addAttribute($attribute) {
-        $this->attributeGroups[] = BuilderHelpers::normalizeAttribute($attribute);
+        $this->attributeGroups[] = BuilderHelpers::normalizeAttribute(
+            $attribute,
+        );
 
         return $this;
     }
@@ -144,7 +163,7 @@ class ClassConst implements PhpParser\Builder {
             $this->flags,
             $this->attributes,
             $this->attributeGroups,
-            $this->type
+            $this->type,
         );
     }
 }

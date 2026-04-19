@@ -13,17 +13,21 @@ class MatchArm extends NodeAbstract {
     /**
      * @param null|list<Node\Expr> $conds
      */
-    public function __construct(?array $conds, Node\Expr $body, array $attributes = []) {
+    public function __construct(
+        ?array $conds,
+        Node\Expr $body,
+        array $attributes = [],
+    ) {
         $this->conds = $conds;
         $this->body = $body;
         $this->attributes = $attributes;
     }
 
     public function getSubNodeNames(): array {
-        return ['conds', 'body'];
+        return ["conds", "body"];
     }
 
     public function getType(): string {
-        return 'MatchArm';
+        return "MatchArm";
     }
 }

@@ -9,27 +9,29 @@ use JsonSchema\Constraints\ConstraintInterface;
 use JsonSchema\Entity\ErrorBagProxy;
 use JsonSchema\Entity\JsonPointer;
 
-class AllOfConstraint implements ConstraintInterface
-{
+class AllOfConstraint implements ConstraintInterface {
     use ErrorBagProxy;
 
     /** @var Factory */
     private $factory;
 
-    public function __construct(?Factory $factory = null)
-    {
+    public function __construct(?Factory $factory = null) {
         $this->factory = $factory ?: new Factory();
         $this->initialiseErrorBag($this->factory);
     }
 
-    public function check(&$value, $schema = null, ?JsonPointer $path = null, $i = null): void
-    {
-        if (!property_exists($schema, 'allOf')) {
+    public function check(
+        &$value,
+        $schema = null,
+        ?JsonPointer $path = null,
+        $i = null,
+    ): void {
+        if (!property_exists($schema, "allOf")) {
             return;
         }
 
         foreach ($schema->allOf as $allOfSchema) {
-            $schemaConstraint = $this->factory->createInstanceFor('schema');
+            $schemaConstraint = $this->factory->createInstanceFor("schema");
             $schemaConstraint->check($value, $allOfSchema, $path, $i);
 
             if ($schemaConstraint->isValid()) {

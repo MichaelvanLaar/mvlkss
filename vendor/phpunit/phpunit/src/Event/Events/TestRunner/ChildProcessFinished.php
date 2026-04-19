@@ -17,36 +17,34 @@ use PHPUnit\Event\Telemetry;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class ChildProcessFinished implements Event
-{
+final readonly class ChildProcessFinished implements Event {
     private Telemetry\Info $telemetryInfo;
     private string $stdout;
     private string $stderr;
 
-    public function __construct(Telemetry\Info $telemetryInfo, string $stdout, string $stderr)
-    {
+    public function __construct(
+        Telemetry\Info $telemetryInfo,
+        string $stdout,
+        string $stderr,
+    ) {
         $this->telemetryInfo = $telemetryInfo;
-        $this->stdout        = $stdout;
-        $this->stderr        = $stderr;
+        $this->stdout = $stdout;
+        $this->stderr = $stderr;
     }
 
-    public function telemetryInfo(): Telemetry\Info
-    {
+    public function telemetryInfo(): Telemetry\Info {
         return $this->telemetryInfo;
     }
 
-    public function stdout(): string
-    {
+    public function stdout(): string {
         return $this->stdout;
     }
 
-    public function stderr(): string
-    {
+    public function stderr(): string {
         return $this->stderr;
     }
 
-    public function asString(): string
-    {
-        return 'Child Process Finished';
+    public function asString(): string {
+        return "Child Process Finished";
     }
 }

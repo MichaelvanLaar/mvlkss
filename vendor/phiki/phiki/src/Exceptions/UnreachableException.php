@@ -4,7 +4,6 @@ namespace Phiki\Exceptions;
 
 use Exception;
 
-class UnreachableException extends Exception
-{
+class UnreachableException extends Exception {
     //
 }

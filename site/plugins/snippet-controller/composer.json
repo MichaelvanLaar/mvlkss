@@ -1,23 +1,23 @@
 {
-	"name": "lukaskleinschmidt/kirby-snippet-controller",
-	"description": "Kirby Snippet Controller",
-	"license": "MIT",
-	"type": "kirby-plugin",
-	"authors": [
-		{
-			"name": "Lukas Kleinschmidt",
-			"email": "contact@kleinschmidt.mozmail.com"
-		}
-	],
-	"require": {
+    "name": "lukaskleinschmidt/kirby-snippet-controller",
+    "description": "Kirby Snippet Controller",
+    "license": "MIT",
+    "type": "kirby-plugin",
+    "authors": [
+        {
+            "name": "Lukas Kleinschmidt",
+            "email": "contact@kleinschmidt.mozmail.com"
+        }
+    ],
+    "require": {
         "php": "^8.1",
-		"getkirby/composer-installer": "^1.2"
-	},
-	"config": {
-		"allow-plugins": {
-			"getkirby/composer-installer": true
-		}
-	},
+        "getkirby/composer-installer": "^1.2"
+    },
+    "config": {
+        "allow-plugins": {
+            "getkirby/composer-installer": true
+        }
+    },
     "extra": {
         "installer-name": "snippet-controller"
     }

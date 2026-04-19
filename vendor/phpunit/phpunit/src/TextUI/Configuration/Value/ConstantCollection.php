@@ -20,8 +20,9 @@ use IteratorAggregate;
  *
  * @template-implements IteratorAggregate<non-negative-int, Constant>
  */
-final readonly class ConstantCollection implements Countable, IteratorAggregate
-{
+final readonly class ConstantCollection implements
+    Countable,
+    IteratorAggregate {
     /**
      * @var list<Constant>
      */
@@ -30,31 +31,26 @@ final readonly class ConstantCollection implements Countable, IteratorAggregate
     /**
      * @param list<Constant> $constants
      */
-    public static function fromArray(array $constants): self
-    {
+    public static function fromArray(array $constants): self {
         return new self(...$constants);
     }
 
-    private function __construct(Constant ...$constants)
-    {
+    private function __construct(Constant ...$constants) {
         $this->constants = $constants;
     }
 
     /**
      * @return list<Constant>
      */
-    public function asArray(): array
-    {
+    public function asArray(): array {
         return $this->constants;
     }
 
-    public function count(): int
-    {
+    public function count(): int {
         return count($this->constants);
     }
 
-    public function getIterator(): ConstantCollectionIterator
-    {
+    public function getIterator(): ConstantCollectionIterator {
         return new ConstantCollectionIterator($this);
     }
 }

@@ -32,8 +32,7 @@ use RecursiveIteratorIterator;
 /**
  * @internal This class is not covered by the backward compatibility promise for phpunit/php-file-iterator
  */
-final class Factory
-{
+final class Factory {
     /**
      * @param list<non-empty-string>|non-empty-string $paths
      * @param list<non-empty-string>|string           $suffixes
@@ -42,17 +41,21 @@ final class Factory
      *
      * @phpstan-ignore missingType.generics
      */
-    public function getFileIterator(array|string $paths, array|string $suffixes = '', array|string $prefixes = '', array $exclude = []): AppendIterator
-    {
+    public function getFileIterator(
+        array|string $paths,
+        array|string $suffixes = "",
+        array|string $prefixes = "",
+        array $exclude = [],
+    ): AppendIterator {
         if (is_string($paths)) {
             $paths = [$paths];
         }
 
-        $paths   = $this->resolveWildcards($paths);
+        $paths = $this->resolveWildcards($paths);
         $exclude = $this->resolveWildcards($exclude);
 
         if (is_string($prefixes)) {
-            if ($prefixes !== '') {
+            if ($prefixes !== "") {
                 $prefixes = [$prefixes];
             } else {
                 $prefixes = [];
@@ -60,14 +63,14 @@ final class Factory
         }
 
         if (is_string($suffixes)) {
-            if ($suffixes !== '') {
+            if ($suffixes !== "") {
                 $suffixes = [$suffixes];
             } else {
                 $suffixes = [];
             }
         }
 
-        $iterator = new AppendIterator;
+        $iterator = new AppendIterator();
 
         foreach ($paths as $path) {
             if (is_dir($path)) {
@@ -76,7 +79,11 @@ final class Factory
                         $path,
                         new RecursiveIteratorIterator(
                             new ExcludeIterator(
-                                new RecursiveDirectoryIterator($path, FilesystemIterator::FOLLOW_SYMLINKS | FilesystemIterator::SKIP_DOTS),
+                                new RecursiveDirectoryIterator(
+                                    $path,
+                                    FilesystemIterator::FOLLOW_SYMLINKS |
+                                        FilesystemIterator::SKIP_DOTS,
+                                ),
                                 $exclude,
                             ),
                         ),
@@ -95,32 +102,39 @@ final class Factory
      *
      * @return list<non-empty-string>
      */
-    private function resolveWildcards(array $paths): array
-    {
+    private function resolveWildcards(array $paths): array {
         $_paths = [[]];
 
         foreach ($paths as $path) {
-            $pathEndsWithDirectorySeparator = str_ends_with($path, '/') || str_ends_with($path, DIRECTORY_SEPARATOR);
+            $pathEndsWithDirectorySeparator =
+                str_ends_with($path, "/") ||
+                str_ends_with($path, DIRECTORY_SEPARATOR);
 
             if ($locals = $this->globstar($path)) {
-                $_paths[] = array_map(
-                    static function (string $local) use ($pathEndsWithDirectorySeparator): string|false
-                    {
-                        $realPath = realpath($local);
+                $_paths[] = array_map(static function (string $local) use (
+                    $pathEndsWithDirectorySeparator,
+                ): string|false {
+                    $realPath = realpath($local);
 
-                        if ($realPath !== false && $pathEndsWithDirectorySeparator && is_dir($realPath)) {
-                            return $realPath . DIRECTORY_SEPARATOR;
-                        }
+                    if (
+                        $realPath !== false &&
+                        $pathEndsWithDirectorySeparator &&
+                        is_dir($realPath)
+                    ) {
+                        return $realPath . DIRECTORY_SEPARATOR;
+                    }
 
-                        return $realPath;
-                    },
-                    $locals,
-                );
+                    return $realPath;
+                }, $locals);
             } else {
                 // @codeCoverageIgnoreStart
                 $realPath = realpath($path);
 
-                if ($realPath !== false && $pathEndsWithDirectorySeparator && is_dir($realPath)) {
+                if (
+                    $realPath !== false &&
+                    $pathEndsWithDirectorySeparator &&
+                    is_dir($realPath)
+                ) {
                     $_paths[] = [$realPath . DIRECTORY_SEPARATOR];
                 } else {
                     $_paths[] = [$realPath];
@@ -137,20 +151,19 @@ final class Factory
      *
      * @return list<string>
      */
-    private function globstar(string $pattern): array
-    {
-        if (stripos($pattern, '**') === false) {
+    private function globstar(string $pattern): array {
+        if (stripos($pattern, "**") === false) {
             $files = glob($pattern, GLOB_ONLYDIR);
         } else {
-            $position    = stripos($pattern, '**');
+            $position = stripos($pattern, "**");
             $rootPattern = substr($pattern, 0, $position - 1);
             $restPattern = substr($pattern, $position + 2);
 
             $patterns = [$rootPattern . $restPattern];
-            $rootPattern .= '/*';
+            $rootPattern .= "/*";
 
             while ($directories = glob($rootPattern, GLOB_ONLYDIR)) {
-                $rootPattern .= '/*';
+                $rootPattern .= "/*";
 
                 foreach ($directories as $directory) {
                     $patterns[] = $directory . $restPattern;

@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 /*
  * This file is part of PharIo\Manifest.
  *
@@ -15,7 +15,7 @@ use DOMNodeList;
 use function sprintf;
 
 class ManifestElement {
-    public const XMLNS = 'https://phar.io/xml/manifest/1.0';
+    public const XMLNS = "https://phar.io/xml/manifest/1.0";
 
     /** @var DOMElement */
     private $element;
@@ -28,10 +28,10 @@ class ManifestElement {
         if (!$this->element->hasAttribute($name)) {
             throw new ManifestElementException(
                 sprintf(
-                    'Attribute %s not set on element %s',
+                    "Attribute %s not set on element %s",
                     $name,
-                    $this->element->localName
-                )
+                    $this->element->localName,
+                ),
             );
         }
 
@@ -43,11 +43,13 @@ class ManifestElement {
     }
 
     protected function getChildByName(string $elementName): DOMElement {
-        $element = $this->element->getElementsByTagNameNS(self::XMLNS, $elementName)->item(0);
+        $element = $this->element
+            ->getElementsByTagNameNS(self::XMLNS, $elementName)
+            ->item(0);
 
-        if (!$element instanceof DOMElement) {
+        if (!($element instanceof DOMElement)) {
             throw new ManifestElementException(
-                sprintf('Element %s missing', $elementName)
+                sprintf("Element %s missing", $elementName),
             );
         }
 
@@ -55,11 +57,14 @@ class ManifestElement {
     }
 
     protected function getChildrenByName(string $elementName): DOMNodeList {
-        $elementList = $this->element->getElementsByTagNameNS(self::XMLNS, $elementName);
+        $elementList = $this->element->getElementsByTagNameNS(
+            self::XMLNS,
+            $elementName,
+        );
 
         if ($elementList->length === 0) {
             throw new ManifestElementException(
-                sprintf('Element(s) %s missing', $elementName)
+                sprintf("Element(s) %s missing", $elementName),
             );
         }
 
@@ -67,6 +72,7 @@ class ManifestElement {
     }
 
     protected function hasChild(string $elementName): bool {
-        return $this->element->getElementsByTagNameNS(self::XMLNS, $elementName)->length !== 0;
+        return $this->element->getElementsByTagNameNS(self::XMLNS, $elementName)
+            ->length !== 0;
     }
 }

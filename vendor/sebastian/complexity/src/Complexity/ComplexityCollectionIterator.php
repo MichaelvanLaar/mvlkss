@@ -14,41 +14,34 @@ use Iterator;
 /**
  * @template-implements Iterator<int, Complexity>
  */
-final class ComplexityCollectionIterator implements Iterator
-{
+final class ComplexityCollectionIterator implements Iterator {
     /**
      * @var list<Complexity>
      */
     private readonly array $items;
     private int $position = 0;
 
-    public function __construct(ComplexityCollection $items)
-    {
+    public function __construct(ComplexityCollection $items) {
         $this->items = $items->asArray();
     }
 
-    public function rewind(): void
-    {
+    public function rewind(): void {
         $this->position = 0;
     }
 
-    public function valid(): bool
-    {
+    public function valid(): bool {
         return isset($this->items[$this->position]);
     }
 
-    public function key(): int
-    {
+    public function key(): int {
         return $this->position;
     }
 
-    public function current(): Complexity
-    {
+    public function current(): Complexity {
         return $this->items[$this->position];
     }
 
-    public function next(): void
-    {
+    public function next(): void {
         $this->position++;
     }
 }

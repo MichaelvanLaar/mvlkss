@@ -18,13 +18,12 @@ use PHPUnit\Event\Test\FailedSubscriber;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestFailedSubscriber extends Subscriber implements FailedSubscriber
-{
+final readonly class TestFailedSubscriber extends Subscriber implements
+    FailedSubscriber {
     /**
      * @throws InvalidArgumentException
      */
-    public function notify(Failed $event): void
-    {
+    public function notify(Failed $event): void {
         $this->logger()->testFailed($event);
     }
 }

@@ -16,6 +16,4 @@ use Error;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class ErrorException extends Error implements Exception
-{
-}
+final class ErrorException extends Error implements Exception {}

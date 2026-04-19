@@ -17,13 +17,11 @@ use DOMElement;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class RemoveTestDoxGroupsElement implements Migration
-{
-    public function migrate(DOMDocument $document): void
-    {
-        $node = $document->getElementsByTagName('testdoxGroups')->item(0);
+final readonly class RemoveTestDoxGroupsElement implements Migration {
+    public function migrate(DOMDocument $document): void {
+        $node = $document->getElementsByTagName("testdoxGroups")->item(0);
 
-        if (!$node instanceof DOMElement || $node->parentNode === null) {
+        if (!($node instanceof DOMElement) || $node->parentNode === null) {
             return;
         }
 

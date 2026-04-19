@@ -69,7 +69,10 @@ class Class_ extends Declaration {
      * @return $this The builder instance (for fluid interface)
      */
     public function makeAbstract() {
-        $this->flags = BuilderHelpers::addClassModifier($this->flags, Modifiers::ABSTRACT);
+        $this->flags = BuilderHelpers::addClassModifier(
+            $this->flags,
+            Modifiers::ABSTRACT,
+        );
 
         return $this;
     }
@@ -80,7 +83,10 @@ class Class_ extends Declaration {
      * @return $this The builder instance (for fluid interface)
      */
     public function makeFinal() {
-        $this->flags = BuilderHelpers::addClassModifier($this->flags, Modifiers::FINAL);
+        $this->flags = BuilderHelpers::addClassModifier(
+            $this->flags,
+            Modifiers::FINAL,
+        );
 
         return $this;
     }
@@ -91,7 +97,10 @@ class Class_ extends Declaration {
      * @return $this The builder instance (for fluid interface)
      */
     public function makeReadonly() {
-        $this->flags = BuilderHelpers::addClassModifier($this->flags, Modifiers::READONLY);
+        $this->flags = BuilderHelpers::addClassModifier(
+            $this->flags,
+            Modifiers::READONLY,
+        );
 
         return $this;
     }
@@ -115,7 +124,9 @@ class Class_ extends Declaration {
         } elseif ($stmt instanceof Stmt\ClassConst) {
             $this->constants[] = $stmt;
         } else {
-            throw new \LogicException(sprintf('Unexpected node of type "%s"', $stmt->getType()));
+            throw new \LogicException(
+                sprintf('Unexpected node of type "%s"', $stmt->getType()),
+            );
         }
 
         return $this;
@@ -129,7 +140,9 @@ class Class_ extends Declaration {
      * @return $this The builder instance (for fluid interface)
      */
     public function addAttribute($attribute) {
-        $this->attributeGroups[] = BuilderHelpers::normalizeAttribute($attribute);
+        $this->attributeGroups[] = BuilderHelpers::normalizeAttribute(
+            $attribute,
+        );
 
         return $this;
     }
@@ -140,12 +153,21 @@ class Class_ extends Declaration {
      * @return Stmt\Class_ The built class node
      */
     public function getNode(): PhpParser\Node {
-        return new Stmt\Class_($this->name, [
-            'flags' => $this->flags,
-            'extends' => $this->extends,
-            'implements' => $this->implements,
-            'stmts' => array_merge($this->uses, $this->constants, $this->properties, $this->methods),
-            'attrGroups' => $this->attributeGroups,
-        ], $this->attributes);
+        return new Stmt\Class_(
+            $this->name,
+            [
+                "flags" => $this->flags,
+                "extends" => $this->extends,
+                "implements" => $this->implements,
+                "stmts" => array_merge(
+                    $this->uses,
+                    $this->constants,
+                    $this->properties,
+                    $this->methods,
+                ),
+                "attrGroups" => $this->attributeGroups,
+            ],
+            $this->attributes,
+        );
     }
 }

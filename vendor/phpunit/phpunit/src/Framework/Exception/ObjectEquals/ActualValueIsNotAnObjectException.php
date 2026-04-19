@@ -14,12 +14,8 @@ namespace PHPUnit\Framework;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class ActualValueIsNotAnObjectException extends Exception
-{
-    public function __construct()
-    {
-        parent::__construct(
-            'Actual value is not an object',
-        );
+final class ActualValueIsNotAnObjectException extends Exception {
+    public function __construct() {
+        parent::__construct("Actual value is not an object");
     }
 }

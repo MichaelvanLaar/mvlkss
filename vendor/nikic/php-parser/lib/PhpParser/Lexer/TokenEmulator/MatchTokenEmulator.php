@@ -10,7 +10,7 @@ final class MatchTokenEmulator extends KeywordEmulator {
     }
 
     public function getKeywordString(): string {
-        return 'match';
+        return "match";
     }
 
     public function getKeywordToken(): int {

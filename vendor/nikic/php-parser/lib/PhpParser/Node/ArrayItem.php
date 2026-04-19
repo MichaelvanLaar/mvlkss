@@ -22,7 +22,13 @@ class ArrayItem extends NodeAbstract {
      * @param bool $byRef Whether to assign by reference
      * @param array<string, mixed> $attributes Additional attributes
      */
-    public function __construct(Expr $value, ?Expr $key = null, bool $byRef = false, array $attributes = [], bool $unpack = false) {
+    public function __construct(
+        Expr $value,
+        ?Expr $key = null,
+        bool $byRef = false,
+        array $attributes = [],
+        bool $unpack = false,
+    ) {
         $this->attributes = $attributes;
         $this->key = $key;
         $this->value = $value;
@@ -31,11 +37,11 @@ class ArrayItem extends NodeAbstract {
     }
 
     public function getSubNodeNames(): array {
-        return ['key', 'value', 'byRef', 'unpack'];
+        return ["key", "value", "byRef", "unpack"];
     }
 
     public function getType(): string {
-        return 'ArrayItem';
+        return "ArrayItem";
     }
 }
 

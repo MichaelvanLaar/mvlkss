@@ -17,10 +17,9 @@ use PHPUnit\Event\Test\FailedSubscriber;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestFailedSubscriber extends Subscriber implements FailedSubscriber
-{
-    public function notify(Failed $event): void
-    {
+final readonly class TestFailedSubscriber extends Subscriber implements
+    FailedSubscriber {
+    public function notify(Failed $event): void {
         $this->printer()->testFailed();
     }
 }

@@ -20,8 +20,9 @@ use IteratorAggregate;
  *
  * @template-implements IteratorAggregate<non-negative-int, IniSetting>
  */
-final readonly class IniSettingCollection implements Countable, IteratorAggregate
-{
+final readonly class IniSettingCollection implements
+    Countable,
+    IteratorAggregate {
     /**
      * @var list<IniSetting>
      */
@@ -30,31 +31,26 @@ final readonly class IniSettingCollection implements Countable, IteratorAggregat
     /**
      * @param list<IniSetting> $iniSettings
      */
-    public static function fromArray(array $iniSettings): self
-    {
+    public static function fromArray(array $iniSettings): self {
         return new self(...$iniSettings);
     }
 
-    private function __construct(IniSetting ...$iniSettings)
-    {
+    private function __construct(IniSetting ...$iniSettings) {
         $this->iniSettings = $iniSettings;
     }
 
     /**
      * @return list<IniSetting>
      */
-    public function asArray(): array
-    {
+    public function asArray(): array {
         return $this->iniSettings;
     }
 
-    public function count(): int
-    {
+    public function count(): int {
         return count($this->iniSettings);
     }
 
-    public function getIterator(): IniSettingCollectionIterator
-    {
+    public function getIterator(): IniSettingCollectionIterator {
         return new IniSettingCollectionIterator($this);
     }
 }

@@ -24,15 +24,13 @@ use PhpParser\Node\Stmt\If_;
 use PhpParser\Node\Stmt\While_;
 use PhpParser\NodeVisitorAbstract;
 
-final class CyclomaticComplexityCalculatingVisitor extends NodeVisitorAbstract
-{
+final class CyclomaticComplexityCalculatingVisitor extends NodeVisitorAbstract {
     /**
      * @var positive-int
      */
     private int $cyclomaticComplexity = 1;
 
-    public function enterNode(Node $node): void
-    {
+    public function enterNode(Node $node): void {
         switch ($node::class) {
             case BooleanAnd::class:
             case BooleanOr::class:
@@ -54,8 +52,7 @@ final class CyclomaticComplexityCalculatingVisitor extends NodeVisitorAbstract
     /**
      * @return positive-int
      */
-    public function cyclomaticComplexity(): int
-    {
+    public function cyclomaticComplexity(): int {
         return $this->cyclomaticComplexity;
     }
 }

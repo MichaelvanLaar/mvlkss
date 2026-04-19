@@ -267,7 +267,7 @@ return [
         }
         $sitemapContentForRobotsTxt = implode(
             "\n",
-            $sitemapEntriesForRobotsTxt
+            $sitemapEntriesForRobotsTxt,
         );
 
         return [

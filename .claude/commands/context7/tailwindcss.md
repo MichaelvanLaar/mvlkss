@@ -31,11 +31,11 @@ When this command is executed:
 1. **Resolve the Library ID**: Use the `resolve-library-id` tool with library name "tailwindcss" or use the direct Context7 URL https://context7.com/websites/tailwindcss
 
 2. **Fetch Documentation**: Use the `get-library-docs` tool with:
-   - The resolved library ID (format: `/websites/tailwindcss`)
-   - The topic provided by the user (if any)
-   - Token allocation:
-     - **With topic**: 5,000-10,000 tokens for focused, specific content
-     - **Without topic**: 3,000-5,000 tokens for general Tailwind CSS context
+    - The resolved library ID (format: `/websites/tailwindcss`)
+    - The topic provided by the user (if any)
+    - Token allocation:
+        - **With topic**: 5,000-10,000 tokens for focused, specific content
+        - **Without topic**: 3,000-5,000 tokens for general Tailwind CSS context
 
 3. **Summarize Context**: After loading, briefly confirm what was loaded (e.g., "Loaded Tailwind CSS documentation for responsive design utilities and breakpoints")
 

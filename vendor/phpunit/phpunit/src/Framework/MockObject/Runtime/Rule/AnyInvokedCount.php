@@ -16,19 +16,14 @@ use PHPUnit\Framework\MockObject\Invocation as BaseInvocation;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class AnyInvokedCount extends InvocationOrder
-{
-    public function toString(): string
-    {
-        return 'invoked zero or more times';
+final class AnyInvokedCount extends InvocationOrder {
+    public function toString(): string {
+        return "invoked zero or more times";
     }
 
-    public function verify(): void
-    {
-    }
+    public function verify(): void {}
 
-    public function matches(BaseInvocation $invocation): bool
-    {
+    public function matches(BaseInvocation $invocation): bool {
         return true;
     }
 }

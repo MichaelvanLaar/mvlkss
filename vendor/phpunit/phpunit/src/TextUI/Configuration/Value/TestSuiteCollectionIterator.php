@@ -17,8 +17,7 @@ use Iterator;
  *
  * @template-implements Iterator<non-negative-int, TestSuite>
  */
-final class TestSuiteCollectionIterator implements Iterator
-{
+final class TestSuiteCollectionIterator implements Iterator {
     /**
      * @var list<TestSuite>
      */
@@ -29,36 +28,30 @@ final class TestSuiteCollectionIterator implements Iterator
      */
     private int $position = 0;
 
-    public function __construct(TestSuiteCollection $testSuites)
-    {
+    public function __construct(TestSuiteCollection $testSuites) {
         $this->testSuites = $testSuites->asArray();
     }
 
-    public function rewind(): void
-    {
+    public function rewind(): void {
         $this->position = 0;
     }
 
-    public function valid(): bool
-    {
+    public function valid(): bool {
         return $this->position < count($this->testSuites);
     }
 
     /**
      * @return non-negative-int
      */
-    public function key(): int
-    {
+    public function key(): int {
         return $this->position;
     }
 
-    public function current(): TestSuite
-    {
+    public function current(): TestSuite {
         return $this->testSuites[$this->position];
     }
 
-    public function next(): void
-    {
+    public function next(): void {
         $this->position++;
     }
 }

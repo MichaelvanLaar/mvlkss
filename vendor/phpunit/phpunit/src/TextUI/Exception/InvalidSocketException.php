@@ -17,10 +17,9 @@ use RuntimeException;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class InvalidSocketException extends RuntimeException implements Exception
-{
-    public function __construct(string $socket)
-    {
+final class InvalidSocketException extends RuntimeException implements
+    Exception {
+    public function __construct(string $socket) {
         parent::__construct(
             sprintf(
                 '"%s" does not match "socket://hostname:port" format',

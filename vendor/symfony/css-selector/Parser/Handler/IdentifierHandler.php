@@ -27,16 +27,13 @@ use Symfony\Component\CssSelector\Parser\TokenStream;
  *
  * @internal
  */
-class IdentifierHandler implements HandlerInterface
-{
+class IdentifierHandler implements HandlerInterface {
     public function __construct(
         private TokenizerPatterns $patterns,
         private TokenizerEscaping $escaping,
-    ) {
-    }
+    ) {}
 
-    public function handle(Reader $reader, TokenStream $stream): bool
-    {
+    public function handle(Reader $reader, TokenStream $stream): bool {
         $match = $reader->findPattern($this->patterns->getIdentifierPattern());
 
         if (!$match) {
@@ -44,7 +41,9 @@ class IdentifierHandler implements HandlerInterface
         }
 
         $value = $this->escaping->escapeUnicode($match[0]);
-        $stream->push(new Token(Token::TYPE_IDENTIFIER, $value, $reader->getPosition()));
+        $stream->push(
+            new Token(Token::TYPE_IDENTIFIER, $value, $reader->getPosition()),
+        );
         $reader->moveForward(\strlen($match[0]));
 
         return true;

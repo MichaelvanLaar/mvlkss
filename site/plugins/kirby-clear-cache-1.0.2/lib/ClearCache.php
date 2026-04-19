@@ -6,49 +6,47 @@ use Kirby\Exception\Exception;
 use Kirby\Filesystem\Dir;
 use Kirby\Filesystem\F;
 
-class ClearCache
-{
+class ClearCache {
     /**
      * @var array
      */
     public static $props;
 
-    public static function relativePath(string $root, string $dir)
-    {
-        return str_replace(kirby()->root('index'), '', kirby()->root($root)) . '/' . $dir;
+    public static function relativePath(string $root, string $dir) {
+        return str_replace(kirby()->root("index"), "", kirby()->root($root)) .
+            "/" .
+            $dir;
     }
 
     /**
      * @return array
      */
-    public static function props()
-    {
+    public static function props() {
         if (static::$props !== null) {
             return static::$props;
         }
 
         return static::$props = [
-            'cache' => ClearCache::cacheDirs(),
-            'media' => ClearCache::mediaDirs(),
-            'other' => ClearCache::otherDirs(),
+            "cache" => ClearCache::cacheDirs(),
+            "media" => ClearCache::mediaDirs(),
+            "other" => ClearCache::otherDirs(),
         ];
     }
 
     /**
      * @return array
      */
-    public static function cacheDirs()
-    {
+    public static function cacheDirs() {
         $dirs = [];
 
-        foreach (Dir::dirs(kirby()->root('cache'), null, true) as $dir) {
+        foreach (Dir::dirs(kirby()->root("cache"), null, true) as $dir) {
             $basename = basename($dir);
 
             $dirs[$basename] = [
-                'name' => $basename,
-                'path' => $dir,
-                'text' => $basename,
-                'info' => static::relativePath('cache', $basename)
+                "name" => $basename,
+                "path" => $dir,
+                "text" => $basename,
+                "info" => static::relativePath("cache", $basename),
             ];
         }
 
@@ -58,18 +56,17 @@ class ClearCache
     /**
      * @return array
      */
-    public static function mediaDirs()
-    {
+    public static function mediaDirs() {
         $dirs = [];
 
-        foreach (Dir::dirs(kirby()->root('media'), null, true) as $dir) {
+        foreach (Dir::dirs(kirby()->root("media"), null, true) as $dir) {
             $basename = basename($dir);
 
             $dirs[$basename] = [
-                'name' => $basename,
-                'path' => $dir,
-                'text' => $basename,
-                'info' => static::relativePath('media', $basename)
+                "name" => $basename,
+                "path" => $dir,
+                "text" => $basename,
+                "info" => static::relativePath("media", $basename),
             ];
         }
 
@@ -79,29 +76,28 @@ class ClearCache
     /**
      * @return array[]
      */
-    public static function otherDirs()
-    {
+    public static function otherDirs() {
         $dirs = [];
 
         // lock
-        $locksPath = kirby()->root('content');
+        $locksPath = kirby()->root("content");
         if (static::lockFiles($locksPath)) {
-            $dirs['lock'] = [
-                'name' => 'lock',
-                'path' => $locksPath,
-                'text' => 'Content lock files',
-                'info' => static::relativePath('content', '*.lock')
+            $dirs["lock"] = [
+                "name" => "lock",
+                "path" => $locksPath,
+                "text" => "Content lock files",
+                "info" => static::relativePath("content", "*.lock"),
             ];
         }
 
         // logins
-        $loginsFile = kirby()->root('accounts') . '/.logins';
+        $loginsFile = kirby()->root("accounts") . "/.logins";
         if (F::exists($loginsFile) === true) {
-            $dirs['logins'] = [
-                'name' => 'logins',
-                'path' => $loginsFile,
-                'text' => 'Users login data',
-                'info' => static::relativePath('accounts', '.logins')
+            $dirs["logins"] = [
+                "name" => "logins",
+                "path" => $loginsFile,
+                "text" => "Users login data",
+                "info" => static::relativePath("accounts", ".logins"),
             ];
         }
 
@@ -113,8 +109,7 @@ class ClearCache
      * @return void
      * @throws Exception
      */
-    public static function clearType(string $type): void
-    {
+    public static function clearType(string $type): void {
         foreach (static::props()[$type] ?? [] as $dir) {
             static::clearDir($type, $dir);
         }
@@ -126,28 +121,27 @@ class ClearCache
      * @return void
      * @throws Exception
      */
-    public static function clearDir(string $type, $dir): void
-    {
+    public static function clearDir(string $type, $dir): void {
         if (is_array($dir) === false) {
             $dir = static::props()[$type][$dir] ?? null;
 
             if (empty($dir) === true) {
-                throw new Exception('Invalid directory!');
+                throw new Exception("Invalid directory!");
             }
         }
 
         switch ($type) {
-            case 'cache':
-            case 'media':
-                Dir::remove($dir['path']);
+            case "cache":
+            case "media":
+                Dir::remove($dir["path"]);
                 break;
-            case 'other':
-                switch ($dir['name']) {
-                    case 'logins':
-                        F::remove($dir['path']);
+            case "other":
+                switch ($dir["name"]) {
+                    case "logins":
+                        F::remove($dir["path"]);
                         break;
-                    case 'lock':
-                        static::clearLock($dir['path']);
+                    case "lock":
+                        static::clearLock($dir["path"]);
                         break;
                 }
                 break;
@@ -158,8 +152,7 @@ class ClearCache
      * @param string $path
      * @return void
      */
-    public static function clearLock(string $path): void
-    {
+    public static function clearLock(string $path): void {
         $files = static::lockFiles($path);
 
         foreach ($files as $file) {
@@ -174,13 +167,12 @@ class ClearCache
      * @param array $files
      * @return array
      */
-    public static function lockFiles(string $path, array $files = []): array
-    {
+    public static function lockFiles(string $path, array $files = []): array {
         foreach (Dir::read($path, null, true) as $dir) {
             if (is_dir($dir) === true) {
                 $files = static::lockFiles($dir, $files);
             } else {
-                if (basename($dir) === '.lock' && is_file($dir) === true) {
+                if (basename($dir) === ".lock" && is_file($dir) === true) {
                     $files[] = $dir;
                 }
             }

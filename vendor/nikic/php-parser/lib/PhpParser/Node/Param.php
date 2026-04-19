@@ -38,12 +38,15 @@ class Param extends NodeAbstract {
      * @param PropertyHook[] $hooks Property hooks for promoted properties
      */
     public function __construct(
-        Expr $var, ?Expr $default = null, ?Node $type = null,
-        bool $byRef = false, bool $variadic = false,
+        Expr $var,
+        ?Expr $default = null,
+        ?Node $type = null,
+        bool $byRef = false,
+        bool $variadic = false,
         array $attributes = [],
         int $flags = 0,
         array $attrGroups = [],
-        array $hooks = []
+        array $hooks = [],
     ) {
         $this->attributes = $attributes;
         $this->type = $type;
@@ -57,11 +60,20 @@ class Param extends NodeAbstract {
     }
 
     public function getSubNodeNames(): array {
-        return ['attrGroups', 'flags', 'type', 'byRef', 'variadic', 'var', 'default', 'hooks'];
+        return [
+            "attrGroups",
+            "flags",
+            "type",
+            "byRef",
+            "variadic",
+            "var",
+            "default",
+            "hooks",
+        ];
     }
 
     public function getType(): string {
-        return 'Param';
+        return "Param";
     }
 
     /**

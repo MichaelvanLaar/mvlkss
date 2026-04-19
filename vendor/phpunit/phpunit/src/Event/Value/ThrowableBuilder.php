@@ -19,14 +19,12 @@ use PHPUnit\Util\ThrowableToStringMapper;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class ThrowableBuilder
-{
+final readonly class ThrowableBuilder {
     /**
      * @throws Exception
      * @throws NoPreviousThrowableException
      */
-    public static function from(\Throwable $t): Throwable
-    {
+    public static function from(\Throwable $t): Throwable {
         $previous = $t->getPrevious();
 
         if ($previous !== null) {

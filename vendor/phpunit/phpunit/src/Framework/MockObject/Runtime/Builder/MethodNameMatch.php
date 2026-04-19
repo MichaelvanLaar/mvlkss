@@ -16,8 +16,7 @@ use PHPUnit\Framework\Constraint\Constraint;
  *
  * @internal This interface is not covered by the backward compatibility promise for PHPUnit
  */
-interface MethodNameMatch extends ParametersMatch
-{
+interface MethodNameMatch extends ParametersMatch {
     /**
      * Adds a new method name match and returns the parameter match object for
      * further matching possibilities.

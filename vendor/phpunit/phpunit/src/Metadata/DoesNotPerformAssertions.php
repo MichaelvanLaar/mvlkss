@@ -14,10 +14,8 @@ namespace PHPUnit\Metadata;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class DoesNotPerformAssertions extends Metadata
-{
-    public function isDoesNotPerformAssertions(): true
-    {
+final readonly class DoesNotPerformAssertions extends Metadata {
+    public function isDoesNotPerformAssertions(): true {
         return true;
     }
 }

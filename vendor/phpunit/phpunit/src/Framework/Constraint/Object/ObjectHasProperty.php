@@ -17,24 +17,18 @@ use ReflectionObject;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class ObjectHasProperty extends Constraint
-{
+final class ObjectHasProperty extends Constraint {
     private readonly string $propertyName;
 
-    public function __construct(string $propertyName)
-    {
+    public function __construct(string $propertyName) {
         $this->propertyName = $propertyName;
     }
 
     /**
      * Returns a string representation of the constraint.
      */
-    public function toString(): string
-    {
-        return sprintf(
-            'has property "%s"',
-            $this->propertyName,
-        );
+    public function toString(): string {
+        return sprintf('has property "%s"', $this->propertyName);
     }
 
     /**
@@ -43,8 +37,7 @@ final class ObjectHasProperty extends Constraint
      *
      * @param mixed $other value or object to evaluate
      */
-    protected function matches(mixed $other): bool
-    {
+    protected function matches(mixed $other): bool {
         if (!is_object($other)) {
             return false;
         }
@@ -60,8 +53,7 @@ final class ObjectHasProperty extends Constraint
      *
      * @param mixed $other evaluated value or object
      */
-    protected function failureDescription(mixed $other): string
-    {
+    protected function failureDescription(mixed $other): string {
         if (is_object($other)) {
             return sprintf(
                 'object of class "%s" %s',

@@ -20,8 +20,7 @@ use RecursiveIterator;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class TestSuiteIterator implements RecursiveIterator
-{
+final class TestSuiteIterator implements RecursiveIterator {
     /**
      * @var list<Test>
      */
@@ -32,47 +31,40 @@ final class TestSuiteIterator implements RecursiveIterator
      */
     private int $position = 0;
 
-    public function __construct(TestSuite $testSuite)
-    {
+    public function __construct(TestSuite $testSuite) {
         $this->tests = $testSuite->tests();
     }
 
-    public function rewind(): void
-    {
+    public function rewind(): void {
         $this->position = 0;
     }
 
-    public function valid(): bool
-    {
+    public function valid(): bool {
         return $this->position < count($this->tests);
     }
 
     /**
      * @return non-negative-int
      */
-    public function key(): int
-    {
+    public function key(): int {
         return $this->position;
     }
 
-    public function current(): Test
-    {
+    public function current(): Test {
         return $this->tests[$this->position];
     }
 
-    public function next(): void
-    {
+    public function next(): void {
         $this->position++;
     }
 
     /**
      * @throws NoChildTestSuiteException
      */
-    public function getChildren(): self
-    {
+    public function getChildren(): self {
         if (!$this->hasChildren()) {
             throw new NoChildTestSuiteException(
-                'The current item is not a TestSuite instance and therefore does not have any children.',
+                "The current item is not a TestSuite instance and therefore does not have any children.",
             );
         }
 
@@ -83,8 +75,7 @@ final class TestSuiteIterator implements RecursiveIterator
         return new self($current);
     }
 
-    public function hasChildren(): bool
-    {
+    public function hasChildren(): bool {
         return $this->valid() && $this->current() instanceof TestSuite;
     }
 }

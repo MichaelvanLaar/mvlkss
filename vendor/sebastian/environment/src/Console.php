@@ -33,8 +33,7 @@ use function stream_isatty;
 use function strtoupper;
 use function trim;
 
-final class Console
-{
+final class Console {
     /**
      * @var int
      */
@@ -56,39 +55,51 @@ final class Console
      * This code has been copied and adapted from
      * Symfony\Component\Console\Output\StreamOutput.
      */
-    public function hasColorSupport(): bool
-    {
-        if (!defined('STDOUT')) {
+    public function hasColorSupport(): bool {
+        if (!defined("STDOUT")) {
             return false;
         }
 
-        if (isset($_SERVER['NO_COLOR']) || false !== getenv('NO_COLOR')) {
+        if (isset($_SERVER["NO_COLOR"]) || false !== getenv("NO_COLOR")) {
             return false;
         }
 
-        if (!@stream_isatty(STDOUT) &&
-            !in_array(strtoupper((string) getenv('MSYSTEM')), ['MINGW32', 'MINGW64'], true)) {
+        if (
+            !@stream_isatty(STDOUT) &&
+            !in_array(
+                strtoupper((string) getenv("MSYSTEM")),
+                ["MINGW32", "MINGW64"],
+                true,
+            )
+        ) {
             return false;
         }
 
-        if ($this->isWindows() &&
-            function_exists('sapi_windows_vt100_support') &&
-            @sapi_windows_vt100_support(STDOUT)) {
+        if (
+            $this->isWindows() &&
+            function_exists("sapi_windows_vt100_support") &&
+            @sapi_windows_vt100_support(STDOUT)
+        ) {
             return true;
         }
 
-        if ('Hyper' === getenv('TERM_PROGRAM') ||
-            false !== getenv('COLORTERM') ||
-            false !== getenv('ANSICON') ||
-            'ON' === getenv('ConEmuANSI')) {
+        if (
+            "Hyper" === getenv("TERM_PROGRAM") ||
+            false !== getenv("COLORTERM") ||
+            false !== getenv("ANSICON") ||
+            "ON" === getenv("ConEmuANSI")
+        ) {
             return true;
         }
 
-        if ('dumb' === $term = (string) getenv('TERM')) {
+        if ("dumb" === ($term = (string) getenv("TERM"))) {
             return false;
         }
 
-        return (bool) preg_match('/^((screen|xterm|vt100|vt220|putty|rxvt|ansi|cygwin|linux).*)|(.*-256(color)?(-bce)?)$/', $term);
+        return (bool) preg_match(
+            '/^((screen|xterm|vt100|vt220|putty|rxvt|ansi|cygwin|linux).*)|(.*-256(color)?(-bce)?)$/',
+            $term,
+        );
     }
 
     /**
@@ -96,9 +107,8 @@ final class Console
      *
      * @codeCoverageIgnore
      */
-    public function getNumberOfColumns(): int
-    {
-        if (!$this->isInteractive(defined('STDIN') ? STDIN : self::STDIN)) {
+    public function getNumberOfColumns(): int {
+        if (!$this->isInteractive(defined("STDIN") ? STDIN : self::STDIN)) {
             return 80;
         }
 
@@ -117,42 +127,54 @@ final class Console
      *
      * @param int|resource $fileDescriptor
      */
-    public function isInteractive($fileDescriptor = self::STDOUT): bool
-    {
+    public function isInteractive($fileDescriptor = self::STDOUT): bool {
         if (is_resource($fileDescriptor)) {
-            if (function_exists('stream_isatty') && @stream_isatty($fileDescriptor)) {
+            if (
+                function_exists("stream_isatty") &&
+                @stream_isatty($fileDescriptor)
+            ) {
                 return true;
             }
 
-            if (function_exists('fstat')) {
+            if (function_exists("fstat")) {
                 $stat = @fstat(STDOUT);
 
-                return $stat && 0o020000 === ($stat['mode'] & 0o170000);
+                return $stat && 0o020000 === ($stat["mode"] & 0o170000);
             }
 
             return false;
         }
 
-        return function_exists('posix_isatty') && @posix_isatty($fileDescriptor);
+        return function_exists("posix_isatty") &&
+            @posix_isatty($fileDescriptor);
     }
 
-    private function isWindows(): bool
-    {
-        return DIRECTORY_SEPARATOR === '\\';
+    private function isWindows(): bool {
+        return DIRECTORY_SEPARATOR === "\\";
     }
 
     /**
      * @codeCoverageIgnore
      */
-    private function getNumberOfColumnsInteractive(): int
-    {
-        if (function_exists('shell_exec') && preg_match('#\d+ (\d+)#', shell_exec('stty size') ?: '', $match) === 1) {
+    private function getNumberOfColumnsInteractive(): int {
+        if (
+            function_exists("shell_exec") &&
+            preg_match("#\d+ (\d+)#", shell_exec("stty size") ?: "", $match) ===
+                1
+        ) {
             if ((int) $match[1] > 0) {
                 return (int) $match[1];
             }
         }
 
-        if (function_exists('shell_exec') && preg_match('#columns = (\d+);#', shell_exec('stty') ?: '', $match) === 1) {
+        if (
+            function_exists("shell_exec") &&
+            preg_match(
+                "#columns = (\d+);#",
+                shell_exec("stty") ?: "",
+                $match,
+            ) === 1
+        ) {
             if ((int) $match[1] > 0) {
                 return (int) $match[1];
             }
@@ -164,24 +186,26 @@ final class Console
     /**
      * @codeCoverageIgnore
      */
-    private function getNumberOfColumnsWindows(): int
-    {
-        $ansicon = getenv('ANSICON');
+    private function getNumberOfColumnsWindows(): int {
+        $ansicon = getenv("ANSICON");
         $columns = 80;
 
-        if (is_string($ansicon) && preg_match('/^(\d+)x\d+ \(\d+x(\d+)\)$/', trim($ansicon), $matches)) {
+        if (
+            is_string($ansicon) &&
+            preg_match('/^(\d+)x\d+ \(\d+x(\d+)\)$/', trim($ansicon), $matches)
+        ) {
             $columns = (int) $matches[1];
-        } elseif (function_exists('proc_open')) {
+        } elseif (function_exists("proc_open")) {
             $process = proc_open(
-                'mode CON',
+                "mode CON",
                 [
-                    1 => ['pipe', 'w'],
-                    2 => ['pipe', 'w'],
+                    1 => ["pipe", "w"],
+                    2 => ["pipe", "w"],
                 ],
                 $pipes,
                 null,
                 null,
-                ['suppress_errors' => true],
+                ["suppress_errors" => true],
             );
 
             assert(is_array($pipes));
@@ -195,7 +219,13 @@ final class Console
                 fclose($pipes[2]);
                 proc_close($process);
 
-                if (preg_match('/--------+\r?\n.+?(\d+)\r?\n.+?(\d+)\r?\n/', (string) $info, $matches)) {
+                if (
+                    preg_match(
+                        '/--------+\r?\n.+?(\d+)\r?\n.+?(\d+)\r?\n/',
+                        (string) $info,
+                        $matches,
+                    )
+                ) {
                     $columns = (int) $matches[2];
                 }
             }

@@ -18,8 +18,7 @@ use IteratorAggregate;
  *
  * @template-implements IteratorAggregate<non-negative-int, Group>
  */
-final readonly class GroupCollection implements IteratorAggregate
-{
+final readonly class GroupCollection implements IteratorAggregate {
     /**
      * @var list<Group>
      */
@@ -28,29 +27,25 @@ final readonly class GroupCollection implements IteratorAggregate
     /**
      * @param list<Group> $groups
      */
-    public static function fromArray(array $groups): self
-    {
+    public static function fromArray(array $groups): self {
         return new self(...$groups);
     }
 
-    private function __construct(Group ...$groups)
-    {
+    private function __construct(Group ...$groups) {
         $this->groups = $groups;
     }
 
     /**
      * @return list<Group>
      */
-    public function asArray(): array
-    {
+    public function asArray(): array {
         return $this->groups;
     }
 
     /**
      * @return list<string>
      */
-    public function asArrayOfStrings(): array
-    {
+    public function asArrayOfStrings(): array {
         $result = [];
 
         foreach ($this->groups as $group) {
@@ -60,13 +55,11 @@ final readonly class GroupCollection implements IteratorAggregate
         return $result;
     }
 
-    public function isEmpty(): bool
-    {
+    public function isEmpty(): bool {
         return empty($this->groups);
     }
 
-    public function getIterator(): GroupCollectionIterator
-    {
+    public function getIterator(): GroupCollectionIterator {
         return new GroupCollectionIterator($this);
     }
 }

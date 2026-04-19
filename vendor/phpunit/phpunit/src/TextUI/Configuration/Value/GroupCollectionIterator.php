@@ -17,8 +17,7 @@ use Iterator;
  *
  * @template-implements Iterator<non-negative-int, Group>
  */
-final class GroupCollectionIterator implements Iterator
-{
+final class GroupCollectionIterator implements Iterator {
     /**
      * @var list<Group>
      */
@@ -29,36 +28,30 @@ final class GroupCollectionIterator implements Iterator
      */
     private int $position = 0;
 
-    public function __construct(GroupCollection $groups)
-    {
+    public function __construct(GroupCollection $groups) {
         $this->groups = $groups->asArray();
     }
 
-    public function rewind(): void
-    {
+    public function rewind(): void {
         $this->position = 0;
     }
 
-    public function valid(): bool
-    {
+    public function valid(): bool {
         return $this->position < count($this->groups);
     }
 
     /**
      * @return non-negative-int
      */
-    public function key(): int
-    {
+    public function key(): int {
         return $this->position;
     }
 
-    public function current(): Group
-    {
+    public function current(): Group {
         return $this->groups[$this->position];
     }
 
-    public function next(): void
-    {
+    public function next(): void {
         $this->position++;
     }
 }

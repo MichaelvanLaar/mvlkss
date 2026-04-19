@@ -14,8 +14,7 @@ namespace PHPUnit\Metadata;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class UsesDefaultClass extends Metadata
-{
+final readonly class UsesDefaultClass extends Metadata {
     /**
      * @var class-string
      */
@@ -25,23 +24,20 @@ final readonly class UsesDefaultClass extends Metadata
      * @param 0|1          $level
      * @param class-string $className
      */
-    protected function __construct(int $level, string $className)
-    {
+    protected function __construct(int $level, string $className) {
         parent::__construct($level);
 
         $this->className = $className;
     }
 
-    public function isUsesDefaultClass(): true
-    {
+    public function isUsesDefaultClass(): true {
         return true;
     }
 
     /**
      * @return class-string
      */
-    public function className(): string
-    {
+    public function className(): string {
         return $this->className;
     }
 }

@@ -30,11 +30,12 @@ The `Differ` class can be used to generate a textual representation of the diffe
 <?php
 use SebastianBergmann\Diff\Differ;
 
-$differ = new Differ;
-print $differ->diff('foo', 'bar');
+$differ = new Differ();
+print $differ->diff("foo", "bar");
 ```
 
 The code above yields the output below:
+
 ```diff
 --- Original
 +++ New
@@ -57,11 +58,11 @@ use SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
 
 $builder = new UnifiedDiffOutputBuilder(
     "--- Original\n+++ New\n", // custom header
-    false                      // do not add line numbers to the diff 
+    false, // do not add line numbers to the diff
 );
 
 $differ = new Differ($builder);
-print $differ->diff('foo', 'bar');
+print $differ->diff("foo", "bar");
 ```
 
 #### StrictUnifiedDiffOutputBuilder
@@ -76,17 +77,17 @@ use SebastianBergmann\Diff\Differ;
 use SebastianBergmann\Diff\Output\StrictUnifiedDiffOutputBuilder;
 
 $builder = new StrictUnifiedDiffOutputBuilder([
-    'collapseRanges'      => true, // ranges of length one are rendered with the trailing `,1`
-    'commonLineThreshold' => 6,    // number of same lines before ending a new hunk and creating a new one (if needed)
-    'contextLines'        => 3,    // like `diff:  -u, -U NUM, --unified[=NUM]`, for patch/git apply compatibility best to keep at least @ 3
-    'fromFile'            => '',
-    'fromFileDate'        => null,
-    'toFile'              => '',
-    'toFileDate'          => null,
+    "collapseRanges" => true, // ranges of length one are rendered with the trailing `,1`
+    "commonLineThreshold" => 6, // number of same lines before ending a new hunk and creating a new one (if needed)
+    "contextLines" => 3, // like `diff:  -u, -U NUM, --unified[=NUM]`, for patch/git apply compatibility best to keep at least @ 3
+    "fromFile" => "",
+    "fromFileDate" => null,
+    "toFile" => "",
+    "toFileDate" => null,
 ]);
 
 $differ = new Differ($builder);
-print $differ->diff('foo', 'bar');
+print $differ->diff("foo", "bar");
 ```
 
 #### DiffOnlyOutputBuilder
@@ -99,12 +100,10 @@ Output only the lines that differ.
 use SebastianBergmann\Diff\Differ;
 use SebastianBergmann\Diff\Output\DiffOnlyOutputBuilder;
 
-$builder = new DiffOnlyOutputBuilder(
-    "--- Original\n+++ New\n"
-);
+$builder = new DiffOnlyOutputBuilder("--- Original\n+++ New\n");
 
 $differ = new Differ($builder);
-print $differ->diff('foo', 'bar');
+print $differ->diff("foo", "bar");
 ```
 
 #### DiffOutputBuilderInterface
@@ -119,14 +118,14 @@ The `Parser` class can be used to parse a unified diff into an object graph:
 use SebastianBergmann\Diff\Parser;
 use SebastianBergmann\Git;
 
-$git = new Git('/usr/local/src/money');
+$git = new Git("/usr/local/src/money");
 
 $diff = $git->getDiff(
-  '948a1a07768d8edd10dcefa8315c1cbeffb31833',
-  'c07a373d2399f3e686234c4f7f088d635eb9641b'
+    "948a1a07768d8edd10dcefa8315c1cbeffb31833",
+    "c07a373d2399f3e686234c4f7f088d635eb9641b",
 );
 
-$parser = new Parser;
+$parser = new Parser();
 
 print_r($parser->parse($diff));
 ```

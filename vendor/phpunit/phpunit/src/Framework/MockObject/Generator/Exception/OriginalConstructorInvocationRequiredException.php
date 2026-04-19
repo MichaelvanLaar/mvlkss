@@ -14,10 +14,12 @@ namespace PHPUnit\Framework\MockObject\Generator;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class OriginalConstructorInvocationRequiredException extends \PHPUnit\Framework\Exception implements Exception
-{
-    public function __construct()
-    {
-        parent::__construct('Proxying to original methods requires invoking the original constructor');
+final class OriginalConstructorInvocationRequiredException
+    extends \PHPUnit\Framework\Exception
+    implements Exception {
+    public function __construct() {
+        parent::__construct(
+            "Proxying to original methods requires invoking the original constructor",
+        );
     }
 }

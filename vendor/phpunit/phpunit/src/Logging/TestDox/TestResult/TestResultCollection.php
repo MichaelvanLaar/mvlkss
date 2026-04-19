@@ -20,8 +20,7 @@ use IteratorAggregate;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestResultCollection implements IteratorAggregate
-{
+final readonly class TestResultCollection implements IteratorAggregate {
     /**
      * @var list<TestResult>
      */
@@ -30,26 +29,22 @@ final readonly class TestResultCollection implements IteratorAggregate
     /**
      * @param list<TestResult> $testResults
      */
-    public static function fromArray(array $testResults): self
-    {
+    public static function fromArray(array $testResults): self {
         return new self(...$testResults);
     }
 
-    private function __construct(TestResult ...$testResults)
-    {
+    private function __construct(TestResult ...$testResults) {
         $this->testResults = $testResults;
     }
 
     /**
      * @return list<TestResult>
      */
-    public function asArray(): array
-    {
+    public function asArray(): array {
         return $this->testResults;
     }
 
-    public function getIterator(): TestResultCollectionIterator
-    {
+    public function getIterator(): TestResultCollectionIterator {
         return new TestResultCollectionIterator($this);
     }
 }

@@ -15,17 +15,16 @@ use RuntimeException;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class NeverReturningMethodException extends RuntimeException implements Exception
-{
+final class NeverReturningMethodException extends RuntimeException implements
+    Exception {
     /**
      * @param class-string     $className
      * @param non-empty-string $methodName
      */
-    public function __construct(string $className, string $methodName)
-    {
+    public function __construct(string $className, string $methodName) {
         parent::__construct(
             sprintf(
-                'Method %s::%s() is declared to never return',
+                "Method %s::%s() is declared to never return",
                 $className,
                 $methodName,
             ),

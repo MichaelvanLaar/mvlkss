@@ -26,27 +26,26 @@ use PHPUnit\Event\Tracer\Tracer;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class EventLogger implements Tracer
-{
+final readonly class EventLogger implements Tracer {
     private string $path;
     private bool $includeTelemetryInfo;
 
-    public function __construct(string $path, bool $includeTelemetryInfo)
-    {
-        $this->path                 = $path;
+    public function __construct(string $path, bool $includeTelemetryInfo) {
+        $this->path = $path;
         $this->includeTelemetryInfo = $includeTelemetryInfo;
     }
 
-    public function trace(Event $event): void
-    {
+    public function trace(Event $event): void {
         $telemetryInfo = $this->telemetryInfo($event);
-        $indentation   = PHP_EOL . str_repeat(' ', strlen($telemetryInfo));
-        $lines         = preg_split('/\r\n|\r|\n/', $event->asString());
+        $indentation = PHP_EOL . str_repeat(" ", strlen($telemetryInfo));
+        $lines = preg_split('/\r\n|\r|\n/', $event->asString());
 
         $flags = FILE_APPEND;
 
-        if (!(PHP_OS_FAMILY === 'Windows' || PHP_OS_FAMILY === 'Darwin') ||
-            $this->path !== 'php://stdout') {
+        if (
+            !(PHP_OS_FAMILY === "Windows" || PHP_OS_FAMILY === "Darwin") ||
+            $this->path !== "php://stdout"
+        ) {
             $flags |= LOCK_EX;
         }
 
@@ -57,12 +56,11 @@ final readonly class EventLogger implements Tracer
         );
     }
 
-    private function telemetryInfo(Event $event): string
-    {
+    private function telemetryInfo(Event $event): string {
         if (!$this->includeTelemetryInfo) {
-            return '';
+            return "";
         }
 
-        return $event->telemetryInfo()->asString() . ' ';
+        return $event->telemetryInfo()->asString() . " ";
     }
 }

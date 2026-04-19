@@ -20,10 +20,10 @@ class InlineHTML extends Stmt {
     }
 
     public function getSubNodeNames(): array {
-        return ['value'];
+        return ["value"];
     }
 
     public function getType(): string {
-        return 'Stmt_InlineHTML';
+        return "Stmt_InlineHTML";
     }
 }

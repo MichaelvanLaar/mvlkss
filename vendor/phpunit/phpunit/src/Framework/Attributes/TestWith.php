@@ -17,8 +17,7 @@ use Attribute;
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
 #[Attribute(Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
-final readonly class TestWith
-{
+final readonly class TestWith {
     /**
      * @var array<mixed>
      */
@@ -33,8 +32,7 @@ final readonly class TestWith
      * @param array<mixed>      $data
      * @param ?non-empty-string $name
      */
-    public function __construct(array $data, ?string $name = null)
-    {
+    public function __construct(array $data, ?string $name = null) {
         $this->data = $data;
         $this->name = $name;
     }
@@ -42,16 +40,14 @@ final readonly class TestWith
     /**
      * @return array<mixed>
      */
-    public function data(): array
-    {
+    public function data(): array {
         return $this->data;
     }
 
     /**
      * @return ?non-empty-string
      */
-    public function name(): ?string
-    {
+    public function name(): ?string {
         return $this->name;
     }
 }

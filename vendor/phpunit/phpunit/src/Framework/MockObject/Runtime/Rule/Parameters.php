@@ -25,12 +25,11 @@ use PHPUnit\Util\Test;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class Parameters implements ParametersRule
-{
+final class Parameters implements ParametersRule {
     /**
      * @var list<Constraint>
      */
-    private array $parameters           = [];
+    private array $parameters = [];
     private ?BaseInvocation $invocation = null;
     private null|bool|ExpectationFailedException $parameterVerificationResult;
 
@@ -39,13 +38,10 @@ final class Parameters implements ParametersRule
      *
      * @throws \PHPUnit\Framework\Exception
      */
-    public function __construct(array $parameters)
-    {
+    public function __construct(array $parameters) {
         foreach ($parameters as $parameter) {
-            if (!$parameter instanceof Constraint) {
-                $parameter = new IsEqual(
-                    $parameter,
-                );
+            if (!($parameter instanceof Constraint)) {
+                $parameter = new IsEqual($parameter);
             }
 
             $this->parameters[] = $parameter;
@@ -55,9 +51,8 @@ final class Parameters implements ParametersRule
     /**
      * @throws Exception
      */
-    public function apply(BaseInvocation $invocation): void
-    {
-        $this->invocation                  = $invocation;
+    public function apply(BaseInvocation $invocation): void {
+        $this->invocation = $invocation;
         $this->parameterVerificationResult = null;
 
         try {
@@ -76,34 +71,37 @@ final class Parameters implements ParametersRule
      *
      * @throws ExpectationFailedException
      */
-    public function verify(): void
-    {
+    public function verify(): void {
         $this->doVerify();
     }
 
     /**
      * @throws ExpectationFailedException
      */
-    private function doVerify(): bool
-    {
+    private function doVerify(): bool {
         if (isset($this->parameterVerificationResult)) {
             return $this->guardAgainstDuplicateEvaluationOfParameterConstraints();
         }
 
         if ($this->invocation === null) {
-            throw new ExpectationFailedException('Doubled method does not exist.');
+            throw new ExpectationFailedException(
+                "Doubled method does not exist.",
+            );
         }
 
         if (count($this->invocation->parameters()) < count($this->parameters)) {
-            $message = 'Parameter count for invocation %s is too low.';
+            $message = "Parameter count for invocation %s is too low.";
 
             // The user called `->with($this->anything())`, but may have meant
             // `->withAnyParameters()`.
             //
             // @see https://github.com/sebastianbergmann/phpunit-mock-objects/issues/199
-            if (count($this->parameters) === 1 &&
-                $this->parameters[0]::class === IsAnything::class) {
-                $message .= "\nTo allow 0 or more parameters with any value, omit ->with() or use ->withAnyParameters() instead.";
+            if (
+                count($this->parameters) === 1 &&
+                $this->parameters[0]::class === IsAnything::class
+            ) {
+                $message .=
+                    "\nTo allow 0 or more parameters with any value, omit ->with() or use ->withAnyParameters() instead.";
             }
 
             $this->incrementAssertionCount();
@@ -125,7 +123,7 @@ final class Parameters implements ParametersRule
             $parameter->evaluate(
                 $other,
                 sprintf(
-                    'Parameter %s for invocation %s does not match expected value.',
+                    "Parameter %s for invocation %s does not match expected value.",
                     $i,
                     $this->invocation->toString(),
                 ),
@@ -138,17 +136,18 @@ final class Parameters implements ParametersRule
     /**
      * @throws ExpectationFailedException
      */
-    private function guardAgainstDuplicateEvaluationOfParameterConstraints(): bool
-    {
-        if ($this->parameterVerificationResult instanceof ExpectationFailedException) {
+    private function guardAgainstDuplicateEvaluationOfParameterConstraints(): bool {
+        if (
+            $this->parameterVerificationResult instanceof
+            ExpectationFailedException
+        ) {
             throw $this->parameterVerificationResult;
         }
 
         return (bool) $this->parameterVerificationResult;
     }
 
-    private function incrementAssertionCount(): void
-    {
+    private function incrementAssertionCount(): void {
         Test::currentTestCase()->addToAssertionCount(1);
     }
 }

@@ -34,8 +34,7 @@ use SebastianBergmann\CodeCoverage\StaticAnalysis\FileAnalyser;
  * @phpstan-import-type XdebugCodeCoverageWithoutPathCoverageType from \SebastianBergmann\CodeCoverage\Driver\XdebugDriver
  * @phpstan-import-type XdebugCodeCoverageWithPathCoverageType from \SebastianBergmann\CodeCoverage\Driver\XdebugDriver
  */
-final class RawCodeCoverageData
-{
+final class RawCodeCoverageData {
     /**
      * @var array<string, array<int>>
      */
@@ -54,38 +53,46 @@ final class RawCodeCoverageData
     /**
      * @param XdebugCodeCoverageWithoutPathCoverageType $rawCoverage
      */
-    public static function fromXdebugWithoutPathCoverage(array $rawCoverage): self
-    {
+    public static function fromXdebugWithoutPathCoverage(
+        array $rawCoverage,
+    ): self {
         return new self($rawCoverage, []);
     }
 
     /**
      * @param XdebugCodeCoverageWithPathCoverageType $rawCoverage
      */
-    public static function fromXdebugWithPathCoverage(array $rawCoverage): self
-    {
-        $lineCoverage     = [];
+    public static function fromXdebugWithPathCoverage(
+        array $rawCoverage,
+    ): self {
+        $lineCoverage = [];
         $functionCoverage = [];
 
         foreach ($rawCoverage as $file => $fileCoverageData) {
             // Xdebug annotates the function name of traits, strip that off
-            foreach ($fileCoverageData['functions'] as $existingKey => $data) {
-                if (str_ends_with($existingKey, '}') && !str_starts_with($existingKey, '{')) { // don't want to catch {main}
-                    $newKey                                 = preg_replace('/\{.*}$/', '', $existingKey);
-                    $fileCoverageData['functions'][$newKey] = $data;
-                    unset($fileCoverageData['functions'][$existingKey]);
+            foreach ($fileCoverageData["functions"] as $existingKey => $data) {
+                if (
+                    str_ends_with($existingKey, "}") &&
+                    !str_starts_with($existingKey, "{")
+                ) {
+                    // don't want to catch {main}
+                    $newKey = preg_replace('/\{.*}$/', "", $existingKey);
+                    $fileCoverageData["functions"][$newKey] = $data;
+                    unset($fileCoverageData["functions"][$existingKey]);
                 }
             }
 
-            $lineCoverage[$file]     = $fileCoverageData['lines'];
-            $functionCoverage[$file] = $fileCoverageData['functions'];
+            $lineCoverage[$file] = $fileCoverageData["lines"];
+            $functionCoverage[$file] = $fileCoverageData["functions"];
         }
 
         return new self($lineCoverage, $functionCoverage);
     }
 
-    public static function fromUncoveredFile(string $filename, FileAnalyser $analyser): self
-    {
+    public static function fromUncoveredFile(
+        string $filename,
+        FileAnalyser $analyser,
+    ): self {
         $lineCoverage = [];
 
         foreach ($analyser->executableLinesIn($filename) as $line => $branch) {
@@ -99,43 +106,43 @@ final class RawCodeCoverageData
      * @param XdebugCodeCoverageWithoutPathCoverageType  $lineCoverage
      * @param array<string, XdebugFunctionsCoverageType> $functionCoverage
      */
-    private function __construct(array $lineCoverage, array $functionCoverage)
-    {
-        $this->lineCoverage     = $lineCoverage;
+    private function __construct(array $lineCoverage, array $functionCoverage) {
+        $this->lineCoverage = $lineCoverage;
         $this->functionCoverage = $functionCoverage;
     }
 
-    public function clear(): void
-    {
+    public function clear(): void {
         $this->lineCoverage = $this->functionCoverage = [];
     }
 
     /**
      * @return XdebugCodeCoverageWithoutPathCoverageType
      */
-    public function lineCoverage(): array
-    {
+    public function lineCoverage(): array {
         return $this->lineCoverage;
     }
 
     /**
      * @return array<string, XdebugFunctionsCoverageType>
      */
-    public function functionCoverage(): array
-    {
+    public function functionCoverage(): array {
         return $this->functionCoverage;
     }
 
-    public function removeCoverageDataForFile(string $filename): void
-    {
-        unset($this->lineCoverage[$filename], $this->functionCoverage[$filename]);
+    public function removeCoverageDataForFile(string $filename): void {
+        unset(
+            $this->lineCoverage[$filename],
+            $this->functionCoverage[$filename],
+        );
     }
 
     /**
      * @param int[] $lines
      */
-    public function keepLineCoverageDataOnlyForLines(string $filename, array $lines): void
-    {
+    public function keepLineCoverageDataOnlyForLines(
+        string $filename,
+        array $lines,
+    ): void {
         if (!isset($this->lineCoverage[$filename])) {
             return;
         }
@@ -149,8 +156,10 @@ final class RawCodeCoverageData
     /**
      * @param int[] $linesToBranchMap
      */
-    public function markExecutableLineByBranch(string $filename, array $linesToBranchMap): void
-    {
+    public function markExecutableLineByBranch(
+        string $filename,
+        array $linesToBranchMap,
+    ): void {
         if (!isset($this->lineCoverage[$filename])) {
             return;
         }
@@ -185,20 +194,40 @@ final class RawCodeCoverageData
     /**
      * @param int[] $lines
      */
-    public function keepFunctionCoverageDataOnlyForLines(string $filename, array $lines): void
-    {
+    public function keepFunctionCoverageDataOnlyForLines(
+        string $filename,
+        array $lines,
+    ): void {
         if (!isset($this->functionCoverage[$filename])) {
             return;
         }
 
-        foreach ($this->functionCoverage[$filename] as $functionName => $functionData) {
-            foreach ($functionData['branches'] as $branchId => $branch) {
-                if (count(array_diff(range($branch['line_start'], $branch['line_end']), $lines)) > 0) {
-                    unset($this->functionCoverage[$filename][$functionName]['branches'][$branchId]);
+        foreach (
+            $this->functionCoverage[$filename]
+            as $functionName => $functionData
+        ) {
+            foreach ($functionData["branches"] as $branchId => $branch) {
+                if (
+                    count(
+                        array_diff(
+                            range($branch["line_start"], $branch["line_end"]),
+                            $lines,
+                        ),
+                    ) > 0
+                ) {
+                    unset(
+                        $this->functionCoverage[$filename][$functionName][
+                            "branches"
+                        ][$branchId],
+                    );
 
-                    foreach ($functionData['paths'] as $pathId => $path) {
-                        if (in_array($branchId, $path['path'], true)) {
-                            unset($this->functionCoverage[$filename][$functionName]['paths'][$pathId]);
+                    foreach ($functionData["paths"] as $pathId => $path) {
+                        if (in_array($branchId, $path["path"], true)) {
+                            unset(
+                                $this->functionCoverage[$filename][
+                                    $functionName
+                                ]["paths"][$pathId],
+                            );
                         }
                     }
                 }
@@ -209,8 +238,10 @@ final class RawCodeCoverageData
     /**
      * @param int[] $lines
      */
-    public function removeCoverageDataForLines(string $filename, array $lines): void
-    {
+    public function removeCoverageDataForLines(
+        string $filename,
+        array $lines,
+    ): void {
         if (empty($lines)) {
             return;
         }
@@ -225,14 +256,35 @@ final class RawCodeCoverageData
         );
 
         if (isset($this->functionCoverage[$filename])) {
-            foreach ($this->functionCoverage[$filename] as $functionName => $functionData) {
-                foreach ($functionData['branches'] as $branchId => $branch) {
-                    if (count(array_intersect($lines, range($branch['line_start'], $branch['line_end']))) > 0) {
-                        unset($this->functionCoverage[$filename][$functionName]['branches'][$branchId]);
+            foreach (
+                $this->functionCoverage[$filename]
+                as $functionName => $functionData
+            ) {
+                foreach ($functionData["branches"] as $branchId => $branch) {
+                    if (
+                        count(
+                            array_intersect(
+                                $lines,
+                                range(
+                                    $branch["line_start"],
+                                    $branch["line_end"],
+                                ),
+                            ),
+                        ) > 0
+                    ) {
+                        unset(
+                            $this->functionCoverage[$filename][$functionName][
+                                "branches"
+                            ][$branchId],
+                        );
 
-                        foreach ($functionData['paths'] as $pathId => $path) {
-                            if (in_array($branchId, $path['path'], true)) {
-                                unset($this->functionCoverage[$filename][$functionName]['paths'][$pathId]);
+                        foreach ($functionData["paths"] as $pathId => $path) {
+                            if (in_array($branchId, $path["path"], true)) {
+                                unset(
+                                    $this->functionCoverage[$filename][
+                                        $functionName
+                                    ]["paths"][$pathId],
+                                );
                             }
                         }
                     }
@@ -249,8 +301,7 @@ final class RawCodeCoverageData
      *
      * @see https://github.com/sebastianbergmann/php-code-coverage/issues/799
      */
-    public function skipEmptyLines(): void
-    {
+    public function skipEmptyLines(): void {
         foreach ($this->lineCoverage as $filename => $coverage) {
             foreach ($this->getEmptyLinesForFile($filename) as $emptyLine) {
                 unset($this->lineCoverage[$filename][$emptyLine]);
@@ -258,8 +309,7 @@ final class RawCodeCoverageData
         }
     }
 
-    private function getEmptyLinesForFile(string $filename): array
-    {
+    private function getEmptyLinesForFile(string $filename): array {
         if (!isset(self::$emptyLineCache[$filename])) {
             self::$emptyLineCache[$filename] = [];
 
@@ -267,8 +317,8 @@ final class RawCodeCoverageData
                 $sourceLines = explode("\n", file_get_contents($filename));
 
                 foreach ($sourceLines as $line => $source) {
-                    if (trim($source) === '') {
-                        self::$emptyLineCache[$filename][] = ($line + 1);
+                    if (trim($source) === "") {
+                        self::$emptyLineCache[$filename][] = $line + 1;
                     }
                 }
             }

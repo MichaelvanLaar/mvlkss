@@ -40,8 +40,7 @@ use PHPUnit\Util\VersionComparisonOperator;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class AnnotationParser implements Parser
-{
+final class AnnotationParser implements Parser {
     /**
      * @var array<string, true>
      */
@@ -59,26 +58,34 @@ final class AnnotationParser implements Parser
      * @throws InvalidVersionOperatorException
      * @throws ReflectionException
      */
-    public function forClass(string $className): MetadataCollection
-    {
+    public function forClass(string $className): MetadataCollection {
         assert(class_exists($className));
 
         $result = [];
 
-        foreach (AnnotationRegistry::getInstance()->forClassName($className)->symbolAnnotations() as $annotation => $values) {
+        foreach (
+            AnnotationRegistry::getInstance()
+                ->forClassName($className)
+                ->symbolAnnotations()
+            as $annotation => $values
+        ) {
             switch ($annotation) {
-                case 'backupGlobals':
-                    $result[] = Metadata::backupGlobalsOnClass($this->stringToBool($values[0]));
+                case "backupGlobals":
+                    $result[] = Metadata::backupGlobalsOnClass(
+                        $this->stringToBool($values[0]),
+                    );
 
                     break;
 
-                case 'backupStaticAttributes':
-                case 'backupStaticProperties':
-                    $result[] = Metadata::backupStaticPropertiesOnClass($this->stringToBool($values[0]));
+                case "backupStaticAttributes":
+                case "backupStaticProperties":
+                    $result[] = Metadata::backupStaticPropertiesOnClass(
+                        $this->stringToBool($values[0]),
+                    );
 
                     break;
 
-                case 'covers':
+                case "covers":
                     foreach ($values as $value) {
                         $value = $this->cleanUpCoversOrUsesTarget($value);
 
@@ -87,67 +94,69 @@ final class AnnotationParser implements Parser
 
                     break;
 
-                case 'coversDefaultClass':
+                case "coversDefaultClass":
                     foreach ($values as $value) {
                         $result[] = Metadata::coversDefaultClass($value);
                     }
 
                     break;
 
-                case 'coversNothing':
+                case "coversNothing":
                     $result[] = Metadata::coversNothingOnClass();
 
                     break;
 
-                case 'doesNotPerformAssertions':
+                case "doesNotPerformAssertions":
                     $result[] = Metadata::doesNotPerformAssertionsOnClass();
 
                     break;
 
-                case 'group':
-                case 'ticket':
+                case "group":
+                case "ticket":
                     foreach ($values as $value) {
                         $result[] = Metadata::groupOnClass($value);
                     }
 
                     break;
 
-                case 'large':
-                    $result[] = Metadata::groupOnClass('large');
+                case "large":
+                    $result[] = Metadata::groupOnClass("large");
 
                     break;
 
-                case 'medium':
-                    $result[] = Metadata::groupOnClass('medium');
+                case "medium":
+                    $result[] = Metadata::groupOnClass("medium");
 
                     break;
 
-                case 'preserveGlobalState':
-                    $result[] = Metadata::preserveGlobalStateOnClass($this->stringToBool($values[0]));
+                case "preserveGlobalState":
+                    $result[] = Metadata::preserveGlobalStateOnClass(
+                        $this->stringToBool($values[0]),
+                    );
 
                     break;
 
-                case 'runClassInSeparateProcess':
+                case "runClassInSeparateProcess":
                     $result[] = Metadata::runClassInSeparateProcess();
 
                     break;
 
-                case 'runTestsInSeparateProcesses':
+                case "runTestsInSeparateProcesses":
                     $result[] = Metadata::runTestsInSeparateProcesses();
 
                     break;
 
-                case 'small':
-                    $result[] = Metadata::groupOnClass('small');
+                case "small":
+                    $result[] = Metadata::groupOnClass("small");
 
                     break;
 
-                case 'testdox':
+                case "testdox":
                     $result[] = Metadata::testDoxOnClass($values[0]);
 
                     break;
 
-                case 'uses':
+                case "uses":
                     foreach ($values as $value) {
                         $value = $this->cleanUpCoversOrUsesTarget($value);
 
@@ -156,7 +165,7 @@ final class AnnotationParser implements Parser
 
                     break;
 
-                case 'usesDefaultClass':
+                case "usesDefaultClass":
                     foreach ($values as $value) {
                         $result[] = Metadata::usesDefaultClass($value);
                     }
@@ -169,28 +178,32 @@ final class AnnotationParser implements Parser
             $result = array_merge(
                 $result,
                 $this->parseRequirements(
-                    AnnotationRegistry::getInstance()->forClassName($className)->requirements(),
-                    'class',
+                    AnnotationRegistry::getInstance()
+                        ->forClassName($className)
+                        ->requirements(),
+                    "class",
                 ),
             );
         } catch (InvalidVersionRequirementException $e) {
             EventFacade::emitter()->testRunnerTriggeredPhpunitWarning(
                 sprintf(
-                    'Class %s is annotated using an invalid version requirement: %s',
+                    "Class %s is annotated using an invalid version requirement: %s",
                     $className,
                     $e->getMessage(),
                 ),
             );
         }
 
-        if (!empty($result) &&
+        if (
+            !empty($result) &&
             !isset(self::$deprecationEmittedForClass[$className]) &&
-            !str_starts_with($className, 'PHPUnit\TestFixture')) {
+            !str_starts_with($className, "PHPUnit\TestFixture")
+        ) {
             self::$deprecationEmittedForClass[$className] = true;
 
             EventFacade::emitter()->testRunnerTriggeredPhpunitDeprecation(
                 sprintf(
-                    'Metadata found in doc-comment for class %s. Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.',
+                    "Metadata found in doc-comment for class %s. Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.",
                     $className,
                 ),
             );
@@ -207,47 +220,58 @@ final class AnnotationParser implements Parser
      * @throws InvalidVersionOperatorException
      * @throws ReflectionException
      */
-    public function forMethod(string $className, string $methodName): MetadataCollection
-    {
+    public function forMethod(
+        string $className,
+        string $methodName,
+    ): MetadataCollection {
         assert(class_exists($className));
         assert(method_exists($className, $methodName));
 
         $result = [];
 
-        foreach (AnnotationRegistry::getInstance()->forMethod($className, $methodName)->symbolAnnotations() as $annotation => $values) {
+        foreach (
+            AnnotationRegistry::getInstance()
+                ->forMethod($className, $methodName)
+                ->symbolAnnotations()
+            as $annotation => $values
+        ) {
             switch ($annotation) {
-                case 'after':
+                case "after":
                     $result[] = Metadata::after(0);
 
                     break;
 
-                case 'afterClass':
+                case "afterClass":
                     $result[] = Metadata::afterClass(0);
 
                     break;
 
-                case 'backupGlobals':
-                    $result[] = Metadata::backupGlobalsOnMethod($this->stringToBool($values[0]));
+                case "backupGlobals":
+                    $result[] = Metadata::backupGlobalsOnMethod(
+                        $this->stringToBool($values[0]),
+                    );
 
                     break;
 
-                case 'backupStaticAttributes':
-                case 'backupStaticProperties':
-                    $result[] = Metadata::backupStaticPropertiesOnMethod($this->stringToBool($values[0]));
+                case "backupStaticAttributes":
+                case "backupStaticProperties":
+                    $result[] = Metadata::backupStaticPropertiesOnMethod(
+                        $this->stringToBool($values[0]),
+                    );
 
                     break;
 
-                case 'before':
+                case "before":
                     $result[] = Metadata::before(0);
 
                     break;
 
-                case 'beforeClass':
+                case "beforeClass":
                     $result[] = Metadata::beforeClass(0);
 
                     break;
 
-                case 'covers':
+                case "covers":
                     foreach ($values as $value) {
                         $value = $this->cleanUpCoversOrUsesTarget($value);
 
@@ -256,17 +280,19 @@ final class AnnotationParser implements Parser
 
                     break;
 
-                case 'coversNothing':
+                case "coversNothing":
                     $result[] = Metadata::coversNothingOnMethod();
 
                     break;
 
-                case 'dataProvider':
+                case "dataProvider":
                     foreach ($values as $value) {
                         $value = rtrim($value, " ()\n\r\t\v\x00");
 
-                        if (str_contains($value, '::')) {
-                            $result[] = Metadata::dataProvider(...explode('::', $value));
+                        if (str_contains($value, "::")) {
+                            $result[] = Metadata::dataProvider(
+                                ...explode("::", $value),
+                            );
 
                             continue;
                         }
@@ -276,60 +302,76 @@ final class AnnotationParser implements Parser
 
                     break;
 
-                case 'depends':
+                case "depends":
                     foreach ($values as $value) {
-                        $deepClone    = false;
+                        $deepClone = false;
                         $shallowClone = false;
 
-                        if (str_starts_with($value, 'clone ')) {
+                        if (str_starts_with($value, "clone ")) {
                             $deepClone = true;
-                            $value     = substr($value, strlen('clone '));
-                        } elseif (str_starts_with($value, '!clone ')) {
-                            $value = substr($value, strlen('!clone '));
-                        } elseif (str_starts_with($value, 'shallowClone ')) {
+                            $value = substr($value, strlen("clone "));
+                        } elseif (str_starts_with($value, "!clone ")) {
+                            $value = substr($value, strlen("!clone "));
+                        } elseif (str_starts_with($value, "shallowClone ")) {
                             $shallowClone = true;
-                            $value        = substr($value, strlen('shallowClone '));
-                        } elseif (str_starts_with($value, '!shallowClone ')) {
-                            $value = substr($value, strlen('!shallowClone '));
+                            $value = substr($value, strlen("shallowClone "));
+                        } elseif (str_starts_with($value, "!shallowClone ")) {
+                            $value = substr($value, strlen("!shallowClone "));
                         }
 
-                        if (str_contains($value, '::')) {
-                            [$_className, $_methodName] = explode('::', $value);
+                        if (str_contains($value, "::")) {
+                            [$_className, $_methodName] = explode("::", $value);
 
-                            assert($_className !== '');
-                            assert($_methodName !== '');
+                            assert($_className !== "");
+                            assert($_methodName !== "");
 
-                            if ($_methodName === 'class') {
-                                $result[] = Metadata::dependsOnClass($_className, $deepClone, $shallowClone);
+                            if ($_methodName === "class") {
+                                $result[] = Metadata::dependsOnClass(
+                                    $_className,
+                                    $deepClone,
+                                    $shallowClone,
+                                );
 
                                 continue;
                             }
 
-                            $result[] = Metadata::dependsOnMethod($_className, $_methodName, $deepClone, $shallowClone);
+                            $result[] = Metadata::dependsOnMethod(
+                                $_className,
+                                $_methodName,
+                                $deepClone,
+                                $shallowClone,
+                            );
 
                             continue;
                         }
 
-                        $result[] = Metadata::dependsOnMethod($className, $value, $deepClone, $shallowClone);
+                        $result[] = Metadata::dependsOnMethod(
+                            $className,
+                            $value,
+                            $deepClone,
+                            $shallowClone,
+                        );
                     }
 
                     break;
 
-                case 'doesNotPerformAssertions':
+                case "doesNotPerformAssertions":
                     $result[] = Metadata::doesNotPerformAssertionsOnMethod();
 
                     break;
 
-                case 'excludeGlobalVariableFromBackup':
+                case "excludeGlobalVariableFromBackup":
                     foreach ($values as $value) {
-                        $result[] = Metadata::excludeGlobalVariableFromBackupOnMethod($value);
+                        $result[] = Metadata::excludeGlobalVariableFromBackupOnMethod(
+                            $value,
+                        );
                     }
 
                     break;
 
-                case 'excludeStaticPropertyFromBackup':
+                case "excludeStaticPropertyFromBackup":
                     foreach ($values as $value) {
-                        $tmp = explode(' ', $value);
+                        $tmp = explode(" ", $value);
 
                         if (count($tmp) !== 2) {
                             continue;
@@ -343,60 +385,62 @@ final class AnnotationParser implements Parser
 
                     break;
 
-                case 'group':
-                case 'ticket':
+                case "group":
+                case "ticket":
                     foreach ($values as $value) {
                         $result[] = Metadata::groupOnMethod($value);
                     }
 
                     break;
 
-                case 'large':
-                    $result[] = Metadata::groupOnMethod('large');
+                case "large":
+                    $result[] = Metadata::groupOnMethod("large");
 
                     break;
 
-                case 'medium':
-                    $result[] = Metadata::groupOnMethod('medium');
+                case "medium":
+                    $result[] = Metadata::groupOnMethod("medium");
 
                     break;
 
-                case 'postCondition':
+                case "postCondition":
                     $result[] = Metadata::postCondition(0);
 
                     break;
 
-                case 'preCondition':
+                case "preCondition":
                     $result[] = Metadata::preCondition(0);
 
                     break;
 
-                case 'preserveGlobalState':
-                    $result[] = Metadata::preserveGlobalStateOnMethod($this->stringToBool($values[0]));
+                case "preserveGlobalState":
+                    $result[] = Metadata::preserveGlobalStateOnMethod(
+                        $this->stringToBool($values[0]),
+                    );
 
                     break;
 
-                case 'runInSeparateProcess':
+                case "runInSeparateProcess":
                     $result[] = Metadata::runInSeparateProcess();
 
                     break;
 
-                case 'small':
-                    $result[] = Metadata::groupOnMethod('small');
+                case "small":
+                    $result[] = Metadata::groupOnMethod("small");
 
                     break;
 
-                case 'test':
+                case "test":
                     $result[] = Metadata::test();
 
                     break;
 
-                case 'testdox':
+                case "testdox":
                     $result[] = Metadata::testDoxOnMethod($values[0]);
 
                     break;
 
-                case 'uses':
+                case "uses":
                     foreach ($values as $value) {
                         $value = $this->cleanUpCoversOrUsesTarget($value);
 
@@ -411,14 +455,16 @@ final class AnnotationParser implements Parser
             $result = array_merge(
                 $result,
                 $this->parseRequirements(
-                    AnnotationRegistry::getInstance()->forMethod($className, $methodName)->requirements(),
-                    'method',
+                    AnnotationRegistry::getInstance()
+                        ->forMethod($className, $methodName)
+                        ->requirements(),
+                    "method",
                 ),
             );
         } catch (InvalidVersionRequirementException $e) {
             EventFacade::emitter()->testRunnerTriggeredPhpunitWarning(
                 sprintf(
-                    'Method %s::%s is annotated using an invalid version requirement: %s',
+                    "Method %s::%s is annotated using an invalid version requirement: %s",
                     $className,
                     $methodName,
                     $e->getMessage(),
@@ -426,14 +472,22 @@ final class AnnotationParser implements Parser
             );
         }
 
-        if (!empty($result) &&
-            !isset(self::$deprecationEmittedForMethod[$className . '::' . $methodName]) &&
-            !str_starts_with($className, 'PHPUnit\TestFixture')) {
-            self::$deprecationEmittedForMethod[$className . '::' . $methodName] = true;
+        if (
+            !empty($result) &&
+            !isset(
+                self::$deprecationEmittedForMethod[
+                    $className . "::" . $methodName
+                ],
+            ) &&
+            !str_starts_with($className, "PHPUnit\TestFixture")
+        ) {
+            self::$deprecationEmittedForMethod[
+                $className . "::" . $methodName
+            ] = true;
 
             EventFacade::emitter()->testRunnerTriggeredPhpunitDeprecation(
                 sprintf(
-                    'Metadata found in doc-comment for method %s::%s(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.',
+                    "Metadata found in doc-comment for method %s::%s(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.",
                     $className,
                     $methodName,
                 ),
@@ -451,27 +505,27 @@ final class AnnotationParser implements Parser
      * @throws InvalidVersionOperatorException
      * @throws ReflectionException
      */
-    public function forClassAndMethod(string $className, string $methodName): MetadataCollection
-    {
+    public function forClassAndMethod(
+        string $className,
+        string $methodName,
+    ): MetadataCollection {
         return $this->forClass($className)->mergeWith(
             $this->forMethod($className, $methodName),
         );
     }
 
-    private function stringToBool(string $value): bool
-    {
-        if ($value === 'enabled') {
+    private function stringToBool(string $value): bool {
+        if ($value === "enabled") {
             return true;
         }
 
         return false;
     }
 
-    private function cleanUpCoversOrUsesTarget(string $value): string
-    {
-        $value = preg_replace('/[\s()]+$/', '', $value);
+    private function cleanUpCoversOrUsesTarget(string $value): string {
+        $value = preg_replace('/[\s()]+$/', "", $value);
 
-        return explode(' ', $value, 2)[0];
+        return explode(" ", $value, 2)[0];
     }
 
     /**
@@ -481,108 +535,163 @@ final class AnnotationParser implements Parser
      *
      * @phpstan-ignore missingType.iterableValue
      */
-    private function parseRequirements(array $requirements, string $level): array
-    {
+    private function parseRequirements(
+        array $requirements,
+        string $level,
+    ): array {
         $result = [];
 
-        if (!empty($requirements['PHP'])) {
+        if (!empty($requirements["PHP"])) {
             $versionRequirement = new ComparisonRequirement(
-                $requirements['PHP']['version'],
-                new VersionComparisonOperator(empty($requirements['PHP']['operator']) ? '>=' : $requirements['PHP']['operator']),
+                $requirements["PHP"]["version"],
+                new VersionComparisonOperator(
+                    empty($requirements["PHP"]["operator"])
+                        ? ">="
+                        : $requirements["PHP"]["operator"],
+                ),
             );
 
-            if ($level === 'class') {
+            if ($level === "class") {
                 $result[] = Metadata::requiresPhpOnClass($versionRequirement);
             } else {
                 $result[] = Metadata::requiresPhpOnMethod($versionRequirement);
             }
-        } elseif (!empty($requirements['PHP_constraint'])) {
-            $versionRequirement = new ConstraintRequirement($requirements['PHP_constraint']['constraint']);
+        } elseif (!empty($requirements["PHP_constraint"])) {
+            $versionRequirement = new ConstraintRequirement(
+                $requirements["PHP_constraint"]["constraint"],
+            );
 
-            if ($level === 'class') {
+            if ($level === "class") {
                 $result[] = Metadata::requiresPhpOnClass($versionRequirement);
             } else {
                 $result[] = Metadata::requiresPhpOnMethod($versionRequirement);
             }
         }
 
-        if (!empty($requirements['extensions'])) {
-            foreach ($requirements['extensions'] as $extension) {
-                if (isset($requirements['extension_versions'][$extension])) {
+        if (!empty($requirements["extensions"])) {
+            foreach ($requirements["extensions"] as $extension) {
+                if (isset($requirements["extension_versions"][$extension])) {
                     continue;
                 }
 
-                if ($level === 'class') {
-                    $result[] = Metadata::requiresPhpExtensionOnClass($extension, null);
+                if ($level === "class") {
+                    $result[] = Metadata::requiresPhpExtensionOnClass(
+                        $extension,
+                        null,
+                    );
                 } else {
-                    $result[] = Metadata::requiresPhpExtensionOnMethod($extension, null);
+                    $result[] = Metadata::requiresPhpExtensionOnMethod(
+                        $extension,
+                        null,
+                    );
                 }
             }
         }
 
-        if (!empty($requirements['extension_versions'])) {
-            foreach ($requirements['extension_versions'] as $extension => $version) {
+        if (!empty($requirements["extension_versions"])) {
+            foreach (
+                $requirements["extension_versions"]
+                as $extension => $version
+            ) {
                 $versionRequirement = new ComparisonRequirement(
-                    $version['version'],
-                    new VersionComparisonOperator(empty($version['operator']) ? '>=' : $version['operator']),
+                    $version["version"],
+                    new VersionComparisonOperator(
+                        empty($version["operator"])
+                            ? ">="
+                            : $version["operator"],
+                    ),
                 );
 
-                if ($level === 'class') {
-                    $result[] = Metadata::requiresPhpExtensionOnClass($extension, $versionRequirement);
+                if ($level === "class") {
+                    $result[] = Metadata::requiresPhpExtensionOnClass(
+                        $extension,
+                        $versionRequirement,
+                    );
                 } else {
-                    $result[] = Metadata::requiresPhpExtensionOnMethod($extension, $versionRequirement);
+                    $result[] = Metadata::requiresPhpExtensionOnMethod(
+                        $extension,
+                        $versionRequirement,
+                    );
                 }
             }
         }
 
-        if (!empty($requirements['PHPUnit'])) {
+        if (!empty($requirements["PHPUnit"])) {
             $versionRequirement = new ComparisonRequirement(
-                $requirements['PHPUnit']['version'],
-                new VersionComparisonOperator(empty($requirements['PHPUnit']['operator']) ? '>=' : $requirements['PHPUnit']['operator']),
+                $requirements["PHPUnit"]["version"],
+                new VersionComparisonOperator(
+                    empty($requirements["PHPUnit"]["operator"])
+                        ? ">="
+                        : $requirements["PHPUnit"]["operator"],
+                ),
             );
 
-            if ($level === 'class') {
-                $result[] = Metadata::requiresPhpunitOnClass($versionRequirement);
+            if ($level === "class") {
+                $result[] = Metadata::requiresPhpunitOnClass(
+                    $versionRequirement,
+                );
             } else {
-                $result[] = Metadata::requiresPhpunitOnMethod($versionRequirement);
+                $result[] = Metadata::requiresPhpunitOnMethod(
+                    $versionRequirement,
+                );
             }
-        } elseif (!empty($requirements['PHPUnit_constraint'])) {
-            $versionRequirement = new ConstraintRequirement($requirements['PHPUnit_constraint']['constraint']);
+        } elseif (!empty($requirements["PHPUnit_constraint"])) {
+            $versionRequirement = new ConstraintRequirement(
+                $requirements["PHPUnit_constraint"]["constraint"],
+            );
 
-            if ($level === 'class') {
-                $result[] = Metadata::requiresPhpunitOnClass($versionRequirement);
+            if ($level === "class") {
+                $result[] = Metadata::requiresPhpunitOnClass(
+                    $versionRequirement,
+                );
             } else {
-                $result[] = Metadata::requiresPhpunitOnMethod($versionRequirement);
-            }
-        }
-
-        if (!empty($requirements['OSFAMILY'])) {
-            if ($level === 'class') {
-                $result[] = Metadata::requiresOperatingSystemFamilyOnClass($requirements['OSFAMILY']);
-            } else {
-                $result[] = Metadata::requiresOperatingSystemFamilyOnMethod($requirements['OSFAMILY']);
-            }
-        }
-
-        if (!empty($requirements['OS'])) {
-            if ($level === 'class') {
-                $result[] = Metadata::requiresOperatingSystemOnClass($requirements['OS']);
-            } else {
-                $result[] = Metadata::requiresOperatingSystemOnMethod($requirements['OS']);
+                $result[] = Metadata::requiresPhpunitOnMethod(
+                    $versionRequirement,
+                );
             }
         }
 
-        if (!empty($requirements['functions'])) {
-            foreach ($requirements['functions'] as $function) {
-                $pieces = explode('::', $function);
+        if (!empty($requirements["OSFAMILY"])) {
+            if ($level === "class") {
+                $result[] = Metadata::requiresOperatingSystemFamilyOnClass(
+                    $requirements["OSFAMILY"],
+                );
+            } else {
+                $result[] = Metadata::requiresOperatingSystemFamilyOnMethod(
+                    $requirements["OSFAMILY"],
+                );
+            }
+        }
+
+        if (!empty($requirements["OS"])) {
+            if ($level === "class") {
+                $result[] = Metadata::requiresOperatingSystemOnClass(
+                    $requirements["OS"],
+                );
+            } else {
+                $result[] = Metadata::requiresOperatingSystemOnMethod(
+                    $requirements["OS"],
+                );
+            }
+        }
+
+        if (!empty($requirements["functions"])) {
+            foreach ($requirements["functions"] as $function) {
+                $pieces = explode("::", $function);
 
                 if (count($pieces) === 2) {
-                    if ($level === 'class') {
-                        $result[] = Metadata::requiresMethodOnClass($pieces[0], $pieces[1]);
+                    if ($level === "class") {
+                        $result[] = Metadata::requiresMethodOnClass(
+                            $pieces[0],
+                            $pieces[1],
+                        );
                     } else {
-                        $result[] = Metadata::requiresMethodOnMethod($pieces[0], $pieces[1]);
+                        $result[] = Metadata::requiresMethodOnMethod(
+                            $pieces[0],
+                            $pieces[1],
+                        );
                     }
-                } elseif ($level === 'class') {
+                } elseif ($level === "class") {
                     $result[] = Metadata::requiresFunctionOnClass($function);
                 } else {
                     $result[] = Metadata::requiresFunctionOnMethod($function);
@@ -590,12 +699,18 @@ final class AnnotationParser implements Parser
             }
         }
 
-        if (!empty($requirements['setting'])) {
-            foreach ($requirements['setting'] as $setting => $value) {
-                if ($level === 'class') {
-                    $result[] = Metadata::requiresSettingOnClass($setting, $value);
+        if (!empty($requirements["setting"])) {
+            foreach ($requirements["setting"] as $setting => $value) {
+                if ($level === "class") {
+                    $result[] = Metadata::requiresSettingOnClass(
+                        $setting,
+                        $value,
+                    );
                 } else {
-                    $result[] = Metadata::requiresSettingOnMethod($setting, $value);
+                    $result[] = Metadata::requiresSettingOnMethod(
+                        $setting,
+                        $value,
+                    );
                 }
             }
         }

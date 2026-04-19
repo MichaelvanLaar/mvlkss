@@ -52,8 +52,7 @@ use ReflectionObject;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class NamePrettifier
-{
+final class NamePrettifier {
     /**
      * @var array<string, int>
      */
@@ -62,10 +61,11 @@ final class NamePrettifier
     /**
      * @param class-string $className
      */
-    public function prettifyTestClassName(string $className): string
-    {
+    public function prettifyTestClassName(string $className): string {
         if (class_exists($className)) {
-            $classLevelTestDox = MetadataRegistry::parser()->forClass($className)->isTestDox();
+            $classLevelTestDox = MetadataRegistry::parser()
+                ->forClass($className)
+                ->isTestDox();
 
             if ($classLevelTestDox->isNotEmpty()) {
                 $classLevelTestDox = $classLevelTestDox->asArray()[0];
@@ -76,47 +76,54 @@ final class NamePrettifier
             }
         }
 
-        $parts     = explode('\\', $className);
+        $parts = explode("\\", $className);
         $className = array_pop($parts);
 
-        if (str_ends_with($className, 'Test')) {
-            $className = substr($className, 0, strlen($className) - strlen('Test'));
+        if (str_ends_with($className, "Test")) {
+            $className = substr(
+                $className,
+                0,
+                strlen($className) - strlen("Test"),
+            );
         }
 
-        if (str_starts_with($className, 'Tests')) {
-            $className = substr($className, strlen('Tests'));
-        } elseif (str_starts_with($className, 'Test')) {
-            $className = substr($className, strlen('Test'));
+        if (str_starts_with($className, "Tests")) {
+            $className = substr($className, strlen("Tests"));
+        } elseif (str_starts_with($className, "Test")) {
+            $className = substr($className, strlen("Test"));
         }
 
         if (empty($className)) {
-            $className = 'UnnamedTests';
+            $className = "UnnamedTests";
         }
 
         if (!empty($parts)) {
-            $parts[]            = $className;
-            $fullyQualifiedName = implode('\\', $parts);
+            $parts[] = $className;
+            $fullyQualifiedName = implode("\\", $parts);
         } else {
             $fullyQualifiedName = $className;
         }
 
-        $result = preg_replace('/(?<=[[:lower:]])(?=[[:upper:]])/u', ' ', $className);
+        $result = preg_replace(
+            "/(?<=[[:lower:]])(?=[[:upper:]])/u",
+            " ",
+            $className,
+        );
 
         if ($fullyQualifiedName !== $className) {
-            return $result . ' (' . $fullyQualifiedName . ')';
+            return $result . " (" . $fullyQualifiedName . ")";
         }
 
         return $result;
     }
 
     // NOTE: this method is on a hot path and very performance sensitive. change with care.
-    public function prettifyTestMethodName(string $name): string
-    {
-        if ($name === '') {
-            return '';
+    public function prettifyTestMethodName(string $name): string {
+        if ($name === "") {
+            return "";
         }
 
-        $string = rtrim($name, '0123456789');
+        $string = rtrim($name, "0123456789");
 
         if (array_key_exists($string, $this->strings)) {
             $name = $string;
@@ -124,19 +131,19 @@ final class NamePrettifier
             $this->strings[$string] = 1;
         }
 
-        if (str_starts_with($name, 'test_')) {
+        if (str_starts_with($name, "test_")) {
             $name = substr($name, 5);
-        } elseif (str_starts_with($name, 'test')) {
+        } elseif (str_starts_with($name, "test")) {
             $name = substr($name, 4);
         }
 
-        if ($name === '') {
-            return '';
+        if ($name === "") {
+            return "";
         }
 
         $name[0] = strtoupper($name[0]);
 
-        $noUnderscore = str_replace('_', ' ', $name);
+        $noUnderscore = str_replace("_", " ", $name);
 
         if ($noUnderscore !== $name) {
             return trim($noUnderscore);
@@ -144,18 +151,18 @@ final class NamePrettifier
 
         $wasNumeric = false;
 
-        $buffer = '';
+        $buffer = "";
 
         $len = strlen($name);
 
         for ($i = 0; $i < $len; $i++) {
-            if ($i > 0 && $name[$i] >= 'A' && $name[$i] <= 'Z') {
-                $buffer .= ' ' . strtolower($name[$i]);
+            if ($i > 0 && $name[$i] >= "A" && $name[$i] <= "Z") {
+                $buffer .= " " . strtolower($name[$i]);
             } else {
-                $isNumeric = $name[$i] >= '0' && $name[$i] <= '9';
+                $isNumeric = $name[$i] >= "0" && $name[$i] <= "9";
 
                 if (!$wasNumeric && $isNumeric) {
-                    $buffer .= ' ';
+                    $buffer .= " ";
                     $wasNumeric = true;
                 }
 
@@ -170,10 +177,12 @@ final class NamePrettifier
         return trim($buffer);
     }
 
-    public function prettifyTestCase(TestCase $test, bool $colorize): string
-    {
+    public function prettifyTestCase(TestCase $test, bool $colorize): string {
         $annotationWithPlaceholders = false;
-        $methodLevelTestDox         = MetadataRegistry::parser()->forMethod($test::class, $test->name())->isTestDox()->isMethodLevel();
+        $methodLevelTestDox = MetadataRegistry::parser()
+            ->forMethod($test::class, $test->name())
+            ->isTestDox()
+            ->isMethodLevel();
 
         if ($methodLevelTestDox->isNotEmpty()) {
             $methodLevelTestDox = $methodLevelTestDox->asArray()[0];
@@ -183,13 +192,16 @@ final class NamePrettifier
             $result = $methodLevelTestDox->text();
 
             if (str_contains($result, '$')) {
-                $annotation   = $result;
-                $providedData = $this->mapTestMethodParameterNamesToProvidedDataValues($test, $colorize);
+                $annotation = $result;
+                $providedData = $this->mapTestMethodParameterNamesToProvidedDataValues(
+                    $test,
+                    $colorize,
+                );
 
                 $variables = array_map(
-                    static fn (string $variable): string => sprintf(
-                        '/%s(?=\b)/',
-                        preg_quote($variable, '/'),
+                    static fn(string $variable): string => sprintf(
+                        "/%s(?=\b)/",
+                        preg_quote($variable, "/"),
                     ),
                     array_keys($providedData),
                 );
@@ -209,37 +221,46 @@ final class NamePrettifier
         return $result;
     }
 
-    public function prettifyDataSet(TestCase $test, bool $colorize): string
-    {
+    public function prettifyDataSet(TestCase $test, bool $colorize): string {
         if (!$colorize) {
             return $test->dataSetAsString();
         }
 
         if (is_int($test->dataName())) {
-            return Color::dim(' with data set ') . Color::colorize('fg-cyan', (string) $test->dataName());
+            return Color::dim(" with data set ") .
+                Color::colorize("fg-cyan", (string) $test->dataName());
         }
 
-        return Color::dim(' with ') . Color::colorize('fg-cyan', Color::visualizeWhitespace($test->dataName()));
+        return Color::dim(" with ") .
+            Color::colorize(
+                "fg-cyan",
+                Color::visualizeWhitespace($test->dataName()),
+            );
     }
 
     /**
      * @return array<non-empty-string, non-empty-string>
      */
-    private function mapTestMethodParameterNamesToProvidedDataValues(TestCase $test, bool $colorize): array
-    {
+    private function mapTestMethodParameterNamesToProvidedDataValues(
+        TestCase $test,
+        bool $colorize,
+    ): array {
         assert(method_exists($test, $test->name()));
 
         /** @noinspection PhpUnhandledExceptionInspection */
         $reflector = new ReflectionMethod($test::class, $test->name());
 
-        $providedData       = [];
+        $providedData = [];
         $providedDataValues = array_values($test->providedData());
-        $i                  = 0;
+        $i = 0;
 
         $providedData['$_dataName'] = $test->dataName();
 
         foreach ($reflector->getParameters() as $parameter) {
-            if (!array_key_exists($i, $providedDataValues) && $parameter->isDefaultValueAvailable()) {
+            if (
+                !array_key_exists($i, $providedDataValues) &&
+                $parameter->isDefaultValueAvailable()
+            ) {
                 $providedDataValues[$i] = $parameter->getDefaultValue();
             }
 
@@ -252,8 +273,8 @@ final class NamePrettifier
             if (!is_scalar($value)) {
                 $value = gettype($value);
 
-                if ($value === 'NULL') {
-                    $value = 'null';
+                if ($value === "NULL") {
+                    $value = "null";
                 }
             }
 
@@ -261,20 +282,27 @@ final class NamePrettifier
                 $value = Exporter::export($value);
             }
 
-            if ($value === '') {
+            if ($value === "") {
                 if ($colorize) {
-                    $value = Color::colorize('dim,underlined', 'empty');
+                    $value = Color::colorize("dim,underlined", "empty");
                 } else {
                     $value = "''";
                 }
             }
 
-            $providedData['$' . $parameter->getName()] = str_replace('$', '\\$', $value);
+            $providedData['$' . $parameter->getName()] = str_replace(
+                '$',
+                '\\$',
+                $value,
+            );
         }
 
         if ($colorize) {
             $providedData = array_map(
-                static fn ($value) => Color::colorize('fg-cyan', Color::visualizeWhitespace((string) $value, true)),
+                static fn($value) => Color::colorize(
+                    "fg-cyan",
+                    Color::visualizeWhitespace((string) $value, true),
+                ),
                 $providedData,
             );
         }
@@ -285,8 +313,7 @@ final class NamePrettifier
     /**
      * @return non-empty-string
      */
-    private function objectToString(object $value): string
-    {
+    private function objectToString(object $value): string {
         $reflector = new ReflectionObject($value);
 
         if ($reflector->isEnum()) {
@@ -299,7 +326,7 @@ final class NamePrettifier
             return $value->name;
         }
 
-        if ($reflector->hasMethod('__toString')) {
+        if ($reflector->hasMethod("__toString")) {
             return $value->__toString();
         }
 

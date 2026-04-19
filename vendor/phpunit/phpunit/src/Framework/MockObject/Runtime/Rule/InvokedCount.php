@@ -18,31 +18,26 @@ use PHPUnit\Framework\MockObject\Invocation as BaseInvocation;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class InvokedCount extends InvocationOrder
-{
+final class InvokedCount extends InvocationOrder {
     private readonly int $expectedCount;
 
-    public function __construct(int $expectedCount)
-    {
+    public function __construct(int $expectedCount) {
         $this->expectedCount = $expectedCount;
     }
 
-    public function isNever(): bool
-    {
+    public function isNever(): bool {
         return $this->expectedCount === 0;
     }
 
-    public function toString(): string
-    {
+    public function toString(): string {
         return sprintf(
-            'invoked %d time%s',
+            "invoked %d time%s",
             $this->expectedCount,
-            $this->expectedCount !== 1 ? 's' : '',
+            $this->expectedCount !== 1 ? "s" : "",
         );
     }
 
-    public function matches(BaseInvocation $invocation): bool
-    {
+    public function matches(BaseInvocation $invocation): bool {
         return true;
     }
 
@@ -52,18 +47,17 @@ final class InvokedCount extends InvocationOrder
      *
      * @throws ExpectationFailedException
      */
-    public function verify(): void
-    {
+    public function verify(): void {
         $actualCount = $this->numberOfInvocations();
 
         if ($actualCount !== $this->expectedCount) {
             throw new ExpectationFailedException(
                 sprintf(
-                    'Method was expected to be called %d time%s, actually called %d time%s.',
+                    "Method was expected to be called %d time%s, actually called %d time%s.",
                     $this->expectedCount,
-                    $this->expectedCount !== 1 ? 's' : '',
+                    $this->expectedCount !== 1 ? "s" : "",
                     $actualCount,
-                    $actualCount !== 1 ? 's' : '',
+                    $actualCount !== 1 ? "s" : "",
                 ),
             );
         }
@@ -72,18 +66,17 @@ final class InvokedCount extends InvocationOrder
     /**
      * @throws ExpectationFailedException
      */
-    protected function invokedDo(BaseInvocation $invocation): void
-    {
+    protected function invokedDo(BaseInvocation $invocation): void {
         $count = $this->numberOfInvocations();
 
         if ($count > $this->expectedCount) {
-            $message = $invocation->toString() . ' ';
+            $message = $invocation->toString() . " ";
 
             $message .= match ($this->expectedCount) {
-                0       => 'was not expected to be called.',
-                1       => 'was not expected to be called more than once.',
+                0 => "was not expected to be called.",
+                1 => "was not expected to be called more than once.",
                 default => sprintf(
-                    'was not expected to be called more than %d times.',
+                    "was not expected to be called more than %d times.",
                     $this->expectedCount,
                 ),
             };

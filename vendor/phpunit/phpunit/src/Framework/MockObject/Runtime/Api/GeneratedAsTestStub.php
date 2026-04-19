@@ -14,10 +14,8 @@ namespace PHPUnit\Framework\MockObject;
  *
  * @internal This trait is not covered by the backward compatibility promise for PHPUnit
  */
-trait GeneratedAsTestStub
-{
-    public function __phpunit_wasGeneratedAsMockObject(): false
-    {
+trait GeneratedAsTestStub {
+    public function __phpunit_wasGeneratedAsMockObject(): false {
         return false;
     }
 }

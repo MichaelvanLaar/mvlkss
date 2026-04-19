@@ -17,8 +17,7 @@ use PHPUnit\Framework\MockObject\ConfigurableMethod;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class MockClass implements MockType
-{
+final readonly class MockClass implements MockType {
     private string $classCode;
 
     /**
@@ -35,18 +34,20 @@ final readonly class MockClass implements MockType
      * @param class-string             $mockName
      * @param list<ConfigurableMethod> $configurableMethods
      */
-    public function __construct(string $classCode, string $mockName, array $configurableMethods)
-    {
-        $this->classCode           = $classCode;
-        $this->mockName            = $mockName;
+    public function __construct(
+        string $classCode,
+        string $mockName,
+        array $configurableMethods,
+    ) {
+        $this->classCode = $classCode;
+        $this->mockName = $mockName;
         $this->configurableMethods = $configurableMethods;
     }
 
     /**
      * @return class-string
      */
-    public function generate(): string
-    {
+    public function generate(): string {
         if (!class_exists($this->mockName, false)) {
             eval($this->classCode);
         }
@@ -54,16 +55,14 @@ final readonly class MockClass implements MockType
         return $this->mockName;
     }
 
-    public function classCode(): string
-    {
+    public function classCode(): string {
         return $this->classCode;
     }
 
     /**
      * @return list<ConfigurableMethod>
      */
-    public function configurableMethods(): array
-    {
+    public function configurableMethods(): array {
         return $this->configurableMethods;
     }
 }

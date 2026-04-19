@@ -18,13 +18,11 @@ use function file_get_contents;
  *
  * @codeCoverageIgnore
  */
-final class PhpDownloader implements Downloader
-{
+final class PhpDownloader implements Downloader {
     /**
      * @param non-empty-string $url
      */
-    public function download(string $url): false|string
-    {
+    public function download(string $url): false|string {
         return file_get_contents($url);
     }
 }

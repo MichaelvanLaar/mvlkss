@@ -6,41 +6,41 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ### Changed
 
-* This project now uses PHPStan instead of Psalm for static analysis
+- This project now uses PHPStan instead of Psalm for static analysis
 
 ## [3.0.1] - 2024-03-02
 
 ### Changed
 
-* Do not use implicitly nullable parameters
+- Do not use implicitly nullable parameters
 
 ## [3.0.0] - 2024-02-02
 
 ### Removed
 
-* This component is no longer supported on PHP 8.1
+- This component is no longer supported on PHP 8.1
 
 ## [2.0.1] - 2024-03-02
 
 ### Changed
 
-* Do not use implicitly nullable parameters
+- Do not use implicitly nullable parameters
 
 ## [2.0.0] - 2023-02-03
 
 ### Removed
 
-* This component is no longer supported on PHP 7.3, PHP 7.4, and PHP 8.0
+- This component is no longer supported on PHP 7.3, PHP 7.4, and PHP 8.0
 
 ## [1.0.1] - 2020-09-28
 
 ### Changed
 
-* Changed PHP version constraint in `composer.json` from `^7.3 || ^8.0` to `>=7.3`
+- Changed PHP version constraint in `composer.json` from `^7.3 || ^8.0` to `>=7.3`
 
 ## [1.0.0] - 2020-08-12
 
-* Initial release
+- Initial release
 
 [3.0.2]: https://github.com/sebastianbergmann/cli-parser/compare/3.0.1...3.0.2
 [3.0.1]: https://github.com/sebastianbergmann/cli-parser/compare/3.0.0...3.0.1

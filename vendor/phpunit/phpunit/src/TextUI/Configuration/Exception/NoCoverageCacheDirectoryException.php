@@ -16,6 +16,6 @@ use RuntimeException;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class NoCoverageCacheDirectoryException extends RuntimeException implements Exception
-{
-}
+final class NoCoverageCacheDirectoryException
+    extends RuntimeException
+    implements Exception {}

@@ -19,49 +19,49 @@ use Ergebnis\Json\Normalizer\Exception;
 /**
  * @psalm-immutable
  */
-final class JsonEncodeOptions
-{
+final class JsonEncodeOptions {
     private int $value;
 
-    private function __construct(int $value)
-    {
+    private function __construct(int $value) {
         $this->value = $value;
     }
 
-    public static function default(): self
-    {
-        return new self(\JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES | \JSON_UNESCAPED_UNICODE);
+    public static function default(): self {
+        return new self(
+            \JSON_PRETTY_PRINT |
+                \JSON_UNESCAPED_SLASHES |
+                \JSON_UNESCAPED_UNICODE,
+        );
     }
 
     /**
      * @throws Exception\InvalidJsonEncodeOptions
      */
-    public static function fromInt(int $value): self
-    {
+    public static function fromInt(int $value): self {
         if (0 > $value) {
-            throw Exception\InvalidJsonEncodeOptions::fromJsonEncodeOptions($value);
+            throw Exception\InvalidJsonEncodeOptions::fromJsonEncodeOptions(
+                $value,
+            );
         }
 
         return new self($value);
     }
 
-    public static function fromJson(Json $json): self
-    {
+    public static function fromJson(Json $json): self {
         $jsonEncodeOptions = 0;
 
-        if (false === \strpos($json->encoded(), '\/')) {
+        if (false === \strpos($json->encoded(), "\/")) {
             $jsonEncodeOptions = \JSON_UNESCAPED_SLASHES;
         }
 
-        if (1 !== \preg_match('/(\\\\+)u([0-9a-f]{4})/i', $json->encoded())) {
+        if (1 !== \preg_match("/(\\\\+)u([0-9a-f]{4})/i", $json->encoded())) {
             $jsonEncodeOptions |= \JSON_UNESCAPED_UNICODE;
         }
 
         return self::fromInt($jsonEncodeOptions);
     }
 
-    public function toInt(): int
-    {
+    public function toInt(): int {
         return $this->value;
     }
 }

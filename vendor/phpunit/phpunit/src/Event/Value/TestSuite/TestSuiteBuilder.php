@@ -28,22 +28,22 @@ use ReflectionMethod;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestSuiteBuilder
-{
+final readonly class TestSuiteBuilder {
     /**
      * @throws RuntimeException
      */
-    public static function from(FrameworkTestSuite $testSuite): TestSuite
-    {
+    public static function from(FrameworkTestSuite $testSuite): TestSuite {
         $tests = [];
 
         self::process($testSuite, $tests);
 
         if ($testSuite instanceof DataProviderTestSuite) {
-            [$className, $methodName] = explode('::', $testSuite->name());
+            [$className, $methodName] = explode("::", $testSuite->name());
 
             assert(class_exists($className));
-            assert($methodName !== '' && method_exists($className, $methodName));
+            assert(
+                $methodName !== "" && method_exists($className, $methodName),
+            );
 
             $reflector = new ReflectionMethod($className, $methodName);
 
@@ -96,8 +96,10 @@ final readonly class TestSuiteBuilder
     /**
      * @param list<Test> $tests
      */
-    private static function process(FrameworkTestSuite $testSuite, array &$tests): void
-    {
+    private static function process(
+        FrameworkTestSuite $testSuite,
+        array &$tests,
+    ): void {
         foreach ($testSuite->getIterator() as $test) {
             if ($test instanceof FrameworkTestSuite) {
                 self::process($test, $tests);

@@ -13,8 +13,7 @@ use InvalidArgumentException;
  * directly, or will be instantiated automagically by Whoops\Run
  * if passed to Run::pushHandler
  */
-class CallbackHandler extends Handler
-{
+class CallbackHandler extends Handler {
     /**
      * @var callable
      */
@@ -24,11 +23,10 @@ class CallbackHandler extends Handler
      * @throws InvalidArgumentException If argument is not callable
      * @param  callable                 $callable
      */
-    public function __construct($callable)
-    {
+    public function __construct($callable) {
         if (!is_callable($callable)) {
             throw new InvalidArgumentException(
-                'Argument to ' . __METHOD__ . ' must be valid callable'
+                "Argument to " . __METHOD__ . " must be valid callable",
             );
         }
 
@@ -38,12 +36,11 @@ class CallbackHandler extends Handler
     /**
      * @return int|null
      */
-    public function handle()
-    {
+    public function handle() {
         $exception = $this->getException();
         $inspector = $this->getInspector();
-        $run       = $this->getRun();
-        $callable  = $this->callable;
+        $run = $this->getRun();
+        $callable = $this->callable;
 
         // invoke the callable directly, to get simpler stacktraces (in comparison to call_user_func).
         // this assumes that $callable is a properly typed php-callable, which we check in __construct().

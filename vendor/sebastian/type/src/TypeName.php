@@ -19,8 +19,7 @@ use ReflectionClass;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for this library
  */
-final readonly class TypeName
-{
+final readonly class TypeName {
     private ?string $namespaceName;
 
     /**
@@ -31,18 +30,17 @@ final readonly class TypeName
     /**
      * @param class-string $fullClassName
      */
-    public static function fromQualifiedName(string $fullClassName): self
-    {
-        if ($fullClassName[0] === '\\') {
+    public static function fromQualifiedName(string $fullClassName): self {
+        if ($fullClassName[0] === "\\") {
             $fullClassName = substr($fullClassName, 1);
         }
 
-        $classNameParts = explode('\\', $fullClassName);
+        $classNameParts = explode("\\", $fullClassName);
 
-        $simpleName    = array_pop($classNameParts);
-        $namespaceName = implode('\\', $classNameParts);
+        $simpleName = array_pop($classNameParts);
+        $namespaceName = implode("\\", $classNameParts);
 
-        assert($simpleName !== '');
+        assert($simpleName !== "");
 
         return new self($namespaceName, $simpleName);
     }
@@ -50,56 +48,47 @@ final readonly class TypeName
     /**
      * @param ReflectionClass<object> $type
      */
-    public static function fromReflection(ReflectionClass $type): self
-    {
+    public static function fromReflection(ReflectionClass $type): self {
         $simpleName = $type->getShortName();
 
-        assert($simpleName !== '');
+        assert($simpleName !== "");
 
-        return new self(
-            $type->getNamespaceName(),
-            $simpleName,
-        );
+        return new self($type->getNamespaceName(), $simpleName);
     }
 
     /**
      * @param non-empty-string $simpleName
      */
-    public function __construct(?string $namespaceName, string $simpleName)
-    {
-        if ($namespaceName === '') {
+    public function __construct(?string $namespaceName, string $simpleName) {
+        if ($namespaceName === "") {
             $namespaceName = null;
         }
 
         $this->namespaceName = $namespaceName;
-        $this->simpleName    = $simpleName;
+        $this->simpleName = $simpleName;
     }
 
-    public function namespaceName(): ?string
-    {
+    public function namespaceName(): ?string {
         return $this->namespaceName;
     }
 
     /**
      * @return non-empty-string
      */
-    public function simpleName(): string
-    {
+    public function simpleName(): string {
         return $this->simpleName;
     }
 
     /**
      * @return non-empty-string
      */
-    public function qualifiedName(): string
-    {
+    public function qualifiedName(): string {
         return $this->namespaceName === null
-             ? $this->simpleName
-             : $this->namespaceName . '\\' . $this->simpleName;
+            ? $this->simpleName
+            : $this->namespaceName . "\\" . $this->simpleName;
     }
 
-    public function isNamespaced(): bool
-    {
+    public function isNamespaced(): bool {
         return $this->namespaceName !== null;
     }
 }

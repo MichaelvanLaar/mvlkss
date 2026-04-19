@@ -16,13 +16,12 @@ use function sprintf;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class ComparisonMethodDoesNotDeclareBoolReturnTypeException extends Exception
-{
-    public function __construct(string $className, string $methodName)
-    {
+final class ComparisonMethodDoesNotDeclareBoolReturnTypeException extends
+    Exception {
+    public function __construct(string $className, string $methodName) {
         parent::__construct(
             sprintf(
-                'Comparison method %s::%s() does not declare bool return type.',
+                "Comparison method %s::%s() does not declare bool return type.",
                 $className,
                 $methodName,
             ),

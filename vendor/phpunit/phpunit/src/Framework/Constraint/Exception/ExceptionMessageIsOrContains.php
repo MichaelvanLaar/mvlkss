@@ -18,28 +18,25 @@ use PHPUnit\Util\Exporter;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class ExceptionMessageIsOrContains extends Constraint
-{
+final class ExceptionMessageIsOrContains extends Constraint {
     private readonly string $expectedMessage;
 
-    public function __construct(string $expectedMessage)
-    {
+    public function __construct(string $expectedMessage) {
         $this->expectedMessage = $expectedMessage;
     }
 
-    public function toString(): string
-    {
-        if ($this->expectedMessage === '') {
-            return 'exception message is empty';
+    public function toString(): string {
+        if ($this->expectedMessage === "") {
+            return "exception message is empty";
         }
 
-        return 'exception message contains ' . Exporter::export($this->expectedMessage);
+        return "exception message contains " .
+            Exporter::export($this->expectedMessage);
     }
 
-    protected function matches(mixed $other): bool
-    {
-        if ($this->expectedMessage === '') {
-            return $other === '';
+    protected function matches(mixed $other): bool {
+        if ($this->expectedMessage === "") {
+            return $other === "";
         }
 
         return str_contains((string) $other, $this->expectedMessage);
@@ -51,13 +48,9 @@ final class ExceptionMessageIsOrContains extends Constraint
      * The beginning of failure messages is "Failed asserting that" in most
      * cases. This method should return the second part of that sentence.
      */
-    protected function failureDescription(mixed $other): string
-    {
-        if ($this->expectedMessage === '') {
-            return sprintf(
-                "exception message is empty but is '%s'",
-                $other,
-            );
+    protected function failureDescription(mixed $other): string {
+        if ($this->expectedMessage === "") {
+            return sprintf("exception message is empty but is '%s'", $other);
         }
 
         return sprintf(

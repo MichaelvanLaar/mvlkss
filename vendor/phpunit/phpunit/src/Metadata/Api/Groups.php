@@ -32,8 +32,7 @@ use PHPUnit\Metadata\UsesFunction;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class Groups
-{
+final class Groups {
     /**
      * @var array<string, list<non-empty-string>>
      */
@@ -45,9 +44,12 @@ final class Groups
      *
      * @return list<non-empty-string>
      */
-    public function groups(string $className, string $methodName, bool $includeVirtual = true): array
-    {
-        $key = $className . '::' . $methodName . '::' . $includeVirtual;
+    public function groups(
+        string $className,
+        string $methodName,
+        bool $includeVirtual = true,
+    ): array {
+        $key = $className . "::" . $methodName . "::" . $includeVirtual;
 
         if (array_key_exists($key, self::$groupCache)) {
             return self::$groupCache[$key];
@@ -55,7 +57,12 @@ final class Groups
 
         $groups = [];
 
-        foreach (Registry::parser()->forClassAndMethod($className, $methodName)->isGroup() as $group) {
+        foreach (
+            Registry::parser()
+                ->forClassAndMethod($className, $methodName)
+                ->isGroup()
+            as $group
+        ) {
             assert($group instanceof Group);
 
             $groups[] = $group->groupName();
@@ -65,12 +72,22 @@ final class Groups
             return self::$groupCache[$key] = array_unique($groups);
         }
 
-        foreach (Registry::parser()->forClassAndMethod($className, $methodName) as $metadata) {
+        foreach (
+            Registry::parser()->forClassAndMethod($className, $methodName)
+            as $metadata
+        ) {
             if ($metadata->isCoversClass() || $metadata->isCoversFunction()) {
                 /** @phpstan-ignore booleanOr.alwaysTrue */
-                assert($metadata instanceof CoversClass || $metadata instanceof CoversFunction);
+                assert(
+                    $metadata instanceof CoversClass ||
+                        $metadata instanceof CoversFunction,
+                );
 
-                $groups[] = '__phpunit_covers_' . $this->canonicalizeName(ltrim($metadata->asStringForCodeUnitMapper(), ':'));
+                $groups[] =
+                    "__phpunit_covers_" .
+                    $this->canonicalizeName(
+                        ltrim($metadata->asStringForCodeUnitMapper(), ":"),
+                    );
 
                 continue;
             }
@@ -78,16 +95,25 @@ final class Groups
             if ($metadata->isCovers()) {
                 assert($metadata instanceof Covers);
 
-                $groups[] = '__phpunit_covers_' . $this->canonicalizeName($metadata->target());
+                $groups[] =
+                    "__phpunit_covers_" .
+                    $this->canonicalizeName($metadata->target());
 
                 continue;
             }
 
             if ($metadata->isUsesClass() || $metadata->isUsesFunction()) {
                 /** @phpstan-ignore booleanOr.alwaysTrue */
-                assert($metadata instanceof UsesClass || $metadata instanceof UsesFunction);
+                assert(
+                    $metadata instanceof UsesClass ||
+                        $metadata instanceof UsesFunction,
+                );
 
-                $groups[] = '__phpunit_uses_' . $this->canonicalizeName(ltrim($metadata->asStringForCodeUnitMapper(), ':'));
+                $groups[] =
+                    "__phpunit_uses_" .
+                    $this->canonicalizeName(
+                        ltrim($metadata->asStringForCodeUnitMapper(), ":"),
+                    );
 
                 continue;
             }
@@ -95,13 +121,17 @@ final class Groups
             if ($metadata->isUses()) {
                 assert($metadata instanceof Uses);
 
-                $groups[] = '__phpunit_uses_' . $this->canonicalizeName($metadata->target());
+                $groups[] =
+                    "__phpunit_uses_" .
+                    $this->canonicalizeName($metadata->target());
             }
 
             if ($metadata->isRequiresPhpExtension()) {
                 assert($metadata instanceof RequiresPhpExtension);
 
-                $groups[] = '__phpunit_requires_php_extension' . $this->canonicalizeName($metadata->extension());
+                $groups[] =
+                    "__phpunit_requires_php_extension" .
+                    $this->canonicalizeName($metadata->extension());
             }
         }
 
@@ -114,27 +144,25 @@ final class Groups
      * @param class-string     $className
      * @param non-empty-string $methodName
      */
-    public function size(string $className, string $methodName): TestSize
-    {
+    public function size(string $className, string $methodName): TestSize {
         $groups = array_flip($this->groups($className, $methodName));
 
-        if (isset($groups['large'])) {
+        if (isset($groups["large"])) {
             return TestSize::large();
         }
 
-        if (isset($groups['medium'])) {
+        if (isset($groups["medium"])) {
             return TestSize::medium();
         }
 
-        if (isset($groups['small'])) {
+        if (isset($groups["small"])) {
             return TestSize::small();
         }
 
         return TestSize::unknown();
     }
 
-    private function canonicalizeName(string $name): string
-    {
-        return strtolower(trim($name, '\\'));
+    private function canonicalizeName(string $name): string {
+        return strtolower(trim($name, "\\"));
     }
 }

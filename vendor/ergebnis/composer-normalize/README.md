@@ -136,12 +136,12 @@ As an alternative to specifying the `--indent-size` and `--indent-style` options
 
 ```json
 {
-  "extra": {
-    "composer-normalize": {
-      "indent-size": 2,
-      "indent-style": "space"
+    "extra": {
+        "composer-normalize": {
+            "indent-size": 2,
+            "indent-style": "space"
+        }
     }
-  }
 }
 ```
 

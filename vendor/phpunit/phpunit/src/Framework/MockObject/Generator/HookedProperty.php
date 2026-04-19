@@ -16,8 +16,7 @@ use SebastianBergmann\Type\Type;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class HookedProperty
-{
+final readonly class HookedProperty {
     /**
      * @var non-empty-string
      */
@@ -30,37 +29,37 @@ final readonly class HookedProperty
     /**
      * @param non-empty-string $name
      */
-    public function __construct(string $name, Type $type, bool $getHook, bool $setHook, ?Type $setterType)
-    {
-        $this->name       = $name;
-        $this->type       = $type;
-        $this->getHook    = $getHook;
-        $this->setHook    = $setHook;
+    public function __construct(
+        string $name,
+        Type $type,
+        bool $getHook,
+        bool $setHook,
+        ?Type $setterType,
+    ) {
+        $this->name = $name;
+        $this->type = $type;
+        $this->getHook = $getHook;
+        $this->setHook = $setHook;
         $this->setterType = $setterType;
     }
 
-    public function name(): string
-    {
+    public function name(): string {
         return $this->name;
     }
 
-    public function type(): Type
-    {
+    public function type(): Type {
         return $this->type;
     }
 
-    public function hasGetHook(): bool
-    {
+    public function hasGetHook(): bool {
         return $this->getHook;
     }
 
-    public function hasSetHook(): bool
-    {
+    public function hasSetHook(): bool {
         return $this->setHook;
     }
 
-    public function setterType(): Type
-    {
+    public function setterType(): Type {
         return $this->setterType;
     }
 }

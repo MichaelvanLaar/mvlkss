@@ -25,8 +25,7 @@ use ReflectionClass;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class TestSuiteLoader
-{
+final class TestSuiteLoader {
     /**
      * @var list<class-string>
      */
@@ -42,11 +41,10 @@ final class TestSuiteLoader
      *
      * @return ReflectionClass<TestCase>
      */
-    public function load(string $suiteClassFile): ReflectionClass
-    {
+    public function load(string $suiteClassFile): ReflectionClass {
         $suiteClassFile = realpath($suiteClassFile);
         $suiteClassName = $this->classNameFromFileName($suiteClassFile);
-        $loadedClasses  = $this->loadSuiteClassFile($suiteClassFile);
+        $loadedClasses = $this->loadSuiteClassFile($suiteClassFile);
 
         foreach ($loadedClasses as $className) {
             /** @noinspection PhpUnhandledExceptionInspection */
@@ -64,7 +62,12 @@ final class TestSuiteLoader
                 continue;
             }
 
-            if (!str_ends_with(strtolower($class->getShortName()), strtolower($suiteClassName))) {
+            if (
+                !str_ends_with(
+                    strtolower($class->getShortName()),
+                    strtolower($suiteClassName),
+                )
+            ) {
                 continue;
             }
 
@@ -72,7 +75,10 @@ final class TestSuiteLoader
                 return $class;
             }
 
-            $e = new ClassIsAbstractException($class->getName(), $suiteClassFile);
+            $e = new ClassIsAbstractException(
+                $class->getName(),
+                $suiteClassFile,
+            );
         }
 
         if (isset($e)) {
@@ -80,18 +86,25 @@ final class TestSuiteLoader
         }
 
         foreach ($loadedClasses as $className) {
-            if (str_ends_with(strtolower($className), strtolower($suiteClassName))) {
-                throw new ClassDoesNotExtendTestCaseException($className, $suiteClassFile);
+            if (
+                str_ends_with(
+                    strtolower($className),
+                    strtolower($suiteClassName),
+                )
+            ) {
+                throw new ClassDoesNotExtendTestCaseException(
+                    $className,
+                    $suiteClassFile,
+                );
             }
         }
 
         throw new ClassCannotBeFoundException($suiteClassName, $suiteClassFile);
     }
 
-    private function classNameFromFileName(string $suiteClassFile): string
-    {
-        $className = basename($suiteClassFile, '.php');
-        $dotPos    = strpos($className, '.');
+    private function classNameFromFileName(string $suiteClassFile): string {
+        $className = basename($suiteClassFile, ".php");
+        $dotPos = strpos($className, ".");
 
         if ($dotPos !== false) {
             $className = substr($className, 0, $dotPos);
@@ -103,8 +116,7 @@ final class TestSuiteLoader
     /**
      * @return array<class-string>
      */
-    private function loadSuiteClassFile(string $suiteClassFile): array
-    {
+    private function loadSuiteClassFile(string $suiteClassFile): array {
         if (isset(self::$fileToClassesMap[$suiteClassFile])) {
             return self::$fileToClassesMap[$suiteClassFile];
         }
@@ -128,7 +140,9 @@ final class TestSuiteLoader
                 self::$fileToClassesMap[$class->getFileName()] = [];
             }
 
-            self::$fileToClassesMap[$class->getFileName()][] = $class->getName();
+            self::$fileToClassesMap[
+                $class->getFileName()
+            ][] = $class->getName();
         }
 
         self::$declaredClasses = get_declared_classes();

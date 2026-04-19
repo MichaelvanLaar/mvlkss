@@ -18,28 +18,27 @@ use DOMElement;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class RemoveConversionToExceptionsAttributes implements Migration
-{
-    public function migrate(DOMDocument $document): void
-    {
+final readonly class RemoveConversionToExceptionsAttributes implements
+    Migration {
+    public function migrate(DOMDocument $document): void {
         $root = $document->documentElement;
 
         assert($root instanceof DOMElement);
 
-        if ($root->hasAttribute('convertDeprecationsToExceptions')) {
-            $root->removeAttribute('convertDeprecationsToExceptions');
+        if ($root->hasAttribute("convertDeprecationsToExceptions")) {
+            $root->removeAttribute("convertDeprecationsToExceptions");
         }
 
-        if ($root->hasAttribute('convertErrorsToExceptions')) {
-            $root->removeAttribute('convertErrorsToExceptions');
+        if ($root->hasAttribute("convertErrorsToExceptions")) {
+            $root->removeAttribute("convertErrorsToExceptions");
         }
 
-        if ($root->hasAttribute('convertNoticesToExceptions')) {
-            $root->removeAttribute('convertNoticesToExceptions');
+        if ($root->hasAttribute("convertNoticesToExceptions")) {
+            $root->removeAttribute("convertNoticesToExceptions");
         }
 
-        if ($root->hasAttribute('convertWarningsToExceptions')) {
-            $root->removeAttribute('convertWarningsToExceptions');
+        if ($root->hasAttribute("convertWarningsToExceptions")) {
+            $root->removeAttribute("convertWarningsToExceptions");
         }
     }
 }

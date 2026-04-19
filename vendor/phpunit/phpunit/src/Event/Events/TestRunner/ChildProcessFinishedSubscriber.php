@@ -14,7 +14,6 @@ use PHPUnit\Event\Subscriber;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-interface ChildProcessFinishedSubscriber extends Subscriber
-{
+interface ChildProcessFinishedSubscriber extends Subscriber {
     public function notify(ChildProcessFinished $event): void;
 }

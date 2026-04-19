@@ -14,8 +14,7 @@ namespace PHPUnit\Metadata;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class RequiresSetting extends Metadata
-{
+final readonly class RequiresSetting extends Metadata {
     /**
      * @var non-empty-string
      */
@@ -31,32 +30,28 @@ final readonly class RequiresSetting extends Metadata
      * @param non-empty-string $setting
      * @param non-empty-string $value
      */
-    protected function __construct(int $level, string $setting, string $value)
-    {
+    protected function __construct(int $level, string $setting, string $value) {
         parent::__construct($level);
 
         $this->setting = $setting;
-        $this->value   = $value;
+        $this->value = $value;
     }
 
-    public function isRequiresSetting(): true
-    {
+    public function isRequiresSetting(): true {
         return true;
     }
 
     /**
      * @return non-empty-string
      */
-    public function setting(): string
-    {
+    public function setting(): string {
         return $this->setting;
     }
 
     /**
      * @return non-empty-string
      */
-    public function value(): string
-    {
+    public function value(): string {
         return $this->value;
     }
 }

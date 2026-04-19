@@ -14,7 +14,6 @@ use PHPUnit\Event\Subscriber;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-interface AfterTestMethodCalledSubscriber extends Subscriber
-{
+interface AfterTestMethodCalledSubscriber extends Subscriber {
     public function notify(AfterTestMethodCalled $event): void;
 }

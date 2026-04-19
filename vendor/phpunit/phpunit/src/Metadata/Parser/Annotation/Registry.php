@@ -23,8 +23,7 @@ use ReflectionMethod;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class Registry
-{
+final class Registry {
     private static ?Registry $instance = null;
 
     /**
@@ -37,9 +36,8 @@ final class Registry
      */
     private array $methodDocBlocks = [];
 
-    public static function getInstance(): self
-    {
-        return self::$instance ?? self::$instance = new self;
+    public static function getInstance(): self {
+        return self::$instance ?? (self::$instance = new self());
     }
 
     /**
@@ -48,8 +46,7 @@ final class Registry
      * @throws AnnotationsAreNotSupportedForInternalClassesException
      * @throws ReflectionException
      */
-    public function forClassName(string $class): DocBlock
-    {
+    public function forClassName(string $class): DocBlock {
         if (array_key_exists($class, $this->classDocBlocks)) {
             return $this->classDocBlocks[$class];
         }
@@ -60,11 +57,7 @@ final class Registry
             // @codeCoverageIgnoreStart
             /** @phpstan-ignore catch.neverThrown */
         } catch (\ReflectionException $e) {
-            throw new ReflectionException(
-                $e->getMessage(),
-                $e->getCode(),
-                $e,
-            );
+            throw new ReflectionException($e->getMessage(), $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
 
@@ -77,8 +70,10 @@ final class Registry
      * @throws AnnotationsAreNotSupportedForInternalClassesException
      * @throws ReflectionException
      */
-    public function forMethod(string $classInHierarchy, string $method): DocBlock
-    {
+    public function forMethod(
+        string $classInHierarchy,
+        string $method,
+    ): DocBlock {
         if (isset($this->methodDocBlocks[$classInHierarchy][$method])) {
             return $this->methodDocBlocks[$classInHierarchy][$method];
         }
@@ -87,14 +82,12 @@ final class Registry
             $reflection = new ReflectionMethod($classInHierarchy, $method);
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new ReflectionException(
-                $e->getMessage(),
-                $e->getCode(),
-                $e,
-            );
+            throw new ReflectionException($e->getMessage(), $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
 
-        return $this->methodDocBlocks[$classInHierarchy][$method] = DocBlock::ofMethod($reflection);
+        return $this->methodDocBlocks[$classInHierarchy][
+            $method
+        ] = DocBlock::ofMethod($reflection);
     }
 }

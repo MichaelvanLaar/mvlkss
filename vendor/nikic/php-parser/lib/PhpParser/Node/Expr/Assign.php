@@ -24,10 +24,10 @@ class Assign extends Expr {
     }
 
     public function getSubNodeNames(): array {
-        return ['var', 'expr'];
+        return ["var", "expr"];
     }
 
     public function getType(): string {
-        return 'Expr_Assign';
+        return "Expr_Assign";
     }
 }

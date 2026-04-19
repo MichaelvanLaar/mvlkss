@@ -16,10 +16,8 @@ namespace PHPUnit\Framework\TestStatus;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-abstract readonly class Known extends TestStatus
-{
-    public function isKnown(): true
-    {
+abstract readonly class Known extends TestStatus {
+    public function isKnown(): true {
         return true;
     }
 }

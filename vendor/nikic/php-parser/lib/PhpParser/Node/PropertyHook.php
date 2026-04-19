@@ -41,14 +41,19 @@ class PropertyHook extends NodeAbstract implements FunctionLike {
      *             'attrGroups' => array(): PHP attribute groups
      * @param array<string, mixed> $attributes Additional attributes
      */
-    public function __construct($name, $body, array $subNodes = [], array $attributes = []) {
+    public function __construct(
+        $name,
+        $body,
+        array $subNodes = [],
+        array $attributes = [],
+    ) {
         $this->attributes = $attributes;
         $this->name = \is_string($name) ? new Identifier($name) : $name;
         $this->body = $body;
-        $this->flags = $subNodes['flags'] ?? 0;
-        $this->byRef = $subNodes['byRef'] ?? false;
-        $this->params = $subNodes['params'] ?? [];
-        $this->attrGroups = $subNodes['attrGroups'] ?? [];
+        $this->flags = $subNodes["flags"] ?? 0;
+        $this->byRef = $subNodes["byRef"] ?? false;
+        $this->params = $subNodes["params"] ?? [];
+        $this->attrGroups = $subNodes["attrGroups"] ?? [];
     }
 
     public function returnsByRef(): bool {
@@ -73,17 +78,21 @@ class PropertyHook extends NodeAbstract implements FunctionLike {
     public function getStmts(): ?array {
         if ($this->body instanceof Expr) {
             $name = $this->name->toLowerString();
-            if ($name === 'get') {
+            if ($name === "get") {
                 return [new Return_($this->body)];
             }
-            if ($name === 'set') {
-                if (!$this->hasAttribute('propertyName')) {
+            if ($name === "set") {
+                if (!$this->hasAttribute("propertyName")) {
                     throw new \LogicException(
-                        'Can only use getStmts() on a "set" hook if the "propertyName" attribute is set');
+                        'Can only use getStmts() on a "set" hook if the "propertyName" attribute is set',
+                    );
                 }
 
-                $propName = $this->getAttribute('propertyName');
-                $prop = new PropertyFetch(new Variable('this'), (string) $propName);
+                $propName = $this->getAttribute("propertyName");
+                $prop = new PropertyFetch(
+                    new Variable("this"),
+                    (string) $propName,
+                );
                 return [new Expression(new Assign($prop, $this->body))];
             }
             throw new \LogicException('Unknown property hook "' . $name . '"');
@@ -96,10 +105,10 @@ class PropertyHook extends NodeAbstract implements FunctionLike {
     }
 
     public function getType(): string {
-        return 'PropertyHook';
+        return "PropertyHook";
     }
 
     public function getSubNodeNames(): array {
-        return ['attrGroups', 'flags', 'byRef', 'name', 'params', 'body'];
+        return ["attrGroups", "flags", "byRef", "name", "params", "body"];
     }
 }

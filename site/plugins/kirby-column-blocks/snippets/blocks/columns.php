@@ -1,6 +1,8 @@
-<?php /** @var \Kirby\Cms\Block $block */ ?>
+<?php
+/** @var \Kirby\Cms\Block $block */
+?>
 
-<?php $layout = $block->layout()->toLayouts()->first() ?>
+<?php $layout = $block->layout()->toLayouts()->first(); ?>
 
 <?php if ($layout !== null): ?>
 
@@ -18,8 +20,8 @@
         
       </div>
       
-    <?php endforeach ?>
+    <?php endforeach; ?>
 
   </section>
 
-<?php endif ?>
+<?php endif; ?>

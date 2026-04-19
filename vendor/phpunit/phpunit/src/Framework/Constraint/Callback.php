@@ -17,8 +17,7 @@ use ReflectionFunction;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class Callback extends Constraint
-{
+final class Callback extends Constraint {
     /**
      * @var callable(CallbackInput): bool
      */
@@ -27,22 +26,21 @@ final class Callback extends Constraint
     /**
      * @param callable(CallbackInput $input): bool $callback
      */
-    public function __construct(callable $callback)
-    {
+    public function __construct(callable $callback) {
         $this->callback = $callback;
     }
 
     /**
      * Returns a string representation of the constraint.
      */
-    public function toString(): string
-    {
-        return 'is accepted by specified callback';
+    public function toString(): string {
+        return "is accepted by specified callback";
     }
 
-    public function isVariadic(): bool
-    {
-        return (new ReflectionFunction(Closure::fromCallable($this->callback)))->isVariadic();
+    public function isVariadic(): bool {
+        return (new ReflectionFunction(
+            Closure::fromCallable($this->callback),
+        ))->isVariadic();
     }
 
     /**
@@ -51,8 +49,7 @@ final class Callback extends Constraint
      *
      * @param CallbackInput $other
      */
-    protected function matches(mixed $other): bool
-    {
+    protected function matches(mixed $other): bool {
         if ($this->isVariadic()) {
             return ($this->callback)(...$other);
         }

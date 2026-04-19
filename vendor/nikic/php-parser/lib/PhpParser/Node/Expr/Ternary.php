@@ -20,7 +20,12 @@ class Ternary extends Expr {
      * @param Expr $else Expression for false
      * @param array<string, mixed> $attributes Additional attributes
      */
-    public function __construct(Expr $cond, ?Expr $if, Expr $else, array $attributes = []) {
+    public function __construct(
+        Expr $cond,
+        ?Expr $if,
+        Expr $else,
+        array $attributes = [],
+    ) {
         $this->attributes = $attributes;
         $this->cond = $cond;
         $this->if = $if;
@@ -28,10 +33,10 @@ class Ternary extends Expr {
     }
 
     public function getSubNodeNames(): array {
-        return ['cond', 'if', 'else'];
+        return ["cond", "if", "else"];
     }
 
     public function getType(): string {
-        return 'Expr_Ternary';
+        return "Expr_Ternary";
     }
 }

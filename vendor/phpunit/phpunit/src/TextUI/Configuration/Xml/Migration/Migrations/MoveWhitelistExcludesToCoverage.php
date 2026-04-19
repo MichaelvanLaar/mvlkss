@@ -19,52 +19,62 @@ use DOMElement;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class MoveWhitelistExcludesToCoverage implements Migration
-{
+final readonly class MoveWhitelistExcludesToCoverage implements Migration {
     /**
      * @throws MigrationException
      */
-    public function migrate(DOMDocument $document): void
-    {
-        $whitelist = $document->getElementsByTagName('whitelist')->item(0);
+    public function migrate(DOMDocument $document): void {
+        $whitelist = $document->getElementsByTagName("whitelist")->item(0);
 
         if ($whitelist === null) {
             return;
         }
 
-        $excludeNodes = SnapshotNodeList::fromNodeList($whitelist->getElementsByTagName('exclude'));
+        $excludeNodes = SnapshotNodeList::fromNodeList(
+            $whitelist->getElementsByTagName("exclude"),
+        );
 
         if ($excludeNodes->count() === 0) {
             return;
         }
 
-        $coverage = $document->getElementsByTagName('coverage')->item(0);
+        $coverage = $document->getElementsByTagName("coverage")->item(0);
 
-        if (!$coverage instanceof DOMElement) {
-            throw new MigrationException('Unexpected state - No coverage element');
+        if (!($coverage instanceof DOMElement)) {
+            throw new MigrationException(
+                "Unexpected state - No coverage element",
+            );
         }
 
-        $targetExclude = $coverage->getElementsByTagName('exclude')->item(0);
+        $targetExclude = $coverage->getElementsByTagName("exclude")->item(0);
 
         if ($targetExclude === null) {
             $targetExclude = $coverage->appendChild(
-                $document->createElement('exclude'),
+                $document->createElement("exclude"),
             );
         }
 
         foreach ($excludeNodes as $excludeNode) {
             assert($excludeNode instanceof DOMElement);
 
-            foreach (SnapshotNodeList::fromNodeList($excludeNode->childNodes) as $child) {
-                if (!$child instanceof DOMElement || !in_array($child->nodeName, ['directory', 'file'], true)) {
+            foreach (
+                SnapshotNodeList::fromNodeList($excludeNode->childNodes)
+                as $child
+            ) {
+                if (
+                    !($child instanceof DOMElement) ||
+                    !in_array($child->nodeName, ["directory", "file"], true)
+                ) {
                     continue;
                 }
 
                 $targetExclude->appendChild($child);
             }
 
-            if ($excludeNode->getElementsByTagName('*')->count() !== 0) {
-                throw new MigrationException('Dangling child elements in exclude found.');
+            if ($excludeNode->getElementsByTagName("*")->count() !== 0) {
+                throw new MigrationException(
+                    "Dangling child elements in exclude found.",
+                );
             }
 
             $whitelist->removeChild($excludeNode);

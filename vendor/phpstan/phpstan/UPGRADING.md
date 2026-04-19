@@ -1,5 +1,4 @@
-Upgrading from PHPStan 1.x to 2.0
-=================================
+# Upgrading from PHPStan 1.x to 2.0
 
 ## PHP version requirements
 
@@ -36,10 +35,10 @@ It's up to you whether you go through the new reported errors or if you just put
 
 ### Noteworthy changes to code analysis
 
-* [**Enhancements in handling parameters passed by reference**](https://phpstan.org/blog/enhancements-in-handling-parameters-passed-by-reference)
-* [**Validate inline PHPDoc `@var` tag type**](https://phpstan.org/blog/phpstan-1-10-comes-with-lie-detector#validate-inline-phpdoc-%40var-tag-type)
-* [**List type enforced**](https://phpstan.org/blog/phpstan-1-9-0-with-phpdoc-asserts-list-type#list-type)
-* **Always `true` conditions always reported**: previously reported only with phpstan-strict-rules, this is now always reported.
+- [**Enhancements in handling parameters passed by reference**](https://phpstan.org/blog/enhancements-in-handling-parameters-passed-by-reference)
+- [**Validate inline PHPDoc `@var` tag type**](https://phpstan.org/blog/phpstan-1-10-comes-with-lie-detector#validate-inline-phpdoc-%40var-tag-type)
+- [**List type enforced**](https://phpstan.org/blog/phpstan-1-9-0-with-phpdoc-asserts-list-type#list-type)
+- **Always `true` conditions always reported**: previously reported only with phpstan-strict-rules, this is now always reported.
 
 ### Removed option `checkMissingIterableValueType`
 
@@ -71,10 +70,10 @@ parameters:
 
 These options have been removed because PHPStan now always behaves as if these were set to `true`:
 
-* `checkAlwaysTrueCheckTypeFunctionCall`
-* `checkAlwaysTrueInstanceof`
-* `checkAlwaysTrueStrictComparison`
-* `checkAlwaysTrueLooseComparison`
+- `checkAlwaysTrueCheckTypeFunctionCall`
+- `checkAlwaysTrueInstanceof`
+- `checkAlwaysTrueStrictComparison`
+- `checkAlwaysTrueLooseComparison`
 
 ### Removed option `excludes_analyse`
 
@@ -103,24 +102,24 @@ Appending `(?)` in `ignoreErrors` is not supported.
 
 ### Changes in 1st party PHPStan extensions
 
-* [phpstan-doctrine](https://github.com/phpstan/phpstan-doctrine)
-  * Removed config parameter `searchOtherMethodsForQueryBuilderBeginning` (extension now behaves as when this was set to `true`)
-  * Removed config parameter `queryBuilderFastAlgorithm` (extension now behaves as when this was set to `false`)
-* [phpstan-symfony](https://github.com/phpstan/phpstan-symfony)
-  * Removed legacy options with `_` in the name
-  * `container_xml_path` -> use `containerXmlPath`
-  * `constant_hassers` -> use `constantHassers`
-  * `console_application_loader` -> use `consoleApplicationLoader`
+- [phpstan-doctrine](https://github.com/phpstan/phpstan-doctrine)
+    - Removed config parameter `searchOtherMethodsForQueryBuilderBeginning` (extension now behaves as when this was set to `true`)
+    - Removed config parameter `queryBuilderFastAlgorithm` (extension now behaves as when this was set to `false`)
+- [phpstan-symfony](https://github.com/phpstan/phpstan-symfony)
+    - Removed legacy options with `_` in the name
+    - `container_xml_path` -> use `containerXmlPath`
+    - `constant_hassers` -> use `constantHassers`
+    - `console_application_loader` -> use `consoleApplicationLoader`
 
 ### Minor backward compatibility breaks
 
-* Removed unused config parameter `cache.nodesByFileCountMax`
-* Removed unused config parameter `memoryLimitFile`
-* Removed unused feature toggle `disableRuntimeReflectionProvider`
-* Removed unused config parameter `staticReflectionClassNamePatterns`
-* Remove `fixerTmpDir` config parameter, use `pro.tmpDir` instead
-* Remove `tempResultCachePath` config parameter, use `resultCachePath` instead
-* `additionalConfigFiles` config parameter must be a list
+- Removed unused config parameter `cache.nodesByFileCountMax`
+- Removed unused config parameter `memoryLimitFile`
+- Removed unused feature toggle `disableRuntimeReflectionProvider`
+- Removed unused config parameter `staticReflectionClassNamePatterns`
+- Remove `fixerTmpDir` config parameter, use `pro.tmpDir` instead
+- Remove `tempResultCachePath` config parameter, use `resultCachePath` instead
+- `additionalConfigFiles` config parameter must be a list
 
 ## Upgrading guide for extension developers
 
@@ -151,22 +150,18 @@ Learn more: [Using RuleErrorBuilder to enrich reported errors in custom rules](h
 **Before**:
 
 ```php
-return ['My error'];
+return ["My error"];
 ```
 
 **After**:
 
 ```php
-return [
-    RuleErrorBuilder::message('My error')
-        ->identifier('my.error')
-        ->build(),
-];
+return [RuleErrorBuilder::message("My error")->identifier("my.error")->build()];
 ```
 
 ### Deprecate various `instanceof *Type` in favour of new methods on `Type` interface
 
-Learn more: [Why Is instanceof *Type Wrong and Getting Deprecated?](https://phpstan.org/blog/why-is-instanceof-type-wrong-and-getting-deprecated)
+Learn more: [Why Is instanceof \*Type Wrong and Getting Deprecated?](https://phpstan.org/blog/why-is-instanceof-type-wrong-and-getting-deprecated)
 
 ### Removed deprecated `ParametersAcceptorSelector::selectSingle()`
 
@@ -175,7 +170,9 @@ Use [`ParametersAcceptorSelector::selectFromArgs()`](https://apiref.phpstan.org/
 **Before**:
 
 ```php
-$defaultReturnType = ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+$defaultReturnType = ParametersAcceptorSelector::selectSingle(
+    $functionReflection->getVariants(),
+)->getReturnType();
 ```
 
 **After**:
@@ -184,23 +181,25 @@ $defaultReturnType = ParametersAcceptorSelector::selectSingle($functionReflectio
 $defaultReturnType = ParametersAcceptorSelector::selectFromArgs(
     $scope,
     $functionCall->getArgs(),
-    $functionReflection->getVariants()
+    $functionReflection->getVariants(),
 )->getReturnType();
 ```
 
 If you're analysing function or method body itself and you're using one of the following methods, ask for `getParameters()` and `getReturnType()` directly on the reflection object:
 
-* [InClassMethodNode::getMethodReflection()](https://apiref.phpstan.org/2.0.x/PHPStan.Node.InClassMethodNode.html)
-* [InFunctionNode::getFunctionReflection()](https://apiref.phpstan.org/2.0.x/PHPStan.Node.InFunctionNode.html)
-* [FunctionReturnStatementsNode::getFunctionReflection()](https://apiref.phpstan.org/2.0.x/PHPStan.Node.FunctionReturnStatementsNode.html)
-* [MethodReturnStatementsNode::getMethodReflection()](https://apiref.phpstan.org/2.0.x/PHPStan.Node.MethodReturnStatementsNode.html)
-* [Scope::getFunction()](https://apiref.phpstan.org/2.0.x/PHPStan.Analyser.Scope.html#_getFunction)
+- [InClassMethodNode::getMethodReflection()](https://apiref.phpstan.org/2.0.x/PHPStan.Node.InClassMethodNode.html)
+- [InFunctionNode::getFunctionReflection()](https://apiref.phpstan.org/2.0.x/PHPStan.Node.InFunctionNode.html)
+- [FunctionReturnStatementsNode::getFunctionReflection()](https://apiref.phpstan.org/2.0.x/PHPStan.Node.FunctionReturnStatementsNode.html)
+- [MethodReturnStatementsNode::getMethodReflection()](https://apiref.phpstan.org/2.0.x/PHPStan.Node.MethodReturnStatementsNode.html)
+- [Scope::getFunction()](https://apiref.phpstan.org/2.0.x/PHPStan.Analyser.Scope.html#_getFunction)
 
 **Before**:
 
 ```php
 $function = $node->getFunctionReflection();
-$returnType = ParametersAcceptorSelector::selectSingle($function->getVariants())->getReturnType();
+$returnType = ParametersAcceptorSelector::selectSingle(
+    $function->getVariants(),
+)->getReturnType();
 ```
 
 **After**:
@@ -213,17 +212,17 @@ $returnType = $node->getFunctionReflection()->getReturnType();
 
 [`PHPStan\Analyser\TypeSpecifier::create()`](https://apiref.phpstan.org/2.0.x/PHPStan.Analyser.TypeSpecifier.html#_create) now accepts (all parameters are required):
 
-* `Expr $expr`
-* `Type $type`
-* `TypeSpecifierContext $context`
-* `Scope $scope`
+- `Expr $expr`
+- `Type $type`
+- `TypeSpecifierContext $context`
+- `Scope $scope`
 
 If you want to change `$overwrite` or `$rootExpr` (previous parameters also used to be accepted by this method), call `setAlwaysOverwriteTypes()` and `setRootExpr()` on [`SpecifiedTypes`](https://apiref.phpstan.org/2.0.x/PHPStan.Analyser.SpecifiedTypes.html) (object returned by `TypeSpecifier::create()`). These methods return a new object (SpecifiedTypes is immutable).
 
 [`SpecifiedTypes`](https://apiref.phpstan.org/2.0.x/PHPStan.Analyser.SpecifiedTypes.html) constructor now accepts:
 
-* `array $sureTypes`
-* `array $sureNotTypes`
+- `array $sureTypes`
+- `array $sureNotTypes`
 
 If you want to change `$overwrite` or `$rootExpr` (previous parameters also used to be accepted by the constructor), call `setAlwaysOverwriteTypes()` and `setRootExpr()`. These methods return a new object (SpecifiedTypes is immutable).
 
@@ -257,82 +256,82 @@ Instead of `PHPStanTestCase::createBroker()`, call `PHPStanTestCase::createRefle
 
 Removed static methods from `AccessoryArrayListType` class:
 
-* `isListTypeEnabled()`
-* `setListTypeEnabled()`
-* `intersectWith()`
+- `isListTypeEnabled()`
+- `setListTypeEnabled()`
+- `intersectWith()`
 
 Instead of `AccessoryArrayListType::intersectWith($type)`, do `TypeCombinator::intersect($type, new AccessoryArrayListType())`.
 
 ### Minor backward compatibility breaks
 
-* Classes that were previously `@final` were made `final`
-* Parameter `$callableParameters` of [`MutatingScope::enterAnonymousFunction()`](https://apiref.phpstan.org/2.0.x/PHPStan.Analyser.MutatingScope.html#_enterAnonymousFunction) and [`enterArrowFunction()`](https://apiref.phpstan.org/2.0.x/PHPStan.Analyser.MutatingScope.html#_enterArrowFunction) made required
-* Parameter `StatementContext $context` of [`NodeScopeResolver::processStmtNodes()`](https://apiref.phpstan.org/2.0.x/PHPStan.Analyser.NodeScopeResolver.html#_processStmtNodes) made required
-* ClassPropertiesNode - remove `$extensions` parameter from [`getUninitializedProperties()`](https://apiref.phpstan.org/2.0.x/PHPStan.Node.ClassPropertiesNode.html#_getUninitializedProperties)
-* `Type::getSmallerType()`, `Type::getSmallerOrEqualType()`, `Type::getGreaterType()`, `Type::getGreaterOrEqualType()`, `Type::isSmallerThan()`, `Type::isSmallerThanOrEqual()` now require [`PhpVersion`](https://apiref.phpstan.org/2.0.x/PHPStan.Php.PhpVersion.html) as argument.
-* `CompoundType::isGreaterThan()`, `CompoundType::isGreaterThanOrEqual()` now require [`PhpVersion`](https://apiref.phpstan.org/2.0.x/PHPStan.Php.PhpVersion.html) as argument.
-* Removed `ReflectionProvider::supportsAnonymousClasses()` (all reflection providers support anonymous classes)
-* Remove `ArrayType::generalizeKeys()`
-* Remove `ArrayType::count()`, use `Type::getArraySize()` instead
-* Remove `ArrayType::castToArrayKeyType()`, `Type::toArrayKey()` instead
-* Remove `UnionType::pickTypes()`, use `pickFromTypes()` instead
-* Remove `RegexArrayShapeMatcher::matchType()`, use `matchExpr()` instead
-* Remove unused `PHPStanTestCase::$useStaticReflectionProvider`
-* Remove `PHPStanTestCase::getReflectors()`, use `getReflector()` instead
-* Remove `ClassReflection::getFileNameWithPhpDocs()`, use `getFileName()` instead
-* Remove `AnalysisResult::getInternalErrors()`, use `getInternalErrorObjects()` instead
-* Remove `ConstantReflection::getValue()`, use `getValueExpr()` instead. To get `Type` from `Expr`, use `Scope::getType()` or `InitializerExprTypeResolver::getType()`
-* Remove `PropertyTag::getType()`, use `getReadableType()` / `getWritableType()` instead
-* Remove `GenericTypeVariableResolver`, use [`Type::getTemplateType()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_getTemplateType) instead
-* Rename `Type::isClassStringType()` to `Type::isClassString()`
-* Remove `Scope::isSpecified()`, use `hasExpressionType()` instead
-* Remove `ConstantArrayType::isEmpty()`, use `isIterableAtLeastOnce()->no()` instead
-* Remove `ConstantArrayType::getNextAutoIndex()`
-* Removed methods from `ConstantArrayType` - `getFirst*Type` and `getLast*Type`
-  * Use `getFirstIterable*Type` and `getLastIterable*Type` instead
-* Remove `ConstantArrayType::generalizeToArray()`
-* Remove `ConstantArrayType::findTypeAndMethodName()`, use `findTypeAndMethodNames()` instead
-* Remove `ConstantArrayType::removeLast()`, use [`Type::popArray()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_popArray) instead
-* Remove `ConstantArrayType::removeFirst()`, use [`Type::shiftArray()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_shiftArray) instead
-* Remove `ConstantArrayType::reverse()`, use [`Type::reverseArray()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_reverseArray) instead
-* Remove `ConstantArrayType::chunk()`, use [`Type::chunkArray()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_chunkArray) instead
-* Remove `ConstantArrayType::slice()`, use [`Type::sliceArray()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_sliceArray) instead
-* Made `TypeUtils` thinner by removing methods:
-  * Remove `TypeUtils::getArrays()` and `getAnyArrays()`, use [`Type::getArrays()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_getArrays) instead
-  * Remove `TypeUtils::getConstantArrays()` and `getOldConstantArrays()`, use [`Type::getConstantArrays()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_getConstantArrays) instead
-  * Remove `TypeUtils::getConstantStrings()`, use [`Type::getConstantStrings()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_getConstantStrings) instead
-  * Remove `TypeUtils::getConstantTypes()` and `getAnyConstantTypes()`, use [`Type::isConstantValue()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_isConstantValue) or [`Type::generalize()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_generalize)
-  * Remove `TypeUtils::generalizeType()`, use [`Type::generalize()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_generalize) instead
-  * Remove `TypeUtils::getDirectClassNames()`, use [`Type::getObjectClassNames()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_getObjectClassNames) instead
-  * Remove `TypeUtils::getConstantScalars()`, use [`Type::isConstantScalarValue()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_isConstantScalarValue) or [`Type::getConstantScalarTypes()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_getConstantScalarTypes) instead
-  * Remove `TypeUtils::getEnumCaseObjects()`, use [`Type::getEnumCases()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_getEnumCases) instead
-  * Remove `TypeUtils::containsCallable()`, use [`Type::isCallable()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_isCallable) instead
-* Removed `Scope::doNotTreatPhpDocTypesAsCertain()`, use `getNativeType()` instead
-* Parameter `$isList` in `ConstantArrayType` constructor can only be `TrinaryLogic`, no longer `bool`
-* Parameter `$nextAutoIndexes` in `ConstantArrayType` constructor can only be `non-empty-list<int>`, no longer `int`
-* Remove `ConstantType` interface, use [`Type::isConstantValue()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_isConstantValue) instead
-* `acceptsNamedArguments()` in `FunctionReflection`, `ExtendedMethodReflection` and `CallableParametersAcceptor` interfaces returns `TrinaryLogic` instead of `bool`
-* Remove `FunctionReflection::isFinal()`
-* [`Type::getProperty()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_getProperty) now returns [`ExtendedPropertyReflection`](https://apiref.phpstan.org/2.0.x/PHPStan.Reflection.ExtendedPropertyReflection.html)
-* Remove `__set_state()` on objects that should not be serialized in cache
-* Parameter `$selfClass` of [`TypehintHelper::decideTypeFromReflection()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.TypehintHelper.html#_decideTypeFromReflection) no longer accepts `string`
-* `LevelsTestCase::dataTopics()` data provider made static
-* `PHPStan\Node\Printer\Printer` no longer autowired as `PhpParser\PrettyPrinter\Standard`, use `PHPStan\Node\Printer\Printer` in the typehint
-* Remove `Type::acceptsWithReason()`, `Type:accepts()` return type changed from `TrinaryLogic` to [`AcceptsResult`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.AcceptsResult.html)
-* Remove `CompoundType::isAcceptedWithReasonBy()`, `CompoundType::isAcceptedBy()` return type changed from `TrinaryLogic` to [`AcceptsResult`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.AcceptsResult.html)
-Remove `Type::isSuperTypeOfWithReason()`, `Type:isSuperTypeOf()` return type changed from `TrinaryLogic` to [`IsSuperTypeOfResult`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.IsSuperTypeOfResult.html)
-* Remove `CompoundType::isSubTypeOfWithReasonBy()`, `CompoundType::isSubTypeOf()` return type changed from `TrinaryLogic` to [`IsSuperTypeOfResult`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.IsSuperTypeOfResult.html)
-* Remove `TemplateType::isValidVarianceWithReason()`, changed `TemplateType::isValidVariance()` return type to [`IsSuperTypeOfResult`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.IsSuperTypeOfResult.html)
-* `RuleLevelHelper::accepts()` return type changed from `bool` to [`RuleLevelHelperAcceptsResult`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.AcceptsResult.html)
-* Changes around `ClassConstantReflection`
-  * Class `ClassConstantReflection` removed from BC promise, renamed to `RealClassConstantReflection`
-  * Interface `ConstantReflection` renamed to `ClassConstantReflection`
-  * Added more methods around PHPDoc types and native types to the (new) `ClassConstantReflection`
-  * Interface `GlobalConstantReflection` renamed to `ConstantReflection`
-* Renamed interfaces and classes from `*WithPhpDocs` to `Extended*`
-  * `ParametersAcceptorWithPhpDocs` -> `ExtendedParametersAcceptor`
-  * `ParameterReflectionWithPhpDocs` -> `ExtendedParameterReflection`
-  * `FunctionVariantWithPhpDocs` -> `ExtendedFunctionVariant`
-* `ClassPropertyNode::getNativeType()` return type changed from AST node to `Type|null`
-* Class `PHPStan\Node\ClassMethod` (accessible from `ClassMethodsNode`) is no longer an AST node
-  * Call `PHPStan\Node\ClassMethod::getNode()` to access the original AST node
+- Classes that were previously `@final` were made `final`
+- Parameter `$callableParameters` of [`MutatingScope::enterAnonymousFunction()`](https://apiref.phpstan.org/2.0.x/PHPStan.Analyser.MutatingScope.html#_enterAnonymousFunction) and [`enterArrowFunction()`](https://apiref.phpstan.org/2.0.x/PHPStan.Analyser.MutatingScope.html#_enterArrowFunction) made required
+- Parameter `StatementContext $context` of [`NodeScopeResolver::processStmtNodes()`](https://apiref.phpstan.org/2.0.x/PHPStan.Analyser.NodeScopeResolver.html#_processStmtNodes) made required
+- ClassPropertiesNode - remove `$extensions` parameter from [`getUninitializedProperties()`](https://apiref.phpstan.org/2.0.x/PHPStan.Node.ClassPropertiesNode.html#_getUninitializedProperties)
+- `Type::getSmallerType()`, `Type::getSmallerOrEqualType()`, `Type::getGreaterType()`, `Type::getGreaterOrEqualType()`, `Type::isSmallerThan()`, `Type::isSmallerThanOrEqual()` now require [`PhpVersion`](https://apiref.phpstan.org/2.0.x/PHPStan.Php.PhpVersion.html) as argument.
+- `CompoundType::isGreaterThan()`, `CompoundType::isGreaterThanOrEqual()` now require [`PhpVersion`](https://apiref.phpstan.org/2.0.x/PHPStan.Php.PhpVersion.html) as argument.
+- Removed `ReflectionProvider::supportsAnonymousClasses()` (all reflection providers support anonymous classes)
+- Remove `ArrayType::generalizeKeys()`
+- Remove `ArrayType::count()`, use `Type::getArraySize()` instead
+- Remove `ArrayType::castToArrayKeyType()`, `Type::toArrayKey()` instead
+- Remove `UnionType::pickTypes()`, use `pickFromTypes()` instead
+- Remove `RegexArrayShapeMatcher::matchType()`, use `matchExpr()` instead
+- Remove unused `PHPStanTestCase::$useStaticReflectionProvider`
+- Remove `PHPStanTestCase::getReflectors()`, use `getReflector()` instead
+- Remove `ClassReflection::getFileNameWithPhpDocs()`, use `getFileName()` instead
+- Remove `AnalysisResult::getInternalErrors()`, use `getInternalErrorObjects()` instead
+- Remove `ConstantReflection::getValue()`, use `getValueExpr()` instead. To get `Type` from `Expr`, use `Scope::getType()` or `InitializerExprTypeResolver::getType()`
+- Remove `PropertyTag::getType()`, use `getReadableType()` / `getWritableType()` instead
+- Remove `GenericTypeVariableResolver`, use [`Type::getTemplateType()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_getTemplateType) instead
+- Rename `Type::isClassStringType()` to `Type::isClassString()`
+- Remove `Scope::isSpecified()`, use `hasExpressionType()` instead
+- Remove `ConstantArrayType::isEmpty()`, use `isIterableAtLeastOnce()->no()` instead
+- Remove `ConstantArrayType::getNextAutoIndex()`
+- Removed methods from `ConstantArrayType` - `getFirst*Type` and `getLast*Type`
+    - Use `getFirstIterable*Type` and `getLastIterable*Type` instead
+- Remove `ConstantArrayType::generalizeToArray()`
+- Remove `ConstantArrayType::findTypeAndMethodName()`, use `findTypeAndMethodNames()` instead
+- Remove `ConstantArrayType::removeLast()`, use [`Type::popArray()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_popArray) instead
+- Remove `ConstantArrayType::removeFirst()`, use [`Type::shiftArray()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_shiftArray) instead
+- Remove `ConstantArrayType::reverse()`, use [`Type::reverseArray()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_reverseArray) instead
+- Remove `ConstantArrayType::chunk()`, use [`Type::chunkArray()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_chunkArray) instead
+- Remove `ConstantArrayType::slice()`, use [`Type::sliceArray()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_sliceArray) instead
+- Made `TypeUtils` thinner by removing methods:
+    - Remove `TypeUtils::getArrays()` and `getAnyArrays()`, use [`Type::getArrays()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_getArrays) instead
+    - Remove `TypeUtils::getConstantArrays()` and `getOldConstantArrays()`, use [`Type::getConstantArrays()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_getConstantArrays) instead
+    - Remove `TypeUtils::getConstantStrings()`, use [`Type::getConstantStrings()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_getConstantStrings) instead
+    - Remove `TypeUtils::getConstantTypes()` and `getAnyConstantTypes()`, use [`Type::isConstantValue()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_isConstantValue) or [`Type::generalize()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_generalize)
+    - Remove `TypeUtils::generalizeType()`, use [`Type::generalize()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_generalize) instead
+    - Remove `TypeUtils::getDirectClassNames()`, use [`Type::getObjectClassNames()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_getObjectClassNames) instead
+    - Remove `TypeUtils::getConstantScalars()`, use [`Type::isConstantScalarValue()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_isConstantScalarValue) or [`Type::getConstantScalarTypes()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_getConstantScalarTypes) instead
+    - Remove `TypeUtils::getEnumCaseObjects()`, use [`Type::getEnumCases()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_getEnumCases) instead
+    - Remove `TypeUtils::containsCallable()`, use [`Type::isCallable()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_isCallable) instead
+- Removed `Scope::doNotTreatPhpDocTypesAsCertain()`, use `getNativeType()` instead
+- Parameter `$isList` in `ConstantArrayType` constructor can only be `TrinaryLogic`, no longer `bool`
+- Parameter `$nextAutoIndexes` in `ConstantArrayType` constructor can only be `non-empty-list<int>`, no longer `int`
+- Remove `ConstantType` interface, use [`Type::isConstantValue()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_isConstantValue) instead
+- `acceptsNamedArguments()` in `FunctionReflection`, `ExtendedMethodReflection` and `CallableParametersAcceptor` interfaces returns `TrinaryLogic` instead of `bool`
+- Remove `FunctionReflection::isFinal()`
+- [`Type::getProperty()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_getProperty) now returns [`ExtendedPropertyReflection`](https://apiref.phpstan.org/2.0.x/PHPStan.Reflection.ExtendedPropertyReflection.html)
+- Remove `__set_state()` on objects that should not be serialized in cache
+- Parameter `$selfClass` of [`TypehintHelper::decideTypeFromReflection()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.TypehintHelper.html#_decideTypeFromReflection) no longer accepts `string`
+- `LevelsTestCase::dataTopics()` data provider made static
+- `PHPStan\Node\Printer\Printer` no longer autowired as `PhpParser\PrettyPrinter\Standard`, use `PHPStan\Node\Printer\Printer` in the typehint
+- Remove `Type::acceptsWithReason()`, `Type:accepts()` return type changed from `TrinaryLogic` to [`AcceptsResult`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.AcceptsResult.html)
+- Remove `CompoundType::isAcceptedWithReasonBy()`, `CompoundType::isAcceptedBy()` return type changed from `TrinaryLogic` to [`AcceptsResult`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.AcceptsResult.html)
+  Remove `Type::isSuperTypeOfWithReason()`, `Type:isSuperTypeOf()` return type changed from `TrinaryLogic` to [`IsSuperTypeOfResult`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.IsSuperTypeOfResult.html)
+- Remove `CompoundType::isSubTypeOfWithReasonBy()`, `CompoundType::isSubTypeOf()` return type changed from `TrinaryLogic` to [`IsSuperTypeOfResult`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.IsSuperTypeOfResult.html)
+- Remove `TemplateType::isValidVarianceWithReason()`, changed `TemplateType::isValidVariance()` return type to [`IsSuperTypeOfResult`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.IsSuperTypeOfResult.html)
+- `RuleLevelHelper::accepts()` return type changed from `bool` to [`RuleLevelHelperAcceptsResult`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.AcceptsResult.html)
+- Changes around `ClassConstantReflection`
+    - Class `ClassConstantReflection` removed from BC promise, renamed to `RealClassConstantReflection`
+    - Interface `ConstantReflection` renamed to `ClassConstantReflection`
+    - Added more methods around PHPDoc types and native types to the (new) `ClassConstantReflection`
+    - Interface `GlobalConstantReflection` renamed to `ConstantReflection`
+- Renamed interfaces and classes from `*WithPhpDocs` to `Extended*`
+    - `ParametersAcceptorWithPhpDocs` -> `ExtendedParametersAcceptor`
+    - `ParameterReflectionWithPhpDocs` -> `ExtendedParameterReflection`
+    - `FunctionVariantWithPhpDocs` -> `ExtendedFunctionVariant`
+- `ClassPropertyNode::getNativeType()` return type changed from AST node to `Type|null`
+- Class `PHPStan\Node\ClassMethod` (accessible from `ClassMethodsNode`) is no longer an AST node
+    - Call `PHPStan\Node\ClassMethod::getNode()` to access the original AST node

@@ -24,8 +24,7 @@ use XMLWriter;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class ListTestsAsXmlCommand implements Command
-{
+final readonly class ListTestsAsXmlCommand implements Command {
     /**
      * @var list<PhptTestCase|TestCase>
      */
@@ -35,27 +34,25 @@ final readonly class ListTestsAsXmlCommand implements Command
     /**
      * @param list<PhptTestCase|TestCase> $tests
      */
-    public function __construct(array $tests, string $filename)
-    {
-        $this->tests    = $tests;
+    public function __construct(array $tests, string $filename) {
+        $this->tests = $tests;
         $this->filename = $filename;
     }
 
-    public function execute(): Result
-    {
-        $writer = new XMLWriter;
+    public function execute(): Result {
+        $writer = new XMLWriter();
 
         $writer->openMemory();
         $writer->setIndent(true);
         $writer->startDocument();
 
-        $writer->startElement('testSuite');
-        $writer->writeAttribute('xmlns', 'https://xml.phpunit.de/testSuite');
+        $writer->startElement("testSuite");
+        $writer->writeAttribute("xmlns", "https://xml.phpunit.de/testSuite");
 
-        $writer->startElement('tests');
+        $writer->startElement("tests");
 
         $currentTestClass = null;
-        $groups           = [];
+        $groups = [];
 
         foreach ($this->tests as $test) {
             if ($test instanceof TestCase) {
@@ -76,16 +73,22 @@ final readonly class ListTestsAsXmlCommand implements Command
 
                     assert($file !== false);
 
-                    $writer->startElement('testClass');
-                    $writer->writeAttribute('name', $test::class);
-                    $writer->writeAttribute('file', $file);
+                    $writer->startElement("testClass");
+                    $writer->writeAttribute("name", $test::class);
+                    $writer->writeAttribute("file", $file);
 
                     $currentTestClass = $test::class;
                 }
 
-                $writer->startElement('testMethod');
-                $writer->writeAttribute('id', $test->valueObjectForEvents()->id());
-                $writer->writeAttribute('name', $test->valueObjectForEvents()->methodName());
+                $writer->startElement("testMethod");
+                $writer->writeAttribute(
+                    "id",
+                    $test->valueObjectForEvents()->id(),
+                );
+                $writer->writeAttribute(
+                    "name",
+                    $test->valueObjectForEvents()->methodName(),
+                );
                 $writer->endElement();
 
                 continue;
@@ -97,8 +100,8 @@ final readonly class ListTestsAsXmlCommand implements Command
                 $currentTestClass = null;
             }
 
-            $writer->startElement('phpt');
-            $writer->writeAttribute('file', $test->getName());
+            $writer->startElement("phpt");
+            $writer->writeAttribute("file", $test->getName());
             $writer->endElement();
         }
 
@@ -110,15 +113,15 @@ final readonly class ListTestsAsXmlCommand implements Command
 
         ksort($groups);
 
-        $writer->startElement('groups');
+        $writer->startElement("groups");
 
         foreach ($groups as $groupName => $testIds) {
-            $writer->startElement('group');
-            $writer->writeAttribute('name', (string) $groupName);
+            $writer->startElement("group");
+            $writer->writeAttribute("name", (string) $groupName);
 
             foreach ($testIds as $testId) {
-                $writer->startElement('test');
-                $writer->writeAttribute('id', $testId);
+                $writer->startElement("test");
+                $writer->writeAttribute("id", $testId);
                 $writer->endElement();
             }
 
@@ -132,7 +135,7 @@ final readonly class ListTestsAsXmlCommand implements Command
 
         return Result::from(
             sprintf(
-                'Wrote list of tests that would have been run to %s' . PHP_EOL,
+                "Wrote list of tests that would have been run to %s" . PHP_EOL,
                 $this->filename,
             ),
         );

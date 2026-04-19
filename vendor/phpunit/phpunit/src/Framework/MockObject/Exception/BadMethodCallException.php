@@ -14,6 +14,5 @@ namespace PHPUnit\Framework\MockObject;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class BadMethodCallException extends \BadMethodCallException implements Exception
-{
-}
+final class BadMethodCallException extends \BadMethodCallException implements
+    Exception {}

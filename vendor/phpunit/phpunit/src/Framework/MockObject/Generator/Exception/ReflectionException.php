@@ -14,6 +14,5 @@ namespace PHPUnit\Framework\MockObject\Generator;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class ReflectionException extends \PHPUnit\Framework\Exception implements Exception
-{
-}
+final class ReflectionException extends \PHPUnit\Framework\Exception implements
+    Exception {}

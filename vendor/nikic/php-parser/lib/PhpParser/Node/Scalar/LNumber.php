@@ -2,7 +2,7 @@
 
 namespace PhpParser\Node\Scalar;
 
-require __DIR__ . '/Int_.php';
+require __DIR__ . "/Int_.php";
 
 if (false) {
     /**
@@ -10,6 +10,5 @@ if (false) {
      *
      * @deprecated use \PhpParser\Node\Scalar\Int_ instead.
      */
-    class LNumber extends Int_ {
-    }
+    class LNumber extends Int_ {}
 }

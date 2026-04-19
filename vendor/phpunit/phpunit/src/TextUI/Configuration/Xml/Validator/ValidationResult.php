@@ -21,8 +21,7 @@ use LibXMLError;
  *
  * @immutable
  */
-final readonly class ValidationResult
-{
+final readonly class ValidationResult {
     /**
      * @var array<int, list<string>>
      */
@@ -31,8 +30,7 @@ final readonly class ValidationResult
     /**
      * @param array<int, LibXMLError> $errors
      */
-    public static function fromArray(array $errors): self
-    {
+    public static function fromArray(array $errors): self {
         $validationErrors = [];
 
         foreach ($errors as $error) {
@@ -49,25 +47,22 @@ final readonly class ValidationResult
     /**
      * @param array<int, list<string>> $validationErrors
      */
-    private function __construct(array $validationErrors)
-    {
+    private function __construct(array $validationErrors) {
         $this->validationErrors = $validationErrors;
     }
 
-    public function hasValidationErrors(): bool
-    {
+    public function hasValidationErrors(): bool {
         return !empty($this->validationErrors);
     }
 
-    public function asString(): string
-    {
-        $buffer = '';
+    public function asString(): string {
+        $buffer = "";
 
         foreach ($this->validationErrors as $line => $validationErrorsOnLine) {
-            $buffer .= sprintf(PHP_EOL . '  Line %d:' . PHP_EOL, $line);
+            $buffer .= sprintf(PHP_EOL . "  Line %d:" . PHP_EOL, $line);
 
             foreach ($validationErrorsOnLine as $validationError) {
-                $buffer .= sprintf('  - %s' . PHP_EOL, $validationError);
+                $buffer .= sprintf("  - %s" . PHP_EOL, $validationError);
             }
         }
 

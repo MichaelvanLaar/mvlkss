@@ -13,24 +13,21 @@ declare(strict_types=1);
 
 namespace Ergebnis\Json\Normalizer\Exception;
 
-final class InvalidIndentString extends \InvalidArgumentException implements Exception
-{
-    private string $string = '';
+final class InvalidIndentString extends \InvalidArgumentException implements
+    Exception {
+    private string $string = "";
 
-    public static function fromString(string $string): self
-    {
-        $exception = new self(\sprintf(
-            '"%s" is not a valid indent string',
-            $string,
-        ));
+    public static function fromString(string $string): self {
+        $exception = new self(
+            \sprintf('"%s" is not a valid indent string', $string),
+        );
 
         $exception->string = $string;
 
         return $exception;
     }
 
-    public function string(): string
-    {
+    public function string(): string {
         return $this->string;
     }
 }

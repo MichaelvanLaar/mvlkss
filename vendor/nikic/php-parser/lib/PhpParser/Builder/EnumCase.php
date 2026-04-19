@@ -51,7 +51,7 @@ class EnumCase implements PhpParser\Builder {
      */
     public function setDocComment($docComment) {
         $this->attributes = [
-            'comments' => [BuilderHelpers::normalizeDocComment($docComment)]
+            "comments" => [BuilderHelpers::normalizeDocComment($docComment)],
         ];
 
         return $this;
@@ -65,7 +65,9 @@ class EnumCase implements PhpParser\Builder {
      * @return $this The builder instance (for fluid interface)
      */
     public function addAttribute($attribute) {
-        $this->attributeGroups[] = BuilderHelpers::normalizeAttribute($attribute);
+        $this->attributeGroups[] = BuilderHelpers::normalizeAttribute(
+            $attribute,
+        );
 
         return $this;
     }
@@ -80,7 +82,7 @@ class EnumCase implements PhpParser\Builder {
             $this->name,
             $this->value,
             $this->attributeGroups,
-            $this->attributes
+            $this->attributes,
         );
     }
 }

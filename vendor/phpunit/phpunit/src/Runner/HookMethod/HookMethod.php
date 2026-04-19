@@ -14,8 +14,7 @@ namespace PHPUnit\Runner;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class HookMethod
-{
+final readonly class HookMethod {
     /**
      * @var non-empty-string
      */
@@ -25,22 +24,19 @@ final readonly class HookMethod
     /**
      * @param non-empty-string $methodName
      */
-    public function __construct(string $methodName, int $priority)
-    {
+    public function __construct(string $methodName, int $priority) {
         $this->methodName = $methodName;
-        $this->priority   = $priority;
+        $this->priority = $priority;
     }
 
     /**
      * @return non-empty-string
      */
-    public function methodName(): string
-    {
+    public function methodName(): string {
         return $this->methodName;
     }
 
-    public function priority(): int
-    {
+    public function priority(): int {
         return $this->priority;
     }
 }

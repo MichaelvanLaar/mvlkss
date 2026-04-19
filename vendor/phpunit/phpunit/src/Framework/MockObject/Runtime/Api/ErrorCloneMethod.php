@@ -16,10 +16,8 @@ namespace PHPUnit\Framework\MockObject;
  *
  * @codeCoverageIgnore
  */
-trait ErrorCloneMethod
-{
-    public function __clone(): void
-    {
-        throw new CannotCloneTestDoubleForReadonlyClassException;
+trait ErrorCloneMethod {
+    public function __clone(): void {
+        throw new CannotCloneTestDoubleForReadonlyClassException();
     }
 }

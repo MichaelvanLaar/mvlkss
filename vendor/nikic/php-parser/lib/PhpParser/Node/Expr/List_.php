@@ -25,10 +25,10 @@ class List_ extends Expr {
     }
 
     public function getSubNodeNames(): array {
-        return ['items'];
+        return ["items"];
     }
 
     public function getType(): string {
-        return 'Expr_List';
+        return "Expr_List";
     }
 }

@@ -25,27 +25,24 @@ use Throwable;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class ExtensionBootstrapper
-{
+final readonly class ExtensionBootstrapper {
     private Configuration $configuration;
     private Facade $facade;
 
-    public function __construct(Configuration $configuration, Facade $facade)
-    {
+    public function __construct(Configuration $configuration, Facade $facade) {
         $this->configuration = $configuration;
-        $this->facade        = $facade;
+        $this->facade = $facade;
     }
 
     /**
      * @param non-empty-string      $className
      * @param array<string, string> $parameters
      */
-    public function bootstrap(string $className, array $parameters): void
-    {
+    public function bootstrap(string $className, array $parameters): void {
         if (!class_exists($className)) {
             EventFacade::emitter()->testRunnerTriggeredPhpunitWarning(
                 sprintf(
-                    'Cannot bootstrap extension because class %s does not exist',
+                    "Cannot bootstrap extension because class %s does not exist",
                     $className,
                 ),
             );
@@ -56,7 +53,7 @@ final readonly class ExtensionBootstrapper
         if (!in_array(Extension::class, class_implements($className), true)) {
             EventFacade::emitter()->testRunnerTriggeredPhpunitWarning(
                 sprintf(
-                    'Cannot bootstrap extension because class %s does not implement interface %s',
+                    "Cannot bootstrap extension because class %s does not implement interface %s",
                     $className,
                     Extension::class,
                 ),
@@ -78,7 +75,7 @@ final readonly class ExtensionBootstrapper
         } catch (Throwable $t) {
             EventFacade::emitter()->testRunnerTriggeredPhpunitWarning(
                 sprintf(
-                    'Bootstrapping of extension %s failed: %s%s%s',
+                    "Bootstrapping of extension %s failed: %s%s%s",
                     $className,
                     $t->getMessage(),
                     PHP_EOL,

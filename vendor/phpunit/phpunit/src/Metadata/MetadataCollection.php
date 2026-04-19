@@ -22,8 +22,9 @@ use IteratorAggregate;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class MetadataCollection implements Countable, IteratorAggregate
-{
+final readonly class MetadataCollection implements
+    Countable,
+    IteratorAggregate {
     /**
      * @var list<Metadata>
      */
@@ -32,300 +33,305 @@ final readonly class MetadataCollection implements Countable, IteratorAggregate
     /**
      * @param list<Metadata> $metadata
      */
-    public static function fromArray(array $metadata): self
-    {
+    public static function fromArray(array $metadata): self {
         return new self(...$metadata);
     }
 
-    private function __construct(Metadata ...$metadata)
-    {
+    private function __construct(Metadata ...$metadata) {
         $this->metadata = $metadata;
     }
 
     /**
      * @return list<Metadata>
      */
-    public function asArray(): array
-    {
+    public function asArray(): array {
         return $this->metadata;
     }
 
-    public function count(): int
-    {
+    public function count(): int {
         return count($this->metadata);
     }
 
-    public function isEmpty(): bool
-    {
+    public function isEmpty(): bool {
         return $this->count() === 0;
     }
 
-    public function isNotEmpty(): bool
-    {
+    public function isNotEmpty(): bool {
         return $this->count() > 0;
     }
 
-    public function getIterator(): MetadataCollectionIterator
-    {
+    public function getIterator(): MetadataCollectionIterator {
         return new MetadataCollectionIterator($this);
     }
 
-    public function mergeWith(self $other): self
-    {
+    public function mergeWith(self $other): self {
+        return new self(...array_merge($this->asArray(), $other->asArray()));
+    }
+
+    public function isClassLevel(): self {
         return new self(
-            ...array_merge(
-                $this->asArray(),
-                $other->asArray(),
+            ...array_filter(
+                $this->metadata,
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isClassLevel(),
             ),
         );
     }
 
-    public function isClassLevel(): self
-    {
+    public function isMethodLevel(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isClassLevel(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isMethodLevel(),
             ),
         );
     }
 
-    public function isMethodLevel(): self
-    {
+    public function isAfter(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isMethodLevel(),
+                static fn(Metadata $metadata): bool => $metadata->isAfter(),
             ),
         );
     }
 
-    public function isAfter(): self
-    {
+    public function isAfterClass(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isAfter(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isAfterClass(),
             ),
         );
     }
 
-    public function isAfterClass(): self
-    {
+    public function isBackupGlobals(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isAfterClass(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isBackupGlobals(),
             ),
         );
     }
 
-    public function isBackupGlobals(): self
-    {
+    public function isBackupStaticProperties(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isBackupGlobals(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isBackupStaticProperties(),
             ),
         );
     }
 
-    public function isBackupStaticProperties(): self
-    {
+    public function isBeforeClass(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isBackupStaticProperties(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isBeforeClass(),
             ),
         );
     }
 
-    public function isBeforeClass(): self
-    {
+    public function isBefore(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isBeforeClass(),
+                static fn(Metadata $metadata): bool => $metadata->isBefore(),
             ),
         );
     }
 
-    public function isBefore(): self
-    {
+    public function isCovers(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isBefore(),
+                static fn(Metadata $metadata): bool => $metadata->isCovers(),
             ),
         );
     }
 
-    public function isCovers(): self
-    {
+    public function isCoversClass(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isCovers(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isCoversClass(),
             ),
         );
     }
 
-    public function isCoversClass(): self
-    {
+    public function isCoversDefaultClass(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isCoversClass(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isCoversDefaultClass(),
             ),
         );
     }
 
-    public function isCoversDefaultClass(): self
-    {
+    public function isCoversTrait(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isCoversDefaultClass(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isCoversTrait(),
             ),
         );
     }
 
-    public function isCoversTrait(): self
-    {
+    public function isCoversFunction(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isCoversTrait(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isCoversFunction(),
             ),
         );
     }
 
-    public function isCoversFunction(): self
-    {
+    public function isCoversMethod(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isCoversFunction(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isCoversMethod(),
             ),
         );
     }
 
-    public function isCoversMethod(): self
-    {
+    public function isExcludeGlobalVariableFromBackup(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isCoversMethod(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isExcludeGlobalVariableFromBackup(),
             ),
         );
     }
 
-    public function isExcludeGlobalVariableFromBackup(): self
-    {
+    public function isExcludeStaticPropertyFromBackup(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isExcludeGlobalVariableFromBackup(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isExcludeStaticPropertyFromBackup(),
             ),
         );
     }
 
-    public function isExcludeStaticPropertyFromBackup(): self
-    {
+    public function isCoversNothing(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isExcludeStaticPropertyFromBackup(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isCoversNothing(),
             ),
         );
     }
 
-    public function isCoversNothing(): self
-    {
+    public function isDataProvider(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isCoversNothing(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isDataProvider(),
             ),
         );
     }
 
-    public function isDataProvider(): self
-    {
+    public function isDepends(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isDataProvider(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isDependsOnClass() ||
+                    $metadata->isDependsOnMethod(),
             ),
         );
     }
 
-    public function isDepends(): self
-    {
+    public function isDependsOnClass(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isDependsOnClass() || $metadata->isDependsOnMethod(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isDependsOnClass(),
             ),
         );
     }
 
-    public function isDependsOnClass(): self
-    {
+    public function isDependsOnMethod(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isDependsOnClass(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isDependsOnMethod(),
             ),
         );
     }
 
-    public function isDependsOnMethod(): self
-    {
+    public function isDisableReturnValueGenerationForTestDoubles(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isDependsOnMethod(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isDisableReturnValueGenerationForTestDoubles(),
             ),
         );
     }
 
-    public function isDisableReturnValueGenerationForTestDoubles(): self
-    {
+    public function isDoesNotPerformAssertions(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isDisableReturnValueGenerationForTestDoubles(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isDoesNotPerformAssertions(),
             ),
         );
     }
 
-    public function isDoesNotPerformAssertions(): self
-    {
+    public function isGroup(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isDoesNotPerformAssertions(),
+                static fn(Metadata $metadata): bool => $metadata->isGroup(),
             ),
         );
     }
 
-    public function isGroup(): self
-    {
+    public function isIgnoreDeprecations(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isGroup(),
-            ),
-        );
-    }
-
-    public function isIgnoreDeprecations(): self
-    {
-        return new self(
-            ...array_filter(
-                $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isIgnoreDeprecations(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isIgnoreDeprecations(),
             ),
         );
     }
@@ -333,262 +339,276 @@ final readonly class MetadataCollection implements Countable, IteratorAggregate
     /**
      * @internal This method is not covered by the backward compatibility promise for PHPUnit
      */
-    public function isIgnorePhpunitDeprecations(): self
-    {
+    public function isIgnorePhpunitDeprecations(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isIgnorePhpunitDeprecations(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isIgnorePhpunitDeprecations(),
             ),
         );
     }
 
-    public function isRunClassInSeparateProcess(): self
-    {
+    public function isRunClassInSeparateProcess(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isRunClassInSeparateProcess(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isRunClassInSeparateProcess(),
             ),
         );
     }
 
-    public function isRunInSeparateProcess(): self
-    {
+    public function isRunInSeparateProcess(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isRunInSeparateProcess(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isRunInSeparateProcess(),
             ),
         );
     }
 
-    public function isRunTestsInSeparateProcesses(): self
-    {
+    public function isRunTestsInSeparateProcesses(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isRunTestsInSeparateProcesses(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isRunTestsInSeparateProcesses(),
             ),
         );
     }
 
-    public function isTest(): self
-    {
+    public function isTest(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isTest(),
+                static fn(Metadata $metadata): bool => $metadata->isTest(),
             ),
         );
     }
 
-    public function isPreCondition(): self
-    {
+    public function isPreCondition(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isPreCondition(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isPreCondition(),
             ),
         );
     }
 
-    public function isPostCondition(): self
-    {
+    public function isPostCondition(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isPostCondition(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isPostCondition(),
             ),
         );
     }
 
-    public function isPreserveGlobalState(): self
-    {
+    public function isPreserveGlobalState(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isPreserveGlobalState(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isPreserveGlobalState(),
             ),
         );
     }
 
-    public function isRequiresMethod(): self
-    {
+    public function isRequiresMethod(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isRequiresMethod(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isRequiresMethod(),
             ),
         );
     }
 
-    public function isRequiresFunction(): self
-    {
+    public function isRequiresFunction(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isRequiresFunction(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isRequiresFunction(),
             ),
         );
     }
 
-    public function isRequiresOperatingSystem(): self
-    {
+    public function isRequiresOperatingSystem(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isRequiresOperatingSystem(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isRequiresOperatingSystem(),
             ),
         );
     }
 
-    public function isRequiresOperatingSystemFamily(): self
-    {
+    public function isRequiresOperatingSystemFamily(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isRequiresOperatingSystemFamily(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isRequiresOperatingSystemFamily(),
             ),
         );
     }
 
-    public function isRequiresPhp(): self
-    {
+    public function isRequiresPhp(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isRequiresPhp(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isRequiresPhp(),
             ),
         );
     }
 
-    public function isRequiresPhpExtension(): self
-    {
+    public function isRequiresPhpExtension(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isRequiresPhpExtension(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isRequiresPhpExtension(),
             ),
         );
     }
 
-    public function isRequiresPhpunit(): self
-    {
+    public function isRequiresPhpunit(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isRequiresPhpunit(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isRequiresPhpunit(),
             ),
         );
     }
 
-    public function isRequiresPhpunitExtension(): self
-    {
+    public function isRequiresPhpunitExtension(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isRequiresPhpunitExtension(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isRequiresPhpunitExtension(),
             ),
         );
     }
 
-    public function isRequiresSetting(): self
-    {
+    public function isRequiresSetting(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isRequiresSetting(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isRequiresSetting(),
             ),
         );
     }
 
-    public function isTestDox(): self
-    {
+    public function isTestDox(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isTestDox(),
+                static fn(Metadata $metadata): bool => $metadata->isTestDox(),
             ),
         );
     }
 
-    public function isTestWith(): self
-    {
+    public function isTestWith(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isTestWith(),
+                static fn(Metadata $metadata): bool => $metadata->isTestWith(),
             ),
         );
     }
 
-    public function isUses(): self
-    {
+    public function isUses(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isUses(),
+                static fn(Metadata $metadata): bool => $metadata->isUses(),
             ),
         );
     }
 
-    public function isUsesClass(): self
-    {
+    public function isUsesClass(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isUsesClass(),
+                static fn(Metadata $metadata): bool => $metadata->isUsesClass(),
             ),
         );
     }
 
-    public function isUsesDefaultClass(): self
-    {
+    public function isUsesDefaultClass(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isUsesDefaultClass(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isUsesDefaultClass(),
             ),
         );
     }
 
-    public function isUsesTrait(): self
-    {
+    public function isUsesTrait(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isUsesTrait(),
+                static fn(Metadata $metadata): bool => $metadata->isUsesTrait(),
             ),
         );
     }
 
-    public function isUsesFunction(): self
-    {
+    public function isUsesFunction(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isUsesFunction(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isUsesFunction(),
             ),
         );
     }
 
-    public function isUsesMethod(): self
-    {
+    public function isUsesMethod(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isUsesMethod(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isUsesMethod(),
             ),
         );
     }
 
-    public function isWithoutErrorHandler(): self
-    {
+    public function isWithoutErrorHandler(): self {
         return new self(
             ...array_filter(
                 $this->metadata,
-                static fn (Metadata $metadata): bool => $metadata->isWithoutErrorHandler(),
+                static fn(
+                    Metadata $metadata,
+                ): bool => $metadata->isWithoutErrorHandler(),
             ),
         );
     }

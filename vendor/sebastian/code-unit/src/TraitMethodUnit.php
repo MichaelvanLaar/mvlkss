@@ -12,10 +12,8 @@ namespace SebastianBergmann\CodeUnit;
 /**
  * @immutable
  */
-final readonly class TraitMethodUnit extends CodeUnit
-{
-    public function isTraitMethod(): bool
-    {
+final readonly class TraitMethodUnit extends CodeUnit {
+    public function isTraitMethod(): bool {
         return true;
     }
 }

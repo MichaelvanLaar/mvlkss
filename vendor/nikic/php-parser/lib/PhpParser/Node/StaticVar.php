@@ -19,7 +19,9 @@ class StaticVar extends NodeAbstract {
      * @param array<string, mixed> $attributes Additional attributes
      */
     public function __construct(
-        Expr\Variable $var, ?Node\Expr $default = null, array $attributes = []
+        Expr\Variable $var,
+        ?Node\Expr $default = null,
+        array $attributes = [],
     ) {
         $this->attributes = $attributes;
         $this->var = $var;
@@ -27,11 +29,11 @@ class StaticVar extends NodeAbstract {
     }
 
     public function getSubNodeNames(): array {
-        return ['var', 'default'];
+        return ["var", "default"];
     }
 
     public function getType(): string {
-        return 'StaticVar';
+        return "StaticVar";
     }
 }
 

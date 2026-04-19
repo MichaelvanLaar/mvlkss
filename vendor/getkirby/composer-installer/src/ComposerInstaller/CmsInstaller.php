@@ -13,17 +13,15 @@ use InvalidArgumentException;
  * @copyright Bastian Allgeier GmbH
  * @license   https://opensource.org/licenses/MIT
  */
-class CmsInstaller extends Installer
-{
+class CmsInstaller extends Installer {
     /**
      * Decides if the installer supports the given type
      *
      * @param string $packageType
      * @return bool
      */
-    public function supports($packageType): bool
-    {
-        return $packageType === 'kirby-cms';
+    public function supports($packageType): bool {
+        return $packageType === "kirby-cms";
     }
 
     /**
@@ -32,8 +30,7 @@ class CmsInstaller extends Installer
      * @param \Composer\Package\PackageInterface $package
      * @return string
      */
-    public function getInstallPath(PackageInterface $package): string
-    {
+    public function getInstallPath(PackageInterface $package): string {
         // get the extra configuration of the top-level package
         if ($rootPackage = $this->composer->getPackage()) {
             $extra = $rootPackage->getExtra();
@@ -42,10 +39,10 @@ class CmsInstaller extends Installer
         }
 
         // use path from configuration, otherwise fall back to default
-        if (isset($extra['kirby-cms-path']) === true) {
-            $path = $extra['kirby-cms-path'];
+        if (isset($extra["kirby-cms-path"]) === true) {
+            $path = $extra["kirby-cms-path"];
         } else {
-            $path = 'kirby';
+            $path = "kirby";
         }
 
         // if explicitly set to something invalid (e.g. `false`), install to vendor dir
@@ -54,9 +51,18 @@ class CmsInstaller extends Installer
         }
 
         // don't allow unsafe directories
-        $vendorDir = $this->composer->getConfig()->get('vendor-dir', Config::RELATIVE_PATHS) ?? 'vendor';
-        if ($path === $vendorDir || $path === '.') {
-            throw new InvalidArgumentException('The path ' . $path . ' is an unsafe installation directory for ' . $package->getPrettyName() . '.');
+        $vendorDir =
+            $this->composer
+                ->getConfig()
+                ->get("vendor-dir", Config::RELATIVE_PATHS) ?? "vendor";
+        if ($path === $vendorDir || $path === ".") {
+            throw new InvalidArgumentException(
+                "The path " .
+                    $path .
+                    " is an unsafe installation directory for " .
+                    $package->getPrettyName() .
+                    ".",
+            );
         }
 
         return $path;

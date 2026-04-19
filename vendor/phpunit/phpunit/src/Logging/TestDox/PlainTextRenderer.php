@@ -16,21 +16,22 @@ use function sprintf;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class PlainTextRenderer
-{
+final readonly class PlainTextRenderer {
     /**
      * @param array<string, TestResultCollection> $tests
      */
-    public function render(array $tests): string
-    {
-        $buffer = '';
+    public function render(array $tests): string {
+        $buffer = "";
 
         foreach ($tests as $prettifiedClassName => $_tests) {
             $buffer .= $prettifiedClassName . "\n";
 
-            foreach ($this->reduce($_tests) as $prettifiedMethodName => $outcome) {
+            foreach (
+                $this->reduce($_tests)
+                as $prettifiedMethodName => $outcome
+            ) {
                 $buffer .= sprintf(
-                    ' [%s] %s' . "\n",
+                    " [%s] %s" . "\n",
                     $outcome,
                     $prettifiedMethodName,
                 );
@@ -45,24 +46,28 @@ final readonly class PlainTextRenderer
     /**
      * @return array<string, ' '|'x'>
      */
-    private function reduce(TestResultCollection $tests): array
-    {
+    private function reduce(TestResultCollection $tests): array {
         $result = [];
 
         foreach ($tests as $test) {
-            $prettifiedMethodName = $test->test()->testDox()->prettifiedMethodName();
+            $prettifiedMethodName = $test
+                ->test()
+                ->testDox()
+                ->prettifiedMethodName();
 
             $success = true;
 
-            if ($test->status()->isError() ||
+            if (
+                $test->status()->isError() ||
                 $test->status()->isFailure() ||
                 $test->status()->isIncomplete() ||
-                $test->status()->isSkipped()) {
+                $test->status()->isSkipped()
+            ) {
                 $success = false;
             }
 
             if (!isset($result[$prettifiedMethodName])) {
-                $result[$prettifiedMethodName] = $success ? 'x' : ' ';
+                $result[$prettifiedMethodName] = $success ? "x" : " ";
 
                 continue;
             }
@@ -71,7 +76,7 @@ final readonly class PlainTextRenderer
                 continue;
             }
 
-            $result[$prettifiedMethodName] = ' ';
+            $result[$prettifiedMethodName] = " ";
         }
 
         return $result;

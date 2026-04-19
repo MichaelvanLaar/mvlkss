@@ -12,11 +12,11 @@ Features of newer Drafts might not be supported. See [Table of All Versions of E
 of all existing Drafts. See [json-schema](http://json-schema.org/) for more details about the JSON Schema specification
 
 # Compliance
+
 ![Draft 3](https://img.shields.io/endpoint?url=https%3A%2F%2Fbowtie.report%2Fbadges%2Fphp-justinrainbow-json-schema%2Fcompliance%2Fdraft3.json)
 ![Draft 4](https://img.shields.io/endpoint?url=https%3A%2F%2Fbowtie.report%2Fbadges%2Fphp-justinrainbow-json-schema%2Fcompliance%2Fdraft4.json)
 ![Draft 6](https://img.shields.io/endpoint?url=https%3A%2F%2Fbowtie.report%2Fbadges%2Fphp-justinrainbow-json-schema%2Fcompliance%2Fdraft6.json)
 ![Draft 7](https://img.shields.io/endpoint?url=https%3A%2F%2Fbowtie.report%2Fbadges%2Fphp-justinrainbow-json-schema%2Fcompliance%2Fdraft7.json)
-
 
 ## Installation
 
@@ -38,25 +38,28 @@ composer require justinrainbow/json-schema
 
 For a complete reference see [Understanding JSON Schema](https://json-schema.org/understanding-json-schema/).
 
-__Note:__ Not all drafts might be supported, check the [Bowtie report](https://bowtie.report/#/implementations/php-justinrainbow-json-schema) on the current state of draft implementations.
+**Note:** Not all drafts might be supported, check the [Bowtie report](https://bowtie.report/#/implementations/php-justinrainbow-json-schema) on the current state of draft implementations.
 
 ### Basic usage
 
 ```php
 <?php
 
-$data = json_decode(file_get_contents('data.json'), false);
+$data = json_decode(file_get_contents("data.json"), false);
 
 // Validate
 $validator = new JsonSchema\Validator();
-$validator->validate($data, (object)['$ref' => 'file://' . realpath('schema.json')]);
+$validator->validate(
+    $data,
+    (object) ['$ref' => "file://" . realpath("schema.json")],
+);
 
 if ($validator->isValid()) {
     echo "The supplied JSON validates against the schema.\n";
 } else {
     echo "JSON does not validate. Violations:\n";
     foreach ($validator->getErrors() as $error) {
-        printf("[%s] %s\n", $error['property'], $error['message']);
+        printf("[%s] %s\n", $error["property"], $error["message"]);
     }
 }
 ```
@@ -74,24 +77,25 @@ use JsonSchema\Validator;
 use JsonSchema\Constraints\Factory;
 use JsonSchema\Constraints\Constraint;
 
-$request = (object)[
-    'processRefund'=>"true",
-    'refundAmount'=>"17"
+$request = (object) [
+    "processRefund" => "true",
+    "refundAmount" => "17",
 ];
 
 $validator->validate(
-    $request, (object) [
-        "type"=>"object",
-        "properties"=>(object)[
-            "processRefund"=>(object)[
-                "type"=>"boolean"
+    $request,
+    (object) [
+        "type" => "object",
+        "properties" => (object) [
+            "processRefund" => (object) [
+                "type" => "boolean",
             ],
-            "refundAmount"=>(object)[
-                "type"=>"number"
-            ]
-        ]
+            "refundAmount" => (object) [
+                "type" => "number",
+            ],
+        ],
     ],
-    Constraint::CHECK_MODE_COERCE_TYPES
+    Constraint::CHECK_MODE_COERCE_TYPES,
 ); // validates!
 
 is_bool($request->processRefund); // true
@@ -99,6 +103,7 @@ is_int($request->refundAmount); // true
 ```
 
 A shorthand method is also available:
+
 ```PHP
 $validator->coerce($request, $schema);
 // equivalent to $validator->validate($data, $schema, Constraint::CHECK_MODE_COERCE_TYPES);
@@ -114,24 +119,24 @@ If your schema contains default values, you can have these automatically applied
 use JsonSchema\Validator;
 use JsonSchema\Constraints\Constraint;
 
-$request = (object)[
-    'refundAmount'=>17
+$request = (object) [
+    "refundAmount" => 17,
 ];
 
 $validator = new Validator();
 
 $validator->validate(
     $request,
-    (object)[
-        "type"=>"object",
-        "properties"=>(object)[
-            "processRefund"=>(object)[
-                "type"=>"boolean",
-                "default"=>true
-            ]
-        ]
+    (object) [
+        "type" => "object",
+        "properties" => (object) [
+            "processRefund" => (object) [
+                "type" => "boolean",
+                "default" => true,
+            ],
+        ],
     ],
-    Constraint::CHECK_MODE_APPLY_DEFAULTS
+    Constraint::CHECK_MODE_APPLY_DEFAULTS,
 ); //validates, and sets defaults for missing properties
 
 is_bool($request->processRefund); // true
@@ -180,7 +185,7 @@ $schemaStorage = new SchemaStorage();
 // This does two things:
 // 1) Mutates $jsonSchemaObject to normalize the references (to file://mySchema#/definitions/integerData, etc)
 // 2) Tells $schemaStorage that references to file://mySchema... should be resolved by looking in $jsonSchemaObject
-$schemaStorage->addSchema('file://mySchema', $jsonSchemaObject);
+$schemaStorage->addSchema("file://mySchema", $jsonSchemaObject);
 
 // Provide $schemaStorage to the Validator so that references can be resolved during validation
 $jsonValidator = new Validator(new Factory($schemaStorage));
@@ -193,12 +198,13 @@ $jsonValidator->validate($jsonToValidateObject, $jsonSchemaObject);
 ```
 
 ### Configuration Options
+
 A number of flags are available to alter the behavior of the validator. These can be passed as the
 third argument to `Validator::validate()`, or can be provided as the third argument to
 `Factory::__construct()` if you wish to persist them across multiple `validate()` calls.
 
 | Flag                                            | Description                                                     |
-|-------------------------------------------------|-----------------------------------------------------------------|
+| ----------------------------------------------- | --------------------------------------------------------------- |
 | `Constraint::CHECK_MODE_NORMAL`                 | Validate in 'normal' mode - this is the default                 |
 | `Constraint::CHECK_MODE_TYPE_CAST`              | Enable fuzzy type checking for associative arrays and objects   |
 | `Constraint::CHECK_MODE_COERCE_TYPES` [^1][^2]  | Convert data types to match the schema where possible           |
@@ -210,11 +216,15 @@ third argument to `Validator::validate()`, or can be provided as the third argum
 | `Constraint::CHECK_MODE_VALIDATE_SCHEMA`        | Validate the schema as well as the provided document            |
 | `Constraint::CHECK_MODE_STRICT` [^3]            | Validate the scheme using strict mode using the specified draft |
 
-[^1]: Please note that using `CHECK_MODE_COERCE_TYPES` or `CHECK_MODE_APPLY_DEFAULTS` will modify your
-original data.
-[^2]: `CHECK_MODE_EARLY_COERCE` has no effect unless used in combination with `CHECK_MODE_COERCE_TYPES`. If
-enabled, the validator will use (and coerce) the first compatible type it encounters, even if the
-schema defines another type that matches directly and does not require coercion.
+[^1]:
+    Please note that using `CHECK_MODE_COERCE_TYPES` or `CHECK_MODE_APPLY_DEFAULTS` will modify your
+    original data.
+
+[^2]:
+    `CHECK_MODE_EARLY_COERCE` has no effect unless used in combination with `CHECK_MODE_COERCE_TYPES`. If
+    enabled, the validator will use (and coerce) the first compatible type it encounters, even if the
+    schema defines another type that matches directly and does not require coercion.
+
 [^3]: `CHECK_MODE_STRICT` only can be used for Draft-6 at this point.
 
 ## Running the tests
@@ -227,7 +237,8 @@ composer style-check                     # check code style for errors
 composer style-fix                       # automatically fix code style errors
 ```
 
-# Contributors  ✨
+# Contributors ✨
+
 Thanks go to these wonderful people, without their effort this project wasn't possible.
 
 <a href="https://github.com/jsonrainbow/json-schema/graphs/contributors">

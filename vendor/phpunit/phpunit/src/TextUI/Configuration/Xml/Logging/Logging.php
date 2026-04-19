@@ -20,31 +20,32 @@ use PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Text as TestDoxText;
  *
  * @immutable
  */
-final readonly class Logging
-{
+final readonly class Logging {
     private ?Junit $junit;
     private ?TeamCity $teamCity;
     private ?TestDoxHtml $testDoxHtml;
     private ?TestDoxText $testDoxText;
 
-    public function __construct(?Junit $junit, ?TeamCity $teamCity, ?TestDoxHtml $testDoxHtml, ?TestDoxText $testDoxText)
-    {
-        $this->junit       = $junit;
-        $this->teamCity    = $teamCity;
+    public function __construct(
+        ?Junit $junit,
+        ?TeamCity $teamCity,
+        ?TestDoxHtml $testDoxHtml,
+        ?TestDoxText $testDoxText,
+    ) {
+        $this->junit = $junit;
+        $this->teamCity = $teamCity;
         $this->testDoxHtml = $testDoxHtml;
         $this->testDoxText = $testDoxText;
     }
 
-    public function hasJunit(): bool
-    {
+    public function hasJunit(): bool {
         return $this->junit !== null;
     }
 
     /**
      * @throws Exception
      */
-    public function junit(): Junit
-    {
+    public function junit(): Junit {
         if ($this->junit === null) {
             throw new Exception('Logger "JUnit XML" is not configured');
         }
@@ -52,16 +53,14 @@ final readonly class Logging
         return $this->junit;
     }
 
-    public function hasTeamCity(): bool
-    {
+    public function hasTeamCity(): bool {
         return $this->teamCity !== null;
     }
 
     /**
      * @throws Exception
      */
-    public function teamCity(): TeamCity
-    {
+    public function teamCity(): TeamCity {
         if ($this->teamCity === null) {
             throw new Exception('Logger "Team City" is not configured');
         }
@@ -69,16 +68,14 @@ final readonly class Logging
         return $this->teamCity;
     }
 
-    public function hasTestDoxHtml(): bool
-    {
+    public function hasTestDoxHtml(): bool {
         return $this->testDoxHtml !== null;
     }
 
     /**
      * @throws Exception
      */
-    public function testDoxHtml(): TestDoxHtml
-    {
+    public function testDoxHtml(): TestDoxHtml {
         if ($this->testDoxHtml === null) {
             throw new Exception('Logger "TestDox HTML" is not configured');
         }
@@ -86,16 +83,14 @@ final readonly class Logging
         return $this->testDoxHtml;
     }
 
-    public function hasTestDoxText(): bool
-    {
+    public function hasTestDoxText(): bool {
         return $this->testDoxText !== null;
     }
 
     /**
      * @throws Exception
      */
-    public function testDoxText(): TestDoxText
-    {
+    public function testDoxText(): TestDoxText {
         if ($this->testDoxText === null) {
             throw new Exception('Logger "TestDox Text" is not configured');
         }

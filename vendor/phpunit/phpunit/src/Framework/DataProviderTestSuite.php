@@ -20,8 +20,7 @@ use PHPUnit\Metadata\Api\Groups;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class DataProviderTestSuite extends TestSuite
-{
+final class DataProviderTestSuite extends TestSuite {
     /**
      * @var list<ExecutionOrderDependency>
      */
@@ -35,12 +34,11 @@ final class DataProviderTestSuite extends TestSuite
     /**
      * @param list<ExecutionOrderDependency> $dependencies
      */
-    public function setDependencies(array $dependencies): void
-    {
+    public function setDependencies(array $dependencies): void {
         $this->dependencies = $dependencies;
 
         foreach ($this->tests() as $test) {
-            if (!$test instanceof TestCase) {
+            if (!($test instanceof TestCase)) {
                 continue;
             }
 
@@ -51,10 +49,11 @@ final class DataProviderTestSuite extends TestSuite
     /**
      * @return non-empty-list<ExecutionOrderDependency>
      */
-    public function provides(): array
-    {
+    public function provides(): array {
         if ($this->providedTests === null) {
-            $this->providedTests = [new ExecutionOrderDependency($this->name())];
+            $this->providedTests = [
+                new ExecutionOrderDependency($this->name()),
+            ];
         }
 
         return $this->providedTests;
@@ -63,8 +62,7 @@ final class DataProviderTestSuite extends TestSuite
     /**
      * @return list<ExecutionOrderDependency>
      */
-    public function requires(): array
-    {
+    public function requires(): array {
         // A DataProviderTestSuite does not have to traverse its child tests
         // as these are inherited and cannot reference dataProvider rows directly
         return $this->dependencies;
@@ -73,13 +71,12 @@ final class DataProviderTestSuite extends TestSuite
     /**
      * Returns the size of each test created using the data provider(s).
      */
-    public function size(): TestSize
-    {
-        [$className, $methodName] = explode('::', $this->name());
+    public function size(): TestSize {
+        [$className, $methodName] = explode("::", $this->name());
 
         assert(class_exists($className));
-        assert($methodName !== '');
+        assert($methodName !== "");
 
-        return (new Groups)->size($className, $methodName);
+        return (new Groups())->size($className, $methodName);
     }
 }

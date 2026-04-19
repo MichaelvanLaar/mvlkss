@@ -7,7 +7,7 @@ use PhpParser\Node\Expr;
 
 class Array_ extends Expr {
     // For use in "kind" attribute
-    public const KIND_LONG = 1;  // array() syntax
+    public const KIND_LONG = 1; // array() syntax
     public const KIND_SHORT = 2; // [] syntax
 
     /** @var ArrayItem[] Items */
@@ -25,10 +25,10 @@ class Array_ extends Expr {
     }
 
     public function getSubNodeNames(): array {
-        return ['items'];
+        return ["items"];
     }
 
     public function getType(): string {
-        return 'Expr_Array';
+        return "Expr_Array";
     }
 }

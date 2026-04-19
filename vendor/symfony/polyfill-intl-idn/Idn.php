@@ -19,8 +19,7 @@ use Symfony\Polyfill\Intl\Idn\Resources\unidata\Regex;
  *
  * @internal
  */
-final class Idn
-{
+final class Idn {
     public const ERROR_EMPTY_LABEL = 1;
     public const ERROR_LABEL_TOO_LONG = 2;
     public const ERROR_DOMAIN_NAME_TOO_LONG = 4;
@@ -58,7 +57,7 @@ final class Idn
     public const DAMP = 700;
     public const INITIAL_BIAS = 72;
     public const INITIAL_N = 128;
-    public const DELIMITER = '-';
+    public const DELIMITER = "-";
     public const MAX_INT = 2147483647;
 
     /**
@@ -68,29 +67,269 @@ final class Idn
      * @var array<int, int>
      */
     private static $basicToDigit = [
-        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
 
-        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-        26, 27, 28, 29, 30, 31, 32, 33, 34, 35, -1, -1, -1, -1, -1, -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
 
-        -1,  0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14,
-        15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, -1, -1, -1, -1, -1,
+        -1,
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
 
-        -1,  0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14,
-        15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, -1, -1, -1, -1, -1,
+        -1,
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
 
-        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
 
-        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
 
-        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
 
-        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
     ];
 
     /**
@@ -143,23 +382,38 @@ final class Idn
      *
      * @return string|false
      */
-    public static function idn_to_ascii($domainName, $options = self::IDNA_DEFAULT, $variant = self::INTL_IDNA_VARIANT_UTS46, &$idna_info = [])
-    {
-        if (\PHP_VERSION_ID > 80400 && '' === $domainName) {
-            throw new \ValueError('idn_to_ascii(): Argument #1 ($domain) cannot be empty');
+    public static function idn_to_ascii(
+        $domainName,
+        $options = self::IDNA_DEFAULT,
+        $variant = self::INTL_IDNA_VARIANT_UTS46,
+        &$idna_info = [],
+    ) {
+        if (\PHP_VERSION_ID > 80400 && "" === $domainName) {
+            throw new \ValueError(
+                'idn_to_ascii(): Argument #1 ($domain) cannot be empty',
+            );
         }
 
         if (self::INTL_IDNA_VARIANT_2003 === $variant) {
-            @trigger_error('idn_to_ascii(): INTL_IDNA_VARIANT_2003 is deprecated', \E_USER_DEPRECATED);
+            @trigger_error(
+                "idn_to_ascii(): INTL_IDNA_VARIANT_2003 is deprecated",
+                \E_USER_DEPRECATED,
+            );
         }
 
         $options = [
-            'CheckHyphens' => true,
-            'CheckBidi' => self::INTL_IDNA_VARIANT_2003 === $variant || 0 !== ($options & self::IDNA_CHECK_BIDI),
-            'CheckJoiners' => self::INTL_IDNA_VARIANT_UTS46 === $variant && 0 !== ($options & self::IDNA_CHECK_CONTEXTJ),
-            'UseSTD3ASCIIRules' => 0 !== ($options & self::IDNA_USE_STD3_RULES),
-            'Transitional_Processing' => self::INTL_IDNA_VARIANT_2003 === $variant || 0 === ($options & self::IDNA_NONTRANSITIONAL_TO_ASCII),
-            'VerifyDnsLength' => true,
+            "CheckHyphens" => true,
+            "CheckBidi" =>
+                self::INTL_IDNA_VARIANT_2003 === $variant ||
+                0 !== ($options & self::IDNA_CHECK_BIDI),
+            "CheckJoiners" =>
+                self::INTL_IDNA_VARIANT_UTS46 === $variant &&
+                0 !== ($options & self::IDNA_CHECK_CONTEXTJ),
+            "UseSTD3ASCIIRules" => 0 !== ($options & self::IDNA_USE_STD3_RULES),
+            "Transitional_Processing" =>
+                self::INTL_IDNA_VARIANT_2003 === $variant ||
+                0 === ($options & self::IDNA_NONTRANSITIONAL_TO_ASCII),
+            "VerifyDnsLength" => true,
         ];
         $info = new Info();
         $labels = self::process((string) $domainName, $options, $info);
@@ -168,7 +422,7 @@ final class Idn
             // Only convert labels to punycode that contain non-ASCII code points
             if (1 === preg_match('/[^\x00-\x7F]/', $label)) {
                 try {
-                    $label = 'xn--'.self::punycodeEncode($label);
+                    $label = "xn--" . self::punycodeEncode($label);
                 } catch (\Exception $e) {
                     $info->errors |= self::ERROR_PUNYCODE;
                 }
@@ -177,17 +431,17 @@ final class Idn
             }
         }
 
-        if ($options['VerifyDnsLength']) {
+        if ($options["VerifyDnsLength"]) {
             self::validateDomainAndLabelLength($labels, $info);
         }
 
         $idna_info = [
-            'result' => implode('.', $labels),
-            'isTransitionalDifferent' => $info->transitionalDifferent,
-            'errors' => $info->errors,
+            "result" => implode(".", $labels),
+            "isTransitionalDifferent" => $info->transitionalDifferent,
+            "errors" => $info->errors,
         ];
 
-        return 0 === $info->errors ? $idna_info['result'] : false;
+        return 0 === $info->errors ? $idna_info["result"] : false;
     }
 
     /**
@@ -200,31 +454,51 @@ final class Idn
      *
      * @return string|false
      */
-    public static function idn_to_utf8($domainName, $options = self::IDNA_DEFAULT, $variant = self::INTL_IDNA_VARIANT_UTS46, &$idna_info = [])
-    {
-        if (\PHP_VERSION_ID > 80400 && '' === $domainName) {
-            throw new \ValueError('idn_to_utf8(): Argument #1 ($domain) cannot be empty');
+    public static function idn_to_utf8(
+        $domainName,
+        $options = self::IDNA_DEFAULT,
+        $variant = self::INTL_IDNA_VARIANT_UTS46,
+        &$idna_info = [],
+    ) {
+        if (\PHP_VERSION_ID > 80400 && "" === $domainName) {
+            throw new \ValueError(
+                'idn_to_utf8(): Argument #1 ($domain) cannot be empty',
+            );
         }
 
         if (self::INTL_IDNA_VARIANT_2003 === $variant) {
-            @trigger_error('idn_to_utf8(): INTL_IDNA_VARIANT_2003 is deprecated', \E_USER_DEPRECATED);
+            @trigger_error(
+                "idn_to_utf8(): INTL_IDNA_VARIANT_2003 is deprecated",
+                \E_USER_DEPRECATED,
+            );
         }
 
         $info = new Info();
-        $labels = self::process((string) $domainName, [
-            'CheckHyphens' => true,
-            'CheckBidi' => self::INTL_IDNA_VARIANT_2003 === $variant || 0 !== ($options & self::IDNA_CHECK_BIDI),
-            'CheckJoiners' => self::INTL_IDNA_VARIANT_UTS46 === $variant && 0 !== ($options & self::IDNA_CHECK_CONTEXTJ),
-            'UseSTD3ASCIIRules' => 0 !== ($options & self::IDNA_USE_STD3_RULES),
-            'Transitional_Processing' => self::INTL_IDNA_VARIANT_2003 === $variant || 0 === ($options & self::IDNA_NONTRANSITIONAL_TO_UNICODE),
-        ], $info);
+        $labels = self::process(
+            (string) $domainName,
+            [
+                "CheckHyphens" => true,
+                "CheckBidi" =>
+                    self::INTL_IDNA_VARIANT_2003 === $variant ||
+                    0 !== ($options & self::IDNA_CHECK_BIDI),
+                "CheckJoiners" =>
+                    self::INTL_IDNA_VARIANT_UTS46 === $variant &&
+                    0 !== ($options & self::IDNA_CHECK_CONTEXTJ),
+                "UseSTD3ASCIIRules" =>
+                    0 !== ($options & self::IDNA_USE_STD3_RULES),
+                "Transitional_Processing" =>
+                    self::INTL_IDNA_VARIANT_2003 === $variant ||
+                    0 === ($options & self::IDNA_NONTRANSITIONAL_TO_UNICODE),
+            ],
+            $info,
+        );
         $idna_info = [
-            'result' => implode('.', $labels),
-            'isTransitionalDifferent' => $info->transitionalDifferent,
-            'errors' => $info->errors,
+            "result" => implode(".", $labels),
+            "isTransitionalDifferent" => $info->transitionalDifferent,
+            "errors" => $info->errors,
         ];
 
-        return 0 === $info->errors ? $idna_info['result'] : false;
+        return 0 === $info->errors ? $idna_info["result"] : false;
     }
 
     /**
@@ -232,16 +506,21 @@ final class Idn
      *
      * @return bool
      */
-    private static function isValidContextJ(array $codePoints, $label)
-    {
+    private static function isValidContextJ(array $codePoints, $label) {
         if (!isset(self::$virama)) {
-            self::$virama = require __DIR__.\DIRECTORY_SEPARATOR.'Resources'.\DIRECTORY_SEPARATOR.'unidata'.\DIRECTORY_SEPARATOR.'virama.php';
+            self::$virama = require __DIR__ .
+                \DIRECTORY_SEPARATOR .
+                "Resources" .
+                \DIRECTORY_SEPARATOR .
+                "unidata" .
+                \DIRECTORY_SEPARATOR .
+                "virama.php";
         }
 
         $offset = 0;
 
         foreach ($codePoints as $i => $codePoint) {
-            if (0x200C !== $codePoint && 0x200D !== $codePoint) {
+            if (0x200c !== $codePoint && 0x200d !== $codePoint) {
                 continue;
             }
 
@@ -257,7 +536,17 @@ final class Idn
             // If RegExpMatch((Joining_Type:{L,D})(Joining_Type:T)*\u200C(Joining_Type:T)*(Joining_Type:{R,D})) Then
             // True;
             // Generated RegExp = ([Joining_Type:{L,D}][Joining_Type:T]*\u200C[Joining_Type:T]*)[Joining_Type:{R,D}]
-            if (0x200C === $codePoint && 1 === preg_match(Regex::ZWNJ, $label, $matches, \PREG_OFFSET_CAPTURE, $offset)) {
+            if (
+                0x200c === $codePoint &&
+                1 ===
+                    preg_match(
+                        Regex::ZWNJ,
+                        $label,
+                        $matches,
+                        \PREG_OFFSET_CAPTURE,
+                        $offset,
+                    )
+            ) {
                 $offset += \strlen($matches[1][0]);
 
                 continue;
@@ -277,34 +566,38 @@ final class Idn
      *
      * @return string
      */
-    private static function mapCodePoints($input, array $options, Info $info)
-    {
-        $str = '';
-        $useSTD3ASCIIRules = $options['UseSTD3ASCIIRules'];
-        $transitional = $options['Transitional_Processing'];
+    private static function mapCodePoints($input, array $options, Info $info) {
+        $str = "";
+        $useSTD3ASCIIRules = $options["UseSTD3ASCIIRules"];
+        $transitional = $options["Transitional_Processing"];
 
         foreach (self::utf8Decode($input) as $codePoint) {
             $data = self::lookupCodePointStatus($codePoint, $useSTD3ASCIIRules);
 
-            switch ($data['status']) {
-                case 'disallowed':
-                case 'valid':
-                    $str .= mb_chr($codePoint, 'utf-8');
+            switch ($data["status"]) {
+                case "disallowed":
+                case "valid":
+                    $str .= mb_chr($codePoint, "utf-8");
 
                     break;
 
-                case 'ignored':
+                case "ignored":
                     // Do nothing.
                     break;
 
-                case 'mapped':
-                    $str .= $transitional && 0x1E9E === $codePoint ? 'ss' : $data['mapping'];
+                case "mapped":
+                    $str .=
+                        $transitional && 0x1e9e === $codePoint
+                            ? "ss"
+                            : $data["mapping"];
 
                     break;
 
-                case 'deviation':
+                case "deviation":
                     $info->transitionalDifferent = true;
-                    $str .= ($transitional ? $data['mapping'] : mb_chr($codePoint, 'utf-8'));
+                    $str .= $transitional
+                        ? $data["mapping"]
+                        : mb_chr($codePoint, "utf-8");
 
                     break;
             }
@@ -321,13 +614,13 @@ final class Idn
      *
      * @return array<int, string>
      */
-    private static function process($domain, array $options, Info $info)
-    {
+    private static function process($domain, array $options, Info $info) {
         // If VerifyDnsLength is not set, we are doing ToUnicode otherwise we are doing ToASCII and
         // we need to respect the VerifyDnsLength option.
-        $checkForEmptyLabels = !isset($options['VerifyDnsLength']) || $options['VerifyDnsLength'];
+        $checkForEmptyLabels =
+            !isset($options["VerifyDnsLength"]) || $options["VerifyDnsLength"];
 
-        if ($checkForEmptyLabels && '' === $domain) {
+        if ($checkForEmptyLabels && "" === $domain) {
             $info->errors |= self::ERROR_EMPTY_LABEL;
 
             return [$domain];
@@ -342,14 +635,14 @@ final class Idn
         }
 
         // Step 3. Break the string into labels at U+002E (.) FULL STOP.
-        $labels = explode('.', $domain);
+        $labels = explode(".", $domain);
         $lastLabelIndex = \count($labels) - 1;
 
         // Step 4. Convert and validate each label in the domain name string.
         foreach ($labels as $i => $label) {
             $validationOptions = $options;
 
-            if ('xn--' === substr($label, 0, 4)) {
+            if ("xn--" === substr($label, 0, 4)) {
                 // Step 4.1. If the label contains any non-ASCII code point (i.e., a code point greater than U+007F),
                 // record that there was an error, and continue with the next label.
                 if (preg_match('/[^\x00-\x7F]/', $label)) {
@@ -370,11 +663,16 @@ final class Idn
                     continue;
                 }
 
-                $validationOptions['Transitional_Processing'] = false;
+                $validationOptions["Transitional_Processing"] = false;
                 $labels[$i] = $label;
             }
 
-            self::validateLabel($label, $info, $validationOptions, $i > 0 && $i === $lastLabelIndex);
+            self::validateLabel(
+                $label,
+                $info,
+                $validationOptions,
+                $i > 0 && $i === $lastLabelIndex,
+            );
         }
 
         if ($info->bidiDomain && !$info->validBidiDomain) {
@@ -393,8 +691,7 @@ final class Idn
      *
      * @param string $label
      */
-    private static function validateBidiLabel($label, Info $info)
-    {
+    private static function validateBidiLabel($label, Info $info) {
         if (1 === preg_match(Regex::RTL_LABEL, $label)) {
             $info->bidiDomain = true;
 
@@ -423,7 +720,10 @@ final class Idn
             }
 
             // Step 4. In an RTL label, if an EN is present, no AN may be present, and vice versa.
-            if (1 === preg_match(Regex::BIDI_STEP_4_AN, $label) && 1 === preg_match(Regex::BIDI_STEP_4_EN, $label)) {
+            if (
+                1 === preg_match(Regex::BIDI_STEP_4_AN, $label) &&
+                1 === preg_match(Regex::BIDI_STEP_4_EN, $label)
+            ) {
                 $info->validBidiDomain = false;
 
                 return;
@@ -461,8 +761,10 @@ final class Idn
     /**
      * @param array<int, string> $labels
      */
-    private static function validateDomainAndLabelLength(array $labels, Info $info)
-    {
+    private static function validateDomainAndLabelLength(
+        array $labels,
+        Info $info,
+    ) {
         $maxDomainSize = self::MAX_DOMAIN_SIZE;
         $length = \count($labels);
 
@@ -473,7 +775,7 @@ final class Idn
         // Increase the max size by 1, making it 254, to account for the root label's "."
         // delimiter. This also means we don't need to check the last label's length for being too
         // long.
-        if ($length > 1 && '' === $labels[$length - 1]) {
+        if ($length > 1 && "" === $labels[$length - 1]) {
             ++$maxDomainSize;
             --$length;
         }
@@ -499,10 +801,18 @@ final class Idn
      * @param array<string, bool> $options
      * @param bool                $canBeEmpty
      */
-    private static function validateLabel($label, Info $info, array $options, $canBeEmpty)
-    {
-        if ('' === $label) {
-            if (!$canBeEmpty && (!isset($options['VerifyDnsLength']) || $options['VerifyDnsLength'])) {
+    private static function validateLabel(
+        $label,
+        Info $info,
+        array $options,
+        $canBeEmpty,
+    ) {
+        if ("" === $label) {
+            if (
+                !$canBeEmpty &&
+                (!isset($options["VerifyDnsLength"]) ||
+                    $options["VerifyDnsLength"])
+            ) {
                 $info->errors |= self::ERROR_EMPTY_LABEL;
             }
 
@@ -516,28 +826,32 @@ final class Idn
 
         $codePoints = self::utf8Decode($label);
 
-        if ($options['CheckHyphens']) {
+        if ($options["CheckHyphens"]) {
             // Step 2. If CheckHyphens, the label must not contain a U+002D HYPHEN-MINUS character
             // in both the thrid and fourth positions.
-            if (isset($codePoints[2], $codePoints[3]) && 0x002D === $codePoints[2] && 0x002D === $codePoints[3]) {
+            if (
+                isset($codePoints[2], $codePoints[3]) &&
+                0x002d === $codePoints[2] &&
+                0x002d === $codePoints[3]
+            ) {
                 $info->errors |= self::ERROR_HYPHEN_3_4;
             }
 
             // Step 3. If CheckHyphens, the label must neither begin nor end with a U+002D
             // HYPHEN-MINUS character.
-            if ('-' === substr($label, 0, 1)) {
+            if ("-" === substr($label, 0, 1)) {
                 $info->errors |= self::ERROR_LEADING_HYPHEN;
             }
 
-            if ('-' === substr($label, -1, 1)) {
+            if ("-" === substr($label, -1, 1)) {
                 $info->errors |= self::ERROR_TRAILING_HYPHEN;
             }
-        } elseif ('xn--' === substr($label, 0, 4)) {
+        } elseif ("xn--" === substr($label, 0, 4)) {
             $info->errors |= self::ERROR_PUNYCODE;
         }
 
         // Step 4. The label must not contain a U+002E (.) FULL STOP.
-        if (false !== strpos($label, '.')) {
+        if (false !== strpos($label, ".")) {
             $info->errors |= self::ERROR_LABEL_HAS_DOT;
         }
 
@@ -548,14 +862,17 @@ final class Idn
 
         // Step 6. Each code point in the label must only have certain status values according to
         // Section 5, IDNA Mapping Table:
-        $transitional = $options['Transitional_Processing'];
-        $useSTD3ASCIIRules = $options['UseSTD3ASCIIRules'];
+        $transitional = $options["Transitional_Processing"];
+        $useSTD3ASCIIRules = $options["UseSTD3ASCIIRules"];
 
         foreach ($codePoints as $codePoint) {
             $data = self::lookupCodePointStatus($codePoint, $useSTD3ASCIIRules);
-            $status = $data['status'];
+            $status = $data["status"];
 
-            if ('valid' === $status || (!$transitional && 'deviation' === $status)) {
+            if (
+                "valid" === $status ||
+                (!$transitional && "deviation" === $status)
+            ) {
                 continue;
             }
 
@@ -567,13 +884,19 @@ final class Idn
         // Step 7. If CheckJoiners, the label must satisify the ContextJ rules from Appendix A, in
         // The Unicode Code Points and Internationalized Domain Names for Applications (IDNA)
         // [IDNA2008].
-        if ($options['CheckJoiners'] && !self::isValidContextJ($codePoints, $label)) {
+        if (
+            $options["CheckJoiners"] &&
+            !self::isValidContextJ($codePoints, $label)
+        ) {
             $info->errors |= self::ERROR_CONTEXTJ;
         }
 
         // Step 8. If CheckBidi, and if the domain name is a  Bidi domain name, then the label must
         // satisfy all six of the numbered conditions in [IDNA2008] RFC 5893, Section 2.
-        if ($options['CheckBidi'] && (!$info->bidiDomain || $info->validBidiDomain)) {
+        if (
+            $options["CheckBidi"] &&
+            (!$info->bidiDomain || $info->validBidiDomain)
+        ) {
             self::validateBidiLabel($label, $info);
         }
     }
@@ -585,8 +908,7 @@ final class Idn
      *
      * @return string
      */
-    private static function punycodeDecode($input)
-    {
+    private static function punycodeDecode($input) {
         $n = self::INITIAL_N;
         $out = 0;
         $i = 0;
@@ -595,11 +917,11 @@ final class Idn
         $b = false === $lastDelimIndex ? 0 : $lastDelimIndex;
         $inputLength = \strlen($input);
         $output = [];
-        $bytes = array_map('ord', str_split($input));
+        $bytes = array_map("ord", str_split($input));
 
         for ($j = 0; $j < $b; ++$j) {
-            if ($bytes[$j] > 0x7F) {
-                throw new \Exception('Invalid input');
+            if ($bytes[$j] > 0x7f) {
+                throw new \Exception("Invalid input");
             }
 
             $output[$out++] = $input[$j];
@@ -613,19 +935,19 @@ final class Idn
             $oldi = $i;
             $w = 1;
 
-            for ($k = self::BASE; /* no condition */; $k += self::BASE) {
+            for ($k = self::BASE /* no condition */; ; $k += self::BASE) {
                 if ($in >= $inputLength) {
-                    throw new \Exception('Invalid input');
+                    throw new \Exception("Invalid input");
                 }
 
-                $digit = self::$basicToDigit[$bytes[$in++] & 0xFF];
+                $digit = self::$basicToDigit[$bytes[$in++] & 0xff];
 
                 if ($digit < 0) {
-                    throw new \Exception('Invalid input');
+                    throw new \Exception("Invalid input");
                 }
 
                 if ($digit > intdiv(self::MAX_INT - $i, $w)) {
-                    throw new \Exception('Integer overflow');
+                    throw new \Exception("Integer overflow");
                 }
 
                 $i += $digit * $w;
@@ -645,7 +967,7 @@ final class Idn
                 $baseMinusT = self::BASE - $t;
 
                 if ($w > intdiv(self::MAX_INT, $baseMinusT)) {
-                    throw new \Exception('Integer overflow');
+                    throw new \Exception("Integer overflow");
                 }
 
                 $w *= $baseMinusT;
@@ -655,15 +977,15 @@ final class Idn
             $bias = self::adaptBias($i - $oldi, $outPlusOne, 0 === $oldi);
 
             if (intdiv($i, $outPlusOne) > self::MAX_INT - $n) {
-                throw new \Exception('Integer overflow');
+                throw new \Exception("Integer overflow");
             }
 
             $n += intdiv($i, $outPlusOne);
             $i %= $outPlusOne;
-            array_splice($output, $i++, 0, [mb_chr($n, 'utf-8')]);
+            array_splice($output, $i++, 0, [mb_chr($n, "utf-8")]);
         }
 
-        return implode('', $output);
+        return implode("", $output);
     }
 
     /**
@@ -673,14 +995,13 @@ final class Idn
      *
      * @return string
      */
-    private static function punycodeEncode($input)
-    {
+    private static function punycodeEncode($input) {
         $n = self::INITIAL_N;
         $delta = 0;
         $out = 0;
         $bias = self::INITIAL_BIAS;
         $inputLength = 0;
-        $output = '';
+        $output = "";
         $iter = self::utf8Decode($input);
 
         foreach ($iter as $codePoint) {
@@ -710,7 +1031,7 @@ final class Idn
             }
 
             if ($m - $n > intdiv(self::MAX_INT - $delta, $h + 1)) {
-                throw new \Exception('Integer overflow');
+                throw new \Exception("Integer overflow");
             }
 
             $delta += ($m - $n) * ($h + 1);
@@ -718,13 +1039,17 @@ final class Idn
 
             foreach ($iter as $codePoint) {
                 if ($codePoint < $n && 0 === ++$delta) {
-                    throw new \Exception('Integer overflow');
+                    throw new \Exception("Integer overflow");
                 }
 
                 if ($codePoint === $n) {
                     $q = $delta;
 
-                    for ($k = self::BASE; /* no condition */; $k += self::BASE) {
+                    for (
+                        $k = self::BASE /* no condition */;
+                        ;
+                        $k += self::BASE
+                    ) {
                         if ($k <= $bias) {
                             $t = self::TMIN;
                         } elseif ($k >= $bias + self::TMAX) {
@@ -739,7 +1064,10 @@ final class Idn
 
                         $qMinusT = $q - $t;
                         $baseMinusT = self::BASE - $t;
-                        $output .= self::encodeDigit($t + $qMinusT % $baseMinusT, false);
+                        $output .= self::encodeDigit(
+                            $t + ($qMinusT % $baseMinusT),
+                            false,
+                        );
                         ++$out;
                         $q = intdiv($qMinusT, $baseMinusT);
                     }
@@ -768,8 +1096,7 @@ final class Idn
      *
      * @return int
      */
-    private static function adaptBias($delta, $numPoints, $firstTime)
-    {
+    private static function adaptBias($delta, $numPoints, $firstTime) {
         // xxx >> 1 is a faster way of doing intdiv(xxx, 2)
         $delta = $firstTime ? intdiv($delta, self::DAMP) : $delta >> 1;
         $delta += intdiv($delta, $numPoints);
@@ -780,7 +1107,8 @@ final class Idn
             $k += self::BASE;
         }
 
-        return $k + intdiv((self::BASE - self::TMIN + 1) * $delta, $delta + self::SKEW);
+        return $k +
+            intdiv((self::BASE - self::TMIN + 1) * $delta, $delta + self::SKEW);
     }
 
     /**
@@ -789,8 +1117,7 @@ final class Idn
      *
      * @return string
      */
-    private static function encodeDigit($d, $flag)
-    {
+    private static function encodeDigit($d, $flag) {
         return \chr($d + 22 + 75 * ($d < 26 ? 1 : 0) - (($flag ? 1 : 0) << 5));
     }
 
@@ -804,12 +1131,11 @@ final class Idn
      *
      * @return array<int, int>
      */
-    private static function utf8Decode($input)
-    {
+    private static function utf8Decode($input) {
         $bytesSeen = 0;
         $bytesNeeded = 0;
         $lowerBoundary = 0x80;
-        $upperBoundary = 0xBF;
+        $upperBoundary = 0xbf;
         $codePoint = 0;
         $codePoints = [];
         $length = \strlen($input);
@@ -818,35 +1144,35 @@ final class Idn
             $byte = \ord($input[$i]);
 
             if (0 === $bytesNeeded) {
-                if ($byte >= 0x00 && $byte <= 0x7F) {
+                if ($byte >= 0x00 && $byte <= 0x7f) {
                     $codePoints[] = $byte;
 
                     continue;
                 }
 
-                if ($byte >= 0xC2 && $byte <= 0xDF) {
+                if ($byte >= 0xc2 && $byte <= 0xdf) {
                     $bytesNeeded = 1;
-                    $codePoint = $byte & 0x1F;
-                } elseif ($byte >= 0xE0 && $byte <= 0xEF) {
-                    if (0xE0 === $byte) {
-                        $lowerBoundary = 0xA0;
-                    } elseif (0xED === $byte) {
-                        $upperBoundary = 0x9F;
+                    $codePoint = $byte & 0x1f;
+                } elseif ($byte >= 0xe0 && $byte <= 0xef) {
+                    if (0xe0 === $byte) {
+                        $lowerBoundary = 0xa0;
+                    } elseif (0xed === $byte) {
+                        $upperBoundary = 0x9f;
                     }
 
                     $bytesNeeded = 2;
-                    $codePoint = $byte & 0xF;
-                } elseif ($byte >= 0xF0 && $byte <= 0xF4) {
-                    if (0xF0 === $byte) {
+                    $codePoint = $byte & 0xf;
+                } elseif ($byte >= 0xf0 && $byte <= 0xf4) {
+                    if (0xf0 === $byte) {
                         $lowerBoundary = 0x90;
-                    } elseif (0xF4 === $byte) {
-                        $upperBoundary = 0x8F;
+                    } elseif (0xf4 === $byte) {
+                        $upperBoundary = 0x8f;
                     }
 
                     $bytesNeeded = 3;
                     $codePoint = $byte & 0x7;
                 } else {
-                    $codePoints[] = 0xFFFD;
+                    $codePoints[] = 0xfffd;
                 }
 
                 continue;
@@ -857,16 +1183,16 @@ final class Idn
                 $bytesNeeded = 0;
                 $bytesSeen = 0;
                 $lowerBoundary = 0x80;
-                $upperBoundary = 0xBF;
+                $upperBoundary = 0xbf;
                 --$i;
-                $codePoints[] = 0xFFFD;
+                $codePoints[] = 0xfffd;
 
                 continue;
             }
 
             $lowerBoundary = 0x80;
-            $upperBoundary = 0xBF;
-            $codePoint = ($codePoint << 6) | ($byte & 0x3F);
+            $upperBoundary = 0xbf;
+            $codePoint = ($codePoint << 6) | ($byte & 0x3f);
 
             if (++$bytesSeen !== $bytesNeeded) {
                 continue;
@@ -880,7 +1206,7 @@ final class Idn
 
         // String unexpectedly ended, so append a U+FFFD code point.
         if (0 !== $bytesNeeded) {
-            $codePoints[] = 0xFFFD;
+            $codePoints[] = 0xfffd;
         }
 
         return $codePoints;
@@ -892,50 +1218,71 @@ final class Idn
      *
      * @return array{status: string, mapping?: string}
      */
-    private static function lookupCodePointStatus($codePoint, $useSTD3ASCIIRules)
-    {
+    private static function lookupCodePointStatus(
+        $codePoint,
+        $useSTD3ASCIIRules,
+    ) {
         if (!self::$mappingTableLoaded) {
             self::$mappingTableLoaded = true;
-            self::$mapped = require __DIR__.'/Resources/unidata/mapped.php';
-            self::$ignored = require __DIR__.'/Resources/unidata/ignored.php';
-            self::$deviation = require __DIR__.'/Resources/unidata/deviation.php';
-            self::$disallowed = require __DIR__.'/Resources/unidata/disallowed.php';
-            self::$disallowed_STD3_mapped = require __DIR__.'/Resources/unidata/disallowed_STD3_mapped.php';
-            self::$disallowed_STD3_valid = require __DIR__.'/Resources/unidata/disallowed_STD3_valid.php';
+            self::$mapped = require __DIR__ . "/Resources/unidata/mapped.php";
+            self::$ignored = require __DIR__ . "/Resources/unidata/ignored.php";
+            self::$deviation = require __DIR__ .
+                "/Resources/unidata/deviation.php";
+            self::$disallowed = require __DIR__ .
+                "/Resources/unidata/disallowed.php";
+            self::$disallowed_STD3_mapped = require __DIR__ .
+                "/Resources/unidata/disallowed_STD3_mapped.php";
+            self::$disallowed_STD3_valid = require __DIR__ .
+                "/Resources/unidata/disallowed_STD3_valid.php";
         }
 
         if (isset(self::$mapped[$codePoint])) {
-            return ['status' => 'mapped', 'mapping' => self::$mapped[$codePoint]];
+            return [
+                "status" => "mapped",
+                "mapping" => self::$mapped[$codePoint],
+            ];
         }
 
         if (isset(self::$ignored[$codePoint])) {
-            return ['status' => 'ignored'];
+            return ["status" => "ignored"];
         }
 
         if (isset(self::$deviation[$codePoint])) {
-            return ['status' => 'deviation', 'mapping' => self::$deviation[$codePoint]];
+            return [
+                "status" => "deviation",
+                "mapping" => self::$deviation[$codePoint],
+            ];
         }
 
-        if (isset(self::$disallowed[$codePoint]) || DisallowedRanges::inRange($codePoint)) {
-            return ['status' => 'disallowed'];
+        if (
+            isset(self::$disallowed[$codePoint]) ||
+            DisallowedRanges::inRange($codePoint)
+        ) {
+            return ["status" => "disallowed"];
         }
 
         $isDisallowedMapped = isset(self::$disallowed_STD3_mapped[$codePoint]);
 
-        if ($isDisallowedMapped || isset(self::$disallowed_STD3_valid[$codePoint])) {
-            $status = 'disallowed';
+        if (
+            $isDisallowedMapped ||
+            isset(self::$disallowed_STD3_valid[$codePoint])
+        ) {
+            $status = "disallowed";
 
             if (!$useSTD3ASCIIRules) {
-                $status = $isDisallowedMapped ? 'mapped' : 'valid';
+                $status = $isDisallowedMapped ? "mapped" : "valid";
             }
 
             if ($isDisallowedMapped) {
-                return ['status' => $status, 'mapping' => self::$disallowed_STD3_mapped[$codePoint]];
+                return [
+                    "status" => $status,
+                    "mapping" => self::$disallowed_STD3_mapped[$codePoint],
+                ];
             }
 
-            return ['status' => $status];
+            return ["status" => $status];
         }
 
-        return ['status' => 'valid'];
+        return ["status" => "valid"];
     }
 }

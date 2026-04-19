@@ -34,8 +34,10 @@ abstract class FunctionLike extends Declaration {
     public function addParam($param) {
         $param = BuilderHelpers::normalizeNode($param);
 
-        if (!$param instanceof Node\Param) {
-            throw new \LogicException(sprintf('Expected parameter node, got "%s"', $param->getType()));
+        if (!($param instanceof Node\Param)) {
+            throw new \LogicException(
+                sprintf('Expected parameter node, got "%s"', $param->getType()),
+            );
         }
 
         $this->params[] = $param;

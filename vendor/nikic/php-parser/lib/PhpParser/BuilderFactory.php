@@ -20,7 +20,7 @@ class BuilderFactory {
     public function attribute($name, array $args = []): Node\Attribute {
         return new Node\Attribute(
             BuilderHelpers::normalizeName($name),
-            $this->args($args)
+            $this->args($args),
         );
     }
 
@@ -98,7 +98,10 @@ class BuilderFactory {
      *
      * @return Builder\TraitUseAdaptation The created trait use adaptation builder
      */
-    public function traitUseAdaptation($trait, $method = null): Builder\TraitUseAdaptation {
+    public function traitUseAdaptation(
+        $trait,
+        $method = null,
+    ): Builder\TraitUseAdaptation {
         if ($method === null) {
             $method = $trait;
             $trait = null;
@@ -222,8 +225,8 @@ class BuilderFactory {
      * @param string|Expr $name Name
      */
     public function var($name): Expr\Variable {
-        if (!\is_string($name) && !$name instanceof Expr) {
-            throw new \LogicException('Variable name must be string or Expr');
+        if (!\is_string($name) && !($name instanceof Expr)) {
+            throw new \LogicException("Variable name must be string or Expr");
         }
 
         return new Expr\Variable($name);
@@ -261,7 +264,7 @@ class BuilderFactory {
     public function funcCall($name, array $args = []): Expr\FuncCall {
         return new Expr\FuncCall(
             BuilderHelpers::normalizeNameOrExpr($name),
-            $this->args($args)
+            $this->args($args),
         );
     }
 
@@ -272,11 +275,15 @@ class BuilderFactory {
      * @param string|Identifier|Expr $name Method name
      * @param array $args Method arguments
      */
-    public function methodCall(Expr $var, $name, array $args = []): Expr\MethodCall {
+    public function methodCall(
+        Expr $var,
+        $name,
+        array $args = [],
+    ): Expr\MethodCall {
         return new Expr\MethodCall(
             $var,
             BuilderHelpers::normalizeIdentifierOrExpr($name),
-            $this->args($args)
+            $this->args($args),
         );
     }
 
@@ -287,11 +294,15 @@ class BuilderFactory {
      * @param string|Identifier|Expr $name Method name
      * @param array $args Method arguments
      */
-    public function staticCall($class, $name, array $args = []): Expr\StaticCall {
+    public function staticCall(
+        $class,
+        $name,
+        array $args = [],
+    ): Expr\StaticCall {
         return new Expr\StaticCall(
             BuilderHelpers::normalizeNameOrExpr($class),
             BuilderHelpers::normalizeIdentifierOrExpr($name),
-            $this->args($args)
+            $this->args($args),
         );
     }
 
@@ -304,7 +315,7 @@ class BuilderFactory {
     public function new($class, array $args = []): Expr\New_ {
         return new Expr\New_(
             BuilderHelpers::normalizeNameOrExpr($class),
-            $this->args($args)
+            $this->args($args),
         );
     }
 
@@ -324,7 +335,10 @@ class BuilderFactory {
      * @param string|Identifier|Expr $name Property name
      */
     public function propertyFetch(Expr $var, $name): Expr\PropertyFetch {
-        return new Expr\PropertyFetch($var, BuilderHelpers::normalizeIdentifierOrExpr($name));
+        return new Expr\PropertyFetch(
+            $var,
+            BuilderHelpers::normalizeIdentifierOrExpr($name),
+        );
     }
 
     /**
@@ -336,7 +350,7 @@ class BuilderFactory {
     public function classConstFetch($class, $name): Expr\ClassConstFetch {
         return new Expr\ClassConstFetch(
             BuilderHelpers::normalizeNameOrExpr($class),
-            BuilderHelpers::normalizeIdentifierOrExpr($name)
+            BuilderHelpers::normalizeIdentifierOrExpr($name),
         );
     }
 
@@ -348,12 +362,15 @@ class BuilderFactory {
     public function concat(...$exprs): Concat {
         $numExprs = count($exprs);
         if ($numExprs < 2) {
-            throw new \LogicException('Expected at least two expressions');
+            throw new \LogicException("Expected at least two expressions");
         }
 
         $lastConcat = $this->normalizeStringExpr($exprs[0]);
         for ($i = 1; $i < $numExprs; $i++) {
-            $lastConcat = new Concat($lastConcat, $this->normalizeStringExpr($exprs[$i]));
+            $lastConcat = new Concat(
+                $lastConcat,
+                $this->normalizeStringExpr($exprs[$i]),
+            );
         }
         return $lastConcat;
     }
@@ -370,6 +387,6 @@ class BuilderFactory {
             return new String_($expr);
         }
 
-        throw new \LogicException('Expected string or Expr');
+        throw new \LogicException("Expected string or Expr");
     }
 }

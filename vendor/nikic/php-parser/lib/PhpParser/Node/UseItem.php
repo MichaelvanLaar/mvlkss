@@ -24,7 +24,12 @@ class UseItem extends NodeAbstract {
      * @param Use_::TYPE_* $type Type of the use element (for mixed group use only)
      * @param array<string, mixed> $attributes Additional attributes
      */
-    public function __construct(Node\Name $name, $alias = null, int $type = Use_::TYPE_UNKNOWN, array $attributes = []) {
+    public function __construct(
+        Node\Name $name,
+        $alias = null,
+        int $type = Use_::TYPE_UNKNOWN,
+        array $attributes = [],
+    ) {
         $this->attributes = $attributes;
         $this->type = $type;
         $this->name = $name;
@@ -32,7 +37,7 @@ class UseItem extends NodeAbstract {
     }
 
     public function getSubNodeNames(): array {
-        return ['type', 'name', 'alias'];
+        return ["type", "name", "alias"];
     }
 
     /**
@@ -47,7 +52,7 @@ class UseItem extends NodeAbstract {
     }
 
     public function getType(): string {
-        return 'UseItem';
+        return "UseItem";
     }
 }
 

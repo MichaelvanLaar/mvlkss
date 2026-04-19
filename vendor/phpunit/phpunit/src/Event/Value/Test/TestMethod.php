@@ -19,8 +19,7 @@ use PHPUnit\Metadata\MetadataCollection;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestMethod extends Test
-{
+final readonly class TestMethod extends Test {
     /**
      * @var class-string
      */
@@ -45,71 +44,71 @@ final readonly class TestMethod extends Test
      * @param non-empty-string $file
      * @param non-negative-int $line
      */
-    public function __construct(string $className, string $methodName, string $file, int $line, TestDox $testDox, MetadataCollection $metadata, TestDataCollection $testData)
-    {
+    public function __construct(
+        string $className,
+        string $methodName,
+        string $file,
+        int $line,
+        TestDox $testDox,
+        MetadataCollection $metadata,
+        TestDataCollection $testData,
+    ) {
         parent::__construct($file);
 
-        $this->className  = $className;
+        $this->className = $className;
         $this->methodName = $methodName;
-        $this->line       = $line;
-        $this->testDox    = $testDox;
-        $this->metadata   = $metadata;
-        $this->testData   = $testData;
+        $this->line = $line;
+        $this->testDox = $testDox;
+        $this->metadata = $metadata;
+        $this->testData = $testData;
     }
 
     /**
      * @return class-string
      */
-    public function className(): string
-    {
+    public function className(): string {
         return $this->className;
     }
 
     /**
      * @return non-empty-string
      */
-    public function methodName(): string
-    {
+    public function methodName(): string {
         return $this->methodName;
     }
 
     /**
      * @return non-negative-int
      */
-    public function line(): int
-    {
+    public function line(): int {
         return $this->line;
     }
 
-    public function testDox(): TestDox
-    {
+    public function testDox(): TestDox {
         return $this->testDox;
     }
 
-    public function metadata(): MetadataCollection
-    {
+    public function metadata(): MetadataCollection {
         return $this->metadata;
     }
 
-    public function testData(): TestDataCollection
-    {
+    public function testData(): TestDataCollection {
         return $this->testData;
     }
 
-    public function isTestMethod(): true
-    {
+    public function isTestMethod(): true {
         return true;
     }
 
     /**
      * @return non-empty-string
      */
-    public function id(): string
-    {
-        $buffer = $this->className . '::' . $this->methodName;
+    public function id(): string {
+        $buffer = $this->className . "::" . $this->methodName;
 
         if ($this->testData()->hasDataFromDataProvider()) {
-            $buffer .= '#' . $this->testData->dataFromDataProvider()->dataSetName();
+            $buffer .=
+                "#" . $this->testData->dataFromDataProvider()->dataSetName();
         }
 
         return $buffer;
@@ -118,16 +117,14 @@ final readonly class TestMethod extends Test
     /**
      * @return non-empty-string
      */
-    public function nameWithClass(): string
-    {
-        return $this->className . '::' . $this->name();
+    public function nameWithClass(): string {
+        return $this->className . "::" . $this->name();
     }
 
     /**
      * @return non-empty-string
      */
-    public function name(): string
-    {
+    public function name(): string {
         if (!$this->testData->hasDataFromDataProvider()) {
             return $this->methodName;
         }
@@ -135,15 +132,9 @@ final readonly class TestMethod extends Test
         $dataSetName = $this->testData->dataFromDataProvider()->dataSetName();
 
         if (is_int($dataSetName)) {
-            $dataSetName = sprintf(
-                ' with data set #%d',
-                $dataSetName,
-            );
+            $dataSetName = sprintf(" with data set #%d", $dataSetName);
         } else {
-            $dataSetName = sprintf(
-                ' with data set "%s"',
-                $dataSetName,
-            );
+            $dataSetName = sprintf(' with data set "%s"', $dataSetName);
         }
 
         return $this->methodName . $dataSetName;

@@ -16,8 +16,7 @@ use PHPUnit\Runner\Extension\Extension;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class RequiresPhpunitExtension extends Metadata
-{
+final readonly class RequiresPhpunitExtension extends Metadata {
     /**
      * @var class-string<Extension>
      */
@@ -26,23 +25,20 @@ final readonly class RequiresPhpunitExtension extends Metadata
     /**
      * @param class-string<Extension> $extensionClass
      */
-    protected function __construct(int $level, string $extensionClass)
-    {
+    protected function __construct(int $level, string $extensionClass) {
         parent::__construct($level);
 
         $this->extensionClass = $extensionClass;
     }
 
-    public function isRequiresPhpunitExtension(): true
-    {
+    public function isRequiresPhpunitExtension(): true {
         return true;
     }
 
     /**
      * @return class-string<Extension>
      */
-    public function extensionClass(): string
-    {
+    public function extensionClass(): string {
         return $this->extensionClass;
     }
 }

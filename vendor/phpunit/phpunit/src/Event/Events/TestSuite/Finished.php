@@ -18,34 +18,32 @@ use PHPUnit\Event\Telemetry;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class Finished implements Event
-{
+final readonly class Finished implements Event {
     private Telemetry\Info $telemetryInfo;
     private TestSuite $testSuite;
 
-    public function __construct(Telemetry\Info $telemetryInfo, TestSuite $testSuite)
-    {
+    public function __construct(
+        Telemetry\Info $telemetryInfo,
+        TestSuite $testSuite,
+    ) {
         $this->telemetryInfo = $telemetryInfo;
-        $this->testSuite     = $testSuite;
+        $this->testSuite = $testSuite;
     }
 
-    public function telemetryInfo(): Telemetry\Info
-    {
+    public function telemetryInfo(): Telemetry\Info {
         return $this->telemetryInfo;
     }
 
-    public function testSuite(): TestSuite
-    {
+    public function testSuite(): TestSuite {
         return $this->testSuite;
     }
 
-    public function asString(): string
-    {
+    public function asString(): string {
         return sprintf(
-            'Test Suite Finished (%s, %d test%s)',
+            "Test Suite Finished (%s, %d test%s)",
             $this->testSuite->name(),
             $this->testSuite->count(),
-            $this->testSuite->count() !== 1 ? 's' : '',
+            $this->testSuite->count() !== 1 ? "s" : "",
         );
     }
 }

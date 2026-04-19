@@ -17,17 +17,21 @@ class Attribute extends NodeAbstract {
      * @param list<Arg> $args Attribute arguments
      * @param array<string, mixed> $attributes Additional node attributes
      */
-    public function __construct(Name $name, array $args = [], array $attributes = []) {
+    public function __construct(
+        Name $name,
+        array $args = [],
+        array $attributes = [],
+    ) {
         $this->attributes = $attributes;
         $this->name = $name;
         $this->args = $args;
     }
 
     public function getSubNodeNames(): array {
-        return ['name', 'args'];
+        return ["name", "args"];
     }
 
     public function getType(): string {
-        return 'Attribute';
+        return "Attribute";
     }
 }

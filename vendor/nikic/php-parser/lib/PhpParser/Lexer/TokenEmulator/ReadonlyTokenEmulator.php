@@ -10,7 +10,7 @@ final class ReadonlyTokenEmulator extends KeywordEmulator {
     }
 
     public function getKeywordString(): string {
-        return 'readonly';
+        return "readonly";
     }
 
     public function getKeywordToken(): int {
@@ -22,10 +22,12 @@ final class ReadonlyTokenEmulator extends KeywordEmulator {
             return false;
         }
         // Support "function readonly("
-        return !(isset($tokens[$pos + 1]) &&
-                 ($tokens[$pos + 1]->text === '(' ||
-                  ($tokens[$pos + 1]->id === \T_WHITESPACE &&
-                   isset($tokens[$pos + 2]) &&
-                   $tokens[$pos + 2]->text === '(')));
+        return !(
+            isset($tokens[$pos + 1]) &&
+            ($tokens[$pos + 1]->text === "(" ||
+                ($tokens[$pos + 1]->id === \T_WHITESPACE &&
+                    isset($tokens[$pos + 2]) &&
+                    $tokens[$pos + 2]->text === "("))
+        );
     }
 }

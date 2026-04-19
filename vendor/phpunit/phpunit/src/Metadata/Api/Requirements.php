@@ -41,25 +41,31 @@ use PHPUnit\TextUI\Configuration\Registry as ConfigurationRegistry;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class Requirements
-{
+final readonly class Requirements {
     /**
      * @param class-string     $className
      * @param non-empty-string $methodName
      *
      * @return list<string>
      */
-    public function requirementsNotSatisfiedFor(string $className, string $methodName): array
-    {
+    public function requirementsNotSatisfiedFor(
+        string $className,
+        string $methodName,
+    ): array {
         $notSatisfied = [];
 
-        foreach (Registry::parser()->forClassAndMethod($className, $methodName) as $metadata) {
+        foreach (
+            Registry::parser()->forClassAndMethod($className, $methodName)
+            as $metadata
+        ) {
             if ($metadata->isRequiresPhp()) {
                 assert($metadata instanceof RequiresPhp);
 
-                if (!$metadata->versionRequirement()->isSatisfiedBy(PHP_VERSION)) {
+                if (
+                    !$metadata->versionRequirement()->isSatisfiedBy(PHP_VERSION)
+                ) {
                     $notSatisfied[] = sprintf(
-                        'PHP %s is required.',
+                        "PHP %s is required.",
                         $metadata->versionRequirement()->asString(),
                     );
                 }
@@ -68,13 +74,19 @@ final readonly class Requirements
             if ($metadata->isRequiresPhpExtension()) {
                 assert($metadata instanceof RequiresPhpExtension);
 
-                if (!extension_loaded($metadata->extension()) ||
+                if (
+                    !extension_loaded($metadata->extension()) ||
                     ($metadata->hasVersionRequirement() &&
-                        !$metadata->versionRequirement()->isSatisfiedBy(phpversion($metadata->extension())))) {
+                        !$metadata
+                            ->versionRequirement()
+                            ->isSatisfiedBy(phpversion($metadata->extension())))
+                ) {
                     $notSatisfied[] = sprintf(
-                        'PHP extension %s%s is required.',
+                        "PHP extension %s%s is required.",
                         $metadata->extension(),
-                        $metadata->hasVersionRequirement() ? (' ' . $metadata->versionRequirement()->asString()) : '',
+                        $metadata->hasVersionRequirement()
+                            ? " " . $metadata->versionRequirement()->asString()
+                            : "",
                     );
                 }
             }
@@ -82,9 +94,13 @@ final readonly class Requirements
             if ($metadata->isRequiresPhpunit()) {
                 assert($metadata instanceof RequiresPhpunit);
 
-                if (!$metadata->versionRequirement()->isSatisfiedBy(Version::id())) {
+                if (
+                    !$metadata
+                        ->versionRequirement()
+                        ->isSatisfiedBy(Version::id())
+                ) {
                     $notSatisfied[] = sprintf(
-                        'PHPUnit %s is required.',
+                        "PHPUnit %s is required.",
                         $metadata->versionRequirement()->asString(),
                     );
                 }
@@ -95,9 +111,19 @@ final readonly class Requirements
 
                 $configuration = ConfigurationRegistry::get();
 
-                $extensionBootstrappers = array_column($configuration->extensionBootstrappers(), 'className');
+                $extensionBootstrappers = array_column(
+                    $configuration->extensionBootstrappers(),
+                    "className",
+                );
 
-                if ($configuration->noExtensions() || !in_array($metadata->extensionClass(), $extensionBootstrappers, true)) {
+                if (
+                    $configuration->noExtensions() ||
+                    !in_array(
+                        $metadata->extensionClass(),
+                        $extensionBootstrappers,
+                        true,
+                    )
+                ) {
                     $notSatisfied[] = sprintf(
                         'PHPUnit extension "%s" is required.',
                         $metadata->extensionClass(),
@@ -110,7 +136,7 @@ final readonly class Requirements
 
                 if ($metadata->operatingSystemFamily() !== PHP_OS_FAMILY) {
                     $notSatisfied[] = sprintf(
-                        'Operating system %s is required.',
+                        "Operating system %s is required.",
                         $metadata->operatingSystemFamily(),
                     );
                 }
@@ -120,13 +146,13 @@ final readonly class Requirements
                 assert($metadata instanceof RequiresOperatingSystem);
 
                 $pattern = sprintf(
-                    '/%s/i',
-                    addcslashes($metadata->operatingSystem(), '/'),
+                    "/%s/i",
+                    addcslashes($metadata->operatingSystem(), "/"),
                 );
 
                 if (!preg_match($pattern, PHP_OS)) {
                     $notSatisfied[] = sprintf(
-                        'Operating system %s is required.',
+                        "Operating system %s is required.",
                         $metadata->operatingSystem(),
                     );
                 }
@@ -137,7 +163,7 @@ final readonly class Requirements
 
                 if (!function_exists($metadata->functionName())) {
                     $notSatisfied[] = sprintf(
-                        'Function %s() is required.',
+                        "Function %s() is required.",
                         $metadata->functionName(),
                     );
                 }
@@ -146,9 +172,14 @@ final readonly class Requirements
             if ($metadata->isRequiresMethod()) {
                 assert($metadata instanceof RequiresMethod);
 
-                if (!method_exists($metadata->className(), $metadata->methodName())) {
+                if (
+                    !method_exists(
+                        $metadata->className(),
+                        $metadata->methodName(),
+                    )
+                ) {
                     $notSatisfied[] = sprintf(
-                        'Method %s::%s() is required.',
+                        "Method %s::%s() is required.",
                         $metadata->className(),
                         $metadata->methodName(),
                     );
@@ -171,11 +202,16 @@ final readonly class Requirements
         return $notSatisfied;
     }
 
-    public function requiresXdebug(string $className, string $methodName): bool
-    {
-        foreach (Registry::parser()->forClassAndMethod($className, $methodName) as $metadata) {
+    public function requiresXdebug(
+        string $className,
+        string $methodName,
+    ): bool {
+        foreach (
+            Registry::parser()->forClassAndMethod($className, $methodName)
+            as $metadata
+        ) {
             if ($metadata->isRequiresPhpExtension()) {
-                if ($metadata->extension() === 'xdebug') {
+                if ($metadata->extension() === "xdebug") {
                     return true;
                 }
             }

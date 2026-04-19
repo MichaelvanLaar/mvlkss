@@ -14,6 +14,4 @@ namespace PHPUnit\Framework;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-abstract class InvalidArgumentException extends Exception
-{
-}
+abstract class InvalidArgumentException extends Exception {}

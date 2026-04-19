@@ -16,10 +16,8 @@ namespace PHPUnit\Metadata;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class IgnorePhpunitDeprecations extends Metadata
-{
-    public function isIgnorePhpunitDeprecations(): true
-    {
+final readonly class IgnorePhpunitDeprecations extends Metadata {
+    public function isIgnorePhpunitDeprecations(): true {
         return true;
     }
 }

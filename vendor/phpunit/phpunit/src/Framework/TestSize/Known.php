@@ -16,10 +16,8 @@ namespace PHPUnit\Framework\TestSize;
  *
  * @immutable
  */
-abstract readonly class Known extends TestSize
-{
-    public function isKnown(): true
-    {
+abstract readonly class Known extends TestSize {
+    public function isKnown(): true {
         return true;
     }
 

@@ -18,13 +18,13 @@ use RuntimeException;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class AnnotationsAreNotSupportedForInternalClassesException extends RuntimeException implements Exception
-{
+final class AnnotationsAreNotSupportedForInternalClassesException
+    extends RuntimeException
+    implements Exception {
     /**
      * @param class-string $className
      */
-    public function __construct(string $className)
-    {
+    public function __construct(string $className) {
         parent::__construct(
             sprintf(
                 'Annotations can only be parsed for user-defined classes, trying to parse annotations for class "%s"',

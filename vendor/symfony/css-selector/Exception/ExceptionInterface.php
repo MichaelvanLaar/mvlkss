@@ -19,6 +19,4 @@ namespace Symfony\Component\CssSelector\Exception;
  *
  * @author Jean-François Simon <jeanfrancois.simon@sensiolabs.com>
  */
-interface ExceptionInterface extends \Throwable
-{
-}
+interface ExceptionInterface extends \Throwable {}

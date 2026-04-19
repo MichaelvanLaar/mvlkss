@@ -18,8 +18,7 @@ use PHPUnit\Event\Telemetry;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class ExtensionBootstrapped implements Event
-{
+final readonly class ExtensionBootstrapped implements Event {
     private Telemetry\Info $telemetryInfo;
 
     /**
@@ -36,39 +35,35 @@ final readonly class ExtensionBootstrapped implements Event
      * @param class-string          $className
      * @param array<string, string> $parameters
      */
-    public function __construct(Telemetry\Info $telemetryInfo, string $className, array $parameters)
-    {
+    public function __construct(
+        Telemetry\Info $telemetryInfo,
+        string $className,
+        array $parameters,
+    ) {
         $this->telemetryInfo = $telemetryInfo;
-        $this->className     = $className;
-        $this->parameters    = $parameters;
+        $this->className = $className;
+        $this->parameters = $parameters;
     }
 
-    public function telemetryInfo(): Telemetry\Info
-    {
+    public function telemetryInfo(): Telemetry\Info {
         return $this->telemetryInfo;
     }
 
     /**
      * @return class-string
      */
-    public function className(): string
-    {
+    public function className(): string {
         return $this->className;
     }
 
     /**
      * @return array<string, string>
      */
-    public function parameters(): array
-    {
+    public function parameters(): array {
         return $this->parameters;
     }
 
-    public function asString(): string
-    {
-        return sprintf(
-            'Extension Bootstrapped (%s)',
-            $this->className,
-        );
+    public function asString(): string {
+        return sprintf("Extension Bootstrapped (%s)", $this->className);
     }
 }

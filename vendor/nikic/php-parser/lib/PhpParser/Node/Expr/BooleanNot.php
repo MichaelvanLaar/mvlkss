@@ -20,10 +20,10 @@ class BooleanNot extends Expr {
     }
 
     public function getSubNodeNames(): array {
-        return ['expr'];
+        return ["expr"];
     }
 
     public function getType(): string {
-        return 'Expr_BooleanNot';
+        return "Expr_BooleanNot";
     }
 }

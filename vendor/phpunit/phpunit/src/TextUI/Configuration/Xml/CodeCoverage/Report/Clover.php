@@ -18,17 +18,14 @@ use PHPUnit\TextUI\Configuration\File;
  *
  * @immutable
  */
-final readonly class Clover
-{
+final readonly class Clover {
     private File $target;
 
-    public function __construct(File $target)
-    {
+    public function __construct(File $target) {
         $this->target = $target;
     }
 
-    public function target(): File
-    {
+    public function target(): File {
         return $this->target;
     }
 }

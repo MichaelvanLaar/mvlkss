@@ -20,10 +20,10 @@ class Else_ extends Node\Stmt {
     }
 
     public function getSubNodeNames(): array {
-        return ['stmts'];
+        return ["stmts"];
     }
 
     public function getType(): string {
-        return 'Stmt_Else';
+        return "Stmt_Else";
     }
 }

@@ -14,8 +14,7 @@ namespace PHPUnit\Metadata;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class UsesClass extends Metadata
-{
+final readonly class UsesClass extends Metadata {
     /**
      * @var class-string
      */
@@ -25,23 +24,20 @@ final readonly class UsesClass extends Metadata
      * @param 0|1          $level
      * @param class-string $className
      */
-    protected function __construct(int $level, string $className)
-    {
+    protected function __construct(int $level, string $className) {
         parent::__construct($level);
 
         $this->className = $className;
     }
 
-    public function isUsesClass(): true
-    {
+    public function isUsesClass(): true {
         return true;
     }
 
     /**
      * @return class-string
      */
-    public function className(): string
-    {
+    public function className(): string {
         return $this->className;
     }
 
@@ -50,8 +46,7 @@ final readonly class UsesClass extends Metadata
      *
      * @internal This method is not covered by the backward compatibility promise for PHPUnit
      */
-    public function asStringForCodeUnitMapper(): string
-    {
+    public function asStringForCodeUnitMapper(): string {
         return $this->className;
     }
 }

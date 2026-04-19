@@ -16,20 +16,16 @@ namespace PHPUnit\Framework\TestStatus;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class Notice extends Known
-{
-    public function isNotice(): true
-    {
+final readonly class Notice extends Known {
+    public function isNotice(): true {
         return true;
     }
 
-    public function asInt(): int
-    {
+    public function asInt(): int {
         return 3;
     }
 
-    public function asString(): string
-    {
-        return 'notice';
+    public function asString(): string {
+        return "notice";
     }
 }

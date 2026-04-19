@@ -24,35 +24,34 @@ use SebastianBergmann\CodeCoverage\Filter;
 /**
  * @internal This class is not covered by the backward compatibility promise for phpunit/php-code-coverage
  */
-final class PcovDriver extends Driver
-{
+final class PcovDriver extends Driver {
     private readonly Filter $filter;
 
     /**
      * @throws PcovNotAvailableException
      */
-    public function __construct(Filter $filter)
-    {
+    public function __construct(Filter $filter) {
         $this->ensurePcovIsAvailable();
 
         $this->filter = $filter;
     }
 
-    public function start(): void
-    {
+    public function start(): void {
         start();
     }
 
-    public function stop(): RawCodeCoverageData
-    {
+    public function stop(): RawCodeCoverageData {
         stop();
 
         $filesToCollectCoverageFor = waiting();
-        $collected                 = [];
+        $collected = [];
 
         if ($filesToCollectCoverageFor) {
             if (!$this->filter->isEmpty()) {
-                $filesToCollectCoverageFor = array_intersect($filesToCollectCoverageFor, $this->filter->files());
+                $filesToCollectCoverageFor = array_intersect(
+                    $filesToCollectCoverageFor,
+                    $this->filter->files(),
+                );
             }
 
             $collected = collect(inclusive, $filesToCollectCoverageFor);
@@ -63,23 +62,20 @@ final class PcovDriver extends Driver
         return RawCodeCoverageData::fromXdebugWithoutPathCoverage($collected);
     }
 
-    public function nameAndVersion(): string
-    {
-        return 'PCOV ' . phpversion('pcov');
+    public function nameAndVersion(): string {
+        return "PCOV " . phpversion("pcov");
     }
 
-    public function isPcov(): true
-    {
+    public function isPcov(): true {
         return true;
     }
 
     /**
      * @throws PcovNotAvailableException
      */
-    private function ensurePcovIsAvailable(): void
-    {
-        if (!extension_loaded('pcov')) {
-            throw new PcovNotAvailableException;
+    private function ensurePcovIsAvailable(): void {
+        if (!extension_loaded("pcov")) {
+            throw new PcovNotAvailableException();
         }
     }
 }

@@ -17,17 +17,14 @@ use Attribute;
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
 #[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD)]
-final readonly class BackupStaticProperties
-{
+final readonly class BackupStaticProperties {
     private bool $enabled;
 
-    public function __construct(bool $enabled)
-    {
+    public function __construct(bool $enabled) {
         $this->enabled = $enabled;
     }
 
-    public function enabled(): bool
-    {
+    public function enabled(): bool {
         return $this->enabled;
     }
 }

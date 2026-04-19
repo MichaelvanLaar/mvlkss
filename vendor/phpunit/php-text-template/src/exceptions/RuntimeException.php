@@ -11,6 +11,5 @@ namespace SebastianBergmann\Template;
 
 use InvalidArgumentException;
 
-final class RuntimeException extends InvalidArgumentException implements Exception
-{
-}
+final class RuntimeException extends InvalidArgumentException implements
+    Exception {}

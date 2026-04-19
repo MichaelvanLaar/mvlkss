@@ -20,8 +20,7 @@ use Throwable;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class InvocationHandler
-{
+final class InvocationHandler {
     /**
      * @var list<Matcher>
      */
@@ -41,14 +40,15 @@ final class InvocationHandler
     /**
      * @param list<ConfigurableMethod> $configurableMethods
      */
-    public function __construct(array $configurableMethods, bool $returnValueGeneration)
-    {
-        $this->configurableMethods   = $configurableMethods;
+    public function __construct(
+        array $configurableMethods,
+        bool $returnValueGeneration,
+    ) {
+        $this->configurableMethods = $configurableMethods;
         $this->returnValueGeneration = $returnValueGeneration;
     }
 
-    public function hasMatchers(): bool
-    {
+    public function hasMatchers(): bool {
         foreach ($this->matchers as $matcher) {
             if ($matcher->hasMatchers()) {
                 return true;
@@ -61,8 +61,7 @@ final class InvocationHandler
     /**
      * Looks up the match builder with identification $id and returns it.
      */
-    public function lookupMatcher(string $id): ?Matcher
-    {
+    public function lookupMatcher(string $id): ?Matcher {
         return $this->matcherMap[$id] ?? null;
     }
 
@@ -72,8 +71,7 @@ final class InvocationHandler
      *
      * @throws MatcherAlreadyRegisteredException
      */
-    public function registerMatcher(string $id, Matcher $matcher): void
-    {
+    public function registerMatcher(string $id, Matcher $matcher): void {
         if (isset($this->matcherMap[$id])) {
             throw new MatcherAlreadyRegisteredException($id);
         }
@@ -81,8 +79,7 @@ final class InvocationHandler
         $this->matcherMap[$id] = $matcher;
     }
 
-    public function expects(InvocationOrder $rule): InvocationMocker
-    {
+    public function expects(InvocationOrder $rule): InvocationMocker {
         $matcher = new Matcher($rule);
         $this->addMatcher($matcher);
 
@@ -97,11 +94,10 @@ final class InvocationHandler
      * @throws \PHPUnit\Framework\MockObject\Exception
      * @throws Exception
      */
-    public function invoke(Invocation $invocation): mixed
-    {
-        $exception      = null;
+    public function invoke(Invocation $invocation): mixed {
+        $exception = null;
         $hasReturnValue = false;
-        $returnValue    = null;
+        $returnValue = null;
 
         foreach ($this->matchers as $match) {
             try {
@@ -109,7 +105,7 @@ final class InvocationHandler
                     $value = $match->invoked($invocation);
 
                     if (!$hasReturnValue) {
-                        $returnValue    = $value;
+                        $returnValue = $value;
                         $hasReturnValue = true;
                     }
                 }
@@ -127,8 +123,8 @@ final class InvocationHandler
         }
 
         if (!$this->returnValueGeneration) {
-            if (strtolower($invocation->methodName()) === '__tostring') {
-                return '';
+            if (strtolower($invocation->methodName()) === "__tostring") {
+                return "";
             }
 
             throw new ReturnValueNotConfiguredException($invocation);
@@ -140,15 +136,13 @@ final class InvocationHandler
     /**
      * @throws Throwable
      */
-    public function verify(): void
-    {
+    public function verify(): void {
         foreach ($this->matchers as $matcher) {
             $matcher->verify();
         }
     }
 
-    private function addMatcher(Matcher $matcher): void
-    {
+    private function addMatcher(Matcher $matcher): void {
         $this->matchers[] = $matcher;
     }
 }

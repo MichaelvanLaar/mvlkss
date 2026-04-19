@@ -21,15 +21,13 @@ use PHPUnit\Framework\MockObject\MethodNameConstraint;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class MethodName
-{
+final readonly class MethodName {
     private Constraint $constraint;
 
     /**
      * @throws InvalidArgumentException
      */
-    public function __construct(Constraint|string $constraint)
-    {
+    public function __construct(Constraint|string $constraint) {
         if (is_string($constraint)) {
             $constraint = new MethodNameConstraint($constraint);
         }
@@ -37,24 +35,21 @@ final readonly class MethodName
         $this->constraint = $constraint;
     }
 
-    public function toString(): string
-    {
-        return 'method name ' . $this->constraint->toString();
+    public function toString(): string {
+        return "method name " . $this->constraint->toString();
     }
 
     /**
      * @throws ExpectationFailedException
      */
-    public function matches(BaseInvocation $invocation): bool
-    {
+    public function matches(BaseInvocation $invocation): bool {
         return $this->matchesName($invocation->methodName());
     }
 
     /**
      * @throws ExpectationFailedException
      */
-    public function matchesName(string $methodName): bool
-    {
-        return (bool) $this->constraint->evaluate($methodName, '', true);
+    public function matchesName(string $methodName): bool {
+        return (bool) $this->constraint->evaluate($methodName, "", true);
     }
 }

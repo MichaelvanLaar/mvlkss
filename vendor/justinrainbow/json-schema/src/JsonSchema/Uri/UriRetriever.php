@@ -24,22 +24,22 @@ use JsonSchema\Validator;
  *
  * @author Tyler Akins <fidian@rumkin.com>
  */
-class UriRetriever implements BaseUriRetrieverInterface
-{
+class UriRetriever implements BaseUriRetrieverInterface {
     /**
      * @var array Map of URL translations
      */
     protected $translationMap = [
         // use local copies of the spec schemas
-        '|^https?://json-schema.org/draft-(0[3467])/schema#?|' => 'package://dist/schema/json-schema-draft-$1.json'
+        "|^https?://json-schema.org/draft-(0[3467])/schema#?|" =>
+            'package://dist/schema/json-schema-draft-$1.json',
     ];
 
     /**
      * @var array A list of endpoints for media type check exclusion
      */
     protected $allowedInvalidContentTypeEndpoints = [
-        'http://json-schema.org/',
-        'https://json-schema.org/'
+        "http://json-schema.org/",
+        "https://json-schema.org/",
     ];
 
     /**
@@ -59,8 +59,7 @@ class UriRetriever implements BaseUriRetrieverInterface
      *
      * @param string $endpoint
      */
-    public function addInvalidContentTypeEndpoint($endpoint)
-    {
+    public function addInvalidContentTypeEndpoint($endpoint) {
         $this->allowedInvalidContentTypeEndpoints[] = $endpoint;
     }
 
@@ -72,8 +71,7 @@ class UriRetriever implements BaseUriRetrieverInterface
      *
      * @return bool|void
      */
-    public function confirmMediaType($uriRetriever, $uri)
-    {
+    public function confirmMediaType($uriRetriever, $uri) {
         $contentType = $uriRetriever->getContentType();
 
         if (is_null($contentType)) {
@@ -81,7 +79,12 @@ class UriRetriever implements BaseUriRetrieverInterface
             return;
         }
 
-        if (in_array($contentType, [Validator::SCHEMA_MEDIA_TYPE, 'application/json'])) {
+        if (
+            in_array($contentType, [
+                Validator::SCHEMA_MEDIA_TYPE,
+                "application/json",
+            ])
+        ) {
             return;
         }
 
@@ -91,7 +94,13 @@ class UriRetriever implements BaseUriRetrieverInterface
             }
         }
 
-        throw new InvalidSchemaMediaTypeException(sprintf('Media type %s expected, but %s given', Validator::SCHEMA_MEDIA_TYPE, $contentType));
+        throw new InvalidSchemaMediaTypeException(
+            sprintf(
+                "Media type %s expected, but %s given",
+                Validator::SCHEMA_MEDIA_TYPE,
+                $contentType,
+            ),
+        );
     }
 
     /**
@@ -102,8 +111,7 @@ class UriRetriever implements BaseUriRetrieverInterface
      *
      * @return UriRetrieverInterface
      */
-    public function getUriRetriever()
-    {
+    public function getUriRetriever() {
         if (is_null($this->uriRetriever)) {
             $this->setUriRetriever(new FileGetContents());
         }
@@ -125,33 +133,38 @@ class UriRetriever implements BaseUriRetrieverInterface
      *
      * @return object JSON Schema after walking down the fragment pieces
      */
-    public function resolvePointer($jsonSchema, $uri)
-    {
+    public function resolvePointer($jsonSchema, $uri) {
         $resolver = new UriResolver();
         $parsed = $resolver->parse($uri);
-        if (empty($parsed['fragment'])) {
+        if (empty($parsed["fragment"])) {
             return $jsonSchema;
         }
 
-        $path = explode('/', $parsed['fragment']);
+        $path = explode("/", $parsed["fragment"]);
         while ($path) {
             $pathElement = array_shift($path);
             if (!empty($pathElement)) {
-                $pathElement = str_replace('~1', '/', $pathElement);
-                $pathElement = str_replace('~0', '~', $pathElement);
+                $pathElement = str_replace("~1", "/", $pathElement);
+                $pathElement = str_replace("~0", "~", $pathElement);
                 if (!empty($jsonSchema->$pathElement)) {
                     $jsonSchema = $jsonSchema->$pathElement;
                 } else {
                     throw new ResourceNotFoundException(
-                        'Fragment "' . $parsed['fragment'] . '" not found'
-                        . ' in ' . $uri
+                        'Fragment "' .
+                            $parsed["fragment"] .
+                            '" not found' .
+                            " in " .
+                            $uri,
                     );
                 }
 
                 if (!is_object($jsonSchema)) {
                     throw new ResourceNotFoundException(
-                        'Fragment part "' . $pathElement . '" is no object '
-                        . ' in ' . $uri
+                        'Fragment part "' .
+                            $pathElement .
+                            '" is no object ' .
+                            " in " .
+                            $uri,
                     );
                 }
             }
@@ -163,15 +176,14 @@ class UriRetriever implements BaseUriRetrieverInterface
     /**
      * {@inheritdoc}
      */
-    public function retrieve($uri, $baseUri = null, $translate = true)
-    {
+    public function retrieve($uri, $baseUri = null, $translate = true) {
         $resolver = new UriResolver();
         $resolvedUri = $fetchUri = $resolver->resolve($uri, $baseUri);
 
         //fetch URL without #fragment
         $arParts = $resolver->parse($resolvedUri);
-        if (isset($arParts['fragment'])) {
-            unset($arParts['fragment']);
+        if (isset($arParts["fragment"])) {
+            unset($arParts["fragment"]);
             $fetchUri = $resolver->generate($arParts);
         }
 
@@ -200,8 +212,7 @@ class UriRetriever implements BaseUriRetrieverInterface
      *
      * @return object JSON schema object
      */
-    protected function loadSchema($fetchUri)
-    {
+    protected function loadSchema($fetchUri) {
         if (isset($this->schemaCache[$fetchUri])) {
             return $this->schemaCache[$fetchUri];
         }
@@ -211,7 +222,7 @@ class UriRetriever implements BaseUriRetrieverInterface
         $this->confirmMediaType($uriRetriever, $fetchUri);
         $jsonSchema = json_decode($contents);
 
-        if (JSON_ERROR_NONE < $error = json_last_error()) {
+        if (JSON_ERROR_NONE < ($error = json_last_error())) {
             throw new JsonDecodingException($error);
         }
 
@@ -227,8 +238,7 @@ class UriRetriever implements BaseUriRetrieverInterface
      *
      * @return $this for chaining
      */
-    public function setUriRetriever(UriRetrieverInterface $uriRetriever)
-    {
+    public function setUriRetriever(UriRetrieverInterface $uriRetriever) {
         $this->uriRetriever = $uriRetriever;
 
         return $this;
@@ -241,25 +251,28 @@ class UriRetriever implements BaseUriRetrieverInterface
      *
      * @return array
      */
-    public function parse($uri)
-    {
-        preg_match('|^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?|', $uri, $match);
+    public function parse($uri) {
+        preg_match(
+            "|^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?|",
+            $uri,
+            $match,
+        );
 
         $components = [];
         if (5 < count($match)) {
-            $components =  [
-                'scheme'    => $match[2],
-                'authority' => $match[4],
-                'path'      => $match[5]
+            $components = [
+                "scheme" => $match[2],
+                "authority" => $match[4],
+                "path" => $match[5],
             ];
         }
 
         if (7 < count($match)) {
-            $components['query'] = $match[7];
+            $components["query"] = $match[7];
         }
 
         if (9 < count($match)) {
-            $components['fragment'] = $match[9];
+            $components["fragment"] = $match[9];
         }
 
         return $components;
@@ -272,18 +285,19 @@ class UriRetriever implements BaseUriRetrieverInterface
      *
      * @return string
      */
-    public function generate(array $components)
-    {
-        $uri = $components['scheme'] . '://'
-             . $components['authority']
-             . $components['path'];
+    public function generate(array $components) {
+        $uri =
+            $components["scheme"] .
+            "://" .
+            $components["authority"] .
+            $components["path"];
 
-        if (array_key_exists('query', $components)) {
-            $uri .= $components['query'];
+        if (array_key_exists("query", $components)) {
+            $uri .= $components["query"];
         }
 
-        if (array_key_exists('fragment', $components)) {
-            $uri .= $components['fragment'];
+        if (array_key_exists("fragment", $components)) {
+            $uri .= $components["fragment"];
         }
 
         return $uri;
@@ -297,19 +311,24 @@ class UriRetriever implements BaseUriRetrieverInterface
      *
      * @return string
      */
-    public function resolve($uri, $baseUri = null)
-    {
+    public function resolve($uri, $baseUri = null) {
         $components = $this->parse($uri);
-        $path = $components['path'];
+        $path = $components["path"];
 
-        if ((array_key_exists('scheme', $components)) && ('http' === $components['scheme'])) {
+        if (
+            array_key_exists("scheme", $components) &&
+            "http" === $components["scheme"]
+        ) {
             return $uri;
         }
 
         $baseComponents = $this->parse($baseUri);
-        $basePath = $baseComponents['path'];
+        $basePath = $baseComponents["path"];
 
-        $baseComponents['path'] = UriResolver::combineRelativePathWithBasePath($path, $basePath);
+        $baseComponents["path"] = UriResolver::combineRelativePathWithBasePath(
+            $path,
+            $basePath,
+        );
 
         return $this->generate($baseComponents);
     }
@@ -319,8 +338,7 @@ class UriRetriever implements BaseUriRetrieverInterface
      *
      * @return bool
      */
-    public function isValid($uri)
-    {
+    public function isValid($uri) {
         $components = $this->parse($uri);
 
         return !empty($components);
@@ -329,22 +347,24 @@ class UriRetriever implements BaseUriRetrieverInterface
     /**
      * Set a URL translation rule
      */
-    public function setTranslation($from, $to)
-    {
+    public function setTranslation($from, $to) {
         $this->translationMap[$from] = $to;
     }
 
     /**
      * Apply URI translation rules
      */
-    public function translate($uri)
-    {
+    public function translate($uri) {
         foreach ($this->translationMap as $from => $to) {
             $uri = preg_replace($from, $to, $uri);
         }
 
         // translate references to local files within the json-schema package
-        $uri = preg_replace('|^package://|', sprintf('file://%s/', realpath(__DIR__ . '/../../..')), $uri);
+        $uri = preg_replace(
+            "|^package://|",
+            sprintf("file://%s/", realpath(__DIR__ . "/../../..")),
+            $uri,
+        );
 
         return $uri;
     }

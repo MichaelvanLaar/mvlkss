@@ -14,6 +14,4 @@ namespace PHPUnit\TextUI;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class RuntimeException extends \RuntimeException implements Exception
-{
-}
+final class RuntimeException extends \RuntimeException implements Exception {}

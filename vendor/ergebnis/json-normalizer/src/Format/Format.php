@@ -18,8 +18,7 @@ use Ergebnis\Json\Json;
 /**
  * @psalm-immutable
  */
-final class Format
-{
+final class Format {
     private bool $hasFinalNewLine;
     private NewLine $newLine;
     private Indent $indent;
@@ -29,7 +28,7 @@ final class Format
         JsonEncodeOptions $jsonEncodeOptions,
         Indent $indent,
         NewLine $newLine,
-        bool $hasFinalNewLine
+        bool $hasFinalNewLine,
     ) {
         $this->jsonEncodeOptions = $jsonEncodeOptions;
         $this->indent = $indent;
@@ -41,7 +40,7 @@ final class Format
         JsonEncodeOptions $jsonEncodeOptions,
         Indent $indent,
         NewLine $newLine,
-        bool $hasFinalNewLine
+        bool $hasFinalNewLine,
     ): self {
         return new self(
             $jsonEncodeOptions,
@@ -51,8 +50,7 @@ final class Format
         );
     }
 
-    public static function fromJson(Json $json): self
-    {
+    public static function fromJson(Json $json): self {
         $encoded = $json->encoded();
 
         return new self(
@@ -63,28 +61,25 @@ final class Format
         );
     }
 
-    public function jsonEncodeOptions(): JsonEncodeOptions
-    {
+    public function jsonEncodeOptions(): JsonEncodeOptions {
         return $this->jsonEncodeOptions;
     }
 
-    public function indent(): Indent
-    {
+    public function indent(): Indent {
         return $this->indent;
     }
 
-    public function newLine(): NewLine
-    {
+    public function newLine(): NewLine {
         return $this->newLine;
     }
 
-    public function hasFinalNewLine(): bool
-    {
+    public function hasFinalNewLine(): bool {
         return $this->hasFinalNewLine;
     }
 
-    public function withJsonEncodeOptions(JsonEncodeOptions $jsonEncodeOptions): self
-    {
+    public function withJsonEncodeOptions(
+        JsonEncodeOptions $jsonEncodeOptions,
+    ): self {
         $mutated = clone $this;
 
         $mutated->jsonEncodeOptions = $jsonEncodeOptions;
@@ -92,8 +87,7 @@ final class Format
         return $mutated;
     }
 
-    public function withIndent(Indent $indent): self
-    {
+    public function withIndent(Indent $indent): self {
         $mutated = clone $this;
 
         $mutated->indent = $indent;
@@ -101,8 +95,7 @@ final class Format
         return $mutated;
     }
 
-    public function withNewLine(NewLine $newLine): self
-    {
+    public function withNewLine(NewLine $newLine): self {
         $mutated = clone $this;
 
         $mutated->newLine = $newLine;
@@ -110,8 +103,7 @@ final class Format
         return $mutated;
     }
 
-    public function withHasFinalNewLine(bool $hasFinalNewLine): self
-    {
+    public function withHasFinalNewLine(bool $hasFinalNewLine): self {
         $mutated = clone $this;
 
         $mutated->hasFinalNewLine = $hasFinalNewLine;
@@ -119,8 +111,7 @@ final class Format
         return $mutated;
     }
 
-    private static function detectHasFinalNewLine(string $encoded): bool
-    {
+    private static function detectHasFinalNewLine(string $encoded): bool {
         if (\rtrim($encoded, " \t") === \rtrim($encoded)) {
             return false;
         }

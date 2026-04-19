@@ -22,11 +22,11 @@ class InterpolatedString extends Scalar {
     }
 
     public function getSubNodeNames(): array {
-        return ['parts'];
+        return ["parts"];
     }
 
     public function getType(): string {
-        return 'Scalar_InterpolatedString';
+        return "Scalar_InterpolatedString";
     }
 }
 

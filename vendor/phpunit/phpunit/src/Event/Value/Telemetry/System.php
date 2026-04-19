@@ -14,21 +14,22 @@ namespace PHPUnit\Event\Telemetry;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class System
-{
+final readonly class System {
     private StopWatch $stopWatch;
     private MemoryMeter $memoryMeter;
     private GarbageCollectorStatusProvider $garbageCollectorStatusProvider;
 
-    public function __construct(StopWatch $stopWatch, MemoryMeter $memoryMeter, GarbageCollectorStatusProvider $garbageCollectorStatusProvider)
-    {
-        $this->stopWatch                      = $stopWatch;
-        $this->memoryMeter                    = $memoryMeter;
+    public function __construct(
+        StopWatch $stopWatch,
+        MemoryMeter $memoryMeter,
+        GarbageCollectorStatusProvider $garbageCollectorStatusProvider,
+    ) {
+        $this->stopWatch = $stopWatch;
+        $this->memoryMeter = $memoryMeter;
         $this->garbageCollectorStatusProvider = $garbageCollectorStatusProvider;
     }
 
-    public function snapshot(): Snapshot
-    {
+    public function snapshot(): Snapshot {
         return new Snapshot(
             $this->stopWatch->current(),
             $this->memoryMeter->memoryUsage(),

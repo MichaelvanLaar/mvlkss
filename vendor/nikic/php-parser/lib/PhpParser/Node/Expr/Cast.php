@@ -20,6 +20,6 @@ abstract class Cast extends Expr {
     }
 
     public function getSubNodeNames(): array {
-        return ['expr'];
+        return ["expr"];
     }
 }

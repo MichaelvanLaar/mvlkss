@@ -24,6 +24,6 @@ abstract class AssignOp extends Expr {
     }
 
     public function getSubNodeNames(): array {
-        return ['var', 'expr'];
+        return ["var", "expr"];
     }
 }

@@ -17,8 +17,7 @@ use Iterator;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class TestDataCollectionIterator implements Iterator
-{
+final class TestDataCollectionIterator implements Iterator {
     /**
      * @var list<TestData>
      */
@@ -29,36 +28,30 @@ final class TestDataCollectionIterator implements Iterator
      */
     private int $position = 0;
 
-    public function __construct(TestDataCollection $data)
-    {
+    public function __construct(TestDataCollection $data) {
         $this->data = $data->asArray();
     }
 
-    public function rewind(): void
-    {
+    public function rewind(): void {
         $this->position = 0;
     }
 
-    public function valid(): bool
-    {
+    public function valid(): bool {
         return $this->position < count($this->data);
     }
 
     /**
      * @return non-negative-int
      */
-    public function key(): int
-    {
+    public function key(): int {
         return $this->position;
     }
 
-    public function current(): TestData
-    {
+    public function current(): TestData {
         return $this->data[$this->position];
     }
 
-    public function next(): void
-    {
+    public function next(): void {
         $this->position++;
     }
 }

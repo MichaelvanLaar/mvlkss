@@ -6,10 +6,10 @@ use PhpParser\Node\Expr\BinaryOp;
 
 class Coalesce extends BinaryOp {
     public function getOperatorSigil(): string {
-        return '??';
+        return "??";
     }
 
     public function getType(): string {
-        return 'Expr_BinaryOp_Coalesce';
+        return "Expr_BinaryOp_Coalesce";
     }
 }

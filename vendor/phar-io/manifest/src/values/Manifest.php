@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 /*
  * This file is part of PharIo\Manifest.
  *
@@ -31,13 +31,20 @@ class Manifest {
     /** @var BundledComponentCollection */
     private $bundledComponents;
 
-    public function __construct(ApplicationName $name, Version $version, Type $type, CopyrightInformation $copyrightInformation, RequirementCollection $requirements, BundledComponentCollection $bundledComponents) {
-        $this->name                 = $name;
-        $this->version              = $version;
-        $this->type                 = $type;
+    public function __construct(
+        ApplicationName $name,
+        Version $version,
+        Type $type,
+        CopyrightInformation $copyrightInformation,
+        RequirementCollection $requirements,
+        BundledComponentCollection $bundledComponents,
+    ) {
+        $this->name = $name;
+        $this->version = $version;
+        $this->type = $type;
         $this->copyrightInformation = $copyrightInformation;
-        $this->requirements         = $requirements;
-        $this->bundledComponents    = $bundledComponents;
+        $this->requirements = $requirements;
+        $this->bundledComponents = $bundledComponents;
     }
 
     public function getName(): ApplicationName {
@@ -76,7 +83,10 @@ class Manifest {
         return $this->type->isExtension();
     }
 
-    public function isExtensionFor(ApplicationName $application, ?Version $version = null): bool {
+    public function isExtensionFor(
+        ApplicationName $application,
+        ?Version $version = null,
+    ): bool {
         if (!$this->isExtension()) {
             return false;
         }

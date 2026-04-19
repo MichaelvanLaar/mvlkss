@@ -23,29 +23,34 @@ use ReflectionMethod;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class Test
-{
+final readonly class Test {
     /**
      * @throws NoTestCaseObjectOnCallStackException
      */
-    public static function currentTestCase(): TestCase
-    {
-        foreach (debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT | DEBUG_BACKTRACE_IGNORE_ARGS) as $frame) {
-            if (isset($frame['object']) && $frame['object'] instanceof TestCase) {
-                return $frame['object'];
+    public static function currentTestCase(): TestCase {
+        foreach (
+            debug_backtrace(
+                DEBUG_BACKTRACE_PROVIDE_OBJECT | DEBUG_BACKTRACE_IGNORE_ARGS,
+            )
+            as $frame
+        ) {
+            if (
+                isset($frame["object"]) &&
+                $frame["object"] instanceof TestCase
+            ) {
+                return $frame["object"];
             }
         }
 
-        throw new NoTestCaseObjectOnCallStackException;
+        throw new NoTestCaseObjectOnCallStackException();
     }
 
-    public static function isTestMethod(ReflectionMethod $method): bool
-    {
+    public static function isTestMethod(ReflectionMethod $method): bool {
         if (!$method->isPublic()) {
             return false;
         }
 
-        if (str_starts_with($method->getName(), 'test')) {
+        if (str_starts_with($method->getName(), "test")) {
             return true;
         }
 

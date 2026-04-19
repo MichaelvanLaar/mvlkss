@@ -23,8 +23,7 @@ use IteratorAggregate;
  *
  * @template-implements IteratorAggregate<non-negative-int, DOMNode>
  */
-final class SnapshotNodeList implements Countable, IteratorAggregate
-{
+final class SnapshotNodeList implements Countable, IteratorAggregate {
     /**
      * @var list<DOMNode>
      */
@@ -33,9 +32,8 @@ final class SnapshotNodeList implements Countable, IteratorAggregate
     /**
      * @param DOMNodeList<DOMNode> $list
      */
-    public static function fromNodeList(DOMNodeList $list): self
-    {
-        $snapshot = new self;
+    public static function fromNodeList(DOMNodeList $list): self {
+        $snapshot = new self();
 
         foreach ($list as $node) {
             $snapshot->nodes[] = $node;
@@ -44,16 +42,14 @@ final class SnapshotNodeList implements Countable, IteratorAggregate
         return $snapshot;
     }
 
-    public function count(): int
-    {
+    public function count(): int {
         return count($this->nodes);
     }
 
     /**
      * @return ArrayIterator<int, DOMNode>
      */
-    public function getIterator(): ArrayIterator
-    {
+    public function getIterator(): ArrayIterator {
         return new ArrayIterator($this->nodes);
     }
 }

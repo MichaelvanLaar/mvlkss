@@ -23,8 +23,7 @@ use ReflectionException;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class ListTestFilesCommand implements Command
-{
+final readonly class ListTestFilesCommand implements Command {
     /**
      * @var list<PhptTestCase|TestCase>
      */
@@ -33,17 +32,15 @@ final readonly class ListTestFilesCommand implements Command
     /**
      * @param list<PhptTestCase|TestCase> $tests
      */
-    public function __construct(array $tests)
-    {
+    public function __construct(array $tests) {
         $this->tests = $tests;
     }
 
     /**
      * @throws ReflectionException
      */
-    public function execute(): Result
-    {
-        $buffer = 'Available test files:' . PHP_EOL;
+    public function execute(): Result {
+        $buffer = "Available test files:" . PHP_EOL;
 
         $results = [];
 
@@ -62,10 +59,7 @@ final readonly class ListTestFilesCommand implements Command
         }
 
         foreach (array_unique($results) as $result) {
-            $buffer .= sprintf(
-                ' - %s' . PHP_EOL,
-                $result,
-            );
+            $buffer .= sprintf(" - %s" . PHP_EOL, $result);
         }
 
         return Result::from($buffer);

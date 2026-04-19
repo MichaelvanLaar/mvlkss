@@ -9,6 +9,6 @@
 if (typeof window === "undefined" || typeof document === "undefined") {
   throw new Error(
     "Test setup error: jsdom environment is not active. " +
-      "Ensure vitest.config.js sets environment: \"jsdom\".",
+      'Ensure vitest.config.js sets environment: "jsdom".',
   );
 }

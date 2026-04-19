@@ -16,65 +16,55 @@ namespace PHPUnit\Framework\TestSize;
  *
  * @immutable
  */
-abstract readonly class TestSize
-{
-    public static function unknown(): self
-    {
-        return new Unknown;
+abstract readonly class TestSize {
+    public static function unknown(): self {
+        return new Unknown();
     }
 
-    public static function small(): self
-    {
-        return new Small;
+    public static function small(): self {
+        return new Small();
     }
 
-    public static function medium(): self
-    {
-        return new Medium;
+    public static function medium(): self {
+        return new Medium();
     }
 
-    public static function large(): self
-    {
-        return new Large;
+    public static function large(): self {
+        return new Large();
     }
 
     /**
      * @phpstan-assert-if-true Known $this
      */
-    public function isKnown(): bool
-    {
+    public function isKnown(): bool {
         return false;
     }
 
     /**
      * @phpstan-assert-if-true Unknown $this
      */
-    public function isUnknown(): bool
-    {
+    public function isUnknown(): bool {
         return false;
     }
 
     /**
      * @phpstan-assert-if-true Small $this
      */
-    public function isSmall(): bool
-    {
+    public function isSmall(): bool {
         return false;
     }
 
     /**
      * @phpstan-assert-if-true Medium $this
      */
-    public function isMedium(): bool
-    {
+    public function isMedium(): bool {
         return false;
     }
 
     /**
      * @phpstan-assert-if-true Large $this
      */
-    public function isLarge(): bool
-    {
+    public function isLarge(): bool {
         return false;
     }
 

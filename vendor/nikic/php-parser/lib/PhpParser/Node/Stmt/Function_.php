@@ -40,18 +40,22 @@ class Function_ extends Node\Stmt implements FunctionLike {
      *             'attrGroups' => array(): PHP attribute groups
      * @param array<string, mixed> $attributes Additional attributes
      */
-    public function __construct($name, array $subNodes = [], array $attributes = []) {
+    public function __construct(
+        $name,
+        array $subNodes = [],
+        array $attributes = [],
+    ) {
         $this->attributes = $attributes;
-        $this->byRef = $subNodes['byRef'] ?? false;
+        $this->byRef = $subNodes["byRef"] ?? false;
         $this->name = \is_string($name) ? new Node\Identifier($name) : $name;
-        $this->params = $subNodes['params'] ?? [];
-        $this->returnType = $subNodes['returnType'] ?? null;
-        $this->stmts = $subNodes['stmts'] ?? [];
-        $this->attrGroups = $subNodes['attrGroups'] ?? [];
+        $this->params = $subNodes["params"] ?? [];
+        $this->returnType = $subNodes["returnType"] ?? null;
+        $this->stmts = $subNodes["stmts"] ?? [];
+        $this->attrGroups = $subNodes["attrGroups"] ?? [];
     }
 
     public function getSubNodeNames(): array {
-        return ['attrGroups', 'byRef', 'name', 'params', 'returnType', 'stmts'];
+        return ["attrGroups", "byRef", "name", "params", "returnType", "stmts"];
     }
 
     public function returnsByRef(): bool {
@@ -76,6 +80,6 @@ class Function_ extends Node\Stmt implements FunctionLike {
     }
 
     public function getType(): string {
-        return 'Stmt_Function';
+        return "Stmt_Function";
     }
 }

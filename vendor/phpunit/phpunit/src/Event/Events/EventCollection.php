@@ -18,15 +18,13 @@ use IteratorAggregate;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class EventCollection implements Countable, IteratorAggregate
-{
+final class EventCollection implements Countable, IteratorAggregate {
     /**
      * @var list<Event>
      */
     private array $events = [];
 
-    public function add(Event ...$events): void
-    {
+    public function add(Event ...$events): void {
         foreach ($events as $event) {
             $this->events[] = $event;
         }
@@ -35,28 +33,23 @@ final class EventCollection implements Countable, IteratorAggregate
     /**
      * @return list<Event>
      */
-    public function asArray(): array
-    {
+    public function asArray(): array {
         return $this->events;
     }
 
-    public function count(): int
-    {
+    public function count(): int {
         return count($this->events);
     }
 
-    public function isEmpty(): bool
-    {
+    public function isEmpty(): bool {
         return $this->count() === 0;
     }
 
-    public function isNotEmpty(): bool
-    {
+    public function isNotEmpty(): bool {
         return $this->count() > 0;
     }
 
-    public function getIterator(): EventCollectionIterator
-    {
+    public function getIterator(): EventCollectionIterator {
         return new EventCollectionIterator($this);
     }
 }

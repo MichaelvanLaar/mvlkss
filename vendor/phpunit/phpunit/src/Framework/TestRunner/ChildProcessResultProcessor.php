@@ -22,23 +22,29 @@ use PHPUnit\TestRunner\TestResult\PassedTests;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class ChildProcessResultProcessor
-{
+final readonly class ChildProcessResultProcessor {
     private Facade $eventFacade;
     private Emitter $emitter;
     private PassedTests $passedTests;
     private CodeCoverage $codeCoverage;
 
-    public function __construct(Facade $eventFacade, Emitter $emitter, PassedTests $passedTests, CodeCoverage $codeCoverage)
-    {
-        $this->eventFacade  = $eventFacade;
-        $this->emitter      = $emitter;
-        $this->passedTests  = $passedTests;
+    public function __construct(
+        Facade $eventFacade,
+        Emitter $emitter,
+        PassedTests $passedTests,
+        CodeCoverage $codeCoverage,
+    ) {
+        $this->eventFacade = $eventFacade;
+        $this->emitter = $emitter;
+        $this->passedTests = $passedTests;
         $this->codeCoverage = $codeCoverage;
     }
 
-    public function process(Test $test, string $serializedProcessResult, string $stderr): void
-    {
+    public function process(
+        Test $test,
+        string $serializedProcessResult,
+        string $stderr,
+    ): void {
         if (!empty($stderr)) {
             $exception = new Exception(trim($stderr));
 
@@ -55,7 +61,9 @@ final readonly class ChildProcessResultProcessor
         $childResult = @unserialize($serializedProcessResult);
 
         if ($childResult === false) {
-            $exception = new AssertionFailedError('Test was run in child process and ended unexpectedly');
+            $exception = new AssertionFailedError(
+                "Test was run in child process and ended unexpectedly",
+            );
 
             assert($test instanceof TestCase);
 
@@ -72,26 +80,31 @@ final readonly class ChildProcessResultProcessor
             return;
         }
 
-        $this->eventFacade->forward($childResult['events']);
-        $this->passedTests->import($childResult['passedTests']);
+        $this->eventFacade->forward($childResult["events"]);
+        $this->passedTests->import($childResult["passedTests"]);
 
         assert($test instanceof TestCase);
 
-        $test->setResult($childResult['testResult']);
-        $test->addToAssertionCount($childResult['numAssertions']);
+        $test->setResult($childResult["testResult"]);
+        $test->addToAssertionCount($childResult["numAssertions"]);
 
         if (!$this->codeCoverage->isActive()) {
             return;
         }
 
         // @codeCoverageIgnoreStart
-        if (!$childResult['codeCoverage'] instanceof \SebastianBergmann\CodeCoverage\CodeCoverage) {
+        if (
+            !(
+                $childResult["codeCoverage"] instanceof
+                \SebastianBergmann\CodeCoverage\CodeCoverage
+            )
+        ) {
             return;
         }
 
-        CodeCoverage::instance()->codeCoverage()->merge(
-            $childResult['codeCoverage'],
-        );
+        CodeCoverage::instance()
+            ->codeCoverage()
+            ->merge($childResult["codeCoverage"]);
         // @codeCoverageIgnoreEnd
     }
 }

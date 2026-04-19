@@ -17,34 +17,42 @@ use DOMElement;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class MoveWhitelistIncludesToCoverage implements Migration
-{
+final readonly class MoveWhitelistIncludesToCoverage implements Migration {
     /**
      * @throws MigrationException
      */
-    public function migrate(DOMDocument $document): void
-    {
-        $whitelist = $document->getElementsByTagName('whitelist')->item(0);
+    public function migrate(DOMDocument $document): void {
+        $whitelist = $document->getElementsByTagName("whitelist")->item(0);
 
         if ($whitelist === null) {
             return;
         }
 
-        $coverage = $document->getElementsByTagName('coverage')->item(0);
+        $coverage = $document->getElementsByTagName("coverage")->item(0);
 
-        if (!$coverage instanceof DOMElement) {
-            throw new MigrationException('Unexpected state - No coverage element');
+        if (!($coverage instanceof DOMElement)) {
+            throw new MigrationException(
+                "Unexpected state - No coverage element",
+            );
         }
 
-        $include = $document->createElement('include');
+        $include = $document->createElement("include");
         $coverage->appendChild($include);
 
-        foreach (SnapshotNodeList::fromNodeList($whitelist->childNodes) as $child) {
-            if (!$child instanceof DOMElement) {
+        foreach (
+            SnapshotNodeList::fromNodeList($whitelist->childNodes)
+            as $child
+        ) {
+            if (!($child instanceof DOMElement)) {
                 continue;
             }
 
-            if (!($child->nodeName === 'directory' || $child->nodeName === 'file')) {
+            if (
+                !(
+                    $child->nodeName === "directory" ||
+                    $child->nodeName === "file"
+                )
+            ) {
                 continue;
             }
 

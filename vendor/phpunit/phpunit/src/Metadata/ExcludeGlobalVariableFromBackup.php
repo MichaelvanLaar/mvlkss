@@ -14,8 +14,7 @@ namespace PHPUnit\Metadata;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class ExcludeGlobalVariableFromBackup extends Metadata
-{
+final readonly class ExcludeGlobalVariableFromBackup extends Metadata {
     /**
      * @var non-empty-string
      */
@@ -25,23 +24,20 @@ final readonly class ExcludeGlobalVariableFromBackup extends Metadata
      * @param 0|1              $level
      * @param non-empty-string $globalVariableName
      */
-    protected function __construct(int $level, string $globalVariableName)
-    {
+    protected function __construct(int $level, string $globalVariableName) {
         parent::__construct($level);
 
         $this->globalVariableName = $globalVariableName;
     }
 
-    public function isExcludeGlobalVariableFromBackup(): true
-    {
+    public function isExcludeGlobalVariableFromBackup(): true {
         return true;
     }
 
     /**
      * @return non-empty-string
      */
-    public function globalVariableName(): string
-    {
+    public function globalVariableName(): string {
         return $this->globalVariableName;
     }
 }

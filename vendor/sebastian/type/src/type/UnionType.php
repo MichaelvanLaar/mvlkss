@@ -17,8 +17,7 @@ use function sort;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for this library
  */
-final class UnionType extends Type
-{
+final class UnionType extends Type {
     /**
      * @var non-empty-list<Type>
      */
@@ -27,8 +26,7 @@ final class UnionType extends Type
     /**
      * @throws RuntimeException
      */
-    public function __construct(Type ...$types)
-    {
+    public function __construct(Type ...$types) {
         $this->ensureMinimumOfTwoTypes(...$types);
         $this->ensureOnlyValidTypes(...$types);
 
@@ -37,8 +35,7 @@ final class UnionType extends Type
         $this->types = $types;
     }
 
-    public function isAssignable(Type $other): bool
-    {
+    public function isAssignable(Type $other): bool {
         foreach ($this->types as $type) {
             if ($type->isAssignable($other)) {
                 return true;
@@ -51,21 +48,19 @@ final class UnionType extends Type
     /**
      * @return non-empty-string
      */
-    public function asString(): string
-    {
+    public function asString(): string {
         return $this->name();
     }
 
     /**
      * @return non-empty-string
      */
-    public function name(): string
-    {
+    public function name(): string {
         $types = [];
 
         foreach ($this->types as $type) {
             if ($type->isIntersection()) {
-                $types[] = '(' . $type->name() . ')';
+                $types[] = "(" . $type->name() . ")";
 
                 continue;
             }
@@ -75,11 +70,10 @@ final class UnionType extends Type
 
         sort($types);
 
-        return implode('|', $types);
+        return implode("|", $types);
     }
 
-    public function allowsNull(): bool
-    {
+    public function allowsNull(): bool {
         foreach ($this->types as $type) {
             if ($type instanceof NullType) {
                 return true;
@@ -89,13 +83,11 @@ final class UnionType extends Type
         return false;
     }
 
-    public function isUnion(): bool
-    {
+    public function isUnion(): bool {
         return true;
     }
 
-    public function containsIntersectionTypes(): bool
-    {
+    public function containsIntersectionTypes(): bool {
         foreach ($this->types as $type) {
             if ($type->isIntersection()) {
                 return true;
@@ -108,19 +100,17 @@ final class UnionType extends Type
     /**
      * @return non-empty-list<Type>
      */
-    public function types(): array
-    {
+    public function types(): array {
         return $this->types;
     }
 
     /**
      * @throws RuntimeException
      */
-    private function ensureMinimumOfTwoTypes(Type ...$types): void
-    {
+    private function ensureMinimumOfTwoTypes(Type ...$types): void {
         if (count($types) < 2) {
             throw new RuntimeException(
-                'A union type must be composed of at least two types',
+                "A union type must be composed of at least two types",
             );
         }
     }
@@ -128,18 +118,17 @@ final class UnionType extends Type
     /**
      * @throws RuntimeException
      */
-    private function ensureOnlyValidTypes(Type ...$types): void
-    {
+    private function ensureOnlyValidTypes(Type ...$types): void {
         foreach ($types as $type) {
             if ($type instanceof UnknownType) {
                 throw new RuntimeException(
-                    'A union type must not be composed of an unknown type',
+                    "A union type must not be composed of an unknown type",
                 );
             }
 
             if ($type instanceof VoidType) {
                 throw new RuntimeException(
-                    'A union type must not be composed of a void type',
+                    "A union type must not be composed of a void type",
                 );
             }
         }

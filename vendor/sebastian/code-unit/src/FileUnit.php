@@ -12,10 +12,8 @@ namespace SebastianBergmann\CodeUnit;
 /**
  * @immutable
  */
-final readonly class FileUnit extends CodeUnit
-{
-    public function isFile(): bool
-    {
+final readonly class FileUnit extends CodeUnit {
+    public function isFile(): bool {
         return true;
     }
 }

@@ -4,7 +4,7 @@ namespace PhpParser\Node\Scalar;
 
 use PhpParser\Node\InterpolatedStringPart;
 
-require __DIR__ . '/../InterpolatedStringPart.php';
+require __DIR__ . "/../InterpolatedStringPart.php";
 
 if (false) {
     /**
@@ -12,6 +12,5 @@ if (false) {
      *
      * @deprecated use \PhpParser\Node\InterpolatedStringPart instead.
      */
-    class EncapsedStringPart extends InterpolatedStringPart {
-    }
+    class EncapsedStringPart extends InterpolatedStringPart {}
 }

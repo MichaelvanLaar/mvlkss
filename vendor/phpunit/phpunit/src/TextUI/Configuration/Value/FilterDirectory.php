@@ -14,8 +14,7 @@ namespace PHPUnit\TextUI\Configuration;
  *
  * @immutable
  */
-final readonly class FilterDirectory
-{
+final readonly class FilterDirectory {
     /**
      * @var non-empty-string
      */
@@ -26,9 +25,8 @@ final readonly class FilterDirectory
     /**
      * @param non-empty-string $path
      */
-    public function __construct(string $path, string $prefix, string $suffix)
-    {
-        $this->path   = $path;
+    public function __construct(string $path, string $prefix, string $suffix) {
+        $this->path = $path;
         $this->prefix = $prefix;
         $this->suffix = $suffix;
     }
@@ -36,18 +34,15 @@ final readonly class FilterDirectory
     /**
      * @return non-empty-string
      */
-    public function path(): string
-    {
+    public function path(): string {
         return $this->path;
     }
 
-    public function prefix(): string
-    {
+    public function prefix(): string {
         return $this->prefix;
     }
 
-    public function suffix(): string
-    {
+    public function suffix(): string {
         return $this->suffix;
     }
 }

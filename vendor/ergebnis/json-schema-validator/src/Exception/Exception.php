@@ -13,6 +13,4 @@ declare(strict_types=1);
 
 namespace Ergebnis\Json\SchemaValidator\Exception;
 
-interface Exception extends \Throwable
-{
-}
+interface Exception extends \Throwable {}

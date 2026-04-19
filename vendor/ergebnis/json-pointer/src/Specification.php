@@ -13,35 +13,32 @@ declare(strict_types=1);
 
 namespace Ergebnis\Json\Pointer;
 
-final class Specification
-{
+final class Specification {
     private \Closure $closure;
 
     /**
      * @param \Closure(JsonPointer):bool $closure
      */
-    private function __construct(\Closure $closure)
-    {
+    private function __construct(\Closure $closure) {
         $this->closure = $closure;
     }
 
-    public function isSatisfiedBy(JsonPointer $jsonPointer): bool
-    {
+    public function isSatisfiedBy(JsonPointer $jsonPointer): bool {
         $closure = $this->closure;
 
         return $closure($jsonPointer);
     }
 
-    public static function always(): self
-    {
+    public static function always(): self {
         return new self(static function (): bool {
             return true;
         });
     }
 
-    public static function anyOf(self ...$specifications): self
-    {
-        return new self(static function (JsonPointer $jsonPointer) use ($specifications): bool {
+    public static function anyOf(self ...$specifications): self {
+        return new self(static function (JsonPointer $jsonPointer) use (
+            $specifications,
+        ): bool {
             foreach ($specifications as $specification) {
                 if ($specification->isSatisfiedBy($jsonPointer)) {
                     return true;
@@ -55,30 +52,32 @@ final class Specification
     /**
      * @param \Closure(JsonPointer):bool $closure
      */
-    public static function closure(\Closure $closure): self
-    {
-        return new self(static function (JsonPointer $jsonPointer) use ($closure): bool {
+    public static function closure(\Closure $closure): self {
+        return new self(static function (JsonPointer $jsonPointer) use (
+            $closure,
+        ): bool {
             return true === $closure($jsonPointer);
         });
     }
 
-    public static function equals(JsonPointer $other): self
-    {
-        return new self(static function (JsonPointer $jsonPointer) use ($other): bool {
+    public static function equals(JsonPointer $other): self {
+        return new self(static function (JsonPointer $jsonPointer) use (
+            $other,
+        ): bool {
             return $jsonPointer->equals($other);
         });
     }
 
-    public static function never(): self
-    {
+    public static function never(): self {
         return new self(static function (): bool {
             return false;
         });
     }
 
-    public static function not(self $specification): self
-    {
-        return new self(static function (JsonPointer $jsonPointer) use ($specification): bool {
+    public static function not(self $specification): self {
+        return new self(static function (JsonPointer $jsonPointer) use (
+            $specification,
+        ): bool {
             return !$specification->isSatisfiedBy($jsonPointer);
         });
     }

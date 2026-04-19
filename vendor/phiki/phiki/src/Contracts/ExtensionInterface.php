@@ -4,7 +4,6 @@ namespace Phiki\Contracts;
 
 use Phiki\Environment\Environment;
 
-interface ExtensionInterface
-{
+interface ExtensionInterface {
     public function register(Environment $environment): void;
 }

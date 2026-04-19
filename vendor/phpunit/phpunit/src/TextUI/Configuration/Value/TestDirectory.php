@@ -16,8 +16,7 @@ use PHPUnit\Util\VersionComparisonOperator;
  *
  * @immutable
  */
-final readonly class TestDirectory
-{
+final readonly class TestDirectory {
     /**
      * @var non-empty-string
      */
@@ -36,49 +35,49 @@ final readonly class TestDirectory
      * @param non-empty-string       $path
      * @param list<non-empty-string> $groups
      */
-    public function __construct(string $path, string $prefix, string $suffix, string $phpVersion, VersionComparisonOperator $phpVersionOperator, array $groups)
-    {
-        $this->path               = $path;
-        $this->prefix             = $prefix;
-        $this->suffix             = $suffix;
-        $this->phpVersion         = $phpVersion;
+    public function __construct(
+        string $path,
+        string $prefix,
+        string $suffix,
+        string $phpVersion,
+        VersionComparisonOperator $phpVersionOperator,
+        array $groups,
+    ) {
+        $this->path = $path;
+        $this->prefix = $prefix;
+        $this->suffix = $suffix;
+        $this->phpVersion = $phpVersion;
         $this->phpVersionOperator = $phpVersionOperator;
-        $this->groups             = $groups;
+        $this->groups = $groups;
     }
 
     /**
      * @return non-empty-string
      */
-    public function path(): string
-    {
+    public function path(): string {
         return $this->path;
     }
 
-    public function prefix(): string
-    {
+    public function prefix(): string {
         return $this->prefix;
     }
 
-    public function suffix(): string
-    {
+    public function suffix(): string {
         return $this->suffix;
     }
 
-    public function phpVersion(): string
-    {
+    public function phpVersion(): string {
         return $this->phpVersion;
     }
 
-    public function phpVersionOperator(): VersionComparisonOperator
-    {
+    public function phpVersionOperator(): VersionComparisonOperator {
         return $this->phpVersionOperator;
     }
 
     /**
      * @return list<non-empty-string>
      */
-    public function groups(): array
-    {
+    public function groups(): array {
         return $this->groups;
     }
 }

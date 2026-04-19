@@ -14,10 +14,8 @@ namespace PHPUnit\Metadata;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class IgnoreDeprecations extends Metadata
-{
-    public function isIgnoreDeprecations(): true
-    {
+final readonly class IgnoreDeprecations extends Metadata {
+    public function isIgnoreDeprecations(): true {
         return true;
     }
 }

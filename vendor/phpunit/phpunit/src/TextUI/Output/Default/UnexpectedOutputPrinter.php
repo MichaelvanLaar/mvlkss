@@ -19,23 +19,21 @@ use PHPUnit\TextUI\Output\Printer;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class UnexpectedOutputPrinter implements PrintedUnexpectedOutputSubscriber
-{
+final readonly class UnexpectedOutputPrinter implements
+    PrintedUnexpectedOutputSubscriber {
     private Printer $printer;
 
     /**
      * @throws EventFacadeIsSealedException
      * @throws UnknownSubscriberTypeException
      */
-    public function __construct(Printer $printer, Facade $facade)
-    {
+    public function __construct(Printer $printer, Facade $facade) {
         $this->printer = $printer;
 
         $facade->registerSubscriber($this);
     }
 
-    public function notify(PrintedUnexpectedOutput $event): void
-    {
+    public function notify(PrintedUnexpectedOutput $event): void {
         $this->printer->print($event->output());
     }
 }

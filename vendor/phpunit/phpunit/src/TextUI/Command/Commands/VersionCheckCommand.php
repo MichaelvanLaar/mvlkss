@@ -20,45 +20,56 @@ use PHPUnit\Util\Http\Downloader;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class VersionCheckCommand implements Command
-{
+final readonly class VersionCheckCommand implements Command {
     private Downloader $downloader;
     private int $majorVersionNumber;
     private string $versionId;
 
-    public function __construct(Downloader $downloader, int $majorVersionNumber, string $versionId)
-    {
-        $this->downloader         = $downloader;
+    public function __construct(
+        Downloader $downloader,
+        int $majorVersionNumber,
+        string $versionId,
+    ) {
+        $this->downloader = $downloader;
         $this->majorVersionNumber = $majorVersionNumber;
-        $this->versionId          = $versionId;
+        $this->versionId = $versionId;
     }
 
-    public function execute(): Result
-    {
-        $latestVersion = $this->downloader->download('https://phar.phpunit.de/latest-version-of/phpunit');
+    public function execute(): Result {
+        $latestVersion = $this->downloader->download(
+            "https://phar.phpunit.de/latest-version-of/phpunit",
+        );
 
         assert($latestVersion !== false);
 
-        $latestCompatibleVersion = $this->downloader->download('https://phar.phpunit.de/latest-version-of/phpunit-' . $this->majorVersionNumber);
+        $latestCompatibleVersion = $this->downloader->download(
+            "https://phar.phpunit.de/latest-version-of/phpunit-" .
+                $this->majorVersionNumber,
+        );
 
-        $notLatest           = version_compare($latestVersion, $this->versionId, '>');
+        $notLatest = version_compare($latestVersion, $this->versionId, ">");
         $notLatestCompatible = false;
 
         if ($latestCompatibleVersion !== false) {
-            $notLatestCompatible = version_compare($latestCompatibleVersion, $this->versionId, '>');
+            $notLatestCompatible = version_compare(
+                $latestCompatibleVersion,
+                $this->versionId,
+                ">",
+            );
         }
 
         if (!$notLatest && !$notLatestCompatible) {
             return Result::from(
-                'You are using the latest version of PHPUnit.' . PHP_EOL,
+                "You are using the latest version of PHPUnit." . PHP_EOL,
             );
         }
 
-        $buffer = 'You are not using the latest version of PHPUnit.' . PHP_EOL;
+        $buffer = "You are not using the latest version of PHPUnit." . PHP_EOL;
 
         if ($notLatestCompatible) {
             $buffer .= sprintf(
-                'The latest version compatible with PHPUnit %s is PHPUnit %s.' . PHP_EOL,
+                "The latest version compatible with PHPUnit %s is PHPUnit %s." .
+                    PHP_EOL,
                 $this->versionId,
                 $latestCompatibleVersion,
             );
@@ -66,7 +77,7 @@ final readonly class VersionCheckCommand implements Command
 
         if ($notLatest) {
             $buffer .= sprintf(
-                'The latest version is PHPUnit %s.' . PHP_EOL,
+                "The latest version is PHPUnit %s." . PHP_EOL,
                 $latestVersion,
             );
         }

@@ -19,38 +19,34 @@ use DOMXPath;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class RemoveLoggingElements implements Migration
-{
-    public function migrate(DOMDocument $document): void
-    {
+final readonly class RemoveLoggingElements implements Migration {
+    public function migrate(DOMDocument $document): void {
         $this->removeTestDoxElement($document);
         $this->removeTextElement($document);
     }
 
-    private function removeTestDoxElement(DOMDocument $document): void
-    {
-        $nodes = (new DOMXPath($document))->query('logging/testdoxXml');
+    private function removeTestDoxElement(DOMDocument $document): void {
+        $nodes = (new DOMXPath($document))->query("logging/testdoxXml");
 
         assert($nodes !== false);
 
         $node = $nodes->item(0);
 
-        if (!$node instanceof DOMElement || $node->parentNode === null) {
+        if (!($node instanceof DOMElement) || $node->parentNode === null) {
             return;
         }
 
         $node->parentNode->removeChild($node);
     }
 
-    private function removeTextElement(DOMDocument $document): void
-    {
-        $nodes = (new DOMXPath($document))->query('logging/text');
+    private function removeTextElement(DOMDocument $document): void {
+        $nodes = (new DOMXPath($document))->query("logging/text");
 
         assert($nodes !== false);
 
         $node = $nodes->item(0);
 
-        if (!$node instanceof DOMElement || $node->parentNode === null) {
+        if (!($node instanceof DOMElement) || $node->parentNode === null) {
             return;
         }
 

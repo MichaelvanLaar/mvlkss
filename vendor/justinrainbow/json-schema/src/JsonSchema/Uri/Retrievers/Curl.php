@@ -19,15 +19,13 @@ use JsonSchema\Validator;
  *
  * @author Sander Coolen <sander@jibber.nl>
  */
-class Curl extends AbstractRetriever
-{
+class Curl extends AbstractRetriever {
     protected $messageBody;
 
-    public function __construct()
-    {
-        if (!function_exists('curl_init')) {
+    public function __construct() {
+        if (!function_exists("curl_init")) {
             // Cannot test this, because curl_init is present on all test platforms plus mock
-            throw new RuntimeException('cURL not installed'); // @codeCoverageIgnore
+            throw new RuntimeException("cURL not installed"); // @codeCoverageIgnore
         }
     }
 
@@ -36,18 +34,21 @@ class Curl extends AbstractRetriever
      *
      * @see \JsonSchema\Uri\Retrievers\UriRetrieverInterface::retrieve()
      */
-    public function retrieve($uri)
-    {
+    public function retrieve($uri) {
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_URL, $uri);
         curl_setopt($ch, CURLOPT_HEADER, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Accept: ' . Validator::SCHEMA_MEDIA_TYPE]);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            "Accept: " . Validator::SCHEMA_MEDIA_TYPE,
+        ]);
 
         $response = curl_exec($ch);
         if (false === $response) {
-            throw new \JsonSchema\Exception\ResourceNotFoundException('JSON schema not found');
+            throw new \JsonSchema\Exception\ResourceNotFoundException(
+                "JSON schema not found",
+            );
         }
 
         $this->fetchMessageBody($response);
@@ -63,8 +64,7 @@ class Curl extends AbstractRetriever
     /**
      * @param string $response cURL HTTP response
      */
-    private function fetchMessageBody($response)
-    {
+    private function fetchMessageBody($response) {
         preg_match("/(?:\r\n){2}(.*)$/ms", $response, $match);
         $this->messageBody = $match[1];
     }
@@ -74,8 +74,7 @@ class Curl extends AbstractRetriever
      *
      * @return bool Whether the Content-Type header was found or not
      */
-    protected function fetchContentType($response)
-    {
+    protected function fetchContentType($response) {
         if (0 < preg_match("/Content-Type:(\V*)/ims", $response, $match)) {
             $this->contentType = trim($match[1]);
 

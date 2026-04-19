@@ -14,7 +14,6 @@ namespace PHPUnit\TextUI\Command;
  *
  * @internal This interface is not covered by the backward compatibility promise for PHPUnit
  */
-interface Command
-{
+interface Command {
     public function execute(): Result;
 }

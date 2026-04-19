@@ -29,7 +29,7 @@ class ClassConst extends Node\Stmt {
         int $flags = 0,
         array $attributes = [],
         array $attrGroups = [],
-        ?Node $type = null
+        ?Node $type = null,
     ) {
         $this->attributes = $attributes;
         $this->flags = $flags;
@@ -39,15 +39,15 @@ class ClassConst extends Node\Stmt {
     }
 
     public function getSubNodeNames(): array {
-        return ['attrGroups', 'flags', 'type', 'consts'];
+        return ["attrGroups", "flags", "type", "consts"];
     }
 
     /**
      * Whether constant is explicitly or implicitly public.
      */
     public function isPublic(): bool {
-        return ($this->flags & Modifiers::PUBLIC) !== 0
-            || ($this->flags & Modifiers::VISIBILITY_MASK) === 0;
+        return ($this->flags & Modifiers::PUBLIC) !== 0 ||
+            ($this->flags & Modifiers::VISIBILITY_MASK) === 0;
     }
 
     /**
@@ -72,6 +72,6 @@ class ClassConst extends Node\Stmt {
     }
 
     public function getType(): string {
-        return 'Stmt_ClassConst';
+        return "Stmt_ClassConst";
     }
 }

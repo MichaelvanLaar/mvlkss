@@ -4,8 +4,7 @@ namespace Phiki\Contracts;
 
 use Phiki\Theme\ParsedTheme;
 
-interface ThemeRepositoryInterface
-{
+interface ThemeRepositoryInterface {
     /**
      * Get a theme from the repository.
      *
@@ -30,5 +29,8 @@ interface ThemeRepositoryInterface
      * @param  string  $name  The name of the theme.
      * @param  string|ParsedTheme  $pathOrTheme  The path to the theme file or the theme itself.
      */
-    public function register(string $name, string|ParsedTheme $pathOrTheme): void;
+    public function register(
+        string $name,
+        string|ParsedTheme $pathOrTheme,
+    ): void;
 }

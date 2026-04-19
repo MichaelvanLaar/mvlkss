@@ -9,8 +9,7 @@ namespace Whoops\Exception;
 use InvalidArgumentException;
 use Serializable;
 
-class Frame implements Serializable
-{
+class Frame implements Serializable {
     /**
      * @var array
      */
@@ -31,8 +30,7 @@ class Frame implements Serializable
      */
     protected $application;
 
-    public function __construct(array $frame)
-    {
+    public function __construct(array $frame) {
         $this->frame = $frame;
     }
 
@@ -40,27 +38,34 @@ class Frame implements Serializable
      * @param  bool        $shortened
      * @return string|null
      */
-    public function getFile($shortened = false)
-    {
-        if (empty($this->frame['file'])) {
+    public function getFile($shortened = false) {
+        if (empty($this->frame["file"])) {
             return null;
         }
 
-        $file = $this->frame['file'];
+        $file = $this->frame["file"];
 
         // Check if this frame occurred within an eval().
         // @todo: This can be made more reliable by checking if we've entered
         // eval() in a previous trace, but will need some more work on the upper
         // trace collector(s).
-        if (preg_match('/^(.*)\((\d+)\) : (?:eval\(\)\'d|assert) code$/', $file, $matches)) {
-            $file = $this->frame['file'] = $matches[1];
-            $this->frame['line'] = (int) $matches[2];
+        if (
+            preg_match(
+                '/^(.*)\((\d+)\) : (?:eval\(\)\'d|assert) code$/',
+                $file,
+                $matches,
+            )
+        ) {
+            $file = $this->frame["file"] = $matches[1];
+            $this->frame["line"] = (int) $matches[2];
         }
 
         if ($shortened && is_string($file)) {
             // Replace the part of the path that all frames have in common, and add 'soft hyphens' for smoother line-breaks.
-            $dirname = dirname(dirname(dirname(dirname(dirname(dirname(__DIR__))))));
-            if ($dirname !== '/') {
+            $dirname = dirname(
+                dirname(dirname(dirname(dirname(dirname(__DIR__))))),
+            );
+            if ($dirname !== "/") {
                 $file = str_replace($dirname, "&hellip;", $file);
             }
             $file = str_replace("/", "/&shy;", $file);
@@ -72,33 +77,31 @@ class Frame implements Serializable
     /**
      * @return int|null
      */
-    public function getLine()
-    {
-        return isset($this->frame['line']) ? $this->frame['line'] : null;
+    public function getLine() {
+        return isset($this->frame["line"]) ? $this->frame["line"] : null;
     }
 
     /**
      * @return string|null
      */
-    public function getClass()
-    {
-        return isset($this->frame['class']) ? $this->frame['class'] : null;
+    public function getClass() {
+        return isset($this->frame["class"]) ? $this->frame["class"] : null;
     }
 
     /**
      * @return string|null
      */
-    public function getFunction()
-    {
-        return isset($this->frame['function']) ? $this->frame['function'] : null;
+    public function getFunction() {
+        return isset($this->frame["function"])
+            ? $this->frame["function"]
+            : null;
     }
 
     /**
      * @return array
      */
-    public function getArgs()
-    {
-        return isset($this->frame['args']) ? (array) $this->frame['args'] : [];
+    public function getArgs() {
+        return isset($this->frame["args"]) ? (array) $this->frame["args"] : [];
     }
 
     /**
@@ -106,13 +109,15 @@ class Frame implements Serializable
      * if it's known.
      * @return string|null
      */
-    public function getFileContents()
-    {
-        if ($this->fileContentsCache === null && $filePath = $this->getFile()) {
+    public function getFileContents() {
+        if (
+            $this->fileContentsCache === null &&
+            ($filePath = $this->getFile())
+        ) {
             // Leave the stage early when 'Unknown' or '[internal]' is passed
             // this would otherwise raise an exception when
             // open_basedir is enabled.
-            if ($filePath === "Unknown" || $filePath === '[internal]') {
+            if ($filePath === "Unknown" || $filePath === "[internal]") {
                 return null;
             }
 
@@ -137,11 +142,10 @@ class Frame implements Serializable
      * @param string $comment
      * @param string $context Optional string identifying the origin of the comment
      */
-    public function addComment($comment, $context = 'global')
-    {
+    public function addComment($comment, $context = "global") {
         $this->comments[] = [
-            'comment' => $comment,
-            'context' => $context,
+            "comment" => $comment,
+            "context" => $context,
         ];
     }
 
@@ -153,13 +157,12 @@ class Frame implements Serializable
      * @param  string  $filter
      * @return array[]
      */
-    public function getComments($filter = null)
-    {
+    public function getComments($filter = null) {
         $comments = $this->comments;
 
         if ($filter !== null) {
             $comments = array_filter($comments, function ($c) use ($filter) {
-                return $c['context'] == $filter;
+                return $c["context"] == $filter;
             });
         }
 
@@ -172,8 +175,7 @@ class Frame implements Serializable
      *
      * @return array
      */
-    public function getRawFrame()
-    {
+    public function getRawFrame() {
         return $this->frame;
     }
 
@@ -195,14 +197,13 @@ class Frame implements Serializable
      * @param  int                      $length
      * @return string[]|null
      */
-    public function getFileLines($start = 0, $length = null)
-    {
+    public function getFileLines($start = 0, $length = null) {
         if (null !== ($contents = $this->getFileContents())) {
             $lines = explode("\n", $contents);
 
             // Get a subset of lines from $start to $end
             if ($length !== null) {
-                $start  = (int) $start;
+                $start = (int) $start;
                 $length = (int) $length;
                 if ($start < 0) {
                     $start = 0;
@@ -210,7 +211,7 @@ class Frame implements Serializable
 
                 if ($length <= 0) {
                     throw new InvalidArgumentException(
-                        "\$length($length) cannot be lower or equal to 0"
+                        "\$length($length) cannot be lower or equal to 0",
                     );
                 }
 
@@ -228,21 +229,19 @@ class Frame implements Serializable
      * @see Serializable::serialize
      * @return string
      */
-    public function serialize()
-    {
+    public function serialize() {
         $frame = $this->frame;
         if (!empty($this->comments)) {
-            $frame['_comments'] = $this->comments;
+            $frame["_comments"] = $this->comments;
         }
 
         return serialize($frame);
     }
 
-    public function __serialize()
-    {
+    public function __serialize() {
         $frame = $this->frame;
         if (!empty($this->comments)) {
-            $frame['_comments'] = $this->comments;
+            $frame["_comments"] = $this->comments;
         }
         return $frame;
     }
@@ -254,23 +253,21 @@ class Frame implements Serializable
      * @see Serializable::unserialize
      * @param string $serializedFrame
      */
-    public function unserialize($serializedFrame)
-    {
+    public function unserialize($serializedFrame) {
         $frame = unserialize($serializedFrame);
 
-        if (!empty($frame['_comments'])) {
-            $this->comments = $frame['_comments'];
-            unset($frame['_comments']);
+        if (!empty($frame["_comments"])) {
+            $this->comments = $frame["_comments"];
+            unset($frame["_comments"]);
         }
 
         $this->frame = $frame;
     }
 
-    public function __unserialize($frame)
-    {
-        if (!empty($frame['_comments'])) {
-            $this->comments = $frame['_comments'];
-            unset($frame['_comments']);
+    public function __unserialize($frame) {
+        if (!empty($frame["_comments"])) {
+            $this->comments = $frame["_comments"];
+            unset($frame["_comments"]);
         }
 
         $this->frame = $frame;
@@ -281,12 +278,16 @@ class Frame implements Serializable
      * @param  Frame $frame
      * @return bool
      */
-    public function equals(Frame $frame)
-    {
-        if (!$this->getFile() || $this->getFile() === 'Unknown' || !$this->getLine()) {
+    public function equals(Frame $frame) {
+        if (
+            !$this->getFile() ||
+            $this->getFile() === "Unknown" ||
+            !$this->getLine()
+        ) {
             return false;
         }
-        return $frame->getFile() === $this->getFile() && $frame->getLine() === $this->getLine();
+        return $frame->getFile() === $this->getFile() &&
+            $frame->getLine() === $this->getLine();
     }
 
     /**
@@ -294,8 +295,7 @@ class Frame implements Serializable
      *
      * @return boolean
      */
-    public function isApplication()
-    {
+    public function isApplication() {
         return $this->application;
     }
 
@@ -304,8 +304,7 @@ class Frame implements Serializable
      *
      * @param boolean $application
      */
-    public function setApplication($application)
-    {
+    public function setApplication($application) {
         $this->application = $application;
     }
 }

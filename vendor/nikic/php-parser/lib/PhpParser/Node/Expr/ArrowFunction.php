@@ -43,16 +43,23 @@ class ArrowFunction extends Expr implements FunctionLike {
      */
     public function __construct(array $subNodes, array $attributes = []) {
         $this->attributes = $attributes;
-        $this->static = $subNodes['static'] ?? false;
-        $this->byRef = $subNodes['byRef'] ?? false;
-        $this->params = $subNodes['params'] ?? [];
-        $this->returnType = $subNodes['returnType'] ?? null;
-        $this->expr = $subNodes['expr'];
-        $this->attrGroups = $subNodes['attrGroups'] ?? [];
+        $this->static = $subNodes["static"] ?? false;
+        $this->byRef = $subNodes["byRef"] ?? false;
+        $this->params = $subNodes["params"] ?? [];
+        $this->returnType = $subNodes["returnType"] ?? null;
+        $this->expr = $subNodes["expr"];
+        $this->attrGroups = $subNodes["attrGroups"] ?? [];
     }
 
     public function getSubNodeNames(): array {
-        return ['attrGroups', 'static', 'byRef', 'params', 'returnType', 'expr'];
+        return [
+            "attrGroups",
+            "static",
+            "byRef",
+            "params",
+            "returnType",
+            "expr",
+        ];
     }
 
     public function returnsByRef(): bool {
@@ -79,6 +86,6 @@ class ArrowFunction extends Expr implements FunctionLike {
     }
 
     public function getType(): string {
-        return 'Expr_ArrowFunction';
+        return "Expr_ArrowFunction";
     }
 }

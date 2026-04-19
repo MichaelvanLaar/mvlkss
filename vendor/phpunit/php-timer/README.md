@@ -25,11 +25,11 @@ composer require --dev phpunit/php-timer
 ### Basic Timing
 
 ```php
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . "/vendor/autoload.php";
 
 use SebastianBergmann\Timer\Timer;
 
-$timer = new Timer;
+$timer = new Timer();
 
 $timer->start();
 
@@ -63,19 +63,19 @@ int(2851062)
 #### Explicit duration
 
 ```php
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . "/vendor/autoload.php";
 
 use SebastianBergmann\Timer\ResourceUsageFormatter;
 use SebastianBergmann\Timer\Timer;
 
-$timer = new Timer;
+$timer = new Timer();
 $timer->start();
 
 foreach (\range(0, 100000) as $i) {
     // ...
 }
 
-print (new ResourceUsageFormatter)->resourceUsage($timer->stop());
+print (new ResourceUsageFormatter())->resourceUsage($timer->stop());
 ```
 
 The code above yields the output below:
@@ -87,7 +87,7 @@ Time: 00:00.002, Memory: 6.00 MB
 #### Duration since PHP Startup (using unreliable `$_SERVER['REQUEST_TIME_FLOAT']`)
 
 ```php
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . "/vendor/autoload.php";
 
 use SebastianBergmann\Timer\ResourceUsageFormatter;
 
@@ -95,7 +95,7 @@ foreach (\range(0, 100000) as $i) {
     // ...
 }
 
-print (new ResourceUsageFormatter)->resourceUsageSinceStartOfRequest();
+print (new ResourceUsageFormatter())->resourceUsageSinceStartOfRequest();
 ```
 
 The code above yields the output below:

@@ -12,8 +12,9 @@ namespace SebastianBergmann\CodeCoverage;
 use function rtrim;
 use RuntimeException;
 
-final class UnintentionallyCoveredCodeException extends RuntimeException implements Exception
-{
+final class UnintentionallyCoveredCodeException
+    extends RuntimeException
+    implements Exception {
     /**
      * @var list<string>
      */
@@ -22,8 +23,7 @@ final class UnintentionallyCoveredCodeException extends RuntimeException impleme
     /**
      * @param list<string> $unintentionallyCoveredUnits
      */
-    public function __construct(array $unintentionallyCoveredUnits)
-    {
+    public function __construct(array $unintentionallyCoveredUnits) {
         $this->unintentionallyCoveredUnits = $unintentionallyCoveredUnits;
 
         parent::__construct($this->toString());
@@ -32,17 +32,15 @@ final class UnintentionallyCoveredCodeException extends RuntimeException impleme
     /**
      * @return list<string>
      */
-    public function getUnintentionallyCoveredUnits(): array
-    {
+    public function getUnintentionallyCoveredUnits(): array {
         return $this->unintentionallyCoveredUnits;
     }
 
-    private function toString(): string
-    {
-        $message = '';
+    private function toString(): string {
+        $message = "";
 
         foreach ($this->unintentionallyCoveredUnits as $unit) {
-            $message .= '- ' . $unit . "\n";
+            $message .= "- " . $unit . "\n";
         }
 
         return rtrim($message);

@@ -118,35 +118,35 @@ For a full diff see [`2.0.1...3.0.0`][2.0.1...3.0.0].
 
 - Renamed vendor namespace `Localheinz` to `Ergebnis` after move to [@ergebnis] ([#67]), by [@localheinz]
 
-  Run
+    Run
 
-  ```
-  $ composer remove localheinz/json-printer
-  ```
+    ```
+    $ composer remove localheinz/json-printer
+    ```
 
-  and
+    and
 
-  ```
-  $ composer require ergebnis/json-printer
-  ```
+    ```
+    $ composer require ergebnis/json-printer
+    ```
 
-  to update.
+    to update.
 
-  Run
+    Run
 
-  ```
-  $ find . -type f -exec sed -i '.bak' 's/Localheinz\\Json\\Printer/Ergebnis\\Json\\Printer/g' {} \;
-  ```
+    ```
+    $ find . -type f -exec sed -i '.bak' 's/Localheinz\\Json\\Printer/Ergebnis\\Json\\Printer/g' {} \;
+    ```
 
-  to replace occurrences of `Localheinz\Json\Printer` with `Ergebnis\Json\Printer`.
+    to replace occurrences of `Localheinz\Json\Printer` with `Ergebnis\Json\Printer`.
 
-  Run
+    Run
 
-  ```
-  $ find -type f -name '*.bak' -delete
-  ```
+    ```
+    $ find -type f -name '*.bak' -delete
+    ```
 
-  to delete backup files created in the previous step.
+    to delete backup files created in the previous step.
 
 ### Fixed
 
@@ -194,7 +194,6 @@ For a full diff see [`8849fc6...1.0.0`][8849fc6...1.0.0].
 [3.7.0]: https://github.com/ergebnis/json-printer/releases/tag/3.7.0
 [3.8.0]: https://github.com/ergebnis/json-printer/releases/tag/3.8.0
 [3.8.1]: https://github.com/ergebnis/json-printer/releases/tag/3.8.1
-
 [8849fc6...1.0.0]: https://github.com/ergebnis/json-printer/compare/8849fc6...1.0.0
 [1.0.0...1.1.0]: https://github.com/ergebnis/json-printer/compare/1.0.0...1.1.0
 [1.1.0...2.0.0]: https://github.com/ergebnis/json-printer/compare/1.1.0...2.0.0
@@ -213,7 +212,6 @@ For a full diff see [`8849fc6...1.0.0`][8849fc6...1.0.0].
 [3.7.0...3.8.0]: https://github.com/ergebnis/json-printer/compare/3.7.0...3.8.0
 [3.8.0...3.8.1]: https://github.com/ergebnis/json-printer/compare/3.8.0...3.8.1
 [3.8.1...main]: https://github.com/ergebnis/json-printer/compare/3.8.1...main
-
 [#33]: https://github.com/ergebnis/json-printer/pull/33
 [#37]: https://github.com/ergebnis/json-printer/pull/37
 [#55]: https://github.com/ergebnis/json-printer/pull/55
@@ -234,6 +232,5 @@ For a full diff see [`8849fc6...1.0.0`][8849fc6...1.0.0].
 [#863]: https://github.com/ergebnis/json-printer/pull/863
 [#887]: https://github.com/ergebnis/json-printer/pull/887
 [#893]: https://github.com/ergebnis/json-printer/pull/893
-
 [@ergebnis]: https://github.com/ergebnis
 [@localheinz]: https://github.com/localheinz

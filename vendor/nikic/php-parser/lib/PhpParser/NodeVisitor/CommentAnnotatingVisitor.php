@@ -47,14 +47,26 @@ class CommentAnnotatingVisitor extends NodeVisitorAbstract {
                 $token = $this->tokens[$pos];
                 if ($token->id === \T_DOC_COMMENT) {
                     $comments[] = new Comment\Doc(
-                        $token->text, $token->line, $token->pos, $pos,
-                        $token->getEndLine(), $token->getEndPos() - 1, $pos);
+                        $token->text,
+                        $token->line,
+                        $token->pos,
+                        $pos,
+                        $token->getEndLine(),
+                        $token->getEndPos() - 1,
+                        $pos,
+                    );
                     continue;
                 }
                 if ($token->id === \T_COMMENT) {
                     $comments[] = new Comment(
-                        $token->text, $token->line, $token->pos, $pos,
-                        $token->getEndLine(), $token->getEndPos() - 1, $pos);
+                        $token->text,
+                        $token->line,
+                        $token->pos,
+                        $pos,
+                        $token->getEndLine(),
+                        $token->getEndPos() - 1,
+                        $pos,
+                    );
                     continue;
                 }
                 if ($token->id !== \T_WHITESPACE) {
@@ -62,7 +74,7 @@ class CommentAnnotatingVisitor extends NodeVisitorAbstract {
                 }
             }
             if (!empty($comments)) {
-                $node->setAttribute('comments', array_reverse($comments));
+                $node->setAttribute("comments", array_reverse($comments));
             }
 
             do {

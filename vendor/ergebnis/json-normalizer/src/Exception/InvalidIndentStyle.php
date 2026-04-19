@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Ergebnis\Json\Normalizer\Exception;
 
-final class InvalidIndentStyle extends \InvalidArgumentException implements Exception
-{
-    private string $style = '';
+final class InvalidIndentStyle extends \InvalidArgumentException implements
+    Exception {
+    private string $style = "";
 
     /**
      * @var list<string>
@@ -24,16 +24,15 @@ final class InvalidIndentStyle extends \InvalidArgumentException implements Exce
 
     public static function fromStyleAndAllowedStyles(
         string $style,
-        string ...$allowedStyles
+        string ...$allowedStyles,
     ): self {
-        $exception = new self(\sprintf(
-            'Style needs to be one of "%s", but "%s" is not.',
-            \implode(
-                '", "',
-                $allowedStyles,
+        $exception = new self(
+            \sprintf(
+                'Style needs to be one of "%s", but "%s" is not.',
+                \implode('", "', $allowedStyles),
+                $style,
             ),
-            $style,
-        ));
+        );
 
         $exception->style = $style;
         $exception->allowedStyles = \array_values($allowedStyles);
@@ -41,16 +40,14 @@ final class InvalidIndentStyle extends \InvalidArgumentException implements Exce
         return $exception;
     }
 
-    public function style(): string
-    {
+    public function style(): string {
         return $this->style;
     }
 
     /**
      * @return list<string>
      */
-    public function allowedStyles(): array
-    {
+    public function allowedStyles(): array {
         return $this->allowedStyles;
     }
 }

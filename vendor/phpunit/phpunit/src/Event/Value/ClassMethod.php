@@ -14,8 +14,7 @@ namespace PHPUnit\Event\Code;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class ClassMethod
-{
+final readonly class ClassMethod {
     /**
      * @var class-string
      */
@@ -30,25 +29,22 @@ final readonly class ClassMethod
      * @param class-string     $className
      * @param non-empty-string $methodName
      */
-    public function __construct(string $className, string $methodName)
-    {
-        $this->className  = $className;
+    public function __construct(string $className, string $methodName) {
+        $this->className = $className;
         $this->methodName = $methodName;
     }
 
     /**
      * @return class-string
      */
-    public function className(): string
-    {
+    public function className(): string {
         return $this->className;
     }
 
     /**
      * @return non-empty-string
      */
-    public function methodName(): string
-    {
+    public function methodName(): string {
         return $this->methodName;
     }
 }

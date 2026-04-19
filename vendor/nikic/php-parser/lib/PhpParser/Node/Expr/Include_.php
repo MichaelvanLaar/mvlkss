@@ -5,9 +5,9 @@ namespace PhpParser\Node\Expr;
 use PhpParser\Node\Expr;
 
 class Include_ extends Expr {
-    public const TYPE_INCLUDE      = 1;
+    public const TYPE_INCLUDE = 1;
     public const TYPE_INCLUDE_ONCE = 2;
-    public const TYPE_REQUIRE      = 3;
+    public const TYPE_REQUIRE = 3;
     public const TYPE_REQUIRE_ONCE = 4;
 
     /** @var Expr Expression */
@@ -29,10 +29,10 @@ class Include_ extends Expr {
     }
 
     public function getSubNodeNames(): array {
-        return ['expr', 'type'];
+        return ["expr", "type"];
     }
 
     public function getType(): string {
-        return 'Expr_Include';
+        return "Expr_Include";
     }
 }

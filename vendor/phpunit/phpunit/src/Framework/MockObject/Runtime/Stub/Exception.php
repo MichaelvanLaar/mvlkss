@@ -17,20 +17,17 @@ use Throwable;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class Exception implements Stub
-{
+final readonly class Exception implements Stub {
     private Throwable $exception;
 
-    public function __construct(Throwable $exception)
-    {
+    public function __construct(Throwable $exception) {
         $this->exception = $exception;
     }
 
     /**
      * @throws Throwable
      */
-    public function invoke(Invocation $invocation): never
-    {
+    public function invoke(Invocation $invocation): never {
         throw $this->exception;
     }
 }

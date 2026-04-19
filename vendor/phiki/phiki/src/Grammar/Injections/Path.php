@@ -4,19 +4,14 @@ namespace Phiki\Grammar\Injections;
 
 use Phiki\Contracts\InjectionMatcherInterface;
 
-class Path implements InjectionMatcherInterface
-{
-    public function __construct(
-        public array $scopes,
-    ) {}
+class Path implements InjectionMatcherInterface {
+    public function __construct(public array $scopes) {}
 
-    public function getPrefix(array $scopes): ?Prefix
-    {
+    public function getPrefix(array $scopes): ?Prefix {
         return null;
     }
 
-    public function matches(array $scopes): bool
-    {
+    public function matches(array $scopes): bool {
         $index = 0;
         $current = $this->scopes[$index];
 

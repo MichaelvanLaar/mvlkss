@@ -16,9 +16,9 @@ class Identifier extends NodeAbstract {
 
     /** @var array<string, bool> */
     private static array $specialClassNames = [
-        'self'   => true,
-        'parent' => true,
-        'static' => true,
+        "self" => true,
+        "parent" => true,
+        "static" => true,
     ];
 
     /**
@@ -28,8 +28,10 @@ class Identifier extends NodeAbstract {
      * @param array<string, mixed> $attributes Additional attributes
      */
     public function __construct(string $name, array $attributes = []) {
-        if ($name === '') {
-            throw new \InvalidArgumentException('Identifier name cannot be empty');
+        if ($name === "") {
+            throw new \InvalidArgumentException(
+                "Identifier name cannot be empty",
+            );
         }
 
         $this->attributes = $attributes;
@@ -37,7 +39,7 @@ class Identifier extends NodeAbstract {
     }
 
     public function getSubNodeNames(): array {
-        return ['name'];
+        return ["name"];
     }
 
     /**
@@ -80,6 +82,6 @@ class Identifier extends NodeAbstract {
     }
 
     public function getType(): string {
-        return 'Identifier';
+        return "Identifier";
     }
 }

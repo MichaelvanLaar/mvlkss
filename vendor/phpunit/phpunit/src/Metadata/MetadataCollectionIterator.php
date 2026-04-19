@@ -17,8 +17,7 @@ use Iterator;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class MetadataCollectionIterator implements Iterator
-{
+final class MetadataCollectionIterator implements Iterator {
     /**
      * @var list<Metadata>
      */
@@ -29,36 +28,30 @@ final class MetadataCollectionIterator implements Iterator
      */
     private int $position = 0;
 
-    public function __construct(MetadataCollection $metadata)
-    {
+    public function __construct(MetadataCollection $metadata) {
         $this->metadata = $metadata->asArray();
     }
 
-    public function rewind(): void
-    {
+    public function rewind(): void {
         $this->position = 0;
     }
 
-    public function valid(): bool
-    {
+    public function valid(): bool {
         return $this->position < count($this->metadata);
     }
 
     /**
      * @return non-negative-int
      */
-    public function key(): int
-    {
+    public function key(): int {
         return $this->position;
     }
 
-    public function current(): Metadata
-    {
+    public function current(): Metadata {
         return $this->metadata[$this->position];
     }
 
-    public function next(): void
-    {
+    public function next(): void {
         $this->position++;
     }
 }

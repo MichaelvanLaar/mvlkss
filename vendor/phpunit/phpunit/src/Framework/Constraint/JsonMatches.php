@@ -19,24 +19,18 @@ use SebastianBergmann\Comparator\ComparisonFailure;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class JsonMatches extends Constraint
-{
+final class JsonMatches extends Constraint {
     private readonly string $value;
 
-    public function __construct(string $value)
-    {
+    public function __construct(string $value) {
         $this->value = $value;
     }
 
     /**
      * Returns a string representation of the object.
      */
-    public function toString(): string
-    {
-        return sprintf(
-            'matches JSON string "%s"',
-            $this->value,
-        );
+    public function toString(): string {
+        return sprintf('matches JSON string "%s"', $this->value);
     }
 
     /**
@@ -45,8 +39,7 @@ final class JsonMatches extends Constraint
      *
      * This method can be overridden to implement the evaluation algorithm.
      */
-    protected function matches(mixed $other): bool
-    {
+    protected function matches(mixed $other): bool {
         [$error, $recodedOther] = Json::canonicalize($other);
 
         if ($error) {
@@ -68,8 +61,11 @@ final class JsonMatches extends Constraint
      * @throws ExpectationFailedException
      * @throws InvalidJsonException
      */
-    protected function fail(mixed $other, string $description, ?ComparisonFailure $comparisonFailure = null): never
-    {
+    protected function fail(
+        mixed $other,
+        string $description,
+        ?ComparisonFailure $comparisonFailure = null,
+    ): never {
         if ($comparisonFailure === null) {
             [$error, $recodedOther] = Json::canonicalize($other);
 
@@ -88,7 +84,7 @@ final class JsonMatches extends Constraint
                 json_decode($other),
                 Json::prettify($recodedValue),
                 Json::prettify($recodedOther),
-                'Failed asserting that two json values are equal.',
+                "Failed asserting that two json values are equal.",
             );
         }
 

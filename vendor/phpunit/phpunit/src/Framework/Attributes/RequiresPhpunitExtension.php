@@ -17,9 +17,14 @@ use PHPUnit\Runner\Extension\Extension;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-#[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
-final readonly class RequiresPhpunitExtension
-{
+#[
+    Attribute(
+        Attribute::TARGET_CLASS |
+            Attribute::TARGET_METHOD |
+            Attribute::IS_REPEATABLE,
+    ),
+]
+final readonly class RequiresPhpunitExtension {
     /**
      * @var class-string<Extension>
      */
@@ -28,16 +33,14 @@ final readonly class RequiresPhpunitExtension
     /**
      * @param class-string<Extension> $extensionClass
      */
-    public function __construct(string $extensionClass)
-    {
+    public function __construct(string $extensionClass) {
         $this->extensionClass = $extensionClass;
     }
 
     /**
      * @return class-string<Extension>
      */
-    public function extensionClass(): string
-    {
+    public function extensionClass(): string {
         return $this->extensionClass;
     }
 }

@@ -19,44 +19,46 @@ use PHPUnit\Framework\ExpectationFailedException;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class LogicalNot extends UnaryOperator
-{
-    public static function negate(string $string): string
-    {
+final class LogicalNot extends UnaryOperator {
+    public static function negate(string $string): string {
         $positives = [
-            'contains ',
-            'exists',
-            'has ',
-            'is ',
-            'are ',
-            'matches ',
-            'starts with ',
-            'ends with ',
-            'reference ',
-            'not not ',
+            "contains ",
+            "exists",
+            "has ",
+            "is ",
+            "are ",
+            "matches ",
+            "starts with ",
+            "ends with ",
+            "reference ",
+            "not not ",
         ];
 
         $negatives = [
-            'does not contain ',
-            'does not exist',
-            'does not have ',
-            'is not ',
-            'are not ',
-            'does not match ',
-            'starts not with ',
-            'ends not with ',
+            "does not contain ",
+            "does not exist",
+            "does not have ",
+            "is not ",
+            "are not ",
+            "does not match ",
+            "starts not with ",
+            "ends not with ",
             'don\'t reference ',
-            'not ',
+            "not ",
         ];
 
         preg_match('/(\'[\w\W]*\')([\w\W]*)("[\w\W]*")/i', $string, $matches);
 
         if (count($matches) === 0) {
-            preg_match('/(\'[\w\W]*\')([\w\W]*)(\'[\w\W]*\')/i', $string, $matches);
+            preg_match(
+                '/(\'[\w\W]*\')([\w\W]*)(\'[\w\W]*\')/i',
+                $string,
+                $matches,
+            );
         }
 
         $positives = array_map(
-            static fn (string $s) => '/\\b' . preg_quote($s, '/') . '/',
+            static fn(string $s) => "/\\b" . preg_quote($s, "/") . "/",
             $positives,
         );
 
@@ -64,20 +66,12 @@ final class LogicalNot extends UnaryOperator
             $nonInput = $matches[2];
 
             $negatedString = preg_replace(
-                '/' . preg_quote($nonInput, '/') . '/',
-                preg_replace(
-                    $positives,
-                    $negatives,
-                    $nonInput,
-                ),
+                "/" . preg_quote($nonInput, "/") . "/",
+                preg_replace($positives, $negatives, $nonInput),
                 $string,
             );
         } else {
-            $negatedString = preg_replace(
-                $positives,
-                $negatives,
-                $string,
-            );
+            $negatedString = preg_replace($positives, $negatives, $string);
         }
 
         return $negatedString;
@@ -86,9 +80,8 @@ final class LogicalNot extends UnaryOperator
     /**
      * Returns the name of this operator.
      */
-    public function operator(): string
-    {
-        return 'not';
+    public function operator(): string {
+        return "not";
     }
 
     /**
@@ -96,8 +89,7 @@ final class LogicalNot extends UnaryOperator
      *
      * @see https://www.php.net/manual/en/language.operators.precedence.php
      */
-    public function precedence(): int
-    {
+    public function precedence(): int {
         return 5;
     }
 
@@ -107,17 +99,15 @@ final class LogicalNot extends UnaryOperator
      *
      * @throws ExpectationFailedException
      */
-    protected function matches(mixed $other): bool
-    {
-        return !$this->constraint()->evaluate($other, '', true);
+    protected function matches(mixed $other): bool {
+        return !$this->constraint()->evaluate($other, "", true);
     }
 
     /**
      * Applies additional transformation to strings returned by toString() or
      * failureDescription().
      */
-    protected function transformString(string $string): string
-    {
+    protected function transformString(string $string): string {
         return self::negate($string);
     }
 
@@ -128,8 +118,7 @@ final class LogicalNot extends UnaryOperator
      *
      * See Constraint::reduce() for more.
      */
-    protected function reduce(): Constraint
-    {
+    protected function reduce(): Constraint {
         $constraint = $this->constraint();
 
         if ($constraint instanceof self) {

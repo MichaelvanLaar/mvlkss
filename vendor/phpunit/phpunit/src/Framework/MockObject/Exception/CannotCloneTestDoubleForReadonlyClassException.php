@@ -16,12 +16,12 @@ namespace PHPUnit\Framework\MockObject;
  *
  * @codeCoverageIgnore
  */
-final class CannotCloneTestDoubleForReadonlyClassException extends \PHPUnit\Framework\Exception implements Exception
-{
-    public function __construct()
-    {
+final class CannotCloneTestDoubleForReadonlyClassException
+    extends \PHPUnit\Framework\Exception
+    implements Exception {
+    public function __construct() {
         parent::__construct(
-            'Cloning test doubles for readonly classes is not supported on PHP 8.2',
+            "Cloning test doubles for readonly classes is not supported on PHP 8.2",
         );
     }
 }

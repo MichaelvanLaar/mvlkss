@@ -7,13 +7,13 @@ namespace Plain\Helpers;
  * @author    Roman Gsponer <support@plain-solutions.net>
  * @link      https://plain-solutions.net/
  * @copyright Roman Gsponer
- * @license   https://plain-solutions.net/terms/ 
- * 
+ * @license   https://plain-solutions.net/terms/
+ *
  * If you're reading this, you're probably up to skip the license validation.
- *  
- * Keep in mind, that i spent a lot of time developing this. 
+ *
+ * Keep in mind, that i spent a lot of time developing this.
  * You will also save a lot of time with this extension.
- *  
+ *
  */
 
 use Kirby\Cms\App;
@@ -26,10 +26,8 @@ use Kirby\Toolkit\I18n;
 use Kirby\Exception\Exception;
 use Kirby\Toolkit\A;
 
-class License
-{
-
-    private const PROXY           = 'https://plain-solutions.net/proxy';
+class License {
+    private const PROXY = "https://plain-solutions.net/proxy";
 
     public string $title;
     public string $link;
@@ -41,30 +39,29 @@ class License
     public static array $licenses = [];
 
     public function __construct(
-        public string $name, 
+        public string $name,
         public ?array $info = null,
-        private ?bool $isValid = null
+        private ?bool $isValid = null,
     ) {
-
-        if ($info['license'] === 'MIT') {
+        if ($info["license"] === "MIT") {
             return null;
         }
 
-        $this->prefix = Str::after($this->name, '/');
-        $this->licensefile = App::instance()->root("config") . "/.{$this->prefix}_license";
+        $this->prefix = Str::after($this->name, "/");
+        $this->licensefile =
+            App::instance()->root("config") . "/.{$this->prefix}_license";
 
-        $this->title = $info['extra']['title'] ?? $this->name;
-        $this->link = $info['homepage'];
-        
+        $this->title = $info["extra"]["title"] ?? $this->name;
+        $this->link = $info["homepage"];
+
         if (file_exists($this->licensefile)) {
-            $this->licensedata = Json::read($this->licensefile, 'json', false);
+            $this->licensedata = Json::read($this->licensefile, "json", false);
         }
 
-        static::$cache[$name] = $this; 
+        static::$cache[$name] = $this;
     }
 
-    public static function factory($name, ?array $info = null): self
-    {
+    public static function factory($name, ?array $info = null): self {
         if (array_key_exists($name, static::$cache)) {
             return static::$cache[$name];
         }
@@ -73,39 +70,36 @@ class License
     }
 
     public function saveTranslate($key) {
-        return App::instance()->translation()->get($key) ?? App::instance()->translation('en')->get($key);
+        return App::instance()->translation()->get($key) ??
+            App::instance()->translation("en")->get($key);
     }
 
-    public function getLicenseObject(): ?array
-    {
+    public function getLicenseObject(): ?array {
         if (static::isValid()) {
             return null;
         }
         return [
-            'title'     => $this->title,
-            'cta'       => $this->saveTranslate('license.activate.label'),
-            'dialog'    => $this->prefix . "/register"
+            "title" => $this->title,
+            "cta" => $this->saveTranslate("license.activate.label"),
+            "dialog" => $this->prefix . "/register",
         ];
     }
 
-    public function licenseArray(): ?array
-    {
+    public function licenseArray(): ?array {
         if ($this->isValid()) {
             return null;
         }
 
         return [
-            'value'     => 'missing',
-            'theme'     => 'negative',
-            'label'     => $this->saveTranslate('license.unregistered.label'),
-            'icon'      => 'alert',
-            'dialog'    => "{$this->prefix}/register"
+            "value" => "missing",
+            "theme" => "negative",
+            "label" => $this->saveTranslate("license.unregistered.label"),
+            "icon" => "alert",
+            "dialog" => "{$this->prefix}/register",
         ];
     }
 
-    private function isValid(): bool
-    {
-
+    private function isValid(): bool {
         if ($this->isValid !== null) {
             return $this->isValid;
         }
@@ -113,13 +107,17 @@ class License
         $license = $this->licensedata;
 
         if (
-            isset($license["key"], $license["email"], $license["signature"]) !== true &&
+            isset($license["key"], $license["email"], $license["signature"]) !==
+                true &&
             count($license) === 0
         ) {
             return $this->isValid = false;
         }
 
-        $licensedata = $this->generateLicensedata($license["key"], $license["email"]);
+        $licensedata = $this->generateLicensedata(
+            $license["key"],
+            $license["email"],
+        );
 
         if ($license["signature"] !== md5(json_encode($licensedata))) {
             return $this->isValid = false;
@@ -134,107 +132,119 @@ class License
         }
 
         $prefix = $this->prefix;
-        $lang = App::instance()->user()?->language() ?? App::instance()->currentLanguage()?->code() ?? 'en';;
+        $lang =
+            App::instance()->user()?->language() ??
+            (App::instance()->currentLanguage()?->code() ?? "en");
 
         return A::merge($extends, [
-            'api' => [
-                'routes' => [
+            "api" => [
+                "routes" => [
                     [
                         "pattern" => "plain/licenses/validate",
                         "action" => function () {
                             //return License::factory(get('name'))->register(get("key"), get("email"));
                         },
                     ],
-                ]
+                ],
             ],
-            'areas' => [
-                $prefix  => [
-                    'dialogs' => [
-                        "$prefix/register" => $this->dialog()
-                    ]
-                ]
+            "areas" => [
+                $prefix => [
+                    "dialogs" => [
+                        "$prefix/register" => $this->dialog(),
+                    ],
+                ],
             ],
-            'translations' => [
+            "translations" => [
                 $lang => [
-                    "plain.licenses.$prefix" => $this->getLicenseObject()
-                ]
+                    "plain.licenses.$prefix" => $this->getLicenseObject(),
+                ],
             ],
         ]);
     }
 
-    public function dialog(): array
-    {
-
+    public function dialog(): array {
         $license_obj = $this;
 
         return [
-            'load' => function () use ($license_obj) {
-
-                $system   = App::instance()->system();
-                $local    = $system->isLocal();
+            "load" => function () use ($license_obj) {
+                $system = App::instance()->system();
+                $local = $system->isLocal();
                 $instance = $system->indexUrl();
-                $text_key = 'license.activate.' . ($local ? 'local' : 'domain');
-                $text = I18n::template($text_key, ['host' => $instance]);
-    
-                return [
-                    'component' => 'k-form-dialog',
+                $text_key = "license.activate." . ($local ? "local" : "domain");
+                $text = I18n::template($text_key, ["host" => $instance]);
 
-                    'props' => [
-                        'fields' => [
-                            'headline' => [
-                                'label' => $license_obj->title,
-                                'type'  => 'headline'
+                return [
+                    "component" => "k-form-dialog",
+
+                    "props" => [
+                        "fields" => [
+                            "headline" => [
+                                "label" => $license_obj->title,
+                                "type" => "headline",
                             ],
-                            'domain' => [
-                                'label' => $license_obj->saveTranslate('license.activate.label'),
-                                'type'  => 'info',
-                                'theme' => $local ? 'warning' : 'info',
-                                'text'  => Str::replace($text, 'Kirby', $license_obj->title)
+                            "domain" => [
+                                "label" => $license_obj->saveTranslate(
+                                    "license.activate.label",
+                                ),
+                                "type" => "info",
+                                "theme" => $local ? "warning" : "info",
+                                "text" => Str::replace(
+                                    $text,
+                                    "Kirby",
+                                    $license_obj->title,
+                                ),
                             ],
-                            'license' => [
-                                'label'       => $license_obj->saveTranslate('license.code.label'),
-                                'type'        => 'text',
-                                'required'    => true,
-                                'counter'     => false,
-                                'placeholder' => '',
-                                'help'        => $license_obj->saveTranslate('license.code.help') . ' ' . '<a href="' . $license_obj->link . '" target="_blank">' . $license_obj->saveTranslate('license.buy') . ' &rarr;</a>'
+                            "license" => [
+                                "label" => $license_obj->saveTranslate(
+                                    "license.code.label",
+                                ),
+                                "type" => "text",
+                                "required" => true,
+                                "counter" => false,
+                                "placeholder" => "",
+                                "help" =>
+                                    $license_obj->saveTranslate(
+                                        "license.code.help",
+                                    ) .
+                                    " " .
+                                    '<a href="' .
+                                    $license_obj->link .
+                                    '" target="_blank">' .
+                                    $license_obj->saveTranslate("license.buy") .
+                                    " &rarr;</a>",
                             ],
-                            'email' => Field::email(['required' => true]),
-                            'license_id' => Field::hidden()
+                            "email" => Field::email(["required" => true]),
+                            "license_id" => Field::hidden(),
                         ],
-                        'submitButton' => [
-                            'icon'  => 'key',
-                            'text'  => $license_obj->saveTranslate('activate'),
-                            'theme' => 'love',
+                        "submitButton" => [
+                            "icon" => "key",
+                            "text" => $license_obj->saveTranslate("activate"),
+                            "theme" => "love",
                         ],
-                        'value' => [
-                            'license'   => null,
-                            'email'     => null,
-                            'name'      => $license_obj->name
-                        ]
-                    ]
+                        "value" => [
+                            "license" => null,
+                            "email" => null,
+                            "name" => $license_obj->name,
+                        ],
+                    ],
                 ];
             },
-            'submit' => function () {
-
+            "submit" => function () {
                 $request = App::instance()->request();
 
-                License::factory($request->get('name'))->register (
-                    $request->get('license'),
-                    $request->get('email')
+                License::factory($request->get("name"))->register(
+                    $request->get("license"),
+                    $request->get("email"),
                 );
 
                 return [
-                    'message' => $this->saveTranslate('license.success')
+                    "message" => $this->saveTranslate("license.success"),
                 ];
-                
-            }
+            },
         ];
     }
 
-    public function register(string $key, string $email): void
-    {
-
+    public function register(string $key, string $email): void {
         if (V::email($email) === false) {
             throw new Exception("error.validation.email");
         }
@@ -249,33 +259,31 @@ class License
             ]);
 
             $response = $request->json();
-
         } catch (\Throwable $e) {
-            throw new Exception("No connection to the license server. Visit: " . static::PROXY);
+            throw new Exception(
+                "No connection to the license server. Visit: " . static::PROXY,
+            );
         }
 
         if ($response === null || $response["error"] ?? false === 1) {
-            throw new Exception($response["text"] ??= 'An error has occurred!');
+            throw new Exception(
+                ($response["text"] ??= "An error has occurred!"),
+            );
         }
 
         $this->writeLicensedata($licensedata);
-
     }
 
-    private function generateLicensedata(string $key, string $email): array
-    {
+    private function generateLicensedata(string $key, string $email): array {
         return [
-            "product" => Str::ltrim(parse_url($this->link, PHP_URL_PATH), '/'),
+            "product" => Str::ltrim(parse_url($this->link, PHP_URL_PATH), "/"),
             "key" => $key,
             "email" => Str::lower(trim($email)),
-            "site" => App::instance()
-                ->system()
-                ->indexUrl(),
+            "site" => App::instance()->system()->indexUrl(),
         ];
     }
 
-    private function writeLicensedata(array $licensedata): void
-    {
+    private function writeLicensedata(array $licensedata): void {
         $licensedata["signature"] = md5(json_encode($licensedata));
         $this->licensedata = $licensedata;
         Json::write($this->licensefile, $licensedata);

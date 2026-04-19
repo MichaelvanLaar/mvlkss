@@ -23,10 +23,10 @@ class Expression extends Node\Stmt {
     }
 
     public function getSubNodeNames(): array {
-        return ['expr'];
+        return ["expr"];
     }
 
     public function getType(): string {
-        return 'Stmt_Expression';
+        return "Stmt_Expression";
     }
 }

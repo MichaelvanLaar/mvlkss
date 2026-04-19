@@ -12,8 +12,7 @@ namespace SebastianBergmann\LinesOfCode;
 /**
  * @immutable
  */
-final readonly class LinesOfCode
-{
+final readonly class LinesOfCode {
     /**
      * @var non-negative-int
      */
@@ -43,72 +42,81 @@ final readonly class LinesOfCode
      * @throws IllogicalValuesException
      * @throws NegativeValueException
      */
-    public function __construct(int $linesOfCode, int $commentLinesOfCode, int $nonCommentLinesOfCode, int $logicalLinesOfCode)
-    {
+    public function __construct(
+        int $linesOfCode,
+        int $commentLinesOfCode,
+        int $nonCommentLinesOfCode,
+        int $logicalLinesOfCode,
+    ) {
         /** @phpstan-ignore smaller.alwaysFalse */
         if ($linesOfCode < 0) {
-            throw new NegativeValueException('$linesOfCode must not be negative');
+            throw new NegativeValueException(
+                '$linesOfCode must not be negative',
+            );
         }
 
         /** @phpstan-ignore smaller.alwaysFalse */
         if ($commentLinesOfCode < 0) {
-            throw new NegativeValueException('$commentLinesOfCode must not be negative');
+            throw new NegativeValueException(
+                '$commentLinesOfCode must not be negative',
+            );
         }
 
         /** @phpstan-ignore smaller.alwaysFalse */
         if ($nonCommentLinesOfCode < 0) {
-            throw new NegativeValueException('$nonCommentLinesOfCode must not be negative');
+            throw new NegativeValueException(
+                '$nonCommentLinesOfCode must not be negative',
+            );
         }
 
         /** @phpstan-ignore smaller.alwaysFalse */
         if ($logicalLinesOfCode < 0) {
-            throw new NegativeValueException('$logicalLinesOfCode must not be negative');
+            throw new NegativeValueException(
+                '$logicalLinesOfCode must not be negative',
+            );
         }
 
         if ($linesOfCode - $commentLinesOfCode !== $nonCommentLinesOfCode) {
-            throw new IllogicalValuesException('$linesOfCode !== $commentLinesOfCode + $nonCommentLinesOfCode');
+            throw new IllogicalValuesException(
+                '$linesOfCode !== $commentLinesOfCode + $nonCommentLinesOfCode',
+            );
         }
 
-        $this->linesOfCode           = $linesOfCode;
-        $this->commentLinesOfCode    = $commentLinesOfCode;
+        $this->linesOfCode = $linesOfCode;
+        $this->commentLinesOfCode = $commentLinesOfCode;
         $this->nonCommentLinesOfCode = $nonCommentLinesOfCode;
-        $this->logicalLinesOfCode    = $logicalLinesOfCode;
+        $this->logicalLinesOfCode = $logicalLinesOfCode;
     }
 
     /**
      * @return non-negative-int
      */
-    public function linesOfCode(): int
-    {
+    public function linesOfCode(): int {
         return $this->linesOfCode;
     }
 
     /**
      * @return non-negative-int
      */
-    public function commentLinesOfCode(): int
-    {
+    public function commentLinesOfCode(): int {
         return $this->commentLinesOfCode;
     }
 
     /**
      * @return non-negative-int
      */
-    public function nonCommentLinesOfCode(): int
-    {
+    public function nonCommentLinesOfCode(): int {
         return $this->nonCommentLinesOfCode;
     }
 
     /**
      * @return non-negative-int
      */
-    public function logicalLinesOfCode(): int
-    {
+    public function logicalLinesOfCode(): int {
         return $this->logicalLinesOfCode;
     }
 
-    public function plus(self $other): self
-    {
+    public function plus(self $other): self {
         return new self(
             $this->linesOfCode() + $other->linesOfCode(),
             $this->commentLinesOfCode() + $other->commentLinesOfCode(),

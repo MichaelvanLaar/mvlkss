@@ -2,8 +2,7 @@
 
 namespace Phiki\Grammar\Injections;
 
-enum Prefix
-{
+enum Prefix {
     case Left;
     case Right;
 }

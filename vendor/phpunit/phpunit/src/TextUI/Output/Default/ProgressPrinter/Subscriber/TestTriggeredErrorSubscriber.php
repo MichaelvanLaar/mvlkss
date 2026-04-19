@@ -17,10 +17,9 @@ use PHPUnit\Event\Test\ErrorTriggeredSubscriber;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestTriggeredErrorSubscriber extends Subscriber implements ErrorTriggeredSubscriber
-{
-    public function notify(ErrorTriggered $event): void
-    {
+final readonly class TestTriggeredErrorSubscriber extends Subscriber implements
+    ErrorTriggeredSubscriber {
+    public function notify(ErrorTriggered $event): void {
         $this->printer()->testTriggeredError($event);
     }
 }

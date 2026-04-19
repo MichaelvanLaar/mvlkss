@@ -14,8 +14,7 @@ namespace PHPUnit\Framework\MockObject;
  *
  * @internal This interface is not covered by the backward compatibility promise for PHPUnit
  */
-interface MockObjectInternal extends MockObject, StubInternal
-{
+interface MockObjectInternal extends MockObject, StubInternal {
     public function __phpunit_hasMatchers(): bool;
 
     public function __phpunit_verify(bool $unsetInvocationMocker = true): void;

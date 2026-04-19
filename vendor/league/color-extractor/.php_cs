@@ -2,12 +2,12 @@
 
 $finder = Symfony\Component\Finder\Finder::create()
     ->files()
-    ->name('*.php')
-    ->in(array('src', 'tests'));
+    ->name("*.php")
+    ->in(["src", "tests"]);
 
 return PhpCsFixer\Config::create()
     ->setFinder($finder)
     ->setRules([
-        '@Symfony' => true,
-        'array_syntax' => ['syntax' => 'short'],
+        "@Symfony" => true,
+        "array_syntax" => ["syntax" => "short"],
     ]);

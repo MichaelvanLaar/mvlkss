@@ -25,21 +25,15 @@ use Traversable;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-class Count extends Constraint
-{
+class Count extends Constraint {
     private readonly int $expectedCount;
 
-    public function __construct(int $expected)
-    {
+    public function __construct(int $expected) {
         $this->expectedCount = $expected;
     }
 
-    public function toString(): string
-    {
-        return sprintf(
-            'count matches %d',
-            $this->expectedCount,
-        );
+    public function toString(): string {
+        return sprintf("count matches %d", $this->expectedCount);
     }
 
     /**
@@ -48,16 +42,14 @@ class Count extends Constraint
      *
      * @throws Exception
      */
-    protected function matches(mixed $other): bool
-    {
+    protected function matches(mixed $other): bool {
         return $this->expectedCount === $this->getCountOf($other);
     }
 
     /**
      * @throws Exception
      */
-    protected function getCountOf(mixed $other): ?int
-    {
+    protected function getCountOf(mixed $other): ?int {
         if (is_countable($other)) {
             return count($other);
         }
@@ -67,11 +59,13 @@ class Count extends Constraint
         }
 
         if ($other instanceof Traversable) {
-            $context = new Context;
+            $context = new Context();
 
             while ($other instanceof IteratorAggregate) {
                 if ($context->contains($other) !== false) {
-                    throw new Exception('IteratorAggregate::getIterator() returned an object that was already seen');
+                    throw new Exception(
+                        "IteratorAggregate::getIterator() returned an object that was already seen",
+                    );
                 }
 
                 $context->add($other);
@@ -79,25 +73,21 @@ class Count extends Constraint
                 try {
                     $other = $other->getIterator();
                 } catch (\Exception $e) {
-                    throw new Exception(
-                        $e->getMessage(),
-                        $e->getCode(),
-                        $e,
-                    );
+                    throw new Exception($e->getMessage(), $e->getCode(), $e);
                 }
             }
 
             $iterator = $other;
 
             if ($iterator instanceof Generator) {
-                throw new GeneratorNotSupportedException;
+                throw new GeneratorNotSupportedException();
             }
 
-            if (!$iterator instanceof Iterator) {
+            if (!($iterator instanceof Iterator)) {
                 return iterator_count($iterator);
             }
 
-            $key   = $iterator->key();
+            $key = $iterator->key();
             $count = iterator_count($iterator);
 
             // Manually rewind $iterator to previous key, since iterator_count
@@ -124,10 +114,9 @@ class Count extends Constraint
      *
      * @throws Exception
      */
-    protected function failureDescription(mixed $other): string
-    {
+    protected function failureDescription(mixed $other): string {
         return sprintf(
-            'actual size %d matches expected size %d',
+            "actual size %d matches expected size %d",
             (int) $this->getCountOf($other),
             $this->expectedCount,
         );

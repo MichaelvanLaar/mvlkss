@@ -26,94 +26,93 @@ use PHPUnit\Framework\UnknownTypeException;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class IsType extends Constraint
-{
+final class IsType extends Constraint {
     /**
      * @var string
      */
-    public const TYPE_ARRAY = 'array';
+    public const TYPE_ARRAY = "array";
 
     /**
      * @var string
      */
-    public const TYPE_BOOL = 'bool';
+    public const TYPE_BOOL = "bool";
 
     /**
      * @var string
      */
-    public const TYPE_FLOAT = 'float';
+    public const TYPE_FLOAT = "float";
 
     /**
      * @var string
      */
-    public const TYPE_INT = 'int';
+    public const TYPE_INT = "int";
 
     /**
      * @var string
      */
-    public const TYPE_NULL = 'null';
+    public const TYPE_NULL = "null";
 
     /**
      * @var string
      */
-    public const TYPE_NUMERIC = 'numeric';
+    public const TYPE_NUMERIC = "numeric";
 
     /**
      * @var string
      */
-    public const TYPE_OBJECT = 'object';
+    public const TYPE_OBJECT = "object";
 
     /**
      * @var string
      */
-    public const TYPE_RESOURCE = 'resource';
+    public const TYPE_RESOURCE = "resource";
 
     /**
      * @var string
      */
-    public const TYPE_CLOSED_RESOURCE = 'resource (closed)';
+    public const TYPE_CLOSED_RESOURCE = "resource (closed)";
 
     /**
      * @var string
      */
-    public const TYPE_STRING = 'string';
+    public const TYPE_STRING = "string";
 
     /**
      * @var string
      */
-    public const TYPE_SCALAR = 'scalar';
+    public const TYPE_SCALAR = "scalar";
 
     /**
      * @var string
      */
-    public const TYPE_CALLABLE = 'callable';
+    public const TYPE_CALLABLE = "callable";
 
     /**
      * @var string
      */
-    public const TYPE_ITERABLE = 'iterable';
+    public const TYPE_ITERABLE = "iterable";
 
     /**
      * @var array<string,bool>
      */
     private const KNOWN_TYPES = [
-        'array'             => true,
-        'boolean'           => true,
-        'bool'              => true,
-        'double'            => true,
-        'float'             => true,
-        'integer'           => true,
-        'int'               => true,
-        'null'              => true,
-        'numeric'           => true,
-        'object'            => true,
-        'real'              => true,
-        'resource'          => true,
-        'resource (closed)' => true,
-        'string'            => true,
-        'scalar'            => true,
-        'callable'          => true,
-        'iterable'          => true,
+        "array" => true,
+        "boolean" => true,
+        "bool" => true,
+        "double" => true,
+        "float" => true,
+        "integer" => true,
+        "int" => true,
+        "null" => true,
+        "numeric" => true,
+        "object" => true,
+        "real" => true,
+        "resource" => true,
+        "resource (closed)" => true,
+        "string" => true,
+        "scalar" => true,
+        "callable" => true,
+        "iterable" => true,
     ];
 
     /**
@@ -126,8 +125,7 @@ final class IsType extends Constraint
      *
      * @throws UnknownTypeException
      */
-    public function __construct(string $type)
-    {
+    public function __construct(string $type) {
         if (!isset(self::KNOWN_TYPES[$type])) {
             throw new UnknownTypeException($type);
         }
@@ -138,64 +136,59 @@ final class IsType extends Constraint
     /**
      * Returns a string representation of the constraint.
      */
-    public function toString(): string
-    {
-        return sprintf(
-            'is of type %s',
-            $this->type,
-        );
+    public function toString(): string {
+        return sprintf("is of type %s", $this->type);
     }
 
     /**
      * Evaluates the constraint for parameter $other. Returns true if the
      * constraint is met, false otherwise.
      */
-    protected function matches(mixed $other): bool
-    {
+    protected function matches(mixed $other): bool {
         switch ($this->type) {
-            case 'numeric':
+            case "numeric":
                 return is_numeric($other);
 
-            case 'integer':
-            case 'int':
+            case "integer":
+            case "int":
                 return is_int($other);
 
-            case 'double':
-            case 'float':
-            case 'real':
+            case "double":
+            case "float":
+            case "real":
                 return is_float($other);
 
-            case 'string':
+            case "string":
                 return is_string($other);
 
-            case 'boolean':
-            case 'bool':
+            case "boolean":
+            case "bool":
                 return is_bool($other);
 
-            case 'null':
+            case "null":
                 return null === $other;
 
-            case 'array':
+            case "array":
                 return is_array($other);
 
-            case 'object':
+            case "object":
                 return is_object($other);
 
-            case 'resource':
+            case "resource":
                 $type = gettype($other);
 
-                return $type === 'resource' || $type === 'resource (closed)';
+                return $type === "resource" || $type === "resource (closed)";
 
-            case 'resource (closed)':
-                return gettype($other) === 'resource (closed)';
+            case "resource (closed)":
+                return gettype($other) === "resource (closed)";
 
-            case 'scalar':
+            case "scalar":
                 return is_scalar($other);
 
-            case 'callable':
+            case "callable":
                 return is_callable($other);
 
-            case 'iterable':
+            case "iterable":
                 return is_iterable($other);
 
             default:

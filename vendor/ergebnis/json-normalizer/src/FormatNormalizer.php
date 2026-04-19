@@ -16,21 +16,19 @@ namespace Ergebnis\Json\Normalizer;
 use Ergebnis\Json\Json;
 use Ergebnis\Json\Printer;
 
-final class FormatNormalizer implements Normalizer
-{
+final class FormatNormalizer implements Normalizer {
     private Format\Format $format;
     private Printer\PrinterInterface $printer;
 
     public function __construct(
         Printer\PrinterInterface $printer,
-        Format\Format $format
+        Format\Format $format,
     ) {
         $this->printer = $printer;
         $this->format = $format;
     }
 
-    public function normalize(Json $json): Json
-    {
+    public function normalize(Json $json): Json {
         $normalized = $this->printer->print(
             \json_encode(
                 $json->decoded(),
@@ -44,6 +42,8 @@ final class FormatNormalizer implements Normalizer
             return Json::fromString($normalized);
         }
 
-        return Json::fromString($normalized . $this->format->newLine()->toString());
+        return Json::fromString(
+            $normalized . $this->format->newLine()->toString(),
+        );
     }
 }

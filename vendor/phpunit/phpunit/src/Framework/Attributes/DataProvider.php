@@ -17,8 +17,7 @@ use Attribute;
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
 #[Attribute(Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
-final readonly class DataProvider
-{
+final readonly class DataProvider {
     /**
      * @var non-empty-string
      */
@@ -27,16 +26,14 @@ final readonly class DataProvider
     /**
      * @param non-empty-string $methodName
      */
-    public function __construct(string $methodName)
-    {
+    public function __construct(string $methodName) {
         $this->methodName = $methodName;
     }
 
     /**
      * @return non-empty-string
      */
-    public function methodName(): string
-    {
+    public function methodName(): string {
         return $this->methodName;
     }
 }

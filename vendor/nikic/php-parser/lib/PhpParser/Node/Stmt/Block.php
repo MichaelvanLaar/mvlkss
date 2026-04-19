@@ -20,10 +20,10 @@ class Block extends Stmt {
     }
 
     public function getType(): string {
-        return 'Stmt_Block';
+        return "Stmt_Block";
     }
 
     public function getSubNodeNames(): array {
-        return ['stmts'];
+        return ["stmts"];
     }
 }

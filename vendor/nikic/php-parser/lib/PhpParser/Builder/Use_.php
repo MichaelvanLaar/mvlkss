@@ -42,8 +42,9 @@ class Use_ implements Builder {
      * @return Stmt\Use_ The built node
      */
     public function getNode(): Node {
-        return new Stmt\Use_([
-            new Node\UseItem($this->name, $this->alias)
-        ], $this->type);
+        return new Stmt\Use_(
+            [new Node\UseItem($this->name, $this->alias)],
+            $this->type,
+        );
     }
 }

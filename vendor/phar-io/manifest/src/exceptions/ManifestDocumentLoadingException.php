@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 /*
  * This file is part of PharIo\Manifest.
  *
@@ -24,17 +24,17 @@ class ManifestDocumentLoadingException extends \Exception implements Exception {
      */
     public function __construct(array $libxmlErrors) {
         $this->libxmlErrors = $libxmlErrors;
-        $first              = $this->libxmlErrors[0];
+        $first = $this->libxmlErrors[0];
 
         parent::__construct(
             sprintf(
-                '%s (Line: %d / Column: %d / File: %s)',
+                "%s (Line: %d / Column: %d / File: %s)",
                 $first->message,
                 $first->line,
                 $first->column,
-                $first->file
+                $first->file,
             ),
-            $first->code
+            $first->code,
         );
     }
 

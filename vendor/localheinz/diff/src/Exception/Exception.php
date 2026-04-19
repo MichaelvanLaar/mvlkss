@@ -9,6 +9,4 @@
  */
 namespace Localheinz\Diff;
 
-interface Exception
-{
-}
+interface Exception {}

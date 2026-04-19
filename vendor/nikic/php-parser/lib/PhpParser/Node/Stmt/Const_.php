@@ -20,7 +20,7 @@ class Const_ extends Node\Stmt {
     public function __construct(
         array $consts,
         array $attributes = [],
-        array $attrGroups = []
+        array $attrGroups = [],
     ) {
         $this->attributes = $attributes;
         $this->attrGroups = $attrGroups;
@@ -28,10 +28,10 @@ class Const_ extends Node\Stmt {
     }
 
     public function getSubNodeNames(): array {
-        return ['attrGroups', 'consts'];
+        return ["attrGroups", "consts"];
     }
 
     public function getType(): string {
-        return 'Stmt_Const';
+        return "Stmt_Const";
     }
 }

@@ -19,8 +19,7 @@ use PHPUnit\Metadata\MetadataCollection;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class CachingParser implements Parser
-{
+final class CachingParser implements Parser {
     private readonly Parser $reader;
 
     /**
@@ -38,16 +37,14 @@ final class CachingParser implements Parser
      */
     private array $classAndMethodCache = [];
 
-    public function __construct(Parser $reader)
-    {
+    public function __construct(Parser $reader) {
         $this->reader = $reader;
     }
 
     /**
      * @param class-string $className
      */
-    public function forClass(string $className): MetadataCollection
-    {
+    public function forClass(string $className): MetadataCollection {
         assert(class_exists($className));
 
         if (isset($this->classCache[$className])) {
@@ -63,18 +60,23 @@ final class CachingParser implements Parser
      * @param class-string     $className
      * @param non-empty-string $methodName
      */
-    public function forMethod(string $className, string $methodName): MetadataCollection
-    {
+    public function forMethod(
+        string $className,
+        string $methodName,
+    ): MetadataCollection {
         assert(class_exists($className));
         assert(method_exists($className, $methodName));
 
-        $key = $className . '::' . $methodName;
+        $key = $className . "::" . $methodName;
 
         if (isset($this->methodCache[$key])) {
             return $this->methodCache[$key];
         }
 
-        $this->methodCache[$key] = $this->reader->forMethod($className, $methodName);
+        $this->methodCache[$key] = $this->reader->forMethod(
+            $className,
+            $methodName,
+        );
 
         return $this->methodCache[$key];
     }
@@ -83,17 +85,19 @@ final class CachingParser implements Parser
      * @param class-string     $className
      * @param non-empty-string $methodName
      */
-    public function forClassAndMethod(string $className, string $methodName): MetadataCollection
-    {
-        $key = $className . '::' . $methodName;
+    public function forClassAndMethod(
+        string $className,
+        string $methodName,
+    ): MetadataCollection {
+        $key = $className . "::" . $methodName;
 
         if (isset($this->classAndMethodCache[$key])) {
             return $this->classAndMethodCache[$key];
         }
 
-        $this->classAndMethodCache[$key] = $this->forClass($className)->mergeWith(
-            $this->forMethod($className, $methodName),
-        );
+        $this->classAndMethodCache[$key] = $this->forClass(
+            $className,
+        )->mergeWith($this->forMethod($className, $methodName));
 
         return $this->classAndMethodCache[$key];
     }

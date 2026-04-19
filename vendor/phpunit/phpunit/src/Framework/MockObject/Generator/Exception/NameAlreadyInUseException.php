@@ -16,18 +16,13 @@ use function sprintf;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class NameAlreadyInUseException extends \PHPUnit\Framework\Exception implements Exception
-{
+final class NameAlreadyInUseException
+    extends \PHPUnit\Framework\Exception
+    implements Exception {
     /**
      * @param class-string|trait-string $name
      */
-    public function __construct(string $name)
-    {
-        parent::__construct(
-            sprintf(
-                'The name "%s" is already in use',
-                $name,
-            ),
-        );
+    public function __construct(string $name) {
+        parent::__construct(sprintf('The name "%s" is already in use', $name));
     }
 }

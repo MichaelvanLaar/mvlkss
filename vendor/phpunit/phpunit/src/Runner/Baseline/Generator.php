@@ -27,8 +27,7 @@ use PHPUnit\TextUI\Configuration\SourceFilter;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class Generator
-{
+final readonly class Generator {
     private Baseline $baseline;
     private Source $source;
 
@@ -36,8 +35,7 @@ final readonly class Generator
      * @throws EventFacadeIsSealedException
      * @throws UnknownSubscriberTypeException
      */
-    public function __construct(Facade $facade, Source $source)
-    {
+    public function __construct(Facade $facade, Source $source) {
         $facade->registerSubscribers(
             new TestTriggeredDeprecationSubscriber($this),
             new TestTriggeredNoticeSubscriber($this),
@@ -47,12 +45,11 @@ final readonly class Generator
             new TestTriggeredWarningSubscriber($this),
         );
 
-        $this->baseline = new Baseline;
-        $this->source   = $source;
+        $this->baseline = new Baseline();
+        $this->source = $source;
     }
 
-    public function baseline(): Baseline
-    {
+    public function baseline(): Baseline {
         return $this->baseline;
     }
 
@@ -60,13 +57,17 @@ final readonly class Generator
      * @throws FileDoesNotExistException
      * @throws FileDoesNotHaveLineException
      */
-    public function testTriggeredIssue(DeprecationTriggered|NoticeTriggered|PhpDeprecationTriggered|PhpNoticeTriggered|PhpWarningTriggered|WarningTriggered $event): void
-    {
+    public function testTriggeredIssue(
+        DeprecationTriggered|NoticeTriggered|PhpDeprecationTriggered|PhpNoticeTriggered|PhpWarningTriggered|WarningTriggered $event,
+    ): void {
         if ($event->wasSuppressed() && !$this->isSuppressionIgnored($event)) {
             return;
         }
 
-        if ($this->restrict($event) && !SourceFilter::instance()->includes($event->file())) {
+        if (
+            $this->restrict($event) &&
+            !SourceFilter::instance()->includes($event->file())
+        ) {
             return;
         }
 
@@ -80,21 +81,29 @@ final readonly class Generator
         );
     }
 
-    private function restrict(DeprecationTriggered|NoticeTriggered|PhpDeprecationTriggered|PhpNoticeTriggered|PhpWarningTriggered|WarningTriggered $event): bool
-    {
-        if ($event instanceof WarningTriggered || $event instanceof PhpWarningTriggered) {
+    private function restrict(
+        DeprecationTriggered|NoticeTriggered|PhpDeprecationTriggered|PhpNoticeTriggered|PhpWarningTriggered|WarningTriggered $event,
+    ): bool {
+        if (
+            $event instanceof WarningTriggered ||
+            $event instanceof PhpWarningTriggered
+        ) {
             return $this->source->restrictWarnings();
         }
 
-        if ($event instanceof NoticeTriggered || $event instanceof PhpNoticeTriggered) {
+        if (
+            $event instanceof NoticeTriggered ||
+            $event instanceof PhpNoticeTriggered
+        ) {
             return $this->source->restrictNotices();
         }
 
         return $this->source->restrictDeprecations();
     }
 
-    private function isSuppressionIgnored(DeprecationTriggered|NoticeTriggered|PhpDeprecationTriggered|PhpNoticeTriggered|PhpWarningTriggered|WarningTriggered $event): bool
-    {
+    private function isSuppressionIgnored(
+        DeprecationTriggered|NoticeTriggered|PhpDeprecationTriggered|PhpNoticeTriggered|PhpWarningTriggered|WarningTriggered $event,
+    ): bool {
         if ($event instanceof WarningTriggered) {
             return $this->source->ignoreSuppressionOfWarnings();
         }

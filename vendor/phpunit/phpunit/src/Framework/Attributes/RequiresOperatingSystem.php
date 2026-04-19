@@ -17,8 +17,7 @@ use Attribute;
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
 #[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD)]
-final readonly class RequiresOperatingSystem
-{
+final readonly class RequiresOperatingSystem {
     /**
      * @var non-empty-string
      */
@@ -27,16 +26,14 @@ final readonly class RequiresOperatingSystem
     /**
      * @param non-empty-string $regularExpression
      */
-    public function __construct(string $regularExpression)
-    {
+    public function __construct(string $regularExpression) {
         $this->regularExpression = $regularExpression;
     }
 
     /**
      * @return non-empty-string
      */
-    public function regularExpression(): string
-    {
+    public function regularExpression(): string {
         return $this->regularExpression;
     }
 }

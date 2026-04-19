@@ -12,29 +12,28 @@ namespace SebastianBergmann\Timer;
 use function array_pop;
 use function hrtime;
 
-final class Timer
-{
+final class Timer {
     /**
      * @var list<float>
      */
     private array $startTimes = [];
 
-    public function start(): void
-    {
+    public function start(): void {
         $this->startTimes[] = (float) hrtime(true);
     }
 
     /**
      * @throws NoActiveTimerException
      */
-    public function stop(): Duration
-    {
+    public function stop(): Duration {
         if (empty($this->startTimes)) {
             throw new NoActiveTimerException(
-                'Timer::start() has to be called before Timer::stop()',
+                "Timer::start() has to be called before Timer::stop()",
             );
         }
 
-        return Duration::fromNanoseconds((float) hrtime(true) - array_pop($this->startTimes));
+        return Duration::fromNanoseconds(
+            (float) hrtime(true) - array_pop($this->startTimes),
+        );
     }
 }

@@ -12,10 +12,8 @@ namespace SebastianBergmann\CodeUnit;
 /**
  * @immutable
  */
-final readonly class FunctionUnit extends CodeUnit
-{
-    public function isFunction(): bool
-    {
+final readonly class FunctionUnit extends CodeUnit {
+    public function isFunction(): bool {
         return true;
     }
 }

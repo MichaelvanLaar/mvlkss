@@ -35,7 +35,7 @@ class Error extends \RuntimeException {
      * @phpstan-return -1|positive-int
      */
     public function getStartLine(): int {
-        return $this->attributes['startLine'] ?? -1;
+        return $this->attributes["startLine"] ?? -1;
     }
 
     /**
@@ -45,7 +45,7 @@ class Error extends \RuntimeException {
      * @phpstan-return -1|positive-int
      */
     public function getEndLine(): int {
-        return $this->attributes['endLine'] ?? -1;
+        return $this->attributes["endLine"] ?? -1;
     }
 
     /**
@@ -83,7 +83,7 @@ class Error extends \RuntimeException {
      * @param int $line Error start line
      */
     public function setStartLine(int $line): void {
-        $this->attributes['startLine'] = $line;
+        $this->attributes["startLine"] = $line;
         $this->updateMessage();
     }
 
@@ -93,7 +93,10 @@ class Error extends \RuntimeException {
      * For column information enable the startFilePos and endFilePos in the lexer options.
      */
     public function hasColumnInfo(): bool {
-        return isset($this->attributes['startFilePos'], $this->attributes['endFilePos']);
+        return isset(
+            $this->attributes["startFilePos"],
+            $this->attributes["endFilePos"],
+        );
     }
 
     /**
@@ -103,10 +106,12 @@ class Error extends \RuntimeException {
      */
     public function getStartColumn(string $code): int {
         if (!$this->hasColumnInfo()) {
-            throw new \RuntimeException('Error does not have column information');
+            throw new \RuntimeException(
+                "Error does not have column information",
+            );
         }
 
-        return $this->toColumn($code, $this->attributes['startFilePos']);
+        return $this->toColumn($code, $this->attributes["startFilePos"]);
     }
 
     /**
@@ -116,10 +121,12 @@ class Error extends \RuntimeException {
      */
     public function getEndColumn(string $code): int {
         if (!$this->hasColumnInfo()) {
-            throw new \RuntimeException('Error does not have column information');
+            throw new \RuntimeException(
+                "Error does not have column information",
+            );
         }
 
-        return $this->toColumn($code, $this->attributes['endFilePos']);
+        return $this->toColumn($code, $this->attributes["endFilePos"]);
     }
 
     /**
@@ -131,9 +138,12 @@ class Error extends \RuntimeException {
      */
     public function getMessageWithColumnInfo(string $code): string {
         return sprintf(
-            '%s from %d:%d to %d:%d', $this->getRawMessage(),
-            $this->getStartLine(), $this->getStartColumn($code),
-            $this->getEndLine(), $this->getEndColumn($code)
+            "%s from %d:%d to %d:%d",
+            $this->getRawMessage(),
+            $this->getStartLine(),
+            $this->getStartColumn($code),
+            $this->getEndLine(),
+            $this->getEndColumn($code),
         );
     }
 
@@ -147,7 +157,7 @@ class Error extends \RuntimeException {
      */
     private function toColumn(string $code, int $pos): int {
         if ($pos > strlen($code)) {
-            throw new \RuntimeException('Invalid position information');
+            throw new \RuntimeException("Invalid position information");
         }
 
         $lineStartPos = strrpos($code, "\n", $pos - strlen($code));
@@ -165,9 +175,9 @@ class Error extends \RuntimeException {
         $this->message = $this->rawMessage;
 
         if (-1 === $this->getStartLine()) {
-            $this->message .= ' on unknown line';
+            $this->message .= " on unknown line";
         } else {
-            $this->message .= ' on line ' . $this->getStartLine();
+            $this->message .= " on line " . $this->getStartLine();
         }
     }
 }

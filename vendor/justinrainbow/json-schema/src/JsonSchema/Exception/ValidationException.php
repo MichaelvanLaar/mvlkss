@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace JsonSchema\Exception;
 
-class ValidationException extends RuntimeException
-{
-}
+class ValidationException extends RuntimeException {}

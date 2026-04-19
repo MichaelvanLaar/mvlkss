@@ -24,10 +24,10 @@ class Exit_ extends Expr {
     }
 
     public function getSubNodeNames(): array {
-        return ['expr'];
+        return ["expr"];
     }
 
     public function getType(): string {
-        return 'Expr_Exit';
+        return "Expr_Exit";
     }
 }

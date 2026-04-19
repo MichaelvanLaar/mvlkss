@@ -12,10 +12,8 @@ namespace SebastianBergmann\CodeUnit;
 /**
  * @immutable
  */
-final readonly class InterfaceMethodUnit extends CodeUnit
-{
-    public function isInterfaceMethod(): bool
-    {
+final readonly class InterfaceMethodUnit extends CodeUnit {
+    public function isInterfaceMethod(): bool {
         return true;
     }
 }

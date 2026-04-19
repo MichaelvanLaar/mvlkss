@@ -16,20 +16,16 @@ namespace PHPUnit\Framework\TestStatus;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class Success extends Known
-{
-    public function isSuccess(): true
-    {
+final readonly class Success extends Known {
+    public function isSuccess(): true {
         return true;
     }
 
-    public function asInt(): int
-    {
+    public function asInt(): int {
         return 0;
     }
 
-    public function asString(): string
-    {
-        return 'success';
+    public function asString(): string {
+        return "success";
     }
 }

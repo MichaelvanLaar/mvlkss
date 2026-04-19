@@ -34,8 +34,7 @@ use SebastianBergmann\Template\Template;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class SeparateProcessTestRunner implements IsolatedTestRunner
-{
+final class SeparateProcessTestRunner implements IsolatedTestRunner {
     private static ?string $sourceMapFile = null;
 
     /**
@@ -46,116 +45,122 @@ final class SeparateProcessTestRunner implements IsolatedTestRunner
      * @throws NoPreviousThrowableException
      * @throws ProcessIsolationException
      */
-    public function run(TestCase $test, bool $runEntireClass, bool $preserveGlobalState, bool $requiresXdebug): void
-    {
+    public function run(
+        TestCase $test,
+        bool $runEntireClass,
+        bool $preserveGlobalState,
+        bool $requiresXdebug,
+    ): void {
         $class = new ReflectionClass($test);
 
         if ($runEntireClass) {
-            $template = new Template(
-                __DIR__ . '/templates/class.tpl',
-            );
+            $template = new Template(__DIR__ . "/templates/class.tpl");
         } else {
-            $template = new Template(
-                __DIR__ . '/templates/method.tpl',
-            );
+            $template = new Template(__DIR__ . "/templates/method.tpl");
         }
 
-        $bootstrap     = '';
-        $constants     = '';
-        $globals       = '';
-        $includedFiles = '';
-        $iniSettings   = '';
+        $bootstrap = "";
+        $constants = "";
+        $globals = "";
+        $includedFiles = "";
+        $iniSettings = "";
 
         if (ConfigurationRegistry::get()->hasBootstrap()) {
             $bootstrap = ConfigurationRegistry::get()->bootstrap();
         }
 
         if ($preserveGlobalState) {
-            $constants     = GlobalState::getConstantsAsString();
-            $globals       = GlobalState::getGlobalsAsString();
+            $constants = GlobalState::getConstantsAsString();
+            $globals = GlobalState::getGlobalsAsString();
             $includedFiles = GlobalState::getIncludedFilesAsString();
-            $iniSettings   = GlobalState::getIniSettingsAsString();
+            $iniSettings = GlobalState::getIniSettingsAsString();
         }
 
-        $coverage = CodeCoverage::instance()->isActive() ? 'true' : 'false';
+        $coverage = CodeCoverage::instance()->isActive() ? "true" : "false";
 
-        if (defined('PHPUNIT_COMPOSER_INSTALL')) {
+        if (defined("PHPUNIT_COMPOSER_INSTALL")) {
             $composerAutoload = var_export(PHPUNIT_COMPOSER_INSTALL, true);
         } else {
             $composerAutoload = '\'\'';
         }
 
-        if (defined('__PHPUNIT_PHAR__')) {
+        if (defined("__PHPUNIT_PHAR__")) {
             $phar = var_export(__PHPUNIT_PHAR__, true);
         } else {
             $phar = '\'\'';
         }
 
-        $data            = var_export(serialize($test->providedData()), true);
-        $dataName        = var_export($test->dataName(), true);
-        $dependencyInput = var_export(serialize($test->dependencyInput()), true);
-        $includePath     = var_export(get_include_path(), true);
+        $data = var_export(serialize($test->providedData()), true);
+        $dataName = var_export($test->dataName(), true);
+        $dependencyInput = var_export(
+            serialize($test->dependencyInput()),
+            true,
+        );
+        $includePath = var_export(get_include_path(), true);
         // must do these fixes because TestCaseMethod.tpl has unserialize('{data}') in it, and we can't break BC
         // the lines above used to use addcslashes() rather than var_export(), which breaks null byte escape sequences
-        $data                    = "'." . $data . ".'";
-        $dataName                = "'.(" . $dataName . ").'";
-        $dependencyInput         = "'." . $dependencyInput . ".'";
-        $includePath             = "'." . $includePath . ".'";
-        $offset                  = hrtime();
+        $data = "'." . $data . ".'";
+        $dataName = "'.(" . $dataName . ").'";
+        $dependencyInput = "'." . $dependencyInput . ".'";
+        $includePath = "'." . $includePath . ".'";
+        $offset = hrtime();
         $serializedConfiguration = $this->saveConfigurationForChildProcess();
-        $processResultFile       = $this->pathForCachedSourceMap();
-        $sourceMapFile           = $this->sourceMapFileForChildProcess();
+        $processResultFile = $this->pathForCachedSourceMap();
+        $sourceMapFile = $this->sourceMapFileForChildProcess();
 
         $file = $class->getFileName();
 
         assert($file !== false);
 
         $var = [
-            'bootstrap'                      => $bootstrap,
-            'composerAutoload'               => $composerAutoload,
-            'phar'                           => $phar,
-            'filename'                       => $file,
-            'className'                      => $class->getName(),
-            'collectCodeCoverageInformation' => $coverage,
-            'data'                           => $data,
-            'dataName'                       => $dataName,
-            'dependencyInput'                => $dependencyInput,
-            'constants'                      => $constants,
-            'globals'                        => $globals,
-            'include_path'                   => $includePath,
-            'included_files'                 => $includedFiles,
-            'iniSettings'                    => $iniSettings,
-            'name'                           => $test->name(),
-            'offsetSeconds'                  => (string) $offset[0],
-            'offsetNanoseconds'              => (string) $offset[1],
-            'serializedConfiguration'        => $serializedConfiguration,
-            'processResultFile'              => $processResultFile,
-            'sourceMapFile'                  => $sourceMapFile,
+            "bootstrap" => $bootstrap,
+            "composerAutoload" => $composerAutoload,
+            "phar" => $phar,
+            "filename" => $file,
+            "className" => $class->getName(),
+            "collectCodeCoverageInformation" => $coverage,
+            "data" => $data,
+            "dataName" => $dataName,
+            "dependencyInput" => $dependencyInput,
+            "constants" => $constants,
+            "globals" => $globals,
+            "include_path" => $includePath,
+            "included_files" => $includedFiles,
+            "iniSettings" => $iniSettings,
+            "name" => $test->name(),
+            "offsetSeconds" => (string) $offset[0],
+            "offsetNanoseconds" => (string) $offset[1],
+            "serializedConfiguration" => $serializedConfiguration,
+            "processResultFile" => $processResultFile,
+            "sourceMapFile" => $sourceMapFile,
         ];
 
         if (!$runEntireClass) {
-            $var['methodName'] = $test->name();
+            $var["methodName"] = $test->name();
         }
 
         $template->setVar($var);
 
         $code = $template->render();
 
-        assert($code !== '');
+        assert($code !== "");
 
-        JobRunnerRegistry::runTestJob(new Job($code, requiresXdebug: $requiresXdebug), $processResultFile, $test);
+        JobRunnerRegistry::runTestJob(
+            new Job($code, requiresXdebug: $requiresXdebug),
+            $processResultFile,
+            $test,
+        );
 
         @unlink($serializedConfiguration);
     }
 
-    private function sourceMapFileForChildProcess(): string
-    {
+    private function sourceMapFileForChildProcess(): string {
         if (self::$sourceMapFile !== null) {
             return self::$sourceMapFile;
         }
 
         if (!ConfigurationRegistry::get()->source()->notEmpty()) {
-            self::$sourceMapFile = '';
+            self::$sourceMapFile = "";
 
             return self::$sourceMapFile;
         }
@@ -164,15 +169,17 @@ final class SeparateProcessTestRunner implements IsolatedTestRunner
 
         if ($path === false) {
             // @codeCoverageIgnoreStart
-            self::$sourceMapFile = '';
+            self::$sourceMapFile = "";
 
             return self::$sourceMapFile;
             // @codeCoverageIgnoreEnd
         }
 
-        if (!SourceMapper::saveTo($path, ConfigurationRegistry::get()->source())) {
+        if (
+            !SourceMapper::saveTo($path, ConfigurationRegistry::get()->source())
+        ) {
             // @codeCoverageIgnoreStart
-            self::$sourceMapFile = '';
+            self::$sourceMapFile = "";
 
             return self::$sourceMapFile;
             // @codeCoverageIgnoreEnd
@@ -186,27 +193,25 @@ final class SeparateProcessTestRunner implements IsolatedTestRunner
     /**
      * @throws ProcessIsolationException
      */
-    private function saveConfigurationForChildProcess(): string
-    {
+    private function saveConfigurationForChildProcess(): string {
         $path = $this->pathForCachedSourceMap();
 
         if ($path === false) {
             // @codeCoverageIgnoreStart
-            throw new ProcessIsolationException;
+            throw new ProcessIsolationException();
             // @codeCoverageIgnoreEnd
         }
 
         if (!ConfigurationRegistry::saveTo($path)) {
             // @codeCoverageIgnoreStart
-            throw new ProcessIsolationException;
+            throw new ProcessIsolationException();
             // @codeCoverageIgnoreEnd
         }
 
         return $path;
     }
 
-    private function pathForCachedSourceMap(): false|string
-    {
-        return tempnam(sys_get_temp_dir(), 'phpunit_');
+    private function pathForCachedSourceMap(): false|string {
+        return tempnam(sys_get_temp_dir(), "phpunit_");
     }
 }

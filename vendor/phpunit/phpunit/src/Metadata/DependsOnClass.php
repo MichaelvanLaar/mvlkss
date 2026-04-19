@@ -14,8 +14,7 @@ namespace PHPUnit\Metadata;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class DependsOnClass extends Metadata
-{
+final readonly class DependsOnClass extends Metadata {
     /**
      * @var class-string
      */
@@ -27,35 +26,35 @@ final readonly class DependsOnClass extends Metadata
      * @param 0|1          $level
      * @param class-string $className
      */
-    protected function __construct(int $level, string $className, bool $deepClone, bool $shallowClone)
-    {
+    protected function __construct(
+        int $level,
+        string $className,
+        bool $deepClone,
+        bool $shallowClone,
+    ) {
         parent::__construct($level);
 
-        $this->className    = $className;
-        $this->deepClone    = $deepClone;
+        $this->className = $className;
+        $this->deepClone = $deepClone;
         $this->shallowClone = $shallowClone;
     }
 
-    public function isDependsOnClass(): true
-    {
+    public function isDependsOnClass(): true {
         return true;
     }
 
     /**
      * @return class-string
      */
-    public function className(): string
-    {
+    public function className(): string {
         return $this->className;
     }
 
-    public function deepClone(): bool
-    {
+    public function deepClone(): bool {
         return $this->deepClone;
     }
 
-    public function shallowClone(): bool
-    {
+    public function shallowClone(): bool {
         return $this->shallowClone;
     }
 }

@@ -17,43 +17,41 @@ use PHPUnit\Event\Telemetry;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class Sorted implements Event
-{
+final readonly class Sorted implements Event {
     private Telemetry\Info $telemetryInfo;
     private int $executionOrder;
     private int $executionOrderDefects;
     private bool $resolveDependencies;
 
-    public function __construct(Telemetry\Info $telemetryInfo, int $executionOrder, int $executionOrderDefects, bool $resolveDependencies)
-    {
-        $this->telemetryInfo         = $telemetryInfo;
-        $this->executionOrder        = $executionOrder;
+    public function __construct(
+        Telemetry\Info $telemetryInfo,
+        int $executionOrder,
+        int $executionOrderDefects,
+        bool $resolveDependencies,
+    ) {
+        $this->telemetryInfo = $telemetryInfo;
+        $this->executionOrder = $executionOrder;
         $this->executionOrderDefects = $executionOrderDefects;
-        $this->resolveDependencies   = $resolveDependencies;
+        $this->resolveDependencies = $resolveDependencies;
     }
 
-    public function telemetryInfo(): Telemetry\Info
-    {
+    public function telemetryInfo(): Telemetry\Info {
         return $this->telemetryInfo;
     }
 
-    public function executionOrder(): int
-    {
+    public function executionOrder(): int {
         return $this->executionOrder;
     }
 
-    public function executionOrderDefects(): int
-    {
+    public function executionOrderDefects(): int {
         return $this->executionOrderDefects;
     }
 
-    public function resolveDependencies(): bool
-    {
+    public function resolveDependencies(): bool {
         return $this->resolveDependencies;
     }
 
-    public function asString(): string
-    {
-        return 'Test Suite Sorted';
+    public function asString(): string {
+        return "Test Suite Sorted";
     }
 }

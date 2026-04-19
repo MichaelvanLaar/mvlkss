@@ -14,6 +14,5 @@ use RuntimeException;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class NoVersionRequirementException extends RuntimeException implements Exception
-{
-}
+final class NoVersionRequirementException extends RuntimeException implements
+    Exception {}

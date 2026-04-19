@@ -17,8 +17,7 @@ use Iterator;
  *
  * @template-implements Iterator<non-negative-int, IniSetting>
  */
-final class IniSettingCollectionIterator implements Iterator
-{
+final class IniSettingCollectionIterator implements Iterator {
     /**
      * @var list<IniSetting>
      */
@@ -29,36 +28,30 @@ final class IniSettingCollectionIterator implements Iterator
      */
     private int $position = 0;
 
-    public function __construct(IniSettingCollection $iniSettings)
-    {
+    public function __construct(IniSettingCollection $iniSettings) {
         $this->iniSettings = $iniSettings->asArray();
     }
 
-    public function rewind(): void
-    {
+    public function rewind(): void {
         $this->position = 0;
     }
 
-    public function valid(): bool
-    {
+    public function valid(): bool {
         return $this->position < count($this->iniSettings);
     }
 
     /**
      * @return non-negative-int
      */
-    public function key(): int
-    {
+    public function key(): int {
         return $this->position;
     }
 
-    public function current(): IniSetting
-    {
+    public function current(): IniSetting {
         return $this->iniSettings[$this->position];
     }
 
-    public function next(): void
-    {
+    public function next(): void {
         $this->position++;
     }
 }

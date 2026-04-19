@@ -14,10 +14,8 @@ namespace PHPUnit\Metadata;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class Test extends Metadata
-{
-    public function isTest(): true
-    {
+final readonly class Test extends Metadata {
+    public function isTest(): true {
         return true;
     }
 }

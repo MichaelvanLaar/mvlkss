@@ -17,15 +17,11 @@ use RuntimeException;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class UnsupportedPhptSectionException extends RuntimeException implements Exception
-{
-    public function __construct(string $section)
-    {
+final class UnsupportedPhptSectionException extends RuntimeException implements
+    Exception {
+    public function __construct(string $section) {
         parent::__construct(
-            sprintf(
-                'PHPUnit does not support PHPT %s sections',
-                $section,
-            ),
+            sprintf("PHPUnit does not support PHPT %s sections", $section),
         );
     }
 }

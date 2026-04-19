@@ -11,6 +11,4 @@ namespace SebastianBergmann\Invoker;
 
 use RuntimeException;
 
-final class TimeoutException extends RuntimeException implements Exception
-{
-}
+final class TimeoutException extends RuntimeException implements Exception {}

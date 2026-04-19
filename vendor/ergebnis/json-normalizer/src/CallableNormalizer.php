@@ -15,20 +15,17 @@ namespace Ergebnis\Json\Normalizer;
 
 use Ergebnis\Json\Json;
 
-final class CallableNormalizer implements Normalizer
-{
+final class CallableNormalizer implements Normalizer {
     /**
      * @var callable
      */
     private $callable;
 
-    public function __construct(callable $callable)
-    {
+    public function __construct(callable $callable) {
         $this->callable = $callable;
     }
 
-    public function normalize(Json $json): Json
-    {
+    public function normalize(Json $json): Json {
         $callable = $this->callable;
 
         return $callable($json);

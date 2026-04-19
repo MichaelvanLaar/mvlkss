@@ -13,20 +13,22 @@ declare(strict_types=1);
 
 namespace Ergebnis\Json\Normalizer\Exception;
 
-final class InvalidIndentSize extends \InvalidArgumentException implements Exception
-{
+final class InvalidIndentSize extends \InvalidArgumentException implements
+    Exception {
     private int $size = 0;
     private int $minimumSize = 0;
 
     public static function fromSizeAndMinimumSize(
         int $size,
-        int $minimumSize
+        int $minimumSize,
     ): self {
-        $exception = new self(\sprintf(
-            'Size needs to be greater than %d, but %d is not.',
-            $minimumSize - 1,
-            $size,
-        ));
+        $exception = new self(
+            \sprintf(
+                "Size needs to be greater than %d, but %d is not.",
+                $minimumSize - 1,
+                $size,
+            ),
+        );
 
         $exception->size = $size;
         $exception->minimumSize = $minimumSize;
@@ -34,13 +36,11 @@ final class InvalidIndentSize extends \InvalidArgumentException implements Excep
         return $exception;
     }
 
-    public function size(): int
-    {
+    public function size(): int {
         return $this->size;
     }
 
-    public function minimumSize(): int
-    {
+    public function minimumSize(): int {
         return $this->minimumSize;
     }
 }

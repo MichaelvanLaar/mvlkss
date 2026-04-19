@@ -17,13 +17,11 @@ use DOMElement;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class RemoveListeners implements Migration
-{
-    public function migrate(DOMDocument $document): void
-    {
-        $node = $document->getElementsByTagName('listeners')->item(0);
+final readonly class RemoveListeners implements Migration {
+    public function migrate(DOMDocument $document): void {
+        $node = $document->getElementsByTagName("listeners")->item(0);
 
-        if (!$node instanceof DOMElement || $node->parentNode === null) {
+        if (!($node instanceof DOMElement) || $node->parentNode === null) {
             return;
         }
 

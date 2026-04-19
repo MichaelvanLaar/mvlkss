@@ -19,6 +19,4 @@ namespace Symfony\Component\CssSelector\Exception;
  *
  * @author Jean-François Simon <jeanfrancois.simon@sensiolabs.com>
  */
-class ExpressionErrorException extends ParseException
-{
-}
+class ExpressionErrorException extends ParseException {}

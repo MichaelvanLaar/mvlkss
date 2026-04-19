@@ -16,8 +16,7 @@ use Traversable;
 /**
  * @template-implements IteratorAggregate<int, Chunk>
  */
-final class Diff implements IteratorAggregate
-{
+final class Diff implements IteratorAggregate {
     /**
      * @var non-empty-string
      */
@@ -38,47 +37,41 @@ final class Diff implements IteratorAggregate
      * @param non-empty-string $to
      * @param list<Chunk>      $chunks
      */
-    public function __construct(string $from, string $to, array $chunks = [])
-    {
-        $this->from   = $from;
-        $this->to     = $to;
+    public function __construct(string $from, string $to, array $chunks = []) {
+        $this->from = $from;
+        $this->to = $to;
         $this->chunks = $chunks;
     }
 
     /**
      * @return non-empty-string
      */
-    public function from(): string
-    {
+    public function from(): string {
         return $this->from;
     }
 
     /**
      * @return non-empty-string
      */
-    public function to(): string
-    {
+    public function to(): string {
         return $this->to;
     }
 
     /**
      * @return list<Chunk>
      */
-    public function chunks(): array
-    {
+    public function chunks(): array {
         return $this->chunks;
     }
 
     /**
      * @param list<Chunk> $chunks
      */
-    public function setChunks(array $chunks): void
-    {
+    public function setChunks(array $chunks): void {
         $this->chunks = $chunks;
     }
 
-    public function getIterator(): Traversable
-    {
+    public function getIterator(): Traversable {
         return new ArrayIterator($this->chunks);
     }
 }

@@ -18,16 +18,14 @@ use DOMElement;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class RemoveNoInteractionAttribute implements Migration
-{
-    public function migrate(DOMDocument $document): void
-    {
+final readonly class RemoveNoInteractionAttribute implements Migration {
+    public function migrate(DOMDocument $document): void {
         $root = $document->documentElement;
 
         assert($root instanceof DOMElement);
 
-        if ($root->hasAttribute('noInteraction')) {
-            $root->removeAttribute('noInteraction');
+        if ($root->hasAttribute("noInteraction")) {
+            $root->removeAttribute("noInteraction");
         }
     }
 }

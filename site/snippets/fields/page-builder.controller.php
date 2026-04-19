@@ -27,7 +27,7 @@ return function ($page, $field) {
     $layoutRowsData[] = getLayoutRowData(
       $layoutRow,
       $spacingUtilityClasses,
-      $selectableBrandColors
+      $selectableBrandColors,
     );
   }
 
@@ -46,7 +46,7 @@ return function ($page, $field) {
 function getLayoutRowData(
   $layoutRow,
   $spacingUtilityClasses,
-  $selectableBrandColors
+  $selectableBrandColors,
 ) {
   // Construct the ID attribute for the current row
   $rowId = $layoutRow->rowId();
@@ -96,7 +96,7 @@ function getLayoutRowData(
   ];
   $layoutRowClassAttribute = sprintf(
     "class=\"%s\"",
-    implode(" ", $layoutRowClasses)
+    implode(" ", $layoutRowClasses),
   );
 
   // Construct the style attribute for the current row
@@ -175,7 +175,7 @@ function buildStyleAttribute($layoutRow) {
   // Add the background image related CSS rules to the style attribute
   $layoutRowStyleAttribute .= buildBackgroundImageUrl(
     $rowBackgroundImageFile,
-    $rowBackgroundImageFileExtension
+    $rowBackgroundImageFileExtension,
   );
 
   // Close and return the style attribute
@@ -184,12 +184,12 @@ function buildStyleAttribute($layoutRow) {
 
 function buildBackgroundImageUrl(
   $rowBackgroundImageFile,
-  $rowBackgroundImageFileExtension
+  $rowBackgroundImageFileExtension,
 ) {
   // Set the background image fallback for older browsers
   $rowBackgroundImageStyle = sprintf(
     " background-image: url('%s');",
-    $rowBackgroundImageFile->url()
+    $rowBackgroundImageFile->url(),
   );
 
   // Add modern file formats (AVIF and/or WebP) of the background image for
@@ -198,19 +198,19 @@ function buildBackgroundImageUrl(
     case "png":
       $rowBackgroundImageStyle .= sprintf(
         " background-image: url('%s');",
-        $rowBackgroundImageFile->thumb("png->webp")->url()
+        $rowBackgroundImageFile->thumb("png->webp")->url(),
       );
       break;
     case "jpg":
     case "jpeg":
       $rowBackgroundImageStyle .= sprintf(
         " background-image: url('%s');",
-        $rowBackgroundImageFile->thumb("jpg->webp")->url()
+        $rowBackgroundImageFile->thumb("jpg->webp")->url(),
       );
       if (option("thumbs")["driver"] == "im") {
         $rowBackgroundImageStyle .= sprintf(
           " background-image: url('%s');",
-          $rowBackgroundImageFile->thumb("jpg->avif")->url()
+          $rowBackgroundImageFile->thumb("jpg->avif")->url(),
         );
       }
       break;

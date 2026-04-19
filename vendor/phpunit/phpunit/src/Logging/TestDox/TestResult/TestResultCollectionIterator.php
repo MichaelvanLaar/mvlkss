@@ -19,8 +19,7 @@ use Iterator;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class TestResultCollectionIterator implements Iterator
-{
+final class TestResultCollectionIterator implements Iterator {
     /**
      * @var list<TestResult>
      */
@@ -31,36 +30,30 @@ final class TestResultCollectionIterator implements Iterator
      */
     private int $position = 0;
 
-    public function __construct(TestResultCollection $testResults)
-    {
+    public function __construct(TestResultCollection $testResults) {
         $this->testResults = $testResults->asArray();
     }
 
-    public function rewind(): void
-    {
+    public function rewind(): void {
         $this->position = 0;
     }
 
-    public function valid(): bool
-    {
+    public function valid(): bool {
         return $this->position < count($this->testResults);
     }
 
     /**
      * @return non-negative-int
      */
-    public function key(): int
-    {
+    public function key(): int {
         return $this->position;
     }
 
-    public function current(): TestResult
-    {
+    public function current(): TestResult {
         return $this->testResults[$this->position];
     }
 
-    public function next(): void
-    {
+    public function next(): void {
         $this->position++;
     }
 }

@@ -18,14 +18,13 @@ use DOMElement;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class ReplaceRestrictDeprecationsWithIgnoreDeprecations implements Migration
-{
+final readonly class ReplaceRestrictDeprecationsWithIgnoreDeprecations
+    implements Migration {
     /**
      * @throws MigrationException
      */
-    public function migrate(DOMDocument $document): void
-    {
-        $source = $document->getElementsByTagName('source')->item(0);
+    public function migrate(DOMDocument $document): void {
+        $source = $document->getElementsByTagName("source")->item(0);
 
         if ($source === null) {
             return;
@@ -33,19 +32,22 @@ final readonly class ReplaceRestrictDeprecationsWithIgnoreDeprecations implement
 
         assert($source instanceof DOMElement);
 
-        if (!$source->hasAttribute('restrictDeprecations')) {
+        if (!$source->hasAttribute("restrictDeprecations")) {
             return;
         }
 
-        $restrictDeprecations = $source->getAttribute('restrictDeprecations') === 'true';
+        $restrictDeprecations =
+            $source->getAttribute("restrictDeprecations") === "true";
 
-        $source->removeAttribute('restrictDeprecations');
+        $source->removeAttribute("restrictDeprecations");
 
-        if (!$restrictDeprecations ||
-            $source->hasAttribute('ignoreIndirectDeprecations')) {
+        if (
+            !$restrictDeprecations ||
+            $source->hasAttribute("ignoreIndirectDeprecations")
+        ) {
             return;
         }
 
-        $source->setAttribute('ignoreIndirectDeprecations', 'true');
+        $source->setAttribute("ignoreIndirectDeprecations", "true");
     }
 }

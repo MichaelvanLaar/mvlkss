@@ -14,21 +14,18 @@ use SebastianBergmann\CodeCoverage\InvalidArgumentException;
 /**
  * @immutable
  */
-final class Thresholds
-{
+final class Thresholds {
     private readonly int $lowUpperBound;
     private readonly int $highLowerBound;
 
-    public static function default(): self
-    {
+    public static function default(): self {
         return new self(50, 90);
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    public static function from(int $lowUpperBound, int $highLowerBound): self
-    {
+    public static function from(int $lowUpperBound, int $highLowerBound): self {
         if ($lowUpperBound > $highLowerBound) {
             throw new InvalidArgumentException(
                 '$lowUpperBound must not be larger than $highLowerBound',
@@ -38,19 +35,16 @@ final class Thresholds
         return new self($lowUpperBound, $highLowerBound);
     }
 
-    private function __construct(int $lowUpperBound, int $highLowerBound)
-    {
-        $this->lowUpperBound  = $lowUpperBound;
+    private function __construct(int $lowUpperBound, int $highLowerBound) {
+        $this->lowUpperBound = $lowUpperBound;
         $this->highLowerBound = $highLowerBound;
     }
 
-    public function lowUpperBound(): int
-    {
+    public function lowUpperBound(): int {
         return $this->lowUpperBound;
     }
 
-    public function highLowerBound(): int
-    {
+    public function highLowerBound(): int {
         return $this->highLowerBound;
     }
 }

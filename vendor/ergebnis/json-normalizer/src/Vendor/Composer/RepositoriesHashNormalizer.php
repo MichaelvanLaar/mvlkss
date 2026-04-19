@@ -17,35 +17,35 @@ use Ergebnis\Json\Json;
 use Ergebnis\Json\Normalizer\Format;
 use Ergebnis\Json\Normalizer\Normalizer;
 
-final class RepositoriesHashNormalizer implements Normalizer
-{
+final class RepositoriesHashNormalizer implements Normalizer {
     private const PROPERTIES_WITH_WILDCARDS = [
         /**
          * @see https://getcomposer.org/doc/articles/repository-priorities.md#filtering-packages
          */
-        'exclude',
-        'only',
+        "exclude",
+        "only",
     ];
     private WildcardSorter $wildcardSorter;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->wildcardSorter = new WildcardSorter();
     }
 
-    public function normalize(Json $json): Json
-    {
+    public function normalize(Json $json): Json {
         $decoded = $json->decoded();
 
         if (!\is_object($decoded)) {
             return $json;
         }
 
-        if (!\property_exists($decoded, 'repositories')) {
+        if (!\property_exists($decoded, "repositories")) {
             return $json;
         }
 
-        if (!\is_array($decoded->repositories) && !\is_object($decoded->repositories)) {
+        if (
+            !\is_array($decoded->repositories) &&
+            !\is_object($decoded->repositories)
+        ) {
             return $json;
         }
 

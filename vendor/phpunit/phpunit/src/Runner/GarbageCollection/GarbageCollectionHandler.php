@@ -21,8 +21,7 @@ use PHPUnit\Event\UnknownSubscriberTypeException;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class GarbageCollectionHandler
-{
+final class GarbageCollectionHandler {
     private readonly Facade $facade;
     private readonly int $threshold;
     private int $tests = 0;
@@ -31,16 +30,14 @@ final class GarbageCollectionHandler
      * @throws EventFacadeIsSealedException
      * @throws UnknownSubscriberTypeException
      */
-    public function __construct(Facade $facade, int $threshold)
-    {
-        $this->facade    = $facade;
+    public function __construct(Facade $facade, int $threshold) {
+        $this->facade = $facade;
         $this->threshold = $threshold;
 
         $this->registerSubscribers();
     }
 
-    public function executionStarted(): void
-    {
+    public function executionStarted(): void {
         gc_disable();
 
         $this->facade->emitter()->testRunnerDisabledGarbageCollection();
@@ -50,8 +47,7 @@ final class GarbageCollectionHandler
         $this->facade->emitter()->testRunnerTriggeredGarbageCollection();
     }
 
-    public function executionFinished(): void
-    {
+    public function executionFinished(): void {
         gc_collect_cycles();
 
         $this->facade->emitter()->testRunnerTriggeredGarbageCollection();
@@ -61,8 +57,7 @@ final class GarbageCollectionHandler
         $this->facade->emitter()->testRunnerEnabledGarbageCollection();
     }
 
-    public function testFinished(): void
-    {
+    public function testFinished(): void {
         $this->tests++;
 
         if ($this->tests === $this->threshold) {
@@ -78,8 +73,7 @@ final class GarbageCollectionHandler
      * @throws EventFacadeIsSealedException
      * @throws UnknownSubscriberTypeException
      */
-    private function registerSubscribers(): void
-    {
+    private function registerSubscribers(): void {
         $this->facade->registerSubscribers(
             new ExecutionStartedSubscriber($this),
             new ExecutionFinishedSubscriber($this),

@@ -15,32 +15,41 @@ use function strcasecmp;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for this library
  */
-final class StaticType extends Type
-{
+final class StaticType extends Type {
     private TypeName $className;
     private bool $allowsNull;
 
-    public function __construct(TypeName $className, bool $allowsNull)
-    {
-        $this->className  = $className;
+    public function __construct(TypeName $className, bool $allowsNull) {
+        $this->className = $className;
         $this->allowsNull = $allowsNull;
     }
 
-    public function isAssignable(Type $other): bool
-    {
+    public function isAssignable(Type $other): bool {
         if ($this->allowsNull && $other instanceof NullType) {
             return true;
         }
 
-        if (!$other instanceof ObjectType) {
+        if (!($other instanceof ObjectType)) {
             return false;
         }
 
-        if (0 === strcasecmp($this->className->qualifiedName(), $other->className()->qualifiedName())) {
+        if (
+            0 ===
+            strcasecmp(
+                $this->className->qualifiedName(),
+                $other->className()->qualifiedName(),
+            )
+        ) {
             return true;
         }
 
-        if (is_subclass_of($other->className()->qualifiedName(), $this->className->qualifiedName(), true)) {
+        if (
+            is_subclass_of(
+                $other->className()->qualifiedName(),
+                $this->className->qualifiedName(),
+                true,
+            )
+        ) {
             return true;
         }
 
@@ -50,18 +59,15 @@ final class StaticType extends Type
     /**
      * @return 'static'
      */
-    public function name(): string
-    {
-        return 'static';
+    public function name(): string {
+        return "static";
     }
 
-    public function allowsNull(): bool
-    {
+    public function allowsNull(): bool {
         return $this->allowsNull;
     }
 
-    public function isStatic(): bool
-    {
+    public function isStatic(): bool {
         return true;
     }
 }

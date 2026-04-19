@@ -17,8 +17,7 @@ use SplFileInfo;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class Facade
-{
+final class Facade {
     /**
      * @param list<non-empty-string>|non-empty-string $paths
      * @param list<non-empty-string>|string           $suffixes
@@ -27,9 +26,18 @@ final class Facade
      *
      * @return list<non-empty-string>
      */
-    public function getFilesAsArray(array|string $paths, array|string $suffixes = '', array|string $prefixes = '', array $exclude = []): array
-    {
-        $iterator = (new Factory)->getFileIterator($paths, $suffixes, $prefixes, $exclude);
+    public function getFilesAsArray(
+        array|string $paths,
+        array|string $suffixes = "",
+        array|string $prefixes = "",
+        array $exclude = [],
+    ): array {
+        $iterator = (new Factory())->getFileIterator(
+            $paths,
+            $suffixes,
+            $prefixes,
+            $exclude,
+        );
 
         $files = [];
 

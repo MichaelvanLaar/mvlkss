@@ -16,8 +16,7 @@ use PHPUnit\Framework\MockObject\Invocation;
  *
  * @internal This interface is not covered by the backward compatibility promise for PHPUnit
  */
-interface Stub
-{
+interface Stub {
     /**
      * Fakes the processing of the invocation $invocation by returning a
      * specific value.

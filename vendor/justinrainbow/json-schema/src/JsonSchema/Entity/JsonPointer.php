@@ -18,8 +18,7 @@ use JsonSchema\Exception\InvalidArgumentException;
  *
  * @author Joost Nijhuis <jnijhuis81@gmail.com>
  */
-class JsonPointer
-{
+class JsonPointer {
     /** @var string */
     private $filename;
 
@@ -36,13 +35,12 @@ class JsonPointer
      *
      * @throws InvalidArgumentException when $value is not a string
      */
-    public function __construct($value)
-    {
+    public function __construct($value) {
         if (!is_string($value)) {
-            throw new InvalidArgumentException('Ref value must be a string');
+            throw new InvalidArgumentException("Ref value must be a string");
         }
 
-        $splitRef = explode('#', $value, 2);
+        $splitRef = explode("#", $value, 2);
         $this->filename = $splitRef[0];
         if (array_key_exists(1, $splitRef)) {
             $this->propertyPaths = $this->decodePropertyPaths($splitRef[1]);
@@ -54,12 +52,11 @@ class JsonPointer
      *
      * @return string[]
      */
-    private function decodePropertyPaths($propertyPathString)
-    {
+    private function decodePropertyPaths($propertyPathString) {
         $paths = [];
-        foreach (explode('/', trim($propertyPathString, '/')) as $path) {
+        foreach (explode("/", trim($propertyPathString, "/")) as $path) {
             $path = $this->decodePath($path);
-            if (is_string($path) && '' !== $path) {
+            if (is_string($path) && "" !== $path) {
                 $paths[] = $path;
             }
         }
@@ -70,12 +67,8 @@ class JsonPointer
     /**
      * @return array
      */
-    private function encodePropertyPaths()
-    {
-        return array_map(
-            [$this, 'encodePath'],
-            $this->getPropertyPaths()
-        );
+    private function encodePropertyPaths() {
+        return array_map([$this, "encodePath"], $this->getPropertyPaths());
     }
 
     /**
@@ -83,9 +76,8 @@ class JsonPointer
      *
      * @return string
      */
-    private function decodePath($path)
-    {
-        return strtr($path, ['~1' => '/', '~0' => '~', '%25' => '%']);
+    private function decodePath($path) {
+        return strtr($path, ["~1" => "/", "~0" => "~", "%25" => "%"]);
     }
 
     /**
@@ -93,24 +85,21 @@ class JsonPointer
      *
      * @return string
      */
-    private function encodePath($path)
-    {
-        return strtr($path, ['/' => '~1', '~' => '~0', '%' => '%25']);
+    private function encodePath($path) {
+        return strtr($path, ["/" => "~1", "~" => "~0", "%" => "%25"]);
     }
 
     /**
      * @return string
      */
-    public function getFilename()
-    {
+    public function getFilename() {
         return $this->filename;
     }
 
     /**
      * @return string[]
      */
-    public function getPropertyPaths()
-    {
+    public function getPropertyPaths() {
         return $this->propertyPaths;
     }
 
@@ -119,10 +108,11 @@ class JsonPointer
      *
      * @return JsonPointer
      */
-    public function withPropertyPaths(array $propertyPaths)
-    {
+    public function withPropertyPaths(array $propertyPaths) {
         $new = clone $this;
-        $new->propertyPaths = array_map(function ($p): string { return (string) $p; }, $propertyPaths);
+        $new->propertyPaths = array_map(function ($p): string {
+            return (string) $p;
+        }, $propertyPaths);
 
         return $new;
     }
@@ -130,24 +120,21 @@ class JsonPointer
     /**
      * @return string
      */
-    public function getPropertyPathAsString()
-    {
-        return rtrim('#/' . implode('/', $this->encodePropertyPaths()), '/');
+    public function getPropertyPathAsString() {
+        return rtrim("#/" . implode("/", $this->encodePropertyPaths()), "/");
     }
 
     /**
      * @return string
      */
-    public function __toString()
-    {
+    public function __toString() {
         return $this->getFilename() . $this->getPropertyPathAsString();
     }
 
     /**
      * Mark the value at this path as being set from a schema default
      */
-    public function setFromDefault(): void
-    {
+    public function setFromDefault(): void {
         $this->fromDefault = true;
     }
 
@@ -156,8 +143,7 @@ class JsonPointer
      *
      * @return bool
      */
-    public function fromDefault()
-    {
+    public function fromDefault() {
         return $this->fromDefault;
     }
 }

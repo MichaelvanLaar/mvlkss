@@ -18,31 +18,30 @@ use PHPUnit\TextUI\Configuration\File;
  *
  * @immutable
  */
-final readonly class Text
-{
+final readonly class Text {
     private File $target;
     private bool $showUncoveredFiles;
     private bool $showOnlySummary;
 
-    public function __construct(File $target, bool $showUncoveredFiles, bool $showOnlySummary)
-    {
-        $this->target             = $target;
+    public function __construct(
+        File $target,
+        bool $showUncoveredFiles,
+        bool $showOnlySummary,
+    ) {
+        $this->target = $target;
         $this->showUncoveredFiles = $showUncoveredFiles;
-        $this->showOnlySummary    = $showOnlySummary;
+        $this->showOnlySummary = $showOnlySummary;
     }
 
-    public function target(): File
-    {
+    public function target(): File {
         return $this->target;
     }
 
-    public function showUncoveredFiles(): bool
-    {
+    public function showUncoveredFiles(): bool {
         return $this->showUncoveredFiles;
     }
 
-    public function showOnlySummary(): bool
-    {
+    public function showOnlySummary(): bool {
         return $this->showOnlySummary;
     }
 }

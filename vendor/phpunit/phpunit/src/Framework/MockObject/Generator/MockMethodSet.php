@@ -18,15 +18,13 @@ use function strtolower;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class MockMethodSet
-{
+final class MockMethodSet {
     /**
      * @var array<string,MockMethod>
      */
     private array $methods = [];
 
-    public function addMethods(MockMethod ...$methods): void
-    {
+    public function addMethods(MockMethod ...$methods): void {
         foreach ($methods as $method) {
             $this->methods[strtolower($method->methodName())] = $method;
         }
@@ -35,13 +33,11 @@ final class MockMethodSet
     /**
      * @return list<MockMethod>
      */
-    public function asArray(): array
-    {
+    public function asArray(): array {
         return array_values($this->methods);
     }
 
-    public function hasMethod(string $methodName): bool
-    {
+    public function hasMethod(string $methodName): bool {
         return array_key_exists(strtolower($methodName), $this->methods);
     }
 }

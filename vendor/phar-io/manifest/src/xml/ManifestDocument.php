@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 /*
  * This file is part of PharIo\Manifest.
  *
@@ -22,7 +22,7 @@ use function libxml_use_internal_errors;
 use function sprintf;
 
 class ManifestDocument {
-    public const XMLNS = 'https://phar.io/xml/manifest/1.0';
+    public const XMLNS = "https://phar.io/xml/manifest/1.0";
 
     /** @var DOMDocument */
     private $dom;
@@ -30,13 +30,11 @@ class ManifestDocument {
     public static function fromFile(string $filename): ManifestDocument {
         if (!is_file($filename)) {
             throw new ManifestDocumentException(
-                sprintf('File "%s" not found', $filename)
+                sprintf('File "%s" not found', $filename),
             );
         }
 
-        return self::fromString(
-            file_get_contents($filename)
-        );
+        return self::fromString(file_get_contents($filename));
     }
 
     public static function fromString(string $xmlString): ManifestDocument {
@@ -66,47 +64,47 @@ class ManifestDocument {
     }
 
     public function getContainsElement(): ContainsElement {
-        return new ContainsElement(
-            $this->fetchElementByName('contains')
-        );
+        return new ContainsElement($this->fetchElementByName("contains"));
     }
 
     public function getCopyrightElement(): CopyrightElement {
-        return new CopyrightElement(
-            $this->fetchElementByName('copyright')
-        );
+        return new CopyrightElement($this->fetchElementByName("copyright"));
     }
 
     public function getRequiresElement(): RequiresElement {
-        return new RequiresElement(
-            $this->fetchElementByName('requires')
-        );
+        return new RequiresElement($this->fetchElementByName("requires"));
     }
 
     public function hasBundlesElement(): bool {
-        return $this->dom->getElementsByTagNameNS(self::XMLNS, 'bundles')->length === 1;
+        return $this->dom->getElementsByTagNameNS(self::XMLNS, "bundles")
+            ->length === 1;
     }
 
     public function getBundlesElement(): BundlesElement {
-        return new BundlesElement(
-            $this->fetchElementByName('bundles')
-        );
+        return new BundlesElement($this->fetchElementByName("bundles"));
     }
 
     private function ensureCorrectDocumentType(DOMDocument $dom): void {
         $root = $dom->documentElement;
 
-        if ($root->localName !== 'phar' || $root->namespaceURI !== self::XMLNS) {
-            throw new ManifestDocumentException('Not a phar.io manifest document');
+        if (
+            $root->localName !== "phar" ||
+            $root->namespaceURI !== self::XMLNS
+        ) {
+            throw new ManifestDocumentException(
+                "Not a phar.io manifest document",
+            );
         }
     }
 
     private function fetchElementByName(string $elementName): DOMElement {
-        $element = $this->dom->getElementsByTagNameNS(self::XMLNS, $elementName)->item(0);
+        $element = $this->dom
+            ->getElementsByTagNameNS(self::XMLNS, $elementName)
+            ->item(0);
 
-        if (!$element instanceof DOMElement) {
+        if (!($element instanceof DOMElement)) {
             throw new ManifestDocumentException(
-                sprintf('Element %s missing', $elementName)
+                sprintf("Element %s missing", $elementName),
             );
         }
 

@@ -20,19 +20,25 @@ use PHPUnit\Metadata\Parser\Registry;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class Dependencies
-{
+final readonly class Dependencies {
     /**
      * @param class-string     $className
      * @param non-empty-string $methodName
      *
      * @return list<ExecutionOrderDependency>
      */
-    public static function dependencies(string $className, string $methodName): array
-    {
+    public static function dependencies(
+        string $className,
+        string $methodName,
+    ): array {
         $dependencies = [];
 
-        foreach (Registry::parser()->forClassAndMethod($className, $methodName)->isDepends() as $metadata) {
+        foreach (
+            Registry::parser()
+                ->forClassAndMethod($className, $methodName)
+                ->isDepends()
+            as $metadata
+        ) {
             if ($metadata->isDependsOnClass()) {
                 assert($metadata instanceof DependsOnClass);
 

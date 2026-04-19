@@ -23,10 +23,8 @@ use SebastianBergmann\Exporter\Exporter;
  * The order of the keys does not matter.
  * The types of key-value pairs do not matter.
  */
-class ArrayComparator extends Comparator
-{
-    public function accepts(mixed $expected, mixed $actual): bool
-    {
+class ArrayComparator extends Comparator {
+    public function accepts(mixed $expected, mixed $actual): bool {
         return is_array($expected) && is_array($actual);
     }
 
@@ -35,8 +33,14 @@ class ArrayComparator extends Comparator
      *
      * @throws ComparisonFailure
      */
-    public function assertEquals(mixed $expected, mixed $actual, float $delta = 0.0, bool $canonicalize = false, bool $ignoreCase = false, array &$processed = []): void
-    {
+    public function assertEquals(
+        mixed $expected,
+        mixed $actual,
+        float $delta = 0.0,
+        bool $canonicalize = false,
+        bool $ignoreCase = false,
+        array &$processed = [],
+    ): void {
         assert(is_array($expected));
         assert(is_array($actual));
 
@@ -45,11 +49,11 @@ class ArrayComparator extends Comparator
             sort($actual);
         }
 
-        $remaining        = $actual;
-        $actualAsString   = "Array (\n";
+        $remaining = $actual;
+        $actualAsString = "Array (\n";
         $expectedAsString = "Array (\n";
-        $equal            = true;
-        $exporter         = new Exporter;
+        $equal = true;
+        $exporter = new Exporter();
 
         foreach ($expected as $key => $value) {
             unset($remaining[$key]);
@@ -67,10 +71,20 @@ class ArrayComparator extends Comparator
             }
 
             try {
-                $comparator = $this->factory()->getComparatorFor($value, $actual[$key]);
+                $comparator = $this->factory()->getComparatorFor(
+                    $value,
+                    $actual[$key],
+                );
 
                 /** @phpstan-ignore arguments.count */
-                $comparator->assertEquals($value, $actual[$key], $delta, $canonicalize, $ignoreCase, $processed);
+                $comparator->assertEquals(
+                    $value,
+                    $actual[$key],
+                    $delta,
+                    $canonicalize,
+                    $ignoreCase,
+                    $processed,
+                );
 
                 $expectedAsString .= sprintf(
                     "    %s => %s\n",
@@ -87,13 +101,17 @@ class ArrayComparator extends Comparator
                 $expectedAsString .= sprintf(
                     "    %s => %s\n",
                     $exporter->export($key),
-                    $e->getExpectedAsString() ? $this->indent($e->getExpectedAsString()) : $exporter->shortenedExport($e->getExpected()),
+                    $e->getExpectedAsString()
+                        ? $this->indent($e->getExpectedAsString())
+                        : $exporter->shortenedExport($e->getExpected()),
                 );
 
                 $actualAsString .= sprintf(
                     "    %s => %s\n",
                     $exporter->export($key),
-                    $e->getActualAsString() ? $this->indent($e->getActualAsString()) : $exporter->shortenedExport($e->getActual()),
+                    $e->getActualAsString()
+                        ? $this->indent($e->getActualAsString())
+                        : $exporter->shortenedExport($e->getActual()),
                 );
 
                 $equal = false;
@@ -110,8 +128,8 @@ class ArrayComparator extends Comparator
             $equal = false;
         }
 
-        $expectedAsString .= ')';
-        $actualAsString .= ')';
+        $expectedAsString .= ")";
+        $actualAsString .= ")";
 
         if (!$equal) {
             throw new ComparisonFailure(
@@ -119,13 +137,12 @@ class ArrayComparator extends Comparator
                 $actual,
                 $expectedAsString,
                 $actualAsString,
-                'Failed asserting that two arrays are equal.',
+                "Failed asserting that two arrays are equal.",
             );
         }
     }
 
-    private function indent(string $lines): string
-    {
+    private function indent(string $lines): string {
         return trim(str_replace("\n", "\n    ", $lines));
     }
 }

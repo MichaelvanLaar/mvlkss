@@ -17,17 +17,21 @@ class TraitUse extends Node\Stmt {
      * @param TraitUseAdaptation[] $adaptations Adaptations
      * @param array<string, mixed> $attributes Additional attributes
      */
-    public function __construct(array $traits, array $adaptations = [], array $attributes = []) {
+    public function __construct(
+        array $traits,
+        array $adaptations = [],
+        array $attributes = [],
+    ) {
         $this->attributes = $attributes;
         $this->traits = $traits;
         $this->adaptations = $adaptations;
     }
 
     public function getSubNodeNames(): array {
-        return ['traits', 'adaptations'];
+        return ["traits", "adaptations"];
     }
 
     public function getType(): string {
-        return 'Stmt_TraitUse';
+        return "Stmt_TraitUse";
     }
 }

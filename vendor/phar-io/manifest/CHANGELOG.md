@@ -7,7 +7,7 @@ All notable changes to phar-io/manifest are documented in this file using the [K
 ### Changed
 
 - Make `EMail` an optional attribute for author
-- Stick with PHP 7.2 compatibilty 
+- Stick with PHP 7.2 compatibilty
 - Do not use implict nullable type (thanks @sebastianbergmann), this should make things work on PHP 8.4
 
 ## [2.0.3] - 20.07.2021
@@ -30,7 +30,7 @@ This release now requires PHP 7.2+
 
 - Upgraded to phar-io/version 3.0
     - Version strings `v1.2.3` will now be converted to valid semantic version strings `1.2.3`
-    - Abreviated strings like `1.0` will get expaneded to `1.0.0`  
+    - Abreviated strings like `1.0` will get expaneded to `1.0.0`
 
 ### Unreleased
 

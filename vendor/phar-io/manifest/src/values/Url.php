@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 /*
  * This file is part of PharIo\Manifest.
  *
@@ -32,7 +32,7 @@ class Url {
      */
     private function ensureUrlIsValid(string $url): void {
         if (filter_var($url, FILTER_VALIDATE_URL) === false) {
-            throw new InvalidUrlException;
+            throw new InvalidUrlException();
         }
     }
 }

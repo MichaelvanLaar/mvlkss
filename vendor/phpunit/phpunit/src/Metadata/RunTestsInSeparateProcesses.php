@@ -14,10 +14,8 @@ namespace PHPUnit\Metadata;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class RunTestsInSeparateProcesses extends Metadata
-{
-    public function isRunTestsInSeparateProcesses(): true
-    {
+final readonly class RunTestsInSeparateProcesses extends Metadata {
+    public function isRunTestsInSeparateProcesses(): true {
         return true;
     }
 }

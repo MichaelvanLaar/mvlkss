@@ -25,8 +25,7 @@ use ReflectionNamedType;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class PassedTests
-{
+final class PassedTests {
     private static ?self $instance = null;
 
     /**
@@ -39,13 +38,12 @@ final class PassedTests
      */
     private array $passedTestMethods = [];
 
-    public static function instance(): self
-    {
+    public static function instance(): self {
         if (self::$instance !== null) {
             return self::$instance;
         }
 
-        self::$instance = new self;
+        self::$instance = new self();
 
         return self::$instance;
     }
@@ -53,26 +51,25 @@ final class PassedTests
     /**
      * @param class-string $className
      */
-    public function testClassPassed(string $className): void
-    {
+    public function testClassPassed(string $className): void {
         $this->passedTestClasses[] = $className;
     }
 
-    public function testMethodPassed(TestMethod $test, mixed $returnValue): void
-    {
-        $size = (new Groups)->size(
-            $test->className(),
-            $test->methodName(),
-        );
+    public function testMethodPassed(
+        TestMethod $test,
+        mixed $returnValue,
+    ): void {
+        $size = (new Groups())->size($test->className(), $test->methodName());
 
-        $this->passedTestMethods[$test->className() . '::' . $test->methodName()] = [
-            'returnValue' => $returnValue,
-            'size'        => $size,
+        $this->passedTestMethods[
+            $test->className() . "::" . $test->methodName()
+        ] = [
+            "returnValue" => $returnValue,
+            "size" => $size,
         ];
     }
 
-    public function import(self $other): void
-    {
+    public function import(self $other): void {
         $this->passedTestClasses = array_merge(
             $this->passedTestClasses,
             $other->passedTestClasses,
@@ -87,25 +84,22 @@ final class PassedTests
     /**
      * @param class-string $className
      */
-    public function hasTestClassPassed(string $className): bool
-    {
+    public function hasTestClassPassed(string $className): bool {
         return in_array($className, $this->passedTestClasses, true);
     }
 
-    public function hasTestMethodPassed(string $method): bool
-    {
+    public function hasTestMethodPassed(string $method): bool {
         return isset($this->passedTestMethods[$method]);
     }
 
-    public function isGreaterThan(string $method, TestSize $other): bool
-    {
+    public function isGreaterThan(string $method, TestSize $other): bool {
         if ($other->isUnknown()) {
             return false;
         }
 
         assert($other instanceof Known);
 
-        $size = $this->passedTestMethods[$method]['size'];
+        $size = $this->passedTestMethods[$method]["size"];
 
         if ($size->isUnknown()) {
             return false;
@@ -116,17 +110,18 @@ final class PassedTests
         return $size->isGreaterThan($other);
     }
 
-    public function hasReturnValue(string $method): bool
-    {
-        $returnType = (new ReflectionMethod(...explode('::', $method)))->getReturnType();
+    public function hasReturnValue(string $method): bool {
+        $returnType = (new ReflectionMethod(
+            ...explode("::", $method),
+        ))->getReturnType();
 
-        return !$returnType instanceof ReflectionNamedType || !in_array($returnType->getName(), ['never', 'void'], true);
+        return !($returnType instanceof ReflectionNamedType) ||
+            !in_array($returnType->getName(), ["never", "void"], true);
     }
 
-    public function returnValue(string $method): mixed
-    {
+    public function returnValue(string $method): mixed {
         if (isset($this->passedTestMethods[$method])) {
-            return $this->passedTestMethods[$method]['returnValue'];
+            return $this->passedTestMethods[$method]["returnValue"];
         }
 
         return null;

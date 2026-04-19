@@ -14,10 +14,9 @@ namespace PHPUnit\Metadata;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class DisableReturnValueGenerationForTestDoubles extends Metadata
-{
-    public function isDisableReturnValueGenerationForTestDoubles(): true
-    {
+final readonly class DisableReturnValueGenerationForTestDoubles extends
+    Metadata {
+    public function isDisableReturnValueGenerationForTestDoubles(): true {
         return true;
     }
 }

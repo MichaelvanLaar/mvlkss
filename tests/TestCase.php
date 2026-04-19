@@ -12,15 +12,13 @@ use PHPUnit\Framework\TestCase as BaseTestCase;
  *
  * Provides helper methods and utilities for testing Kirby components.
  */
-abstract class TestCase extends BaseTestCase
-{
+abstract class TestCase extends BaseTestCase {
     protected App $kirby;
 
     /**
      * Set up the test environment
      */
-    protected function setUp(): void
-    {
+    protected function setUp(): void {
         parent::setUp();
         $this->kirby = App::instance();
     }
@@ -28,24 +26,21 @@ abstract class TestCase extends BaseTestCase
     /**
      * Clean up after tests
      */
-    protected function tearDown(): void
-    {
+    protected function tearDown(): void {
         parent::tearDown();
     }
 
     /**
      * Get the Kirby instance
      */
-    protected function kirby(): App
-    {
+    protected function kirby(): App {
         return $this->kirby;
     }
 
     /**
      * Get the site instance
      */
-    protected function site(): Site
-    {
+    protected function site(): Site {
         return $this->kirby->site();
     }
 
@@ -55,12 +50,11 @@ abstract class TestCase extends BaseTestCase
      * @param array $props Page properties
      * @return Page
      */
-    protected function createTestPage(array $props = []): Page
-    {
+    protected function createTestPage(array $props = []): Page {
         $defaults = [
-            'slug'     => 'test-page',
-            'template' => 'default',
-            'content'  => [],
+            "slug" => "test-page",
+            "template" => "default",
+            "content" => [],
         ];
 
         $props = array_merge($defaults, $props);
@@ -74,26 +68,33 @@ abstract class TestCase extends BaseTestCase
      * @param string $html
      * @param string $message
      */
-    protected function assertValidHtml(string $html, string $message = ''): void
-    {
+    protected function assertValidHtml(
+        string $html,
+        string $message = "",
+    ): void {
         $dom = new \DOMDocument();
         $previousUseErrors = libxml_use_internal_errors(true);
-        $result = $dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $result = $dom->loadHTML(
+            $html,
+            LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD,
+        );
         $errors = libxml_get_errors();
         libxml_clear_errors();
         libxml_use_internal_errors($previousUseErrors);
 
-        $errorDetail = '';
+        $errorDetail = "";
         if (!empty($errors)) {
-            $errorDetail = ' Errors: ' . implode('; ', array_map(
-                fn($error) => trim($error->message),
-                $errors
-            ));
+            $errorDetail =
+                " Errors: " .
+                implode(
+                    "; ",
+                    array_map(fn($error) => trim($error->message), $errors),
+                );
         }
 
         $this->assertTrue(
             $result && empty($errors),
-            ($message ?: 'Expected valid HTML') . $errorDetail
+            ($message ?: "Expected valid HTML") . $errorDetail,
         );
     }
 
@@ -106,13 +107,17 @@ abstract class TestCase extends BaseTestCase
      * @param string $html
      * @param string $message
      */
-    protected function assertHasClass(string $class, string $html, string $message = ''): void
-    {
-        $pattern = '/class\s*=\s*"[^"]*\b' . preg_quote($class, '/') . '\b[^"]*"/';
+    protected function assertHasClass(
+        string $class,
+        string $html,
+        string $message = "",
+    ): void {
+        $pattern =
+            '/class\s*=\s*"[^"]*\b' . preg_quote($class, "/") . '\b[^"]*"/';
         $this->assertMatchesRegularExpression(
             $pattern,
             $html,
-            $message ?: "Expected HTML to contain class: {$class}"
+            $message ?: "Expected HTML to contain class: {$class}",
         );
     }
 
@@ -123,12 +128,15 @@ abstract class TestCase extends BaseTestCase
      * @param string $html
      * @param string $message
      */
-    protected function assertHasTag(string $tag, string $html, string $message = ''): void
-    {
+    protected function assertHasTag(
+        string $tag,
+        string $html,
+        string $message = "",
+    ): void {
         $this->assertMatchesRegularExpression(
-            '/<' . preg_quote($tag, '/') . '[>\s]/',
+            "/<" . preg_quote($tag, "/") . "[>\s]/",
             $html,
-            $message ?: "Expected HTML to contain tag: {$tag}"
+            $message ?: "Expected HTML to contain tag: {$tag}",
         );
     }
 }

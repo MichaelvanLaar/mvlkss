@@ -20,27 +20,29 @@ use PHPUnit\Runner\Version;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class UpdateSchemaLocation implements Migration
-{
-    private const NAMESPACE_URI              = 'http://www.w3.org/2001/XMLSchema-instance';
-    private const LOCAL_NAME_SCHEMA_LOCATION = 'noNamespaceSchemaLocation';
+final readonly class UpdateSchemaLocation implements Migration {
+    private const NAMESPACE_URI = "http://www.w3.org/2001/XMLSchema-instance";
+    private const LOCAL_NAME_SCHEMA_LOCATION = "noNamespaceSchemaLocation";
 
-    public function migrate(DOMDocument $document): void
-    {
+    public function migrate(DOMDocument $document): void {
         $root = $document->documentElement;
 
         assert($root instanceof DOMElement);
 
-        $existingSchemaLocation = $root->getAttributeNS(self::NAMESPACE_URI, self::LOCAL_NAME_SCHEMA_LOCATION);
+        $existingSchemaLocation = $root->getAttributeNS(
+            self::NAMESPACE_URI,
+            self::LOCAL_NAME_SCHEMA_LOCATION,
+        );
 
-        if (str_contains($existingSchemaLocation, '://') === false) { // If the current schema location is a relative path, don't update it
+        if (str_contains($existingSchemaLocation, "://") === false) {
+            // If the current schema location is a relative path, don't update it
             return;
         }
 
         $root->setAttributeNS(
             self::NAMESPACE_URI,
-            'xsi:' . self::LOCAL_NAME_SCHEMA_LOCATION,
-            'https://schema.phpunit.de/' . Version::series() . '/phpunit.xsd',
+            "xsi:" . self::LOCAL_NAME_SCHEMA_LOCATION,
+            "https://schema.phpunit.de/" . Version::series() . "/phpunit.xsd",
         );
     }
 }

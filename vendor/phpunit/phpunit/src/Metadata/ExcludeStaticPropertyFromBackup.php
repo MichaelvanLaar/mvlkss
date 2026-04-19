@@ -14,8 +14,7 @@ namespace PHPUnit\Metadata;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class ExcludeStaticPropertyFromBackup extends Metadata
-{
+final readonly class ExcludeStaticPropertyFromBackup extends Metadata {
     /**
      * @var class-string
      */
@@ -31,32 +30,32 @@ final readonly class ExcludeStaticPropertyFromBackup extends Metadata
      * @param class-string     $className
      * @param non-empty-string $propertyName
      */
-    protected function __construct(int $level, string $className, string $propertyName)
-    {
+    protected function __construct(
+        int $level,
+        string $className,
+        string $propertyName,
+    ) {
         parent::__construct($level);
 
-        $this->className    = $className;
+        $this->className = $className;
         $this->propertyName = $propertyName;
     }
 
-    public function isExcludeStaticPropertyFromBackup(): true
-    {
+    public function isExcludeStaticPropertyFromBackup(): true {
         return true;
     }
 
     /**
      * @return class-string
      */
-    public function className(): string
-    {
+    public function className(): string {
         return $this->className;
     }
 
     /**
      * @return non-empty-string
      */
-    public function propertyName(): string
-    {
+    public function propertyName(): string {
         return $this->propertyName;
     }
 }

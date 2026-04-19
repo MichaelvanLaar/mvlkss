@@ -25,17 +25,14 @@ use ReflectionObject;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for this library
  */
-final class CallableType extends Type
-{
+final class CallableType extends Type {
     private bool $allowsNull;
 
-    public function __construct(bool $nullable)
-    {
+    public function __construct(bool $nullable) {
         $this->allowsNull = $nullable;
     }
 
-    public function isAssignable(Type $other): bool
-    {
+    public function isAssignable(Type $other): bool {
         if ($this->allowsNull && $other instanceof NullType) {
             return true;
         }
@@ -74,37 +71,31 @@ final class CallableType extends Type
     /**
      * @return 'callable'
      */
-    public function name(): string
-    {
-        return 'callable';
+    public function name(): string {
+        return "callable";
     }
 
-    public function allowsNull(): bool
-    {
+    public function allowsNull(): bool {
         return $this->allowsNull;
     }
 
-    public function isCallable(): bool
-    {
+    public function isCallable(): bool {
         return true;
     }
 
-    private function isClosure(ObjectType $type): bool
-    {
+    private function isClosure(ObjectType $type): bool {
         return $type->className()->qualifiedName() === Closure::class;
     }
 
-    private function hasInvokeMethod(ObjectType $type): bool
-    {
+    private function hasInvokeMethod(ObjectType $type): bool {
         $className = $type->className()->qualifiedName();
 
         assert(class_exists($className));
 
-        return (new ReflectionClass($className))->hasMethod('__invoke');
+        return (new ReflectionClass($className))->hasMethod("__invoke");
     }
 
-    private function isFunction(SimpleType $type): bool
-    {
+    private function isFunction(SimpleType $type): bool {
         if (!is_string($type->value())) {
             return false;
         }
@@ -112,8 +103,7 @@ final class CallableType extends Type
         return function_exists($type->value());
     }
 
-    private function isObjectCallback(SimpleType $type): bool
-    {
+    private function isObjectCallback(SimpleType $type): bool {
         if (!is_array($type->value())) {
             return false;
         }
@@ -135,18 +125,17 @@ final class CallableType extends Type
         return (new ReflectionObject($object))->hasMethod($methodName);
     }
 
-    private function isClassCallback(SimpleType $type): bool
-    {
+    private function isClassCallback(SimpleType $type): bool {
         if (!is_string($type->value()) && !is_array($type->value())) {
             return false;
         }
 
         if (is_string($type->value())) {
-            if (!str_contains($type->value(), '::')) {
+            if (!str_contains($type->value(), "::")) {
                 return false;
             }
 
-            [$className, $methodName] = explode('::', $type->value());
+            [$className, $methodName] = explode("::", $type->value());
         }
 
         if (is_array($type->value())) {
@@ -158,7 +147,10 @@ final class CallableType extends Type
                 return false;
             }
 
-            if (!is_string($type->value()[0]) || !is_string($type->value()[1])) {
+            if (
+                !is_string($type->value()[0]) ||
+                !is_string($type->value()[1])
+            ) {
                 return false;
             }
 

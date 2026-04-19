@@ -28,8 +28,7 @@ use function trim;
  *
  * @see Copied from https://github.com/phpstan/phpstan-src/blob/1.10.33/src/File/ParentDirectoryRelativePathHelper.php
  */
-final readonly class RelativePathCalculator
-{
+final readonly class RelativePathCalculator {
     /**
      * @var non-empty-string
      */
@@ -38,8 +37,7 @@ final readonly class RelativePathCalculator
     /**
      * @param non-empty-string $baselineDirectory
      */
-    public function __construct(string $baselineDirectory)
-    {
+    public function __construct(string $baselineDirectory) {
         $this->baselineDirectory = $baselineDirectory;
     }
 
@@ -48,11 +46,10 @@ final readonly class RelativePathCalculator
      *
      * @return non-empty-string
      */
-    public function calculate(string $filename): string
-    {
-        $result = implode('/', $this->parts($filename));
+    public function calculate(string $filename): string {
+        $result = implode("/", $this->parts($filename));
 
-        assert($result !== '');
+        assert($result !== "");
 
         return $result;
     }
@@ -62,19 +59,24 @@ final readonly class RelativePathCalculator
      *
      * @return list<non-empty-string>
      */
-    public function parts(string $filename): array
-    {
-        $schemePosition = strpos($filename, '://');
+    public function parts(string $filename): array {
+        $schemePosition = strpos($filename, "://");
 
         if ($schemePosition !== false) {
             $filename = substr($filename, $schemePosition + 3);
 
-            assert($filename !== '');
+            assert($filename !== "");
         }
 
-        $parentParts        = explode('/', trim(str_replace('\\', '/', $this->baselineDirectory), '/'));
-        $parentPartsCount   = count($parentParts);
-        $filenameParts      = explode('/', trim(str_replace('\\', '/', $filename), '/'));
+        $parentParts = explode(
+            "/",
+            trim(str_replace("\\", "/", $this->baselineDirectory), "/"),
+        );
+        $parentPartsCount = count($parentParts);
+        $filenameParts = explode(
+            "/",
+            trim(str_replace("\\", "/", $filename), "/"),
+        );
         $filenamePartsCount = count($filenameParts);
 
         $i = 0;
@@ -84,8 +86,11 @@ final readonly class RelativePathCalculator
                 break;
             }
 
-            $parentPath   = implode('/', array_slice($parentParts, 0, $i + 1));
-            $filenamePath = implode('/', array_slice($filenameParts, 0, $i + 1));
+            $parentPath = implode("/", array_slice($parentParts, 0, $i + 1));
+            $filenamePath = implode(
+                "/",
+                array_slice($filenameParts, 0, $i + 1),
+            );
 
             if ($parentPath !== $filenamePath) {
                 break;
@@ -100,6 +105,9 @@ final readonly class RelativePathCalculator
 
         assert($dotsCount >= 0);
 
-        return array_merge(array_fill(0, $dotsCount, '..'), array_slice($filenameParts, $i));
+        return array_merge(
+            array_fill(0, $dotsCount, ".."),
+            array_slice($filenameParts, $i),
+        );
     }
 }

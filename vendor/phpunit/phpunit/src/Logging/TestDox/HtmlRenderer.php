@@ -16,107 +16,105 @@ use function sprintf;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class HtmlRenderer
-{
+final readonly class HtmlRenderer {
     /**
      * @var string
      */
     private const PAGE_HEADER = <<<'EOT'
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8"/>
-        <title>Test Documentation</title>
-        <style>
-            body {
-                text-rendering: optimizeLegibility;
-                font-family: Source SansSerif Pro, Arial, sans-serif;
-                font-variant-ligatures: common-ligatures;
-                font-kerning: normal;
-                margin-left: 2rem;
-                background-color: #fff;
-                color: #000;
-            }
+    <!doctype html>
+    <html lang="en">
+        <head>
+            <meta charset="utf-8"/>
+            <title>Test Documentation</title>
+            <style>
+                body {
+                    text-rendering: optimizeLegibility;
+                    font-family: Source SansSerif Pro, Arial, sans-serif;
+                    font-variant-ligatures: common-ligatures;
+                    font-kerning: normal;
+                    margin-left: 2rem;
+                    background-color: #fff;
+                    color: #000;
+                }
 
-            body > ul > li {
-                font-size: larger;
-            }
+                body > ul > li {
+                    font-size: larger;
+                }
 
-            h2 {
-                font-size: larger;
-                text-decoration-line: underline;
-                text-decoration-thickness: 2px;
-                margin: 0;
-                padding: 0.5rem 0;
-            }
+                h2 {
+                    font-size: larger;
+                    text-decoration-line: underline;
+                    text-decoration-thickness: 2px;
+                    margin: 0;
+                    padding: 0.5rem 0;
+                }
 
-            ul {
-                list-style: none;
-                margin: 0 0 2rem;
-                padding: 0 0 0 1rem;
-                text-indent: -1rem;
-            }
+                ul {
+                    list-style: none;
+                    margin: 0 0 2rem;
+                    padding: 0 0 0 1rem;
+                    text-indent: -1rem;
+                }
 
-            .success:before {
-                color: #4e9a06;
-                content: '✓';
-                padding-right: 0.5rem;
-            }
+                .success:before {
+                    color: #4e9a06;
+                    content: '✓';
+                    padding-right: 0.5rem;
+                }
 
-            .defect {
-                color: #a40000;
-            }
+                .defect {
+                    color: #a40000;
+                }
 
-            .defect:before {
-                color: #a40000;
-                content: '✗';
-                padding-right: 0.5rem;
-            }
-        </style>
-    </head>
-    <body>
-EOT;
+                .defect:before {
+                    color: #a40000;
+                    content: '✗';
+                    padding-right: 0.5rem;
+                }
+            </style>
+        </head>
+        <body>
+    EOT;
 
     /**
      * @var string
      */
     private const CLASS_HEADER = <<<'EOT'
 
-        <h2>%s</h2>
-        <ul>
+            <h2>%s</h2>
+            <ul>
 
-EOT;
+    EOT;
 
     /**
      * @var string
      */
     private const CLASS_FOOTER = <<<'EOT'
-        </ul>
-EOT;
+            </ul>
+    EOT;
 
     /**
      * @var string
      */
     private const PAGE_FOOTER = <<<'EOT'
 
-    </body>
-</html>
-EOT;
+        </body>
+    </html>
+    EOT;
 
     /**
      * @param array<string, TestResultCollection> $tests
      */
-    public function render(array $tests): string
-    {
+    public function render(array $tests): string {
         $buffer = self::PAGE_HEADER;
 
         foreach ($tests as $prettifiedClassName => $_tests) {
-            $buffer .= sprintf(
-                self::CLASS_HEADER,
-                $prettifiedClassName,
-            );
+            $buffer .= sprintf(self::CLASS_HEADER, $prettifiedClassName);
 
-            foreach ($this->reduce($_tests) as $prettifiedMethodName => $outcome) {
+            foreach (
+                $this->reduce($_tests)
+                as $prettifiedMethodName => $outcome
+            ) {
                 $buffer .= sprintf(
                     "            <li class=\"%s\">%s</li>\n",
                     $outcome,
@@ -133,15 +131,19 @@ EOT;
     /**
      * @return array<string, 'defect'|'success'>
      */
-    private function reduce(TestResultCollection $tests): array
-    {
+    private function reduce(TestResultCollection $tests): array {
         $result = [];
 
         foreach ($tests as $test) {
-            $prettifiedMethodName = $test->test()->testDox()->prettifiedMethodName();
+            $prettifiedMethodName = $test
+                ->test()
+                ->testDox()
+                ->prettifiedMethodName();
 
             if (!isset($result[$prettifiedMethodName])) {
-                $result[$prettifiedMethodName] = $test->status()->isSuccess() ? 'success' : 'defect';
+                $result[$prettifiedMethodName] = $test->status()->isSuccess()
+                    ? "success"
+                    : "defect";
 
                 continue;
             }
@@ -150,7 +152,7 @@ EOT;
                 continue;
             }
 
-            $result[$prettifiedMethodName] = 'defect';
+            $result[$prettifiedMethodName] = "defect";
         }
 
         return $result;

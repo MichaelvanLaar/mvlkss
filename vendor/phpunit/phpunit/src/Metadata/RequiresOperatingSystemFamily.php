@@ -14,8 +14,7 @@ namespace PHPUnit\Metadata;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class RequiresOperatingSystemFamily extends Metadata
-{
+final readonly class RequiresOperatingSystemFamily extends Metadata {
     /**
      * @var non-empty-string
      */
@@ -25,23 +24,20 @@ final readonly class RequiresOperatingSystemFamily extends Metadata
      * @param 0|1              $level
      * @param non-empty-string $operatingSystemFamily
      */
-    protected function __construct(int $level, string $operatingSystemFamily)
-    {
+    protected function __construct(int $level, string $operatingSystemFamily) {
         parent::__construct($level);
 
         $this->operatingSystemFamily = $operatingSystemFamily;
     }
 
-    public function isRequiresOperatingSystemFamily(): true
-    {
+    public function isRequiresOperatingSystemFamily(): true {
         return true;
     }
 
     /**
      * @return non-empty-string
      */
-    public function operatingSystemFamily(): string
-    {
+    public function operatingSystemFamily(): string {
         return $this->operatingSystemFamily;
     }
 }
