@@ -5,56 +5,35 @@
 $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
-return [
-    "voku\\helper\\" => [$vendorDir . "/voku/simple_html_dom/src/voku/helper"],
-    "voku\\" => [$vendorDir . "/voku/html-min/src/voku"],
-    "Whoops\\" => [$vendorDir . "/filp/whoops/src/Whoops"],
-    "Tests\\" => [$baseDir . "/tests"],
-    "Symfony\\Polyfill\\Mbstring\\" => [
-        $vendorDir . "/symfony/polyfill-mbstring",
-    ],
-    "Symfony\\Polyfill\\Intl\\Normalizer\\" => [
-        $vendorDir . "/symfony/polyfill-intl-normalizer",
-    ],
-    "Symfony\\Polyfill\\Intl\\Idn\\" => [
-        $vendorDir . "/symfony/polyfill-intl-idn",
-    ],
-    "Symfony\\Polyfill\\Ctype\\" => [$vendorDir . "/symfony/polyfill-ctype"],
-    "Symfony\\Component\\Yaml\\" => [$vendorDir . "/symfony/yaml"],
-    "Symfony\\Component\\CssSelector\\" => [
-        $vendorDir . "/symfony/css-selector",
-    ],
-    "Psr\\Log\\" => [$vendorDir . "/psr/log/src"],
-    "PhpParser\\" => [$vendorDir . "/nikic/php-parser/lib/PhpParser"],
-    "Phiki\\" => [$vendorDir . "/phiki/phiki/src"],
-    "PHPStan\\ExtensionInstaller\\" => [
-        $vendorDir . "/phpstan/extension-installer/src",
-    ],
-    "PHPMailer\\PHPMailer\\" => [$vendorDir . "/phpmailer/phpmailer/src"],
-    "MabeEnum\\" => [$vendorDir . "/marc-mabe/php-enum/src"],
-    "League\\ColorExtractor\\" => [$vendorDir . "/league/color-extractor/src"],
-    "Laminas\\Escaper\\" => [$vendorDir . "/laminas/laminas-escaper/src"],
-    "Kirby\\" => [
-        $baseDir . "/kirby/src",
-        $vendorDir . "/getkirby/composer-installer/src",
-    ],
-    "JsonSchema\\" => [
-        $vendorDir . "/justinrainbow/json-schema/src/JsonSchema",
-    ],
-    "Ergebnis\\Json\\SchemaValidator\\" => [
-        $vendorDir . "/ergebnis/json-schema-validator/src",
-    ],
-    "Ergebnis\\Json\\Printer\\" => [$vendorDir . "/ergebnis/json-printer/src"],
-    "Ergebnis\\Json\\Pointer\\" => [$vendorDir . "/ergebnis/json-pointer/src"],
-    "Ergebnis\\Json\\Normalizer\\" => [
-        $vendorDir . "/ergebnis/json-normalizer/src",
-    ],
-    "Ergebnis\\Json\\" => [$vendorDir . "/ergebnis/json/src"],
-    "Ergebnis\\Composer\\Normalize\\" => [
-        $vendorDir . "/ergebnis/composer-normalize/src",
-    ],
-    "DeepCopy\\" => [$vendorDir . "/myclabs/deep-copy/src/DeepCopy"],
-    "Composer\\Semver\\" => [$vendorDir . "/composer/semver/src"],
-    "Bnomei\\" => [$baseDir . "/site/plugins/kirby3-robots-txt/classes"],
-    "Base32\\" => [$vendorDir . "/christian-riesen/base32/src"],
-];
+return array(
+    'voku\\helper\\' => array($vendorDir . '/voku/simple_html_dom/src/voku/helper'),
+    'voku\\' => array($vendorDir . '/voku/html-min/src/voku'),
+    'Whoops\\' => array($vendorDir . '/filp/whoops/src/Whoops'),
+    'Tests\\' => array($baseDir . '/tests'),
+    'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
+    'Symfony\\Polyfill\\Intl\\Normalizer\\' => array($vendorDir . '/symfony/polyfill-intl-normalizer'),
+    'Symfony\\Polyfill\\Intl\\Idn\\' => array($vendorDir . '/symfony/polyfill-intl-idn'),
+    'Symfony\\Polyfill\\Ctype\\' => array($vendorDir . '/symfony/polyfill-ctype'),
+    'Symfony\\Component\\Yaml\\' => array($vendorDir . '/symfony/yaml'),
+    'Symfony\\Component\\CssSelector\\' => array($vendorDir . '/symfony/css-selector'),
+    'Psr\\Log\\' => array($vendorDir . '/psr/log/src'),
+    'PhpParser\\' => array($vendorDir . '/nikic/php-parser/lib/PhpParser'),
+    'Phiki\\' => array($vendorDir . '/phiki/phiki/src'),
+    'PHPStan\\ExtensionInstaller\\' => array($vendorDir . '/phpstan/extension-installer/src'),
+    'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
+    'MabeEnum\\' => array($vendorDir . '/marc-mabe/php-enum/src'),
+    'League\\ColorExtractor\\' => array($vendorDir . '/league/color-extractor/src'),
+    'Laminas\\Escaper\\' => array($vendorDir . '/laminas/laminas-escaper/src'),
+    'Kirby\\' => array($baseDir . '/kirby/src', $vendorDir . '/getkirby/composer-installer/src'),
+    'JsonSchema\\' => array($vendorDir . '/justinrainbow/json-schema/src/JsonSchema'),
+    'Ergebnis\\Json\\SchemaValidator\\' => array($vendorDir . '/ergebnis/json-schema-validator/src'),
+    'Ergebnis\\Json\\Printer\\' => array($vendorDir . '/ergebnis/json-printer/src'),
+    'Ergebnis\\Json\\Pointer\\' => array($vendorDir . '/ergebnis/json-pointer/src'),
+    'Ergebnis\\Json\\Normalizer\\' => array($vendorDir . '/ergebnis/json-normalizer/src'),
+    'Ergebnis\\Json\\' => array($vendorDir . '/ergebnis/json/src'),
+    'Ergebnis\\Composer\\Normalize\\' => array($vendorDir . '/ergebnis/composer-normalize/src'),
+    'DeepCopy\\' => array($vendorDir . '/myclabs/deep-copy/src/DeepCopy'),
+    'Composer\\Semver\\' => array($vendorDir . '/composer/semver/src'),
+    'Bnomei\\' => array($baseDir . '/site/plugins/kirby3-robots-txt/classes'),
+    'Base32\\' => array($vendorDir . '/christian-riesen/base32/src'),
+);

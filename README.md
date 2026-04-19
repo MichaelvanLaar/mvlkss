@@ -2,8 +2,6 @@
 
 This is a work in progress. This documentation should reflect the current state of development, but may be incomplete.
 
-If you need a pair programming buddy who knows the tech stack used in this project, you may want to ask the custom GPT [custom GPT “Web developer for MvLKSS based projects”](https://chat.openai.com/g/g-64y755npL-web-developer-for-mvlkss-based-projects) (ChatGPT account required).
-
 ## Prerequisites
 
 ### Mandatory
@@ -322,9 +320,9 @@ Here's how to set up a brand color palette for the website and give editors acce
 - Kirby plugins:
     - [Clear Cache](https://owebstudio.com/kirby/plugins/clear-cache)
     - [Date Extended](https://github.com/Adspectus/k3-date-extended)
-    - [Grid Block](https://github.com/youngcut/kirby-grid-block)
+    - [Column Blocks](https://github.com/plain-solutions-gmbh/kirby-column-blocks)
     - [Hashed Assets](https://github.com/johannschopplich/kirby-hashed-assets)
-    - [Kirby Highlighter](https://github.com/johannschopplich/kirby-highlighter)
+    - [Kirby Code Highlighter](https://github.com/bogdancondorachi/kirby-code-highlighter)
     - [Kirby Language Selector](https://github.com/junohamburg/kirby-language-selector)
     - [Minify HTML](https://github.com/afbora/kirby-minify-html)
     - [Retour](https://github.com/distantnative/retour-for-kirby)
