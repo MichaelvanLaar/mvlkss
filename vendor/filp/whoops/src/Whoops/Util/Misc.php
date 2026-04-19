@@ -6,8 +6,7 @@
 
 namespace Whoops\Util;
 
-class Misc
-{
+class Misc {
     /**
      * Can we at this point in time send HTTP headers?
      *
@@ -18,25 +17,21 @@ class Misc
      *
      * @return bool
      */
-    public static function canSendHeaders()
-    {
+    public static function canSendHeaders() {
         return isset($_SERVER["REQUEST_URI"]) && !headers_sent();
     }
 
-    public static function isAjaxRequest()
-    {
-        return (
-            !empty($_SERVER['HTTP_X_REQUESTED_WITH'])
-            && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
+    public static function isAjaxRequest() {
+        return !empty($_SERVER["HTTP_X_REQUESTED_WITH"]) &&
+            strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) == "xmlhttprequest";
     }
 
     /**
      * Check, if possible, that this execution was triggered by a command line.
      * @return bool
      */
-    public static function isCommandLine()
-    {
-        return PHP_SAPI == 'cli';
+    public static function isCommandLine() {
+        return PHP_SAPI == "cli";
     }
 
     /**
@@ -45,27 +40,25 @@ class Misc
      * @param int $error_code
      * @return string
      */
-    public static function translateErrorCode($error_code)
-    {
+    public static function translateErrorCode($error_code) {
         $constants = get_defined_constants(true);
-        if (array_key_exists('Core', $constants)) {
-            foreach ($constants['Core'] as $constant => $value) {
-                if (substr($constant, 0, 2) == 'E_' && $value == $error_code) {
+        if (array_key_exists("Core", $constants)) {
+            foreach ($constants["Core"] as $constant => $value) {
+                if (substr($constant, 0, 2) == "E_" && $value == $error_code) {
                     return $constant;
                 }
             }
         }
         return "E_UNKNOWN";
     }
-    
+
     /**
      * Determine if an error level is fatal (halts execution)
      *
      * @param int $level
      * @return bool
      */
-    public static function isLevelFatal($level)
-    {
+    public static function isLevelFatal($level) {
         $errors = E_ERROR;
         $errors |= E_PARSE;
         $errors |= E_CORE_ERROR;

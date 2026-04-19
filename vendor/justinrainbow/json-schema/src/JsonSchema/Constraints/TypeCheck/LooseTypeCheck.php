@@ -4,24 +4,19 @@ declare(strict_types=1);
 
 namespace JsonSchema\Constraints\TypeCheck;
 
-class LooseTypeCheck implements TypeCheckInterface
-{
-    public static function isObject($value)
-    {
-        return
-            is_object($value) ||
-            (is_array($value) && (count($value) == 0 || self::isAssociativeArray($value)));
+class LooseTypeCheck implements TypeCheckInterface {
+    public static function isObject($value) {
+        return is_object($value) ||
+            (is_array($value) &&
+                (count($value) == 0 || self::isAssociativeArray($value)));
     }
 
-    public static function isArray($value)
-    {
-        return
-            is_array($value) &&
+    public static function isArray($value) {
+        return is_array($value) &&
             (count($value) == 0 || !self::isAssociativeArray($value));
     }
 
-    public static function propertyGet($value, $property)
-    {
+    public static function propertyGet($value, $property) {
         if (is_object($value)) {
             return $value->{$property};
         }
@@ -29,8 +24,7 @@ class LooseTypeCheck implements TypeCheckInterface
         return $value[$property];
     }
 
-    public static function propertySet(&$value, $property, $data)
-    {
+    public static function propertySet(&$value, $property, $data) {
         if (is_object($value)) {
             $value->{$property} = $data;
         } else {
@@ -38,8 +32,7 @@ class LooseTypeCheck implements TypeCheckInterface
         }
     }
 
-    public static function propertyExists($value, $property)
-    {
+    public static function propertyExists($value, $property) {
         if (is_object($value)) {
             return property_exists($value, $property);
         }
@@ -47,8 +40,7 @@ class LooseTypeCheck implements TypeCheckInterface
         return is_array($value) && array_key_exists($property, $value);
     }
 
-    public static function propertyCount($value)
-    {
+    public static function propertyCount($value) {
         if (is_object($value)) {
             return count(get_object_vars($value));
         }
@@ -63,8 +55,7 @@ class LooseTypeCheck implements TypeCheckInterface
      *
      * @return bool
      */
-    private static function isAssociativeArray($arr)
-    {
+    private static function isAssociativeArray($arr) {
         return array_keys($arr) !== range(0, count($arr) - 1);
     }
 }

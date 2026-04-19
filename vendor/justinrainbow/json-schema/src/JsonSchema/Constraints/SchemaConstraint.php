@@ -25,38 +25,63 @@ use JsonSchema\Validator;
  * @author Robert Schönthal <seroscho@googlemail.com>
  * @author Bruno Prieto Reis <bruno.p.reis@gmail.com>
  */
-class SchemaConstraint extends Constraint
-{
+class SchemaConstraint extends Constraint {
     private const DEFAULT_SCHEMA_SPEC = DraftIdentifiers::DRAFT_4;
 
     /**
      * {@inheritdoc}
      */
-    public function check(&$element, $schema = null, ?JsonPointer $path = null, $i = null): void
-    {
+    public function check(
+        &$element,
+        $schema = null,
+        ?JsonPointer $path = null,
+        $i = null,
+    ): void {
         if ($schema !== null) {
             // passed schema
             $validationSchema = $schema;
-        } elseif ($this->getTypeCheck()->propertyExists($element, $this->inlineSchemaProperty)) {
+        } elseif (
+            $this->getTypeCheck()->propertyExists(
+                $element,
+                $this->inlineSchemaProperty,
+            )
+        ) {
             // inline schema
-            $validationSchema = $this->getTypeCheck()->propertyGet($element, $this->inlineSchemaProperty);
+            $validationSchema = $this->getTypeCheck()->propertyGet(
+                $element,
+                $this->inlineSchemaProperty,
+            );
         } else {
-            throw new InvalidArgumentException('no schema found to verify against');
+            throw new InvalidArgumentException(
+                "no schema found to verify against",
+            );
         }
 
         // cast array schemas to object
         if (is_array($validationSchema)) {
-            $validationSchema = BaseConstraint::arrayToObjectRecursive($validationSchema);
+            $validationSchema = BaseConstraint::arrayToObjectRecursive(
+                $validationSchema,
+            );
         }
 
         // validate schema against whatever is defined in $validationSchema->$schema. If no
         // schema is defined, assume self::DEFAULT_SCHEMA_SPEC (currently draft-04).
         if ($this->factory->getConfig(self::CHECK_MODE_VALIDATE_SCHEMA)) {
             if (!$this->getTypeCheck()->isObject($validationSchema)) {
-                throw new RuntimeException('Cannot validate the schema of a non-object');
+                throw new RuntimeException(
+                    "Cannot validate the schema of a non-object",
+                );
             }
-            if ($this->getTypeCheck()->propertyExists($validationSchema, '$schema')) {
-                $schemaSpec = $this->getTypeCheck()->propertyGet($validationSchema, '$schema');
+            if (
+                $this->getTypeCheck()->propertyExists(
+                    $validationSchema,
+                    '$schema',
+                )
+            ) {
+                $schemaSpec = $this->getTypeCheck()->propertyGet(
+                    $validationSchema,
+                    '$schema',
+                );
             } else {
                 $schemaSpec = self::DEFAULT_SCHEMA_SPEC;
             }
@@ -71,7 +96,10 @@ class SchemaConstraint extends Constraint
             $initialErrorCount = $this->numErrors();
             $initialConfig = $this->factory->getConfig();
             $initialContext = $this->factory->getErrorContext();
-            $this->factory->removeConfig(self::CHECK_MODE_VALIDATE_SCHEMA | self::CHECK_MODE_APPLY_DEFAULTS);
+            $this->factory->removeConfig(
+                self::CHECK_MODE_VALIDATE_SCHEMA |
+                    self::CHECK_MODE_APPLY_DEFAULTS,
+            );
             $this->factory->addConfig(self::CHECK_MODE_TYPE_CAST);
             $this->factory->setErrorContext(Validator::ERROR_SCHEMA_VALIDATION);
 
@@ -80,7 +108,11 @@ class SchemaConstraint extends Constraint
                 $this->check($validationSchema, $schemaSpec);
             } catch (\Exception $e) {
                 if ($this->factory->getConfig(self::CHECK_MODE_EXCEPTIONS)) {
-                    throw new InvalidSchemaException('Schema did not pass validation', 0, $e);
+                    throw new InvalidSchemaException(
+                        "Schema did not pass validation",
+                        0,
+                        $e,
+                    );
                 }
             }
             if ($this->numErrors() > $initialErrorCount) {

@@ -34,10 +34,10 @@ declare(strict_types=1);
 
 use Ergebnis\Json\Pointer;
 
-$referenceToken = Pointer\ReferenceToken::fromString('foo/9000/😆');
+$referenceToken = Pointer\ReferenceToken::fromString("foo/9000/😆");
 
-$referenceToken->toJsonString();                  // 'foo~19000~😆'
-$referenceToken->toString();                      // 'foo/9000/😆'
+$referenceToken->toJsonString(); // 'foo~19000~😆'
+$referenceToken->toString(); // 'foo/9000/😆'
 $referenceToken->toUriFragmentIdentifierString(); // 'foo~19000~1%F0%9F%98%86'
 ```
 
@@ -50,10 +50,10 @@ declare(strict_types=1);
 
 use Ergebnis\Json\Pointer;
 
-$referenceToken = Pointer\ReferenceToken::fromJsonString('foo~19000~😆');
+$referenceToken = Pointer\ReferenceToken::fromJsonString("foo~19000~😆");
 
-$referenceToken->toJsonString();                  // 'foo~19000~😆'
-$referenceToken->toString();                      // 'foo/9000/😆'
+$referenceToken->toJsonString(); // 'foo~19000~😆'
+$referenceToken->toString(); // 'foo/9000/😆'
 $referenceToken->toUriFragmentIdentifierString(); // 'foo~19000~1%F0%9F%98%86'
 ```
 
@@ -66,10 +66,12 @@ declare(strict_types=1);
 
 use Ergebnis\Json\Pointer;
 
-$referenceToken = Pointer\ReferenceToken::fromUriFragmentIdentifierString('foo~19000~1%F0%9F%98%86');
+$referenceToken = Pointer\ReferenceToken::fromUriFragmentIdentifierString(
+    "foo~19000~1%F0%9F%98%86",
+);
 
-$referenceToken->toJsonString();                  // 'foo~19000~😆'
-$referenceToken->toString();                      // 'foo/9000/😆'
+$referenceToken->toJsonString(); // 'foo~19000~😆'
+$referenceToken->toString(); // 'foo/9000/😆'
 $referenceToken->toUriFragmentIdentifierString(); // 'foo~19000~1%F0%9F%98%86'
 ```
 
@@ -84,8 +86,8 @@ use Ergebnis\Json\Pointer;
 
 $referenceToken = Pointer\ReferenceToken::fromInt(9001);
 
-$referenceToken->toJsonString();                  // '9001'
-$referenceToken->toString();                      // '9001'
+$referenceToken->toJsonString(); // '9001'
+$referenceToken->toString(); // '9001'
 $referenceToken->toUriFragmentIdentifierString(); // '9001'
 ```
 
@@ -98,11 +100,11 @@ declare(strict_types=1);
 
 use Ergebnis\Json\Pointer;
 
-$one = Pointer\ReferenceToken::fromString('foo/bar');
-$two = Pointer\ReferenceToken::fromJsonString('foo~1bar');
-$three = Pointer\ReferenceToken::fromString('foo/9000');
+$one = Pointer\ReferenceToken::fromString("foo/bar");
+$two = Pointer\ReferenceToken::fromJsonString("foo~1bar");
+$three = Pointer\ReferenceToken::fromString("foo/9000");
 
-$one->equals($two);   // true
+$one->equals($two); // true
 $one->equals($three); // false
 ```
 
@@ -119,7 +121,7 @@ use Ergebnis\Json\Pointer;
 
 $jsonPointer = Pointer\JsonPointer::document();
 
-$jsonPointer->toJsonString();                  // ''
+$jsonPointer->toJsonString(); // ''
 $jsonPointer->toUriFragmentIdentifierString(); // '#'
 ```
 
@@ -132,9 +134,9 @@ declare(strict_types=1);
 
 use Ergebnis\Json\Pointer;
 
-$jsonPointer = Pointer\JsonPointer::fromJsonString('/foo/bar/😆');
+$jsonPointer = Pointer\JsonPointer::fromJsonString("/foo/bar/😆");
 
-$jsonPointer->toJsonString();                  // '/foo/bar/😆'
+$jsonPointer->toJsonString(); // '/foo/bar/😆'
 $jsonPointer->toUriFragmentIdentifierString(); // '#/foo/bar/%F0%9F%98%86'
 ```
 
@@ -147,9 +149,11 @@ declare(strict_types=1);
 
 use Ergebnis\Json\Pointer;
 
-$jsonPointer = Pointer\JsonPointer::fromUriFragmentIdentifierString('#/foo/bar/%F0%9F%98%86');
+$jsonPointer = Pointer\JsonPointer::fromUriFragmentIdentifierString(
+    "#/foo/bar/%F0%9F%98%86",
+);
 
-$jsonPointer->toJsonString();                  // '/foo/bar/😆'
+$jsonPointer->toJsonString(); // '/foo/bar/😆'
 $jsonPointer->toUriFragmentIdentifierString(); // '#/foo/bar/%F0%9F%98%86'
 ```
 
@@ -163,13 +167,13 @@ declare(strict_types=1);
 use Ergebnis\Json\Pointer;
 
 $referenceTokens = [
-    Pointer\ReferenceToken::fromString('foo'),
-    Pointer\ReferenceToken::fromString('bar'),
+    Pointer\ReferenceToken::fromString("foo"),
+    Pointer\ReferenceToken::fromString("bar"),
 ];
 
 $jsonPointer = Pointer\JsonPointer::fromReferenceTokens(...$referenceTokens);
 
-$jsonPointer->toJsonString();                  // '/foo/bar'
+$jsonPointer->toJsonString(); // '/foo/bar'
 $jsonPointer->toUriFragmentIdentifierString(); // '#/foo/bar'
 ```
 
@@ -182,11 +186,11 @@ declare(strict_types=1);
 
 use Ergebnis\Json\Pointer;
 
-$one = Pointer\JsonPointer::fromJsonString('/foo/bar');
-$two = Pointer\JsonPointer::fromJsonString('/foo~1bar');
-$three = Pointer\JsonPointer::fromUriFragmentIdentifierString('#/foo/bar');
+$one = Pointer\JsonPointer::fromJsonString("/foo/bar");
+$two = Pointer\JsonPointer::fromJsonString("/foo~1bar");
+$three = Pointer\JsonPointer::fromUriFragmentIdentifierString("#/foo/bar");
 
-$one->equals($two);   // false
+$one->equals($two); // false
 $one->equals($three); // true
 ```
 
@@ -199,13 +203,13 @@ declare(strict_types=1);
 
 use Ergebnis\Json\Pointer;
 
-$jsonPointer = Pointer\JsonPointer::fromJsonString('/foo/bar');
+$jsonPointer = Pointer\JsonPointer::fromJsonString("/foo/bar");
 
-$referenceToken = Pointer\ReferenceToken::fromString('baz');
+$referenceToken = Pointer\ReferenceToken::fromString("baz");
 
 $newJsonPointer = $jsonPointer->append($referenceToken);
 
-$newJsonPointer->toJsonString();                  // '/foo/bar/baz'
+$newJsonPointer->toJsonString(); // '/foo/bar/baz'
 $newJsonPointer->toUriFragmentIdentifierString(); // '#foo/bar/baz'
 ```
 
@@ -222,8 +226,8 @@ use Ergebnis\Json\Pointer;
 
 $specification = Pointer\Specification::always();
 
-$specification->isSatisfiedBy(Pointer\JsonPointer::fromJsonString('/foo'));     // true
-$specification->isSatisfiedBy(Pointer\JsonPointer::fromJsonString('/foo/bar')); // true
+$specification->isSatisfiedBy(Pointer\JsonPointer::fromJsonString("/foo")); // true
+$specification->isSatisfiedBy(Pointer\JsonPointer::fromJsonString("/foo/bar")); // true
 ```
 
 You can create a `Specification` that is satisfied when a closure returns `true` for a `JsonPointer`:
@@ -235,12 +239,14 @@ declare(strict_types=1);
 
 use Ergebnis\Json\Pointer;
 
-$specification = Pointer\Specification::closure(static function (Pointer\JsonPointer $jsonPointer) {
-    return $jsonPointer->toJsonString() === '/foo/bar';
+$specification = Pointer\Specification::closure(static function (
+    Pointer\JsonPointer $jsonPointer,
+) {
+    return $jsonPointer->toJsonString() === "/foo/bar";
 });
 
-$specification->isSatisfiedBy(Pointer\JsonPointer::fromJsonString('/foo'));     // false
-$specification->isSatisfiedBy(Pointer\JsonPointer::fromJsonString('/foo/bar')); // true
+$specification->isSatisfiedBy(Pointer\JsonPointer::fromJsonString("/foo")); // false
+$specification->isSatisfiedBy(Pointer\JsonPointer::fromJsonString("/foo/bar")); // true
 ```
 
 You can create a `Specification` that is satisfied when a `JsonPointer` equals another `JsonPointer`:
@@ -252,10 +258,12 @@ declare(strict_types=1);
 
 use Ergebnis\Json\Pointer;
 
-$specification = Pointer\Specification::equals(Pointer\JsonPointer::fromJsonString('/foo/bar'));
+$specification = Pointer\Specification::equals(
+    Pointer\JsonPointer::fromJsonString("/foo/bar"),
+);
 
-$specification->isSatisfiedBy(Pointer\JsonPointer::fromJsonString('/foo'));     // false
-$specification->isSatisfiedBy(Pointer\JsonPointer::fromJsonString('/foo/bar')); // true
+$specification->isSatisfiedBy(Pointer\JsonPointer::fromJsonString("/foo")); // false
+$specification->isSatisfiedBy(Pointer\JsonPointer::fromJsonString("/foo/bar")); // true
 ```
 
 You can create a `Specification` that is never satisfied by a `JsonPointer`:
@@ -269,8 +277,8 @@ use Ergebnis\Json\Pointer;
 
 $specification = Pointer\Specification::never();
 
-$specification->isSatisfiedBy(Pointer\JsonPointer::fromJsonString('/foo'));     // false
-$specification->isSatisfiedBy(Pointer\JsonPointer::fromJsonString('/foo/bar')); // false
+$specification->isSatisfiedBy(Pointer\JsonPointer::fromJsonString("/foo")); // false
+$specification->isSatisfiedBy(Pointer\JsonPointer::fromJsonString("/foo/bar")); // false
 ```
 
 You can create a `Specification` that is satisfied when another `Specification` is not satisfied by a `JsonPointer`:
@@ -282,10 +290,14 @@ declare(strict_types=1);
 
 use Ergebnis\Json\Pointer;
 
-$specification = Pointer\Specification::not(Pointer\Specification::equals(Pointer\JsonPointer::fromJsonString('/foo/bar')));
+$specification = Pointer\Specification::not(
+    Pointer\Specification::equals(
+        Pointer\JsonPointer::fromJsonString("/foo/bar"),
+    ),
+);
 
-$specification->isSatisfiedBy(Pointer\JsonPointer::fromJsonString('/foo'));     // true
-$specification->isSatisfiedBy(Pointer\JsonPointer::fromJsonString('/foo/bar')); // false
+$specification->isSatisfiedBy(Pointer\JsonPointer::fromJsonString("/foo")); // true
+$specification->isSatisfiedBy(Pointer\JsonPointer::fromJsonString("/foo/bar")); // false
 ```
 
 You can compose `Specification`s to find out if a `JsonPointer` satisfies any of them:
@@ -298,16 +310,20 @@ declare(strict_types=1);
 use Ergebnis\Json\Pointer;
 
 $specification = Pointer\Specification::anyOf(
-    Pointer\Specification::closure(static function(Pointer\JsonPointer $jsonPointer) {
-        return $jsonPointer->toJsonString() === '/foo/bar';
+    Pointer\Specification::closure(static function (
+        Pointer\JsonPointer $jsonPointer,
+    ) {
+        return $jsonPointer->toJsonString() === "/foo/bar";
     }),
-    Pointer\Specification::equals(Pointer\JsonPointer::fromJsonString('/foo/baz')),
+    Pointer\Specification::equals(
+        Pointer\JsonPointer::fromJsonString("/foo/baz"),
+    ),
     Pointer\Specification::never(),
 );
 
-$specification->isSatisfiedBy(Pointer\JsonPointer::fromJsonString('/foo'));     // false
-$specification->isSatisfiedBy(Pointer\JsonPointer::fromJsonString('/foo/bar')); // true
-$specification->isSatisfiedBy(Pointer\JsonPointer::fromJsonString('/foo/baz')); // true
+$specification->isSatisfiedBy(Pointer\JsonPointer::fromJsonString("/foo")); // false
+$specification->isSatisfiedBy(Pointer\JsonPointer::fromJsonString("/foo/bar")); // true
+$specification->isSatisfiedBy(Pointer\JsonPointer::fromJsonString("/foo/baz")); // true
 ```
 
 ## Changelog

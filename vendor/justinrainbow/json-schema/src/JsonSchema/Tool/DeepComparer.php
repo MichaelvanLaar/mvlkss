@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace JsonSchema\Tool;
 
-class DeepComparer
-{
+class DeepComparer {
     /**
      * @param mixed $left
      * @param mixed $right
      */
-    public static function isEqual($left, $right): bool
-    {
+    public static function isEqual($left, $right): bool {
         if ($left === null && $right === null) {
             return true;
         }
@@ -25,7 +23,11 @@ class DeepComparer
             /*
              * In Json-Schema mathematically equal numbers are compared equal
              */
-            if ($isLeftNumber && $isRightNumber && (float) $left === (float) $right) {
+            if (
+                $isLeftNumber &&
+                $isRightNumber &&
+                (float) $left === (float) $right
+            ) {
                 return true;
             }
 
@@ -51,8 +53,7 @@ class DeepComparer
      * @param array<string|int, mixed> $left
      * @param array<string|int, mixed> $right
      */
-    private static function isArrayEqual(array $left, array $right): bool
-    {
+    private static function isArrayEqual(array $left, array $right): bool {
         if (count($left) !== count($right)) {
             return false;
         }

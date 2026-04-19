@@ -1,7 +1,7 @@
 <?php
 
-@include_once __DIR__ . '/utils/load.php';
+@include_once __DIR__ . "/utils/load.php";
 
 use Plain\Helpers\Plugin;
 
-Plugin::load('plain/column-block', autoloader: true);
+Plugin::load("plain/column-block", autoloader: true);

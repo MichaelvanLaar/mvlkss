@@ -90,17 +90,9 @@ return function ($kirby, $site, $page) {
     "socialShareTitleOutput" => $socialShareTitleOutput,
     "socialShareDescriptionOutput" => $socialShareDescriptionOutput,
     "socialShareImageUrlOutput" => $page->socialShareImage()->toFile()
-      ? $page
-        ->socialShareImage()
-        ->toFile()
-        ->crop(1200, 630)
-        ->url()
+      ? $page->socialShareImage()->toFile()->crop(1200, 630)->url()
       : ($site->siteSocialShareImage()->toFile()
-        ? $site
-          ->siteSocialShareImage()
-          ->toFile()
-          ->crop(1200, 630)
-          ->url()
+        ? $site->siteSocialShareImage()->toFile()->crop(1200, 630)->url()
         : ""),
     "twitterSiteHandle" =>
       $twitterSiteHandle->length() > 0 ? $twitterSiteHandle : "",

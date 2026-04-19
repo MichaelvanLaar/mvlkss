@@ -4,33 +4,28 @@ namespace Phiki\Grammar\Injections;
 
 use Phiki\Contracts\InjectionMatcherInterface;
 
-class Composite implements InjectionMatcherInterface
-{
+class Composite implements InjectionMatcherInterface {
     /**
      * @param  array<Expression>  $expressions
      */
-    public function __construct(
-        public array $expressions,
-    ) {}
+    public function __construct(public array $expressions) {}
 
-    public function getPrefix(array $scopes): ?Prefix
-    {
-        if (! $this->matches($scopes)) {
+    public function getPrefix(array $scopes): ?Prefix {
+        if (!$this->matches($scopes)) {
             return null;
         }
 
         return $this->expressions[0]->getPrefix($scopes);
     }
 
-    public function matches(array $scopes): bool
-    {
+    public function matches(array $scopes): bool {
         $carry = false;
 
         foreach ($this->expressions as $expression) {
             if (
                 ($carry && $expression->operator === Operator::Or) ||
-                (! $carry && $expression->operator === Operator::And) ||
-                (! $carry && $expression->operator === Operator::Not)
+                (!$carry && $expression->operator === Operator::And) ||
+                (!$carry && $expression->operator === Operator::Not)
             ) {
                 continue;
             }
@@ -38,10 +33,10 @@ class Composite implements InjectionMatcherInterface
             $matches = $expression->matches($scopes);
 
             match ($expression->operator) {
-                Operator::None => $carry = $matches,
-                Operator::And => $carry = $carry && $matches,
-                Operator::Or => $carry = $carry || $matches,
-                Operator::Not => $carry = $carry && ! $matches,
+                Operator::None => ($carry = $matches),
+                Operator::And => ($carry = $carry && $matches),
+                Operator::Or => ($carry = $carry || $matches),
+                Operator::Not => ($carry = $carry && !$matches),
             };
         }
 

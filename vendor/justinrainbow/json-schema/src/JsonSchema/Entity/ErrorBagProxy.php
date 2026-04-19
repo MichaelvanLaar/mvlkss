@@ -11,38 +11,36 @@ use JsonSchema\Constraints\Factory;
  * @phpstan-import-type Error from ErrorBag
  * @phpstan-import-type ErrorList from ErrorBag
  */
-trait ErrorBagProxy
-{
+trait ErrorBagProxy {
     /** @var ?ErrorBag */
     protected $errorBag = null;
 
     /** @return ErrorList */
-    public function getErrors(): array
-    {
+    public function getErrors(): array {
         return $this->errorBag()->getErrors();
     }
 
     /** @param ErrorList $errors */
-    public function addErrors(array $errors): void
-    {
+    public function addErrors(array $errors): void {
         $this->errorBag()->addErrors($errors);
     }
 
     /**
      * @param array<string, mixed> $more more array elements to add to the error
      */
-    public function addError(ConstraintError $constraint, ?JsonPointer $path = null, array $more = []): void
-    {
+    public function addError(
+        ConstraintError $constraint,
+        ?JsonPointer $path = null,
+        array $more = [],
+    ): void {
         $this->errorBag()->addError($constraint, $path, $more);
     }
 
-    public function isValid(): bool
-    {
+    public function isValid(): bool {
         return $this->errorBag()->getErrors() === [];
     }
 
-    protected function initialiseErrorBag(Factory $factory): ErrorBag
-    {
+    protected function initialiseErrorBag(Factory $factory): ErrorBag {
         if (is_null($this->errorBag)) {
             $this->errorBag = new ErrorBag($factory);
         }
@@ -50,17 +48,15 @@ trait ErrorBagProxy
         return $this->errorBag;
     }
 
-    protected function errorBag(): ErrorBag
-    {
+    protected function errorBag(): ErrorBag {
         if (is_null($this->errorBag)) {
-            throw new \RuntimeException('ErrorBag not initialized');
+            throw new \RuntimeException("ErrorBag not initialized");
         }
 
         return $this->errorBag;
     }
 
-    public function __clone()
-    {
+    public function __clone() {
         $this->errorBag()->reset();
     }
 }

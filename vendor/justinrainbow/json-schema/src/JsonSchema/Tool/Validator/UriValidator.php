@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace JsonSchema\Tool\Validator;
 
-class UriValidator
-{
-    public static function isValid(string $uri): bool
-    {
+class UriValidator {
+    public static function isValid(string $uri): bool {
         // RFC 3986: Hierarchical URIs (http, https, ftp, etc.)
         $hierarchicalPattern = '/^
             ([a-z][a-z0-9+\-.]*):\/\/                # Scheme (http, https, ftp, etc.)
@@ -35,17 +33,23 @@ class UriValidator
         // First, check if it's a valid hierarchical URI
         if (preg_match($hierarchicalPattern, $uri, $matches) === 1) {
             // Validate domain name (no double dots like example..com)
-            if (!empty($matches[4]) && preg_match('/\.\./', $matches[4])) {
+            if (!empty($matches[4]) && preg_match("/\.\./", $matches[4])) {
                 return false;
             }
 
             // Validate port (should be between 1 and 65535 if specified)
-            if (!empty($matches[5]) && ($matches[5] < 1 || $matches[5] > 65535)) {
+            if (
+                !empty($matches[5]) &&
+                ($matches[5] < 1 || $matches[5] > 65535)
+            ) {
                 return false;
             }
 
             // Validate the path (reject illegal characters: < > { } | \ ^ `)
-            if (!empty($matches[6]) && preg_match('/[<>{}|\\\^`]/', $matches[6])) {
+            if (
+                !empty($matches[6]) &&
+                preg_match("/[<>{}|\\\^`]/", $matches[6])
+            ) {
                 return false;
             }
 
@@ -57,15 +61,15 @@ class UriValidator
             $scheme = strtolower($matches[1]); // Extract the scheme
 
             // Special case: `mailto:` must contain a **valid email address**
-            if ($scheme === 'mailto') {
+            if ($scheme === "mailto") {
                 return preg_match($emailPattern, $matches[2]) === 1;
             }
 
-            if ($scheme === 'news') {
+            if ($scheme === "news") {
                 return preg_match($newsGroupPattern, $matches[2]) === 1;
             }
 
-            if ($scheme === 'tel') {
+            if ($scheme === "tel") {
                 return preg_match($telPattern, $matches[2]) === 1;
             }
 

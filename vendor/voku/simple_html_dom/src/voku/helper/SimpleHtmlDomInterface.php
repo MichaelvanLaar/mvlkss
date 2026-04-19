@@ -51,8 +51,7 @@ namespace voku\helper;
  *
  * @extends \IteratorAggregate<int, \DOMNode>
  */
-interface SimpleHtmlDomInterface extends \IteratorAggregate
-{
+interface SimpleHtmlDomInterface extends \IteratorAggregate {
     /**
      * @param string $name
      * @param array  $arguments
@@ -95,7 +94,7 @@ interface SimpleHtmlDomInterface extends \IteratorAggregate
      *
      * @return string
      */
-    public function getTag():string;
+    public function getTag(): string;
 
     /**
      * Returns children of node.
@@ -273,7 +272,10 @@ interface SimpleHtmlDomInterface extends \IteratorAggregate
      *
      * @return string
      */
-    public function innerHtml(bool $multiDecodeNewHtmlEntity = false, bool $putBrokenReplacedBack = true): string;
+    public function innerHtml(
+        bool $multiDecodeNewHtmlEntity = false,
+        bool $putBrokenReplacedBack = true,
+    ): string;
 
     /**
      * Get dom node's inner html.
@@ -356,7 +358,11 @@ interface SimpleHtmlDomInterface extends \IteratorAggregate
      *
      * @return SimpleHtmlDomInterface
      */
-    public function setAttribute(string $name, $value = null, bool $strictEmptyValueCheck = false): self;
+    public function setAttribute(
+        string $name,
+        $value = null,
+        bool $strictEmptyValueCheck = false,
+    ): self;
 
     /**
      * Remove all attributes

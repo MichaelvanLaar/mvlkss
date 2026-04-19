@@ -10,18 +10,20 @@ use JsonSchema\Constraints\Factory;
 use JsonSchema\Entity\ErrorBagProxy;
 use JsonSchema\Entity\JsonPointer;
 
-class ExclusiveMinimumConstraint implements ConstraintInterface
-{
+class ExclusiveMinimumConstraint implements ConstraintInterface {
     use ErrorBagProxy;
 
-    public function __construct(?Factory $factory = null)
-    {
+    public function __construct(?Factory $factory = null) {
         $this->initialiseErrorBag($factory ?: new Factory());
     }
 
-    public function check(&$value, $schema = null, ?JsonPointer $path = null, $i = null): void
-    {
-        if (!property_exists($schema, 'exclusiveMinimum')) {
+    public function check(
+        &$value,
+        $schema = null,
+        ?JsonPointer $path = null,
+        $i = null,
+    ): void {
+        if (!property_exists($schema, "exclusiveMinimum")) {
             return;
         }
 
@@ -33,6 +35,9 @@ class ExclusiveMinimumConstraint implements ConstraintInterface
             return;
         }
 
-        $this->addError(ConstraintError::EXCLUSIVE_MINIMUM(), $path, ['exclusiveMinimum' => $schema->exclusiveMinimum, 'found' => $value]);
+        $this->addError(ConstraintError::EXCLUSIVE_MINIMUM(), $path, [
+            "exclusiveMinimum" => $schema->exclusiveMinimum,
+            "found" => $value,
+        ]);
     }
 }

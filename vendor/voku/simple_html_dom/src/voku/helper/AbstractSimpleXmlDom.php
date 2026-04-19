@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace voku\helper;
 
-abstract class AbstractSimpleXmlDom
-{
+abstract class AbstractSimpleXmlDom {
     /**
      * @var array
      */
     protected static $functionAliases = [
-        'children'     => 'childNodes',
-        'first_child'  => 'firstChild',
-        'last_child'   => 'lastChild',
-        'next_sibling' => 'nextSibling',
-        'prev_sibling' => 'previousSibling',
-        'parent'       => 'parentNode',
+        "children" => "childNodes",
+        "first_child" => "firstChild",
+        "last_child" => "lastChild",
+        "next_sibling" => "nextSibling",
+        "prev_sibling" => "previousSibling",
+        "parent" => "parentNode",
     ];
 
     /**
@@ -31,15 +30,17 @@ abstract class AbstractSimpleXmlDom
      *
      * @return SimpleXmlDomInterface|string|null
      */
-    public function __call($name, $arguments)
-    {
+    public function __call($name, $arguments) {
         $name = \strtolower($name);
 
         if (isset(self::$functionAliases[$name])) {
-            return \call_user_func_array([$this, self::$functionAliases[$name]], $arguments);
+            return \call_user_func_array(
+                [$this, self::$functionAliases[$name]],
+                $arguments,
+            );
         }
 
-        throw new \BadMethodCallException('Method does not exist');
+        throw new \BadMethodCallException("Method does not exist");
     }
 
     /**
@@ -47,19 +48,18 @@ abstract class AbstractSimpleXmlDom
      *
      * @return array|string|null
      */
-    public function __get($name)
-    {
+    public function __get($name) {
         $nameOrig = $name;
         $name = \strtolower($name);
 
         switch ($name) {
-            case 'xml':
+            case "xml":
                 return $this->xml();
-            case 'plaintext':
+            case "plaintext":
                 return $this->text();
-            case 'tag':
-                return $this->node->nodeName ?? '';
-            case 'attr':
+            case "tag":
+                return $this->node->nodeName ?? "";
+            case "attr":
                 return $this->getAllAttributes();
             default:
                 if ($this->node && \property_exists($this->node, $nameOrig)) {
@@ -76,8 +76,7 @@ abstract class AbstractSimpleXmlDom
      *
      * @return SimpleXmlDomInterface|SimpleXmlDomInterface[]|SimpleXmlDomNodeInterface<SimpleXmlDomInterface>
      */
-    public function __invoke($selector, $idx = null)
-    {
+    public function __invoke($selector, $idx = null) {
         return $this->find($selector, $idx);
     }
 
@@ -86,20 +85,19 @@ abstract class AbstractSimpleXmlDom
      *
      * @return bool
      */
-    public function __isset($name)
-    {
+    public function __isset($name) {
         $nameOrig = $name;
         $name = \strtolower($name);
 
         switch ($name) {
-            case 'outertext':
-            case 'outerhtml':
-            case 'innertext':
-            case 'innerhtml':
-            case 'innerhtmlkeep':
-            case 'plaintext':
-            case 'text':
-            case 'tag':
+            case "outertext":
+            case "outerhtml":
+            case "innertext":
+            case "innerhtml":
+            case "innerhtmlkeep":
+            case "plaintext":
+            case "text":
+            case "tag":
                 return true;
             default:
                 if ($this->node && \property_exists($this->node, $nameOrig)) {
@@ -116,21 +114,20 @@ abstract class AbstractSimpleXmlDom
      *
      * @return SimpleXmlDomInterface|null
      */
-    public function __set($name, $value)
-    {
+    public function __set($name, $value) {
         $nameOrig = $name;
         $name = \strtolower($name);
 
         switch ($name) {
-            case 'outerhtml':
-            case 'outertext':
+            case "outerhtml":
+            case "outertext":
                 return $this->replaceNodeWithString($value);
-            case 'innertext':
-            case 'innerhtml':
+            case "innertext":
+            case "innerhtml":
                 return $this->replaceChildWithString($value);
-            case 'innerhtmlkeep':
+            case "innerhtmlkeep":
                 return $this->replaceChildWithString($value, false);
-            case 'plaintext':
+            case "plaintext":
                 return $this->replaceTextWithString($value);
             default:
                 if ($this->node && \property_exists($this->node, $nameOrig)) {
@@ -144,8 +141,7 @@ abstract class AbstractSimpleXmlDom
     /**
      * @return string
      */
-    public function __toString()
-    {
+    public function __toString() {
         return $this->xml();
     }
 
@@ -154,8 +150,7 @@ abstract class AbstractSimpleXmlDom
      *
      * @return void
      */
-    public function __unset($name)
-    {
+    public function __unset($name) {
         /** @noinspection UnusedFunctionResultInspection */
         $this->removeAttribute($name);
     }
@@ -187,20 +182,31 @@ abstract class AbstractSimpleXmlDom
      */
     abstract public function hasAttribute(string $name): bool;
 
-    abstract public function innerXml(bool $multiDecodeNewHtmlEntity = false): string;
+    abstract public function innerXml(
+        bool $multiDecodeNewHtmlEntity = false,
+    ): string;
 
-    abstract public function removeAttribute(string $name): SimpleXmlDomInterface;
+    abstract public function removeAttribute(
+        string $name,
+    ): SimpleXmlDomInterface;
 
-    abstract protected function replaceChildWithString(string $string, bool $putBrokenReplacedBack = true): SimpleXmlDomInterface;
+    abstract protected function replaceChildWithString(
+        string $string,
+        bool $putBrokenReplacedBack = true,
+    ): SimpleXmlDomInterface;
 
-    abstract protected function replaceNodeWithString(string $string): SimpleXmlDomInterface;
+    abstract protected function replaceNodeWithString(
+        string $string,
+    ): SimpleXmlDomInterface;
 
     /**
      * @param string $string
      *
      * @return SimpleXmlDomInterface
      */
-    abstract protected function replaceTextWithString($string): SimpleXmlDomInterface;
+    abstract protected function replaceTextWithString(
+        $string,
+    ): SimpleXmlDomInterface;
 
     /**
      * @param string $name
@@ -209,9 +215,15 @@ abstract class AbstractSimpleXmlDom
      *
      * @return SimpleXmlDomInterface
      */
-    abstract public function setAttribute(string $name, $value = null, bool $strictEmptyValueCheck = false): SimpleXmlDomInterface;
+    abstract public function setAttribute(
+        string $name,
+        $value = null,
+        bool $strictEmptyValueCheck = false,
+    ): SimpleXmlDomInterface;
 
     abstract public function text(): string;
 
-    abstract public function xml(bool $multiDecodeNewHtmlEntity = false): string;
+    abstract public function xml(
+        bool $multiDecodeNewHtmlEntity = false,
+    ): string;
 }

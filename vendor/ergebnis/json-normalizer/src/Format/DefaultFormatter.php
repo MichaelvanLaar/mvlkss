@@ -16,19 +16,14 @@ namespace Ergebnis\Json\Normalizer\Format;
 use Ergebnis\Json\Json;
 use Ergebnis\Json\Printer;
 
-final class DefaultFormatter implements Formatter
-{
+final class DefaultFormatter implements Formatter {
     private Printer\PrinterInterface $printer;
 
-    public function __construct(Printer\PrinterInterface $printer)
-    {
+    public function __construct(Printer\PrinterInterface $printer) {
         $this->printer = $printer;
     }
 
-    public function format(
-        Json $json,
-        Format $format
-    ): Json {
+    public function format(Json $json, Format $format): Json {
         /** @var string $encoded */
         $encoded = \json_encode(
             $json->decoded(),

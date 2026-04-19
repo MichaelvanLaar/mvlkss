@@ -19,8 +19,7 @@ use JsonSchema\Entity\JsonPointer;
  *
  * @author Robert Schönthal <seroscho@googlemail.com>
  */
-interface ConstraintInterface
-{
+interface ConstraintInterface {
     /**
      * returns all collected errors
      */
@@ -37,7 +36,11 @@ interface ConstraintInterface
      * @param ConstraintError $constraint the constraint/rule that is broken, e.g.: ConstraintErrors::LENGTH_MIN()
      * @param array           $more       more array elements to add to the error
      */
-    public function addError(ConstraintError $constraint, ?JsonPointer $path = null, array $more = []): void;
+    public function addError(
+        ConstraintError $constraint,
+        ?JsonPointer $path = null,
+        array $more = [],
+    ): void;
 
     /**
      * checks if the validator has not raised errors
@@ -55,5 +58,10 @@ interface ConstraintInterface
      *
      * @throws \JsonSchema\Exception\ExceptionInterface
      */
-    public function check(&$value, $schema = null, ?JsonPointer $path = null, $i = null): void;
+    public function check(
+        &$value,
+        $schema = null,
+        ?JsonPointer $path = null,
+        $i = null,
+    ): void;
 }

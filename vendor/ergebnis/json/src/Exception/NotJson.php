@@ -13,13 +13,10 @@ declare(strict_types=1);
 
 namespace Ergebnis\Json\Exception;
 
-final class NotJson extends \InvalidArgumentException implements Exception
-{
-    public static function value(string $value): self
-    {
-        return new self(\sprintf(
-            'Value "%s" is not a valid JSON string.',
-            $value,
-        ));
+final class NotJson extends \InvalidArgumentException implements Exception {
+    public static function value(string $value): self {
+        return new self(
+            \sprintf('Value "%s" is not a valid JSON string.', $value),
+        );
     }
 }

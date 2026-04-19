@@ -20,15 +20,21 @@ use JsonSchema\Tool\DeepComparer;
  *
  * @author Martin Helmich <martin@helmich.me>
  */
-class ConstConstraint extends Constraint
-{
+class ConstConstraint extends Constraint {
     /**
      * {@inheritdoc}
      */
-    public function check(&$element, $schema = null, ?JsonPointer $path = null, $i = null): void
-    {
+    public function check(
+        &$element,
+        $schema = null,
+        ?JsonPointer $path = null,
+        $i = null,
+    ): void {
         // Only validate const if the attribute exists
-        if ($element instanceof UndefinedConstraint && (!isset($schema->required) || !$schema->required)) {
+        if (
+            $element instanceof UndefinedConstraint &&
+            (!isset($schema->required) || !$schema->required)
+        ) {
             return;
         }
         $const = $schema->const;
@@ -36,7 +42,11 @@ class ConstConstraint extends Constraint
         $type = gettype($element);
         $constType = gettype($const);
 
-        if ($this->factory->getConfig(self::CHECK_MODE_TYPE_CAST) && $type === 'array' && $constType === 'object') {
+        if (
+            $this->factory->getConfig(self::CHECK_MODE_TYPE_CAST) &&
+            $type === "array" &&
+            $constType === "object"
+        ) {
             if (DeepComparer::isEqual((object) $element, $const)) {
                 return;
             }
@@ -46,6 +56,8 @@ class ConstConstraint extends Constraint
             return;
         }
 
-        $this->addError(ConstraintError::CONSTANT(), $path, ['const' => $schema->const]);
+        $this->addError(ConstraintError::CONSTANT(), $path, [
+            "const" => $schema->const,
+        ]);
     }
 }

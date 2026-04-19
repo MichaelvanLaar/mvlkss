@@ -29,15 +29,15 @@ Pull both Kirby CMS and Tailwind CSS documentation from Context7 for comprehensi
 When this command is executed:
 
 1. **Resolve Library IDs**: Use the `resolve-library-id` tool for both:
-   - Kirby CMS: "getkirby" (https://context7.com/websites/getkirby)
-   - Tailwind CSS: "tailwindcss" (https://context7.com/websites/tailwindcss)
+    - Kirby CMS: "getkirby" (https://context7.com/websites/getkirby)
+    - Tailwind CSS: "tailwindcss" (https://context7.com/websites/tailwindcss)
 
 2. **Fetch Documentation**: Use the `get-library-docs` tool for both libraries:
-   - Use the resolved library IDs (format: `/websites/getkirby` and `/websites/tailwindcss`)
-   - Apply the topic provided by the user (if any) to both requests
-   - Token allocation per source:
-     - **With topic**: 5,000-7,500 tokens each for focused content (10,000-15,000 total)
-     - **Without topic**: 3,000-5,000 tokens each for general context (6,000-10,000 total)
+    - Use the resolved library IDs (format: `/websites/getkirby` and `/websites/tailwindcss`)
+    - Apply the topic provided by the user (if any) to both requests
+    - Token allocation per source:
+        - **With topic**: 5,000-7,500 tokens each for focused content (10,000-15,000 total)
+        - **Without topic**: 3,000-5,000 tokens each for general context (6,000-10,000 total)
 
 3. **Summarize Context**: After loading both sources, briefly confirm what was loaded (e.g., "Loaded Kirby CMS and Tailwind CSS documentation for template styling and utility classes")
 

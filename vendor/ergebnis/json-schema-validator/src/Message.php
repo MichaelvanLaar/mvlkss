@@ -16,22 +16,18 @@ namespace Ergebnis\Json\SchemaValidator;
 /**
  * @psalm-immutable
  */
-final class Message
-{
+final class Message {
     private string $value;
 
-    private function __construct(string $value)
-    {
+    private function __construct(string $value) {
         $this->value = $value;
     }
 
-    public static function fromString(string $value): self
-    {
+    public static function fromString(string $value): self {
         return new self($value);
     }
 
-    public function toString(): string
-    {
+    public function toString(): string {
         return $this->value;
     }
 }

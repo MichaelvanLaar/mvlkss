@@ -6,4 +6,4 @@
  */
 ?>
 
-<?= $block->text()->permalinksToUrls(); ?>
+<?= $block->text()->permalinksToUrls() ?>

@@ -3,6 +3,7 @@
 ## Context
 
 The current page builder system uses `microman/kirby-grid-blocks` plugin, which is no longer actively maintained. The plugin provides grid layout functionality that has been heavily customized to integrate with the project's:
+
 - Tailwind CSS architecture
 - Brand color system (defined in `site/config/config.php`)
 - Spacing utility classes system
@@ -14,6 +15,7 @@ The replacement plugin, `plain/kirby-column-blocks`, is the community-recommende
 ### Current Architecture
 
 **Grid-Blocks Implementation:**
+
 - Plugin: `microman/kirby-grid-blocks` v1.0
 - Custom blueprint: `site/blueprints/blocks/grid.yml` (155 lines, heavily customized)
 - Custom snippet: `site/snippets/blocks/grid.php` (199 lines, Tailwind-integrated)
@@ -22,6 +24,7 @@ The replacement plugin, `plain/kirby-column-blocks`, is the community-recommende
 - Column mapping: `1/1` → `col-span-full`, `1/2` → `col-span-3`, `1/3` → `col-span-2`
 
 **Integration Points:**
+
 - Page builder field: `site/blueprints/fields/page-builder.yml` (references `grid` fieldset)
 - Page builder snippet: `site/snippets/fields/page-builder.php` (detects `grid` blocks, passes context)
 - Image block snippet: `site/snippets/blocks/image.php` (adjusts sizing for grid columns)
@@ -38,6 +41,7 @@ The replacement plugin, `plain/kirby-column-blocks`, is the community-recommende
 ## Goals / Non-Goals
 
 ### Goals
+
 1. Replace deprecated plugin with actively maintained alternative
 2. Maintain 100% feature parity with current implementation
 3. Add new layout options (4-column, asymmetric layouts)
@@ -46,6 +50,7 @@ The replacement plugin, `plain/kirby-column-blocks`, is the community-recommende
 6. Preserve all existing customizations and integrations
 
 ### Non-Goals
+
 1. Redesigning the page builder architecture
 2. Changing the visual appearance of rendered columns
 3. Modifying the brand color or spacing systems
@@ -59,12 +64,14 @@ The replacement plugin, `plain/kirby-column-blocks`, is the community-recommende
 **What:** Replace plugin via Composer, rename files, update references
 
 **Why:**
+
 - Both plugins use the same `layout` field foundation
 - kirby-column-blocks is designed as a drop-in replacement
 - Minimizes code changes and migration risk
 - Leverages existing customization approach
 
 **Alternatives considered:**
+
 - Building custom column system from scratch → Too complex, reinvents wheel
 - Using Kirby's built-in layout field directly → Loses specialized column block UX
 - Keeping grid-blocks → Technical debt, no future support
@@ -74,22 +81,24 @@ The replacement plugin, `plain/kirby-column-blocks`, is the community-recommende
 **What:** Use `extends: blocks/columns` in custom blueprint to inherit base structure, then add custom fields
 
 **Why:**
+
 - Maintains compatibility with plugin updates
 - Clearer separation of base functionality vs customizations
 - Follows Kirby best practices
 - Makes customizations more maintainable
 
 **Implementation:**
+
 ```yaml
 name: Columns
 extends: blocks/columns
 fields:
-  title:
-    # Custom title field
-  sticky:
-    # Custom sticky toggle
-  grid:  # Inherits from blocks/columns
-    # Add custom settings to layout field
+    title:
+        # Custom title field
+    sticky:
+        # Custom sticky toggle
+    grid: # Inherits from blocks/columns
+        # Add custom settings to layout field
 ```
 
 ### Decision 3: Preserve 6-Column Tailwind Grid System
@@ -97,23 +106,26 @@ fields:
 **What:** Continue using `grid grid-cols-6` with column span classes
 
 **Why:**
+
 - Existing responsive breakpoints work correctly
 - Proven approach in production
 - Allows fine-grained control with Tailwind
 - Supports all required layouts including new asymmetric ones
 
 **Column Mapping (updated):**
+
 ```php
 $columnWidthClasses = [
-    '1/1' => 'col-span-full',    // Full width
-    '1/2' => 'col-span-3',        // Half width (3 of 6)
-    '1/3' => 'col-span-2',        // Third width (2 of 6)
-    '2/3' => 'col-span-4',        // Two-thirds width (4 of 6)
-    '1/4' => 'col-span-3 lg:col-span-1.5', // Quarter width (responsive)
+    "1/1" => "col-span-full", // Full width
+    "1/2" => "col-span-3", // Half width (3 of 6)
+    "1/3" => "col-span-2", // Third width (2 of 6)
+    "2/3" => "col-span-4", // Two-thirds width (4 of 6)
+    "1/4" => "col-span-3 lg:col-span-1.5", // Quarter width (responsive)
 ];
 ```
 
 **Note:** 1/4 layout requires special handling since 6 ÷ 4 = 1.5 (not integer). Options:
+
 - Use responsive classes: Full width on mobile, proper quarters on large screens
 - Switch to 12-column grid for cleaner math (6 is cleaner for current layouts)
 - Use CSS Grid fraction units in custom CSS
@@ -125,16 +137,19 @@ $columnWidthClasses = [
 **What:** Content files will need block type renamed from `grid` to `columns`
 
 **Why:**
+
 - Kirby uses block type name to locate blueprint and snippet
 - Field structure (layout field data) is compatible between plugins
 - No data loss, only identifier change
 
 **Migration approach:**
+
 1. Manual approach (low volume): Edit content files directly in Panel or filesystem
 2. Automated approach (high volume): Create PHP script to find/replace in content files
 3. Hybrid approach: Use search/replace in IDE for bulk changes, manual verification
 
 **Data structure compatibility:**
+
 ```yaml
 # Old (grid block)
 blocks:
@@ -162,11 +177,13 @@ blocks:
 **What:** Keep both plugins installed temporarily during migration period
 
 **Why:**
+
 - Allows gradual content migration
 - Reduces risk of breaking production
 - Enables A/B testing of functionality
 
 **Timeline:**
+
 1. Install column-blocks alongside grid-blocks
 2. Create columns blueprint and snippet
 3. Add both `grid` and `columns` to page builder fieldsets
@@ -186,6 +203,7 @@ blocks:
 **Impact:** Potential visual inconsistencies or complex CSS
 
 **Mitigation:**
+
 - Use responsive approach: Stack on mobile, 4 columns on desktop
 - Consider 12-column grid if 4-column layout is critical
 - Document limitation for content editors
@@ -198,6 +216,7 @@ blocks:
 **Impact:** Broken pages, data loss
 
 **Mitigation:**
+
 - Create full backup before migration
 - Test migration process on copy first
 - Develop automated script with dry-run mode
@@ -211,6 +230,7 @@ blocks:
 **Impact:** Custom snippet code may need significant changes
 
 **Mitigation:**
+
 - Install plugin early and inspect actual data structure
 - Create test blocks to verify API
 - Review plugin source code for data structures
@@ -224,6 +244,7 @@ blocks:
 **Impact:** Support requests, editing errors
 
 **Mitigation:**
+
 - Document new features (paste, improved drag-drop)
 - Create training materials or quick guide
 - Communicate changes before deployment
@@ -233,6 +254,7 @@ blocks:
 ## Migration Plan
 
 ### Phase 1: Preparation (No Production Impact)
+
 1. Create feature branch
 2. Install kirby-column-blocks via Composer
 3. Inspect plugin data structures and API
@@ -242,6 +264,7 @@ blocks:
 7. Test columns block thoroughly in development
 
 ### Phase 2: Parallel Testing (Dual Mode)
+
 1. Both grid and columns blocks available in Panel
 2. Create test pages using columns blocks
 3. Verify all features work correctly
@@ -250,16 +273,18 @@ blocks:
 6. Confirm 100% feature parity
 
 ### Phase 3: Content Migration (Breaking Change)
+
 1. Create full backup of content files
 2. Remove grid from page builder fieldsets
 3. Migrate existing grid blocks to columns:
-   - Option A: Manual in Panel (low volume)
-   - Option B: Automated script (high volume)
+    - Option A: Manual in Panel (low volume)
+    - Option B: Automated script (high volume)
 4. Verify all pages render correctly
 5. Test Panel editing on migrated content
 6. Deploy to staging
 
 ### Phase 4: Cleanup (Remove Old Plugin)
+
 1. Remove grid.yml blueprint
 2. Remove grid.php snippet
 3. Remove grid-blocks plugin directory
@@ -271,17 +296,20 @@ blocks:
 ### Rollback Plan
 
 **If issues discovered in Phase 2 (Parallel Testing):**
+
 - Remove columns fieldset from page builder
 - Continue using grid blocks
 - Investigate and fix issues
 - Return to Phase 1
 
 **If issues discovered in Phase 3 (Content Migration):**
+
 - Revert content files from backup
 - Re-add grid to page builder fieldsets
 - Fix issues before re-attempting migration
 
 **If issues discovered in Phase 4 (Production):**
+
 - Revert git commits
 - Reinstall grid-blocks plugin
 - Restore content from backup if needed
@@ -290,25 +318,25 @@ blocks:
 ## Open Questions
 
 1. **Content migration volume:** How many pages currently use grid blocks?
-   - Answer: Need to scan content directory
-   - Impact: Determines manual vs automated approach
+    - Answer: Need to scan content directory
+    - Impact: Determines manual vs automated approach
 
 2. **Field name consistency:** Does kirby-column-blocks use `layout` or `grid` for the layout field?
-   - Answer: Verify in actual plugin installation
-   - Impact: May need to adjust field references in snippet
+    - Answer: Verify in actual plugin installation
+    - Impact: May need to adjust field references in snippet
 
 3. **Four-column layout priority:** How important is the 1/4 layout to content editors?
-   - Answer: Consult with stakeholders
-   - Impact: May influence grid system choice (6 vs 12 columns)
+    - Answer: Consult with stakeholders
+    - Impact: May influence grid system choice (6 vs 12 columns)
 
 4. **Staging environment:** Is staging available for testing before production?
-   - Answer: Confirm deployment pipeline
-   - Impact: Testing strategy and risk level
+    - Answer: Confirm deployment pipeline
+    - Impact: Testing strategy and risk level
 
 5. **Editor notification:** What's the best way to communicate changes to content editors?
-   - Answer: Determine communication channels
-   - Impact: Training and support approach
+    - Answer: Determine communication channels
+    - Impact: Training and support approach
 
 6. **Timeline:** What's the deadline for this migration?
-   - Answer: Confirm with stakeholders
-   - Impact: Rushed migration increases risk
+    - Answer: Confirm with stakeholders
+    - Impact: Rushed migration increases risk

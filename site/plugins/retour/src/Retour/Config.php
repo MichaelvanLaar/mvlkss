@@ -9,65 +9,56 @@ use Throwable;
 /**
  * Handles reading from/writing to the config file
  */
-class Config
-{
-	protected array $data;
+class Config {
+    protected array $data;
 
-	public function __construct(
-		protected Retour $retour
-	) {
-		$this->read();
-	}
+    public function __construct(protected Retour $retour) {
+        $this->read();
+    }
 
-	public function data(string|null $key = null): mixed
-	{
-		if ($key === null) {
-			return $this->data;
-		}
+    public function data(string|null $key = null): mixed {
+        if ($key === null) {
+            return $this->data;
+        }
 
-		return $this->data[$key] ?? null;
-	}
+        return $this->data[$key] ?? null;
+    }
 
-	public function file(): string
-	{
-		$default = $this->retour->kirby()->root('config') . '/retour.yml';
-		$path    = $this->retour->option('config', $default);
+    public function file(): string {
+        $default = $this->retour->kirby()->root("config") . "/retour.yml";
+        $path = $this->retour->option("config", $default);
 
-		if (is_callable($path) === true) {
-			$path = $path();
-		}
+        if (is_callable($path) === true) {
+            $path = $path();
+        }
 
-		return $path;
-	}
+        return $path;
+    }
 
-	public function read(): array
-	{
-		try {
-			$file = $this->file();
-			return $this->data = Data::read($file);
-		} catch (Throwable) {
-			return $this->data = [];
-		}
-	}
+    public function read(): array {
+        try {
+            $file = $this->file();
+            return $this->data = Data::read($file);
+        } catch (Throwable) {
+            return $this->data = [];
+        }
+    }
 
-	public function write(
-		string|array $key,
-		mixed $value = null
-	): array {
-		$data = $this->data;
+    public function write(string|array $key, mixed $value = null): array {
+        $data = $this->data;
 
-		if (is_array($key) === true) {
-			$data = array_merge($data, $key);
-		} else {
-			$data[$key] = $value;
-		}
+        if (is_array($key) === true) {
+            $data = array_merge($data, $key);
+        } else {
+            $data[$key] = $value;
+        }
 
-		if (Data::write($this->file(), $data) === true) {
-			return $this->data = $data;
-		}
+        if (Data::write($this->file(), $data) === true) {
+            return $this->data = $data;
+        }
 
-		// @codeCoverageIgnoreStart
-		throw new LogicException('Retour: writing config file failed');
-		// @codeCoverageIgnoreEnd
-	}
+        // @codeCoverageIgnoreStart
+        throw new LogicException("Retour: writing config file failed");
+        // @codeCoverageIgnoreEnd
+    }
 }

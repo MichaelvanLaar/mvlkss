@@ -172,7 +172,7 @@ For a full diff see [`2.37.0...2.38.0`][2.37.0...2.38.0].
 
 ### Changed
 
-- Added support for PHP 8.3  ([#1189]), by [@localheinz]
+- Added support for PHP 8.3 ([#1189]), by [@localheinz]
 
 ### Fixed
 
@@ -511,7 +511,7 @@ For a full diff see [`2.13.1...2.13.2`][2.13.1...2.13.2].
 
 For a full diff see [`2.13.0...2.13.1`][2.13.0...2.13.1].
 
-:clown_face: Made a mistake tagging this release *before- pulling changes merged into `main`.
+:clown_face: Made a mistake tagging this release \*before- pulling changes merged into `main`.
 
 ## [`2.13.0`][2.13.0]
 
@@ -675,7 +675,7 @@ For a full diff see [`2.3.2...2.4.0`][2.3.2...2.4.0].
 ### Changed
 
 - Started showing validation error messages as obtained from validation instead of relying on on executing composer validate ([#406]), by [@localheinz]
-- Made plugin compatible with `composer/composer:^2.0.0`  ([#412]), by [@localheinz]
+- Made plugin compatible with `composer/composer:^2.0.0` ([#412]), by [@localheinz]
 
 ## [`2.3.2`][2.3.2]
 
@@ -788,38 +788,39 @@ For a full diff see [`1.3.1...2.0.0`][1.3.1...2.0.0].
 ## Changed
 
 - Started using `ergebnis/composer-json-normalizer` instead of `localheinz/composer-json-normalizer`, `ergebnis/json-normalizer` instead of `localheinz/json-normalizer`, and `ergebnis/json-printer` instead of `localheinz/json-printer` ([#261]), by [@localheinz]
-- Removed default values for parameters `$formatter` and `$differ` of constructor of `Ergebnis\Composer\Normalize\Command\NormalizeCommand`  ([#262]), by [@localheinz]
+- Removed default values for parameters `$formatter` and `$differ` of constructor of `Ergebnis\Composer\Normalize\Command\NormalizeCommand` ([#262]), by [@localheinz]
 - Renamed vendor namespace `Localheinz` to `Ergebnis` after move to [@ergebnis] ([#267]), by [@localheinz]
 
-  Run
+    Run
 
-  ```
-  $ composer remove localheinz/composer-normalize
-  ```
+    ```
+    $ composer remove localheinz/composer-normalize
+    ```
 
-  and
+    and
 
-  ```
-  $ composer require ergebnis/composer-normalize
-  ```
+    ```
+    $ composer require ergebnis/composer-normalize
+    ```
 
-  to update.
+    to update.
 
-  Run
+    Run
 
-  ```
-  $ find . -type f -exec sed -i '.bak' 's/Localheinz\\Composer\\Normalizer/Ergebnis\\Composer\\Normalize/g' {} \;
-  ```
+    ```
+    $ find . -type f -exec sed -i '.bak' 's/Localheinz\\Composer\\Normalizer/Ergebnis\\Composer\\Normalize/g' {} \;
+    ```
 
-  to replace occurrences of `Localheinz\Composer\Normalize` with `Ergebnis\Composer\Normalize`.
+    to replace occurrences of `Localheinz\Composer\Normalize` with `Ergebnis\Composer\Normalize`.
 
-  Run
+    Run
 
-  ```
-  $ find -type f -name '*.bak' -delete
-  ```
+    ```
+    $ find -type f -name '*.bak' -delete
+    ```
 
-  to delete backup files created in the previous step.
+    to delete backup files created in the previous step.
+
 - Marked `Ergebnis\Composer\Normalize\Command\NormalizeCommand` and `Ergebnis\Composer\Normalize\Command\SchemaUriResolver` as internal to allow modifications without the need for major releases ([#270]), by [@localheinz]
 
 ### Fixed
@@ -1096,7 +1097,6 @@ For a full diff see [`81bc3a8...0.1.0`][81bc3a8...0.1.0].
 [2.49.0]: https://github.com/ergebnis/composer-normalize/releases/tag/2.49.0
 [2.50.0]: https://github.com/ergebnis/composer-normalize/releases/tag/2.50.0
 [2.51.0]: https://github.com/ergebnis/composer-normalize/releases/tag/2.51.0
-
 [81bc3a8...0.1.0]: https://github.com/ergebnis/composer-normalize/compare/81bc3a8...0.1.0
 [0.1.0...0.2.0]: https://github.com/ergebnis/composer-normalize/compare/0.1.0...0.2.0
 [0.2.0...0.3.0]: https://github.com/ergebnis/composer-normalize/compare/0.2.0...0.3.0
@@ -1202,7 +1202,6 @@ For a full diff see [`81bc3a8...0.1.0`][81bc3a8...0.1.0].
 [2.49.0...2.50.0]: https://github.com/ergebnis/composer-normalize/compare/2.49.0...2.50.0
 [2.50.0...2.51.0]: https://github.com/ergebnis/composer-normalize/compare/2.50.0...2.51.0
 [2.51.0...main]: https://github.com/ergebnis/composer-normalize/compare/2.51.0...main
-
 [#1]: https://github.com/ergebnis/composer-normalize/pull/1
 [#2]: https://github.com/ergebnis/composer-normalize/pull/2
 [#3]: https://github.com/ergebnis/composer-normalize/pull/3
@@ -1368,7 +1367,6 @@ For a full diff see [`81bc3a8...0.1.0`][81bc3a8...0.1.0].
 [#1507]: https://github.com/ergebnis/composer-normalize/pull/1507
 [#1563]: https://github.com/ergebnis/composer-normalize/pull/1563
 [#1592]: https://github.com/ergebnis/composer-normalize/pull/1592
-
 [@AlexSkrypnyk]: https://github.com/AlexSkrypnyk
 [@andrey-helldar]: https://github.com/andrey-helldar
 [@core23]: https://github.com/core23

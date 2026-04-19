@@ -24,13 +24,14 @@ $phiki = new Phiki();
 $html = $phiki->codeToHtml(
     <<<'PHP'
     echo "Hello, world!";
-    PHP,
+    PHP
+    ,
     Grammar::Php,
     Theme::GithubDark,
 );
 ```
 
-This method takes in the code you want to highlight, the target language, as well as the theme you want to use. It then returns the generated HTML as a string. 
+This method takes in the code you want to highlight, the target language, as well as the theme you want to use. It then returns the generated HTML as a string.
 
 > [!NOTE]
 > All of Phiki's styling is applied using inline `style` attributes, so there's no need to add any CSS to your project.
@@ -47,31 +48,34 @@ Phiki provides a convenient extension for the excellent `league/commonmark` pack
 
 All you need to do is register the extension through a CommonMark `Environment` object.
 
-```php
+````php
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\MarkdownConverter;
 use Phiki\CommonMark\PhikiExtension;
 
-$environment = new Environment;
+$environment = new Environment();
 $environment
-    ->addExtension(new CommonMarkCoreExtension)
-    ->addExtension(new PhikiExtension('github-dark'));
+    ->addExtension(new CommonMarkCoreExtension())
+    ->addExtension(new PhikiExtension("github-dark"));
 
 $converter = new MarkdownConverter($environment);
-$output = $converter->convert(<<<'MD'
+$output = $converter->convert(
+    <<<'MD'
     ```html
     <p>Hello, world!</p>
     ```
-    MD);
-```
+    MD
+    ,
+);
+````
 
 Phiki also allows you to wrap the generated `<pre>` element in an additional `<div>`. This is especially useful when trying to avoid issues with the CSS `overflow` property, as you can position things relative to the wrapping element instead of the code block itself.
 
 ```php
 $environment
-    ->addExtension(new CommonMarkCoreExtension)
-    ->addExtension(new PhikiExtension('github-dark', withWrapper: true));
+    ->addExtension(new CommonMarkCoreExtension())
+    ->addExtension(new PhikiExtension("github-dark", withWrapper: true));
 ```
 
 ### Laravel
@@ -81,9 +85,7 @@ If you're using Laravel's `Str::markdown()` or `str()->markdown()` methods, you 
 ```php
 use Phiki\CommonMark\PhikiExtension;
 
-Str::markdown('...', extensions: [
-    new PhikiExtension('github-dark'),
-]); 
+Str::markdown("...", extensions: [new PhikiExtension("github-dark")]);
 ```
 
 ### Using custom languages and themes
@@ -100,15 +102,15 @@ $environment = Environment::default();
 // Register a custom language.
 $environment
     ->getGrammarRepository()
-    ->register('my-language', __DIR__ . '/../path/to/grammar.json');
+    ->register("my-language", __DIR__ . "/../path/to/grammar.json");
 
 $environment
     ->getThemeRepository()
-    ->register('my-theme', __DIR__ . '/../path/to/theme.json');
+    ->register("my-theme", __DIR__ . "/../path/to/theme.json");
 
 $phiki = new Phiki($environment);
 
-$phiki->codeToHtml('...', 'my-language', 'my-theme');
+$phiki->codeToHtml("...", "my-language", "my-theme");
 ```
 
 ### Terminal Output
@@ -116,7 +118,11 @@ $phiki->codeToHtml('...', 'my-language', 'my-theme');
 Phiki has support for generating output designed for use in the terminal. This is available through the `codeToTerminal()` method which accepts the same parameters as the `codeToHtml()` method.
 
 ```php
-echo $phiki->codeToTerminal('echo "Hello, world"!', Grammar::Php, Theme::GithubDark);
+echo $phiki->codeToTerminal(
+    'echo "Hello, world"!',
+    Grammar::Php,
+    Theme::GithubDark,
+);
 ```
 
 ![](./art/codeToTerminal.png)
@@ -146,8 +152,8 @@ To take advantage of this, pass an array of themes to the `codeToHtml()` method.
 
 ```php
 $phiki->codeToHtml("...", Grammar::Php, [
-    'light' => Theme::GithubLight,
-    'dark' => Theme::GithubDark,
+    "light" => Theme::GithubLight,
+    "dark" => Theme::GithubDark,
 ]);
 ```
 
@@ -188,12 +194,12 @@ Phiki doesn't limit you to light and dark mode themes – you can use any key yo
 Multiple themes can also be used with the [CommonMark extension](#commonmark-integration) by passing an array to the extension object.
 
 ```php
-$environment
-    ->addExtension(new CommonMarkCoreExtension)
-    ->addExtension(new PhikiExtension([
-        'light' => Theme::GithubLight,
-        'dark' => Theme::GithubDark,
-    ]));
+$environment->addExtension(new CommonMarkCoreExtension())->addExtension(
+    new PhikiExtension([
+        "light" => Theme::GithubLight,
+        "dark" => Theme::GithubDark,
+    ]),
+);
 ```
 
 ## Known Limitations & Implementation Notes
@@ -202,12 +208,12 @@ The implementation of this package is inspired by existing art, namely `vscode-t
 
 PHP uses the PCRE2 engine which doesn't have support for all of Oniguruma's features. To reduce the risk of broken RegExs, Phiki performs a series of transformations with solid success rates:
 
-* Properly escape unescaped forward-slashes (`/`).
-* Translate `\h` and `\H` to PCRE equivalents.
-* Translate `\p{xx}` to PCRE-compatible versions.
-* Escape invalid leading range characters (`[-...]`).
-* Properly escape unescaped close-set characters (`]`).
-* Translate unsupported Unicode escape sequences (`\uXXXX`).
+- Properly escape unescaped forward-slashes (`/`).
+- Translate `\h` and `\H` to PCRE equivalents.
+- Translate `\p{xx}` to PCRE-compatible versions.
+- Escape invalid leading range characters (`[-...]`).
+- Properly escape unescaped close-set characters (`]`).
+- Translate unsupported Unicode escape sequences (`\uXXXX`).
 
 One of the biggest differences between PCRE2 and Oniguruma is that Oniguruma has support for "variable-length lookbehinds". Variable-length lookbehinds, both positive and negative, are normally created when a quantifier such as `+` or `*` is used inside of the lookbehind.
 
@@ -221,4 +227,4 @@ preg_match(): Compilation failed: length of lookbehind assertion is not limited 
 
 ## Credits
 
-* [Ryan Chandler](https://github.com/ryangjchandler)
+- [Ryan Chandler](https://github.com/ryangjchandler)

@@ -20,8 +20,7 @@ use LogicException;
  * @link http://github.com/marc-mabe/php-enum for the canonical source repository
  * @link https://github.com/marc-mabe/php-enum/issues/52 for further information about this feature
  */
-trait EnumSerializableTrait
-{
+trait EnumSerializableTrait {
     /**
      * The method will be defined by MabeEnum\Enum
      * @return null|bool|int|float|string|array<mixed>
@@ -34,9 +33,8 @@ trait EnumSerializableTrait
      *
      * @return array<string, null|bool|int|float|string|array<mixed>>
      */
-    public function __serialize(): array
-    {
-        return ['value' => $this->getValue()];
+    public function __serialize(): array {
+        return ["value" => $this->getValue()];
     }
 
     /**
@@ -49,28 +47,32 @@ trait EnumSerializableTrait
      * @param array<string, mixed> $data
      * @return void
      */
-    public function __unserialize(array $data): void
-    {
-        if (!\array_key_exists('value', $data)) {
+    public function __unserialize(array $data): void {
+        if (!\array_key_exists("value", $data)) {
             throw new RuntimeException('Missing array key "value"');
         }
 
         /** @var mixed $value */
-        $value     = $data['value'];
+        $value = $data["value"];
         $constants = self::getConstants();
-        $name      = \array_search($value, $constants, true);
+        $name = \array_search($value, $constants, true);
         if ($name === false) {
             $message = \is_scalar($value)
-                ? 'Unknown value ' . \var_export($value, true)
-                : 'Invalid value of type ' . (\is_object($value) ? \get_class($value) : \gettype($value));
+                ? "Unknown value " . \var_export($value, true)
+                : "Invalid value of type " .
+                    (\is_object($value)
+                        ? \get_class($value)
+                        : \gettype($value));
             throw new RuntimeException($message);
         }
 
-        $class      = static::class;
+        $class = static::class;
         $enumerator = $this;
-        $closure    = function () use ($class, $name, $value, $enumerator) {
+        $closure = function () use ($class, $name, $value, $enumerator) {
             if ($value !== null && $this->value !== null) {
-                throw new LogicException('Do not call this directly - please use unserialize($enum) instead');
+                throw new LogicException(
+                    'Do not call this directly - please use unserialize($enum) instead',
+                );
             }
 
             $this->value = $value;
@@ -89,8 +91,7 @@ trait EnumSerializableTrait
      * @return string
      * @deprecated Since PHP 7.4
      */
-    public function serialize(): string
-    {
+    public function serialize(): string {
         return \serialize($this->getValue());
     }
 
@@ -103,8 +104,7 @@ trait EnumSerializableTrait
      * @throws LogicException   On calling this method on an already initialized enumerator
      * @deprecated Since PHP 7.4
      */
-    public function unserialize($serialized): void
-    {
-        $this->__unserialize(['value' => \unserialize($serialized)]);
+    public function unserialize($serialized): void {
+        $this->__unserialize(["value" => \unserialize($serialized)]);
     }
 }

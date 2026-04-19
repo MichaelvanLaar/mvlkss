@@ -17,17 +17,15 @@ use Ergebnis\Json\Json;
 use Ergebnis\Json\Normalizer\Format;
 use Ergebnis\Json\Normalizer\Normalizer;
 
-final class BinNormalizer implements Normalizer
-{
-    public function normalize(Json $json): Json
-    {
+final class BinNormalizer implements Normalizer {
+    public function normalize(Json $json): Json {
         $decoded = $json->decoded();
 
         if (!\is_object($decoded)) {
             return $json;
         }
 
-        if (!\property_exists($decoded, 'bin')) {
+        if (!\property_exists($decoded, "bin")) {
             return $json;
         }
 

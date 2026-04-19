@@ -12,93 +12,88 @@ use Phiki\Grammar\ParsedGrammar;
 use Phiki\Theme\ParsedTheme;
 use Phiki\Theme\Theme;
 
-class Environment
-{
+class Environment {
     protected GrammarRepositoryInterface $grammarRepository;
 
     protected ThemeRepositoryInterface $themeRepository;
 
     protected bool $strictMode = false;
 
-    public function addExtension(ExtensionInterface $extension): static
-    {
+    public function addExtension(ExtensionInterface $extension): static {
         $extension->register($this);
 
         return $this;
     }
 
-    public function enableStrictMode(): static
-    {
+    public function enableStrictMode(): static {
         $this->strictMode = true;
 
         return $this;
     }
 
-    public function disableStrictMode(): static
-    {
+    public function disableStrictMode(): static {
         $this->strictMode = false;
 
         return $this;
     }
 
-    public function isStrictModeEnabled(): bool
-    {
+    public function isStrictModeEnabled(): bool {
         return $this->strictMode;
     }
 
-    public function useGrammarRepository(GrammarRepositoryInterface $grammarRepository): static
-    {
+    public function useGrammarRepository(
+        GrammarRepositoryInterface $grammarRepository,
+    ): static {
         $this->grammarRepository = $grammarRepository;
 
         return $this;
     }
 
-    public function useThemeRepository(ThemeRepositoryInterface $themeRepository): static
-    {
+    public function useThemeRepository(
+        ThemeRepositoryInterface $themeRepository,
+    ): static {
         $this->themeRepository = $themeRepository;
 
         return $this;
     }
 
-    public function getGrammarRepository(): GrammarRepositoryInterface
-    {
+    public function getGrammarRepository(): GrammarRepositoryInterface {
         return $this->grammarRepository;
     }
 
-    public function resolveGrammar(string|Grammar $grammar): ParsedGrammar
-    {
+    public function resolveGrammar(string|Grammar $grammar): ParsedGrammar {
         return match (true) {
             is_string($grammar) => $this->grammarRepository->get($grammar),
-            $grammar instanceof Grammar => $grammar->toParsedGrammar($this->grammarRepository),
+            $grammar instanceof Grammar => $grammar->toParsedGrammar(
+                $this->grammarRepository,
+            ),
         };
     }
 
-    public function getThemeRepository(): ThemeRepositoryInterface
-    {
+    public function getThemeRepository(): ThemeRepositoryInterface {
         return $this->themeRepository;
     }
 
-    public function resolveTheme(string|Theme $theme): ParsedTheme
-    {
+    public function resolveTheme(string|Theme $theme): ParsedTheme {
         return match (true) {
             is_string($theme) => $this->themeRepository->get($theme),
-            $theme instanceof Theme => $theme->toParsedTheme($this->themeRepository),
+            $theme instanceof Theme => $theme->toParsedTheme(
+                $this->themeRepository,
+            ),
         };
     }
 
-    public function validate(): void
-    {
-        if (! isset($this->grammarRepository)) {
+    public function validate(): void {
+        if (!isset($this->grammarRepository)) {
             throw EnvironmentException::missingGrammarRepository();
         }
 
-        if (! isset($this->themeRepository)) {
+        if (!isset($this->themeRepository)) {
             throw EnvironmentException::missingThemeRepository();
         }
     }
 
-    final public static function default(): self
-    {
-        return (new self)->addExtension(new DefaultExtension);
+    final public static function default(): self {
+        return (new self())->addExtension(new DefaultExtension());
     }
 }

@@ -7,6 +7,7 @@
 The page builder SHALL provide flexible column-based layouts using the `plain/kirby-column-blocks` plugin instead of the deprecated `microman/kirby-grid-blocks` plugin. The system SHALL maintain all existing customization features including spacing controls, background colors, vertical alignment, and HTML attributes.
 
 #### Scenario: Editor creates columns block
+
 - **GIVEN** the editor is editing a page with the page builder field
 - **WHEN** the editor adds a "Columns" block to the page builder
 - **THEN** the Panel SHALL display the columns block with WYSIWYG editing capability
@@ -15,6 +16,7 @@ The page builder SHALL provide flexible column-based layouts using the `plain/ki
 - **AND** the editor SHALL be able to add nested blocks within each column
 
 #### Scenario: Editor uses enhanced WYSIWYG features
+
 - **GIVEN** the editor has a columns block in the page builder
 - **WHEN** the editor pastes (cmd+v) content while focused on a column
 - **THEN** the system SHALL insert the pasted block into that column
@@ -22,6 +24,7 @@ The page builder SHALL provide flexible column-based layouts using the `plain/ki
 - **AND** the editor SHALL be able to drag blocks into and out of columns
 
 #### Scenario: Two equal columns render correctly
+
 - **GIVEN** a page has a columns block with 1/2, 1/2 layout
 - **WHEN** the page is rendered on the frontend
 - **THEN** the system SHALL display a 6-column CSS grid
@@ -30,6 +33,7 @@ The page builder SHALL provide flexible column-based layouts using the `plain/ki
 - **AND** the columns SHALL apply background color based on row settings with light/dark mode support
 
 #### Scenario: Three equal columns render correctly
+
 - **GIVEN** a page has a columns block with 1/3, 1/3, 1/3 layout
 - **WHEN** the page is rendered on the frontend
 - **THEN** the system SHALL display a 6-column CSS grid
@@ -37,6 +41,7 @@ The page builder SHALL provide flexible column-based layouts using the `plain/ki
 - **AND** the columns SHALL apply row settings as configured
 
 #### Scenario: Asymmetric layout (1/3 + 2/3) renders correctly
+
 - **GIVEN** a page has a columns block with 1/3, 2/3 layout
 - **WHEN** the page is rendered on the frontend
 - **THEN** the system SHALL display a 6-column CSS grid
@@ -45,6 +50,7 @@ The page builder SHALL provide flexible column-based layouts using the `plain/ki
 - **AND** the columns SHALL maintain proper proportional widths
 
 #### Scenario: Asymmetric layout (2/3 + 1/3) renders correctly
+
 - **GIVEN** a page has a columns block with 2/3, 1/3 layout
 - **WHEN** the page is rendered on the frontend
 - **THEN** the system SHALL display a 6-column CSS grid
@@ -53,6 +59,7 @@ The page builder SHALL provide flexible column-based layouts using the `plain/ki
 - **AND** the columns SHALL maintain proper proportional widths
 
 #### Scenario: Four equal columns render correctly
+
 - **GIVEN** a page has a columns block with 1/4, 1/4, 1/4, 1/4 layout
 - **WHEN** the page is rendered on the frontend
 - **THEN** the system SHALL display a 6-column CSS grid with responsive column spans
@@ -60,6 +67,7 @@ The page builder SHALL provide flexible column-based layouts using the `plain/ki
 - **AND** the columns SHALL stack appropriately on mobile devices
 
 #### Scenario: Column row settings apply correctly
+
 - **GIVEN** a columns block with configured row settings
 - **WHEN** the page is rendered
 - **THEN** the system SHALL apply vertical alignment classes (top, middle, bottom) if configured
@@ -73,12 +81,14 @@ The page builder SHALL provide flexible column-based layouts using the `plain/ki
 - **AND** the system SHALL apply custom CSS classes if configured
 
 #### Scenario: Sticky columns behavior
+
 - **GIVEN** a columns block with sticky toggle enabled
 - **WHEN** the page is rendered and the user scrolls
 - **THEN** the columns block SHALL stick to the top of the viewport
 - **AND** the sticky behavior SHALL use appropriate CSS positioning
 
 #### Scenario: Images within columns adjust sizing
+
 - **GIVEN** a columns block containing image blocks
 - **WHEN** the page is rendered
 - **THEN** the system SHALL detect the column context
@@ -86,6 +96,7 @@ The page builder SHALL provide flexible column-based layouts using the `plain/ki
 - **AND** the images SHALL render at appropriate sizes for their container
 
 #### Scenario: Breadcrumbs within columns maintain color contrast
+
 - **GIVEN** a columns block with background color containing breadcrumb blocks
 - **WHEN** the page is rendered
 - **THEN** the system SHALL detect the background color context
@@ -93,6 +104,7 @@ The page builder SHALL provide flexible column-based layouts using the `plain/ki
 - **AND** the breadcrumbs SHALL remain readable against the background color
 
 #### Scenario: Columns support all nested block types
+
 - **GIVEN** a columns block in the page builder
 - **WHEN** the editor adds blocks within a column
 - **THEN** the system SHALL support heading blocks
@@ -107,12 +119,14 @@ The page builder SHALL provide flexible column-based layouts using the `plain/ki
 - **AND** the system SHALL support breadcrumb blocks
 
 #### Scenario: Print styles apply correctly
+
 - **GIVEN** a page with columns blocks
 - **WHEN** the page is printed or print preview is shown
 - **THEN** the grid system SHALL switch to block layout for print
 - **AND** the columns SHALL stack vertically for better print readability
 
 #### Scenario: Reading direction awareness
+
 - **GIVEN** a page with columns blocks in an RTL (right-to-left) language
 - **WHEN** the page is rendered
 - **THEN** the padding-start and padding-end classes SHALL respect reading direction
@@ -134,12 +148,14 @@ The page builder SHALL provide flexible column-based layouts using the `plain/ki
 The columns block editing experience SHALL provide improved WYSIWYG functionality beyond the previous grid block implementation.
 
 #### Scenario: Paste blocks directly into columns
+
 - **GIVEN** the editor has copied a block in the Panel
 - **WHEN** the editor pastes (cmd+v) while focused on a column in a columns block
 - **THEN** the system SHALL insert the copied block into that specific column
 - **AND** the paste operation SHALL work seamlessly without additional dialogs
 
 #### Scenario: Improved drag-and-drop
+
 - **GIVEN** the editor is working with a columns block
 - **WHEN** the editor drags a block from outside the columns
 - **THEN** the system SHALL allow dropping the block into any column
@@ -151,12 +167,14 @@ The columns block editing experience SHALL provide improved WYSIWYG functionalit
 The columns block SHALL support additional layout options beyond the original three layouts, providing more flexibility for content editors.
 
 #### Scenario: Four-column layout available
+
 - **GIVEN** the editor is configuring a columns block
 - **WHEN** the editor selects the layout option
 - **THEN** the system SHALL offer a four equal columns layout (1/4, 1/4, 1/4, 1/4)
 - **AND** this layout SHALL render correctly on the frontend with appropriate responsive behavior
 
 #### Scenario: Asymmetric layouts available
+
 - **GIVEN** the editor is configuring a columns block
 - **WHEN** the editor selects the layout option
 - **THEN** the system SHALL offer an asymmetric layout with narrow left column (1/3, 2/3)

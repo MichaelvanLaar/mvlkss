@@ -10,25 +10,33 @@ use League\CommonMark\Renderer\NodeRendererInterface;
 use Phiki\Phiki;
 use Phiki\Theme\Theme;
 
-class CodeBlockRenderer implements NodeRendererInterface
-{
+class CodeBlockRenderer implements NodeRendererInterface {
     public function __construct(
         private string|array|Theme $theme,
-        private Phiki $phiki = new Phiki,
+        private Phiki $phiki = new Phiki(),
         private bool $withWrapper = false,
     ) {}
 
-    public function render(Node $node, ChildNodeRendererInterface $childRenderer)
-    {
-        if (! $node instanceof FencedCode) {
-            throw new InvalidArgumentException('Block must be instance of '.FencedCode::class);
+    public function render(
+        Node $node,
+        ChildNodeRendererInterface $childRenderer,
+    ) {
+        if (!($node instanceof FencedCode)) {
+            throw new InvalidArgumentException(
+                "Block must be instance of " . FencedCode::class,
+            );
         }
 
-        preg_match('/[a-zA-Z]+/', $node->getInfoWords()[0] ?: 'txt', $matches);
+        preg_match("/[a-zA-Z]+/", $node->getInfoWords()[0] ?: "txt", $matches);
 
         $grammar = $matches[0];
         $code = rtrim($node->getLiteral(), "\n");
 
-        return $this->phiki->codeToHtml($code, $grammar, $this->theme, $this->withWrapper);
+        return $this->phiki->codeToHtml(
+            $code,
+            $grammar,
+            $this->theme,
+            $this->withWrapper,
+        );
     }
 }

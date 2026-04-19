@@ -17,8 +17,7 @@ namespace Composer\Semver\Constraint;
  * that implements this interface is not a supported use case and will cause the
  * composer/semver components to return unexpected results.
  */
-interface ConstraintInterface
-{
+interface ConstraintInterface {
     /**
      * Checks whether the given constraint intersects in any way with this constraint
      *

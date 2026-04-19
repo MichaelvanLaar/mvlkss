@@ -29,8 +29,7 @@ use Symfony\Component\Console;
 /**
  * @internal
  */
-final class NormalizeCommand extends Command\BaseCommand
-{
+final class NormalizeCommand extends Command\BaseCommand {
     private Diff\Differ $differ;
     private Printer\PrinterInterface $printer;
     private Normalizer\Normalizer $normalizer;
@@ -40,90 +39,87 @@ final class NormalizeCommand extends Command\BaseCommand
         Factory $factory,
         Normalizer\Normalizer $normalizer,
         Printer\PrinterInterface $printer,
-        Diff\Differ $differ
+        Diff\Differ $differ,
     ) {
         $this->factory = $factory;
         $this->normalizer = $normalizer;
         $this->printer = $printer;
         $this->differ = $differ;
 
-        parent::__construct('normalize');
+        parent::__construct("normalize");
     }
 
-    protected function configure(): void
-    {
-        $this->setDescription('Normalizes composer.json according to its JSON schema (https://getcomposer.org/schema.json).');
+    protected function configure(): void {
+        $this->setDescription(
+            "Normalizes composer.json according to its JSON schema (https://getcomposer.org/schema.json).",
+        );
         $this->setDefinition([
             new Console\Input\InputArgument(
-                'file',
+                "file",
                 Console\Input\InputArgument::OPTIONAL,
-                'Path to composer.json file',
+                "Path to composer.json file",
             ),
             new Console\Input\InputOption(
-                'diff',
+                "diff",
                 null,
                 Console\Input\InputOption::VALUE_NONE,
-                'Show the results of normalizing',
+                "Show the results of normalizing",
             ),
             new Console\Input\InputOption(
-                'dry-run',
+                "dry-run",
                 null,
                 Console\Input\InputOption::VALUE_NONE,
-                'Show the results of normalizing, but do not modify any files',
+                "Show the results of normalizing, but do not modify any files",
             ),
             new Console\Input\InputOption(
-                'indent-size',
+                "indent-size",
                 null,
                 Console\Input\InputOption::VALUE_REQUIRED,
-                'Indent size (an integer greater than 0); should be used with the --indent-style option',
+                "Indent size (an integer greater than 0); should be used with the --indent-style option",
             ),
             new Console\Input\InputOption(
-                'indent-style',
+                "indent-style",
                 null,
                 Console\Input\InputOption::VALUE_REQUIRED,
                 \sprintf(
                     'Indent style (one of "%s"); should be used with the --indent-size option',
-                    \implode('", "', \array_keys(Normalizer\Format\Indent::CHARACTERS)),
+                    \implode(
+                        '", "',
+                        \array_keys(Normalizer\Format\Indent::CHARACTERS),
+                    ),
                 ),
             ),
             new Console\Input\InputOption(
-                'no-check-lock',
+                "no-check-lock",
                 null,
                 Console\Input\InputOption::VALUE_NONE,
-                'Do not check if lock file is up to date',
+                "Do not check if lock file is up to date",
             ),
             new Console\Input\InputOption(
-                'no-update-lock',
+                "no-update-lock",
                 null,
                 Console\Input\InputOption::VALUE_NONE,
-                'Do not update lock file if it exists',
+                "Do not update lock file if it exists",
             ),
         ]);
     }
 
     protected function execute(
         Console\Input\InputInterface $input,
-        Console\Output\OutputInterface $output
+        Console\Output\OutputInterface $output,
     ): int {
         $io = $this->getIO();
 
-        $io->write([
-            \sprintf(
-                'Running %s.',
-                Version::long(),
-            ),
-            '',
-        ]);
+        $io->write([\sprintf("Running %s.", Version::long()), ""]);
 
         $indent = null;
 
         try {
             $indentFromInput = self::indentFromInput($input);
         } catch (\RuntimeException $exception) {
-            $io->writeError(\sprintf(
-                '<error>%s</error>',
-                $exception->getMessage(),
-            ));
+            $io->writeError(
+                \sprintf("<error>%s</error>", $exception->getMessage()),
+            );
 
             return 1;
         }
@@ -132,28 +128,26 @@ final class NormalizeCommand extends Command\BaseCommand
             $indent = $indentFromInput;
         }
 
-        $composerFile = $input->getArgument('file');
+        $composerFile = $input->getArgument("file");
 
         if (!\is_string($composerFile)) {
             $composerFile = Factory::getComposerFile();
         }
 
-        $composer = $this->factory->createComposer(
-            $io,
-            $composerFile,
-        );
+        $composer = $this->factory->createComposer($io, $composerFile);
 
-        if (!$composer instanceof Composer) {
+        if (!($composer instanceof Composer)) {
             throw Exception\ShouldNotHappen::create();
         }
 
         try {
-            $indentFromExtra = self::indentFromExtra($composer->getPackage()->getExtra());
+            $indentFromExtra = self::indentFromExtra(
+                $composer->getPackage()->getExtra(),
+            );
         } catch (\RuntimeException $exception) {
-            $io->writeError(\sprintf(
-                '<error>%s</error>',
-                $exception->getMessage(),
-            ));
+            $io->writeError(
+                \sprintf("<error>%s</error>", $exception->getMessage()),
+            );
 
             return 1;
         }
@@ -162,21 +156,19 @@ final class NormalizeCommand extends Command\BaseCommand
             $indent = $indentFromExtra;
         }
 
-        if (
-            null !== $indentFromInput
-            && null !== $indentFromExtra
-        ) {
-            $io->write('<warning>Configuration provided via options and composer extra. Using configuration from composer extra.</warning>');
+        if (null !== $indentFromInput && null !== $indentFromExtra) {
+            $io->write(
+                "<warning>Configuration provided via options and composer extra. Using configuration from composer extra.</warning>",
+            );
         }
 
         if (
-            false === $input->getOption('dry-run')
-            && !\is_writable($composerFile)
+            false === $input->getOption("dry-run") &&
+            !\is_writable($composerFile)
         ) {
-            $io->writeError(\sprintf(
-                '<error>%s is not writable.</error>',
-                $composerFile,
-            ));
+            $io->writeError(
+                \sprintf("<error>%s is not writable.</error>", $composerFile),
+            );
 
             return 1;
         }
@@ -184,11 +176,13 @@ final class NormalizeCommand extends Command\BaseCommand
         $locker = $composer->getLocker();
 
         if (
-            false === $input->getOption('no-check-lock')
-            && $locker->isLocked()
-            && !$locker->isFresh()
+            false === $input->getOption("no-check-lock") &&
+            $locker->isLocked() &&
+            !$locker->isFresh()
         ) {
-            $io->writeError('<error>The lock file is not up to date with the latest changes in composer.json, it is recommended that you run `composer update --lock`.</error>');
+            $io->writeError(
+                "<error>The lock file is not up to date with the latest changes in composer.json, it is recommended that you run `composer update --lock`.</error>",
+            );
 
             return 1;
         }
@@ -206,20 +200,20 @@ final class NormalizeCommand extends Command\BaseCommand
 
         $normalizer = new Normalizer\ChainNormalizer(
             $this->normalizer,
-            new class($this->printer, $format) implements Normalizer\Normalizer {
+            new class ($this->printer, $format) implements
+                Normalizer\Normalizer {
                 private Normalizer\Format\Format $format;
                 private Printer\PrinterInterface $printer;
 
                 public function __construct(
                     Printer\PrinterInterface $printer,
-                    Normalizer\Format\Format $format
+                    Normalizer\Format\Format $format,
                 ) {
                     $this->printer = $printer;
                     $this->format = $format;
                 }
 
-                public function normalize(Json $json): Json
-                {
+                public function normalize(Json $json): Json {
                     $encoded = \json_encode(
                         $json->decoded(),
                         $this->format->jsonEncodeOptions()->toInt(),
@@ -235,7 +229,9 @@ final class NormalizeCommand extends Command\BaseCommand
                         return Json::fromString($printed);
                     }
 
-                    return Json::fromString($printed . $this->format->newLine()->toString());
+                    return Json::fromString(
+                        $printed . $this->format->newLine()->toString(),
+                    );
                 }
             },
         );
@@ -243,49 +239,47 @@ final class NormalizeCommand extends Command\BaseCommand
         try {
             $normalized = $normalizer->normalize($json);
         } catch (Normalizer\Exception\OriginalInvalidAccordingToSchema $exception) {
-            $io->writeError('<error>Original composer.json does not match the expected JSON schema:</error>');
-
-            self::showValidationErrors(
-                $io,
-                ...$exception->errors(),
+            $io->writeError(
+                "<error>Original composer.json does not match the expected JSON schema:</error>",
             );
+
+            self::showValidationErrors($io, ...$exception->errors());
 
             return 1;
         } catch (Normalizer\Exception\NormalizedInvalidAccordingToSchema $exception) {
-            $io->writeError('<error>Normalized composer.json does not match the expected JSON schema:</error>');
-
-            self::showValidationErrors(
-                $io,
-                ...$exception->errors(),
+            $io->writeError(
+                "<error>Normalized composer.json does not match the expected JSON schema:</error>",
             );
+
+            self::showValidationErrors($io, ...$exception->errors());
 
             return 1;
         } catch (\RuntimeException $exception) {
-            $io->writeError(\sprintf(
-                '<error>%s</error>',
-                $exception->getMessage(),
-            ));
+            $io->writeError(
+                \sprintf("<error>%s</error>", $exception->getMessage()),
+            );
 
             return 1;
         }
 
         if ($json->encoded() === $normalized->encoded()) {
-            $io->write(\sprintf(
-                '<info>%s is already normalized.</info>',
-                $composerFile,
-            ));
+            $io->write(
+                \sprintf(
+                    "<info>%s is already normalized.</info>",
+                    $composerFile,
+                ),
+            );
 
             return 0;
         }
 
         if (
-            true === $input->getOption('diff')
-            || true === $input->getOption('dry-run')
+            true === $input->getOption("diff") ||
+            true === $input->getOption("dry-run")
         ) {
-            $io->writeError(\sprintf(
-                '<error>%s is not normalized.</error>',
-                $composerFile,
-            ));
+            $io->writeError(
+                \sprintf("<error>%s is not normalized.</error>", $composerFile),
+            );
 
             $diff = $this->differ->diff(
                 $json->encoded(),
@@ -293,36 +287,32 @@ final class NormalizeCommand extends Command\BaseCommand
             );
 
             $io->write([
-                '',
-                '<fg=yellow>---------- begin diff ----------</>',
+                "",
+                "<fg=yellow>---------- begin diff ----------</>",
                 self::formatDiff($diff),
-                '<fg=yellow>----------- end diff -----------</>',
-                '',
+                "<fg=yellow>----------- end diff -----------</>",
+                "",
             ]);
         }
 
-        if (true === $input->getOption('dry-run')) {
+        if (true === $input->getOption("dry-run")) {
             return 1;
         }
 
-        \file_put_contents(
-            $composerFile,
-            $normalized->encoded(),
+        \file_put_contents($composerFile, $normalized->encoded());
+
+        $io->write(
+            \sprintf("<info>Successfully normalized %s.</info>", $composerFile),
         );
 
-        $io->write(\sprintf(
-            '<info>Successfully normalized %s.</info>',
-            $composerFile,
-        ));
-
         if (
-            true === $input->getOption('no-update-lock')
-            || !$locker->isLocked()
+            true === $input->getOption("no-update-lock") ||
+            !$locker->isLocked()
         ) {
             return 0;
         }
 
-        $io->write('<info>Updating lock file.</info>');
+        $io->write("<info>Updating lock file.</info>");
 
         $application = new Application();
 
@@ -339,48 +329,62 @@ final class NormalizeCommand extends Command\BaseCommand
     /**
      * @throws \RuntimeException
      */
-    private static function indentFromInput(Console\Input\InputInterface $input): ?Normalizer\Format\Indent
-    {
+    private static function indentFromInput(
+        Console\Input\InputInterface $input,
+    ): ?Normalizer\Format\Indent {
         /** @var null|string $indentSize */
-        $indentSize = $input->getOption('indent-size');
+        $indentSize = $input->getOption("indent-size");
 
         /** @var null|string $indentStyle */
-        $indentStyle = $input->getOption('indent-style');
+        $indentStyle = $input->getOption("indent-style");
 
-        if (
-            null === $indentSize
-            && null === $indentStyle
-        ) {
+        if (null === $indentSize && null === $indentStyle) {
             return null;
         }
 
         if (null === $indentSize) {
-            throw new \RuntimeException('When using the indent-style option, an indent size needs to be specified using the indent-size option.');
+            throw new \RuntimeException(
+                "When using the indent-style option, an indent size needs to be specified using the indent-size option.",
+            );
         }
 
         if (null === $indentStyle) {
-            throw new \RuntimeException(\sprintf(
-                'When using the indent-size option, an indent style (one of "%s") needs to be specified using the indent-style option.',
-                \implode('", "', \array_keys(Normalizer\Format\Indent::CHARACTERS)),
-            ));
+            throw new \RuntimeException(
+                \sprintf(
+                    'When using the indent-size option, an indent style (one of "%s") needs to be specified using the indent-style option.',
+                    \implode(
+                        '", "',
+                        \array_keys(Normalizer\Format\Indent::CHARACTERS),
+                    ),
+                ),
+            );
+        }
+
+        if ((string) (int) $indentSize !== $indentSize || 1 > $indentSize) {
+            throw new \RuntimeException(
+                \sprintf(
+                    'Indent size needs to be an integer greater than 0, but "%s" is not.',
+                    $indentSize,
+                ),
+            );
         }
 
         if (
-            (string) (int) $indentSize !== $indentSize
-            || 1 > $indentSize
-        ) {
-            throw new \RuntimeException(\sprintf(
-                'Indent size needs to be an integer greater than 0, but "%s" is not.',
-                $indentSize,
-            ));
-        }
-
-        if (!\array_key_exists($indentStyle, Normalizer\Format\Indent::CHARACTERS)) {
-            throw new \RuntimeException(\sprintf(
-                'Indent style needs to be one of "%s", but "%s" is not.',
-                \implode('", "', \array_keys(Normalizer\Format\Indent::CHARACTERS)),
+            !\array_key_exists(
                 $indentStyle,
-            ));
+                Normalizer\Format\Indent::CHARACTERS,
+            )
+        ) {
+            throw new \RuntimeException(
+                \sprintf(
+                    'Indent style needs to be one of "%s", but "%s" is not.',
+                    \implode(
+                        '", "',
+                        \array_keys(Normalizer\Format\Indent::CHARACTERS),
+                    ),
+                    $indentStyle,
+                ),
+            );
         }
 
         return Normalizer\Format\Indent::fromSizeAndStyle(
@@ -392,81 +396,95 @@ final class NormalizeCommand extends Command\BaseCommand
     /**
      * @throws \RuntimeException
      */
-    private static function indentFromExtra(array $extra): ?Normalizer\Format\Indent
-    {
-        if (!\array_key_exists('composer-normalize', $extra)) {
+    private static function indentFromExtra(
+        array $extra,
+    ): ?Normalizer\Format\Indent {
+        if (!\array_key_exists("composer-normalize", $extra)) {
             return null;
         }
 
-        $configuration = $extra['composer-normalize'];
+        $configuration = $extra["composer-normalize"];
 
-        $requiredKeys = [
-            'indent-size',
-            'indent-style',
-        ];
+        $requiredKeys = ["indent-size", "indent-style"];
 
         if (!\is_array($configuration)) {
-            throw new \RuntimeException(\sprintf(
-                'Configuration in composer extra requires keys "%s" with corresponding values."',
-                \implode('", "', $requiredKeys),
-            ));
+            throw new \RuntimeException(
+                \sprintf(
+                    'Configuration in composer extra requires keys "%s" with corresponding values."',
+                    \implode('", "', $requiredKeys),
+                ),
+            );
         }
 
-        $missingKeys = \array_diff(
-            $requiredKeys,
-            \array_keys($configuration),
-        );
+        $missingKeys = \array_diff($requiredKeys, \array_keys($configuration));
 
         if ([] !== $missingKeys) {
-            throw new \RuntimeException(\sprintf(
-                'Configuration in composer extra requires keys "%s" with corresponding values."',
-                \implode('", "', $requiredKeys),
-            ));
+            throw new \RuntimeException(
+                \sprintf(
+                    'Configuration in composer extra requires keys "%s" with corresponding values."',
+                    \implode('", "', $requiredKeys),
+                ),
+            );
         }
 
-        $extraKeys = \array_diff(
-            \array_keys($configuration),
-            $requiredKeys,
-        );
+        $extraKeys = \array_diff(\array_keys($configuration), $requiredKeys);
 
         if ([] !== $extraKeys) {
-            throw new \RuntimeException(\sprintf(
-                'Configuration in composer extra does not allow extra keys "%s"."',
-                \implode('", "', $extraKeys),
-            ));
+            throw new \RuntimeException(
+                \sprintf(
+                    'Configuration in composer extra does not allow extra keys "%s"."',
+                    \implode('", "', $extraKeys),
+                ),
+            );
         }
 
-        $indentSize = $configuration['indent-size'];
+        $indentSize = $configuration["indent-size"];
 
         if (!\is_int($indentSize)) {
-            throw new \RuntimeException(\sprintf(
-                'Indent size needs to be an integer, got %s instead.',
-                \gettype($indentSize),
-            ));
+            throw new \RuntimeException(
+                \sprintf(
+                    "Indent size needs to be an integer, got %s instead.",
+                    \gettype($indentSize),
+                ),
+            );
         }
 
         if (1 > $indentSize) {
-            throw new \RuntimeException(\sprintf(
-                'Indent size needs to be an integer greater than 0, but %d is not.',
-                $indentSize,
-            ));
+            throw new \RuntimeException(
+                \sprintf(
+                    "Indent size needs to be an integer greater than 0, but %d is not.",
+                    $indentSize,
+                ),
+            );
         }
 
-        $indentStyle = $configuration['indent-style'];
+        $indentStyle = $configuration["indent-style"];
 
         if (!\is_string($indentStyle)) {
-            throw new \RuntimeException(\sprintf(
-                'Indent style needs to be a string, got %s instead.',
-                \gettype($indentStyle),
-            ));
+            throw new \RuntimeException(
+                \sprintf(
+                    "Indent style needs to be a string, got %s instead.",
+                    \gettype($indentStyle),
+                ),
+            );
         }
 
-        if (!\array_key_exists($indentStyle, Normalizer\Format\Indent::CHARACTERS)) {
-            throw new \RuntimeException(\sprintf(
-                'Indent style needs to be one of "%s", but "%s" is not.',
-                \implode('", "', \array_keys(Normalizer\Format\Indent::CHARACTERS)),
+        if (
+            !\array_key_exists(
                 $indentStyle,
-            ));
+                Normalizer\Format\Indent::CHARACTERS,
+            )
+        ) {
+            throw new \RuntimeException(
+                \sprintf(
+                    'Indent style needs to be one of "%s", but "%s" is not.',
+                    \implode(
+                        '", "',
+                        \array_keys(Normalizer\Format\Indent::CHARACTERS),
+                    ),
+                    $indentStyle,
+                ),
+            );
         }
 
         return Normalizer\Format\Indent::fromSizeAndStyle(
@@ -477,35 +495,24 @@ final class NormalizeCommand extends Command\BaseCommand
 
     private static function showValidationErrors(
         IO\IOInterface $io,
-        string ...$errors
+        string ...$errors,
     ): void {
         foreach ($errors as $error) {
-            $io->writeError(\sprintf(
-                '<error>- %s</error>',
-                $error,
-            ));
+            $io->writeError(\sprintf("<error>- %s</error>", $error));
         }
 
-        $io->writeError('<warning>See https://getcomposer.org/doc/04-schema.md for details on the schema</warning>');
+        $io->writeError(
+            "<warning>See https://getcomposer.org/doc/04-schema.md for details on the schema</warning>",
+        );
     }
 
-    private static function formatDiff(string $diff): string
-    {
-        $lines = \explode(
-            "\n",
-            $diff,
-        );
+    private static function formatDiff(string $diff): string {
+        $lines = \explode("\n", $diff);
 
         $formatted = \array_map(static function (string $line): string {
             $replaced = \preg_replace(
-                [
-                    '/^(\+.*)$/',
-                    '/^(-.*)$/',
-                ],
-                [
-                    '<fg=green>$1</>',
-                    '<fg=red>$1</>',
-                ],
+                ['/^(\+.*)$/', '/^(-.*)$/'],
+                ['<fg=green>$1</>', '<fg=red>$1</>'],
                 $line,
             );
 
@@ -516,10 +523,7 @@ final class NormalizeCommand extends Command\BaseCommand
             return $replaced;
         }, $lines);
 
-        return \implode(
-            "\n",
-            $formatted,
-        );
+        return \implode("\n", $formatted);
     }
 
     /**
@@ -531,26 +535,26 @@ final class NormalizeCommand extends Command\BaseCommand
         Console\Application $application,
         Console\Input\InputInterface $input,
         Console\Output\OutputInterface $output,
-        string $workingDirectory
+        string $workingDirectory,
     ): int {
         $parameters = [
-            'command' => 'update',
-            '--ignore-platform-reqs' => true,
-            '--lock' => true,
-            '--no-autoloader' => true,
-            '--working-dir' => $workingDirectory,
+            "command" => "update",
+            "--ignore-platform-reqs" => true,
+            "--lock" => true,
+            "--no-autoloader" => true,
+            "--working-dir" => $workingDirectory,
         ];
 
-        if ($input->hasParameterOption('--no-ansi')) {
-            $parameters[] = '--no-ansi';
+        if ($input->hasParameterOption("--no-ansi")) {
+            $parameters[] = "--no-ansi";
         }
 
-        if ($input->hasParameterOption('--no-plugins')) {
-            $parameters[] = '--no-plugins';
+        if ($input->hasParameterOption("--no-plugins")) {
+            $parameters[] = "--no-plugins";
         }
 
-        if ($input->hasParameterOption('--no-scripts')) {
-            $parameters[] = '--no-scripts';
+        if ($input->hasParameterOption("--no-scripts")) {
+            $parameters[] = "--no-scripts";
         }
 
         return $application->run(

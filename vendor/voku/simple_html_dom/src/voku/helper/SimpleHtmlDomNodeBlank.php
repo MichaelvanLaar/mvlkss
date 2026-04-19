@@ -7,16 +7,15 @@ namespace voku\helper;
 /**
  * {@inheritdoc}
  */
-class SimpleHtmlDomNodeBlank extends AbstractSimpleHtmlDomNode implements SimpleHtmlDomNodeInterface
-{
+class SimpleHtmlDomNodeBlank extends AbstractSimpleHtmlDomNode implements
+    SimpleHtmlDomNodeInterface {
     /**
      * @param string   $selector
      * @param int|null $idx
      *
      * @return null
      */
-    public function find(string $selector, $idx = null)
-    {
+    public function find(string $selector, $idx = null) {
         return null;
     }
 
@@ -27,8 +26,7 @@ class SimpleHtmlDomNodeBlank extends AbstractSimpleHtmlDomNode implements Simple
      *
      * @return SimpleHtmlDomInterface[]|SimpleHtmlDomNodeInterface<SimpleHtmlDomInterface>
      */
-    public function findMulti(string $selector): SimpleHtmlDomNodeInterface
-    {
+    public function findMulti(string $selector): SimpleHtmlDomNodeInterface {
         return new self();
     }
 
@@ -39,8 +37,7 @@ class SimpleHtmlDomNodeBlank extends AbstractSimpleHtmlDomNode implements Simple
      *
      * @return false
      */
-    public function findMultiOrFalse(string $selector)
-    {
+    public function findMultiOrFalse(string $selector) {
         return false;
     }
 
@@ -51,8 +48,7 @@ class SimpleHtmlDomNodeBlank extends AbstractSimpleHtmlDomNode implements Simple
      *
      * @return SimpleHtmlDomInterface
      */
-    public function findOne(string $selector)
-    {
+    public function findOne(string $selector) {
         return new SimpleHtmlDomBlank();
     }
 
@@ -63,16 +59,14 @@ class SimpleHtmlDomNodeBlank extends AbstractSimpleHtmlDomNode implements Simple
      *
      * @return false
      */
-    public function findOneOrFalse(string $selector)
-    {
+    public function findOneOrFalse(string $selector) {
         return false;
     }
 
     /**
      * @return string[]
      */
-    public function innerHtml(): array
-    {
+    public function innerHtml(): array {
         return [];
     }
 
@@ -81,8 +75,7 @@ class SimpleHtmlDomNodeBlank extends AbstractSimpleHtmlDomNode implements Simple
      *
      * @return string[]
      */
-    public function innertext()
-    {
+    public function innertext() {
         return [];
     }
 
@@ -91,16 +84,14 @@ class SimpleHtmlDomNodeBlank extends AbstractSimpleHtmlDomNode implements Simple
      *
      * @return string[]
      */
-    public function outertext()
-    {
+    public function outertext() {
         return [];
     }
 
     /**
      * @return string[]
      */
-    public function text(): array
-    {
+    public function text(): array {
         return [];
     }
 }

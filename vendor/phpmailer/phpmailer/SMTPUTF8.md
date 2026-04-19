@@ -5,9 +5,9 @@
 For most of its existence, SMTP has been a 7-bit channel, only supporting US-ASCII characters. This has been a problem for many languages, especially those that use non-Latin scripts, and has led to the development of various workarounds.
 
 The first major improvement, introduced in 1994 in [RFC 1652](https://www.rfc-editor.org/rfc/rfc1652) and extended in 2011 in [RFC 6152](https://www.rfc-editor.org/rfc/rfc6152), was the addition of the `8BITMIME` SMTP extension, which allowed raw 8-bit data to be included in message bodies sent over SMTP.
-This allowed the message *contents* to contain 8-bit data, including things like UTF-8 text, even though the SMTP protocol itself was still firmly 7-bit. This worked by having the server switch to 8-bit after the headers, and then back to 7-bit after the completion of a `DATA` command.
+This allowed the message _contents_ to contain 8-bit data, including things like UTF-8 text, even though the SMTP protocol itself was still firmly 7-bit. This worked by having the server switch to 8-bit after the headers, and then back to 7-bit after the completion of a `DATA` command.
 
-From 1996, messages could support [RFC 2047 encoding](https://www.rfc-editor.org/rfc/rfc2047), which permitted inserting characters from any character set into header *values* (but not names), but only by encoding them in somewhat unreadable ways to allow them to survive passage through a 7-bit channel. An example with a subject of "Schrödinger's cat" would be:
+From 1996, messages could support [RFC 2047 encoding](https://www.rfc-editor.org/rfc/rfc2047), which permitted inserting characters from any character set into header _values_ (but not names), but only by encoding them in somewhat unreadable ways to allow them to survive passage through a 7-bit channel. An example with a subject of "Schrödinger's cat" would be:
 
 ```
 Subject: =?utf-8?Q=Schr=C3=B6dinger=92s_Cat?=
@@ -31,7 +31,7 @@ This patchwork of overlapping approaches has served us well, but we have to admi
 
 `SMTPUTF8` is another SMTP extension, defined in [RFC 6531](https://www.rfc-editor.org/rfc/rfc6531) in 2012. This essentially solves the whole problem, allowing the entire SMTP conversation — commands, headers, and message bodies — to be sent in raw, unencoded UTF-8.
 
-But there's a problem with this approach: adoption. If you send a UTF-8 message to a recipient whose mail server doesn't support this format, the sender has to somehow downgrade the message to make it survive a transition to 7-bit. This is a hard problem to solve, especially since there is no way to make a 7-bit system support UTF-8 in the local parts of addresses. This downgrade problem is what held up the adoption of `SMTPUTF8` in PHPMailer for many years, but in that time the *de facto* approach has become to simply fail in that situation, and tell the recipient it's time they upgraded their mail server 😅.
+But there's a problem with this approach: adoption. If you send a UTF-8 message to a recipient whose mail server doesn't support this format, the sender has to somehow downgrade the message to make it survive a transition to 7-bit. This is a hard problem to solve, especially since there is no way to make a 7-bit system support UTF-8 in the local parts of addresses. This downgrade problem is what held up the adoption of `SMTPUTF8` in PHPMailer for many years, but in that time the _de facto_ approach has become to simply fail in that situation, and tell the recipient it's time they upgraded their mail server 😅.
 
 The vast majority of large email providers (gmail, Yahoo, Microsoft, etc), mail servers (postfix, exim, IIS, etc), and mail clients (Apple Mail, Outlook, Thunderbird, etc) now all support SMTPUTF8, so the need for backward compatibility is no longer what it was.
 
@@ -41,7 +41,7 @@ Several other PHP email libraries have implemented a halfway solution to `SMTPUT
 
 This support is handled automatically: if you add an email address that requires UTF-8, PHPMailer will use UTF-8 for everything. If not, it will fall back to 7-bit and encode the message as necessary.
 
-The one place you will need to be careful is in the selection of the address validator. By default, PHPMailer uses PHP's built-in `filter_var` validator, which does not allow UTF-8 email addresses. When PHPMailer spots that you have submitted a UTF-8 address, but have not altered the default validator, it will automatically switch to using a UTF-8-compatible validator. As soon as you do this, any SMTP connection you make will *require* that the server you connect to supports `SMTPUTF8`. You can select this validator explicitly by setting `PHPMailer::$validator = 'eai'` (an acronym for Email Address Internationalization).
+The one place you will need to be careful is in the selection of the address validator. By default, PHPMailer uses PHP's built-in `filter_var` validator, which does not allow UTF-8 email addresses. When PHPMailer spots that you have submitted a UTF-8 address, but have not altered the default validator, it will automatically switch to using a UTF-8-compatible validator. As soon as you do this, any SMTP connection you make will _require_ that the server you connect to supports `SMTPUTF8`. You can select this validator explicitly by setting `PHPMailer::$validator = 'eai'` (an acronym for Email Address Internationalization).
 
 ### Postfix gotcha
 

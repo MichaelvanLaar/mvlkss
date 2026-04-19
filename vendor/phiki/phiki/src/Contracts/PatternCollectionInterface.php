@@ -2,8 +2,7 @@
 
 namespace Phiki\Contracts;
 
-interface PatternCollectionInterface
-{
+interface PatternCollectionInterface {
     /**
      * Get the collection of child patterns.
      *

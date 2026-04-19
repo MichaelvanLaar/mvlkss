@@ -1,11 +1,8 @@
 {
-  "extends": [
-    "config:base",
-    ":preserveSemverRanges"
-  ],
-  "packageRules": [{
-    "excludePackageNames": [
-      "phpunit/phpunit"
-    ]
-  }]
+  "extends": ["config:base", ":preserveSemverRanges"],
+  "packageRules": [
+    {
+      "excludePackageNames": ["phpunit/phpunit"]
+    }
+  ]
 }

@@ -2,8 +2,7 @@
 
 namespace Phiki\Grammar\Injections;
 
-enum Operator
-{
+enum Operator {
     case Or;
     case And;
     case Not;

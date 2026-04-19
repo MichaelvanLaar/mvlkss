@@ -8,26 +8,28 @@ use JsonSchema\Constraints\ConstraintInterface;
 use JsonSchema\Entity\ErrorBagProxy;
 use JsonSchema\Entity\JsonPointer;
 
-class IfThenElseConstraint implements ConstraintInterface
-{
+class IfThenElseConstraint implements ConstraintInterface {
     use ErrorBagProxy;
 
     /** @var Factory */
     private $factory;
 
-    public function __construct(?Factory $factory = null)
-    {
+    public function __construct(?Factory $factory = null) {
         $this->factory = $factory ?: new Factory();
         $this->initialiseErrorBag($this->factory);
     }
 
-    public function check(&$value, $schema = null, ?JsonPointer $path = null, $i = null): void
-    {
-        if (!property_exists($schema, 'if')) {
+    public function check(
+        &$value,
+        $schema = null,
+        ?JsonPointer $path = null,
+        $i = null,
+    ): void {
+        if (!property_exists($schema, "if")) {
             return;
         }
 
-        $schemaConstraint = $this->factory->createInstanceFor('schema');
+        $schemaConstraint = $this->factory->createInstanceFor("schema");
         $ifSchema = $schema->if;
 
         if (!is_bool($ifSchema)) {
@@ -39,7 +41,7 @@ class IfThenElseConstraint implements ConstraintInterface
         }
 
         if ($meetsIfConditions) {
-            if (!property_exists($schema, 'then')) {
+            if (!property_exists($schema, "then")) {
                 return;
             }
 
@@ -53,7 +55,7 @@ class IfThenElseConstraint implements ConstraintInterface
             return;
         }
 
-        if (!property_exists($schema, 'else')) {
+        if (!property_exists($schema, "else")) {
             return;
         }
 

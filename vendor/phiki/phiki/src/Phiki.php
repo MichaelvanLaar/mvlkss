@@ -10,26 +10,26 @@ use Phiki\Support\Arr;
 use Phiki\Theme\ParsedTheme;
 use Phiki\Theme\Theme;
 
-class Phiki
-{
+class Phiki {
     protected Environment $environment;
 
-    public function __construct(?Environment $environment = null)
-    {
+    public function __construct(?Environment $environment = null) {
         $this->environment = $environment ?? Environment::default();
         $this->environment->validate();
     }
 
-    public function codeToTokens(string $code, string|Grammar $grammar): array
-    {
+    public function codeToTokens(string $code, string|Grammar $grammar): array {
         $grammar = $this->environment->resolveGrammar($grammar);
         $tokenizer = new Tokenizer($grammar, $this->environment);
 
         return $tokenizer->tokenize($code);
     }
 
-    public function codeToHighlightedTokens(string $code, string|Grammar $grammar, string|array|Theme $theme): array
-    {
+    public function codeToHighlightedTokens(
+        string $code,
+        string|Grammar $grammar,
+        string|array|Theme $theme,
+    ): array {
         $tokens = $this->codeToTokens($code, $grammar);
         $themes = $this->wrapThemes($theme);
         $highlighter = new Highlighter($themes);
@@ -37,10 +37,15 @@ class Phiki
         return $highlighter->highlight($tokens);
     }
 
-    public function codeToTerminal(string $code, string|Grammar $grammar, string|Theme $theme): string
-    {
+    public function codeToTerminal(
+        string $code,
+        string|Grammar $grammar,
+        string|Theme $theme,
+    ): string {
         $tokens = $this->codeToHighlightedTokens($code, $grammar, $theme);
-        $generator = new TerminalGenerator($this->environment->resolveTheme($theme));
+        $generator = new TerminalGenerator(
+            $this->environment->resolveTheme($theme),
+        );
 
         return $generator->generate($tokens);
     }
@@ -48,8 +53,12 @@ class Phiki
     /**
      * @param  bool  $withWrapper  Wrap the generated HTML in an additional `<div>` so that it can be styled with CSS. Useful for avoiding overflow issues.
      */
-    public function codeToHtml(string $code, string|Grammar $grammar, string|array|Theme $theme, bool $withWrapper = false): string
-    {
+    public function codeToHtml(
+        string $code,
+        string|Grammar $grammar,
+        string|array|Theme $theme,
+        bool $withWrapper = false,
+    ): string {
         $tokens = $this->codeToHighlightedTokens($code, $grammar, $theme);
         $generator = new HtmlGenerator(
             match (true) {
@@ -63,12 +72,16 @@ class Phiki
         return $generator->generate($tokens);
     }
 
-    protected function wrapThemes(string|array|Theme $themes): array
-    {
-        if (! is_array($themes)) {
-            $themes = ['default' => $themes];
+    protected function wrapThemes(string|array|Theme $themes): array {
+        if (!is_array($themes)) {
+            $themes = ["default" => $themes];
         }
 
-        return Arr::map($themes, fn (string|Theme $theme): ParsedTheme => $this->environment->resolveTheme($theme));
+        return Arr::map(
+            $themes,
+            fn(
+                string|Theme $theme,
+            ): ParsedTheme => $this->environment->resolveTheme($theme),
+        );
     }
 }

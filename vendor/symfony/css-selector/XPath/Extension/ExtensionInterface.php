@@ -21,8 +21,7 @@ namespace Symfony\Component\CssSelector\XPath\Extension;
  *
  * @internal
  */
-interface ExtensionInterface
-{
+interface ExtensionInterface {
     /**
      * Returns node translators.
      *

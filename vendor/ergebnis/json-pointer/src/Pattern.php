@@ -16,8 +16,7 @@ namespace Ergebnis\Json\Pointer;
 /**
  * @internal
  */
-final class Pattern
-{
+final class Pattern {
     /**
      * @see https://datatracker.ietf.org/doc/html/rfc6901#section-3
      */

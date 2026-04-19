@@ -9,8 +9,7 @@ namespace Whoops\Handler;
 use Whoops\Inspector\InspectorInterface;
 use Whoops\RunInterface;
 
-interface HandlerInterface
-{
+interface HandlerInterface {
     /**
      * @return int|null A handler may return nothing, or a Handler::HANDLE_* constant
      */

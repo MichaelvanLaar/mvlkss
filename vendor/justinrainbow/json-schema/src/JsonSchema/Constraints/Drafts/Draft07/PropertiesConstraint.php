@@ -8,22 +8,24 @@ use JsonSchema\Constraints\ConstraintInterface;
 use JsonSchema\Entity\ErrorBagProxy;
 use JsonSchema\Entity\JsonPointer;
 
-class PropertiesConstraint implements ConstraintInterface
-{
+class PropertiesConstraint implements ConstraintInterface {
     use ErrorBagProxy;
 
     /** @var Factory */
     private $factory;
 
-    public function __construct(?Factory $factory = null)
-    {
+    public function __construct(?Factory $factory = null) {
         $this->factory = $factory ?: new Factory();
         $this->initialiseErrorBag($this->factory);
     }
 
-    public function check(&$value, $schema = null, ?JsonPointer $path = null, $i = null): void
-    {
-        if (!property_exists($schema, 'properties')) {
+    public function check(
+        &$value,
+        $schema = null,
+        ?JsonPointer $path = null,
+        $i = null,
+    ): void {
+        if (!property_exists($schema, "properties")) {
             return;
         }
 
@@ -32,12 +34,17 @@ class PropertiesConstraint implements ConstraintInterface
         }
 
         foreach ($schema->properties as $propertyName => $propertySchema) {
-            $schemaConstraint = $this->factory->createInstanceFor('schema');
+            $schemaConstraint = $this->factory->createInstanceFor("schema");
             if (!property_exists($value, $propertyName)) {
                 continue;
             }
 
-            $schemaConstraint->check($value->{$propertyName}, $propertySchema, $path, $i);
+            $schemaConstraint->check(
+                $value->{$propertyName},
+                $propertySchema,
+                $path,
+                $i,
+            );
             if ($schemaConstraint->isValid()) {
                 continue;
             }

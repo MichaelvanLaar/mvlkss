@@ -13,13 +13,10 @@ declare(strict_types=1);
 
 namespace Ergebnis\Json\Exception;
 
-final class FileDoesNotContainJson extends \InvalidArgumentException
-{
-    public static function file(string $name): self
-    {
-        return new self(\sprintf(
-            'File "%s" does not contain a valid JSON string.',
-            $name,
-        ));
+final class FileDoesNotContainJson extends \InvalidArgumentException {
+    public static function file(string $name): self {
+        return new self(
+            \sprintf('File "%s" does not contain a valid JSON string.', $name),
+        );
     }
 }

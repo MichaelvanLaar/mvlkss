@@ -21,35 +21,38 @@ namespace Symfony\Component\CssSelector\Node;
  *
  * @internal
  */
-class MatchingNode extends AbstractNode
-{
+class MatchingNode extends AbstractNode {
     /**
      * @param array<NodeInterface> $arguments
      */
     public function __construct(
         public readonly NodeInterface $selector,
         public readonly array $arguments = [],
-    ) {
-    }
+    ) {}
 
-    public function getSpecificity(): Specificity
-    {
+    public function getSpecificity(): Specificity {
         $argumentsSpecificity = array_reduce(
             $this->arguments,
-            fn ($c, $n) => 1 === $n->getSpecificity()->compareTo($c) ? $n->getSpecificity() : $c,
+            fn($c, $n) => 1 === $n->getSpecificity()->compareTo($c)
+                ? $n->getSpecificity()
+                : $c,
             new Specificity(0, 0, 0),
         );
 
         return $this->selector->getSpecificity()->plus($argumentsSpecificity);
     }
 
-    public function __toString(): string
-    {
+    public function __toString(): string {
         $selectorArguments = array_map(
-            fn ($n): string => ltrim((string) $n, '*'),
+            fn($n): string => ltrim((string) $n, "*"),
             $this->arguments,
         );
 
-        return \sprintf('%s[%s:is(%s)]', $this->getNodeName(), $this->selector, implode(', ', $selectorArguments));
+        return \sprintf(
+            "%s[%s:is(%s)]",
+            $this->getNodeName(),
+            $this->selector,
+            implode(", ", $selectorArguments),
+        );
     }
 }

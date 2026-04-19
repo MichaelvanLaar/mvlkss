@@ -1,5 +1,4 @@
-PHP SmartyPants
-===============
+# PHP SmartyPants
 
 PHP SmartyPants Lib 1.8.1 - 12 Dec 2016
 
@@ -9,42 +8,40 @@ by Michel Fortin
 Original SmartyPants by John Gruber  
 <https://daringfireball.net/>
 
-
-Introduction
-------------
+## Introduction
 
 This is a library package that includes the PHP SmartyPants and its
 sibling PHP SmartyPants Typographer with additional features.
 
 SmartyPants is a free web typography prettifyier tool for web writers. It
-easily translates plain ASCII punctuation characters into "smart" typographic 
+easily translates plain ASCII punctuation characters into "smart" typographic
 punctuation HTML entities.
 
-PHP SmartyPants is a port to PHP of the original SmartyPants written 
+PHP SmartyPants is a port to PHP of the original SmartyPants written
 in Perl by John Gruber.
 
 SmartyPants can perform the following transformations:
 
-*   Straight quotes (`"` and `'`) into “curly” quote HTML entities
-*   Backtick-style quotes (` ``like this'' `) into “curly” quote HTML
-    entities
-*   Dashes (`--` and `---`) into en- and em-dash entities
-*   Three consecutive dots (`...`) into an ellipsis entity
+- Straight quotes (`"` and `'`) into “curly” quote HTML entities
+- Backtick-style quotes (` ``like this'' `) into “curly” quote HTML
+  entities
+- Dashes (`--` and `---`) into en- and em-dash entities
+- Three consecutive dots (`...`) into an ellipsis entity
 
 SmartyPants Typographer can perform additional transformations:
 
-*	French guillemets done using (`<<` and `>>`) into true « guillemets »
-	HTML entities.
-*	Comma-style quotes (` ,,like this`` ` or ` ''like this,, `) into their 
-	curly equivalent.
-*	Replace existing spaces with non-break spaces around punctuation marks 
-	where appropriate, can also add or remove them if configured to.
-*	Replace existing spaces with non-break spaces for spaces used as 
-	a thousand separator and between a number and the unit symbol that 
-	follows it (for most common units).
+- French guillemets done using (`<<` and `>>`) into true « guillemets »
+  HTML entities.
+- Comma-style quotes (` ,,like this`` ` or `''like this,,`) into their
+  curly equivalent.
+- Replace existing spaces with non-break spaces around punctuation marks
+  where appropriate, can also add or remove them if configured to.
+- Replace existing spaces with non-break spaces for spaces used as
+  a thousand separator and between a number and the unit symbol that
+  follows it (for most common units).
 
-This means you can write, edit, and save using plain old ASCII straight 
-quotes, plain dashes, and plain dots, but your published posts (and 
+This means you can write, edit, and save using plain old ASCII straight
+quotes, plain dashes, and plain dots, but your published posts (and
 final HTML output) will appear with smart quotes, em-dashes, proper
 ellipses, and proper no-break spaces (with Typographer).
 
@@ -53,14 +50,12 @@ SmartyPants does not modify characters within `<pre>`, `<code>`,
 display text where smart quotes and other "smart punctuation" would not
 be appropriate, such as source code or example markup.
 
-
-### Backslash Escapes ###
+### Backslash Escapes
 
 If you need to use literal straight quotes (or plain hyphens and
 periods), SmartyPants accepts the following backslash escape sequences
 to force non-smart punctuation. It does so by transforming the escape
 sequence into a decimal-encoded HTML entity:
-
 
     Escape  Value  Character
     ------  -----  ---------
@@ -70,7 +65,6 @@ sequence into a decimal-encoded HTML entity:
       \.    &#46;    .
       \-    &#45;    -
       \`    &#96;    `
-
 
 This is useful, for example, when you want to use straight quotes as
 foot and inch marks:
@@ -86,69 +80,62 @@ looks like:
 
     6'2" tall
 
-
-Requirements
-------------
+## Requirements
 
 This library package requires PHP 5.3 or later.
 
 Note: The older plugin/library hybrid package for PHP SmartyPants and
 PHP SmartyPants Typographer is still will work with PHP 4.0.5 and later.
 
+## Usage
 
-Usage
------
-
-This library package is meant to be used with class autoloading. For autoloading 
-to work, your project needs have setup a PSR-0-compatible autoloader. See the 
-included Readme.php file for a minimal autoloader setup. (If you don't want to 
-use autoloading you can do a classic `require_once` to manually include the 
+This library package is meant to be used with class autoloading. For autoloading
+to work, your project needs have setup a PSR-0-compatible autoloader. See the
+included Readme.php file for a minimal autoloader setup. (If you don't want to
+use autoloading you can do a classic `require_once` to manually include the
 files prior use instead.)
 
-With class autoloading in place, putting the 'Michelf' folder in your 
+With class autoloading in place, putting the 'Michelf' folder in your
 include path should be enough for this to work:
 
-	use \Michelf\SmartyPants;
-	$html_output = SmartyPants::defaultTransform($html_input);
+    use \Michelf\SmartyPants;
+    $html_output = SmartyPants::defaultTransform($html_input);
 
 SmartyPants Typographer is also available the same way:
 
-	use \Michelf\SmartyPantsTypographer;
-	$html_output = SmartyPantsTypographer::defaultTransform($html_input);
+    use \Michelf\SmartyPantsTypographer;
+    $html_output = SmartyPantsTypographer::defaultTransform($html_input);
 
-If you are using PHP SmartyPants with another text filter function that 
-generates HTML such as Markdown, you should filter the text *after* the 
+If you are using PHP SmartyPants with another text filter function that
+generates HTML such as Markdown, you should filter the text _after_ the
 the HTML-generating filter. This is an example with [PHP Markdown][pmd]:
 
-	use \Michelf\Markdown, \Michelf\SmartyPants;
-	$my_html = Markdown::defaultTransform($my_text);
-	$my_html = SmartyPants::defaultTransform($my_html);
+    use \Michelf\Markdown, \Michelf\SmartyPants;
+    $my_html = Markdown::defaultTransform($my_text);
+    $my_html = SmartyPants::defaultTransform($my_html);
 
 To learn more about configuration options, see the full list of
 [configuration variables].
 
- [configuration variables]: https://michelf.ca/projects/php-smartypants/configuration/
- [pmd]: https://michelf.ca/projects/php-markdown/
+[configuration variables]: https://michelf.ca/projects/php-smartypants/configuration/
+[pmd]: https://michelf.ca/projects/php-markdown/
 
+### Usage Without an Autoloader
 
-### Usage Without an Autoloader ###
-
-If you cannot use class autoloading, you can still use include or require to 
+If you cannot use class autoloading, you can still use include or require to
 access the parser. To load the \Michelf\SmartyPants parser, do it this way:
 
-	require_once 'Michelf/SmartyPants.inc.php';
-	
+    require_once 'Michelf/SmartyPants.inc.php';
+
 Or, if you need the \Michelf\SmartyPantsTypographer parser:
 
-	require_once 'Michelf/SmartyPantsTypographer.inc.php';
+    require_once 'Michelf/SmartyPantsTypographer.inc.php';
 
-While the plain `.php` files depend on autoloading to work correctly, using the 
-`.inc.php` files instead will eagerly load the dependencies that would be loaded 
+While the plain `.php` files depend on autoloading to work correctly, using the
+`.inc.php` files instead will eagerly load the dependencies that would be loaded
 on demand if you were using autoloading.
 
-
-Algorithmic Shortcomings
-------------------------
+## Algorithmic Shortcomings
 
 One situation in which quotes will get curled the wrong way is when
 apostrophes are used at the start of leading contractions. For example:
@@ -162,9 +149,7 @@ I've tried gets this wrong as well. In such cases, it's best to use the
 proper HTML entity for closing single-quotes (`&#8217;` or `&rsquo;`) by
 hand.
 
-
-Bugs
-----
+## Bugs
 
 To file bug reports or feature requests (other than topics listed in the
 Caveats section above) please send email to:
@@ -174,51 +159,45 @@ Caveats section above) please send email to:
 If the bug involves quotes being curled the wrong way, please send
 example text to illustrate.
 
-
-Version History
----------------
+## Version History
 
 PHP SmartyPants Lib 1.8.1 (12 Dec 2016)
 
-*	Fixed an issue introduced in 1.8.0 where backtick quotes were broken.
-
+- Fixed an issue introduced in 1.8.0 where backtick quotes were broken.
 
 PHP SmartyPants Lib 1.8.0 (13 Nov 2016)
 
-*	Can now set replacement characters for all transformations using 
-	configuration variables, including ellipses and dashes.
+- Can now set replacement characters for all transformations using
+  configuration variables, including ellipses and dashes.
 
-*	Relocated replacement quotes configuration variables from
-	`SmartyPantsTyppographer` to `SmartyPants`. Also relocated
-	`decodeEntitiesInConfiguration()` to follow the configuration variables.
+- Relocated replacement quotes configuration variables from
+  `SmartyPantsTyppographer` to `SmartyPants`. Also relocated
+  `decodeEntitiesInConfiguration()` to follow the configuration variables.
 
-*	Added conversion of apostrophe and double quote to Hebrew Geresh 
-	and Gershayim when the apostrophe or double quote is surrounded on
-	both sides by a Hebrew character. For instance:
+- Added conversion of apostrophe and double quote to Hebrew Geresh
+  and Gershayim when the apostrophe or double quote is surrounded on
+  both sides by a Hebrew character. For instance:
 
-		input:  צה"ל / צ'ארלס
-		output: צה״ל / צ׳ארלס
+              input:  צה"ל / צ'ארלס
+              output: צה״ל / צ׳ארלס
 
-	You can still put quotes around Hebrew words and they'll become curled 
-	quotation marks (if that is enabled). This new transform only applies 
-	in the middle of a word, and only to words in Hebrew.
-
+    You can still put quotes around Hebrew words and they'll become curled
+    quotation marks (if that is enabled). This new transform only applies
+    in the middle of a word, and only to words in Hebrew.
 
 PHP SmartyPants Lib 1.7.1 (16 Oct 2016)
 
-*	Fixing bug where `decodeEntitiesInConfiguration()` would cause the 
-	configuration to set the space for units to an empty string.
-
+- Fixing bug where `decodeEntitiesInConfiguration()` would cause the
+  configuration to set the space for units to an empty string.
 
 PHP SmartyPants Lib 1.7.0 (15 Oct 2016)
 
-*	Made `public` some configuration variables that were documented
-	were documented as `public` but were actually `protected`.
+- Made `public` some configuration variables that were documented
+  were documented as `public` but were actually `protected`.
 
-*	Added the `decodeEntitiesInConfiguration()` method on 
-	`SmartyPantsTypographer` to quickly convert HTML entities in configuration 
-	variables to their corresponding UTF-8 character.
-
+- Added the `decodeEntitiesInConfiguration()` method on
+  `SmartyPantsTypographer` to quickly convert HTML entities in configuration
+  variables to their corresponding UTF-8 character.
 
 PHP SmartyPants Lib 1.6.0 (10 Oct 2016)
 
@@ -227,20 +206,20 @@ version 5.3 or later and is designed to work with PSR-0 autoloading and,
 optionally with Composer. Here is a list of the changes since
 PHP SmartyPants 1.5.1f:
 
-*	Plugin interface for Wordpress and Smarty is no longer present in
-	the Lib package. The classic package is still available if you need it:
-	<https://michelf.ca/projects/php-markdown/classic/>
+- Plugin interface for Wordpress and Smarty is no longer present in
+  the Lib package. The classic package is still available if you need it:
+  <https://michelf.ca/projects/php-markdown/classic/>
 
-*	SmartyPants parser is now encapsulated in its own class, with methods and
-	configuration variables `public` and `protected` protection attributes.
-	This has been available in unreleased versions since a few years, but now 
-	it's official.
+- SmartyPants parser is now encapsulated in its own class, with methods and
+  configuration variables `public` and `protected` protection attributes.
+  This has been available in unreleased versions since a few years, but now
+  it's official.
 
-*	SmartyPants now works great with PSR-0 autoloading and Composer. If
-	however you prefer to more directly `require_once` the files, the
-	".inc.php" variants of the file will make sure everything is included.
+- SmartyPants now works great with PSR-0 autoloading and Composer. If
+  however you prefer to more directly `require_once` the files, the
+  ".inc.php" variants of the file will make sure everything is included.
 
-*	For those of you who cannot use class autoloading, you can now
-	include `Michelf/SmartyPants.inc.php` or
-	`Michelf/SmartyPantsTypographer.inc.php` (note the `.inc.php` extension)
-	to automatically include other files required by the parser.
+- For those of you who cannot use class autoloading, you can now
+  include `Michelf/SmartyPants.inc.php` or
+  `Michelf/SmartyPantsTypographer.inc.php` (note the `.inc.php` extension)
+  to automatically include other files required by the parser.

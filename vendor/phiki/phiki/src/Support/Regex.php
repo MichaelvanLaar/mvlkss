@@ -7,17 +7,16 @@ use Stringable;
 /**
  * This class is responsible for converting an Oniguruma pattern into a PCRE2/PHP compatible pattern.
  */
-class Regex implements Stringable
-{
+class Regex implements Stringable {
     const SLASH_P_MAP = [
-        'number' => '0-9',
-        'alnum' => '0-9A-Za-z',
-        'alpha' => 'A-Za-z',
-        'alphabetic' => 'A-Za-z',
-        'blank' => '\\s',
-        'greek' => '\\p{Greek}',
-        'print' => '\\p{L}\\p{N}\\p{P}\\p{S}\\p{Zs}',
-        'word' => '\\w',
+        "number" => "0-9",
+        "alnum" => "0-9A-Za-z",
+        "alpha" => "A-Za-z",
+        "alphabetic" => "A-Za-z",
+        "blank" => "\\s",
+        "greek" => "\\p{Greek}",
+        "print" => "\\p{L}\\p{N}\\p{P}\\p{S}\\p{Zs}",
+        "word" => "\\w",
     ];
 
     protected bool $hasAnchor;
@@ -38,15 +37,19 @@ class Regex implements Stringable
         for ($i = 0; $i < $length; $i++) {
             $char = $pattern[$i];
 
-            if ($char === '\\') {
+            if ($char === "\\") {
                 if ($i + 1 < $length) {
                     $nextChar = $pattern[$i + 1];
 
-                    if ($nextChar === 'z') {
-                        $output[] = substr($pattern, $lastPushedPos, $i - $lastPushedPos);
+                    if ($nextChar === "z") {
+                        $output[] = substr(
+                            $pattern,
+                            $lastPushedPos,
+                            $i - $lastPushedPos,
+                        );
                         $output[] = '$(?!\\n)(?<!\\n)';
                         $lastPushedPos = $i + 2;
-                    } elseif ($nextChar === 'A' || $nextChar === 'G') {
+                    } elseif ($nextChar === "A" || $nextChar === "G") {
                         $hasAnchor = true;
                     }
 
@@ -62,79 +65,88 @@ class Regex implements Stringable
         } else {
             $output[] = substr($pattern, $lastPushedPos);
 
-            $this->pattern = implode('', $output);
+            $this->pattern = implode("", $output);
         }
 
-        $this->pattern = preg_replace('/(?<!\\\)\//', '\\/', $this->pattern);
+        $this->pattern = preg_replace("/(?<!\\\)\//", "\\/", $this->pattern);
         $this->pattern = $this->convertEscapeSequences($this->pattern);
         $this->pattern = $this->convertUnicodeProperties($this->pattern);
-        $this->pattern = $this->escapeInvalidLeadingRangeCharacter($this->pattern);
-        $this->pattern = $this->escapeUnescapedCloseSetCharacters($this->pattern);
-        $this->pattern = $this->convertUnsupportedUnicodeEscapes($this->pattern);
+        $this->pattern = $this->escapeInvalidLeadingRangeCharacter(
+            $this->pattern,
+        );
+        $this->pattern = $this->escapeUnescapedCloseSetCharacters(
+            $this->pattern,
+        );
+        $this->pattern = $this->convertUnsupportedUnicodeEscapes(
+            $this->pattern,
+        );
 
         if ($this->hasAnchor) {
             $this->anchorCache = $this->buildAnchorCache();
         }
     }
 
-    public function get(bool $allowA = false, bool $allowG = false): string
-    {
+    public function get(bool $allowA = false, bool $allowG = false): string {
         return $this->resolveAnchors($this->pattern, $allowA, $allowG);
     }
 
-    protected function convertEscapeSequences(string $pattern): string
-    {
+    protected function convertEscapeSequences(string $pattern): string {
         // Convert \h to [0-9A-Fa-f].
-        $pattern = preg_replace('/\\\\h/', '[0-9A-Fa-f]', $pattern);
+        $pattern = preg_replace("/\\\\h/", "[0-9A-Fa-f]", $pattern);
 
         // Convert \H to [^0-9A-Fa-f].
-        $pattern = preg_replace('/\\\\H/', '[^0-9A-Fa-f]', $pattern);
+        $pattern = preg_replace("/\\\\H/", "[^0-9A-Fa-f]", $pattern);
 
         return $pattern;
     }
 
-    protected function convertUnicodeProperties(string $pattern): string
-    {
+    protected function convertUnicodeProperties(string $pattern): string {
         // Convert \p{xx} to PCRE-compatible \p{xx}.
-        $pattern = preg_replace_callback('/\\\p\{([a-zA-Z]+)\}/', function (array $matches) {
-            $property = strtolower($matches[1]);
+        $pattern = preg_replace_callback(
+            "/\\\p\{([a-zA-Z]+)\}/",
+            function (array $matches) {
+                $property = strtolower($matches[1]);
 
-            if (isset(self::SLASH_P_MAP[$property])) {
-                return '['.self::SLASH_P_MAP[$property].']';
-            }
+                if (isset(self::SLASH_P_MAP[$property])) {
+                    return "[" . self::SLASH_P_MAP[$property] . "]";
+                }
 
-            return $matches[0];
-        }, $pattern);
+                return $matches[0];
+            },
+            $pattern,
+        );
 
         return $pattern;
     }
 
-    protected function escapeInvalidLeadingRangeCharacter(string $pattern): string
-    {
+    protected function escapeInvalidLeadingRangeCharacter(
+        string $pattern,
+    ): string {
         // Escape invalid leading range function characters, e.g. [-...].
-        $pattern = preg_replace('/\[(?<!\\\)(-)/', '[\\-', $pattern);
+        $pattern = preg_replace("/\[(?<!\\\)(-)/", "[\\-", $pattern);
 
         return $pattern;
     }
 
-    protected function escapeUnescapedCloseSetCharacters(string $pattern): string
-    {
+    protected function escapeUnescapedCloseSetCharacters(
+        string $pattern,
+    ): string {
         // Escape unescaped close set characters, e.g. ]] converted to \]].
-        $pattern = preg_replace('/(?<!\\\)\]\]/', '\\]]', $pattern);
+        $pattern = preg_replace("/(?<!\\\)\]\]/", "\\]]", $pattern);
 
         return $pattern;
     }
 
-    protected function convertUnsupportedUnicodeEscapes(string $pattern): string
-    {
+    protected function convertUnsupportedUnicodeEscapes(
+        string $pattern,
+    ): string {
         // Convert \uXXXX to \x{XXXX}.
-        $pattern = preg_replace('/\\\\u([0-9A-Fa-f]{4})/', '\\x{$1}', $pattern);
+        $pattern = preg_replace("/\\\\u([0-9A-Fa-f]{4})/", '\\x{$1}', $pattern);
 
         return $pattern;
     }
 
-    private function buildAnchorCache(): array
-    {
+    private function buildAnchorCache(): array {
         $A0_G0 = [];
         $A0_G1 = [];
         $A1_G0 = [];
@@ -150,20 +162,20 @@ class Regex implements Stringable
             $A1_G0[$pos] = $ch;
             $A1_G1[$pos] = $ch;
 
-            if ($ch === '\\') {
+            if ($ch === "\\") {
                 if ($pos + 1 < $len) {
                     $nextCh = $this->pattern[$pos + 1];
 
-                    if ($nextCh === 'A') {
+                    if ($nextCh === "A") {
                         $A0_G0[$pos + 1] = "\u{FFFF}";
                         $A0_G1[$pos + 1] = "\u{FFFF}";
-                        $A1_G0[$pos + 1] = 'A';
-                        $A1_G1[$pos + 1] = 'A';
-                    } elseif ($nextCh === 'G') {
+                        $A1_G0[$pos + 1] = "A";
+                        $A1_G1[$pos + 1] = "A";
+                    } elseif ($nextCh === "G") {
                         $A0_G0[$pos + 1] = "\u{FFFF}";
-                        $A0_G1[$pos + 1] = 'G';
+                        $A0_G1[$pos + 1] = "G";
                         $A1_G0[$pos + 1] = "\u{FFFF}";
-                        $A1_G1[$pos + 1] = 'G';
+                        $A1_G1[$pos + 1] = "G";
                     } else {
                         $A0_G0[$pos + 1] = $nextCh;
                         $A0_G1[$pos + 1] = $nextCh;
@@ -177,36 +189,38 @@ class Regex implements Stringable
         }
 
         return [
-            'A0_G0' => implode('', $A0_G0),
-            'A0_G1' => implode('', $A0_G1),
-            'A1_G0' => implode('', $A1_G0),
-            'A1_G1' => implode('', $A1_G1),
+            "A0_G0" => implode("", $A0_G0),
+            "A0_G1" => implode("", $A0_G1),
+            "A1_G0" => implode("", $A1_G0),
+            "A1_G1" => implode("", $A1_G1),
         ];
     }
 
-    private function resolveAnchors(string $pattern, bool $allowA, bool $allowG): string
-    {
-        if (! $this->hasAnchor || ! $this->anchorCache) {
+    private function resolveAnchors(
+        string $pattern,
+        bool $allowA,
+        bool $allowG,
+    ): string {
+        if (!$this->hasAnchor || !$this->anchorCache) {
             return $pattern;
         }
 
         if ($allowA) {
             if ($allowG) {
-                return $this->anchorCache['A1_G1'];
+                return $this->anchorCache["A1_G1"];
             } else {
-                return $this->anchorCache['A1_G0'];
+                return $this->anchorCache["A1_G0"];
             }
         }
 
         if ($allowG) {
-            return $this->anchorCache['A0_G1'];
+            return $this->anchorCache["A0_G1"];
         }
 
-        return $this->anchorCache['A0_G0'];
+        return $this->anchorCache["A0_G0"];
     }
 
-    public function __toString(): string
-    {
+    public function __toString(): string {
         return $this->get();
     }
 }

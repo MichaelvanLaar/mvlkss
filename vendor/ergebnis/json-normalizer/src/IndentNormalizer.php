@@ -16,21 +16,19 @@ namespace Ergebnis\Json\Normalizer;
 use Ergebnis\Json\Json;
 use Ergebnis\Json\Printer;
 
-final class IndentNormalizer implements Normalizer
-{
+final class IndentNormalizer implements Normalizer {
     private Printer\PrinterInterface $printer;
     private Format\Indent $indent;
 
     public function __construct(
         Format\Indent $indent,
-        Printer\PrinterInterface $printer
+        Printer\PrinterInterface $printer,
     ) {
         $this->indent = $indent;
         $this->printer = $printer;
     }
 
-    public function normalize(Json $json): Json
-    {
+    public function normalize(Json $json): Json {
         $withIndent = $this->printer->print(
             $json->encoded(),
             $this->indent->toString(),

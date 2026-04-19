@@ -7,8 +7,7 @@ namespace voku\helper;
 /**
  * {@inheritdoc}
  */
-abstract class AbstractSimpleHtmlDomNode extends \ArrayObject
-{
+abstract class AbstractSimpleHtmlDomNode extends \ArrayObject {
     /** @noinspection MagicMethodsValidityInspection */
 
     /**
@@ -16,12 +15,11 @@ abstract class AbstractSimpleHtmlDomNode extends \ArrayObject
      *
      * @return array|int|null
      */
-    public function __get($name)
-    {
+    public function __get($name) {
         // init
         $name = \strtolower($name);
 
-        if ($name === 'length') {
+        if ($name === "length") {
             return $this->count();
         }
 
@@ -37,7 +35,7 @@ abstract class AbstractSimpleHtmlDomNode extends \ArrayObject
             return $return;
         }
 
-        if ($name === 'plaintext' || $name === 'outertext') {
+        if ($name === "plaintext" || $name === "outertext") {
             return [];
         }
 
@@ -50,18 +48,16 @@ abstract class AbstractSimpleHtmlDomNode extends \ArrayObject
      *
      * @return SimpleHtmlDomNodeInterface<SimpleHtmlDomInterface>|SimpleHtmlDomNodeInterface[]|null
      */
-    public function __invoke($selector, $idx = null)
-    {
+    public function __invoke($selector, $idx = null) {
         return $this->find($selector, $idx);
     }
 
     /**
      * @return string
      */
-    public function __toString()
-    {
+    public function __toString() {
         // init
-        $html = '';
+        $html = "";
 
         foreach ($this as $node) {
             $html .= $node->outertext;

@@ -99,7 +99,7 @@ For a full diff see [`2.1.0...3.0.0`][2.1.0...3.0.0].
 
 ### Removed
 
-- Removed `JsonPointers`  ([#48]), by [@localheinz]
+- Removed `JsonPointers` ([#48]), by [@localheinz]
 
 ## [`2.1.0`][2.1.0]
 
@@ -107,7 +107,7 @@ For a full diff see [`2.0.0...2.1.0`][2.0.0...2.1.0].
 
 ### Added
 
-- Added `JsonPointers` as a value object  ([#17]), by [@localheinz]
+- Added `JsonPointers` as a value object ([#17]), by [@localheinz]
 
 ## [`2.0.0`][2.0.0]
 
@@ -121,14 +121,13 @@ For a full diff see [`1.0.0...2.0.0`][1.0.0...2.0.0].
 ### Changed
 
 - Renamed named constructors and accessors of `Exception\InvalidJsonPointer`, `JsonPointer`, and `ReferenceToken` ([#4]) and ([#5]), by [@localheinz]
-
-  - `Exception\InvalidJsonPointer::fromString()` to `Exception\InvalidJsonPointer::fromJsonString()`
-  - `JsonPointer::fromString()` to `JsonPointer::fromJsonString()`
-  - `JsonPointer::toString()` to `JsonPointer::toJsonString()`
-  - `ReferenceToken::fromEscapedString()` to `ReferenceToken::fromJsonString()`
-  - `ReferenceToken::fromUnescapedString()` to `ReferenceToken::fromString()`
-  - `ReferenceToken::toEscapedString()` to `ReferenceToken::toJsonString()`
-  - `ReferenceToken::toUnescapedString()` to `ReferenceToken::toString()`
+    - `Exception\InvalidJsonPointer::fromString()` to `Exception\InvalidJsonPointer::fromJsonString()`
+    - `JsonPointer::fromString()` to `JsonPointer::fromJsonString()`
+    - `JsonPointer::toString()` to `JsonPointer::toJsonString()`
+    - `ReferenceToken::fromEscapedString()` to `ReferenceToken::fromJsonString()`
+    - `ReferenceToken::fromUnescapedString()` to `ReferenceToken::fromString()`
+    - `ReferenceToken::toEscapedString()` to `ReferenceToken::toJsonString()`
+    - `ReferenceToken::toUnescapedString()` to `ReferenceToken::toString()`
 
 ## [`1.0.0`][1.0.0]
 
@@ -152,7 +151,6 @@ For a full diff see [`a5ba52c...1.0.0`][a5ba52c...1.0.0].
 [3.7.0]: https://github.com/ergebnis/json-pointer/releases/tag/3.7.0
 [3.7.1]: https://github.com/ergebnis/json-pointer/releases/tag/3.7.1
 [3.8.0]: https://github.com/ergebnis/json-pointer/releases/tag/3.8.0
-
 [a5ba52c...1.0.0]: https://github.com/ergebnis/json-pointer/compare/a5ba52c...1.0.0
 [1.0.0...2.0.0]: https://github.com/ergebnis/json-pointer/compare/1.0.0...2.0.0
 [2.0.0...2.1.0]: https://github.com/ergebnis/json-pointer/compare/2.0.0...2.1.0
@@ -167,7 +165,6 @@ For a full diff see [`a5ba52c...1.0.0`][a5ba52c...1.0.0].
 [3.7.0...3.7.1]: https://github.com/ergebnis/json-pointer/compare/3.7.0...3.7.1
 [3.7.1...3.8.0]: https://github.com/ergebnis/json-pointer/compare/3.7.1...3.8.0
 [3.8.0...main]: https://github.com/ergebnis/json-pointer/compare/3.8.0...main
-
 [#1]: https://github.com/ergebnis/json-pointer/pull/1
 [#2]: https://github.com/ergebnis/json-pointer/pull/2
 [#4]: https://github.com/ergebnis/json-pointer/pull/4
@@ -190,5 +187,4 @@ For a full diff see [`a5ba52c...1.0.0`][a5ba52c...1.0.0].
 [#428]: https://github.com/ergebnis/json-pointer/pull/428
 [#452]: https://github.com/ergebnis/json-pointer/pull/452
 [#456]: https://github.com/ergebnis/json-pointer/pull/456
-
 [@localheinz]: https://github.com/localheinz

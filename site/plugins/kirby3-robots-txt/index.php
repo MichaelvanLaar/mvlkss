@@ -2,38 +2,37 @@
 
 declare(strict_types=1);
 
-@include_once __DIR__.'/vendor/autoload.php';
+@include_once __DIR__ . "/vendor/autoload.php";
 
-Kirby::plugin('bnomei/robots-txt', [
-    'options' => [
-        'content' => null,
-        'sitemap' => null,
-        'groups' => [
-            '*' => [ // user-agent
-                'disallow' => [
-                    '/kirby/',
-                    '/site/',
-                    '/cdn-cgi/', // cloudflare. https://developers.cloudflare.com/fundamentals/get-started/reference/cdn-cgi-endpoint/
+Kirby::plugin("bnomei/robots-txt", [
+    "options" => [
+        "content" => null,
+        "sitemap" => null,
+        "groups" => [
+            "*" => [
+                // user-agent
+                "disallow" => [
+                    "/kirby/",
+                    "/site/",
+                    "/cdn-cgi/", // cloudflare. https://developers.cloudflare.com/fundamentals/get-started/reference/cdn-cgi-endpoint/
                 ],
-                'allow' => [
-                    '/media/',
-                ],
+                "allow" => ["/media/"],
             ],
         ],
     ],
-    'routes' => [
+    "routes" => [
         [
-            'pattern' => 'robots.txt',
-            'method' => 'GET',
-            'action' => function () {
-                $txt = (new \Bnomei\Robotstxt)->toTxt();
+            "pattern" => "robots.txt",
+            "method" => "GET",
+            "action" => function () {
+                $txt = (new \Bnomei\Robotstxt())->toTxt();
                 if ($txt) {
-                    return new \Kirby\Http\Response($txt, 'text/plain', 200);
+                    return new \Kirby\Http\Response($txt, "text/plain", 200);
                 }
 
-                return kirby()->site()->visit(
-                    kirby()->site()->errorPage() ?? 'error'
-                );
+                return kirby()
+                    ->site()
+                    ->visit(kirby()->site()->errorPage() ?? "error");
             },
         ],
     ],

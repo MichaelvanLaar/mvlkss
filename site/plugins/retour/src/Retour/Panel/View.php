@@ -9,79 +9,76 @@ use Kirby\Toolkit\I18n;
 /**
  * Handles (Fiber) Panel view requests
  */
-class View
-{
-	/**
-	 * Returns all props for the Panel view
-	 */
-	public static function props(string $tab): array
-	{
-		$retour   = Retour::instance();
-		$timespan = Timespan::props();
-		['from' => $from, 'to' => $to, 'unit' => $unit] = $timespan;
+class View {
+    /**
+     * Returns all props for the Panel view
+     */
+    public static function props(string $tab): array {
+        $retour = Retour::instance();
+        $timespan = Timespan::props();
+        ["from" => $from, "to" => $to, "unit" => $unit] = $timespan;
 
-		$failures = [];
+        $failures = [];
 
-		// props for minimal Panel view
-		$props = [
-			'timespan' => $timespan,
-			'tab'      => $tab,
-			'tabs'     => [
-				[
-					'name'  => 'redirects',
-					'label' => I18n::translate('retour.redirects'),
-					'link'  => 'retour/redirects'
-				]
-			]
-		];
+        // props for minimal Panel view
+        $props = [
+            "timespan" => $timespan,
+            "tab" => $tab,
+            "tabs" => [
+                [
+                    "name" => "redirects",
+                    "label" => I18n::translate("retour.redirects"),
+                    "link" => "retour/redirects",
+                ],
+            ],
+        ];
 
-		// if log feature is supported...
-		if ($retour->hasLog() === true) {
-			// run garbage collection with a chance of 10%;
-			if (mt_rand(1, 10000) <= 0.1 * 10000) {
-				// purge log entries that should be automatically deleted
-				$retour->log()->purge();
-			}
+        // if log feature is supported...
+        if ($retour->hasLog() === true) {
+            // run garbage collection with a chance of 10%;
+            if (mt_rand(1, 10000) <= 0.1 * 10000) {
+                // purge log entries that should be automatically deleted
+                $retour->log()->purge();
+            }
 
-			// get all data for 404 failures
-			$failures = $retour->log()->fails($from, $to);
+            // get all data for 404 failures
+            $failures = $retour->log()->fails($from, $to);
 
-			// add additional tabs
-			$props['tabs'][] = [
-				'name'  => 'failures',
-				'label' => I18n::translate('retour.failures'),
-				'link'  => 'retour/failures'
-			];
+            // add additional tabs
+            $props["tabs"][] = [
+                "name" => "failures",
+                "label" => I18n::translate("retour.failures"),
+                "link" => "retour/failures",
+            ];
 
-			// get statistics data for current timeframe
-			$props['stats'] = $retour->log()->stats($unit, $from, $to);
-		}
+            // get statistics data for current timeframe
+            $props["stats"] = $retour->log()->stats($unit, $from, $to);
+        }
 
-		// add tab-specific data, e.g. for table rows
-		$props['data'] = match ($tab) {
-			'redirects' => $retour->redirects()->toData($from, $to),
-			'failures'  => $failures,
-			default     => []
-		};
+        // add tab-specific data, e.g. for table rows
+        $props["data"] = match ($tab) {
+            "redirects" => $retour->redirects()->toData($from, $to),
+            "failures" => $failures,
+            default => [],
+        };
 
-		return $props;
-	}
+        return $props;
+    }
 
-	/**
-	 * Returns the Fiber view definition for a tab
-	 */
-	public static function tab(string $tab): array
-	{
-		return [
-			'component'  => 'k-retour-' . $tab . '-view',
-			'title'      => I18n::translate('view.retour'),
-			'breadcrumb' => [
-				[
-					'label' => I18n::translate('retour.' . $tab),
-					'link'  => 'retour/' . $tab,
-				]
-			],
-			'props' => static::props($tab)
-		];
-	}
+    /**
+     * Returns the Fiber view definition for a tab
+     */
+    public static function tab(string $tab): array {
+        return [
+            "component" => "k-retour-" . $tab . "-view",
+            "title" => I18n::translate("view.retour"),
+            "breadcrumb" => [
+                [
+                    "label" => I18n::translate("retour." . $tab),
+                    "link" => "retour/" . $tab,
+                ],
+            ],
+            "props" => static::props($tab),
+        ];
+    }
 }

@@ -10,18 +10,20 @@ use JsonSchema\Constraints\Factory;
 use JsonSchema\Entity\ErrorBagProxy;
 use JsonSchema\Entity\JsonPointer;
 
-class ExclusiveMaximumConstraint implements ConstraintInterface
-{
+class ExclusiveMaximumConstraint implements ConstraintInterface {
     use ErrorBagProxy;
 
-    public function __construct(?Factory $factory = null)
-    {
+    public function __construct(?Factory $factory = null) {
         $this->initialiseErrorBag($factory ?: new Factory());
     }
 
-    public function check(&$value, $schema = null, ?JsonPointer $path = null, $i = null): void
-    {
-        if (!property_exists($schema, 'exclusiveMaximum')) {
+    public function check(
+        &$value,
+        $schema = null,
+        ?JsonPointer $path = null,
+        $i = null,
+    ): void {
+        if (!property_exists($schema, "exclusiveMaximum")) {
             return;
         }
 
@@ -33,6 +35,9 @@ class ExclusiveMaximumConstraint implements ConstraintInterface
             return;
         }
 
-        $this->addError(ConstraintError::EXCLUSIVE_MAXIMUM(), $path, ['exclusiveMaximum' => $schema->exclusiveMaximum, 'found' => $value]);
+        $this->addError(ConstraintError::EXCLUSIVE_MAXIMUM(), $path, [
+            "exclusiveMaximum" => $schema->exclusiveMaximum,
+            "found" => $value,
+        ]);
     }
 }

@@ -1,25 +1,26 @@
 <?php
 
-@include_once __DIR__ . '/vendor/autoload.php';
+@include_once __DIR__ . "/vendor/autoload.php";
 
 use Kirby\Cms\App;
 use Kirby\Template\Template;
 use voku\helper\HtmlMin;
 
-class MinifyHTML extends Template
-{
-    public function render(array $data = []): string
-    {
+class MinifyHTML extends Template {
+    public function render(array $data = []): string {
         $kirby = App::instance();
-        $html  = parent::render($data);
+        $html = parent::render($data);
 
         if (
-            $kirby->option('afbora.kirby-minify-html.enabled') === true &&
-            in_array($this->name(), $kirby->option('afbora.kirby-minify-html.ignore', [])) === false &&
+            $kirby->option("afbora.kirby-minify-html.enabled") === true &&
+            in_array(
+                $this->name(),
+                $kirby->option("afbora.kirby-minify-html.ignore", []),
+            ) === false &&
             $this->hasDefaultType() === true
         ) {
             $htmlMin = new HtmlMin();
-            $options = $kirby->option('afbora.kirby-minify-html.options', []);
+            $options = $kirby->option("afbora.kirby-minify-html.options", []);
 
             foreach ($options as $option => $param) {
                 if (method_exists($htmlMin, $option) === true) {
@@ -38,15 +39,20 @@ class MinifyHTML extends Template
     }
 }
 
-Kirby::plugin('afbora/kirby-minify-html', [
-    'options'    => [
-        'enabled' => true,
-        'ignore'  => [],
-        'options' => []
+Kirby::plugin("afbora/kirby-minify-html", [
+    "options" => [
+        "enabled" => true,
+        "ignore" => [],
+        "options" => [],
     ],
-    'components' => [
-        'template' => function (App $kirby, string $name, string $type = 'html', string $defaultType = 'html') {
+    "components" => [
+        "template" => function (
+            App $kirby,
+            string $name,
+            string $type = "html",
+            string $defaultType = "html",
+        ) {
             return new MinifyHTML($name, $type, $defaultType);
-        }
-    ]
+        },
+    ],
 ]);

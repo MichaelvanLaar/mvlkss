@@ -22,20 +22,16 @@ use JsonSchema\SchemaStorage;
 use JsonSchema\Uri;
 use JsonSchema\Validator;
 
-final class SchemaValidator
-{
+final class SchemaValidator {
     /**
      * @throws CanNotResolve
      */
     public function validate(
         Json $json,
         Json $schema,
-        Pointer\JsonPointer $jsonPointer
+        Pointer\JsonPointer $jsonPointer,
     ): ValidationResult {
-        $schemaDecoded = \json_decode(
-            $schema->toString(),
-            false,
-        );
+        $schemaDecoded = \json_decode($schema->toString(), false);
 
         $uriRetriever = new Uri\UriRetriever();
 
@@ -57,28 +53,23 @@ final class SchemaValidator
             new Uri\UriResolver(),
         );
 
-        $validator = new Validator(new Constraints\Factory(
-            $schemaStorage,
-            $uriRetriever,
-        ));
-
-        $jsonDecoded = \json_decode(
-            $json->toString(),
-            false,
+        $validator = new Validator(
+            new Constraints\Factory($schemaStorage, $uriRetriever),
         );
 
-        $validator->validate(
-            $jsonDecoded,
-            $schemaDecoded,
-        );
+        $jsonDecoded = \json_decode($json->toString(), false);
+
+        $validator->validate($jsonDecoded, $schemaDecoded);
 
         /** @var array<int, array> $originalErrors */
         $originalErrors = $validator->getErrors();
 
-        $validationErrors = \array_map(static function (array $error): ValidationError {
+        $validationErrors = \array_map(static function (
+            array $error,
+        ): ValidationError {
             return ValidationError::create(
-                Pointer\JsonPointer::fromJsonString($error['pointer']),
-                Message::fromString($error['message']),
+                Pointer\JsonPointer::fromJsonString($error["pointer"]),
+                Message::fromString($error["message"]),
             );
         }, $originalErrors);
 

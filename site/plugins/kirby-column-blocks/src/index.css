@@ -2,12 +2,12 @@
   display: block;
 }
 
-.k-block-container[data-last-in-batch] .k-block-options, 
+.k-block-container[data-last-in-batch] .k-block-options,
 .k-block-container[data-selected] .k-block-options {
   display: none;
 }
 
-.k-block-container[data-last-in-batch] > .k-block-options, 
+.k-block-container[data-last-in-batch] > .k-block-options,
 .k-block-container[data-selected] > .k-block-options {
   display: flex;
 }

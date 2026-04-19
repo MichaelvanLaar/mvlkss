@@ -7,8 +7,7 @@ use Phiki\Contracts\ContainsCapturesInterface;
 use Phiki\Support\Regex;
 use Phiki\Tokenizer;
 
-class MatchPattern extends Pattern implements ContainsCapturesInterface
-{
+class MatchPattern extends Pattern implements ContainsCapturesInterface {
     /**
      * @param  Capture[]  $captures
      */
@@ -19,10 +18,27 @@ class MatchPattern extends Pattern implements ContainsCapturesInterface
         public bool $injection = false,
     ) {}
 
-    public function tryMatch(Tokenizer $tokenizer, string $lineText, int $linePosition, ?int $cannotExceed = null): MatchedPattern|false
-    {
+    public function tryMatch(
+        Tokenizer $tokenizer,
+        string $lineText,
+        int $linePosition,
+        ?int $cannotExceed = null,
+    ): MatchedPattern|false {
         try {
-            if (preg_match('/'.$this->match->get($tokenizer->allowA(), $tokenizer->allowG()).'/u', $lineText, $matches, PREG_OFFSET_CAPTURE, $linePosition) !== 1) {
+            if (
+                preg_match(
+                    "/" .
+                        $this->match->get(
+                            $tokenizer->allowA(),
+                            $tokenizer->allowG(),
+                        ) .
+                        "/u",
+                    $lineText,
+                    $matches,
+                    PREG_OFFSET_CAPTURE,
+                    $linePosition,
+                ) !== 1
+            ) {
                 return false;
             }
         } catch (Exception) {
@@ -36,23 +52,19 @@ class MatchPattern extends Pattern implements ContainsCapturesInterface
         return new MatchedPattern($this, $matches);
     }
 
-    public function getCaptures(): array
-    {
+    public function getCaptures(): array {
         return $this->captures;
     }
 
-    public function hasCaptures(): bool
-    {
+    public function hasCaptures(): bool {
         return count($this->captures) > 0;
     }
 
-    public function scope(): ?array
-    {
-        return $this->name ? explode(' ', $this->name) : null;
+    public function scope(): ?array {
+        return $this->name ? explode(" ", $this->name) : null;
     }
 
-    public function __toString(): string
-    {
-        return sprintf('match: %s', $this->match);
+    public function __toString(): string {
+        return sprintf("match: %s", $this->match);
     }
 }

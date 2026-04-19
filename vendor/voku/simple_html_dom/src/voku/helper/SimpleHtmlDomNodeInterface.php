@@ -12,8 +12,7 @@ namespace voku\helper;
  *
  * @extends \IteratorAggregate<int, SimpleHtmlDomInterface>
  */
-interface SimpleHtmlDomNodeInterface extends \IteratorAggregate
-{
+interface SimpleHtmlDomNodeInterface extends \IteratorAggregate {
     /**
      * @param string $name
      *

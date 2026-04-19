@@ -1,9 +1,9 @@
 ## k3-date-extended
+
 [![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/Adspectus/k3-date-extended?style=flat-square&label=Version)](https://github.com/Adspectus/k3-date-extended/releases)
 [![GitHub issues](https://img.shields.io/github/issues/Adspectus/k3-date-extended?style=flat-square&label=Issues)](https://github.com/Adspectus/k3-date-extended/issues)
 [![GitHub license](https://img.shields.io/github/license/Adspectus/k3-date-extended?style=flat-square&label=License)](https://github.com/Adspectus/k3-date-extended/blob/master/LICENSE)
 [![Kirby version](https://img.shields.io/static/v1?label=Kirby&message=3&color=yellow&style=flat-square)](https://getkirby.com/)
-
 
 Kirby 3 plugin to provide additional date fields as epoch
 
@@ -11,7 +11,7 @@ Kirby 3 plugin to provide additional date fields as epoch
 
 ### Prerequisites
 
-* Kirby 3
+- Kirby 3
 
 ### Installation
 
@@ -19,11 +19,11 @@ You can install this plugin via one of the following methods:
 
 1. Composer
 
-       composer require adspectus/date-extended
+    composer require adspectus/date-extended
 
 2. Manual
 
-   Clone this repository or download the current release and extract the file `index.php` into a new folder `site/plugins/date-extended` of your Kirby installation.
+    Clone this repository or download the current release and extract the file `index.php` into a new folder `site/plugins/date-extended` of your Kirby installation.
 
 ## Usage
 
@@ -88,4 +88,4 @@ and in the panel it will look like this:
 
 ## Acknowledgements
 
-* [texnixe](https://forum.getkirby.com/u/texnixe/) for the basic stuff
+- [texnixe](https://forum.getkirby.com/u/texnixe/) for the basic stuff

@@ -26,16 +26,24 @@ composer require ergebnis/json-printer
 Let's assume we have a variable `$json` which contains some JSON that is not indented:
 
 ```json
-{"name":"Andreas Möller","emoji":"🤓","urls":["https://localheinz.com","https://github.com/localheinz","https://twitter.com/localheinz"]}
+{
+    "name": "Andreas Möller",
+    "emoji": "🤓",
+    "urls": [
+        "https://localheinz.com",
+        "https://github.com/localheinz",
+        "https://twitter.com/localheinz"
+    ]
+}
 ```
 
 or indented with 4 spaces:
 
 ```json
 {
-    "name":"Andreas Möller",
-    "emoji":"🤓",
-    "urls":[
+    "name": "Andreas Möller",
+    "emoji": "🤓",
+    "urls": [
         "https://localheinz.com",
         "https://github.com/localheinz",
         "https://twitter.com/localheinz"
@@ -56,23 +64,20 @@ use Ergebnis\Json\Printer;
 
 $printer = new Printer\Printer();
 
-$printed = $printer->print(
-    $json,
-    '  ',
-);
+$printed = $printer->print($json, "  ");
 ```
 
 which results in `$printed`:
 
 ```json
 {
-  "name":"Andreas Möller",
-  "emoji":"🤓",
-  "urls":[
-    "https://localheinz.com",
-    "https://github.com/localheinz",
-    "https://twitter.com/localheinz"
-  ]
+    "name": "Andreas Möller",
+    "emoji": "🤓",
+    "urls": [
+        "https://localheinz.com",
+        "https://github.com/localheinz",
+        "https://twitter.com/localheinz"
+    ]
 }
 ```
 

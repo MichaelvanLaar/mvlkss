@@ -13,8 +13,7 @@ declare(strict_types=1);
 
 namespace Ergebnis\Json\Printer;
 
-final class Printer implements PrinterInterface
-{
+final class Printer implements PrinterInterface {
     /**
      * This code is adopted from composer/composer (originally licensed under MIT by Nils Adermann <naderman@naderman.de>
      * and Jordi Boggiano <j.boggiano@seld.be>), who adopted it from a blog post by Dave Perrett (originally licensed
@@ -38,42 +37,37 @@ final class Printer implements PrinterInterface
      */
     public function print(
         string $json,
-        string $indent = '    ',
-        string $newLine = \PHP_EOL
+        string $indent = "    ",
+        string $newLine = \PHP_EOL,
     ): string {
         try {
-            \json_decode(
-                $json,
-                false,
-                512,
-                \JSON_THROW_ON_ERROR,
-            );
+            \json_decode($json, false, 512, \JSON_THROW_ON_ERROR);
         } catch (\JsonException $exception) {
-            throw new \InvalidArgumentException(\sprintf(
-                '"%s" is not valid JSON.',
-                $json,
-            ));
+            throw new \InvalidArgumentException(
+                \sprintf('"%s" is not valid JSON.', $json),
+            );
         }
 
         if (1 !== \preg_match('/^( +|\t+)$/', $indent)) {
-            throw new \InvalidArgumentException(\sprintf(
-                '"%s" is not a valid indent.',
-                $indent,
-            ));
+            throw new \InvalidArgumentException(
+                \sprintf('"%s" is not a valid indent.', $indent),
+            );
         }
 
         if (1 !== \preg_match('/^(?>\r\n|\n|\r)$/', $newLine)) {
-            throw new \InvalidArgumentException(\sprintf(
-                '"%s" is not a valid new-line character sequence.',
-                $newLine,
-            ));
+            throw new \InvalidArgumentException(
+                \sprintf(
+                    '"%s" is not a valid new-line character sequence.',
+                    $newLine,
+                ),
+            );
         }
 
-        $printed = '';
+        $printed = "";
         $indentLevel = 0;
         $length = \mb_strlen($json);
         $withinStringLiteral = false;
-        $stringLiteral = '';
+        $stringLiteral = "";
         $noEscape = true;
 
         for ($i = 0; $i < $length; ++$i) {
@@ -94,7 +88,7 @@ final class Printer implements PrinterInterface
              */
             if ($withinStringLiteral) {
                 $stringLiteral .= $character;
-                $noEscape = '\\' === $character ? !$noEscape : true;
+                $noEscape = "\\" === $character ? !$noEscape : true;
 
                 continue;
             }
@@ -102,9 +96,9 @@ final class Printer implements PrinterInterface
             /**
              * Process string literal if we are about to leave it.
              */
-            if ('' !== $stringLiteral) {
+            if ("" !== $stringLiteral) {
                 $printed .= $stringLiteral . $character;
-                $stringLiteral = '';
+                $stringLiteral = "";
 
                 continue;
             }
@@ -112,15 +106,15 @@ final class Printer implements PrinterInterface
             /**
              * Ignore whitespace outside of string literal.
              */
-            if ('' === \trim($character)) {
+            if ("" === \trim($character)) {
                 continue;
             }
 
             /**
              * Ensure space after ":" character.
              */
-            if (':' === $character) {
-                $printed .= ': ';
+            if (":" === $character) {
+                $printed .= ": ";
 
                 continue;
             }
@@ -128,8 +122,9 @@ final class Printer implements PrinterInterface
             /**
              * Output a new line after "," character and indent the next line.
              */
-            if (',' === $character) {
-                $printed .= $character . $newLine . \str_repeat($indent, $indentLevel);
+            if ("," === $character) {
+                $printed .=
+                    $character . $newLine . \str_repeat($indent, $indentLevel);
 
                 continue;
             }
@@ -137,10 +132,11 @@ final class Printer implements PrinterInterface
             /**
              * Output a new line after "{" and "[" and indent the next line.
              */
-            if ('{' === $character || '[' === $character) {
+            if ("{" === $character || "[" === $character) {
                 ++$indentLevel;
 
-                $printed .= $character . $newLine . \str_repeat($indent, $indentLevel);
+                $printed .=
+                    $character . $newLine . \str_repeat($indent, $indentLevel);
 
                 continue;
             }
@@ -148,7 +144,7 @@ final class Printer implements PrinterInterface
             /**
              * Output a new line after "}" and "]" and indent the next line.
              */
-            if ('}' === $character || ']' === $character) {
+            if ("}" === $character || "]" === $character) {
                 --$indentLevel;
 
                 $trimmed = \rtrim($printed);
@@ -157,7 +153,10 @@ final class Printer implements PrinterInterface
                 /**
                  * Collapse empty {} and [].
                  */
-                if ('{' === $previousNonWhitespaceCharacter || '[' === $previousNonWhitespaceCharacter) {
+                if (
+                    "{" === $previousNonWhitespaceCharacter ||
+                    "[" === $previousNonWhitespaceCharacter
+                ) {
                     $printed = $trimmed . $character;
 
                     continue;

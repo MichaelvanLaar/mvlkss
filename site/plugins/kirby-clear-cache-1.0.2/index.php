@@ -5,43 +5,43 @@ use Kirby\Cms\App as Kirby;
 use Kirby\Exception\Exception;
 
 load([
-    'oweb\\clearcache' => __DIR__ . '/lib/ClearCache.php'
+    "oweb\\clearcache" => __DIR__ . "/lib/ClearCache.php",
 ]);
 
-Kirby::plugin('owebstudio/clear-cache', [
-    'areas' => [
-        'clear-cache' => function () {
+Kirby::plugin("owebstudio/clear-cache", [
+    "areas" => [
+        "clear-cache" => function () {
             return [
-                'label' => 'Clear cache',
-                'icon' => 'trash',
-                'menu' => true,
-                'link' => 'clear-cache',
-                'views' => [
+                "label" => "Clear cache",
+                "icon" => "trash",
+                "menu" => true,
+                "link" => "clear-cache",
+                "views" => [
                     [
-                        'pattern' => 'clear-cache',
-                        'action' => function () {
+                        "pattern" => "clear-cache",
+                        "action" => function () {
                             return [
-                                'component' => 'clearcache',
-                                'title' => 'Clear cache',
-                                'props' => ClearCache::props(),
+                                "component" => "clearcache",
+                                "title" => "Clear cache",
+                                "props" => ClearCache::props(),
                             ];
-                        }
-                    ]
-                ]
+                        },
+                    ],
+                ],
             ];
-        }
+        },
     ],
-    'api' => [
-        'routes' => [
+    "api" => [
+        "routes" => [
             [
-                'pattern' => 'clear-cache',
-                'method' => 'POST',
-                'action' => function () {
-                    $type = get('type');
-                    $dir = get('dir');
+                "pattern" => "clear-cache",
+                "method" => "POST",
+                "action" => function () {
+                    $type = get("type");
+                    $dir = get("dir");
 
                     if (empty($type) === true) {
-                        throw new Exception('Invalid request!');
+                        throw new Exception("Invalid request!");
                     }
 
                     if (empty($dir) === true) {
@@ -51,8 +51,8 @@ Kirby::plugin('owebstudio/clear-cache', [
                     }
 
                     return true;
-                }
-            ]
-        ]
-    ]
+                },
+            ],
+        ],
+    ],
 ]);

@@ -5,8 +5,7 @@ namespace Phiki\Contracts;
 /**
  * @internal
  */
-interface InjectionSelectorParserInputInterface
-{
+interface InjectionSelectorParserInputInterface {
     public function current(): ?string;
 
     public function next(): void;

@@ -19,6 +19,10 @@ git config core.hooksPath .githooks
 npm run dev-server     # PHP server (localhost:8000) + watch mode
 npm run dev            # Watch mode only (remote dev, no PHP server)
 npm run build          # Production build (run before committing)
+npm test               # Full suite: lint + PHPUnit + Vitest (see TESTING.md)
+npm run test:js        # Vitest (jsdom) only
+npm run test:php       # PHPUnit only
+npm run test:phpstan   # PHPStan static analysis
 ```
 
 ## Critical Rules
@@ -38,29 +42,29 @@ npm run build          # Production build (run before committing)
 
 ### Key Config Files
 
-| File | Purpose |
-|------|---------|
-| `.claude/settings.json` | Claude Code permissions and hooks               |
-| `.claude/skills/cc-init/SKILL.md` | TODO: add description                           |
-| `.claude/skills/cc-optimize/SKILL.md` | TODO: add description                           |
-| `.claude/skills/openspec-apply-change/SKILL.md` | TODO: add description                           |
-| `.claude/skills/openspec-archive-change/SKILL.md` | TODO: add description                           |
-| `.claude/skills/openspec-bulk-archive-change/SKILL.md` | TODO: add description                           |
-| `.claude/skills/openspec-continue-change/SKILL.md` | TODO: add description                           |
-| `.claude/skills/openspec-explore/SKILL.md` | TODO: add description                           |
-| `.claude/skills/openspec-ff-change/SKILL.md` | TODO: add description                           |
-| `.claude/skills/openspec-new-change/SKILL.md` | TODO: add description                           |
-| `.claude/skills/openspec-onboard/SKILL.md` | TODO: add description                           |
-| `.claude/skills/openspec-sync-specs/SKILL.md` | TODO: add description                           |
-| `.claude/skills/openspec-verify-change/SKILL.md` | TODO: add description                           |
-| `composer.json` | PHP dependencies (Kirby CMS, plugins)           |
-| `.editorconfig` | Editor formatting rules (indent, charset, EOL)  |
-| `.gitignore` | Git ignore patterns                             |
-| `.mcp.json` | MCP server config                               |
-| `package.json` | npm dependencies, build scripts                 |
-| `postcss.config.js` | PostCSS/Tailwind CSS processing config          |
-| `.prettierrc.json` | Prettier formatting rules                       |
-| `webpack.config.js` | Webpack bundler config (JS, CSS, assets)        |
+| File                                                   | Purpose                                        |
+| ------------------------------------------------------ | ---------------------------------------------- |
+| `.claude/settings.json`                                | Claude Code permissions and hooks              |
+| `.claude/skills/cc-init/SKILL.md`                      | TODO: add description                          |
+| `.claude/skills/cc-optimize/SKILL.md`                  | TODO: add description                          |
+| `.claude/skills/openspec-apply-change/SKILL.md`        | TODO: add description                          |
+| `.claude/skills/openspec-archive-change/SKILL.md`      | TODO: add description                          |
+| `.claude/skills/openspec-bulk-archive-change/SKILL.md` | TODO: add description                          |
+| `.claude/skills/openspec-continue-change/SKILL.md`     | TODO: add description                          |
+| `.claude/skills/openspec-explore/SKILL.md`             | TODO: add description                          |
+| `.claude/skills/openspec-ff-change/SKILL.md`           | TODO: add description                          |
+| `.claude/skills/openspec-new-change/SKILL.md`          | TODO: add description                          |
+| `.claude/skills/openspec-onboard/SKILL.md`             | TODO: add description                          |
+| `.claude/skills/openspec-sync-specs/SKILL.md`          | TODO: add description                          |
+| `.claude/skills/openspec-verify-change/SKILL.md`       | TODO: add description                          |
+| `composer.json`                                        | PHP dependencies (Kirby CMS, plugins)          |
+| `.editorconfig`                                        | Editor formatting rules (indent, charset, EOL) |
+| `.gitignore`                                           | Git ignore patterns                            |
+| `.mcp.json`                                            | MCP server config                              |
+| `package.json`                                         | npm dependencies, build scripts                |
+| `postcss.config.js`                                    | PostCSS/Tailwind CSS processing config         |
+| `.prettierrc.json`                                     | Prettier formatting rules                      |
+| `webpack.config.js`                                    | Webpack bundler config (JS, CSS, assets)       |
 
 ## Configuration Management
 

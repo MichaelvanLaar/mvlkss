@@ -2,8 +2,7 @@
 
 namespace Phiki\Theme;
 
-class ParsedTheme
-{
+class ParsedTheme {
     protected ThemeStyles $styles;
 
     /**
@@ -18,19 +17,16 @@ class ParsedTheme
         $this->styles = new ThemeStyles($this);
     }
 
-    public function base(): TokenSettings
-    {
+    public function base(): TokenSettings {
         return $this->styles->base();
     }
 
-    public function resolve(string $scope): ?TokenSettings
-    {
+    public function resolve(string $scope): ?TokenSettings {
         return $this->styles->resolve($scope);
     }
 
-    public static function fromArray(array $theme): ParsedTheme
-    {
-        $parser = new Parser;
+    public static function fromArray(array $theme): ParsedTheme {
+        $parser = new Parser();
 
         return $parser->parse($theme);
     }

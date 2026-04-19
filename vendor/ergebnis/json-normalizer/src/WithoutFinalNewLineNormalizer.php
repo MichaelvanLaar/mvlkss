@@ -15,10 +15,8 @@ namespace Ergebnis\Json\Normalizer;
 
 use Ergebnis\Json\Json;
 
-final class WithoutFinalNewLineNormalizer implements Normalizer
-{
-    public function normalize(Json $json): Json
-    {
+final class WithoutFinalNewLineNormalizer implements Normalizer {
+    public function normalize(Json $json): Json {
         $withoutFinalNewLine = \rtrim($json->encoded());
 
         return Json::fromString($withoutFinalNewLine);

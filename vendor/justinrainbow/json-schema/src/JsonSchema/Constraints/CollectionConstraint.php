@@ -21,21 +21,30 @@ use JsonSchema\Tool\DeepComparer;
  * @author Robert Schönthal <seroscho@googlemail.com>
  * @author Bruno Prieto Reis <bruno.p.reis@gmail.com>
  */
-class CollectionConstraint extends Constraint
-{
+class CollectionConstraint extends Constraint {
     /**
      * {@inheritdoc}
      */
-    public function check(&$value, $schema = null, ?JsonPointer $path = null, $i = null): void
-    {
+    public function check(
+        &$value,
+        $schema = null,
+        ?JsonPointer $path = null,
+        $i = null,
+    ): void {
         // Verify minItems
         if (isset($schema->minItems) && count($value) < $schema->minItems) {
-            $this->addError(ConstraintError::MIN_ITEMS(), $path, ['minItems' => $schema->minItems, 'found' => count($value)]);
+            $this->addError(ConstraintError::MIN_ITEMS(), $path, [
+                "minItems" => $schema->minItems,
+                "found" => count($value),
+            ]);
         }
 
         // Verify maxItems
         if (isset($schema->maxItems) && count($value) > $schema->maxItems) {
-            $this->addError(ConstraintError::MAX_ITEMS(), $path, ['maxItems' => $schema->maxItems, 'found' => count($value)]);
+            $this->addError(ConstraintError::MAX_ITEMS(), $path, [
+                "maxItems" => $schema->maxItems,
+                "found" => count($value),
+            ]);
         }
 
         // Verify uniqueItems
@@ -61,8 +70,12 @@ class CollectionConstraint extends Constraint
      * @param \stdClass $schema
      * @param string    $i
      */
-    protected function validateItems(&$value, $schema = null, ?JsonPointer $path = null, $i = null): void
-    {
+    protected function validateItems(
+        &$value,
+        $schema = null,
+        ?JsonPointer $path = null,
+        $i = null,
+    ): void {
         if (\is_null($schema) || !isset($schema->items)) {
             return;
         }
@@ -80,20 +93,35 @@ class CollectionConstraint extends Constraint
                 $this->checkUndefined($v, $schema->items, $path, $k);
 
                 // Recheck with "additionalItems" if the first test fails
-                if (count($initErrors) < count($this->getErrors()) && (isset($schema->additionalItems) && $schema->additionalItems !== false)) {
+                if (
+                    count($initErrors) < count($this->getErrors()) &&
+                    (isset($schema->additionalItems) &&
+                        $schema->additionalItems !== false)
+                ) {
                     $secondErrors = $this->getErrors();
-                    $this->checkUndefined($v, $schema->additionalItems, $path, $k);
+                    $this->checkUndefined(
+                        $v,
+                        $schema->additionalItems,
+                        $path,
+                        $k,
+                    );
                 }
 
                 // Reset errors if needed
-                if (isset($secondErrors) && count($secondErrors) < count($this->getErrors())) {
+                if (
+                    isset($secondErrors) &&
+                    count($secondErrors) < count($this->getErrors())
+                ) {
                     $this->errors = $secondErrors;
-                } elseif (isset($secondErrors) && count($secondErrors) === count($this->getErrors())) {
+                } elseif (
+                    isset($secondErrors) &&
+                    count($secondErrors) === count($this->getErrors())
+                ) {
                     $this->errors = $initErrors;
                 }
             }
             unset($v); /* remove dangling reference to prevent any future bugs
-                        * caused by accidentally using $v elsewhere */
+             * caused by accidentally using $v elsewhere */
         } else {
             // Defined item type definitions
             foreach ($value as $k => &$v) {
@@ -101,18 +129,24 @@ class CollectionConstraint extends Constraint
                     $this->checkUndefined($v, $schema->items[$k], $path, $k);
                 } else {
                     // Additional items
-                    if (property_exists($schema, 'additionalItems')) {
+                    if (property_exists($schema, "additionalItems")) {
                         if ($schema->additionalItems !== false) {
-                            $this->checkUndefined($v, $schema->additionalItems, $path, $k);
+                            $this->checkUndefined(
+                                $v,
+                                $schema->additionalItems,
+                                $path,
+                                $k,
+                            );
                         } else {
                             $this->addError(
                                 ConstraintError::ADDITIONAL_ITEMS(),
                                 $path,
                                 [
-                                    'item' => $i,
-                                    'property' => $k,
-                                    'additionalItems' => $schema->additionalItems
-                                ]
+                                    "item" => $i,
+                                    "property" => $k,
+                                    "additionalItems" =>
+                                        $schema->additionalItems,
+                                ],
                             );
                         }
                     } else {
@@ -122,13 +156,20 @@ class CollectionConstraint extends Constraint
                 }
             }
             unset($v); /* remove dangling reference to prevent any future bugs
-                        * caused by accidentally using $v elsewhere */
+             * caused by accidentally using $v elsewhere */
 
             // Treat when we have more schema definitions than values, not for empty arrays
             if (count($value) > 0) {
                 for ($k = count($value); $k < count($schema->items); $k++) {
-                    $undefinedInstance = $this->factory->createInstanceFor('undefined');
-                    $this->checkUndefined($undefinedInstance, $schema->items[$k], $path, $k);
+                    $undefinedInstance = $this->factory->createInstanceFor(
+                        "undefined",
+                    );
+                    $this->checkUndefined(
+                        $undefinedInstance,
+                        $schema->items[$k],
+                        $path,
+                        $k,
+                    );
                 }
             }
         }

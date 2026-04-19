@@ -31,9 +31,9 @@
    * @param {HTMLElement} element - The element to scroll to.
    */
   function directScrollTo(element) {
-    let header = document.getElementById(pageHeaderSelectorId);
-    let additionalOffset = header.offsetHeight * offsetHeightFactor;
-    let targetPosition = Math.max(element.offsetTop - additionalOffset, 0);
+    const header = document.getElementById(pageHeaderSelectorId);
+    const additionalOffset = header.offsetHeight * offsetHeightFactor;
+    const targetPosition = Math.max(element.offsetTop - additionalOffset, 0);
 
     // Directly set the scroll position without animation
     window.scrollTo(0, targetPosition);
@@ -46,10 +46,10 @@
    * @param {string} href - The href value to update the URL in the address bar.
    */
   function smoothScrollTo(element, href) {
-    let start = window.scrollY || document.documentElement.scrollTop;
-    let target = element.offsetTop;
-    let header = document.getElementById(pageHeaderSelectorId);
-    let duration = 500; // Duration of the scroll in milliseconds
+    const start = window.scrollY || document.documentElement.scrollTop;
+    const target = element.offsetTop;
+    const header = document.getElementById(pageHeaderSelectorId);
+    const duration = 500; // Duration of the scroll in milliseconds
     let startTime = null;
 
     // Easing function for ease-in-out effect
@@ -59,13 +59,13 @@
 
     function scrollStep(timestamp) {
       if (!startTime) startTime = timestamp;
-      let progress = timestamp - startTime;
-      let additionalOffset = header.offsetHeight * offsetHeightFactor;
-      let targetPosition = Math.max(target - additionalOffset, 0);
-      let distance = targetPosition - start;
+      const progress = timestamp - startTime;
+      const additionalOffset = header.offsetHeight * offsetHeightFactor;
+      const targetPosition = Math.max(target - additionalOffset, 0);
+      const distance = targetPosition - start;
 
       // Apply the easing function to the scroll calculation
-      let scrollY = start + distance * easeInOutQuad(progress / duration);
+      const scrollY = start + distance * easeInOutQuad(progress / duration);
 
       window.scrollTo(0, scrollY);
 
@@ -95,7 +95,7 @@
 
   // Apply appropriate scrolling method based on context
   if (isDirectLoadWithHash()) {
-    let targetElement = document.querySelector(window.location.hash);
+    const targetElement = document.querySelector(window.location.hash);
     if (targetElement) {
       window.onload = () => directScrollTo(targetElement);
     }
@@ -105,11 +105,11 @@
     allAnchorLinks.forEach((anchorLink) => {
       anchorLink.addEventListener("click", (event) => {
         event.preventDefault();
-        let href = anchorLink.getAttribute("href");
+        const href = anchorLink.getAttribute("href");
         // Remove the '#' from the href for the name selector
-        let name = href.substring(1);
+        const name = href.substring(1);
         // Try selecting by ID first, then by name
-        let targetElement =
+        const targetElement =
           document.querySelector(href) ||
           document.querySelector(`a[name='${name}']`);
         if (targetElement) {

@@ -12,17 +12,15 @@ use InvalidArgumentException;
  * @copyright Bastian Allgeier GmbH
  * @license   https://opensource.org/licenses/MIT
  */
-class PluginInstaller extends Installer
-{
+class PluginInstaller extends Installer {
     /**
      * Decides if the installer supports the given type
      *
      * @param string $packageType
      * @return bool
      */
-    public function supports($packageType): bool
-    {
-        return $packageType === 'kirby-plugin';
+    public function supports($packageType): bool {
+        return $packageType === "kirby-plugin";
     }
 
     /**
@@ -31,8 +29,7 @@ class PluginInstaller extends Installer
      * @param \Composer\Package\PackageInterface $package
      * @return string path
      */
-    public function getInstallPath(PackageInterface $package): string
-    {
+    public function getInstallPath(PackageInterface $package): string {
         // place into `vendor` directory as usual if Pluginkit is not supported
         if ($this->supportsPluginkit($package) !== true) {
             return parent::getInstallPath($package);
@@ -46,31 +43,35 @@ class PluginInstaller extends Installer
         }
 
         // use base path from configuration, otherwise fall back to default
-        $basePath = $extra['kirby-plugin-path'] ?? 'site/plugins';
+        $basePath = $extra["kirby-plugin-path"] ?? "site/plugins";
 
         if (is_string($basePath) !== true) {
-            throw new InvalidArgumentException('Invalid "kirby-plugin-path" option');
+            throw new InvalidArgumentException(
+                'Invalid "kirby-plugin-path" option',
+            );
         }
 
         // determine the plugin name from its package name;
         // can be overridden in the plugin's `composer.json`
         $prettyName = $package->getPrettyName();
         $pluginExtra = $package->getExtra();
-        if (empty($pluginExtra['installer-name']) === false) {
-            $name = $pluginExtra['installer-name'];
+        if (empty($pluginExtra["installer-name"]) === false) {
+            $name = $pluginExtra["installer-name"];
 
             if (is_string($name) !== true) {
-                throw new InvalidArgumentException('Invalid "installer-name" option in plugin ' . $prettyName);
+                throw new InvalidArgumentException(
+                    'Invalid "installer-name" option in plugin ' . $prettyName,
+                );
             }
-        } elseif (strpos($prettyName, '/') !== false) {
+        } elseif (strpos($prettyName, "/") !== false) {
             // use name after the slash
-            $name = explode('/', $prettyName)[1];
+            $name = explode("/", $prettyName)[1];
         } else {
             $name = $prettyName;
         }
 
         // build destination path from base path and plugin name
-        return $basePath . '/' . $name;
+        return $basePath . "/" . $name;
     }
 
     /**
@@ -80,8 +81,7 @@ class PluginInstaller extends Installer
      * @param \Composer\Package\PackageInterface $package
      * @return void
      */
-    protected function postInstall(PackageInterface $package): void
-    {
+    protected function postInstall(PackageInterface $package): void {
         // only continue if Pluginkit is supported
         if ($this->supportsPluginkit($package) !== true) {
             return;
@@ -98,10 +98,9 @@ class PluginInstaller extends Installer
      * @param \Composer\Package\PackageInterface $package
      * @return bool
      */
-    protected function supportsPluginkit(PackageInterface $package): bool
-    {
+    protected function supportsPluginkit(PackageInterface $package): bool {
         foreach ($package->getRequires() as $link) {
-            if ($link->getTarget() === 'getkirby/composer-installer') {
+            if ($link->getTarget() === "getkirby/composer-installer") {
                 return true;
             }
         }

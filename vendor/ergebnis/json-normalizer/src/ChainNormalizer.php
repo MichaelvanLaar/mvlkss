@@ -15,20 +15,17 @@ namespace Ergebnis\Json\Normalizer;
 
 use Ergebnis\Json\Json;
 
-final class ChainNormalizer implements Normalizer
-{
+final class ChainNormalizer implements Normalizer {
     /**
      * @var array<int, Normalizer>
      */
     private array $normalizers;
 
-    public function __construct(Normalizer ...$normalizers)
-    {
+    public function __construct(Normalizer ...$normalizers) {
         $this->normalizers = \array_values($normalizers);
     }
 
-    public function normalize(Json $json): Json
-    {
+    public function normalize(Json $json): Json {
         return \array_reduce(
             $this->normalizers,
             static function (Json $json, Normalizer $normalizer): Json {

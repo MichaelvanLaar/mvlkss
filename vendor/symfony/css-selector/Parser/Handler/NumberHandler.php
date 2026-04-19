@@ -26,22 +26,19 @@ use Symfony\Component\CssSelector\Parser\TokenStream;
  *
  * @internal
  */
-class NumberHandler implements HandlerInterface
-{
-    public function __construct(
-        private TokenizerPatterns $patterns,
-    ) {
-    }
+class NumberHandler implements HandlerInterface {
+    public function __construct(private TokenizerPatterns $patterns) {}
 
-    public function handle(Reader $reader, TokenStream $stream): bool
-    {
+    public function handle(Reader $reader, TokenStream $stream): bool {
         $match = $reader->findPattern($this->patterns->getNumberPattern());
 
         if (!$match) {
             return false;
         }
 
-        $stream->push(new Token(Token::TYPE_NUMBER, $match[0], $reader->getPosition()));
+        $stream->push(
+            new Token(Token::TYPE_NUMBER, $match[0], $reader->getPosition()),
+        );
         $reader->moveForward(\strlen($match[0]));
 
         return true;

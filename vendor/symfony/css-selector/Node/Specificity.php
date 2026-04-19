@@ -23,8 +23,7 @@ namespace Symfony\Component\CssSelector\Node;
  *
  * @internal
  */
-class Specificity
-{
+class Specificity {
     public const A_FACTOR = 100;
     public const B_FACTOR = 10;
     public const C_FACTOR = 1;
@@ -33,25 +32,27 @@ class Specificity
         private int $a,
         private int $b,
         private int $c,
-    ) {
+    ) {}
+
+    public function plus(self $specificity): self {
+        return new self(
+            $this->a + $specificity->a,
+            $this->b + $specificity->b,
+            $this->c + $specificity->c,
+        );
     }
 
-    public function plus(self $specificity): self
-    {
-        return new self($this->a + $specificity->a, $this->b + $specificity->b, $this->c + $specificity->c);
-    }
-
-    public function getValue(): int
-    {
-        return $this->a * self::A_FACTOR + $this->b * self::B_FACTOR + $this->c * self::C_FACTOR;
+    public function getValue(): int {
+        return $this->a * self::A_FACTOR +
+            $this->b * self::B_FACTOR +
+            $this->c * self::C_FACTOR;
     }
 
     /**
      * Returns -1 if the object specificity is lower than the argument,
      * 0 if they are equal, and 1 if the argument is lower.
      */
-    public function compareTo(self $specificity): int
-    {
+    public function compareTo(self $specificity): int {
         if ($this->a !== $specificity->a) {
             return $this->a > $specificity->a ? 1 : -1;
         }

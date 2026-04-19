@@ -16,8 +16,7 @@ namespace Composer\Semver\Constraint;
  *
  * This constraint matches everything.
  */
-class MatchAllConstraint implements ConstraintInterface
-{
+class MatchAllConstraint implements ConstraintInterface {
     /** @var string|null */
     protected $prettyString;
 
@@ -26,32 +25,28 @@ class MatchAllConstraint implements ConstraintInterface
      *
      * @return bool
      */
-    public function matches(ConstraintInterface $provider)
-    {
+    public function matches(ConstraintInterface $provider) {
         return true;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function compile($otherOperator)
-    {
-        return 'true';
+    public function compile($otherOperator) {
+        return "true";
     }
 
     /**
      * {@inheritDoc}
      */
-    public function setPrettyString($prettyString)
-    {
+    public function setPrettyString($prettyString) {
         $this->prettyString = $prettyString;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getPrettyString()
-    {
+    public function getPrettyString() {
         if ($this->prettyString) {
             return $this->prettyString;
         }
@@ -62,24 +57,21 @@ class MatchAllConstraint implements ConstraintInterface
     /**
      * {@inheritDoc}
      */
-    public function __toString()
-    {
-        return '*';
+    public function __toString() {
+        return "*";
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getUpperBound()
-    {
+    public function getUpperBound() {
         return Bound::positiveInfinity();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getLowerBound()
-    {
+    public function getLowerBound() {
         return Bound::zero();
     }
 }

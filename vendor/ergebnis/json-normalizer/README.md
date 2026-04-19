@@ -69,11 +69,11 @@ $callable = function (Json $json): Json {
     $decoded = $json->decoded();
 
     foreach (get_object_vars($decoded) as $name => $value) {
-        if ('https://localheinz.com' !== $value) {
+        if ("https://localheinz.com" !== $value) {
             continue;
         }
 
-        $decoded->{$name} .= '/open-source/';
+        $decoded->{$name} .= "/open-source/";
     }
 
     return Json::fromString(json_encode($decoded));
@@ -108,16 +108,15 @@ JSON;
 
 $json = Json::fromString($encoded);
 
-$indent = Normalizer\Format\Indent::fromString('  ');
-$jsonEncodeOptions = Normalizer\Format\JsonEncodeOptions::fromInt(JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+$indent = Normalizer\Format\Indent::fromString("  ");
+$jsonEncodeOptions = Normalizer\Format\JsonEncodeOptions::fromInt(
+    JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES,
+);
 
 $normalizer = new Normalizer\ChainNormalizer(
     new Normalizer\JsonEncodeNormalizer($jsonEncodeOptions),
-    new Normalizer\IndentNormalizer(
-        $indent,
-        new Printer\Printer()
-    ),
-    new Normalizer\WithFinalNewLineNormalizer()
+    new Normalizer\IndentNormalizer($indent, new Printer\Printer()),
+    new Normalizer\WithFinalNewLineNormalizer(),
 );
 
 $normalized = $normalizer->normalize($json);
@@ -189,12 +188,9 @@ JSON;
 
 $json = Json::fromString($encoded);
 
-$indent = Normalizer\Format\Indent::fromString('  ');
+$indent = Normalizer\Format\Indent::fromString("  ");
 
-$normalizer = new Normalizer\IndentNormalizer(
-    $indent,
-    new Printer\Printer()
-);
+$normalizer = new Normalizer\IndentNormalizer($indent, new Printer\Printer());
 
 $normalized = $normalizer->normalize($json);
 ```
@@ -222,7 +218,9 @@ JSON;
 
 $json = Json::fromString($encoded);
 
-$jsonEncodeOptions = Normalizer\Format\JsonEncodeOptions::fromInt(JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+$jsonEncodeOptions = Normalizer\Format\JsonEncodeOptions::fromInt(
+    JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE,
+);
 
 $normalizer = new Normalizer\JsonEncodeNormalizer($jsonEncodeOptions);
 
@@ -244,11 +242,11 @@ Let's assume the following schema
     "type": "object",
     "additionalProperties": true,
     "properties": {
-        "name" : {
-            "type" : "string"
+        "name": {
+            "type": "string"
         },
-        "role" : {
-            "type" : "string"
+        "role": {
+            "type": "string"
         }
     }
 }
@@ -290,10 +288,10 @@ JSON;
 $json = Json::fromString($encoded);
 
 $normalizer = new Normalizer\SchemaNormalizer(
-    'file:///schema/example.json',
+    "file:///schema/example.json",
     new SchemaStorage(),
     new SchemaValidator\SchemaValidator(),
-    Pointer\Specification::never()
+    Pointer\Specification::never(),
 );
 
 $normalized = $normalizer->normalize($json);
@@ -337,10 +335,12 @@ JSON;
 $json = Json::fromString($encoded);
 
 $normalizer = new Normalizer\SchemaNormalizer(
-    'file:///schema/example.json',
+    "file:///schema/example.json",
     new SchemaStorage(),
     new SchemaValidator\SchemaValidator(),
-    Pointer\Specification::equals(Pointer\JsonPointer::fromJsonString('/open-source-projects'))
+    Pointer\Specification::equals(
+        Pointer\JsonPointer::fromJsonString("/open-source-projects"),
+    ),
 );
 
 $normalized = $normalizer->normalize($json);
@@ -474,170 +474,170 @@ sections, the `Vendor\Composer\VersionConstraintNormalizer` will ensure that
 
 - all version constraints are trimmed
 
-  ```diff
-   {
-     "homepage": "https://getcomposer.org/doc/articles/versions.md#version-range",
-     "require": {
-  -    "php": " ^8.2 "
-  +    "php": "^8.2"
-   }
-  ```
+    ```diff
+     {
+       "homepage": "https://getcomposer.org/doc/articles/versions.md#version-range",
+       "require": {
+    -    "php": " ^8.2 "
+    +    "php": "^8.2"
+     }
+    ```
 
 - version constraints separated by a space (` `) or comma (`,`) - treated as a logical and - are separated by a space (` `) instead
 
-  ```diff
-   {
-     "homepage": "https://getcomposer.org/doc/articles/versions.md#version-range",
-     "require": {
-  -    "foo/bar": "1.2.3,2.3.4",
-  -    "foo/baz": "2.3.4   3.4.5"
-  +    "foo/bar": "1.2.3 2.3.4",
-  +    "foo/baz": "2.3.4 3.4.5"
-   }
-  ```
+    ```diff
+     {
+       "homepage": "https://getcomposer.org/doc/articles/versions.md#version-range",
+       "require": {
+    -    "foo/bar": "1.2.3,2.3.4",
+    -    "foo/baz": "2.3.4   3.4.5"
+    +    "foo/bar": "1.2.3 2.3.4",
+    +    "foo/baz": "2.3.4 3.4.5"
+     }
+    ```
 
-- version constraints separated by a single- (`|`) or double-pipe (`||`) and any number of spaces before and after - treated as a logical or - are separated by a double pipe with a single space before and after (` || `)
+- version constraints separated by a single- (`|`) or double-pipe (`||`) and any number of spaces before and after - treated as a logical or - are separated by a double pipe with a single space before and after (`||`)
 
-  ```diff
-   {
-     "homepage": "https://getcomposer.org/doc/articles/versions.md#version-range",
-     "require": {
-  -    "php": "^8.1|^8.2",
-  -    "foo/bar": "^1.2.3  ||  ^2.3.4"
-  +    "php": "^8.1 || ^8.2",
-  +    "foo/bar": "^1.2.3 || ^2.3.4"
-   }
-  ```
+    ```diff
+     {
+       "homepage": "https://getcomposer.org/doc/articles/versions.md#version-range",
+       "require": {
+    -    "php": "^8.1|^8.2",
+    -    "foo/bar": "^1.2.3  ||  ^2.3.4"
+    +    "php": "^8.1 || ^8.2",
+    +    "foo/bar": "^1.2.3 || ^2.3.4"
+     }
+    ```
 
-- [hyphenated version ranges](https://getcomposer.org/doc/articles/versions.md#hyphenated-version-range-) separated by dash (` - `) and any positive number of spaces before and after are separated by a dash with a single space before and after (` - `)
+- [hyphenated version ranges](https://getcomposer.org/doc/articles/versions.md#hyphenated-version-range-) separated by dash (`-`) and any positive number of spaces before and after are separated by a dash with a single space before and after (`-`)
 
-  ```diff
-   {
-     "homepage": "https://getcomposer.org/doc/articles/versions.md#hyphenated-version-range-",
-     "require": {
-  -    "foo/bar": "1.2.3  -  2.3.4"
-  +    "foo/bar": "1.2.3 - 2.3.4"
-   }
-  ```
+    ```diff
+     {
+       "homepage": "https://getcomposer.org/doc/articles/versions.md#hyphenated-version-range-",
+       "require": {
+    -    "foo/bar": "1.2.3  -  2.3.4"
+    +    "foo/bar": "1.2.3 - 2.3.4"
+     }
+    ```
 
 - duplicate constraints are removed
 
-  ```diff
-   {
-     "homepage": "https://getcomposer.org/doc/articles/versions.md#version-range",
-     "require": {
-  -    "foo/bar": "^1.0 || ^1.0 || ^2.0"
-  +    "foo/bar": "^1.0 || ^2.0"
-   }
-  ```
+    ```diff
+     {
+       "homepage": "https://getcomposer.org/doc/articles/versions.md#version-range",
+       "require": {
+    -    "foo/bar": "^1.0 || ^1.0 || ^2.0"
+    +    "foo/bar": "^1.0 || ^2.0"
+     }
+    ```
 
 - overlapping constraints are removed
 
-  ```diff
-   {
-     "homepage": "https://getcomposer.org/doc/articles/versions.md#version-range",
-     "require": {
-  -    "foo/bar": "^1.0 || ^1.1 || ^2.0 || ~2.1.0 || 2.4.5"
-  +    "foo/bar": "^1.0 || ^2.0"
-   }
-  ```
+    ```diff
+     {
+       "homepage": "https://getcomposer.org/doc/articles/versions.md#version-range",
+       "require": {
+    -    "foo/bar": "^1.0 || ^1.1 || ^2.0 || ~2.1.0 || 2.4.5"
+    +    "foo/bar": "^1.0 || ^2.0"
+     }
+    ```
 
 - [tilde version ranges (`~`)](https://getcomposer.org/doc/articles/versions.md#tilde-version-range-) are preferred over [wildcard (`*`) version ranges](https://getcomposer.org/doc/articles/versions.md#wildcard-version-range-)
 
-  ```diff
-   {
-     "homepage": "https://getcomposer.org/doc/articles/versions.md#version-range",
-     "require": {
-       "foo/bar": "*",
-  -    "foo/baz": "1.0.*"
-  +    "foo/baz": "~1.0.0"
-   }
-  ```
+    ```diff
+     {
+       "homepage": "https://getcomposer.org/doc/articles/versions.md#version-range",
+       "require": {
+         "foo/bar": "*",
+    -    "foo/baz": "1.0.*"
+    +    "foo/baz": "~1.0.0"
+     }
+    ```
 
 - [caret version ranges (`^`)](https://getcomposer.org/doc/articles/versions.md#caret-version-range-) are preferred over [tilde version ranges (`~`)](https://getcomposer.org/doc/articles/versions.md#tilde-version-range-)
 
-  ```diff
-   {
-     "homepage": "https://getcomposer.org/doc/articles/versions.md#version-range",
-     "require": {
-  -    "foo/bar": "~1",
-  -    "foo/baz": "~1.3"
-  +    "foo/bar": "^1.0",
-  +    "foo/baz": "^1.3"
-   }
-  ```
+    ```diff
+     {
+       "homepage": "https://getcomposer.org/doc/articles/versions.md#version-range",
+       "require": {
+    -    "foo/bar": "~1",
+    -    "foo/baz": "~1.3"
+    +    "foo/bar": "^1.0",
+    +    "foo/baz": "^1.3"
+     }
+    ```
 
 - version numbers are sorted in ascending order
 
-  ```diff
-   {
-     "homepage": "https://getcomposer.org/doc/articles/versions.md#version-range",
-     "require": {
-  -    "foo/bar": "^2.0 || ^1.4"
-  +    "foo/bar": "^1.4 || ^2.0"
-   }
-  ```
+    ```diff
+     {
+       "homepage": "https://getcomposer.org/doc/articles/versions.md#version-range",
+       "require": {
+    -    "foo/bar": "^2.0 || ^1.4"
+    +    "foo/bar": "^1.4 || ^2.0"
+     }
+    ```
 
 - extra spaces in [inline aliases](https://getcomposer.org/doc/articles/aliases.md#require-inline-alias) are removed
 
-  ```diff
-   {
-     "homepage": "https://getcomposer.org/doc/articles/aliases.md#require-inline-alias",
-     "require": {
-  -    "foo/bar": "dev-2.x  as  2.0"
-  +    "foo/bar": "dev-2.x as 2.0"
-   }
-  ```
+    ```diff
+     {
+       "homepage": "https://getcomposer.org/doc/articles/aliases.md#require-inline-alias",
+       "require": {
+    -    "foo/bar": "dev-2.x  as  2.0"
+    +    "foo/bar": "dev-2.x as 2.0"
+     }
+    ```
 
 - useless [inline aliases](https://getcomposer.org/doc/articles/aliases.md#require-inline-alias) are removed
 
-  ```diff
-   {
-     "homepage": "https://getcomposer.org/doc/articles/aliases.md#require-inline-alias",
-     "require": {
-  -    "foo/bar": "2.0 as 2.0"
-  +    "foo/bar": "2.0"
-   }
-  ```
+    ```diff
+     {
+       "homepage": "https://getcomposer.org/doc/articles/aliases.md#require-inline-alias",
+       "require": {
+    -    "foo/bar": "2.0 as 2.0"
+    +    "foo/bar": "2.0"
+     }
+    ```
 
 - leading `v` prefixes in version constraints are removed
 
-  ```diff
-   {
-     "require": {
-  -    "foo/bar": "^v1.2",
-  -    "foo/baz": "v1.3.7"
-  +    "foo/bar": "^1.2",
-  +    "foo/baz": "1.3.7"
-   }
-  ```
+    ```diff
+     {
+       "require": {
+    -    "foo/bar": "^v1.2",
+    -    "foo/baz": "v1.3.7"
+    +    "foo/bar": "^1.2",
+    +    "foo/baz": "1.3.7"
+     }
+    ```
 
 - use of `x` or `X` for wildcards is replaced with `*`
 
-  ```diff
-   {
-     "require": {
-  -    "foo/bar": "1.x",
-  -    "foo/baz": "2.3.X",
-  -    "foo/qux": "x"
-  +    "foo/bar": "^1.0",
-  +    "foo/baz": "~2.3.0",
-  +    "foo/qux": "*"
-   }
-  ```
+    ```diff
+     {
+       "require": {
+    -    "foo/bar": "1.x",
+    -    "foo/baz": "2.3.X",
+    -    "foo/qux": "x"
+    +    "foo/bar": "^1.0",
+    +    "foo/baz": "~2.3.0",
+    +    "foo/qux": "*"
+     }
+    ```
 
 - empty sections (which are defined as optional in the schema) are automatically removed
 
-  ```diff
-   {
-      "require": {
-          "foo/bar": "^2.3.4"
-      }
-  -   "config": {
-  -       "preferred-install": {}
-  -   }
-   }
-  ```
+    ```diff
+     {
+        "require": {
+            "foo/bar": "^2.3.4"
+        }
+    -   "config": {
+    -       "preferred-install": {}
+    -   }
+     }
+    ```
 
 ## Changelog
 

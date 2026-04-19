@@ -31,8 +31,7 @@ namespace PHPMailer\PHPMailer;
  * @author  Peter Scopes (pdscopes)
  * @author  Marcus Bointon (Synchro/coolbru) <phpmailer@synchromedia.co.uk>
  */
-interface OAuthTokenProvider
-{
+interface OAuthTokenProvider {
     /**
      * Generate a base64-encoded OAuth token ensuring that the access token has not expired.
      * The string to be base 64 encoded should be in the form:

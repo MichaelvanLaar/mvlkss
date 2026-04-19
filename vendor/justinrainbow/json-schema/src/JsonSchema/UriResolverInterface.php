@@ -14,8 +14,7 @@ namespace JsonSchema;
 /**
  * @package JsonSchema
  */
-interface UriResolverInterface
-{
+interface UriResolverInterface {
     /**
      * Resolves a URI
      *

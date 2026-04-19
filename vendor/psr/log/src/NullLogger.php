@@ -10,8 +10,7 @@ namespace Psr\Log;
  * is a good way to avoid littering your code with `if ($this->logger) { }`
  * blocks.
  */
-class NullLogger extends AbstractLogger
-{
+class NullLogger extends AbstractLogger {
     /**
      * Logs with an arbitrary level.
      *
@@ -19,8 +18,11 @@ class NullLogger extends AbstractLogger
      *
      * @throws \Psr\Log\InvalidArgumentException
      */
-    public function log($level, string|\Stringable $message, array $context = []): void
-    {
+    public function log(
+        $level,
+        string|\Stringable $message,
+        array $context = [],
+    ): void {
         // noop
     }
 }

@@ -29,13 +29,11 @@ use Symfony\Component\CssSelector\Parser\ParserInterface;
  *
  * @internal
  */
-class EmptyStringParser implements ParserInterface
-{
-    public function parse(string $source): array
-    {
+class EmptyStringParser implements ParserInterface {
+    public function parse(string $source): array {
         // Matches an empty string
-        if ('' == $source) {
-            return [new SelectorNode(new ElementNode(null, '*'))];
+        if ("" == $source) {
+            return [new SelectorNode(new ElementNode(null, "*"))];
         }
 
         return [];

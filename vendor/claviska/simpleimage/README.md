@@ -13,25 +13,25 @@ _If this project has you loving PHP image manipulation again, please consider [s
 ```php
 <?php
 try {
-  // Create a new SimpleImage object
-  $image = new \claviska\SimpleImage();
+    // Create a new SimpleImage object
+    $image = new \claviska\SimpleImage();
 
-  // Magic! ✨
-  $image
-    ->fromFile('image.jpg')                     // load image.jpg
-    ->autoOrient()                              // adjust orientation based on exif data
-    ->resize(320, 200)                          // resize to 320x200 pixels
-    ->flip('x')                                 // flip horizontally
-    ->colorize('DarkBlue')                      // tint dark blue
-    ->border('black', 10)                       // add a 10 pixel black border
-    ->overlay('watermark.png', 'bottom right')  // add a watermark image
-    ->toFile('new-image.png', 'image/png')      // convert to PNG and save a copy to new-image.png
-    ->toScreen();                               // output to the screen
+    // Magic! ✨
+    $image
+        ->fromFile("image.jpg") // load image.jpg
+        ->autoOrient() // adjust orientation based on exif data
+        ->resize(320, 200) // resize to 320x200 pixels
+        ->flip("x") // flip horizontally
+        ->colorize("DarkBlue") // tint dark blue
+        ->border("black", 10) // add a 10 pixel black border
+        ->overlay("watermark.png", "bottom right") // add a watermark image
+        ->toFile("new-image.png", "image/png") // convert to PNG and save a copy to new-image.png
+        ->toScreen(); // output to the screen
 
-  // And much more! 💪
-} catch(Exception $err) {
-  // Handle errors
-  echo $err->getMessage();
+    // And much more! 💪
+} catch (Exception $err) {
+    // Handle errors
+    echo $err->getMessage();
 }
 ```
 
@@ -70,7 +70,7 @@ Or include the library manually:
 
 ```php
 <?php
-require 'src/claviska/SimpleImage.php';
+require "src/claviska/SimpleImage.php";
 ```
 
 ## About
@@ -108,7 +108,7 @@ API tips:
 
 Loads an image from a data URI.
 
-- `$uri`* (string) - A data URI.
+- `$uri`\* (string) - A data URI.
 
 Returns a SimpleImage object.
 
@@ -116,7 +116,7 @@ Returns a SimpleImage object.
 
 Loads an image from a file.
 
-- `$file`* (string) - The image file to load.
+- `$file`\* (string) - The image file to load.
 
 Returns a SimpleImage object.
 
@@ -124,8 +124,8 @@ Returns a SimpleImage object.
 
 Creates a new image.
 
-- `$width`* (int) - The width of the image.
-- `$height`* (int) - The height of the image.
+- `$width`\* (int) - The width of the image.
+- `$height`\* (int) - The height of the image.
 - `$color` (string|array) - Optional fill color for the new image (default 'transparent').
 
 Returns a SimpleImage object.
@@ -134,10 +134,10 @@ Returns a SimpleImage object.
 
 Creates a new image from a string.
 
-- `$string`* (string) - The raw image data as a string. Example:
-  ```
-  $string = file_get_contents('image.jpg');
-  ```
+- `$string`\* (string) - The raw image data as a string. Example:
+    ```
+    $string = file_get_contents('image.jpg');
+    ```
 
 Returns a SimpleImage object.
 
@@ -156,7 +156,7 @@ Returns a string containing a data URI.
 
 Forces the image to be downloaded to the clients machine. Must be called before any output is sent to the screen.
 
-- `$filename`* (string) - The filename (without path) to send to the client (e.g. 'image.jpeg').
+- `$filename`\* (string) - The filename (without path) to send to the client (e.g. 'image.jpeg').
 - `$mimeType` (string) - The image format to output as a mime type (defaults to the original mime type).
 - `$options` (array|int) - Array of options or Image quality as a percentage (default 100).
 
@@ -203,53 +203,53 @@ Returns an array: [mimeType, data]
 Instead of providing the quality as an integer as the last function parameter you can also set various options depending on the targeted Mime type using an associative array.
 
 ```php
-$image->toFile($file, 'image/avif', [
+$image->toFile($file, "image/avif", [
     // JPG, WEBP, AVIF (default 100)
-    'quality' => 100,
+    "quality" => 100,
 
     // AVIF (default -1 which is 6)
     // range of slow and small file 0 to 10 fast but big file
-    'speed' => -1,
+    "speed" => -1,
 ]);
 ```
 
 ```php
-$image->toFile($file, 'image/bmp', [
+$image->toFile($file, "image/bmp", [
     // BMP: boolean (default true)
-    'compression' => true,
+    "compression" => true,
 
     // BMP, JPG (default null, keep the same)
-    'interlace' => null,
+    "interlace" => null,
 ]);
 ```
 
 ```php
-$image->toFile($file, 'image/gif', [
+$image->toFile($file, "image/gif", [
     // GIF, PNG (default true)
-    'alpha' => true,
+    "alpha" => true,
 ]);
 ```
 
 ```php
-$image->toFile($file, 'image/jpeg', [
+$image->toFile($file, "image/jpeg", [
     // BMP, JPG (default null, keep the same)
-    'interlace' => null,
+    "interlace" => null,
 
     // JPG, WEBP, AVIF (default 100)
-    'quality' => 100,
+    "quality" => 100,
 ]);
 ```
 
 ```php
-$image->toFile($file, 'image/png', [
+$image->toFile($file, "image/png", [
     // GIF, PNG (default true)
-    'alpha' => true,
+    "alpha" => true,
 
     // PNG: 0-10, defaults to zlib (default 6)
-    'compression' => -1,
+    "compression" => -1,
 
     // PNG (default -1)
-    'filters' => -1,
+    "filters" => -1,
 
     // has no effect on PNG images, since the format is lossless
     // 'quality' => 100,
@@ -257,9 +257,9 @@ $image->toFile($file, 'image/png', [
 ```
 
 ```php
-$image->toFile($file, 'image/webp', [
+$image->toFile($file, "image/webp", [
     // JPG, WEBP, AVIF (default 100)
-    'quality' => 100,
+    "quality" => 100,
 ]);
 ```
 
@@ -333,8 +333,8 @@ Returns a SimpleImage object.
 
 Proportionally resize the image to fit inside a specific width and height.
 
-- `$maxWidth`* (int) - The maximum width the image can be.
-- `$maxHeight`* (int) - The maximum height the image can be.
+- `$maxWidth`\* (int) - The maximum width the image can be.
+- `$maxHeight`\* (int) - The maximum height the image can be.
 
 Returns a SimpleImage object.
 
@@ -355,17 +355,17 @@ Proportionally resize the image to a specific height.
 
 _This method was deprecated in version 3.2.2 and will be removed in version 4.0. Please use `resize(null, $height)` instead._
 
-- `$height`* (int) - The height to resize the image to.
+- `$height`\* (int) - The height to resize the image to.
 
 Returns a SimpleImage object.
 
-#### `fitToWidth($width)`  (DEPRECATED)
+#### `fitToWidth($width)` (DEPRECATED)
 
 Proportionally resize the image to a specific width.
 
 _This method was deprecated in version 3.2.2 and will be removed in version 4.0. Please use `resize($width, null)` instead._
 
-- `$width`* (int) - The width to resize the image to.
+- `$width`\* (int) - The width to resize the image to.
 
 Returns a SimpleImage object.
 
@@ -373,7 +373,7 @@ Returns a SimpleImage object.
 
 Flip the image horizontally or vertically.
 
-- `$direction`* (string) - The direction to flip: x|y|both
+- `$direction`\* (string) - The direction to flip: x|y|both
 
 Returns a SimpleImage object.
 
@@ -381,7 +381,7 @@ Returns a SimpleImage object.
 
 Reduces the image to a maximum number of colors.
 
-- `$max`* (int) - The maximum number of colors to use.
+- `$max`\* (int) - The maximum number of colors to use.
 - `$dither` (bool) - Whether or not to use a dithering effect (default true).
 
 Returns a SimpleImage object.
@@ -390,7 +390,7 @@ Returns a SimpleImage object.
 
 Place an image on top of the current image.
 
-- `$overlay`* (string|SimpleImage) - The image to overlay. This can be a filename, a data URI, or a SimpleImage object.
+- `$overlay`\* (string|SimpleImage) - The image to overlay. This can be a filename, a data URI, or a SimpleImage object.
 - `$anchor` (string) - The anchor point: 'center', 'top', 'bottom', 'left', 'right', 'top left', 'top right', 'bottom left', 'bottom right' (default 'center')
 - `$opacity` (float) - The opacity level of the overlay 0-1 (default 1).
 - `$xOffset` (int) - Horizontal offset in pixels (default 0).
@@ -403,8 +403,8 @@ Returns a SimpleImage object.
 
 Resize an image to the specified dimensions. If only one dimension is specified, the image will be resized proportionally.
 
-- `$width`* (int) - The new image width.
-- `$height`* (int) - The new image height.
+- `$width`\* (int) - The new image width.
+- `$height`\* (int) - The new image height.
 
 Returns a SimpleImage object.
 
@@ -412,7 +412,7 @@ Returns a SimpleImage object.
 
 Changes the resolution (DPI) of an image.
 
-- `$res_x`* (int) - The horizontal resolution, in DPI.
+- `$res_x`\* (int) - The horizontal resolution, in DPI.
 - `$res_y` (int) - The vertical resolution, in DPI.
 
 Returns a SimpleImage object.
@@ -421,7 +421,7 @@ Returns a SimpleImage object.
 
 Rotates the image.
 
-- `$angle`* (int) - The angle of rotation (-360 - 360).
+- `$angle`\* (int) - The angle of rotation (-360 - 360).
 - `$backgroundColor` (string|array) - The background color to use for the uncovered zone area after rotation (default 'transparent').
 
 Returns a SimpleImage object.
@@ -432,19 +432,19 @@ Adds text to the image.
 
 - `$text*` (string) - The desired text.
 - `$options` (array) - An array of options.
-  - `fontFile`* (string) - The TrueType (or compatible) font file to use.
-  - `size` (int) - The size of the font in pixels (default 12).
-  - `color` (string|array) - The text color (default black).
-  - `anchor` (string) - The anchor point: 'center', 'top', 'bottom', 'left', 'right',
-    'top left', 'top right', 'bottom left', 'bottom right' (default 'center').
-  - `xOffset` (int) - The horizontal offset in pixels (default 0).
-  - `yOffset` (int) - The vertical offset in pixels (default 0).
-  - `shadow` (array) - Text shadow params.
-      - `x`* (int) - Horizontal offset in pixels.
-      - `y`* (int) - Vertical offset in pixels.
-      - `color`* (string|array) - The text shadow color.
-  - `calculateOffsetFromEdge` (bool) - Calculate Offset referring to the edges of the image (default false).
-  - `baselineAlign` (bool) - Align the text font with the baseline. (default true).
+    - `fontFile`\* (string) - The TrueType (or compatible) font file to use.
+    - `size` (int) - The size of the font in pixels (default 12).
+    - `color` (string|array) - The text color (default black).
+    - `anchor` (string) - The anchor point: 'center', 'top', 'bottom', 'left', 'right',
+      'top left', 'top right', 'bottom left', 'bottom right' (default 'center').
+    - `xOffset` (int) - The horizontal offset in pixels (default 0).
+    - `yOffset` (int) - The vertical offset in pixels (default 0).
+    - `shadow` (array) - Text shadow params.
+        - `x`\* (int) - Horizontal offset in pixels.
+        - `y`\* (int) - Vertical offset in pixels.
+        - `color`\* (string|array) - The text shadow color.
+    - `calculateOffsetFromEdge` (bool) - Calculate Offset referring to the edges of the image (default false).
+    - `baselineAlign` (bool) - Align the text font with the baseline. (default true).
 - `$boundary` (array) - If passed, this variable will contain an array with coordinates that
   surround the text: [x1, y1, x2, y2, width, height]. This can be used for calculating the
   text's position after it gets added to the image.
@@ -455,25 +455,25 @@ Returns a SimpleImage object.
 
 Creates a thumbnail image. This function attempts to get the image as close to the provided dimensions as possible, then crops the remaining overflow to force the desired size. Useful for generating thumbnail images.
 
-- `$width`* (int) - The thumbnail width.
-- `$height`* (int) - The thumbnail height.
+- `$width`\* (int) - The thumbnail width.
+- `$height`\* (int) - The thumbnail height.
 - `$anchor` (string) - The anchor point: 'center', 'top', 'bottom', 'left', 'right', 'top left', 'top right', 'bottom left', 'bottom right' (default 'center').
 
 Returns a SimpleImage object.
 
-###  Drawing
+### Drawing
 
 #### `arc($x, $y, $width, $height, $start, $end, $color, $thickness)`
 
 Draws an arc.
 
-- `$x`* (int) - The x coordinate of the arc's center.
-- `$y`* (int) - The y coordinate of the arc's center.
-- `$width`* (int) - The width of the arc.
-- `$height`* (int) - The height of the arc.
-- `$start`* (int) - The start of the arc in degrees.
-- `$end`* (int) - The end of the arc in degrees.
-- `$color`* (string|array) - The arc color.
+- `$x`\* (int) - The x coordinate of the arc's center.
+- `$y`\* (int) - The y coordinate of the arc's center.
+- `$width`\* (int) - The width of the arc.
+- `$height`\* (int) - The height of the arc.
+- `$start`\* (int) - The start of the arc in degrees.
+- `$end`\* (int) - The end of the arc in degrees.
+- `$color`\* (string|array) - The arc color.
 - `$thickness` (int|string) - Line thickness in pixels or 'filled' (default 1).
 
 Returns a SimpleImage object.
@@ -482,7 +482,7 @@ Returns a SimpleImage object.
 
 Draws a border around the image.
 
-- `$color`* (string|array) - The border color.
+- `$color`\* (string|array) - The border color.
 - `$thickness` (int) - The thickness of the border (default 1).
 
 Returns a SimpleImage object.
@@ -491,9 +491,9 @@ Returns a SimpleImage object.
 
 Draws a single pixel dot.
 
-- `$x`* (int) - The x coordinate of the dot.
-- `$y`* (int) - The y coordinate of the dot.
-- `$color`* (string|array) - The dot color.
+- `$x`\* (int) - The x coordinate of the dot.
+- `$y`\* (int) - The y coordinate of the dot.
+- `$color`\* (string|array) - The dot color.
 
 Returns a SimpleImage object.
 
@@ -501,11 +501,11 @@ Returns a SimpleImage object.
 
 Draws an ellipse.
 
-- `$x`* (int) - The x coordinate of the center.
-- `$y`* (int) - The y coordinate of the center.
-- `$width`* (int) - The ellipse width.
-- `$height`* (int) - The ellipse height.
-- `$color`* (string|array) - The ellipse color.
+- `$x`\* (int) - The x coordinate of the center.
+- `$y`\* (int) - The y coordinate of the center.
+- `$width`\* (int) - The ellipse width.
+- `$height`\* (int) - The ellipse height.
+- `$color`\* (string|array) - The ellipse color.
 - `$thickness` (int|string) - Line thickness in pixels or 'filled' (default 1).
 
 Returns a SimpleImage object.
@@ -522,10 +522,10 @@ Returns a SimpleImage object.
 
 Draws a line.
 
-- `$x1`* (int) - The x coordinate for the first point.
-- `$y1`* (int) - The y coordinate for the first point.
-- `$x2`* (int) - The x coordinate for the second point.
-- `$y2`* (int) - The y coordinate for the second point.
+- `$x1`\* (int) - The x coordinate for the first point.
+- `$y1`\* (int) - The y coordinate for the first point.
+- `$x2`\* (int) - The x coordinate for the second point.
+- `$y2`\* (int) - The y coordinate for the second point.
 - `$color` (string|array) - The line color.
 - `$thickness` (int) - The line thickness (default 1).
 
@@ -535,15 +535,15 @@ Returns a SimpleImage object.
 
 Draws a polygon.
 
-- `$vertices`* (array) - The polygon's vertices in an array of x/y arrays. Example:
-  ```
-  [
-    ['x' => x1, 'y' => y1],
-    ['x' => x2, 'y' => y2],
-    ['x' => xN, 'y' => yN]
-  ]
-  ```
-- `$color`* (string|array) - The polygon color.
+- `$vertices`\* (array) - The polygon's vertices in an array of x/y arrays. Example:
+    ```
+    [
+      ['x' => x1, 'y' => y1],
+      ['x' => x2, 'y' => y2],
+      ['x' => xN, 'y' => yN]
+    ]
+    ```
+- `$color`\* (string|array) - The polygon color.
 - `$thickness` (int|string) - Line thickness in pixels or 'filled' (default 1).
 
 Returns a SimpleImage object.
@@ -552,11 +552,11 @@ Returns a SimpleImage object.
 
 Draws a rectangle.
 
-- `$x1`* (int) - The upper left x coordinate.
-- `$y1`* (int) - The upper left y coordinate.
-- `$x2`* (int) - The bottom right x coordinate.
-- `$y2`* (int) - The bottom right y coordinate.
-- `$color`* (string|array) - The rectangle color.
+- `$x1`\* (int) - The upper left x coordinate.
+- `$y1`\* (int) - The upper left y coordinate.
+- `$x2`\* (int) - The bottom right x coordinate.
+- `$y2`\* (int) - The bottom right y coordinate.
+- `$color`\* (string|array) - The rectangle color.
 - `$thickness` (int|string) - Line thickness in pixels or 'filled' (default 1).
 
 Returns a SimpleImage object.
@@ -565,12 +565,12 @@ Returns a SimpleImage object.
 
 Draws a rounded rectangle.
 
-- `$x1`* (int) - The upper left x coordinate.
-- `$y1`* (int) - The upper left y coordinate.
-- `$x2`* (int) - The bottom right x coordinate.
-- `$y2`* (int) - The bottom right y coordinate.
-- `$radius`* (int) - The border radius in pixels.
-- `$color`* (string|array) - The rectangle color.
+- `$x1`\* (int) - The upper left x coordinate.
+- `$y1`\* (int) - The upper left y coordinate.
+- `$x2`\* (int) - The bottom right x coordinate.
+- `$y2`\* (int) - The bottom right y coordinate.
+- `$radius`\* (int) - The border radius in pixels.
+- `$color`\* (string|array) - The rectangle color.
 - `$thickness` (int|string) - Line thickness in pixels or 'filled' (default 1).
 
 Returns a SimpleImage object.
@@ -590,7 +590,7 @@ Returns a SimpleImage object.
 
 Applies the brightness filter to brighten the image.
 
-- `$percentage`* (int) - Percentage to brighten the image (0 - 100).
+- `$percentage`\* (int) - Percentage to brighten the image (0 - 100).
 
 Returns a SimpleImage object.
 
@@ -598,7 +598,7 @@ Returns a SimpleImage object.
 
 Applies the colorize filter.
 
-- `$color`* (string|array) - The filter color.
+- `$color`\* (string|array) - The filter color.
 
 Returns a SimpleImage object.
 
@@ -606,7 +606,7 @@ Returns a SimpleImage object.
 
 Applies the contrast filter.
 
-- `$percentage`* (int) - Percentage to adjust (-100 - 100).
+- `$percentage`\* (int) - Percentage to adjust (-100 - 100).
 
 Returns a SimpleImage object.
 
@@ -614,7 +614,7 @@ Returns a SimpleImage object.
 
 Applies the brightness filter to darken the image.
 
-- `$percentage`* (int) - Percentage to darken the image (0 - 100).
+- `$percentage`\* (int) - Percentage to darken the image (0 - 100).
 
 Returns a SimpleImage object.
 
@@ -628,8 +628,8 @@ Returns a SimpleImage object.
 
 Applies the duotone filter to the image.
 
-- `$lightColor`* (string|array) - The lightest color in the duotone.
-- `$darkColor`* (string|array) - The darkest color in the duotone.
+- `$lightColor`\* (string|array) - The lightest color in the duotone.
+- `$darkColor`\* (string|array) - The darkest color in the duotone.
 
 Returns a SimpleImage object.
 
@@ -655,7 +655,7 @@ Returns a SimpleImage object.
 
 Changes the image's opacity level.
 
-- `$opacity`* (float) - The desired opacity level (0 - 1).
+- `$opacity`\* (float) - The desired opacity level (0 - 1).
 
 Returns a SimpleImage object.
 
@@ -693,11 +693,11 @@ Returns a SimpleImage object.
 
 Adjusts a color by increasing/decreasing red/green/blue/alpha values independently.
 
-- `$color`* (string|array) - The color to adjust.
-- `$red`* (int) - Red adjustment (-255 - 255).
-- `$green`* (int) - Green adjustment (-255 - 255).
-- `$blue`* (int) - Blue adjustment (-255 - 255).
-- `$alpha`* (float) - Alpha adjustment (-1 - 1).
+- `$color`\* (string|array) - The color to adjust.
+- `$red`\* (int) - Red adjustment (-255 - 255).
+- `$green`\* (int) - Green adjustment (-255 - 255).
+- `$blue`\* (int) - Blue adjustment (-255 - 255).
+- `$alpha`\* (float) - Alpha adjustment (-1 - 1).
 
 Returns an RGBA color array.
 
@@ -705,8 +705,8 @@ Returns an RGBA color array.
 
 Darkens a color.
 
-- `$color`* (string|array) - The color to darken.
-- `$amount`* (int) - Amount to darken (0 - 255).
+- `$color`\* (string|array) - The color to darken.
+- `$amount`\* (int) - Amount to darken (0 - 255).
 
 Returns an RGBA color array.
 
@@ -723,8 +723,8 @@ Returns an array of RGBA colors arrays.
 
 Gets the RGBA value of a single pixel.
 
-- `$x`* (int) - The horizontal position of the pixel.
-- `$y`* (int) - The vertical position of the pixel.
+- `$x`\* (int) - The horizontal position of the pixel.
+- `$y`\* (int) - The vertical position of the pixel.
 
 Returns an RGBA color array or false if the x/y position is off the canvas.
 
@@ -732,8 +732,8 @@ Returns an RGBA color array or false if the x/y position is off the canvas.
 
 Lightens a color.
 
-- `$color`* (string|array) - The color to lighten.
-- `$amount`* (int) - Amount to darken (0 - 255).
+- `$color`\* (string|array) - The color to lighten.
+- `$amount`\* (int) - Amount to darken (0 - 255).
 
 Returns an RGBA color array.
 
@@ -741,12 +741,12 @@ Returns an RGBA color array.
 
 Normalizes a hex or array color value to a well-formatted RGBA array.
 
-- `$color`* (string|array) - A CSS color name, hex string, or an array [red, green, blue, alpha].
+- `$color`\* (string|array) - A CSS color name, hex string, or an array [red, green, blue, alpha].
 
 You can pipe alpha transparency through hex strings and color names. For example:
 
-  #fff|0.50 <-- 50% white
-  red|0.25 <-- 25% red
+#fff|0.50 <-- 50% white
+red|0.25 <-- 25% red
 
 Returns an array: [red, green, blue, alpha]
 
@@ -806,25 +806,27 @@ As a best practice, always use the defined constants instead of their integers v
 Tweak the behavior of a SimpleImage instance by setting instance flag values with the `setFlag($key, $value)` method.
 
 ```php
-$image = new \claviska\SimpleImage('image.jpeg')->setFlag("foo", "bar");
+$image = (new \claviska\SimpleImage("image.jpeg"))->setFlag("foo", "bar");
 ```
 
 You can also pass an associative array to the SimpleImage constructor to set instance flags.
 
 ```php
-$image = new \claviska\SimpleImage('image.jpeg', ['foo' => 'bar']);
+$image = new \claviska\SimpleImage("image.jpeg", ["foo" => "bar"]);
 // .. or without an $image
-$image = new \claviska\SimpleImage(flags: ['foo' => 'bar']);
+$image = new \claviska\SimpleImage(flags: ["foo" => "bar"]);
 ```
 
-*Note: `setFlag()` throws an `ERR_INVALID_FLAG` exception if the key does not exist (no default value).*
+_Note: `setFlag()` throws an `ERR_INVALID_FLAG` exception if the key does not exist (no default value)._
 
 #### `sslVerify`
 
 Setting `sslVerify` to `false` (defaults to `true`) will make all images loaded over HTTPS forgo certificate peer validation. This is especially usefull for self-signed certificates.
 
 ```php
-$image = new \claviska\SimpleImage('https://localhost/image.jpeg', ['sslVerify' => false]);
+$image = new \claviska\SimpleImage("https://localhost/image.jpeg", [
+    "sslVerify" => false,
+]);
 // Would normally throw an OpenSSL exception, but is ignored with the sslVerify flag set to false.
 ```
 

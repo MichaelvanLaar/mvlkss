@@ -233,7 +233,7 @@ For a full diff see [`1.0.3...2.0.0`][1.0.3...2.0.0].
 - Renamed `Format::__toString()`, `Indent::__toString()`, and `Json::__toString()` to `Format::toString()`, `Indent::toString()`, and `Json::toString()`, requiring consumers to explicitly invoke methods instead of allowing to cast to `string` ([#589]), by [@localheinz]
 - Started using the `SchemaValidator` provided by `ergebnis/json-schema-validator` ([#595]), by [@localheinz]
 - Renamed `Format\JsonEncodeOptions::value()` to `Format\JsonEncodeOptions::toInt()` ([#603]), by [@localheinz]
-- Extracted `Format\Format::create()` as named constructor and reduced visibility of `__construct`  to `private` ([#608]), by [@localheinz]
+- Extracted `Format\Format::create()` as named constructor and reduced visibility of `__construct` to `private` ([#608]), by [@localheinz]
 - Stopped composing `Format\Format` into `Json` ([#616]), by [@localheinz]
 - Renamed `FinalNewLineNormalizer` to `WithFinalNewLineNormalizer` ([#618]), by [@localheinz]
 - Renamed `NoFinalNewLineNormalizer` to `WithoutFinalNewLineNormalizer` ([#619]), by [@localheinz]
@@ -360,35 +360,35 @@ For a full diff see [`0.9.0...0.10.0`][0.9.0...0.10.0].
 - Started using `ergebnis/json-printer` instead of `localheinz/json-printer` ([#176]), by [@localheinz]
 - Renamed vendor namespace `Localheinz` to `Ergebnis` after move to [@ergebnis] ([#181]), by [@localheinz]
 
-  Run
+    Run
 
-  ```
-  $ composer remove localheinz/json-normalizer
-  ```
+    ```
+    $ composer remove localheinz/json-normalizer
+    ```
 
-  and
+    and
 
-  ```
-  $ composer require ergebnis/json-normalizer
-  ```
+    ```
+    $ composer require ergebnis/json-normalizer
+    ```
 
-  to update.
+    to update.
 
-  Run
+    Run
 
-  ```
-  $ find . -type f -exec sed -i '.bak' 's/Localheinz\\Json\\Normalizer/Ergebnis\\Json\\Normalizer/g' {} \;
-  ```
+    ```
+    $ find . -type f -exec sed -i '.bak' 's/Localheinz\\Json\\Normalizer/Ergebnis\\Json\\Normalizer/g' {} \;
+    ```
 
-  to replace occurrences of `Localheinz\Json\Normalizer` with `Ergebnis\Json\Normalizer`.
+    to replace occurrences of `Localheinz\Json\Normalizer` with `Ergebnis\Json\Normalizer`.
 
-  Run
+    Run
 
-  ```
-  $ find -type f -name '*.bak' -delete
-  ```
+    ```
+    $ find -type f -name '*.bak' -delete
+    ```
 
-  to delete backup files created in the previous step.
+    to delete backup files created in the previous step.
 
 ### Fixed
 
@@ -431,7 +431,7 @@ For a full diff see [`0.7.0...0.8.0`][0.7.0...0.8.0].
 ### Fixed
 
 - `ExceptionInterface` now extends `Throwable` ([#82]), by [@BackEndTea]
-- Extension `ext/json` is now explicitly required  ([#84]), by [@localheinz]
+- Extension `ext/json` is now explicitly required ([#84]), by [@localheinz]
 
 ## [`0.7.0`][0.7.0]
 
@@ -578,7 +578,6 @@ For a full diff see [`5d8b3e2...0.1.0`][5d8b3e2...0.1.0].
 [4.9.0]: https://github.com/ergebnis/json-normalizer/releases/tag/4.9.0
 [4.10.0]: https://github.com/ergebnis/json-normalizer/releases/tag/4.10.0
 [4.10.1]: https://github.com/ergebnis/json-normalizer/releases/tag/4.10.1
-
 [5d8b3e2...0.1.0]: https://github.com/ergebnis/json-normalizer/compare/5d8b3e2...0.1.0
 [0.1.0...0.2.0]: https://github.com/ergebnis/json-normalizer/compare/0.1.0...0.2.0
 [0.2.0...0.3.0]: https://github.com/ergebnis/json-normalizer/compare/0.2.0...0.3.0
@@ -622,7 +621,6 @@ For a full diff see [`5d8b3e2...0.1.0`][5d8b3e2...0.1.0].
 [4.9.0...4.10.0]: https://github.com/ergebnis/json-normalizer/compare/4.9.0...4.10.0
 [4.10.0...4.10.1]: https://github.com/ergebnis/json-normalizer/compare/4.10.0...4.10.1
 [4.10.1...main]: https://github.com/ergebnis/json-normalizer/compare/4.10.1...main
-
 [#1]: https://github.com/ergebnis/json-normalizer/pull/1
 [#2]: https://github.com/ergebnis/json-normalizer/pull/2
 [#3]: https://github.com/ergebnis/json-normalizer/pull/3
@@ -770,7 +768,6 @@ For a full diff see [`5d8b3e2...0.1.0`][5d8b3e2...0.1.0].
 [#1198]: https://github.com/ergebnis/json-normalizer/pull/1198
 [#1225]: https://github.com/ergebnis/json-normalizer/pull/1225
 [#1226]: https://github.com/ergebnis/json-normalizer/pull/1226
-
 [@alexis-saransig-lullabot]: https://github.com/alexis-saransig-lullabot
 [@BackEndTea]: https://github.com/BackEndTea
 [@dependabot]: https://github.com/dependabot

@@ -16,8 +16,7 @@ namespace Ergebnis\Json\SchemaValidator;
 /**
  * @psalm-immutable
  */
-final class ValidationResult
-{
+final class ValidationResult {
     /**
      * @psalm-var list<ValidationError>
      *
@@ -25,18 +24,15 @@ final class ValidationResult
      */
     private array $errors;
 
-    private function __construct(ValidationError ...$errors)
-    {
+    private function __construct(ValidationError ...$errors) {
         $this->errors = \array_values($errors);
     }
 
-    public static function create(ValidationError ...$errors): self
-    {
+    public static function create(ValidationError ...$errors): self {
         return new self(...$errors);
     }
 
-    public function isValid(): bool
-    {
+    public function isValid(): bool {
         return [] === $this->errors;
     }
 
@@ -45,8 +41,7 @@ final class ValidationResult
      *
      * @return array<int, ValidationError>
      */
-    public function errors(): array
-    {
+    public function errors(): array {
         return $this->errors;
     }
 }

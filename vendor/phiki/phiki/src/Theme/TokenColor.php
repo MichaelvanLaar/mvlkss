@@ -2,8 +2,7 @@
 
 namespace Phiki\Theme;
 
-class TokenColor
-{
+class TokenColor {
     public function __construct(
         public array $scopes,
         public TokenSettings $settings,

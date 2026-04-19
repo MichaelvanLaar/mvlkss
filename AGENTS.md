@@ -1,11 +1,11 @@
 # Project: mvlkss
 
-Kirby CMS website (PHP 8.1+, flat-file) with Tailwind CSS 4.x and Webpack.
+Kirby CMS website (PHP 8.2+, flat-file) with Tailwind CSS 4.x and Webpack.
 No database. Content stored as text files in `/content/`.
 
 ## Stack
 
-Kirby 5.x, PHP 8.1+, Tailwind CSS 4.x, PostCSS, Webpack, Babel, npm scripts, Caddy/Apache.
+Kirby 5.x, PHP 8.2+, Tailwind CSS 4.x, PostCSS, Webpack, Babel, npm scripts, Caddy/Apache.
 
 ## Architecture
 

@@ -13,24 +13,21 @@ declare(strict_types=1);
 
 namespace Ergebnis\Json\Normalizer\Exception;
 
-final class SchemaUriCouldNotBeResolved extends \RuntimeException implements Exception
-{
-    private string $schemaUri = '';
+final class SchemaUriCouldNotBeResolved extends \RuntimeException implements
+    Exception {
+    private string $schemaUri = "";
 
-    public static function fromSchemaUri(string $schemaUri): self
-    {
-        $exception = new self(\sprintf(
-            'Schema URI "%s" could not be resolved.',
-            $schemaUri,
-        ));
+    public static function fromSchemaUri(string $schemaUri): self {
+        $exception = new self(
+            \sprintf('Schema URI "%s" could not be resolved.', $schemaUri),
+        );
 
         $exception->schemaUri = $schemaUri;
 
         return $exception;
     }
 
-    public function schemaUri(): string
-    {
+    public function schemaUri(): string {
         return $this->schemaUri;
     }
 }

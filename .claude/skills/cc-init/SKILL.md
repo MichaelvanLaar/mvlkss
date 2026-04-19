@@ -45,17 +45,17 @@ Always include `permissions.deny` for sensitive files. Adapt the patterns to wha
 
 ```json
 {
-  "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "permissions": {
-    "deny": [
-      "Read(./.env)",
-      "Read(./.env.*)",
-      "Read(./secrets/**)",
-      "Bash(curl:*)",
-      "Bash(wget:*)",
-      "Bash(rm -rf:*)"
-    ]
-  }
+    "$schema": "https://json.schemastore.org/claude-code-settings.json",
+    "permissions": {
+        "deny": [
+            "Read(./.env)",
+            "Read(./.env.*)",
+            "Read(./secrets/**)",
+            "Bash(curl:*)",
+            "Bash(wget:*)",
+            "Bash(rm -rf:*)"
+        ]
+    }
 }
 ```
 
@@ -72,19 +72,19 @@ If you identified a formatter in Step 1, add a PostToolUse hook:
 
 ```json
 {
-  "hooks": {
-    "PostToolUse": [
-      {
-        "matcher": "Edit|Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "<formatter-command> || true"
-          }
+    "hooks": {
+        "PostToolUse": [
+            {
+                "matcher": "Edit|Write",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "<formatter-command> || true"
+                    }
+                ]
+            }
         ]
-      }
-    ]
-  }
+    }
 }
 ```
 
@@ -106,9 +106,9 @@ Always include these cost-optimization defaults:
 
 ```json
 {
-  "env": {
-    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "50"
-  }
+    "env": {
+        "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "50"
+    }
 }
 ```
 
@@ -387,16 +387,16 @@ After creating all files, give the user a concise summary:
 2. Note any TODO placeholders that need filling in once the project takes shape.
 3. Mention what was intentionally left out and why (e.g., "No PostToolUse hook yet because no formatter was detected — add one once you pick a formatter.").
 4. Remind the user of three high-leverage next steps:
-   - Add test/build/lint commands to CLAUDE.md once they exist.
-   - Run `/cc-optimize` after the project has some code to get a project-aware configuration pass.
-   - Consider adding MCP servers to `.mcp.json` as needs arise (Context7 for docs, GitHub for PRs, etc.).
+    - Add test/build/lint commands to CLAUDE.md once they exist.
+    - Run `/cc-optimize` after the project has some code to get a project-aware configuration pass.
+    - Consider adding MCP servers to `.mcp.json` as needs arise (Context7 for docs, GitHub for PRs, etc.).
 5. If the Key Config Files auto-sync was set up (Step 6), remind the user:
-   - The pre-commit hook requires a one-time activation per clone: `git config core.hooksPath .githooks`
-   - This command was already run for the current clone, but collaborators or fresh clones need to run it too.
-   - Suggest documenting it in the project README's setup instructions.
+    - The pre-commit hook requires a one-time activation per clone: `git config core.hooksPath .githooks`
+    - This command was already run for the current clone, but collaborators or fresh clones need to run it too.
+    - Suggest documenting it in the project README's setup instructions.
 6. Explain the Learnings mechanism:
-   - When the user corrects a mistake, Claude appends a one-line summary to `.claude/learnings.md` instead of modifying CLAUDE.md directly.
-   - This file grows uncurated over time. Running `/cc-optimize` reviews it and proposes promoting recurring patterns into CLAUDE.md or skills, and deleting one-off entries.
+    - When the user corrects a mistake, Claude appends a one-line summary to `.claude/learnings.md` instead of modifying CLAUDE.md directly.
+    - This file grows uncurated over time. Running `/cc-optimize` reviews it and proposes promoting recurring patterns into CLAUDE.md or skills, and deleting one-off entries.
 7. Suggest committing the new config files to git.
 
 ## What NOT to do

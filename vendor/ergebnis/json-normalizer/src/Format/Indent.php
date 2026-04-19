@@ -19,24 +19,21 @@ use Ergebnis\Json\Normalizer\Exception;
 /**
  * @psalm-immutable
  */
-final class Indent
-{
+final class Indent {
     public const CHARACTERS = [
-        'space' => ' ',
-        'tab' => "\t",
+        "space" => " ",
+        "tab" => "\t",
     ];
     private string $value;
 
-    private function __construct(string $value)
-    {
+    private function __construct(string $value) {
         $this->value = $value;
     }
 
     /**
      * @throws Exception\InvalidIndentString
      */
-    public static function fromString(string $value): self
-    {
+    public static function fromString(string $value): self {
         if (1 !== \preg_match('/^( *|\t+)$/', $value)) {
             throw Exception\InvalidIndentString::fromString($value);
         }
@@ -48,10 +45,7 @@ final class Indent
      * @throws Exception\InvalidIndentSize
      * @throws Exception\InvalidIndentStyle
      */
-    public static function fromSizeAndStyle(
-        int $size,
-        string $style
-    ): self {
+    public static function fromSizeAndStyle(int $size, string $style): self {
         $minimumSize = 1;
 
         if ($minimumSize > $size) {
@@ -68,28 +62,23 @@ final class Indent
             );
         }
 
-        $value = \str_repeat(
-            self::CHARACTERS[$style],
-            $size,
-        );
+        $value = \str_repeat(self::CHARACTERS[$style], $size);
 
         return new self($value);
     }
 
-    public static function fromJson(Json $json): self
-    {
-        if (1 === \preg_match('/^(?P<indent>( +|\t+)).*/m', $json->encoded(), $match)) {
-            return self::fromString($match['indent']);
+    public static function fromJson(Json $json): self {
+        if (
+            1 ===
+            \preg_match('/^(?P<indent>( +|\t+)).*/m', $json->encoded(), $match)
+        ) {
+            return self::fromString($match["indent"]);
         }
 
-        return self::fromSizeAndStyle(
-            4,
-            'space',
-        );
+        return self::fromSizeAndStyle(4, "space");
     }
 
-    public function toString(): string
-    {
+    public function toString(): string {
         return $this->value;
     }
 }

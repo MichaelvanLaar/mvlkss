@@ -43,31 +43,29 @@ This plugin will add the link to your `sitemap.xml` **automatically** for most a
 The plugin generates automatic defaults optimized for the official [Kirby Starterkit](https://github.com/getkirby/starterkit). You do not have to enter any of them in the config file. But if you would, they would look like this.
 
 **defaults for Kirby Starterkit**
+
 ```php
 <?php
 return [
-    'bnomei.robots-txt.content' => null, // string or callback
-    'bnomei.robots-txt.sitemap' => null, // null (aka. AUTOMATIC) or string or callback
-    'bnomei.robots-txt.groups' => [ // array or callback
-        '*' => [ // user-agent
-            'disallow' => [
-                '/kirby/',
-                '/site/',
-                '/cdn-cgi/',
-            ],
-            'allow' => [
-                '/media/',
-            ]
-        ]
-    ]
+    "bnomei.robots-txt.content" => null, // string or callback
+    "bnomei.robots-txt.sitemap" => null, // null (aka. AUTOMATIC) or string or callback
+    "bnomei.robots-txt.groups" => [
+        // array or callback
+        "*" => [
+            // user-agent
+            "disallow" => ["/kirby/", "/site/", "/cdn-cgi/"],
+            "allow" => ["/media/"],
+        ],
+    ],
 ];
 ```
 
 **using a plain string**
+
 ```php
 <?php
 return [
-    'bnomei.robots-txt.content' => 'user-agent: *
+    "bnomei.robots-txt.content" => 'user-agent: *
 disallow: /kirby/
 disallow: /site/
 disallow: /cdn-cgi/
@@ -76,32 +74,30 @@ allow: /media/',
 ```
 
 **using a callback**
+
 ```php
 <?php
 return [
-    'bnomei.robots-txt.content' => function() {
+    "bnomei.robots-txt.content" => function () {
         return site()->myRobotsTxtContentField()->value();
     },
 ];
 ```
 
 **sitemap and multiple user-agents**
+
 ```php
 <?php
 return [
-    'bnomei.robots-txt.sitemap' => 'sitemap.xml',
-    'bnomei.robots-txt.groups' => [
-        '*' => [
-            'disallow' => [
-                '/',
-            ],
+    "bnomei.robots-txt.sitemap" => "sitemap.xml",
+    "bnomei.robots-txt.groups" => [
+        "*" => [
+            "disallow" => ["/"],
         ],
-        'googlebot-images' => [
-            'allow' => [
-                '/media/',
-            ]
-        ]
-    ]
+        "googlebot-images" => [
+            "allow" => ["/media/"],
+        ],
+    ],
 ];
 ```
 

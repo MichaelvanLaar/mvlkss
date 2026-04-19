@@ -2,8 +2,7 @@
 
 namespace voku\helper;
 
-interface HtmlMinInterface
-{
+interface HtmlMinInterface {
     /**
      * @param string $html
      * @param bool   $decodeUtf8Specials

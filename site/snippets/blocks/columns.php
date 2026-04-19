@@ -59,7 +59,8 @@ foreach ($block->layout()->toLayouts() as $columnLayoutRow): ?>
   // Set the top padding related CSS class for the current column row
   $paddingTopValue = (string) $columnLayoutRow->columnRowPaddingTop();
   if (isset($spacingClasses["padding-top"][$paddingTopValue])) {
-    $columnRowPaddingTopClass = $spacingClasses["padding-top"][$paddingTopValue];
+    $columnRowPaddingTopClass =
+      $spacingClasses["padding-top"][$paddingTopValue];
   } else {
     error_log("columns.php: Unknown padding-top value \"{$paddingTopValue}\"");
     $columnRowPaddingTopClass = "pt-0";
@@ -68,42 +69,58 @@ foreach ($block->layout()->toLayouts() as $columnLayoutRow): ?>
   // Set the bottom padding related CSS class for the current column row
   $paddingBottomValue = (string) $columnLayoutRow->columnRowPaddingBottom();
   if (isset($spacingClasses["padding-bottom"][$paddingBottomValue])) {
-    $columnRowPaddingBottomClass = $spacingClasses["padding-bottom"][$paddingBottomValue];
+    $columnRowPaddingBottomClass =
+      $spacingClasses["padding-bottom"][$paddingBottomValue];
   } else {
-    error_log("columns.php: Unknown padding-bottom value \"{$paddingBottomValue}\"");
+    error_log(
+      "columns.php: Unknown padding-bottom value \"{$paddingBottomValue}\"",
+    );
     $columnRowPaddingBottomClass = "pb-0";
   }
 
   // Set the start padding related CSS class for the current column row
   $paddingStartValue = (string) $columnLayoutRow->columnRowPaddingStart();
   if (isset($spacingClasses["padding-start"][$paddingStartValue])) {
-    $columnRowPaddingStartClass = $spacingClasses["padding-start"][$paddingStartValue];
+    $columnRowPaddingStartClass =
+      $spacingClasses["padding-start"][$paddingStartValue];
   } else {
-    error_log("columns.php: Unknown padding-start value \"{$paddingStartValue}\"");
+    error_log(
+      "columns.php: Unknown padding-start value \"{$paddingStartValue}\"",
+    );
     $columnRowPaddingStartClass = "ps-0";
   }
 
   // Set the end padding related CSS class for the current column row
   $paddingEndValue = (string) $columnLayoutRow->columnRowPaddingEnd();
   if (isset($spacingClasses["padding-end"][$paddingEndValue])) {
-    $columnRowPaddingEndClass = $spacingClasses["padding-end"][$paddingEndValue];
+    $columnRowPaddingEndClass =
+      $spacingClasses["padding-end"][$paddingEndValue];
   } else {
     error_log("columns.php: Unknown padding-end value \"{$paddingEndValue}\"");
     $columnRowPaddingEndClass = "pe-0";
   }
 
   // Set the background color related CSS class for the current column row
-  $columnRowBgColorValue = $columnLayoutRow->columnRowBackgroundColor()->isNotEmpty()
+  $columnRowBgColorValue = $columnLayoutRow
+    ->columnRowBackgroundColor()
+    ->isNotEmpty()
     ? $columnLayoutRow->columnRowBackgroundColor()->value()
     : null;
-  if ($columnRowBgColorValue !== null && isset($selectableBrandColors[$columnRowBgColorValue])) {
+  if (
+    $columnRowBgColorValue !== null &&
+    isset($selectableBrandColors[$columnRowBgColorValue])
+  ) {
     $colorEntry = $selectableBrandColors[$columnRowBgColorValue];
     $columnRowBackgroundColorClasses =
-      $colorEntry["light-tailwindcss-bg-class"] . " " .
-      $colorEntry["dark-tailwindcss-bg-class"] . " print:bg-transparent";
+      $colorEntry["light-tailwindcss-bg-class"] .
+      " " .
+      $colorEntry["dark-tailwindcss-bg-class"] .
+      " print:bg-transparent";
   } else {
     if ($columnRowBgColorValue !== null) {
-      error_log("columns.php: Unknown background color key \"{$columnRowBgColorValue}\"");
+      error_log(
+        "columns.php: Unknown background color key \"{$columnRowBgColorValue}\"",
+      );
     }
     $columnRowBackgroundColorClasses = "";
   }
@@ -121,7 +138,8 @@ foreach ($block->layout()->toLayouts() as $columnLayoutRow): ?>
     $columnRowPaddingEndClass,
     $columnRowBackgroundColorClasses,
   ];
-  $columnRowClassAttribute = "class=\"" . implode(" ", $columnRowClasses) . "\"";
+  $columnRowClassAttribute =
+    "class=\"" . implode(" ", $columnRowClasses) . "\"";
   ?>
 
   <!-- Column Row -->
@@ -136,20 +154,31 @@ foreach ($block->layout()->toLayouts() as $columnLayoutRow): ?>
       $columnClassOutput = "";
       $columnClassOutput .=
         $columnWidthClasses[$columnLayoutColumn->width()] ?? "col-span-full";
-      if ($columnRowBgColorValue !== null && isset($selectableBrandColors[$columnRowBgColorValue])) {
+      if (
+        $columnRowBgColorValue !== null &&
+        isset($selectableBrandColors[$columnRowBgColorValue])
+      ) {
         $colorEntry = $selectableBrandColors[$columnRowBgColorValue];
         $columnInnerContainerClassOutput =
-          " " . $colorEntry["light-contrast-tailwindcss-prose-class"] .
-          " " . $colorEntry["dark-contrast-tailwindcss-prose-class"] .
+          " " .
+          $colorEntry["light-contrast-tailwindcss-prose-class"] .
+          " " .
+          $colorEntry["dark-contrast-tailwindcss-prose-class"] .
           " print:prose-black";
-      } elseif ($layoutRowBackgroundColorExists && isset($selectableBrandColors[$layoutRowBackgroundColorValue])) {
+      } elseif (
+        $layoutRowBackgroundColorExists &&
+        isset($selectableBrandColors[$layoutRowBackgroundColorValue])
+      ) {
         $colorEntry = $selectableBrandColors[$layoutRowBackgroundColorValue];
         $columnInnerContainerClassOutput =
-          " " . $colorEntry["light-contrast-tailwindcss-prose-class"] .
-          " " . $colorEntry["dark-contrast-tailwindcss-prose-class"] .
+          " " .
+          $colorEntry["light-contrast-tailwindcss-prose-class"] .
+          " " .
+          $colorEntry["dark-contrast-tailwindcss-prose-class"] .
           " print:prose-black";
       } else {
-        $columnInnerContainerClassOutput = " prose-mvlkss dark:prose-invert print:prose-black";
+        $columnInnerContainerClassOutput =
+          " prose-mvlkss dark:prose-invert print:prose-black";
       }
       if ($columnLayoutRow->columnRowVerticalAlign()->isNotEmpty()) {
         switch ($columnLayoutRow->columnRowVerticalAlign()->value()) {
@@ -186,26 +215,36 @@ foreach ($block->layout()->toLayouts() as $columnLayoutRow): ?>
                 "block" => $innerBlock,
                 "layoutColumnWidth" => $columnLayoutColumn->width(),
                 "layoutColumnSplitting" => $layoutColumnSplitting ?? null,
-                "layoutRowBackgroundColorExists" =>
-                  $columnLayoutRow->columnRowBackgroundColor()->isNotEmpty(),
-                "layoutRowBackgroundColorValue" =>
-                  $columnLayoutRow->columnRowBackgroundColor()->isNotEmpty()
-                    ? $columnLayoutRow->columnRowBackgroundColor()->value()
-                    : null,
+                "layoutRowBackgroundColorExists" => $columnLayoutRow
+                  ->columnRowBackgroundColor()
+                  ->isNotEmpty(),
+                "layoutRowBackgroundColorValue" => $columnLayoutRow
+                  ->columnRowBackgroundColor()
+                  ->isNotEmpty()
+                  ? $columnLayoutRow->columnRowBackgroundColor()->value()
+                  : null,
               ]);
             } elseif ($innerBlock->type() == "mvlkssbreadcrumb") {
               $colorKey = null;
               if ($columnLayoutRow->columnRowBackgroundColor()->isNotEmpty()) {
-                $colorKey = $columnLayoutRow->columnRowBackgroundColor()->value();
+                $colorKey = $columnLayoutRow
+                  ->columnRowBackgroundColor()
+                  ->value();
               } elseif ($layoutRowBackgroundColorExists) {
                 $colorKey = $layoutRowBackgroundColorValue;
               }
-              $breadcrumbTextColorLight = $colorKey && isset($selectableBrandColors[$colorKey])
-                ? $selectableBrandColors[$colorKey]["light-contrast-tailwindcss-text-class"]
-                : null;
-              $breadcrumbTextColorDark = $colorKey && isset($selectableBrandColors[$colorKey])
-                ? $selectableBrandColors[$colorKey]["dark-contrast-tailwindcss-text-class"]
-                : null;
+              $breadcrumbTextColorLight =
+                $colorKey && isset($selectableBrandColors[$colorKey])
+                  ? $selectableBrandColors[$colorKey][
+                    "light-contrast-tailwindcss-text-class"
+                  ]
+                  : null;
+              $breadcrumbTextColorDark =
+                $colorKey && isset($selectableBrandColors[$colorKey])
+                  ? $selectableBrandColors[$colorKey][
+                    "dark-contrast-tailwindcss-text-class"
+                  ]
+                  : null;
               snippet("blocks/" . $innerBlock->type(), [
                 "block" => $innerBlock,
                 "textColorLight" => $breadcrumbTextColorLight,

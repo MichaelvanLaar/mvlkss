@@ -9,8 +9,7 @@
  */
 namespace Localheinz\Diff;
 
-interface LongestCommonSubsequenceCalculator
-{
+interface LongestCommonSubsequenceCalculator {
     /**
      * Calculates the longest common subsequence of two arrays.
      */

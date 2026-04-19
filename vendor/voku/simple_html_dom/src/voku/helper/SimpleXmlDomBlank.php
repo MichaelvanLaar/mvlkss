@@ -11,8 +11,9 @@ namespace voku\helper;
  *
  * @implements \IteratorAggregate<int, \DOMNode>
  */
-class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggregate, SimpleXmlDomInterface
-{
+class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements
+    \IteratorAggregate,
+    SimpleXmlDomInterface {
     /**
      * @param string $name
      * @param array  $arguments
@@ -21,15 +22,17 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return SimpleXmlDomInterface|string|null
      */
-    public function __call($name, $arguments)
-    {
+    public function __call($name, $arguments) {
         $name = \strtolower($name);
 
         if (isset(self::$functionAliases[$name])) {
-            return \call_user_func_array([$this, self::$functionAliases[$name]], $arguments);
+            return \call_user_func_array(
+                [$this, self::$functionAliases[$name]],
+                $arguments,
+            );
         }
 
-        throw new \BadMethodCallException('Method does not exist');
+        throw new \BadMethodCallException("Method does not exist");
     }
 
     /**
@@ -40,8 +43,7 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return SimpleXmlDomNodeInterface<SimpleXmlDomInterface>
      */
-    public function find(string $selector, $idx = null)
-    {
+    public function find(string $selector, $idx = null) {
         return new SimpleXmlDomNodeBlank();
     }
 
@@ -50,16 +52,14 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return null
      */
-    public function getAllAttributes()
-    {
+    public function getAllAttributes() {
         return null;
     }
 
     /**
      * @return bool
      */
-    public function hasAttributes(): bool
-    {
+    public function hasAttributes(): bool {
         return false;
     }
 
@@ -70,9 +70,8 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return string
      */
-    public function getAttribute(string $name): string
-    {
-        return '';
+    public function getAttribute(string $name): string {
+        return "";
     }
 
     /**
@@ -82,8 +81,7 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return bool
      */
-    public function hasAttribute(string $name): bool
-    {
+    public function hasAttribute(string $name): bool {
         return false;
     }
 
@@ -94,9 +92,8 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return string
      */
-    public function innerXml(bool $multiDecodeNewHtmlEntity = false): string
-    {
-        return '';
+    public function innerXml(bool $multiDecodeNewHtmlEntity = false): string {
+        return "";
     }
 
     /**
@@ -106,8 +103,7 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return SimpleXmlDomInterface
      */
-    public function removeAttribute(string $name): SimpleXmlDomInterface
-    {
+    public function removeAttribute(string $name): SimpleXmlDomInterface {
         return $this;
     }
 
@@ -117,8 +113,10 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return SimpleXmlDomInterface
      */
-    protected function replaceChildWithString(string $string, bool $putBrokenReplacedBack = true): SimpleXmlDomInterface
-    {
+    protected function replaceChildWithString(
+        string $string,
+        bool $putBrokenReplacedBack = true,
+    ): SimpleXmlDomInterface {
         return new static();
     }
 
@@ -127,8 +125,9 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return SimpleXmlDomInterface
      */
-    protected function replaceNodeWithString(string $string): SimpleXmlDomInterface
-    {
+    protected function replaceNodeWithString(
+        string $string,
+    ): SimpleXmlDomInterface {
         return new static();
     }
 
@@ -137,8 +136,7 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return SimpleXmlDomInterface
      */
-    protected function replaceTextWithString($string): SimpleXmlDomInterface
-    {
+    protected function replaceTextWithString($string): SimpleXmlDomInterface {
         return new static();
     }
 
@@ -154,8 +152,11 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return SimpleXmlDomInterface
      */
-    public function setAttribute(string $name, $value = null, bool $strictEmptyValueCheck = false): SimpleXmlDomInterface
-    {
+    public function setAttribute(
+        string $name,
+        $value = null,
+        bool $strictEmptyValueCheck = false,
+    ): SimpleXmlDomInterface {
         return $this;
     }
 
@@ -164,9 +165,8 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return string
      */
-    public function text(): string
-    {
-        return '';
+    public function text(): string {
+        return "";
     }
 
     /**
@@ -176,9 +176,8 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return string
      */
-    public function xml(bool $multiDecodeNewHtmlEntity = false): string
-    {
-        return '';
+    public function xml(bool $multiDecodeNewHtmlEntity = false): string {
+        return "";
     }
 
     /**
@@ -188,8 +187,7 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return null
      */
-    public function childNodes(int $idx = -1)
-    {
+    public function childNodes(int $idx = -1) {
         return null;
     }
 
@@ -200,8 +198,7 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return SimpleXmlDomNodeInterface<SimpleXmlDomInterface>
      */
-    public function findMulti(string $selector): SimpleXmlDomNodeInterface
-    {
+    public function findMulti(string $selector): SimpleXmlDomNodeInterface {
         return new SimpleXmlDomNodeBlank();
     }
 
@@ -212,8 +209,7 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return false
      */
-    public function findMultiOrFalse(string $selector)
-    {
+    public function findMultiOrFalse(string $selector) {
         return false;
     }
 
@@ -224,8 +220,7 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return SimpleXmlDomInterface
      */
-    public function findOne(string $selector): SimpleXmlDomInterface
-    {
+    public function findOne(string $selector): SimpleXmlDomInterface {
         return new static();
     }
 
@@ -236,8 +231,7 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return false
      */
-    public function findOneOrFalse(string $selector)
-    {
+    public function findOneOrFalse(string $selector) {
         return false;
     }
 
@@ -246,8 +240,7 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return null
      */
-    public function firstChild()
-    {
+    public function firstChild() {
         return null;
     }
 
@@ -258,8 +251,9 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return SimpleXmlDomNodeInterface<SimpleXmlDomInterface>
      */
-    public function getElementByClass(string $class): SimpleXmlDomNodeInterface
-    {
+    public function getElementByClass(
+        string $class,
+    ): SimpleXmlDomNodeInterface {
         return new SimpleXmlDomNodeBlank();
     }
 
@@ -270,8 +264,7 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return SimpleXmlDomInterface
      */
-    public function getElementById(string $id): SimpleXmlDomInterface
-    {
+    public function getElementById(string $id): SimpleXmlDomInterface {
         return new static();
     }
 
@@ -282,8 +275,7 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return SimpleXmlDomInterface
      */
-    public function getElementByTagName(string $name): SimpleXmlDomInterface
-    {
+    public function getElementByTagName(string $name): SimpleXmlDomInterface {
         return new static();
     }
 
@@ -295,8 +287,7 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return SimpleXmlDomNodeInterface<SimpleXmlDomInterface>
      */
-    public function getElementsById(string $id, $idx = null)
-    {
+    public function getElementsById(string $id, $idx = null) {
         return new SimpleXmlDomNodeBlank();
     }
 
@@ -308,16 +299,14 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return SimpleXmlDomNodeInterface<SimpleXmlDomInterface>
      */
-    public function getElementsByTagName(string $name, $idx = null)
-    {
+    public function getElementsByTagName(string $name, $idx = null) {
         return new SimpleXmlDomNodeBlank();
     }
 
     /**
      * @return \DOMNode
      */
-    public function getNode(): \DOMNode
-    {
+    public function getNode(): \DOMNode {
         return new \DOMNode();
     }
 
@@ -326,8 +315,7 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return XmlDomParser
      */
-    public function getXmlDomParser(): XmlDomParser
-    {
+    public function getXmlDomParser(): XmlDomParser {
         return new XmlDomParser($this);
     }
 
@@ -339,9 +327,11 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return string
      */
-    public function innerHtml(bool $multiDecodeNewHtmlEntity = false, bool $putBrokenReplacedBack = true): string
-    {
-        return '';
+    public function innerHtml(
+        bool $multiDecodeNewHtmlEntity = false,
+        bool $putBrokenReplacedBack = true,
+    ): string {
+        return "";
     }
 
     /**
@@ -351,8 +341,7 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return bool true if node has been destroyed
      */
-    public function isRemoved(): bool
-    {
+    public function isRemoved(): bool {
         return true;
     }
 
@@ -361,8 +350,7 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return null
      */
-    public function lastChild()
-    {
+    public function lastChild() {
         return null;
     }
 
@@ -371,8 +359,7 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return null
      */
-    public function nextSibling()
-    {
+    public function nextSibling() {
         return null;
     }
 
@@ -381,8 +368,7 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return null
      */
-    public function nextNonWhitespaceSibling()
-    {
+    public function nextNonWhitespaceSibling() {
         return null;
     }
 
@@ -391,8 +377,7 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return SimpleXmlDomInterface
      */
-    public function parentNode(): SimpleXmlDomInterface
-    {
+    public function parentNode(): SimpleXmlDomInterface {
         return new static();
     }
 
@@ -401,8 +386,7 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return null
      */
-    public function previousSibling()
-    {
+    public function previousSibling() {
         return null;
     }
 
@@ -411,8 +395,7 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return null
      */
-    public function previousNonWhitespaceSibling()
-    {
+    public function previousNonWhitespaceSibling() {
         return null;
     }
 
@@ -424,8 +407,7 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *
      * @return string|string[]|null
      */
-    public function val($value = null)
-    {
+    public function val($value = null) {
         return null;
     }
 
@@ -440,8 +422,7 @@ class SimpleXmlDomBlank extends AbstractSimpleXmlDom implements \IteratorAggrega
      *                              <b>Traversable</b>
      *                           </p>
      */
-    public function getIterator(): SimpleXmlDomNodeInterface
-    {
+    public function getIterator(): SimpleXmlDomNodeInterface {
         return new SimpleXmlDomNodeBlank();
     }
 }

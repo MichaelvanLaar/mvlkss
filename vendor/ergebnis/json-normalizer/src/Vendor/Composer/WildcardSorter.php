@@ -16,8 +16,7 @@ namespace Ergebnis\Json\Normalizer\Vendor\Composer;
 /**
  * @internal
  */
-final class WildcardSorter
-{
+final class WildcardSorter {
     /**
      * When sorting with wildcards, special care needs to be taken.
      *
@@ -30,7 +29,7 @@ final class WildcardSorter
     public function sortPropertyWithWildcard(
         array &$config,
         string $property,
-        bool $sortByKey = true
+        bool $sortByKey = true,
     ): void {
         if (!\array_key_exists($property, $config)) {
             return;
@@ -50,7 +49,7 @@ final class WildcardSorter
 
         foreach ($packages as $package) {
             /** @var string $package */
-            if (false !== \strpos(\rtrim($package, '*'), '*')) {
+            if (false !== \strpos(\rtrim($package, "*"), "*")) {
                 // We cannot reliably sort allow-plugins when there's a wildcard other than at the end of the string.
                 return;
             }
@@ -58,18 +57,13 @@ final class WildcardSorter
 
         $normalize = static function (string $package): string {
             // Any key with an asterisk needs to be the last entry in its group
-            return \str_replace(
-                '*',
-                '~',
-                $package,
-            );
+            return \str_replace("*", "~", $package);
         };
 
-        $callback = static function (string $a, string $b) use ($normalize): int {
-            return \strcmp(
-                $normalize($a),
-                $normalize($b),
-            );
+        $callback = static function (string $a, string $b) use (
+            $normalize,
+        ): int {
+            return \strcmp($normalize($a), $normalize($b));
         };
 
         if ($sortByKey) {

@@ -12,14 +12,13 @@ use Whoops\RunInterface;
 /**
  * Abstract implementation of a Handler.
  */
-abstract class Handler implements HandlerInterface
-{
+abstract class Handler implements HandlerInterface {
     /*
      Return constants that can be returned from Handler::handle
      to message the handler walker.
      */
-    const DONE         = 0x10; // returning this is optional, only exists for
-                               // semantic purposes
+    const DONE = 0x10; // returning this is optional, only exists for
+    // semantic purposes
     /**
      * The Handler has handled the Throwable in some way, and wishes to skip any other Handler.
      * Execution will continue.
@@ -28,7 +27,7 @@ abstract class Handler implements HandlerInterface
     /**
      * The Handler has handled the Throwable in some way, and wishes to quit/stop execution
      */
-    const QUIT         = 0x30;
+    const QUIT = 0x30;
 
     /**
      * @var RunInterface
@@ -48,48 +47,42 @@ abstract class Handler implements HandlerInterface
     /**
      * @param RunInterface $run
      */
-    public function setRun(RunInterface $run)
-    {
+    public function setRun(RunInterface $run) {
         $this->run = $run;
     }
 
     /**
      * @return RunInterface
      */
-    protected function getRun()
-    {
+    protected function getRun() {
         return $this->run;
     }
 
     /**
      * @param InspectorInterface $inspector
      */
-    public function setInspector(InspectorInterface $inspector)
-    {
+    public function setInspector(InspectorInterface $inspector) {
         $this->inspector = $inspector;
     }
 
     /**
      * @return InspectorInterface
      */
-    protected function getInspector()
-    {
+    protected function getInspector() {
         return $this->inspector;
     }
 
     /**
      * @param \Throwable $exception
      */
-    public function setException($exception)
-    {
+    public function setException($exception) {
         $this->exception = $exception;
     }
 
     /**
      * @return \Throwable
      */
-    protected function getException()
-    {
+    protected function getException() {
         return $this->exception;
     }
 }

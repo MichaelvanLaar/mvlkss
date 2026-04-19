@@ -10,18 +10,23 @@ use JsonSchema\Constraints\Factory;
 use JsonSchema\Entity\ErrorBagProxy;
 use JsonSchema\Entity\JsonPointer;
 
-class ContentConstraint implements ConstraintInterface
-{
+class ContentConstraint implements ConstraintInterface {
     use ErrorBagProxy;
 
-    public function __construct(?Factory $factory = null)
-    {
+    public function __construct(?Factory $factory = null) {
         $this->initialiseErrorBag($factory ?: new Factory());
     }
 
-    public function check(&$value, $schema = null, ?JsonPointer $path = null, $i = null): void
-    {
-        if (!property_exists($schema, 'contentMediaType') && !property_exists($schema, 'contentEncoding')) {
+    public function check(
+        &$value,
+        $schema = null,
+        ?JsonPointer $path = null,
+        $i = null,
+    ): void {
+        if (
+            !property_exists($schema, "contentMediaType") &&
+            !property_exists($schema, "contentEncoding")
+        ) {
             return;
         }
         if (!is_string($value)) {
@@ -30,10 +35,14 @@ class ContentConstraint implements ConstraintInterface
 
         $decodedValue = $value;
 
-        if (property_exists($schema, 'contentEncoding')) {
-            if ($schema->contentEncoding === 'base64') {
+        if (property_exists($schema, "contentEncoding")) {
+            if ($schema->contentEncoding === "base64") {
                 if (!preg_match('/^[A-Za-z0-9+\/=]+$/', $decodedValue)) {
-                    $this->addError(ConstraintError::CONTENT_ENCODING(), $path, ['contentEncoding' => $schema->contentEncoding]);
+                    $this->addError(
+                        ConstraintError::CONTENT_ENCODING(),
+                        $path,
+                        ["contentEncoding" => $schema->contentEncoding],
+                    );
 
                     return;
                 }
@@ -41,15 +50,17 @@ class ContentConstraint implements ConstraintInterface
             }
         }
 
-        if (property_exists($schema, 'contentMediaType')) {
-            if ($schema->contentMediaType === 'application/json') {
+        if (property_exists($schema, "contentMediaType")) {
+            if ($schema->contentMediaType === "application/json") {
                 json_decode($decodedValue, false);
                 if (json_last_error() === JSON_ERROR_NONE) {
                     return;
                 }
             }
 
-            $this->addError(ConstraintError::CONTENT_MEDIA_TYPE(), $path, ['contentMediaType' => $schema->contentMediaType]);
+            $this->addError(ConstraintError::CONTENT_MEDIA_TYPE(), $path, [
+                "contentMediaType" => $schema->contentMediaType,
+            ]);
         }
     }
 }

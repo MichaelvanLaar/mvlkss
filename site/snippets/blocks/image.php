@@ -98,7 +98,7 @@ if ($src):
           $maxWidth = ceil($maxWidth / 3);
           break;
         case "2/3":
-          $maxWidth = ceil($maxWidth * 2 / 3);
+          $maxWidth = ceil(($maxWidth * 2) / 3);
           break;
         case "1/4":
           $maxWidth = ceil($maxWidth / 4);
@@ -114,7 +114,7 @@ if ($src):
   $sizesAttribute = str_replace(
     "(default) ",
     "",
-    implode(", ", $sizesAttribute)
+    implode(", ", $sizesAttribute),
   );
   ?>
 <figure>
@@ -134,7 +134,7 @@ if ($src):
             ($thumbSrcset ?? "default") .
             "." .
             array_key_first($thumbSrcsets[$thumbSrcset ?? "default"]) .
-            ".type-attribute-for-source-element"
+            ".type-attribute-for-source-element",
         );
         ?>
         <source

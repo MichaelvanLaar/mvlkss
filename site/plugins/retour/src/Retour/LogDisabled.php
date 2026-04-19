@@ -9,13 +9,11 @@ namespace Kirby\Retour;
  *
  * @codeCoverageIgnore
  */
-class LogDisabled
-{
-	/**
-	 * Magic caller that blocks any call to the instance
-	 */
-	public function __call(string $name, array $args): mixed
-	{
-		return null;
-	}
+class LogDisabled {
+    /**
+     * Magic caller that blocks any call to the instance
+     */
+    public function __call(string $name, array $args): mixed {
+        return null;
+    }
 }

@@ -18,15 +18,13 @@ namespace Ergebnis\Json\Pointer;
  *
  * @see https://datatracker.ietf.org/doc/html/rfc6901
  */
-final class JsonPointer
-{
+final class JsonPointer {
     /**
      * @var array<int, ReferenceToken>
      */
     private array $referenceTokens;
 
-    private function __construct(ReferenceToken ...$referenceTokens)
-    {
+    private function __construct(ReferenceToken ...$referenceTokens) {
         $this->referenceTokens = $referenceTokens;
     }
 
@@ -36,24 +34,25 @@ final class JsonPointer
      *
      * @throws Exception\InvalidJsonPointer
      */
-    public static function fromJsonString(string $value): self
-    {
+    public static function fromJsonString(string $value): self {
         if (1 !== \preg_match(Pattern::JSON_STRING_JSON_POINTER, $value)) {
             throw Exception\InvalidJsonPointer::fromJsonString($value);
         }
 
-        $jsonStringValues = \array_slice(
-            \explode('/', $value),
-            1,
-        );
+        $jsonStringValues = \array_slice(\explode("/", $value), 1);
 
-        return new self(...\array_map(static function (string $jsonStringValue): ReferenceToken {
-            return ReferenceToken::fromJsonString($jsonStringValue);
-        }, $jsonStringValues));
+        return new self(
+            ...\array_map(static function (
+                string $jsonStringValue,
+            ): ReferenceToken {
+                return ReferenceToken::fromJsonString($jsonStringValue);
+            }, $jsonStringValues),
+        );
     }
 
-    public static function fromReferenceTokens(ReferenceToken ...$referenceTokens): self
-    {
+    public static function fromReferenceTokens(
+        ReferenceToken ...$referenceTokens,
+    ): self {
         return new self(...$referenceTokens);
     }
 
@@ -64,29 +63,37 @@ final class JsonPointer
      *
      * @throws Exception\InvalidJsonPointer
      */
-    public static function fromUriFragmentIdentifierString(string $value): self
-    {
-        if (1 !== \preg_match(Pattern::URI_FRAGMENT_IDENTIFIER_JSON_POINTER, $value)) {
+    public static function fromUriFragmentIdentifierString(
+        string $value,
+    ): self {
+        if (
+            1 !==
+            \preg_match(Pattern::URI_FRAGMENT_IDENTIFIER_JSON_POINTER, $value)
+        ) {
             throw Exception\InvalidJsonPointer::fromJsonString($value);
         }
 
         $uriFragmentIdentifierStringValues = \array_slice(
-            \explode('/', $value),
+            \explode("/", $value),
             1,
         );
 
-        return new self(...\array_map(static function (string $uriFragmentIdentifierStringValue): ReferenceToken {
-            return ReferenceToken::fromUriFragmentIdentifierString($uriFragmentIdentifierStringValue);
-        }, $uriFragmentIdentifierStringValues));
+        return new self(
+            ...\array_map(static function (
+                string $uriFragmentIdentifierStringValue,
+            ): ReferenceToken {
+                return ReferenceToken::fromUriFragmentIdentifierString(
+                    $uriFragmentIdentifierStringValue,
+                );
+            }, $uriFragmentIdentifierStringValues),
+        );
     }
 
-    public static function document(): self
-    {
+    public static function document(): self {
         return new self();
     }
 
-    public function append(ReferenceToken $referenceToken): self
-    {
+    public function append(ReferenceToken $referenceToken): self {
         $referenceTokens = $this->referenceTokens;
 
         $referenceTokens[] = $referenceToken;
@@ -94,44 +101,50 @@ final class JsonPointer
         return new self(...$referenceTokens);
     }
 
-    public function toJsonString(): string
-    {
+    public function toJsonString(): string {
         if ([] === $this->referenceTokens) {
-            return '';
+            return "";
         }
 
         return \sprintf(
-            '/%s',
-            \implode('/', \array_map(static function (ReferenceToken $referenceToken): string {
-                return $referenceToken->toJsonString();
-            }, $this->referenceTokens)),
+            "/%s",
+            \implode(
+                "/",
+                \array_map(static function (
+                    ReferenceToken $referenceToken,
+                ): string {
+                    return $referenceToken->toJsonString();
+                }, $this->referenceTokens),
+            ),
         );
     }
 
-    public function toUriFragmentIdentifierString(): string
-    {
+    public function toUriFragmentIdentifierString(): string {
         if ([] === $this->referenceTokens) {
-            return '#';
+            return "#";
         }
 
         return \sprintf(
-            '#/%s',
-            \implode('/', \array_map(static function (ReferenceToken $referenceToken): string {
-                return $referenceToken->toUriFragmentIdentifierString();
-            }, $this->referenceTokens)),
+            "#/%s",
+            \implode(
+                "/",
+                \array_map(static function (
+                    ReferenceToken $referenceToken,
+                ): string {
+                    return $referenceToken->toUriFragmentIdentifierString();
+                }, $this->referenceTokens),
+            ),
         );
     }
 
     /**
      * @return array<int, ReferenceToken>
      */
-    public function toReferenceTokens(): array
-    {
+    public function toReferenceTokens(): array {
         return $this->referenceTokens;
     }
 
-    public function equals(self $other): bool
-    {
+    public function equals(self $other): bool {
         return $this->toJsonString() === $other->toJsonString();
     }
 }

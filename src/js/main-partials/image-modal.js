@@ -8,116 +8,99 @@
  * =============================================================================
  */
 
-// Wrap the entire code inside an Immediately Invoked Function Expression
-// (IIFE). This will prevent any variables or functions defined inside from
-// polluting the global scope.
-(() => {
-  /**
-   * ---------------------------------------------------------------------------
-   * Configuration
-   * ---------------------------------------------------------------------------
-   */
+// Must match the transition duration set in the Kirby page footer snippet.
+const CSS_TRANSITION_DURATION = 300;
 
-  const modalId = "image-modal";
-  const modalImgId = "image-modal-img";
-  const modalLoaderId = "image-modal-loader";
+const MODAL_ID = "image-modal";
+const MODAL_IMG_ID = "image-modal-img";
+const MODAL_LOADER_ID = "image-modal-loader";
 
-  // Duration of the CSS transition in milliseconds.
-  // Must match the transition duration set in the Kirby page footer snippet.
-  const cssTransitionDuration = 300;
+/**
+ * Opens the modal and starts the opacity transition.
+ */
+export function showModal(modal, modalImg, loader, src) {
+  loader.classList.remove("hidden");
+  loader.classList.add("flex");
+  modal.classList.remove("hidden");
+  modal.classList.add("flex");
 
-  /**
-   * ---------------------------------------------------------------------------
-   * Main script
-   * ---------------------------------------------------------------------------
-   */
+  // Force a reflow so the opacity transition applies when unhiding
+  void modal.offsetHeight;
 
-  // Get elements
-  const modal = document.getElementById(modalId);
-  const modalImg = document.getElementById(modalImgId);
-  const loader = document.getElementById(modalLoaderId);
+  modal.classList.remove("opacity-0");
+  modalImg.src = src;
+}
 
-  // When the DOM is ready, attach an event listener to all elements that should
-  // trigger the modal when clicked.
-  document.addEventListener("DOMContentLoaded", (event) => {
-    // Select all elements that should trigger the modal
-    const modalTriggers = document.querySelectorAll(
-      "[data-image-modal-trigger]",
-    );
+/**
+ * Starts the close transition; completes the hide after the transition ends.
+ */
+export function closeModal(
+  modal,
+  modalImg,
+  loader,
+  duration = CSS_TRANSITION_DURATION,
+) {
+  modal.classList.add("opacity-0");
 
-    // Attach a click event listener to each element
+  setTimeout(() => {
+    modal.classList.remove("flex");
+    modal.classList.add("hidden");
+    modalImg.src = "";
+    loader.classList.remove("flex");
+    loader.classList.add("hidden");
+  }, duration);
+}
+
+/**
+ * Wires up trigger/close/background-click handlers. No-op if the modal
+ * elements are absent from the document.
+ */
+export function initImageModal(doc = document) {
+  const modal = doc.getElementById(MODAL_ID);
+  const modalImg = doc.getElementById(MODAL_IMG_ID);
+  const loader = doc.getElementById(MODAL_LOADER_ID);
+
+  if (!modal || !modalImg || !loader) {
+    return;
+  }
+
+  const wireHandlers = () => {
+    const modalTriggers = doc.querySelectorAll("[data-image-modal-trigger]");
     modalTriggers.forEach((trigger) => {
       trigger.addEventListener("click", (event) => {
-        // Prevent the default action (if there is one)
         event.preventDefault();
-
-        // Get the image URL from the “data-image-modal-image” attribute
         const imageUrl = trigger.getAttribute("data-image-modal-url");
-
-        // Call the showModal function
-        showModal(imageUrl);
+        showModal(modal, modalImg, loader, imageUrl);
       });
     });
 
-    // Similarly, for your closeModal function,
-    // select the close button(s) and attach an event listener.
-    const closeButtons = document.querySelectorAll("[data-image-modal-close]");
+    const closeButtons = doc.querySelectorAll("[data-image-modal-close]");
     closeButtons.forEach((button) => {
-      button.addEventListener("click", (event) => {
-        closeModal();
+      button.addEventListener("click", () => {
+        closeModal(modal, modalImg, loader);
       });
     });
 
-    // Close the modal if the user clicks outside of the image (i. e. on the
-    // modal background)
     modal.addEventListener("click", (event) => {
-      // Check if the clicked target is the modal background itself and not the
-      // image
       if (event.target === modal) {
-        // If true, close the modal
-        closeModal();
+        closeModal(modal, modalImg, loader);
       }
     });
-  });
+  };
 
-  // Hide loader when image is loaded
+  // Wire handlers immediately if the DOM is already parsed, otherwise wait.
+  if (doc.readyState === "loading") {
+    doc.addEventListener("DOMContentLoaded", wireHandlers);
+  } else {
+    wireHandlers();
+  }
+
   modalImg.addEventListener("load", () => {
     loader.classList.remove("flex");
     loader.classList.add("hidden");
   });
+}
 
-  /**
-   * ---------------------------------------------------------------------------
-   * Helper functions
-   * ---------------------------------------------------------------------------
-   */
-
-  // Function to open the modal when a thumbnail (or a link) is clicked
-  function showModal(src) {
-    loader.classList.remove("hidden"); // Show loader
-    loader.classList.add("flex"); // Show loader
-    modal.classList.remove("hidden"); // Show the modal
-    modal.classList.add("flex"); // Show the modal
-
-    // Force a reflow to make sure the opacity transition works when unhiding
-    void modal.offsetHeight;
-
-    modal.classList.remove("opacity-0"); // Start the transition to opacity 1
-    modalImg.src = src; // Set the image source
-  }
-
-  // Function to close the modal when the close button is clicked
-  function closeModal() {
-    // Start the transition to opacity 0
-    modal.classList.add("opacity-0");
-
-    // Wait for the transition to finish, then hide the modal completely
-    setTimeout(() => {
-      modal.classList.remove("flex");
-      modal.classList.add("hidden");
-      modalImg.src = ""; // Clear the image source
-      loader.classList.remove("flex"); // Hide the loader
-      loader.classList.add("hidden"); // Hide the loader
-    }, cssTransitionDuration);
-  }
-})();
+if (typeof document !== "undefined") {
+  initImageModal();
+}

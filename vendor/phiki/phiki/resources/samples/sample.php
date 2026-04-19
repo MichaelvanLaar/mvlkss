@@ -4,16 +4,18 @@ use Phiki\Environment\Environment;
 use Phiki\Phiki;
 use Phiki\Theme\Theme;
 
-require_once __DIR__.'/../../vendor/autoload.php';
+require_once __DIR__ . "/../../vendor/autoload.php";
 
-$grammar = $_GET['grammar'] ?? 'php';
+$grammar = $_GET["grammar"] ?? "php";
 $environment = Environment::default()->enableStrictMode();
 $repository = $environment->getGrammarRepository();
 
-$sample = file_get_contents(__DIR__.'/'.$grammar.'.sample');
+$sample = file_get_contents(__DIR__ . "/" . $grammar . ".sample");
 $tokens = (new Phiki($environment))->codeToTokens($sample, $grammar);
-$html = (new Phiki($environment))->codeToHtml($sample, $grammar, ['light' => Theme::OneLight, 'dark' => 'github-dark']);
-
+$html = (new Phiki($environment))->codeToHtml($sample, $grammar, [
+    "light" => Theme::OneLight,
+    "dark" => "github-dark",
+]);
 ?>
 
 <!DOCTYPE html>
@@ -73,7 +75,9 @@ $html = (new Phiki($environment))->codeToHtml($sample, $grammar, ['light' => The
             class="flex items-center gap-x-4">
             <select name="grammar" x-on:change="$root.submit()" class="text-neutral-950">
                 <?php foreach ($repository->getAllGrammarNames() as $g) { ?>
-                    <option value="<?= $g ?>" <?= $grammar === $g ? 'selected' : '' ?>>
+                    <option value="<?= $g ?>" <?= $grammar === $g
+    ? "selected"
+    : "" ?>>
                         <?= $g ?>
                     </option>
                 <?php } ?>

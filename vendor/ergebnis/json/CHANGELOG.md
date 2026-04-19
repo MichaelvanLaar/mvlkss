@@ -83,7 +83,6 @@ For a full diff see [`c020e6f...1.0.0`][c020e6f...1.0.0].
 [1.4.0]: https://github.com/ergebnis/json/releases/tag/1.4.0
 [1.5.0]: https://github.com/ergebnis/json/releases/tag/1.5.0
 [1.6.0]: https://github.com/ergebnis/json/releases/tag/1.6.0
-
 [c020e6f...1.0.0]: https://github.com/ergebnis/json/compare/c020e6f...1.0.0
 [1.0.0...1.0.1]: https://github.com/ergebnis/json/compare/1.0.0...1.0.1
 [1.0.1...1.1.0]: https://github.com/ergebnis/json/compare/1.0.1...1.1.0
@@ -93,7 +92,6 @@ For a full diff see [`c020e6f...1.0.0`][c020e6f...1.0.0].
 [1.4.0...1.5.0]: https://github.com/ergebnis/json/compare/1.4.0...1.5.0
 [1.5.0...1.6.0]: https://github.com/ergebnis/json/compare/1.5.0...1.6.0
 [1.6.0...main]: https://github.com/ergebnis/json/compare/1.6.0...main
-
 [#1]: https://github.com/ergebnis/json/pull/1
 [#2]: https://github.com/ergebnis/json/pull/2
 [#3]: https://github.com/ergebnis/json/pull/3
@@ -105,5 +103,4 @@ For a full diff see [`c020e6f...1.0.0`][c020e6f...1.0.0].
 [#340]: https://github.com/ergebnis/json/pull/340
 [#363]: https://github.com/ergebnis/json/pull/363
 [#367]: https://github.com/ergebnis/json/pull/367
-
 [@localheinz]: https://github.com/localheinz

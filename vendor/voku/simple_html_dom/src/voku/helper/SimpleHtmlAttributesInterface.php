@@ -8,8 +8,7 @@ namespace voku\helper;
  * @property-read int    $length The number of tokens.
  * @property-read string $value  A space-separated list of the tokens.
  */
-interface SimpleHtmlAttributesInterface
-{
+interface SimpleHtmlAttributesInterface {
     /**
      * Adds the given tokens to the list.
      *

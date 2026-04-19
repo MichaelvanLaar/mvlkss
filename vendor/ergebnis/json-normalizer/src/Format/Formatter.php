@@ -15,10 +15,6 @@ namespace Ergebnis\Json\Normalizer\Format;
 
 use Ergebnis\Json\Json;
 
-interface Formatter
-{
-    public function format(
-        Json $json,
-        Format $format
-    ): Json;
+interface Formatter {
+    public function format(Json $json, Format $format): Json;
 }

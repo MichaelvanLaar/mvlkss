@@ -20,8 +20,7 @@ use JsonSchema\Validator;
  * }
  * @phpstan-type ErrorList list<Error>
  */
-class ErrorBag
-{
+class ErrorBag {
     /** @var Factory */
     private $factory;
 
@@ -33,57 +32,71 @@ class ErrorBag
      */
     protected $errorMask = Validator::ERROR_NONE;
 
-    public function __construct(Factory $factory)
-    {
+    public function __construct(Factory $factory) {
         $this->factory = $factory;
     }
 
-    public function reset(): void
-    {
+    public function reset(): void {
         $this->errors = [];
         $this->errorMask = Validator::ERROR_NONE;
     }
 
     /** @return ErrorList */
-    public function getErrors(): array
-    {
+    public function getErrors(): array {
         return $this->errors;
     }
 
     /** @param array<string, mixed> $more */
-    public function addError(ConstraintError $constraint, ?JsonPointer $path = null, array $more = []): void
-    {
+    public function addError(
+        ConstraintError $constraint,
+        ?JsonPointer $path = null,
+        array $more = [],
+    ): void {
         $message = $constraint->getMessage();
         $name = $constraint->getValue();
         /** @var Error $error */
         $error = [
-            'property' => $this->convertJsonPointerIntoPropertyPath($path ?: new JsonPointer('')),
-            'pointer' => ltrim((string) ($path ?: new JsonPointer('')), '#'),
-            'message' => ucfirst(vsprintf($message, array_map(static function ($val) {
-                if (is_scalar($val)) {
-                    return is_bool($val) ? var_export($val, true) : $val;
-                }
+            "property" => $this->convertJsonPointerIntoPropertyPath(
+                $path ?: new JsonPointer(""),
+            ),
+            "pointer" => ltrim((string) ($path ?: new JsonPointer("")), "#"),
+            "message" => ucfirst(
+                vsprintf(
+                    $message,
+                    array_map(static function ($val) {
+                        if (is_scalar($val)) {
+                            return is_bool($val)
+                                ? var_export($val, true)
+                                : $val;
+                        }
 
-                return json_encode($val);
-            }, array_values($more)))),
-            'constraint' => [
-                'name' => $name,
-                'params' => $more
+                        return json_encode($val);
+                    }, array_values($more)),
+                ),
+            ),
+            "constraint" => [
+                "name" => $name,
+                "params" => $more,
             ],
-            'context' => $this->factory->getErrorContext(),
+            "context" => $this->factory->getErrorContext(),
         ];
 
         if ($this->factory->getConfig(Constraint::CHECK_MODE_EXCEPTIONS)) {
-            throw new ValidationException(sprintf('Error validating %s: %s', $error['pointer'], $error['message']));
+            throw new ValidationException(
+                sprintf(
+                    "Error validating %s: %s",
+                    $error["pointer"],
+                    $error["message"],
+                ),
+            );
         }
         $this->errors[] = $error;
         /* @see https://github.com/phpstan/phpstan/issues/9384 */
-        $this->errorMask |= $error['context']; // @phpstan-ignore assign.propertyType
+        $this->errorMask |= $error["context"]; // @phpstan-ignore assign.propertyType
     }
 
     /** @param ErrorList $errors */
-    public function addErrors(array $errors): void
-    {
+    public function addErrors(array $errors): void {
         if (!$errors) {
             return;
         }
@@ -91,19 +104,17 @@ class ErrorBag
         $this->errors = array_merge($this->errors, $errors);
         $errorMask = &$this->errorMask;
         array_walk($errors, static function ($error) use (&$errorMask) {
-            $errorMask |= $error['context'];
+            $errorMask |= $error["context"];
         });
     }
 
-    private function convertJsonPointerIntoPropertyPath(JsonPointer $pointer): string
-    {
-        $result = array_map(
-            static function ($path) {
-                return sprintf(is_numeric($path) ? '[%d]' : '.%s', $path);
-            },
-            $pointer->getPropertyPaths()
-        );
+    private function convertJsonPointerIntoPropertyPath(
+        JsonPointer $pointer,
+    ): string {
+        $result = array_map(static function ($path) {
+            return sprintf(is_numeric($path) ? "[%d]" : ".%s", $path);
+        }, $pointer->getPropertyPaths());
 
-        return trim(implode('', $result), '.');
+        return trim(implode("", $result), ".");
     }
 }

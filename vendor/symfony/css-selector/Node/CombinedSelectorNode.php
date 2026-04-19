@@ -21,39 +21,41 @@ namespace Symfony\Component\CssSelector\Node;
  *
  * @internal
  */
-class CombinedSelectorNode extends AbstractNode
-{
+class CombinedSelectorNode extends AbstractNode {
     public function __construct(
         private NodeInterface $selector,
         private string $combinator,
         private NodeInterface $subSelector,
-    ) {
-    }
+    ) {}
 
-    public function getSelector(): NodeInterface
-    {
+    public function getSelector(): NodeInterface {
         return $this->selector;
     }
 
-    public function getCombinator(): string
-    {
+    public function getCombinator(): string {
         return $this->combinator;
     }
 
-    public function getSubSelector(): NodeInterface
-    {
+    public function getSubSelector(): NodeInterface {
         return $this->subSelector;
     }
 
-    public function getSpecificity(): Specificity
-    {
-        return $this->selector->getSpecificity()->plus($this->subSelector->getSpecificity());
+    public function getSpecificity(): Specificity {
+        return $this->selector
+            ->getSpecificity()
+            ->plus($this->subSelector->getSpecificity());
     }
 
-    public function __toString(): string
-    {
-        $combinator = ' ' === $this->combinator ? '<followed>' : $this->combinator;
+    public function __toString(): string {
+        $combinator =
+            " " === $this->combinator ? "<followed>" : $this->combinator;
 
-        return \sprintf('%s[%s %s %s]', $this->getNodeName(), $this->selector, $combinator, $this->subSelector);
+        return \sprintf(
+            "%s[%s %s %s]",
+            $this->getNodeName(),
+            $this->selector,
+            $combinator,
+            $this->subSelector,
+        );
     }
 }

@@ -6,8 +6,7 @@
 
 namespace Whoops\Inspector;
 
-interface InspectorInterface
-{
+interface InspectorInterface {
     /**
      * @return \Throwable
      */
@@ -62,9 +61,9 @@ interface InspectorInterface
     /**
      * Returns an iterator for the inspected exception's
      * frames.
-     * 
+     *
      * @param array<callable> $frameFilters
-     * 
+     *
      * @return \Whoops\Exception\FrameCollection
      */
     public function getFrames(array $frameFilters = []);

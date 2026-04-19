@@ -14,8 +14,7 @@ namespace Composer\Semver\Constraint;
 /**
  * Blackhole of constraints, nothing escapes it
  */
-class MatchNoneConstraint implements ConstraintInterface
-{
+class MatchNoneConstraint implements ConstraintInterface {
     /** @var string|null */
     protected $prettyString;
 
@@ -24,32 +23,28 @@ class MatchNoneConstraint implements ConstraintInterface
      *
      * @return bool
      */
-    public function matches(ConstraintInterface $provider)
-    {
+    public function matches(ConstraintInterface $provider) {
         return false;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function compile($otherOperator)
-    {
-        return 'false';
+    public function compile($otherOperator) {
+        return "false";
     }
 
     /**
      * {@inheritDoc}
      */
-    public function setPrettyString($prettyString)
-    {
+    public function setPrettyString($prettyString) {
         $this->prettyString = $prettyString;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getPrettyString()
-    {
+    public function getPrettyString() {
         if ($this->prettyString) {
             return $this->prettyString;
         }
@@ -60,24 +55,21 @@ class MatchNoneConstraint implements ConstraintInterface
     /**
      * {@inheritDoc}
      */
-    public function __toString()
-    {
-        return '[]';
+    public function __toString() {
+        return "[]";
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getUpperBound()
-    {
-        return new Bound('0.0.0.0-dev', false);
+    public function getUpperBound() {
+        return new Bound("0.0.0.0-dev", false);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getLowerBound()
-    {
-        return new Bound('0.0.0.0-dev', false);
+    public function getLowerBound() {
+        return new Bound("0.0.0.0-dev", false);
     }
 }

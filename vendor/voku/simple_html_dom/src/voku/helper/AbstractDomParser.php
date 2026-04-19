@@ -4,22 +4,21 @@ declare(strict_types=1);
 
 namespace voku\helper;
 
-abstract class AbstractDomParser implements DomParserInterface
-{
+abstract class AbstractDomParser implements DomParserInterface {
     /**
      * @var string
      */
-    protected static $domHtmlWrapperHelper = '____simple_html_dom__voku__html_wrapper____';
+    protected static $domHtmlWrapperHelper = "____simple_html_dom__voku__html_wrapper____";
 
     /**
      * @var string
      */
-    protected static $domHtmlBrokenHtmlHelper = '____simple_html_dom__voku__broken_html____';
+    protected static $domHtmlBrokenHtmlHelper = "____simple_html_dom__voku__broken_html____";
 
     /**
      * @var string
      */
-    protected static $domHtmlSpecialScriptHelper = '____simple_html_dom__voku__html_special_script____';
+    protected static $domHtmlSpecialScriptHelper = "____simple_html_dom__voku__html_special_script____";
 
     /**
      * @var array
@@ -30,12 +29,12 @@ abstract class AbstractDomParser implements DomParserInterface
      * @var string[][]
      */
     protected static $domLinkReplaceHelper = [
-        'orig' => ['[', ']', '{', '}'],
-        'tmp'  => [
-            '____SIMPLE_HTML_DOM__VOKU__SQUARE_BRACKET_LEFT____',
-            '____SIMPLE_HTML_DOM__VOKU__SQUARE_BRACKET_RIGHT____',
-            '____SIMPLE_HTML_DOM__VOKU__BRACKET_LEFT____',
-            '____SIMPLE_HTML_DOM__VOKU__BRACKET_RIGHT____',
+        "orig" => ["[", "]", "{", "}"],
+        "tmp" => [
+            "____SIMPLE_HTML_DOM__VOKU__SQUARE_BRACKET_LEFT____",
+            "____SIMPLE_HTML_DOM__VOKU__SQUARE_BRACKET_RIGHT____",
+            "____SIMPLE_HTML_DOM__VOKU__BRACKET_LEFT____",
+            "____SIMPLE_HTML_DOM__VOKU__BRACKET_RIGHT____",
         ],
     ];
 
@@ -43,13 +42,13 @@ abstract class AbstractDomParser implements DomParserInterface
      * @var string[][]
      */
     protected static $domReplaceHelper = [
-        'orig' => ['&', '|', '+', '%', '@', '<html ⚡'],
-        'tmp'  => [
-            '____SIMPLE_HTML_DOM__VOKU__AMP____',
-            '____SIMPLE_HTML_DOM__VOKU__PIPE____',
-            '____SIMPLE_HTML_DOM__VOKU__PLUS____',
-            '____SIMPLE_HTML_DOM__VOKU__PERCENT____',
-            '____SIMPLE_HTML_DOM__VOKU__AT____',
+        "orig" => ["&", "|", "+", "%", "@", "<html ⚡"],
+        "tmp" => [
+            "____SIMPLE_HTML_DOM__VOKU__AMP____",
+            "____SIMPLE_HTML_DOM__VOKU__PIPE____",
+            "____SIMPLE_HTML_DOM__VOKU__PLUS____",
+            "____SIMPLE_HTML_DOM__VOKU__PERCENT____",
+            "____SIMPLE_HTML_DOM__VOKU__AT____",
             '<html ____SIMPLE_HTML_DOM__VOKU__GOOGLE_AMP____="true"',
         ],
     ];
@@ -74,7 +73,7 @@ abstract class AbstractDomParser implements DomParserInterface
     /**
      * @var string
      */
-    protected $encoding = 'UTF-8';
+    protected $encoding = "UTF-8";
 
     /**
      * @param string $name
@@ -82,15 +81,17 @@ abstract class AbstractDomParser implements DomParserInterface
      *
      * @return bool|mixed
      */
-    public function __call($name, $arguments)
-    {
+    public function __call($name, $arguments) {
         $name = \strtolower($name);
 
         if (isset(self::$functionAliases[$name])) {
-            return \call_user_func_array([$this, self::$functionAliases[$name]], $arguments);
+            return \call_user_func_array(
+                [$this, self::$functionAliases[$name]],
+                $arguments,
+            );
         }
 
-        throw new \BadMethodCallException('Method does not exist: ' . $name);
+        throw new \BadMethodCallException("Method does not exist: " . $name);
     }
 
     /**
@@ -104,8 +105,7 @@ abstract class AbstractDomParser implements DomParserInterface
      */
     abstract public static function __callStatic($name, $arguments);
 
-    public function __clone()
-    {
+    public function __clone() {
         $this->document = clone $this->document;
     }
 
@@ -128,8 +128,7 @@ abstract class AbstractDomParser implements DomParserInterface
      *
      * @deprecated
      */
-    public function clear(): bool
-    {
+    public function clear(): bool {
         return true;
     }
 
@@ -141,7 +140,10 @@ abstract class AbstractDomParser implements DomParserInterface
      *
      * @return \DOMDocument
      */
-    abstract protected function createDOMDocument(string $html, $libXMLExtraOptions = null): \DOMDocument;
+    abstract protected function createDOMDocument(
+        string $html,
+        $libXMLExtraOptions = null,
+    ): \DOMDocument;
 
     /**
      * @param string $content
@@ -149,8 +151,10 @@ abstract class AbstractDomParser implements DomParserInterface
      *
      * @return string
      */
-    protected function decodeHtmlEntity(string $content, bool $multiDecodeNewHtmlEntity): string
-    {
+    protected function decodeHtmlEntity(
+        string $content,
+        bool $multiDecodeNewHtmlEntity,
+    ): string {
         if ($multiDecodeNewHtmlEntity) {
             if (\class_exists('\voku\helper\UTF8')) {
                 $content = UTF8::rawurldecode($content, true);
@@ -159,10 +163,7 @@ abstract class AbstractDomParser implements DomParserInterface
                     $content_compare = $content;
 
                     $content = \rawurldecode(
-                        \html_entity_decode(
-                            $content,
-                            \ENT_QUOTES | \ENT_HTML5
-                        )
+                        \html_entity_decode($content, \ENT_QUOTES | \ENT_HTML5),
                     );
                 } while ($content_compare !== $content);
             }
@@ -172,10 +173,7 @@ abstract class AbstractDomParser implements DomParserInterface
                 $content = UTF8::rawurldecode($content, false);
             } else {
                 $content = \rawurldecode(
-                    \html_entity_decode(
-                        $content,
-                        \ENT_QUOTES | \ENT_HTML5
-                    )
+                    \html_entity_decode($content, \ENT_QUOTES | \ENT_HTML5),
                 );
             }
         }
@@ -232,8 +230,7 @@ abstract class AbstractDomParser implements DomParserInterface
     /**
      * @return \DOMDocument
      */
-    public function getDocument(): \DOMDocument
-    {
+    public function getDocument(): \DOMDocument {
         return $this->document;
     }
 
@@ -245,7 +242,10 @@ abstract class AbstractDomParser implements DomParserInterface
      *
      * @return string
      */
-    abstract public function html(bool $multiDecodeNewHtmlEntity = false, bool $putBrokenReplacedBack = true): string;
+    abstract public function html(
+        bool $multiDecodeNewHtmlEntity = false,
+        bool $putBrokenReplacedBack = true,
+    ): string;
 
     /**
      * Get dom node's inner html.
@@ -255,10 +255,12 @@ abstract class AbstractDomParser implements DomParserInterface
      *
      * @return string
      */
-    public function innerHtml(bool $multiDecodeNewHtmlEntity = false, bool $putBrokenReplacedBack = true): string
-    {
+    public function innerHtml(
+        bool $multiDecodeNewHtmlEntity = false,
+        bool $putBrokenReplacedBack = true,
+    ): string {
         // init
-        $text = '';
+        $text = "";
 
         if ($this->document->documentElement) {
             foreach ($this->document->documentElement->childNodes as $node) {
@@ -266,7 +268,11 @@ abstract class AbstractDomParser implements DomParserInterface
             }
         }
 
-        return $this->fixHtmlOutput($text, $multiDecodeNewHtmlEntity, $putBrokenReplacedBack);
+        return $this->fixHtmlOutput(
+            $text,
+            $multiDecodeNewHtmlEntity,
+            $putBrokenReplacedBack,
+        );
     }
 
     /**
@@ -276,10 +282,9 @@ abstract class AbstractDomParser implements DomParserInterface
      *
      * @return string
      */
-    public function innerXml(bool $multiDecodeNewHtmlEntity = false): string
-    {
+    public function innerXml(bool $multiDecodeNewHtmlEntity = false): string {
         // init
-        $text = '';
+        $text = "";
 
         if ($this->document->documentElement) {
             foreach ($this->document->documentElement->childNodes as $node) {
@@ -298,7 +303,10 @@ abstract class AbstractDomParser implements DomParserInterface
      *
      * @return DomParserInterface
      */
-    abstract public function loadHtml(string $html, $libXMLExtraOptions = null): DomParserInterface;
+    abstract public function loadHtml(
+        string $html,
+        $libXMLExtraOptions = null,
+    ): DomParserInterface;
 
     /**
      * Load HTML from file.
@@ -310,7 +318,10 @@ abstract class AbstractDomParser implements DomParserInterface
      *
      * @return DomParserInterface
      */
-    abstract public function loadHtmlFile(string $filePath, $libXMLExtraOptions = null): DomParserInterface;
+    abstract public function loadHtmlFile(
+        string $filePath,
+        $libXMLExtraOptions = null,
+    ): DomParserInterface;
 
     /**
      * Save the html-dom as string.
@@ -319,10 +330,9 @@ abstract class AbstractDomParser implements DomParserInterface
      *
      * @return string
      */
-    public function save(string $filepath = ''): string
-    {
+    public function save(string $filepath = ""): string {
         $string = $this->html();
-        if ($filepath !== '') {
+        if ($filepath !== "") {
             \file_put_contents($filepath, $string, \LOCK_EX);
         }
 
@@ -336,8 +346,7 @@ abstract class AbstractDomParser implements DomParserInterface
      *
      * @return void
      */
-    public function set_callback($functionName)
-    {
+    public function set_callback($functionName) {
         static::$callback = $functionName;
     }
 
@@ -348,9 +357,11 @@ abstract class AbstractDomParser implements DomParserInterface
      *
      * @return string
      */
-    public function text(bool $multiDecodeNewHtmlEntity = false): string
-    {
-        return $this->fixHtmlOutput($this->document->textContent, $multiDecodeNewHtmlEntity);
+    public function text(bool $multiDecodeNewHtmlEntity = false): string {
+        return $this->fixHtmlOutput(
+            $this->document->textContent,
+            $multiDecodeNewHtmlEntity,
+        );
     }
 
     /**
@@ -367,15 +378,15 @@ abstract class AbstractDomParser implements DomParserInterface
         bool $multiDecodeNewHtmlEntity = false,
         bool $htmlToXml = true,
         bool $removeXmlHeader = true,
-        int $options = \LIBXML_NOEMPTYTAG
+        int $options = \LIBXML_NOEMPTYTAG,
     ): string {
         $xml = $this->document->saveXML(null, $options);
         if ($xml === false) {
-            return '';
+            return "";
         }
 
         if ($removeXmlHeader) {
-            $xml = \ltrim((string) \preg_replace('/<\?xml.*\?>/', '', $xml));
+            $xml = \ltrim((string) \preg_replace("/<\?xml.*\?>/", "", $xml));
         }
 
         if ($htmlToXml) {
@@ -394,8 +405,7 @@ abstract class AbstractDomParser implements DomParserInterface
      *
      * @return string
      */
-    protected function getEncoding(): string
-    {
+    protected function getEncoding(): string {
         return $this->encoding;
     }
 
@@ -406,21 +416,25 @@ abstract class AbstractDomParser implements DomParserInterface
      *
      * @return void
      */
-    protected function html5FallbackForScriptTags(string &$html)
-    {
+    protected function html5FallbackForScriptTags(string &$html) {
         // regEx for e.g.: [<script id="elements-image-2">...<script>]
         /** @noinspection HtmlDeprecatedTag */
-        $regExSpecialScript = '/<script(?<attr>[^>]*?)>(?<content>.*)<\/script>/isU';
+        $regExSpecialScript =
+            "/<script(?<attr>[^>]*?)>(?<content>.*)<\/script>/isU";
         $htmlTmp = \preg_replace_callback(
             $regExSpecialScript,
             static function ($scripts) {
-                if (empty($scripts['content'])) {
+                if (empty($scripts["content"])) {
                     return $scripts[0];
                 }
 
-                return '<script' . $scripts['attr'] . '>' . \str_replace('</', '<\/', $scripts['content']) . '</script>';
+                return "<script" .
+                    $scripts["attr"] .
+                    ">" .
+                    \str_replace("</", "<\/", $scripts["content"]) .
+                    "</script>";
             },
-            $html
+            $html,
         );
 
         if ($htmlTmp !== null) {
@@ -433,56 +447,81 @@ abstract class AbstractDomParser implements DomParserInterface
      *
      * @return string
      */
-    public static function putReplacedBackToPreserveHtmlEntities(string $html, bool $putBrokenReplacedBack = true): string
-    {
+    public static function putReplacedBackToPreserveHtmlEntities(
+        string $html,
+        bool $putBrokenReplacedBack = true,
+    ): string {
         static $DOM_REPLACE__HELPER_CACHE = null;
 
         if ($DOM_REPLACE__HELPER_CACHE === null) {
-            $DOM_REPLACE__HELPER_CACHE['tmp'] = \array_merge(
-                self::$domLinkReplaceHelper['tmp'],
-                self::$domReplaceHelper['tmp']
+            $DOM_REPLACE__HELPER_CACHE["tmp"] = \array_merge(
+                self::$domLinkReplaceHelper["tmp"],
+                self::$domReplaceHelper["tmp"],
             );
-            $DOM_REPLACE__HELPER_CACHE['orig'] = \array_merge(
-                self::$domLinkReplaceHelper['orig'],
-                self::$domReplaceHelper['orig']
+            $DOM_REPLACE__HELPER_CACHE["orig"] = \array_merge(
+                self::$domLinkReplaceHelper["orig"],
+                self::$domReplaceHelper["orig"],
             );
 
-            $DOM_REPLACE__HELPER_CACHE['tmp']['html_wrapper__start'] = '<' . self::$domHtmlWrapperHelper . '>';
-            $DOM_REPLACE__HELPER_CACHE['tmp']['html_wrapper__end'] = '</' . self::$domHtmlWrapperHelper . '>';
+            $DOM_REPLACE__HELPER_CACHE["tmp"]["html_wrapper__start"] =
+                "<" . self::$domHtmlWrapperHelper . ">";
+            $DOM_REPLACE__HELPER_CACHE["tmp"]["html_wrapper__end"] =
+                "</" . self::$domHtmlWrapperHelper . ">";
 
-            $DOM_REPLACE__HELPER_CACHE['orig']['html_wrapper__start'] = '';
-            $DOM_REPLACE__HELPER_CACHE['orig']['html_wrapper__end'] = '';
+            $DOM_REPLACE__HELPER_CACHE["orig"]["html_wrapper__start"] = "";
+            $DOM_REPLACE__HELPER_CACHE["orig"]["html_wrapper__end"] = "";
 
-            $DOM_REPLACE__HELPER_CACHE['tmp']['html_wrapper__start_broken'] = self::$domHtmlWrapperHelper . '>';
-            $DOM_REPLACE__HELPER_CACHE['tmp']['html_wrapper__end_broken'] = '</' . self::$domHtmlWrapperHelper;
+            $DOM_REPLACE__HELPER_CACHE["tmp"]["html_wrapper__start_broken"] =
+                self::$domHtmlWrapperHelper . ">";
+            $DOM_REPLACE__HELPER_CACHE["tmp"]["html_wrapper__end_broken"] =
+                "</" . self::$domHtmlWrapperHelper;
 
-            $DOM_REPLACE__HELPER_CACHE['orig']['html_wrapper__start_broken'] = '';
-            $DOM_REPLACE__HELPER_CACHE['orig']['html_wrapper__end_broken'] = '';
+            $DOM_REPLACE__HELPER_CACHE["orig"]["html_wrapper__start_broken"] =
+                "";
+            $DOM_REPLACE__HELPER_CACHE["orig"]["html_wrapper__end_broken"] = "";
 
-            $DOM_REPLACE__HELPER_CACHE['tmp']['html_special_script__start'] = '<' . self::$domHtmlSpecialScriptHelper;
-            $DOM_REPLACE__HELPER_CACHE['tmp']['html_special_script__end'] = '</' . self::$domHtmlSpecialScriptHelper . '>';
+            $DOM_REPLACE__HELPER_CACHE["tmp"]["html_special_script__start"] =
+                "<" . self::$domHtmlSpecialScriptHelper;
+            $DOM_REPLACE__HELPER_CACHE["tmp"]["html_special_script__end"] =
+                "</" . self::$domHtmlSpecialScriptHelper . ">";
 
-            $DOM_REPLACE__HELPER_CACHE['orig']['html_special_script__start'] = '<script';
-            $DOM_REPLACE__HELPER_CACHE['orig']['html_special_script__end'] = '</script>';
+            $DOM_REPLACE__HELPER_CACHE["orig"]["html_special_script__start"] =
+                "<script";
+            $DOM_REPLACE__HELPER_CACHE["orig"]["html_special_script__end"] =
+                "</script>";
 
-            $DOM_REPLACE__HELPER_CACHE['tmp']['html_special_script__start_broken'] = self::$domHtmlSpecialScriptHelper;
-            $DOM_REPLACE__HELPER_CACHE['tmp']['html_special_script__end_broken'] = '</' . self::$domHtmlSpecialScriptHelper;
+            $DOM_REPLACE__HELPER_CACHE["tmp"][
+                "html_special_script__start_broken"
+            ] = self::$domHtmlSpecialScriptHelper;
+            $DOM_REPLACE__HELPER_CACHE["tmp"][
+                "html_special_script__end_broken"
+            ] = "</" . self::$domHtmlSpecialScriptHelper;
 
-            $DOM_REPLACE__HELPER_CACHE['orig']['html_special_script__start_broken'] = 'script';
-            $DOM_REPLACE__HELPER_CACHE['orig']['html_special_script__end_broken'] = '</script';
+            $DOM_REPLACE__HELPER_CACHE["orig"][
+                "html_special_script__start_broken"
+            ] = "script";
+            $DOM_REPLACE__HELPER_CACHE["orig"][
+                "html_special_script__end_broken"
+            ] = "</script";
         }
 
         if (
-            $putBrokenReplacedBack === true
-            &&
-            isset(self::$domBrokenReplaceHelper['tmp'])
-            &&
-            \count(self::$domBrokenReplaceHelper['tmp']) > 0
+            $putBrokenReplacedBack === true &&
+            isset(self::$domBrokenReplaceHelper["tmp"]) &&
+            \count(self::$domBrokenReplaceHelper["tmp"]) > 0
         ) {
-            $html = \str_ireplace(self::$domBrokenReplaceHelper['tmp'], self::$domBrokenReplaceHelper['orig'], $html);
+            $html = \str_ireplace(
+                self::$domBrokenReplaceHelper["tmp"],
+                self::$domBrokenReplaceHelper["orig"],
+                $html,
+            );
         }
 
-        return \str_ireplace($DOM_REPLACE__HELPER_CACHE['tmp'], $DOM_REPLACE__HELPER_CACHE['orig'], $html);
+        return \str_ireplace(
+            $DOM_REPLACE__HELPER_CACHE["tmp"],
+            $DOM_REPLACE__HELPER_CACHE["orig"],
+            $html,
+        );
     }
 
     /**
@@ -490,24 +529,24 @@ abstract class AbstractDomParser implements DomParserInterface
      *
      * @return string
      */
-    public static function replaceToPreserveHtmlEntities(string $html): string
-    {
+    public static function replaceToPreserveHtmlEntities(string $html): string {
         // init
         $linksNew = [];
         $linksOld = [];
 
-        if (\strpos($html, 'http') !== false) {
+        if (\strpos($html, "http") !== false) {
             // regEx for e.g.: [https://www.domain.de/foo.php?foobar=1&email=lars%40moelleken.org&guid=test1233312&{{foo}}#foo]
-            $regExUrl = '/(\[?\bhttps?:\/\/[^\s<>]+(?:\(\w+\)|[^[:punct:]\s]|\/|}|]))/i';
+            $regExUrl =
+                "/(\[?\bhttps?:\/\/[^\s<>]+(?:\(\w+\)|[^[:punct:]\s]|\/|}|]))/i";
             \preg_match_all($regExUrl, $html, $linksOld);
 
             if (!empty($linksOld[1])) {
                 $linksOld = $linksOld[1];
                 foreach ((array) $linksOld as $linkKey => $linkOld) {
                     $linksNew[$linkKey] = \str_replace(
-                        self::$domLinkReplaceHelper['orig'],
-                        self::$domLinkReplaceHelper['tmp'],
-                        $linkOld
+                        self::$domLinkReplaceHelper["orig"],
+                        self::$domLinkReplaceHelper["tmp"],
+                        $linkOld,
                     );
                 }
             }
@@ -515,11 +554,11 @@ abstract class AbstractDomParser implements DomParserInterface
 
         $linksNewCount = \count($linksNew);
         if ($linksNewCount > 0 && \count($linksOld) === $linksNewCount) {
-            $search = \array_merge($linksOld, self::$domReplaceHelper['orig']);
-            $replace = \array_merge($linksNew, self::$domReplaceHelper['tmp']);
+            $search = \array_merge($linksOld, self::$domReplaceHelper["orig"]);
+            $replace = \array_merge($linksNew, self::$domReplaceHelper["tmp"]);
         } else {
-            $search = self::$domReplaceHelper['orig'];
-            $replace = self::$domReplaceHelper['tmp'];
+            $search = self::$domReplaceHelper["orig"];
+            $replace = self::$domReplaceHelper["tmp"];
         }
 
         return \str_replace($search, $replace, $html);

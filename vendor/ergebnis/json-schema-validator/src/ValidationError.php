@@ -18,14 +18,13 @@ use Ergebnis\Json\Pointer;
 /**
  * @psalm-immutable
  */
-final class ValidationError
-{
+final class ValidationError {
     private Pointer\JsonPointer $jsonPointer;
     private Message $message;
 
     private function __construct(
         Pointer\JsonPointer $jsonPointer,
-        Message $message
+        Message $message,
     ) {
         $this->message = $message;
         $this->jsonPointer = $jsonPointer;
@@ -33,21 +32,16 @@ final class ValidationError
 
     public static function create(
         Pointer\JsonPointer $jsonPointer,
-        Message $message
+        Message $message,
     ): self {
-        return new self(
-            $jsonPointer,
-            $message,
-        );
+        return new self($jsonPointer, $message);
     }
 
-    public function jsonPointer(): Pointer\JsonPointer
-    {
+    public function jsonPointer(): Pointer\JsonPointer {
         return $this->jsonPointer;
     }
 
-    public function message(): Message
-    {
+    public function message(): Message {
         return $this->message;
     }
 }

@@ -71,7 +71,7 @@ declare(strict_types=1);
 
 use Ergebnis\Json;
 
-$json = Json\Json::fromFile(__DIR__ . '/does-not-exist.json'); // throws Json\Exception\FileDoesNotExist
+$json = Json\Json::fromFile(__DIR__ . "/does-not-exist.json"); // throws Json\Exception\FileDoesNotExist
 ```
 
 Create a `Json` object from a file that can not be read:
@@ -83,7 +83,7 @@ declare(strict_types=1);
 
 use Ergebnis\Json;
 
-$json = Json\Json::fromFile(__DIR__ . '/can-not-be-read.json'); // throws Json\Exception\FileCanNotBeRead
+$json = Json\Json::fromFile(__DIR__ . "/can-not-be-read.json"); // throws Json\Exception\FileCanNotBeRead
 ```
 
 Create a `Json` object from a file that does not contain a valid JSON `string`:
@@ -95,7 +95,7 @@ declare(strict_types=1);
 
 use Ergebnis\Json;
 
-$json = Json\Json::fromFile(__DIR__ . '/README.MD'); // throws Json\Exception\FileDoesNotContainJson
+$json = Json\Json::fromFile(__DIR__ . "/README.MD"); // throws Json\Exception\FileDoesNotContainJson
 ```
 
 Create a `Json` object from a file that contains a valid JSON `string`:
@@ -107,7 +107,7 @@ declare(strict_types=1);
 
 use Ergebnis\Json;
 
-$json = Json\Json::fromFile(__DIR__ . '/contains-json.json'); // instance of Json\Json
+$json = Json\Json::fromFile(__DIR__ . "/contains-json.json"); // instance of Json\Json
 ```
 
 ## Changelog

@@ -4,8 +4,7 @@ namespace Phiki\Contracts;
 
 use Phiki\Grammar\Injections\Prefix;
 
-interface InjectionMatcherInterface
-{
+interface InjectionMatcherInterface {
     /**
      * Determine whether this node matches the given list of scopes.
      *

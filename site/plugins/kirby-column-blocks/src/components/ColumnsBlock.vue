@@ -48,7 +48,7 @@ export default {
       this.content.layout.push(
         await this.$api.post(this.layouts.endpoints.field + "/layout", {
           columns: columns,
-        })
+        }),
       );
       this.$emit("update");
     },

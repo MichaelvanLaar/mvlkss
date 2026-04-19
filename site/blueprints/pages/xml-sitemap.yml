@@ -22,19 +22,19 @@ icon: sitemap
 
 options:
   changeSlug:
-    *: false
+    "*": false
   changeStatus:
-    *: false
+    "*": false
   changeTemplate:
-    *: false
+    "*": false
   changeTitle:
-    *: false
+    "*": false
   create:
-    *: false
+    "*": false
   delete:
-    *: false
+    "*": false
   duplicate:
-    *: false
+    "*": false
 
 fields:
   sitemapInfo:

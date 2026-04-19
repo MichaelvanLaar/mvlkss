@@ -19,20 +19,17 @@ use Ergebnis\Json\Normalizer\Exception;
 /**
  * @psalm-immutable
  */
-final class NewLine
-{
+final class NewLine {
     private string $value;
 
-    private function __construct(string $value)
-    {
+    private function __construct(string $value) {
         $this->value = $value;
     }
 
     /**
      * @throws Exception\InvalidNewLineString
      */
-    public static function fromString(string $value): self
-    {
+    public static function fromString(string $value): self {
         if ("\n" !== $value && "\r" !== $value && "\r\n" !== $value) {
             throw Exception\InvalidNewLineString::fromString($value);
         }
@@ -40,17 +37,18 @@ final class NewLine
         return new self($value);
     }
 
-    public static function fromJson(Json $json): self
-    {
-        if (1 === \preg_match('/(?P<newLine>\r\n|\n|\r)/', $json->encoded(), $match)) {
-            return self::fromString($match['newLine']);
+    public static function fromJson(Json $json): self {
+        if (
+            1 ===
+            \preg_match('/(?P<newLine>\r\n|\n|\r)/', $json->encoded(), $match)
+        ) {
+            return self::fromString($match["newLine"]);
         }
 
         return self::fromString(\PHP_EOL);
     }
 
-    public function toString(): string
-    {
+    public function toString(): string {
         return $this->value;
     }
 }

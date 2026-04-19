@@ -15,17 +15,15 @@ use RuntimeException;
  * @copyright Bastian Allgeier GmbH
  * @license   https://opensource.org/licenses/MIT
  */
-class Installer extends LibraryInstaller
-{
+class Installer extends LibraryInstaller {
     /**
      * Decides if the installer supports the given type
      *
      * @param string $packageType
      * @return bool
      */
-    public function supports($packageType): bool
-    {
-        throw new RuntimeException('This method needs to be overridden.'); // @codeCoverageIgnore
+    public function supports($packageType): bool {
+        throw new RuntimeException("This method needs to be overridden."); // @codeCoverageIgnore
     }
 
     /**
@@ -35,8 +33,10 @@ class Installer extends LibraryInstaller
      * @param \Composer\Package\PackageInterface $package Package instance to install
      * @return \React\Promise\PromiseInterface|null
      */
-    public function install(InstalledRepositoryInterface $repo, PackageInterface $package)
-    {
+    public function install(
+        InstalledRepositoryInterface $repo,
+        PackageInterface $package,
+    ) {
         // first install the package normally...
         $promise = parent::install($repo, $package);
 
@@ -64,8 +64,11 @@ class Installer extends LibraryInstaller
      *
      * @throws \InvalidArgumentException if $initial package is not installed
      */
-    public function update(InstalledRepositoryInterface $repo, PackageInterface $initial, PackageInterface $target)
-    {
+    public function update(
+        InstalledRepositoryInterface $repo,
+        PackageInterface $initial,
+        PackageInterface $target,
+    ) {
         // first update the package normally...
         $promise = parent::update($repo, $initial, $target);
 
@@ -90,15 +93,18 @@ class Installer extends LibraryInstaller
      * @param \Composer\Package\PackageInterface $package
      * @return void
      */
-    protected function postInstall(PackageInterface $package)
-    {
+    protected function postInstall(PackageInterface $package) {
         // remove the package's `vendor` directory to avoid duplicated autoloader and vendor code
-        $packageVendorDir = $this->getInstallPath($package) . '/vendor';
+        $packageVendorDir = $this->getInstallPath($package) . "/vendor";
         if (is_dir($packageVendorDir) === true) {
             $success = $this->filesystem->removeDirectory($packageVendorDir);
 
             if ($success !== true) {
-                throw new RuntimeException('Could not completely delete ' . $packageVendorDir . ', aborting.'); // @codeCoverageIgnore
+                throw new RuntimeException(
+                    "Could not completely delete " .
+                        $packageVendorDir .
+                        ", aborting.",
+                ); // @codeCoverageIgnore
             }
         }
     }

@@ -11,18 +11,20 @@ use JsonSchema\Entity\ErrorBagProxy;
 use JsonSchema\Entity\JsonPointer;
 use JsonSchema\Tool\DeepComparer;
 
-class EnumConstraint implements ConstraintInterface
-{
+class EnumConstraint implements ConstraintInterface {
     use ErrorBagProxy;
 
-    public function __construct(?Factory $factory = null)
-    {
+    public function __construct(?Factory $factory = null) {
         $this->initialiseErrorBag($factory ?: new Factory());
     }
 
-    public function check(&$value, $schema = null, ?JsonPointer $path = null, $i = null): void
-    {
-        if (!property_exists($schema, 'enum')) {
+    public function check(
+        &$value,
+        $schema = null,
+        ?JsonPointer $path = null,
+        $i = null,
+    ): void {
+        if (!property_exists($schema, "enum")) {
             return;
         }
 
@@ -31,11 +33,17 @@ class EnumConstraint implements ConstraintInterface
                 return;
             }
 
-            if (is_numeric($value) && is_numeric($enumCase) && DeepComparer::isEqual((float) $value, (float) $enumCase)) {
+            if (
+                is_numeric($value) &&
+                is_numeric($enumCase) &&
+                DeepComparer::isEqual((float) $value, (float) $enumCase)
+            ) {
                 return;
             }
         }
 
-        $this->addError(ConstraintError::ENUM(), $path, ['enum' => $schema->enum]);
+        $this->addError(ConstraintError::ENUM(), $path, [
+            "enum" => $schema->enum,
+        ]);
     }
 }
