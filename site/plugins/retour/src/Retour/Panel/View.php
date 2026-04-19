@@ -8,12 +8,6 @@ use Kirby\Toolkit\I18n;
 
 /**
  * Handles (Fiber) Panel view requests
- *
- * @package   Retour for Kirby
- * @author    Nico Hoffmann <nico@getkirby.com>
- * @link      https://github.com/distantnative/retour-for-kirby
- * @copyright Nico Hoffmann
- * @license   https://opensource.org/licenses/MIT
  */
 class View
 {
@@ -23,13 +17,10 @@ class View
 	public static function props(string $tab): array
 	{
 		$retour   = Retour::instance();
-		$timespan = Timespan::props($retour);
+		$timespan = Timespan::props();
 		['from' => $from, 'to' => $to, 'unit' => $unit] = $timespan;
 
-		// get all data for redirects
-		// and fallback for failures
-		$redirects = $retour->redirects()->toData($from, $to);
-		$failures  = [];
+		$failures = [];
 
 		// props for minimal Panel view
 		$props = [
@@ -39,7 +30,6 @@ class View
 				[
 					'name'  => 'redirects',
 					'label' => I18n::translate('retour.redirects'),
-					'badge' => count($redirects),
 					'link'  => 'retour/redirects'
 				]
 			]
@@ -47,48 +37,31 @@ class View
 
 		// if log feature is supported...
 		if ($retour->hasLog() === true) {
-			// purge log entries that should be auomatically deleted
-			$retour->log()->purge();
+			// run garbage collection with a chance of 10%;
+			if (mt_rand(1, 10000) <= 0.1 * 10000) {
+				// purge log entries that should be automatically deleted
+				$retour->log()->purge();
+			}
 
 			// get all data for 404 failures
-			/** @var array */
 			$failures = $retour->log()->fails($from, $to);
 
 			// add additional tabs
 			$props['tabs'][] = [
 				'name'  => 'failures',
 				'label' => I18n::translate('retour.failures'),
-				'badge' => count($failures),
 				'link'  => 'retour/failures'
-			];
-			$props['tabs'][] = [
-				'name'  => 'system',
-				'label' => I18n::translate('retour.system'),
-				'badge' => false,
-				'link'  => 'retour/system'
 			];
 
 			// get statistics data for current timeframe
 			$props['stats'] = $retour->log()->stats($unit, $from, $to);
 		}
 
-		// add tab=specific data, e.g. for table rows
+		// add tab-specific data, e.g. for table rows
 		$props['data'] = match ($tab) {
-			'redirects' => $redirects,
+			'redirects' => $retour->redirects()->toData($from, $to),
 			'failures'  => $failures,
-			'system'    => [
-				'redirects' => array_reduce(
-					$redirects,
-					fn ($c, $i) => $c + $i['hits'],
-					0
-				),
-				'failures' => array_reduce(
-					$failures,
-					fn ($c, $i) => $c + $i['hits'],
-					0
-				),
-				'deleteAfter' => $retour->option('deleteAfter', '-')
-			]
+			default     => []
 		};
 
 		return $props;

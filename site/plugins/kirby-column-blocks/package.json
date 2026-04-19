@@ -1,0 +1,18 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "kirbyup src/index.js --watch",
+    "build": "kirbyup src/index.js",
+    "lint": "eslint \"src/**/*.{js,vue}\"",
+    "lint:fix": "npm run lint -- --fix",
+    "format": "prettier --write \"src/**/*.{js,vue}\"",
+    "utils": "git subtree pull --prefix=utils https://github.com/plain-solutions-gmbh/utils main --squash -m 'Update utils subtree'"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-vue": "^9.27.0",
+    "kirbyup": "^0.11.1",
+    "prettier": "^2.4.1"
+  }
+}

@@ -11,6 +11,7 @@ abstract class Constraint extends BaseConstraint implements ConstraintInterface
     /** @var string */
     protected $inlineSchemaProperty = '$schema';
 
+    /** @deprecated CHECK_MODE_NONE is unused and will be removed in the next major release (7.0.0) */
     public const CHECK_MODE_NONE =             0x00000000;
     public const CHECK_MODE_NORMAL =           0x00000001;
     public const CHECK_MODE_TYPE_CAST =        0x00000002;
@@ -21,6 +22,7 @@ abstract class Constraint extends BaseConstraint implements ConstraintInterface
     public const CHECK_MODE_EARLY_COERCE =     0x00000040;
     public const CHECK_MODE_ONLY_REQUIRED_DEFAULTS   = 0x00000080;
     public const CHECK_MODE_VALIDATE_SCHEMA =  0x00000100;
+    public const CHECK_MODE_STRICT =  0x00000200;
 
     /**
      * Bubble down the path

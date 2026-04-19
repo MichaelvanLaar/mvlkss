@@ -70,6 +70,8 @@ class Visitor
 	/**
 	 * Returns an array of all accepted languages
 	 * including their quality and locale
+	 *
+	 * @return \Kirby\Toolkit\Collection<\Kirby\Toolkit\Obj>
 	 */
 	public function acceptedLanguages(): Collection
 	{
@@ -156,6 +158,31 @@ class Visitor
 	}
 
 	/**
+	 * Sets the ip address if provided
+	 * or returns the ip of the current
+	 * visitor otherwise
+	 *
+	 * @return $this|string|null
+	 */
+	public function ip(
+		string|null $ip = null,
+		bool $hash = false
+	): static|string|null {
+		if ($ip === null) {
+			if ($hash === true) {
+				// only use the first 50 chars to ensure privacy
+				$hash = hash('sha256', $this->ip);
+				return substr($hash, 0, 50);
+			}
+
+			return $this->ip;
+		}
+
+		$this->ip = $ip;
+		return $this;
+	}
+
+	/**
 	 * Returns the MIME type from the provided list that
 	 * is most accepted (= preferred) by the visitor
 	 * @since 3.3.0
@@ -191,23 +218,6 @@ class Visitor
 	{
 		$preferred = $this->preferredMimeType('application/json', 'text/html');
 		return $preferred === 'application/json';
-	}
-
-	/**
-	 * Sets the ip address if provided
-	 * or returns the ip of the current
-	 * visitor otherwise
-	 *
-	 * @return $this|string|null
-	 */
-	public function ip(string|null $ip = null): static|string|null
-	{
-		if ($ip === null) {
-			return $this->ip;
-		}
-
-		$this->ip = $ip;
-		return $this;
 	}
 
 	/**

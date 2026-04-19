@@ -100,18 +100,8 @@ abstract class Uuid implements Stringable
 	 * Removes the current UUID from cache,
 	 * recursively including all children if needed
 	 */
-	public function clear(bool $recursive = false): bool
+	public function clear(): bool
 	{
-		// For all models with children: if $recursive,
-		// also clear UUIDs from cache for all children
-		if ($recursive === true && $model = $this->model()) {
-			if (method_exists($model, 'children') === true) {
-				foreach ($model->children() as $child) {
-					$child->uuid()->clear(true);
-				}
-			}
-		}
-
 		if ($key = $this->key()) {
 			return Uuids::cache()->remove($key);
 		}
@@ -429,7 +419,7 @@ abstract class Uuid implements Stringable
 		}
 
 		$url  = $model->url();
-		$url .= $this->uri->query->toString(true);
+		$url .= $this->uri->query()->toString(true);
 
 		if ($this->uri->hasFragment() === true) {
 			$url .= '#' . $this->uri->fragment();

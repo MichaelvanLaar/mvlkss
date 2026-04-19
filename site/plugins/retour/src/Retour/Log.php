@@ -12,12 +12,6 @@ use Kirby\Toolkit\Date;
 /**
  * Reads and writes to the database log
  * for all 404 requests or successful redirects
- *
- * @package   Retour for Kirby
- * @author    Nico Hoffmann <nico@getkirby.com>
- * @link      https://github.com/distantnative/retour-for-kirby
- * @copyright Nico Hoffmann
- * @license   https://opensource.org/licenses/MIT
  */
 class Log
 {
@@ -68,10 +62,18 @@ class Log
 	}
 
 	/**
+	 * @since 5.6.0
+	 */
+	public function database(): Database
+	{
+		return $this->database;
+	}
+
+	/**
 	 * Returns all logged 404s
 	 *
-	 * @param string $from date sting (yyyy-mm-dd)
-	 * @param string $to date sting (yyyy-mm-dd)
+	 * @param string $from date string (yyyy-mm-dd)
+	 * @param string $to date string (yyyy-mm-dd)
 	 */
 	public function fails(string $from, string $to): array
 	{
@@ -85,12 +87,12 @@ class Log
                 path,
                 referrer,
                 MAX(date) AS last,
-                COUNT(date) AS hits
+                COUNT(*) AS hits
             ')
 			->where('redirect IS NULL')
 			->andWhere('wasResolved IS NULL')
-			->andWhere('strftime("%s", date) > strftime("%s", :start)', ['start' => $from])
-			->andWhere('strftime("%s", date) < strftime("%s", :end)', ['end' => $to])
+			->andWhere('date > :start', ['start' => $from])
+			->andWhere('date < :end', ['end' => $to])
 			->group('path, referrer')
 			->fetch('array')
 			->all();
@@ -111,17 +113,23 @@ class Log
 		return $this->single('date ASC');
 	}
 
-
 	/**
 	 * Remove database records and reset index
 	 */
-	public function flush(): bool
+	public function flush(string $mode = 'all'): bool
 	{
-		$table = $this->table()->delete();
-		$index = $this->database->sqlite_sequence()->delete([
-			'name' => 'records'
-		]);
-		return $table && $index;
+		$deleted = match ($mode) {
+			'all'      => $this->table()->delete(),
+			'failures' => $this->table()->delete('redirect IS NULL AND wasResolved IS NULL'),
+			default    => false
+		};
+
+		if ($mode === 'all') {
+			$this->database->sqlite_sequence()->delete(['name' => 'records']);
+		}
+
+		$vacuum = $this->database->execute('VACUUM');
+		return $deleted && $vacuum;
 	}
 
 	/**
@@ -138,17 +146,24 @@ class Log
 	public function purge(): bool
 	{
 		// Get limit (in months) from option
-		$limit = $this->retour()->option('deleteAfter', false);
+		$limit = $this->retour->option('deleteAfter', false);
 
 		if ($limit !== false) {
 			// Get cutoff date by subtracting limit from today
-			$time   = strtotime('-' . $limit . ' month');
+			$time = strtotime('-' . $limit . ' month');
+
+			if ($time === false) {
+				return false;
+			}
+
 			$cutoff = date('Y-m-d 00:00:00', $time);
 
 			/** @var \Kirby\Database\Query $table */
 			$table = $this->table()->bindings(['cutoff' => $cutoff]);
 
-			return $table->delete('strftime("%s", date) < strftime("%s", :cutoff)');
+			$delete = $table->delete('date < :cutoff');
+			$vacuum = $this->database->execute('VACUUM');
+			return $delete && $vacuum;
 		}
 
 		return true;
@@ -158,8 +173,8 @@ class Log
 	 * Returns all records for a redirect
 	 *
 	 * @param string $path redirect path
-	 * @param string $from date sting (yyyy-mm-dd)
-	 * @param string $to date sting (yyyy-mm-dd)
+	 * @param string $from date string (yyyy-mm-dd)
+	 * @param string $to date string (yyyy-mm-dd)
 	 */
 	public function redirect(string $path, string $from, string $to): array
 	{
@@ -168,21 +183,21 @@ class Log
 		$to   .= ' 23:59:59';
 
 		// Run query
-		/** @var array */
+		/** @var array|false */
 		$data = $this->table()
 			->select('
                 COUNT(*) AS hits,
                 MAX(date) AS last
             ')
 			->where(['redirect' => $path])
-			->andWhere('strftime("%s", date) > strftime("%s", :start)', ['start' => $from])
-			->andWhere('strftime("%s", date) < strftime("%s", :end)', ['end' => $to])
+			->andWhere('date > :start', ['start' => $from])
+			->andWhere('date < :end', ['end' => $to])
 			->fetch('array')
 			->first();
 
 		return [
-			'hits' => (int)$data['hits'],
-			'last' => $data['last']
+			'hits' => (int)($data['hits'] ?? 0),
+			'last' => $data['last'] ?? null
 		];
 	}
 
@@ -191,9 +206,7 @@ class Log
 	 */
 	public function remove(string $path): bool
 	{
-		return $this->table()->delete(
-			'path = "' . $this->database->escape($path) . '"'
-		);
+		return $this->table()->delete(['path' => $path]);
 	}
 
 	/**
@@ -207,20 +220,28 @@ class Log
 		);
 	}
 
-	/**
-	 * Returns the Plugin instance
-	 */
-	public function retour(): Retour
+	protected function single(string $sort): array
 	{
-		return $this->retour;
+		/** @var array|false */
+		$result = $this->table()
+			->select('date')
+			->order($sort)
+			->fetch('array')
+			->first();
+
+		if ($result === false) {
+			return [];
+		}
+
+		return $result;
 	}
 
 	/**
 	 * Returns stats data for specified timeframe and unit
 	 *
 	 * @param string $unit timeframe unit (year, month, ...)
-	 * @param string $from date sting (yyyy-mm-dd)
-	 * @param string $to date sting (yyyy-mm-dd)
+	 * @param string $from date string (yyyy-mm-dd)
+	 * @param string $to date string (yyyy-mm-dd)
 	 */
 	public function stats(string $unit, string $from, string $to): array
 	{
@@ -231,39 +252,42 @@ class Log
 			'step'      => new DateInterval('P1D')
 		];
 
-		switch ($unit) {
-			case 'day':
-				// Add time to dates to capture full days
-				$from .= ' 00:00:00';
-				$to   .= ' 23:59:59';
-
-				$use['group_sql'] = '%Y-%m-%d %H';
-				$use['group_php'] = 'Y-m-d H';
-				$use['step']      = new DateInterval('PT1H');
-				break;
-
-			case 'year':
-			case 'months':
-				$use['group_sql'] = '%Y-%m';
-				$use['group_php'] = 'Y-m';
-				$use['step']      = new DateInterval('P1M');
-				break;
+		if ($unit === 'day') {
+			// Add time to dates to capture full days
+			$from .= ' 00:00:00';
+			$to   .= ' 23:59:59';
 		}
+
+		$overrides = match ($unit) {
+			'day' => [
+				'group_sql' => '%Y-%m-%d %H',
+				'group_php' => 'Y-m-d H',
+				'step'      => new DateInterval('PT1H'),
+			],
+			'year', 'months' => [
+				'group_sql' => '%Y-%m',
+				'group_php' => 'Y-m',
+				'step'      => new DateInterval('P1M'),
+			],
+			default => [],
+		};
+
+		$use = array_merge($use, $overrides);
 
 		// Get data from database
 		$data = $this->database->query('
             SELECT
                 strftime(:group, date) AS date,
-                COUNT(redirect) AS redirected,
-                COUNT(wasResolved) - COUNT(wasResolved + redirect) AS resolved,
-                COUNT(path) - COUNT(wasResolved + redirect) - COUNT(redirect) AS failed
+				SUM(CASE WHEN redirect IS NOT NULL THEN 1 END) AS redirected,
+				SUM(CASE WHEN wasResolved IS NOT NULL AND redirect IS NULL THEN 1 END) AS resolved,
+				SUM(CASE WHEN redirect IS NULL AND wasResolved IS NULL THEN 1 END) AS failed
             FROM
                 records
             WHERE
-                strftime("%s", date) >= strftime("%s", :from)
+                date >= :from
             AND
-                strftime("%s", date) <= strftime("%s", :to)
-            GROUP BY
+                date <= :to
+			GROUP BY
                 strftime(:group, date)
             ORDER BY
                 strftime(:group, date)
@@ -292,7 +316,6 @@ class Log
 		) {
 			$step = $i->format($use['group_php']);
 
-
 			if (($entry['date'] ?? null) === $step) {
 				$result[] = $entry;
 				$entry    = array_shift($data);
@@ -306,7 +329,6 @@ class Log
 			}
 		}
 
-
 		return $result;
 	}
 
@@ -316,21 +338,5 @@ class Log
 	public function table(): Query
 	{
 		return $this->database->records();
-	}
-
-	protected function single(string $sort): array
-	{
-		/** @var array|false */
-		$result = $this->table()
-			->select('date')
-			->order($sort)
-			->fetch('array')
-			->first();
-
-		if ($result === false) {
-			return [];
-		}
-
-		return $result;
 	}
 }

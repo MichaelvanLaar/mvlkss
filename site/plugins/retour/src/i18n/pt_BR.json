@@ -27,6 +27,9 @@
 	"retour.failures.resolve": "Adicionar como redirecionamento",
 	"retour.failures.clear": "Limpar registros",
 	"retour.failures.clear.confirm": "Deseja realmente excluir os registros?",
+	"retour.failures.clear.help": "Deleting only for failures will keep hits stats for your redirects.",
+	"retour.failures.clear.mode.all": "Clear the complete log",
+	"retour.failures.clear.mode.failures": "Only for failures",
 	"retour.timespan.from.label": "From",
 	"retour.timespan.to.label": "To",
 	"retour.timespan.set.label": "Set custom",
@@ -38,12 +41,5 @@
 	"retour.stats.mode.year": "Ano",
 	"retour.stats.mode.month": "Mês",
 	"retour.stats.mode.week": "Semana",
-	"retour.stats.mode.day": "Dia",
-	"retour.system": "Sistema",
-	"retour.system.support": "Apoie o desenvolvimento",
-	"retour.system.failures": "Falhas registradas",
-	"retour.system.redirects": "Redirecionamentos bem-sucedidos",
-	"retour.system.deleteAfter": "Excluir registros após",
-	"retour.system.deleteAfter.months": "{count} meses",
-	"retour.system.docs": "Aprenda mais sobre as opções na <a href='{docs}' target='_blank'>documentação</a>."
+	"retour.stats.mode.day": "Dia"
 }
