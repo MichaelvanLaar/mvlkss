@@ -1,4 +1,5 @@
 {
+	"account": "Account",
 	"account.changeName": "Change your name",
 	"account.delete": "Delete your account",
 	"account.delete.confirm": "Do you really want to delete your account? You will be logged out immediately. Your account cannot be recovered.",
@@ -15,7 +16,7 @@
 	"changes": "Changes",
 	"confirm": "Ok",
 	"collapse": "Collapse",
-	"collapse.all": "Collapse All",
+	"collapse.all": "Collapse all",
 	"color": "Color",
 	"coordinates": "Coordinates",
 	"copy": "Copy",
@@ -42,6 +43,9 @@
 
 	"delete": "Delete",
 	"delete.all": "Delete all",
+
+	"deselect": "Deselect",
+	"deselect.all": "Deselect all",
 
 	"dialog.fields.empty": "This dialog has no fields",
 	"dialog.files.empty": "No files to select",
@@ -294,8 +298,12 @@
 	"error.validation.uuid": "Please enter a valid UUID",
 	"error.validation.url": "Please enter a valid URL",
 
+	"error.version.discard.permission": "You are not allowed to discard this version",
+	"error.version.publish.permission": "You are not allowed to publish this version",
+	"error.version.save.permission": "You are not allowed to change this version",
+
 	"expand": "Expand",
-	"expand.all": "Expand All",
+	"expand.all": "Expand all",
 
 	"field.invalid": "The field is invalid",
 	"field.required": "The field is required",
@@ -627,7 +635,9 @@
 	"plugin": "Plugin",
 	"plugins": "Plugins",
 	"prev": "Previous",
+
 	"preview": "Preview",
+	"preview.browser.scroll": "Sync scroll",
 
 	"publish": "Publish",
 	"published": "Published",
@@ -663,6 +673,7 @@
 
 	"security": "Security",
 	"select": "Select",
+	"select.all": "Select all",
 	"server": "Server",
 	"settings": "Settings",
 	"show": "Show",
@@ -771,11 +782,13 @@
 	"user.changePassword.current": "Your current password",
 	"user.changePassword.new": "New password",
 	"user.changePassword.new.confirm": "Confirm the new password…",
+	"user.changePassword.own": "Your own password",
 	"user.changeRole": "Change role",
 	"user.changeRole.select": "Select a new role",
 	"user.create": "Add a new user",
 	"user.delete": "Delete this user",
 	"user.delete.confirm": "Do you really want to delete <br><strong>{email}</strong>?",
+	"user.setPassword": "Set password",
 
 	"users": "Users",
 

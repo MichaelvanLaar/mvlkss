@@ -80,12 +80,14 @@ return [
 		$template  = $mediaRoot . '/{{ name }}{{ attributes }}.{{ extension }}';
 		$thumbRoot = (new Filename($file->root(), $template, $options))->toString();
 		$thumbName = basename($thumbRoot);
+		$job       = $mediaRoot . '/.jobs/' . $thumbName . '.json';
 
-		// check if the thumb already exists
-		if (file_exists($thumbRoot) === false) {
+		// check if the thumb or job file already exists
+		if (
+			file_exists($thumbRoot) === false &&
+			file_exists($job) === false
+		) {
 			// if not, create job file
-			$job = $mediaRoot . '/.jobs/' . $thumbName . '.json';
-
 			try {
 				Data::write(
 					$job,
@@ -397,12 +399,20 @@ return [
 
 			if ($parts[0] ?? null) {
 				$page = $kirby->site()->find($parts[0]);
+
+				// get the extension of the url, if there is one, to add it back later
+				$extension = F::extension($parts[0]);
 			} else {
 				$page = $kirby->site()->page();
 			}
 
 			if ($page) {
 				$path = $page->url($language);
+
+				// add the extension back to the url, if there was one
+				if (isset($extension) === true && $extension !== '') {
+					$path .= '.' . $extension;
+				}
 
 				if (isset($parts[1]) === true) {
 					$path .= '#' . $parts[1];

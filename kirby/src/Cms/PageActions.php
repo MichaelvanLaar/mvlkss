@@ -119,7 +119,7 @@ trait PageActions
 			]);
 
 			// clear UUID cache recursively (for children and files as well)
-			$oldPage->uuid()?->clear(true);
+			$oldPage->uuid()?->clear(recursive: true);
 
 			if ($oldPage->exists() === true) {
 				// actually move stuff on disk
@@ -141,6 +141,8 @@ trait PageActions
 
 				Dir::remove($oldPage->mediaRoot());
 			}
+
+			$newPage->uuid()?->populate(recursive: true);
 
 			return $newPage;
 		});
@@ -422,6 +424,8 @@ trait PageActions
 			parent: $parentModel
 		);
 
+		$copy->uuid()?->populate(recursive: true);
+
 		return $copy;
 	}
 
@@ -455,6 +459,11 @@ trait PageActions
 		// keep the initial storage class
 		$storage = $page->storage()::class;
 
+		// Make sure that the page does not already exist at this point.
+		// Otherwise, moving the storage to memory storage, might delete
+		// an existing page before we can even run the checks.
+		PageRules::create($page);
+
 		// make sure that the temporary page is stored in memory
 		$page->changeStorage(MemoryStorage::class);
 
@@ -473,7 +482,11 @@ trait PageActions
 			],
 			function ($page) use ($storage) {
 				// move to final storage
-				return $page->changeStorage($storage);
+				$page->changeStorage($storage);
+
+				$page->uuid()?->populate();
+
+				return $page;
 			}
 		);
 
@@ -498,8 +511,14 @@ trait PageActions
 			'site'   => $this->site(),
 		];
 
-		$modelClass = static::$models[$props['template'] ?? null] ?? static::class;
-		return $modelClass::create($props);
+		if (
+			($template = $props['template'] ?? null) &&
+			($model = static::$models[$template] ?? null)
+		) {
+			return $model::create($props);
+		}
+
+		return static::create($props);
 	}
 
 	/**
@@ -572,15 +591,25 @@ trait PageActions
 			$page->changeStorage(ImmutableMemoryStorage::class);
 
 			// clear UUID cache
-			$page->uuid()?->clear();
+			$page->uuid()?->clear(recursive: true);
+
+			// Explanation: The two while loops below are only
+			// necessary because our property caches result in
+			// outdated collections when deleting nested pages.
+			// When we use a foreach loop to go through those collections,
+			// we encounter outdated objects. Using a while loop
+			// fixes this issue.
+			//
+			// TODO: We can remove this part as soon
+			// as we move away from our immutable object architecture.
 
 			// delete all files individually
-			foreach ($old->files() as $file) {
+			while ($file = $page->files()->first()) {
 				$file->delete();
 			}
 
 			// delete all children individually
-			foreach ($old->childrenAndDrafts() as $child) {
+			while ($child = $page->childrenAndDrafts()->first()) {
 				$child->delete(true);
 			}
 
@@ -590,10 +619,10 @@ trait PageActions
 			$old->versions()->delete();
 
 			if (
-				$old->isListed() === true &&
-				$old->blueprint()->num() === 'default'
+				$page->isListed() === true &&
+				$page->blueprint()->num() === 'default'
 			) {
-				$old->resortSiblingsAfterUnlisting();
+				$page->resortSiblingsAfterUnlisting();
 			}
 
 			return true;
@@ -675,6 +704,8 @@ trait PageActions
 					key: 'page.move.notFound'
 				);
 			}
+
+			$newPage->uuid()?->populate(recursive: true);
 
 			return $newPage;
 		});

@@ -7,26 +7,19 @@ use Kirby\Http\Route;
 
 /**
  * Main plugin class responsible for general tasks
- *
- * @package   Retour for Kirby
- * @author    Nico Hoffmann <nico@getkirby.com>
- * @link      https://github.com/distantnative/retour-for-kirby
- * @copyright Nico Hoffmann
- * @license   https://opensource.org/licenses/MIT
  */
 class Retour
 {
-	public static $instance;
-
-	protected App $kirby;
 	protected Config $config;
-	protected Redirects $redirects;
+	protected static self|null $instance = null;
+	protected App $kirby;
 
 	/**
 	 * Instance for accessing the log database
 	 * or a mockup for when this feature is disabled
 	 */
 	protected Log|LogDisabled|null $log = null;
+	protected Redirects $redirects;
 
 	public function __construct(App|null $kirby = null)
 	{
@@ -55,16 +48,16 @@ class Retour
 
 	public function ignore(string $path): bool
 	{
-		// temporary route for regex matching
-		$route  = new Route($path, 'GET', fn () => null);
-		$ignore = $this->option('ignore', []);
-		$ignore = $route->regex(implode('|', $ignore));
+		$patterns = $this->option('ignore', []);
 
-		if (preg_match('!^(' . $ignore . ')$!i', $path) === 1) {
-			return true;
+		if ($patterns === []) {
+			return false;
 		}
 
-		return false;
+		// temporary route for regex matching
+		$route   = new Route($path, 'GET', fn () => null);
+		$pattern = $route->regex(implode('|', $patterns));
+		return preg_match('!^(' . $pattern . ')$!i', $path) === 1;
 	}
 
 	/**
@@ -105,7 +98,7 @@ class Retour
 	 */
 	public function option(string $key, mixed $default = null): mixed
 	{
-		return $this->kirby()->option('distantnative.retour.' . $key, $default);
+		return $this->kirby->option('distantnative.retour.' . $key, $default);
 	}
 
 	/**
@@ -114,6 +107,11 @@ class Retour
 	public function redirects(): Redirects
 	{
 		return $this->redirects;
+	}
+
+	public static function reset(): void
+	{
+		self::$instance = null;
 	}
 
 	/**
@@ -128,8 +126,8 @@ class Retour
 		}
 
 		if ($site === true) {
-			$url = (string)kirby()->url();
-			return preg_replace('$^(http(s)?\:\/\/(www\.)?)$', '', $url) . '/';
+			$url = (string)$this->kirby->url();
+			return preg_replace('!^https?://(www\.)?!', '', $url) . '/';
 		}
 
 		return false;

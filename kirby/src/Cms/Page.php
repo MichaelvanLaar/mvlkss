@@ -123,7 +123,7 @@ class Page extends ModelWithContent
 	 */
 	public function __construct(array $props)
 	{
-		if (isset($props['slug']) === false) {
+		if (isset($props['slug']) === false || $props['slug'] === '') {
 			throw new InvalidArgumentException(
 				message: 'The page slug is required'
 			);
@@ -988,7 +988,7 @@ class Page extends ModelWithContent
 			if ($cache !== null && $response->cache() === true) {
 				$cache->set($cacheId, [
 					'html'        => $html,
-					'response'    => $response->toArray(),
+					'response'    => $response->toCacheArray(),
 					'usesAuth'    => $response->usesAuth(),
 					'usesCookies' => $response->usesCookies(),
 				], $response->expires() ?? 0);
