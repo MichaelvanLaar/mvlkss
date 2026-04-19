@@ -17,7 +17,7 @@
       "Edit(.env)",
       "Edit(.env.*)",
       "Edit(secrets/**)",
-      "Edit(.github/workflows/**)",
+      //"Edit(.github/workflows/**)",
       "Edit(kirby/**)",
       "Bash(rm -rf:*)"
     ]

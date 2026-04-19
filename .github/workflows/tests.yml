@@ -102,5 +102,8 @@ jobs:
 
       - name: Check for build artifacts
         run: |
-          test -s assets/css/main.css || (echo "CSS build produced empty or missing file" && exit 1)
-          test -s assets/js/main.js || (echo "JS build produced empty or missing file" && exit 1)
+          # hashup renames main.css → main.<hash>.css after webpack runs
+          find assets/css -maxdepth 1 -type f -name 'main*.css' -size +0c | grep -q . \
+            || (echo "CSS build produced empty or missing file" && exit 1)
+          find assets/js -maxdepth 1 -type f -name 'main*.js' -size +0c | grep -q . \
+            || (echo "JS build produced empty or missing file" && exit 1)

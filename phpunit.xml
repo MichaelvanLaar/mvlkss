@@ -34,10 +34,4 @@
         <env name="KIRBY_MODE" value="test"/>
         <env name="KIRBY_ENV" value="test"/>
     </php>
-    <coverage>
-        <report>
-            <html outputDirectory=".coverage/html"/>
-            <text outputFile="php://stdout" showUncoveredFiles="false"/>
-        </report>
-    </coverage>
 </phpunit>
