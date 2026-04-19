@@ -13,12 +13,6 @@ use Kirby\Toolkit\Str;
 /**
  * Redirect
  * Single redirect with its properties
- *
- * @package   Retour for Kirby
- * @author    Nico Hoffmann <nico@getkirby.com>
- * @link      https://github.com/distantnative/retour-for-kirby
- * @copyright Nico Hoffmann
- * @license   https://opensource.org/licenses/MIT
  */
 class Redirect extends Obj
 {
@@ -64,8 +58,7 @@ class Redirect extends Obj
 	}
 
 	/**
-	 * Returns whether the route is enabled
-	 * with status code
+	 * Returns whether the redirect has an active status code
 	 */
 	public function isActive(): bool
 	{
@@ -82,11 +75,64 @@ class Redirect extends Obj
 	}
 
 	/**
+	 * Resolves the redirect action for the router
+	 *
+	 * @param array<int, string> $placeholders
+	 */
+	public function resolve(array $placeholders): mixed
+	{
+		$retour    = Retour::instance();
+		$kirby     = $retour->kirby();
+		$to        = $this->to() ?? '/';
+		$to        = static::toPath($to, $placeholders);
+		$extension = F::extension($to);
+		$path      = Str::beforeEnd($to, '.' . $extension);
+		$page      = $kirby->page($path);
+		$code      = $this->status();
+
+		// Add log entry
+		$retour->log()->add([
+			'path'     => Url::path(),
+			'redirect' => $this->from()
+		]);
+
+		// Redirects
+		// @codeCoverageIgnoreStart
+		if ($code >= 300 && $code < 400) {
+			if ($page) {
+				$to = $page->url();
+
+				// support for content representations
+				if (empty($extension) === false) {
+					$to .= '.' . $extension;
+				}
+			}
+
+			Response::go($to, $code);
+		}
+		// @codeCoverageIgnoreEnd
+
+		// Set the right response code
+		$kirby->response()->code($code);
+
+		// Return page for other codes
+		if ($page) {
+			return $page;
+		}
+
+		// Deliver HTTP status code and die
+		// @codeCoverageIgnoreStart
+		Header::status($code);
+		die();
+		// @codeCoverageIgnoreEnd
+	}
+
+	/**
 	 * Returns the integer HTTP status code
 	 */
 	public function status(): int|null
 	{
-		if (in_array($this->status ?? null, [null, 'disabled']) == true) {
+		if (in_array($this->status, [null, 'disabled']) === true) {
 			return null;
 		}
 
@@ -130,10 +176,10 @@ class Redirect extends Obj
 	/**
 	 * Return route definition for Router
 	 */
-	public function toRoute(): array|false
+	public function toRoute(): array|null
 	{
 		if ($this->isActive() === false) {
-			return false;
+			return null;
 		}
 
 		$redirect = $this;
@@ -141,50 +187,7 @@ class Redirect extends Obj
 		return [
 			'pattern' => trim($this->from(), '/'),
 			'action'  => function (...$placeholders) use ($redirect) {
-				$retour    = Retour::instance();
-				$kirby     = $retour->kirby();
-				$to        = $redirect->to() ?? '/';
-				$to        = Redirect::toPath($to, $placeholders);
-				$extension = F::extension($to);
-				$path      = Str::beforeEnd($to, '.' . $extension);
-				$page      = $kirby->page($path);
-				$code      = $redirect->status();
-
-				// Add log entry
-				$retour->log()->add([
-					'path'     => Url::path(),
-					'redirect' => $redirect->from()
-				]);
-
-				// Redirects
-				// @codeCoverageIgnoreStart
-				if ($code >= 300 && $code < 400) {
-					if ($page) {
-						$to = $page->url();
-
-						// support for content representations
-						if (empty($extension) === false) {
-							$to .= '.' . $extension;
-						}
-					}
-
-					Response::go($to, $code);
-				}
-				// @codeCoverageIgnoreEnd
-
-				// Set the right response code
-				$kirby->response()->code($code);
-
-				// Return page for other codes
-				if ($page) {
-					return $page;
-				}
-
-				// Deliver HTTP status code and die
-				// @codeCoverageIgnoreStart
-				Header::status($code);
-				die();
-				// @codeCoverageIgnoreEnd
+				return $redirect->resolve($placeholders);
 			}
 		];
 	}

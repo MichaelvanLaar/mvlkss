@@ -36,6 +36,7 @@ use Kirby\Toolkit\LazyValue;
 use Kirby\Toolkit\Locale;
 use Kirby\Toolkit\Str;
 use Kirby\Uuid\Uuid;
+use Kirby\Uuid\Uuids;
 use Throwable;
 
 /**
@@ -102,8 +103,12 @@ class App
 		$this->core   = new Core($this);
 		$this->events = new Events($this);
 
-		// start with a fresh version cache
+		// start with a fresh snippet and version cache
+		Snippet::$cache = [];
 		VersionCache::reset();
+
+		// reset the UUIDs option cache
+		Uuids::$enabled = null;
 
 		// register all roots to be able to load stuff afterwards
 		$this->bakeRoots($props['roots'] ?? []);
@@ -420,6 +425,7 @@ class App
 	public function contentToken(object|null $model, string $value): string
 	{
 		$default = $this->root('content');
+		$default = realpath($default) ?: $default;
 
 		if ($model !== null && method_exists($model, 'id') === true) {
 			$default .= '/' . $model->id();
@@ -544,6 +550,15 @@ class App
 	}
 
 	/**
+	 * Checks if CORS support is enabled
+	 * @since 5.2.0
+	 */
+	public function isCorsEnabled(): bool
+	{
+		return $this->option('cors', false) !== false;
+	}
+
+	/**
 	 * Returns the current language, if set by `static::setCurrentLanguage`
 	 */
 	public function currentLanguage(): Language|null
@@ -580,35 +595,25 @@ class App
 		$visitor   = $this->visitor();
 
 		foreach ($visitor->acceptedLanguages() as $acceptedLang) {
-			// Find locale matches (e.g. en_GB => en_GB)
-			$matchLocale = function ($language) use ($acceptedLang) {
-				$languageLocale = $language->locale(LC_ALL);
-				$acceptedLocale = $acceptedLang->locale();
+			$acceptedCode   = $acceptedLang->code();
+			$acceptedLocale = $acceptedLang->locale();
 
-				return Str::substr($languageLocale, 0, 5) === Str::substr($acceptedLocale, 0, 5);
-			};
+			$match = fn (Language $language, int $precision) =>
+				Str::substr($language->locale(LC_ALL), 0, $precision) ===
+				Str::substr($acceptedLocale, 0, $precision);
 
-			// Find language matches (e.g. en_GB => en)
-			$matchLanguage = function ($language) use ($acceptedLang) {
-				$languageLocale = $language->locale(LC_ALL);
-				$acceptedLocale = $acceptedLang->locale();
-
-				return
-					$languageLocale === $acceptedLocale ||
-					$acceptedLocale === Str::substr($languageLocale, 0, 2);
-			};
-
-			if ($language = $languages->filter($matchLocale)?->first()) {
+			// Find exact locale matches (e.g. en_GB => en_GB)
+			if ($language = $languages->filter(fn ($language) => $match($language, 5))?->first()) {
 				return $language;
 			}
 
-			if ($language = $languages->filter($matchLanguage)?->first()) {
+			// Find exact code matches
+			if ($language = $languages->findBy('code', $acceptedCode)) {
 				return $language;
 			}
-		}
 
-		foreach ($visitor->acceptedLanguages() as $acceptedLang) {
-			if ($language = $languages->findBy('code', $acceptedLang->code())) {
+			// Find broad locale matches (e.g. en_GB => en)
+			if ($language = $languages->filter(fn ($language) => $match($language, 2))?->first()) {
 				return $language;
 			}
 		}
@@ -1029,7 +1034,7 @@ class App
 
 		// load the main config options
 		$root    = $this->root('config');
-		$options = F::load($root . '/config.php', [], allowOutput: false);
+		$options = F::load($root . '/config.php', [], allowOutput: false, cache: true);
 
 		// merge into one clean options array
 		return $this->options = array_replace_recursive(Config::$data, $options);
@@ -1044,7 +1049,7 @@ class App
 		$root = $this->root('config');
 
 		// first load `config/env.php` to access its `url` option
-		$envOptions = F::load($root . '/env.php', [], allowOutput: false);
+		$envOptions = F::load($root . '/env.php', [], allowOutput: false, cache: true);
 
 		// use the option from the main `config.php`,
 		// but allow the `env.php` to override it

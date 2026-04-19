@@ -289,6 +289,23 @@ class A
 			$keys     = explode('.', $key);
 			$firstKey = array_shift($keys);
 
+			// prefer a dotted prefix key if it exists
+			// (e.g. plugin namespaces).
+			for ($i = count($keys); $i > 0; $i--) {
+				$prefix = $firstKey . '.' . implode('.', array_slice($keys, 0, $i));
+
+				if (
+					isset($array[$prefix]) === true &&
+					is_array($array[$prefix]) === true
+				) {
+					return static::get(
+						$array[$prefix],
+						implode('.', array_slice($keys, $i)),
+						$default
+					);
+				}
+			}
+
 			// if the input array also uses dot notation,
 			// try to find a subset of the $keys
 			if (isset($array[$firstKey]) === false) {
@@ -911,7 +928,7 @@ class A
 		}
 
 		// rebuild the original array
-		foreach ($helper as $key => $val) {
+		foreach (array_keys($helper) as $key) {
 			$result[$key] = $array[$key];
 		}
 

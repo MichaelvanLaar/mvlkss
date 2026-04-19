@@ -601,6 +601,40 @@ class Str
 	}
 
 	/**
+	 * Converts keys or ids into human-readable labels by
+	 * normalizing punctuation, splitting camel- or kebab-case,
+	 * and title-casing the result.
+	 *
+	 * Example: `workEmailAddress` will turn into `Work email address`
+	 *
+	 * @since 5.2.0
+	 */
+	public static function label(string $value): string
+	{
+		// replace punctuation with spaces
+		$value = str_replace(['_', '-', '.'], ' ', $value);
+
+		// add a space before every uppercase character by matching
+		// all characters that are not Unicode lowercase or numbers
+		$value = preg_replace_callback('/[^\p{Ll}\p{Nd}]/u', fn ($match) => ' ' . $match[0], $value);
+
+		// add a space before every first number
+		$value = preg_replace('/([^\d])(\d)/', '$1 $2', $value);
+
+		// remove duplicate spaces
+		$value = preg_replace('/[\s]{2,}+/', ' ', $value);
+
+		// trim leading or trailing spaces
+		$value = trim($value);
+
+		// convert the entire string into lowercase
+		$value = static::lower($value);
+
+		// turn the first character into uppercase
+		return static::ucfirst($value);
+	}
+
+	/**
 	 * A UTF-8 safe version of strlen()
 	 */
 	public static function length(string|null $string): int
@@ -617,10 +651,17 @@ class Str
 	}
 
 	/**
-	 * Safe ltrim alternative
+	 * Trims away a fixed sequence at the beginning of the string.
+	 * For character list trimming, use PHP's native `ltrim()` function.
+	 *
+	 * ```php
+	 * Str::ltrim('abababaC', 'ab'); // 'aC'
+	 * ```
 	 */
-	public static function ltrim(string $string, string $trim = ' '): string
-	{
+	public static function ltrim(
+		string $string,
+		string $trim = ' '
+	): string {
 		return preg_replace('!^(' . preg_quote($trim) . ')+!', '', $string);
 	}
 
@@ -819,7 +860,7 @@ class Str
 
 		// without a limit we might as well use the built-in function
 		if ($limit === -1) {
-			return str_replace($search, $replace, $string ?? '');
+			return str_replace($search, $replace, $string);
 		}
 
 		// if the limit is zero, the result will be no replacements at all
@@ -963,10 +1004,17 @@ class Str
 	}
 
 	/**
-	 * Safe rtrim alternative
+	 * Trims away a fixed sequence at the end of the string.
+	 * For character list trimming, use PHP's native `rtrim()` function.
+	 *
+	 * ```php
+	 * Str::rtrim('Cabababa', 'ba'); // 'Ca'
+	 * ```
 	 */
-	public static function rtrim(string $string, string $trim = ' '): string
-	{
+	public static function rtrim(
+		string $string,
+		string $trim = ' '
+	): string {
 		return preg_replace('!(' . preg_quote($trim) . ')+$!', '', $string);
 	}
 
@@ -1036,8 +1084,8 @@ class Str
 	 * ```
 	 *
 	 * @param string $string The string to be shortened
-	 * @param int $length The final number of characters the
-	 *                    string should have
+	 * @param int $length Final number of characters
+	 *                    the string (excl. appendix) should have
 	 * @param string $appendix The element, which should be added if the
 	 *                         string is too long. Ellipsis is the default.
 	 * @return string The shortened string
@@ -1308,8 +1356,8 @@ class Str
 		array $data = [],
 		array $options = []
 	): string {
-		$start    = $options['start'] ?? '{{1,2}';
-		$end      = $options['end'] ?? '}{1,2}';
+		$start    = $options['start'] ?? '(?:{{|{<|{)';
+		$end      = $options['end'] ?? '(?:}}|>}|})';
 		$fallback = $options['fallback'] ?? null;
 		$callback = $options['callback'] ?? null;
 
@@ -1391,11 +1439,20 @@ class Str
 	}
 
 	/**
-	 * Safe trim alternative
+	 * Trims away a fixed sequence at the beginning and end of the string.
+	 * For character list trimming, use PHP's native `trim()` function.
+	 *
+	 * ```php
+	 * Str::trim('ababaCbabab', 'ab'); // 'aCb'
+	 * ```
 	 */
-	public static function trim(string $string, string $trim = ' '): string
-	{
-		return static::rtrim(static::ltrim($string, $trim), $trim);
+	public static function trim(
+		string $string,
+		string $trim = ' '
+	): string {
+		$string = static::ltrim($string, $trim);
+		$string = static::rtrim($string, $trim);
+		return $string;
 	}
 
 	/**

@@ -7,11 +7,8 @@ use Kirby\Toolkit\Date;
 use Kirby\Toolkit\I18n;
 
 /**
- * @package   Retour for Kirby
- * @author    Nico Hoffmann <nico@getkirby.com>
- * @link      https://github.com/distantnative/retour-for-kirby
- * @copyright Nico Hoffmann
- * @license   https://opensource.org/licenses/MIT
+ * Manages the selected date range for log views,
+ * including session persistence and label/unit resolution
  */
 class Timespan
 {
@@ -43,7 +40,7 @@ class Timespan
 			return false;
 		}
 
-		return $to< $last || $to < $today;
+		return $to < $last || $to < $today;
 	}
 
 	protected static function hasPrev(
@@ -76,22 +73,7 @@ class Timespan
 		Date $to,
 		Date $today
 	): bool {
-		return (
-			$from < $today ||
-			$from->format('Y-m-d') === $today->format('Y-m-d')
-		) && (
-			$to > $today ||
-			$to->format('Y-m-d') === $today->format('Y-m-d')
-		);
-	}
-
-	public static function limits(): array
-	{
-		$retour = Retour::instance();
-		return [
-			$retour->log()->first()['date'] ?? null,
-			$retour->log()->last()['date'] ?? null
-		];
+		return $from <= $today && $to >= $today;
 	}
 
 	public static function label(array $data): string
@@ -101,15 +83,20 @@ class Timespan
 		$to   = Date::optional($data['to']);
 
 		if ($unit === 'day') {
-			return implode(' ', [
+			return sprintf(
+				'%s %s %s',
 				$from->format('j'),
 				static::month($from),
 				$from->format('Y')
-			]);
+			);
 		}
 
 		if ($unit === 'month') {
-			return implode(' ', [static::month($from), $from->format('Y')]);
+			return sprintf(
+				'%s %s',
+				static::month($from),
+				$from->format('Y')
+			);
 		}
 
 		if ($unit === 'year') {
@@ -118,15 +105,46 @@ class Timespan
 
 		// within same month
 		if ($from->format('Y-m') === $to->format('Y-m')) {
-			return $from->format('j') . ' - ' . $to->format('j') . ' ' . static::month($from) . ' ' . $from->format('Y');
+			return sprintf(
+				'%s - %s %s %s',
+				$from->format('j'),
+				$to->format('j'),
+				static::month($from),
+				$from->format('Y')
+			);
 		}
 
 		// within same year
 		if ($from->format('Y') === $to->format('Y')) {
-			return $from->format('j') . ' ' . static::month($from) . ' - ' . $to->format('j') . ' ' . static::month($to) . ' ' . $from->format('Y');
+			return sprintf(
+				'%s %s - %s %s %s',
+				$from->format('j'),
+				static::month($from),
+				$to->format('j'),
+				static::month($to),
+				$from->format('Y')
+			);
 		}
 
-		return $from->format('j') . ' ' . static::month($from) . ' ' . $from->format('Y') . ' - ' . $to->format('j') . ' ' . static::month($to) . ' ' . $to->format('Y');
+		return sprintf(
+			'%s %s %s - %s %s %s',
+			$from->format('j'),
+			static::month($from),
+			$from->format('Y'),
+			$to->format('j'),
+			static::month($to),
+			$to->format('Y')
+		);
+	}
+
+	public static function limits(Retour|null $retour = null): array
+	{
+		$retour ??= Retour::instance();
+
+		return [
+			$retour->log()->first()['date'] ?? null,
+			$retour->log()->last()['date'] ?? null
+		];
 	}
 
 	protected static function month(Date $date): string|null
@@ -143,9 +161,8 @@ class Timespan
 
 		$data['unit']  = static::unit($data);
 		$data['label'] = static::label($data);
-		$data += static::checks($data);
 
-		return $data;
+		return $data + static::checks($data);
 	}
 
 	public static function query(): array
@@ -197,16 +214,16 @@ class Timespan
 
 		if (
 			$from->format('Y-m') === $to->format('Y-m') &&
-			$from->format('Y-m-j') === $from->format('Y-m-1') &&
-			$to->format('Y-m-j') === $to->format('Y-m-t')
+			$from->format('j') === '1' &&
+			$to->format('j') === $to->format('t')
 		) {
 			return 'month';
 		}
 
 		if (
 			$from->format('Y') === $to->format('Y') &&
-			$from->format('Y-n-j') === $from->format('Y-1-1') &&
-			$to->format('Y-n-j') === $to->format('Y-12-31')
+			$from->format('n-j') === '1-1' &&
+			$to->format('n-j') === '12-31'
 		) {
 			return 'year';
 		}

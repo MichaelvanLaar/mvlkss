@@ -8,12 +8,6 @@ use Throwable;
 
 /**
  * Handles reading from/writing to the config file
- *
- * @package   Retour for Kirby
- * @author    Nico Hoffmann <nico@getkirby.com>
- * @link      https://github.com/distantnative/retour-for-kirby
- * @copyright Nico Hoffmann
- * @license   https://opensource.org/licenses/MIT
  */
 class Config
 {
@@ -36,9 +30,8 @@ class Config
 
 	public function file(): string
 	{
-		$retour  = $this->retour();
-		$default = $retour->kirby()->root('config') . '/retour.yml';
-		$path    = $retour->option('config', $default);
+		$default = $this->retour->kirby()->root('config') . '/retour.yml';
+		$path    = $this->retour->option('config', $default);
 
 		if (is_callable($path) === true) {
 			$path = $path();
@@ -53,13 +46,8 @@ class Config
 			$file = $this->file();
 			return $this->data = Data::read($file);
 		} catch (Throwable) {
-			return $this->data =  [];
+			return $this->data = [];
 		}
-	}
-
-	public function retour(): Retour
-	{
-		return $this->retour;
 	}
 
 	public function write(
@@ -67,6 +55,7 @@ class Config
 		mixed $value = null
 	): array {
 		$data = $this->data;
+
 		if (is_array($key) === true) {
 			$data = array_merge($data, $key);
 		} else {
