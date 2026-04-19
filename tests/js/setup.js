@@ -1,12 +1,14 @@
 /**
  * Vitest Setup File
  *
- * This file runs before all tests and sets up the testing environment.
+ * Runs before all tests. Asserts that the jsdom environment is active — a
+ * config drift to `node` would otherwise silently produce TypeErrors on DOM
+ * access rather than a clear "wrong environment" message.
  */
 
-// Mock browser APIs that might be used in the code
-global.window = global.window || {};
-global.document = global.document || {};
-
-// Add any global test utilities here
-// For example, custom matchers, global mocks, etc.
+if (typeof window === "undefined" || typeof document === "undefined") {
+  throw new Error(
+    "Test setup error: jsdom environment is not active. " +
+      "Ensure vitest.config.js sets environment: \"jsdom\".",
+  );
+}

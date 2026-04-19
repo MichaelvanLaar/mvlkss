@@ -1,128 +1,121 @@
 /**
  * Tests for Image Modal (Lightbox) functionality
  *
- * Tests that the image modal opens, closes, and handles loading states correctly.
+ * Exercises src/js/main-partials/image-modal.js against jsdom DOM fixtures.
  */
 
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import {
+  showModal,
+  closeModal,
+  initImageModal,
+} from "@js/main-partials/image-modal.js";
 
-describe('Image Modal', () => {
+function setupModalDom() {
+  document.body.innerHTML = `
+    <div id="image-modal" class="hidden opacity-0">
+      <img id="image-modal-img" src="" alt="" />
+      <div id="image-modal-loader" class="hidden">Loading...</div>
+      <button data-image-modal-close>Close</button>
+    </div>
+    <a href="#" data-image-modal-trigger data-image-modal-url="/test-image.jpg">Open</a>
+  `;
+
+  return {
+    modal: document.getElementById("image-modal"),
+    modalImg: document.getElementById("image-modal-img"),
+    loader: document.getElementById("image-modal-loader"),
+  };
+}
+
+describe("Image Modal — showModal", () => {
+  it("unhides the modal and sets the image source", () => {
+    const { modal, modalImg, loader } = setupModalDom();
+
+    showModal(modal, modalImg, loader, "/test-image.jpg");
+
+    expect(modal.classList.contains("hidden")).toBe(false);
+    expect(modal.classList.contains("flex")).toBe(true);
+    expect(modal.classList.contains("opacity-0")).toBe(false);
+    expect(modalImg.src).toContain("/test-image.jpg");
+  });
+
+  it("displays the loader while the image is loading", () => {
+    const { modal, modalImg, loader } = setupModalDom();
+
+    showModal(modal, modalImg, loader, "/test-image.jpg");
+
+    expect(loader.classList.contains("hidden")).toBe(false);
+    expect(loader.classList.contains("flex")).toBe(true);
+  });
+});
+
+describe("Image Modal — closeModal", () => {
   beforeEach(() => {
-    // Set up the basic modal structure that would exist in the page
-    document.body.innerHTML = `
-      <div id="image-modal" class="hidden opacity-0">
-        <img id="image-modal-img" src="" alt="" />
-        <div id="image-modal-loader" class="hidden">Loading...</div>
-        <button data-image-modal-close>Close</button>
-      </div>
-      <a href="#" data-image-modal-trigger data-image-modal-url="/test-image.jpg">Open Modal</a>
-    `;
+    vi.useFakeTimers();
   });
 
-  it('should have required modal elements in the DOM', () => {
-    const modal = document.getElementById('image-modal');
-    const modalImg = document.getElementById('image-modal-img');
-    const loader = document.getElementById('image-modal-loader');
-
-    expect(modal).not.toBeNull();
-    expect(modalImg).not.toBeNull();
-    expect(loader).not.toBeNull();
+  afterEach(() => {
+    vi.useRealTimers();
   });
 
-  it('should show modal when trigger is clicked', () => {
-    const modal = document.getElementById('image-modal');
-    const modalImg = document.getElementById('image-modal-img');
-    const loader = document.getElementById('image-modal-loader');
+  it("applies opacity-0 immediately and hides the modal after the transition", () => {
+    const { modal, modalImg, loader } = setupModalDom();
+    showModal(modal, modalImg, loader, "/test-image.jpg");
 
-    // Simulate showing the modal
-    const showModal = (src) => {
-      loader.classList.remove('hidden');
-      loader.classList.add('flex');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-      modal.classList.remove('opacity-0');
-      modalImg.src = src;
-    };
+    closeModal(modal, modalImg, loader, 300);
 
-    showModal('/test-image.jpg');
+    expect(modal.classList.contains("opacity-0")).toBe(true);
+    // Hidden state should not apply before the timer elapses
+    expect(modal.classList.contains("hidden")).toBe(false);
 
-    expect(modal.classList.contains('hidden')).toBe(false);
-    expect(modal.classList.contains('flex')).toBe(true);
-    expect(modal.classList.contains('opacity-0')).toBe(false);
-    expect(modalImg.src).toContain('/test-image.jpg');
+    vi.advanceTimersByTime(300);
+
+    expect(modal.classList.contains("flex")).toBe(false);
+    expect(modal.classList.contains("hidden")).toBe(true);
+    expect(modalImg.getAttribute("src")).toBe("");
+    expect(loader.classList.contains("hidden")).toBe(true);
+  });
+});
+
+describe("Image Modal — initImageModal", () => {
+  it("does nothing when the modal elements are absent", () => {
+    document.body.innerHTML = "<p>no modal here</p>";
+
+    // Should not throw
+    expect(() => initImageModal()).not.toThrow();
   });
 
-  it('should show loader when modal opens', () => {
-    const loader = document.getElementById('image-modal-loader');
+  it("opens the modal when a trigger is clicked", () => {
+    const { modal, modalImg } = setupModalDom();
+    initImageModal();
 
-    // Simulate showing the modal with loader
-    loader.classList.remove('hidden');
-    loader.classList.add('flex');
+    document.dispatchEvent(new Event("DOMContentLoaded"));
 
-    expect(loader.classList.contains('hidden')).toBe(false);
-    expect(loader.classList.contains('flex')).toBe(true);
+    const trigger = document.querySelector("[data-image-modal-trigger]");
+    trigger.click();
+
+    expect(modal.classList.contains("flex")).toBe(true);
+    expect(modal.classList.contains("hidden")).toBe(false);
+    expect(modalImg.src).toContain("/test-image.jpg");
   });
 
-  it('should hide loader when image loads', () => {
-    const modalImg = document.getElementById('image-modal-img');
-    const loader = document.getElementById('image-modal-loader');
+  it("closes the modal when the close button is clicked", () => {
+    vi.useFakeTimers();
+    try {
+      const { modal } = setupModalDom();
+      initImageModal();
+      document.dispatchEvent(new Event("DOMContentLoaded"));
 
-    // Show loader first
-    loader.classList.remove('hidden');
-    loader.classList.add('flex');
+      document.querySelector("[data-image-modal-trigger]").click();
+      expect(modal.classList.contains("flex")).toBe(true);
 
-    // Simulate image load event
-    modalImg.dispatchEvent(new Event('load'));
+      document.querySelector("[data-image-modal-close]").click();
+      vi.advanceTimersByTime(300);
 
-    // Add the load event listener behavior
-    loader.classList.remove('flex');
-    loader.classList.add('hidden');
-
-    expect(loader.classList.contains('hidden')).toBe(true);
-    expect(loader.classList.contains('flex')).toBe(false);
-  });
-
-  it('should close modal with transition', () => {
-    const modal = document.getElementById('image-modal');
-    const modalImg = document.getElementById('image-modal-img');
-
-    // Open modal first
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
-    modalImg.src = '/test-image.jpg';
-
-    const initialSrc = modalImg.src;
-    expect(initialSrc).toContain('/test-image.jpg');
-
-    // Simulate closing the modal
-    const closeModal = () => {
-      modal.classList.add('opacity-0');
-
-      // Simulate the setTimeout behavior
-      modal.classList.remove('flex');
-      modal.classList.add('hidden');
-      modalImg.src = '';
-    };
-
-    closeModal();
-
-    expect(modal.classList.contains('opacity-0')).toBe(true);
-    expect(modal.classList.contains('hidden')).toBe(true);
-    // In jsdom, setting src to '' resolves to the base URL, so just check it changed
-    expect(modalImg.src).not.toBe(initialSrc);
-  });
-
-  it('should extract image URL from data attribute', () => {
-    const trigger = document.querySelector('[data-image-modal-trigger]');
-    const imageUrl = trigger.getAttribute('data-image-modal-url');
-
-    expect(imageUrl).toBe('/test-image.jpg');
-  });
-
-  it('should have close button with correct data attribute', () => {
-    const closeButton = document.querySelector('[data-image-modal-close]');
-
-    expect(closeButton).not.toBeNull();
-    expect(closeButton.tagName).toBe('BUTTON');
+      expect(modal.classList.contains("hidden")).toBe(true);
+    } finally {
+      vi.useRealTimers();
+    }
   });
 });

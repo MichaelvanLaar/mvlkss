@@ -43,7 +43,7 @@ export default [
       'prefer-arrow-callback': 'warn',
 
       // Code style
-      'quotes': ['error', 'single', { avoidEscape: true }],
+      'quotes': ['error', 'double', { avoidEscape: true }],
       'semi': ['error', 'always'],
       'comma-dangle': ['error', 'always-multiline'],
       'indent': ['error', 2, { SwitchCase: 1 }],
@@ -78,7 +78,7 @@ export default [
 
   // Configuration files
   {
-    files: ['*.config.js', '.eslintrc.js'],
+    files: ['*.config.js'],
     languageOptions: {
       globals: {
         ...globals.node,

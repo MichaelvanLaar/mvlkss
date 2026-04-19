@@ -62,22 +62,23 @@ npm run lint
 **Location**: `tests/Unit/` and `tests/Integration/`
 
 **What they test**:
+
 - Configuration validity (brand colors, spacing classes)
 - Snippet controller logic
 - Template rendering
 - Helper functions
 
 **Example**:
+
 ```php
 namespace Tests\Unit\Config;
 
 use Tests\TestCase;
 
-class BrandColorsTest extends TestCase
-{
-    public function test_brand_colors_configuration_exists(): void
-    {
-        $brandColors = $this->kirby()->option('selectableBrandColors', []);
+class BrandColorsTest extends TestCase {
+    public function test_brand_colors_configuration_exists(): void {
+        $siteConstants = $this->kirby()->option("site-constants");
+        $brandColors = $siteConstants["selectable-brand-colors"] ?? [];
         $this->assertNotEmpty($brandColors);
     }
 }
@@ -85,19 +86,27 @@ class BrandColorsTest extends TestCase
 
 ### 2. PHP Static Analysis (PHPStan)
 
-**Configuration**: `phpstan.neon`
+**Configuration**: `phpstan.neon` (level 6) with pre-existing errors captured in `phpstan-baseline.neon`.
 
 **What it checks**:
+
 - Type safety
 - Undefined variables
 - Incorrect method calls
 - Dead code
 
 **Run**:
+
 ```bash
 npm run test:phpstan
 # or
 vendor/bin/phpstan analyse
+```
+
+**Baseline**: The baseline file freezes the set of errors the codebase had when PHPStan was introduced, so CI stays green while the errors are addressed incrementally. New errors in changed code still fail CI. To regenerate after fixing a batch:
+
+```bash
+vendor/bin/phpstan analyse --generate-baseline=phpstan-baseline.neon
 ```
 
 ### 3. JavaScript Unit Tests (Vitest)
@@ -105,33 +114,48 @@ vendor/bin/phpstan analyse
 **Location**: `tests/js/` and inline `*.test.js` files
 
 **What they test**:
+
 - DOM manipulation
 - Event handling
 - JavaScript utility functions
 - Browser interactions
 
 **Example**:
-```javascript
-import { describe, it, expect } from 'vitest';
 
-describe('Link Security', () => {
-  it('should add rel="noopener" to external links', () => {
-    // Test implementation
-  });
+```javascript
+import { describe, it, expect, beforeEach } from "vitest";
+import { secureExternalLinks } from "@js/main-partials/link-security.js";
+
+describe("Link Security", () => {
+    beforeEach(() => {
+        document.body.innerHTML = "";
+    });
+
+    it('adds rel="noopener" to external links', () => {
+        document.body.innerHTML = `<a href="https://example.com" target="_blank" id="x">External</a>`;
+        secureExternalLinks();
+        expect(document.getElementById("x").getAttribute("rel")).toBe(
+            "noopener",
+        );
+    });
 });
 ```
+
+Import production modules via the `@js/` alias (mapped to `src/js/` in `vitest.config.js`) and exercise them against jsdom DOM fixtures — do not re-implement the logic inside the test.
 
 ### 4. JavaScript Linting (ESLint)
 
 **Configuration**: `eslint.config.js`
 
 **What it checks**:
+
 - Code style consistency
 - Best practices
 - Potential bugs
 - Browser compatibility
 
 **Run**:
+
 ```bash
 npm run lint:js
 
@@ -144,11 +168,13 @@ npm run lint:js:fix
 **Configuration**: `.stylelintrc.json`
 
 **What it checks**:
+
 - CSS syntax errors
 - Tailwind CSS best practices
 - Code style consistency
 
 **Run**:
+
 ```bash
 npm run lint:css
 ```
@@ -158,10 +184,12 @@ npm run lint:css
 **Configuration**: `.yamllint.json`
 
 **What it checks**:
+
 - Blueprint YAML syntax
 - Valid YAML structure
 
 **Run**:
+
 ```bash
 npm run lint:yaml
 ```
@@ -212,7 +240,7 @@ npm run test:js:ui
 npm run lint
 
 # Individual linters
-npm run lint:php      # PHPStan
+npm run lint:php      # PHPStan (alias for `npm run test:phpstan` — same command)
 npm run lint:js       # ESLint
 npm run lint:css      # Stylelint
 npm run lint:yaml     # YAML lint
@@ -235,6 +263,7 @@ npm run test:js:coverage
 ```
 
 Coverage reports are generated in:
+
 - PHP: `.coverage/html/` (open `index.html` in browser)
 - JavaScript: `.coverage/js/` (open `index.html` in browser)
 
@@ -252,21 +281,20 @@ namespace Tests\Unit\YourCategory;
 
 use Tests\TestCase;
 
-class YourTest extends TestCase
-{
-    public function test_something(): void
-    {
+class YourTest extends TestCase {
+    public function test_something(): void {
         $this->assertTrue(true);
     }
 }
 ```
 
 3. **Use helper methods** from `tests/TestCase.php`:
-   - `$this->kirby()` - Get Kirby instance
-   - `$this->site()` - Get site instance
-   - `$this->createTestPage()` - Create test page
-   - `$this->assertValidHtml()` - Assert valid HTML
-   - `$this->assertHasClass()` - Assert CSS class presence
+    - `$this->kirby()` - Get Kirby instance
+    - `$this->site()` - Get site instance
+    - `$this->createTestPage()` - Create test page
+    - `$this->assertValidHtml()` - Assert valid HTML
+    - `$this->assertHasClass()` - Assert CSS class presence
+    - `$this->assertHasTag()` - Assert HTML tag presence
 
 ### JavaScript Unit Tests
 
@@ -274,30 +302,45 @@ class YourTest extends TestCase
 2. **Import Vitest functions**:
 
 ```javascript
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach } from "vitest";
 
-describe('Your Feature', () => {
-  beforeEach(() => {
-    // Setup before each test
-  });
+describe("Your Feature", () => {
+    beforeEach(() => {
+        // Setup before each test
+    });
 
-  it('should do something', () => {
-    expect(true).toBe(true);
-  });
+    it("should do something", () => {
+        expect(true).toBe(true);
+    });
 });
 ```
 
-3. **Test DOM interactions**:
+3. **Exercise production modules against jsdom**. Import the real module via the `@js/` alias and assert on the side effects it produces — don't re-implement the logic in the test:
 
 ```javascript
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeEach } from "vitest";
+import { showModal } from "@js/main-partials/image-modal.js";
 
-describe('Modal', () => {
-  it('should open when triggered', () => {
-    document.body.innerHTML = '<div id="modal"></div>';
-    const modal = document.getElementById('modal');
-    expect(modal).not.toBeNull();
-  });
+describe("Image modal", () => {
+    beforeEach(() => {
+        document.body.innerHTML = `
+          <div id="image-modal" class="hidden opacity-0">
+            <img id="image-modal-img" />
+            <div id="image-modal-loader" class="hidden"></div>
+          </div>
+        `;
+    });
+
+    it("unhides the modal and sets the image source", () => {
+        const modal = document.getElementById("image-modal");
+        const modalImg = document.getElementById("image-modal-img");
+        const loader = document.getElementById("image-modal-loader");
+
+        showModal(modal, modalImg, loader, "/test.jpg");
+
+        expect(modal.classList.contains("hidden")).toBe(false);
+        expect(modalImg.src).toContain("/test.jpg");
+    });
 });
 ```
 
@@ -306,13 +349,15 @@ describe('Modal', () => {
 ### GitHub Actions
 
 Tests run automatically on:
-- Push to `main` or `develop` branches
-- Pull requests to `main` or `develop`
+
+- Push to `main`
+- Pull requests to `main`
 
 **Workflow**: `.github/workflows/tests.yml`
 
 The CI pipeline runs:
-1. PHP tests (PHP 8.1, 8.2, 8.3)
+
+1. PHP tests (PHP 8.2, 8.3, 8.4)
 2. PHPStan static analysis
 3. JavaScript tests (Vitest)
 4. All linters (ESLint, Stylelint, YAML)
@@ -347,6 +392,7 @@ npm run test:js:coverage
 ### Coverage Goals
 
 Aim for:
+
 - **80%+ coverage** for critical components
 - **100% coverage** for configuration files
 - **60%+ coverage** overall
@@ -356,6 +402,7 @@ Aim for:
 ### PHPUnit: "Cannot find Kirby"
 
 **Solution**: Ensure `vendor/autoload.php` exists:
+
 ```bash
 composer install
 ```
@@ -363,16 +410,20 @@ composer install
 ### Vitest: "Cannot find module"
 
 **Solution**: Install npm dependencies:
+
 ```bash
 npm install
 ```
 
 ### PHPStan: Memory limit errors
 
-**Solution**: Increase memory limit in `package.json` (already set to 1G):
+**Solution**: The default limit is 1G (set in `package.json`). For larger codebases, raise it or narrow the scope under analysis:
+
 ```json
-"test:phpstan": "vendor/bin/phpstan analyse --memory-limit=1G"
+"test:phpstan": "vendor/bin/phpstan analyse --memory-limit=2G"
 ```
+
+If memory remains a problem, reduce `paths` in `phpstan.neon` to only the directories being changed.
 
 ### ESLint: "Parsing error"
 
@@ -380,14 +431,16 @@ npm install
 
 ### YAML Lint: "Cannot find yamllint"
 
-**Solution**: Install YAML lint globally or use npm script:
+**Solution**: The `yaml-lint` package is already declared in `devDependencies`. A missing binary typically means `node_modules` is not installed:
+
 ```bash
-npm install --save-dev yaml-lint
+npm install
 ```
 
 ### Tests pass locally but fail in CI
 
 **Common causes**:
+
 1. **Environment differences**: Check PHP version, Node version
 2. **Missing dependencies**: Ensure `composer.lock` and `package-lock.json` are committed
 3. **File permissions**: CI runs in a clean environment

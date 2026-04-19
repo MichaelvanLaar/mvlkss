@@ -4,20 +4,19 @@ on:
   push:
     branches:
       - main
-      - develop
   pull_request:
     branches:
       - main
-      - develop
 
 jobs:
   php-tests:
     name: PHP Tests (PHP ${{ matrix.php }})
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     strategy:
       matrix:
-        php: ['8.1', '8.2', '8.3']
+        php: ['8.2', '8.3', '8.4']
 
     steps:
       - name: Checkout code
@@ -27,7 +26,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: mbstring, xml, ctype, iconv, intl, pdo, pdo_mysql, dom, filter, gd, json, mbstring, pcre
+          extensions: mbstring, xml, ctype, iconv, intl, pdo, pdo_mysql, dom, filter, gd, json, pcre
           coverage: none
 
       - name: Get Composer cache directory
@@ -53,6 +52,7 @@ jobs:
   javascript-tests:
     name: JavaScript Tests
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
       - name: Checkout code
@@ -82,6 +82,7 @@ jobs:
   build-test:
     name: Build Test
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
       - name: Checkout code
@@ -101,5 +102,5 @@ jobs:
 
       - name: Check for build artifacts
         run: |
-          test -f assets/css/main.css || (echo "CSS build failed" && exit 1)
-          test -f assets/js/main.js || (echo "JS build failed" && exit 1)
+          test -s assets/css/main.css || (echo "CSS build produced empty or missing file" && exit 1)
+          test -s assets/js/main.js || (echo "JS build produced empty or missing file" && exit 1)

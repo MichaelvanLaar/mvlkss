@@ -1,0 +1,535 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Strict comparison using \!\=\= between list\<string\> and false will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: site/config/config.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-array\<mixed, mixed\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: site/plugins/code-highlighter/config/blocks/code/code.php
+
+		-
+			message: '#^Access to an undefined property Kirby\\Text\\KirbyTag\:\:\$language\.$#'
+			identifier: property.notFound
+			count: 1
+			path: site/plugins/code-highlighter/config/tags.php
+
+		-
+			message: '#^Access to an undefined property Kirby\\Text\\KirbyTag\:\:\$theme\.$#'
+			identifier: property.notFound
+			count: 1
+			path: site/plugins/code-highlighter/config/tags.php
+
+		-
+			message: '#^Method Oweb\\ClearCache\:\:relativePath\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: site/plugins/kirby-clear-cache-1.0.2/lib/ClearCache.php
+
+		-
+			message: '#^Call to function is_array\(\) with array will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: site/plugins/kirby-column-blocks/utils/Autoloader.php
+
+		-
+			message: '#^Call to an undefined static method Kirby\\Toolkit\\V\:\:email\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: site/plugins/kirby-column-blocks/utils/License.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 1
+			path: site/plugins/kirby-column-blocks/utils/License.php
+
+		-
+			message: '#^Method Plain\\Helpers\\License\:\:__construct\(\) with return type void returns null but should not return anything\.$#'
+			identifier: return.void
+			count: 1
+			path: site/plugins/kirby-column-blocks/utils/License.php
+
+		-
+			message: '#^Method Plain\\Helpers\\License\:\:extends\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: site/plugins/kirby-column-blocks/utils/License.php
+
+		-
+			message: '#^Method Plain\\Helpers\\License\:\:extends\(\) has parameter \$extends with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: site/plugins/kirby-column-blocks/utils/License.php
+
+		-
+			message: '#^Method Plain\\Helpers\\License\:\:factory\(\) has parameter \$name with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: site/plugins/kirby-column-blocks/utils/License.php
+
+		-
+			message: '#^Method Plain\\Helpers\\License\:\:saveTranslate\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: site/plugins/kirby-column-blocks/utils/License.php
+
+		-
+			message: '#^Method Plain\\Helpers\\License\:\:saveTranslate\(\) has parameter \$key with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: site/plugins/kirby-column-blocks/utils/License.php
+
+		-
+			message: '#^Property Plain\\Helpers\\License\:\:\$cache has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: site/plugins/kirby-column-blocks/utils/License.php
+
+		-
+			message: '#^Static method Kirby\\Data\\Handler\:\:read\(\) invoked with 3 parameters, 1 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: site/plugins/kirby-column-blocks/utils/License.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between false and 1 will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: site/plugins/kirby-column-blocks/utils/License.php
+
+		-
+			message: '#^Unsafe access to private constant Plain\\Helpers\\License\:\:PROXY through static\:\:\.$#'
+			identifier: staticClassAccess.privateConstant
+			count: 1
+			path: site/plugins/kirby-column-blocks/utils/License.php
+
+		-
+			message: '#^Unsafe access to private property Plain\\Helpers\\License\:\:\$cache through static\:\:\.$#'
+			identifier: staticClassAccess.privateProperty
+			count: 3
+			path: site/plugins/kirby-column-blocks/utils/License.php
+
+		-
+			message: '#^Unsafe call to private method Plain\\Helpers\\License\:\:isValid\(\) through static\:\:\.$#'
+			identifier: staticClassAccess.privateMethod
+			count: 1
+			path: site/plugins/kirby-column-blocks/utils/License.php
+
+		-
+			message: '#^Method Plain\\Helpers\\License\:\:licenseArray\(\) invoked with 1 parameter, 0 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: site/plugins/kirby-column-blocks/utils/Plugin.php
+
+		-
+			message: '#^Method Plain\\Helpers\\Plugin\:\:licenseArray\(\) has parameter \$info with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: site/plugins/kirby-column-blocks/utils/Plugin.php
+
+		-
+			message: '#^Unsafe call to private method Plain\\Helpers\\Plugin\:\:licenseArray\(\) through static\:\:\.$#'
+			identifier: staticClassAccess.privateMethod
+			count: 1
+			path: site/plugins/kirby-column-blocks/utils/Plugin.php
+
+		-
+			message: '#^Method JohannSchopplich\\AssetUrls\:\:css\(\) has parameter \$args with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: site/plugins/kirby-hashed-assets/AssetUrls.php
+
+		-
+			message: '#^Method JohannSchopplich\\AssetUrls\:\:js\(\) has parameter \$args with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: site/plugins/kirby-hashed-assets/AssetUrls.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 1
+			path: site/plugins/kirby-language-selector/config/dialogs.php
+
+		-
+			message: '#^Call to an undefined method Kirby\\Database\\Database\:\:records\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: site/plugins/retour/src/Retour/Log.php
+
+		-
+			message: '#^Call to an undefined method Kirby\\Database\\Database\:\:sqlite_sequence\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: site/plugins/retour/src/Retour/Log.php
+
+		-
+			message: '#^Call to an undefined method Kirby\\Retour\\Redirect\:\:creator\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: site/plugins/retour/src/Retour/Panel/RedirectEditDrawer.php
+
+		-
+			message: '#^Call to an undefined method Kirby\\Retour\\Redirect\:\:from\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: site/plugins/retour/src/Retour/Panel/RedirectEditDrawer.php
+
+		-
+			message: '#^Call to an undefined method Kirby\\Session\\Session\:\:set\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: site/plugins/retour/src/Retour/Panel/TimespanDialog.php
+
+		-
+			message: '#^Call to an undefined method Kirby\\Retour\\Redirect\:\:comment\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: site/plugins/retour/src/Retour/Redirect.php
+
+		-
+			message: '#^Call to an undefined method Kirby\\Retour\\Redirect\:\:creator\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: site/plugins/retour/src/Retour/Redirect.php
+
+		-
+			message: '#^Call to an undefined method Kirby\\Retour\\Redirect\:\:from\(\)\.$#'
+			identifier: method.notFound
+			count: 4
+			path: site/plugins/retour/src/Retour/Redirect.php
+
+		-
+			message: '#^Call to an undefined method Kirby\\Retour\\Redirect\:\:modifier\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: site/plugins/retour/src/Retour/Redirect.php
+
+		-
+			message: '#^Call to an undefined method Kirby\\Retour\\Redirect\:\:to\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: site/plugins/retour/src/Retour/Redirect.php
+
+		-
+			message: '#^Call to an undefined method Kirby\\Session\\Session\:\:get\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: site/plugins/retour/src/Retour/Timespan.php
+
+		-
+			message: '#^Call to an undefined method Kirby\\Session\\Session\:\:set\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: site/plugins/retour/src/Retour/Timespan.php
+
+		-
+			message: '#^Call to method kirby\(\) on an unknown class Kirby\\CLI\\CLI\.$#'
+			identifier: class.notFound
+			count: 1
+			path: site/plugins/retour/src/extensions/commands.php
+
+		-
+			message: '#^Call to method out\(\) on an unknown class Kirby\\CLI\\CLI\.$#'
+			identifier: class.notFound
+			count: 3
+			path: site/plugins/retour/src/extensions/commands.php
+
+		-
+			message: '#^Call to method success\(\) on an unknown class Kirby\\CLI\\CLI\.$#'
+			identifier: class.notFound
+			count: 1
+			path: site/plugins/retour/src/extensions/commands.php
+
+		-
+			message: '#^Parameter \$cli of anonymous function has invalid type Kirby\\CLI\\CLI\.$#'
+			identifier: class.notFound
+			count: 1
+			path: site/plugins/retour/src/extensions/commands.php
+
+		-
+			message: '#^Variable \$file might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: site/plugins/snippet-controller/helpers.php
+
+		-
+			message: '#^Variable \$footerMenuItems might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: site/snippets/base/footer.php
+
+		-
+			message: '#^Variable \$defaultLanguage might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: site/snippets/base/header.php
+
+		-
+			message: '#^Variable \$hasMoreThanOneLanguage might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: site/snippets/base/header.php
+
+		-
+			message: '#^Variable \$languages might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: site/snippets/base/header.php
+
+		-
+			message: '#^Variable \$metaDescription might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: site/snippets/base/header.php
+
+		-
+			message: '#^Variable \$metaTitle might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: site/snippets/base/header.php
+
+		-
+			message: '#^Variable \$page might not be defined\.$#'
+			identifier: variable.undefined
+			count: 4
+			path: site/snippets/base/header.php
+
+		-
+			message: '#^Variable \$pageLanguageCode might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: site/snippets/base/header.php
+
+		-
+			message: '#^Variable \$pageLanguageDirection might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: site/snippets/base/header.php
+
+		-
+			message: '#^Variable \$pageLanguageLocale might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: site/snippets/base/header.php
+
+		-
+			message: '#^Variable \$site might not be defined\.$#'
+			identifier: variable.undefined
+			count: 4
+			path: site/snippets/base/header.php
+
+		-
+			message: '#^Variable \$siteLogoFile might not be defined\.$#'
+			identifier: variable.undefined
+			count: 4
+			path: site/snippets/base/header.php
+
+		-
+			message: '#^Variable \$socialShareDescriptionOutput might not be defined\.$#'
+			identifier: variable.undefined
+			count: 4
+			path: site/snippets/base/header.php
+
+		-
+			message: '#^Variable \$socialShareImageUrlOutput might not be defined\.$#'
+			identifier: variable.undefined
+			count: 4
+			path: site/snippets/base/header.php
+
+		-
+			message: '#^Variable \$socialShareTitleOutput might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: site/snippets/base/header.php
+
+		-
+			message: '#^Variable \$twitterCreatorHandle might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: site/snippets/base/header.php
+
+		-
+			message: '#^Variable \$twitterSiteHandle might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: site/snippets/base/header.php
+
+		-
+			message: '#^Variable \$hasMoreThanOneLanguage might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: site/snippets/base/main-menu.php
+
+		-
+			message: '#^Variable \$kirby might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: site/snippets/base/main-menu.php
+
+		-
+			message: '#^Variable \$languages might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: site/snippets/base/main-menu.php
+
+		-
+			message: '#^Variable \$mainMenuItems might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: site/snippets/base/main-menu.php
+
+		-
+			message: '#^Variable \$page might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: site/snippets/base/main-menu.php
+
+		-
+			message: '#^Variable \$pageLanguageCode might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: site/snippets/base/main-menu.php
+
+		-
+			message: '#^Variable \$block might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: site/snippets/blocks/columns.php
+
+		-
+			message: '#^Variable \$block might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: site/snippets/blocks/heading.php
+
+		-
+			message: '#^Variable \$block might not be defined\.$#'
+			identifier: variable.undefined
+			count: 8
+			path: site/snippets/blocks/image.php
+
+		-
+			message: '#^Variable \$layoutColumnSplitting might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: site/snippets/blocks/image.php
+
+		-
+			message: '#^Variable \$layoutColumnWidth might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: site/snippets/blocks/image.php
+
+		-
+			message: '#^Variable \$page might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: site/snippets/blocks/mvlkssbreadcrumb.php
+
+		-
+			message: '#^Variable \$site might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: site/snippets/blocks/mvlkssbreadcrumb.php
+
+		-
+			message: '#^Variable \$block might not be defined\.$#'
+			identifier: variable.undefined
+			count: 18
+			path: site/snippets/blocks/mvlkssbutton.php
+
+		-
+			message: '#^Variable \$block might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: site/snippets/blocks/quote.php
+
+		-
+			message: '#^Variable \$block might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: site/snippets/blocks/text.php
+
+		-
+			message: '#^Function buildBackgroundImageClasses\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: site/snippets/fields/page-builder.controller.php
+
+		-
+			message: '#^Function buildBackgroundImageClasses\(\) has parameter \$layoutRow with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: site/snippets/fields/page-builder.controller.php
+
+		-
+			message: '#^Function buildBackgroundImageUrl\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: site/snippets/fields/page-builder.controller.php
+
+		-
+			message: '#^Function buildBackgroundImageUrl\(\) has parameter \$rowBackgroundImageFile with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: site/snippets/fields/page-builder.controller.php
+
+		-
+			message: '#^Function buildBackgroundImageUrl\(\) has parameter \$rowBackgroundImageFileExtension with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: site/snippets/fields/page-builder.controller.php
+
+		-
+			message: '#^Function buildStyleAttribute\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: site/snippets/fields/page-builder.controller.php
+
+		-
+			message: '#^Function buildStyleAttribute\(\) has parameter \$layoutRow with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: site/snippets/fields/page-builder.controller.php
+
+		-
+			message: '#^Function getLayoutRowData\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: site/snippets/fields/page-builder.controller.php
+
+		-
+			message: '#^Function getLayoutRowData\(\) has parameter \$layoutRow with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: site/snippets/fields/page-builder.controller.php
+
+		-
+			message: '#^Function getLayoutRowData\(\) has parameter \$selectableBrandColors with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: site/snippets/fields/page-builder.controller.php
+
+		-
+			message: '#^Function getLayoutRowData\(\) has parameter \$spacingUtilityClasses with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: site/snippets/fields/page-builder.controller.php
+
+		-
+			message: '#^Variable \$layoutRowsData might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: site/snippets/fields/page-builder.php
+
+		-
+			message: '#^Variable \$selectableBrandColors might not be defined\.$#'
+			identifier: variable.undefined
+			count: 4
+			path: site/snippets/fields/page-builder.php

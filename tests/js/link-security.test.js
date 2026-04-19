@@ -1,76 +1,100 @@
 /**
  * Tests for Link Security functionality
  *
- * Tests that external links with target="_blank" have rel="noopener" added
- * for security purposes.
+ * Exercises src/js/main-partials/link-security.js against jsdom DOM fixtures.
  */
 
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach } from "vitest";
+import { secureExternalLinks } from "@js/main-partials/link-security.js";
 
-describe('Link Security', () => {
+describe("Link Security", () => {
   beforeEach(() => {
-    // Clear the DOM before each test
-    document.body.innerHTML = '';
+    document.body.innerHTML = "";
   });
 
-  it('should add rel="noopener" to links with target="_blank"', () => {
-    // Set up test HTML
+  it('adds rel="noopener" to links with target="_blank" and no rel', () => {
     document.body.innerHTML = `
-      <a href="https://example.com" target="_blank" id="test-link">External Link</a>
+      <a href="https://example.com" target="_blank" id="test-link">External</a>
     `;
 
-    const link = document.getElementById('test-link');
+    secureExternalLinks();
 
-    // Simulate the link security functionality
-    if (link.getAttribute('target') === '_blank' && !link.hasAttribute('rel')) {
-      link.setAttribute('rel', 'noopener');
-    }
-
-    expect(link.getAttribute('rel')).toBe('noopener');
+    const link = document.getElementById("test-link");
+    expect(link.getAttribute("rel")).toBe("noopener");
   });
 
-  it('should not modify links without target="_blank"', () => {
+  it('does not modify links without target="_blank"', () => {
     document.body.innerHTML = `
-      <a href="/internal" id="test-link">Internal Link</a>
+      <a href="/internal" id="test-link">Internal</a>
     `;
 
-    const link = document.getElementById('test-link');
-    const originalRel = link.getAttribute('rel');
+    secureExternalLinks();
 
-    expect(originalRel).toBeNull();
+    const link = document.getElementById("test-link");
+    expect(link.getAttribute("rel")).toBeNull();
   });
 
-  it('should not override existing rel attribute', () => {
+  it('leaves links with rel="noopener" exactly untouched', () => {
     document.body.innerHTML = `
-      <a href="https://example.com" target="_blank" rel="noopener noreferrer" id="test-link">External Link</a>
+      <a href="https://example.com" target="_blank" rel="noopener" id="test-link">External</a>
     `;
 
-    const link = document.getElementById('test-link');
-    const originalRel = link.getAttribute('rel');
+    secureExternalLinks();
 
-    expect(originalRel).toBe('noopener noreferrer');
+    const link = document.getElementById("test-link");
+    expect(link.getAttribute("rel")).toBe("noopener");
   });
 
-  it('should handle multiple links correctly', () => {
+  it('overwrites any rel attribute that is not exactly "noopener"', () => {
+    // Production selector is :not([rel='noopener']) — exact-match exemption.
+    // A rel value containing extra tokens (e.g. "noopener noreferrer") is
+    // treated as insecure and overwritten to just "noopener".
     document.body.innerHTML = `
-      <a href="https://example1.com" target="_blank" id="link1">Link 1</a>
-      <a href="https://example2.com" target="_blank" id="link2">Link 2</a>
-      <a href="/internal" id="link3">Link 3</a>
+      <a href="https://example.com" target="_blank" rel="noopener noreferrer" id="multi">Multi</a>
+      <a href="https://example.com" target="_blank" rel="noreferrer" id="other">Other</a>
     `;
 
-    const insecureLinks = document.querySelectorAll('a[target="_blank"]:not([rel="noopener"])');
+    secureExternalLinks();
 
-    // Simulate the security fix
-    for (let link of insecureLinks) {
-      link.setAttribute('rel', 'noopener');
-    }
+    expect(document.getElementById("multi").getAttribute("rel")).toBe(
+      "noopener",
+    );
+    expect(document.getElementById("other").getAttribute("rel")).toBe(
+      "noopener",
+    );
+  });
 
-    const link1 = document.getElementById('link1');
-    const link2 = document.getElementById('link2');
-    const link3 = document.getElementById('link3');
+  it("processes multiple links in a single pass", () => {
+    document.body.innerHTML = `
+      <a href="https://a.com" target="_blank" id="link1">A</a>
+      <a href="https://b.com" target="_blank" id="link2">B</a>
+      <a href="/internal" id="link3">Internal</a>
+    `;
 
-    expect(link1.getAttribute('rel')).toBe('noopener');
-    expect(link2.getAttribute('rel')).toBe('noopener');
-    expect(link3.getAttribute('rel')).toBeNull();
+    secureExternalLinks();
+
+    expect(document.getElementById("link1").getAttribute("rel")).toBe(
+      "noopener",
+    );
+    expect(document.getElementById("link2").getAttribute("rel")).toBe(
+      "noopener",
+    );
+    expect(document.getElementById("link3").getAttribute("rel")).toBeNull();
+  });
+
+  it("is scoped to the root parameter when provided", () => {
+    document.body.innerHTML = `
+      <div id="scoped">
+        <a href="https://a.com" target="_blank" id="inside">Inside</a>
+      </div>
+      <a href="https://b.com" target="_blank" id="outside">Outside</a>
+    `;
+
+    secureExternalLinks(document.getElementById("scoped"));
+
+    expect(document.getElementById("inside").getAttribute("rel")).toBe(
+      "noopener",
+    );
+    expect(document.getElementById("outside").getAttribute("rel")).toBeNull();
   });
 });

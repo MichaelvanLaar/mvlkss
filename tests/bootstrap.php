@@ -3,42 +3,76 @@
 /**
  * PHPUnit Bootstrap File
  *
- * This file sets up the Kirby environment for testing.
+ * Sets up the Kirby environment for testing. Failures here are promoted to
+ * RuntimeException so they surface as a clear bootstrap error instead of
+ * cascading into confusing individual test failures.
  */
 
-// Require Composer autoloader
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . "/../vendor/autoload.php";
 
-// Set up environment variables for testing
-define('DS', DIRECTORY_SEPARATOR);
+define("DS", DIRECTORY_SEPARATOR);
 
-// Ensure we're in test mode
-putenv('KIRBY_MODE=test');
-putenv('KIRBY_ENV=test');
+putenv("KIRBY_MODE=test");
+putenv("KIRBY_ENV=test");
 
-// Initialize Kirby for testing
-// This creates a minimal Kirby instance that can be used in tests
+// Some Kirby plugins (e.g. code-highlighter) `include_once` their own
+// vendor/autoload.php. In the main project those dependencies resolve via the
+// top-level vendor, so the plugin's inner vendor dir never gets created — and
+// Kirby's Whoops handler promotes the resulting include warning to a fatal
+// exception during App construction. Write a harmless stub so the include
+// succeeds. The real classes are already loaded by the top-level autoloader.
+$pluginVendorStubs = [
+    __DIR__ . "/../site/plugins/code-highlighter/vendor/autoload.php",
+];
+foreach ($pluginVendorStubs as $stubPath) {
+    if (!is_file($stubPath)) {
+        if (!is_dir(dirname($stubPath))) {
+            mkdir(dirname($stubPath), 0755, true);
+        }
+        file_put_contents(
+            $stubPath,
+            "<?php\n// Test-only stub; real classes load via project vendor/.\n",
+        );
+    }
+}
+
 $kirby = new Kirby\Cms\App([
-    'roots' => [
-        'index'    => __DIR__ . '/../',
-        'base'     => __DIR__ . '/../',
-        'site'     => __DIR__ . '/../site',
-        'storage'  => __DIR__ . '/../storage',
+    "roots" => [
+        "index" => __DIR__ . "/../",
+        "base" => __DIR__ . "/../",
+        "site" => __DIR__ . "/../site",
+        "storage" => __DIR__ . "/../storage",
     ],
-    'options' => [
-        'cache' => [
-            'pages' => [
-                'active' => false
-            ]
+    "options" => [
+        "cache" => [
+            "pages" => [
+                "active" => false,
+            ],
         ],
-        'debug' => true,
-    ]
+        // debug is false so plugin warnings (e.g. missing plugin vendor/autoload.php)
+        // do not get promoted to Whoops exceptions during test bootstrap.
+        "debug" => false,
+    ],
 ]);
 
-// Make Kirby instance globally available for tests
-if (!function_exists('kirby')) {
-    function kirby(): Kirby\Cms\App
-    {
+if (Kirby\Cms\App::instance() !== $kirby) {
+    throw new RuntimeException(
+        "Test bootstrap failed: Kirby singleton did not register the bootstrapped instance.",
+    );
+}
+
+$siteConstants = $kirby->option("site-constants");
+if (!is_array($siteConstants) || empty($siteConstants)) {
+    throw new RuntimeException(
+        "Test bootstrap failed: site-constants option is not loaded. " .
+            "Check that site/config/config.php is accessible from " .
+            __DIR__ .
+            "/../",
+    );
+}
+
+if (!function_exists("kirby")) {
+    function kirby(): Kirby\Cms\App {
         return Kirby\Cms\App::instance();
     }
 }

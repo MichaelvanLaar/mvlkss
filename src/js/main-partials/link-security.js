@@ -6,19 +6,22 @@
  * =============================================================================
  */
 
-// Wrap the entire code inside an Immediately Invoked Function Expression
-// (IIFE). This will prevent any variables or functions defined inside from
-// polluting the global scope.
-(() => {
-  // Select all anchor tags (<a>) that have the attribute target="_blank" but do
-  // not have the attribute rel="noopener".
-  const insecureLinks = document.querySelectorAll(
-    "a[target='_blank']:not([rel='noopener'])"
+/**
+ * Adds rel="noopener" to every <a target="_blank"> within the given root that
+ * does not already have it.
+ *
+ * @param {ParentNode} [root=document] — scope in which to scan for links.
+ */
+export function secureExternalLinks(root = document) {
+  const insecureLinks = root.querySelectorAll(
+    "a[target='_blank']:not([rel='noopener'])",
   );
 
-  // Iterate over each insecure link
-  for (let insecureLink of insecureLinks) {
-    // Add the attribute rel="noopener" to each insecure link.
+  for (const insecureLink of insecureLinks) {
     insecureLink.setAttribute("rel", "noopener");
   }
-})();
+}
+
+if (typeof document !== "undefined") {
+  secureExternalLinks();
+}

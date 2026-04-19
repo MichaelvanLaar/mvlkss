@@ -36,16 +36,16 @@
   // Retrieve the custom CSS property values from the body element’s computed
   // style.
   const initialHeaderHeight = parseFloat(
-    getComputedStyle(body).getPropertyValue("--site-header-initial-height")
+    getComputedStyle(body).getPropertyValue("--site-header-initial-height"),
   );
   const scrollHeaderHeight = parseFloat(
-    getComputedStyle(body).getPropertyValue("--site-header-scroll-height")
+    getComputedStyle(body).getPropertyValue("--site-header-scroll-height"),
   );
   const initialHeaderPaddingY = parseFloat(
-    getComputedStyle(body).getPropertyValue("--site-header-initial-padding-y")
+    getComputedStyle(body).getPropertyValue("--site-header-initial-padding-y"),
   );
   const scrollHeaderPaddingY = parseFloat(
-    getComputedStyle(body).getPropertyValue("--site-header-scroll-padding-y")
+    getComputedStyle(body).getPropertyValue("--site-header-scroll-padding-y"),
   );
 
   /**
@@ -72,7 +72,7 @@
       // but don’t exceed the maximum scroll distance.
       const scrollDistance = Math.min(
         scrollPosition - scrollThreshold,
-        maxScrollDistance
+        maxScrollDistance,
       );
 
       // Calculate the ratio of the scroll distance to the maximum scroll

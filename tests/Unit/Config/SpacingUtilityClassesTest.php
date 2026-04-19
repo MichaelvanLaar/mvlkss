@@ -18,8 +18,14 @@ class SpacingUtilityClassesTest extends TestCase
     {
         parent::setUp();
 
-        // Load the spacing classes from the config
-        $siteConstants = $this->kirby()->option('site-constants', []);
+        $siteConstants = $this->kirby()->option('site-constants');
+        if (!is_array($siteConstants)) {
+            $this->fail(
+                'site-constants option not loaded — this indicates a Kirby bootstrap failure, ' .
+                'not a missing spacing configuration. Check tests/bootstrap.php.'
+            );
+        }
+
         $this->spacingClasses = $siteConstants['spacing-utility-classes'] ?? [];
     }
 

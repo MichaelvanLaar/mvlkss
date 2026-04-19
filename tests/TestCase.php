@@ -30,9 +30,6 @@ abstract class TestCase extends BaseTestCase
      */
     protected function tearDown(): void
     {
-        // Clear any caches
-        $this->kirby->cache('pages')->flush();
-
         parent::tearDown();
     }
 
@@ -80,15 +77,30 @@ abstract class TestCase extends BaseTestCase
     protected function assertValidHtml(string $html, string $message = ''): void
     {
         $dom = new \DOMDocument();
-        libxml_use_internal_errors(true);
+        $previousUseErrors = libxml_use_internal_errors(true);
         $result = $dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $errors = libxml_get_errors();
         libxml_clear_errors();
+        libxml_use_internal_errors($previousUseErrors);
 
-        $this->assertTrue($result, $message ?: 'Expected valid HTML');
+        $errorDetail = '';
+        if (!empty($errors)) {
+            $errorDetail = ' Errors: ' . implode('; ', array_map(
+                fn($error) => trim($error->message),
+                $errors
+            ));
+        }
+
+        $this->assertTrue(
+            $result && empty($errors),
+            ($message ?: 'Expected valid HTML') . $errorDetail
+        );
     }
 
     /**
-     * Assert that a string contains a specific CSS class
+     * Assert that HTML contains an element carrying a specific CSS class.
+     *
+     * Matches class attributes with any number of tokens, e.g. class="foo bar baz".
      *
      * @param string $class
      * @param string $html
@@ -96,8 +108,9 @@ abstract class TestCase extends BaseTestCase
      */
     protected function assertHasClass(string $class, string $html, string $message = ''): void
     {
-        $this->assertStringContainsString(
-            'class="' . $class . '"',
+        $pattern = '/class\s*=\s*"[^"]*\b' . preg_quote($class, '/') . '\b[^"]*"/';
+        $this->assertMatchesRegularExpression(
+            $pattern,
             $html,
             $message ?: "Expected HTML to contain class: {$class}"
         );

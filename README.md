@@ -46,14 +46,16 @@ This is only required on development machines. Once the build script has been ru
 If you want to use AI-powered development tools like the Context7 MCP server with Claude Code, you'll need to set up your environment variables:
 
 1. Copy the `.env.example` file to create your own `.env` file:
-   ```bash
-   cp .env.example .env
-   ```
+
+    ```bash
+    cp .env.example .env
+    ```
 
 2. Open the `.env` file and add your Context7 API key:
-   ```
-   CONTEXT7_API_KEY=your-actual-api-key-here
-   ```
+
+    ```
+    CONTEXT7_API_KEY=your-actual-api-key-here
+    ```
 
 3. Get your API key from [context7.com](https://context7.com)
 
@@ -118,6 +120,16 @@ When development is complete, utilize the following command to generate streamli
 ```bash
 npm run build
 ```
+
+### Run the Automated Tests
+
+The full suite — linters, PHPUnit, Vitest, and PHPStan — runs with:
+
+```bash
+npm test
+```
+
+Individual tools are also exposed as `npm run test:js`, `npm run test:php`, `npm run test:phpstan`, and `npm run lint`. See [TESTING.md](TESTING.md) for details, CI configuration, and writing new tests.
 
 ### Clean Up Your Local Git Branches
 
@@ -216,6 +228,7 @@ If you're using [Claude Code](https://claude.com/code) as your AI-powered develo
 Pulls official Kirby CMS documentation from Context7 to assist with Kirby-specific development tasks.
 
 **Examples:**
+
 ```
 /context7:kirby
 /context7:kirby blueprints
@@ -223,6 +236,7 @@ Pulls official Kirby CMS documentation from Context7 to assist with Kirby-specif
 ```
 
 **Best used for:**
+
 - Implementing Kirby blueprints, templates, controllers, or models
 - Working with Kirby's routing system
 - Configuring Kirby fields and blocks
@@ -233,6 +247,7 @@ Pulls official Kirby CMS documentation from Context7 to assist with Kirby-specif
 Pulls official Tailwind CSS documentation from Context7 to assist with Tailwind-specific styling tasks.
 
 **Examples:**
+
 ```
 /context7:tailwindcss
 /context7:tailwindcss responsive design
@@ -240,6 +255,7 @@ Pulls official Tailwind CSS documentation from Context7 to assist with Tailwind-
 ```
 
 **Best used for:**
+
 - Configuring Tailwind CSS (tailwind.config.js customization)
 - Working with Tailwind's utility classes and breakpoints
 - Setting up custom colors, fonts, and spacing
@@ -250,6 +266,7 @@ Pulls official Tailwind CSS documentation from Context7 to assist with Tailwind-
 Pulls both Kirby CMS and Tailwind CSS documentation from Context7 for comprehensive context when working on features that span both systems.
 
 **Examples:**
+
 ```
 /context7:full
 /context7:full styling and theming
@@ -257,6 +274,7 @@ Pulls both Kirby CMS and Tailwind CSS documentation from Context7 for comprehens
 ```
 
 **Best used for:**
+
 - Building Kirby templates with complex Tailwind styling
 - Implementing page builders with custom Tailwind components
 - Setting up brand colors that work across both systems

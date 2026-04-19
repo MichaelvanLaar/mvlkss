@@ -18,8 +18,14 @@ class BrandColorsTest extends TestCase
     {
         parent::setUp();
 
-        // Load the brand colors from the config
-        $siteConstants = $this->kirby()->option('site-constants', []);
+        $siteConstants = $this->kirby()->option('site-constants');
+        if (!is_array($siteConstants)) {
+            $this->fail(
+                'site-constants option not loaded — this indicates a Kirby bootstrap failure, ' .
+                'not a missing brand color configuration. Check tests/bootstrap.php.'
+            );
+        }
+
         $this->brandColors = $siteConstants['selectable-brand-colors'] ?? [];
     }
 

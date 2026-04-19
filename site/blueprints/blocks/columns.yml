@@ -86,8 +86,8 @@ fields:
             en: Horizontal Padding at Row Start
             de: Horizontaler Innenabstand am Zeilenanfang
           help:
-            en: "Row start" refers to the reading direction (LTR or RTL) of the language in which the website is displayed to a visitor.
-            de: „Zeilenanfang" bezieht sich auf die Leserichtung (LTR oder RTL) der Sprache, in der die Website einem Besucher angezeigt wird.
+            en: '"Row start" refers to the reading direction (LTR or RTL) of the language in which the website is displayed to a visitor.'
+            de: '„Zeilenanfang" bezieht sich auf die Leserichtung (LTR oder RTL) der Sprache, in der die Website einem Besucher angezeigt wird.'
           width: 1/2
         columnRowPaddingEnd:
           extends: fields/spacing-select
@@ -95,8 +95,8 @@ fields:
             en: Horizontal Padding at Row End
             de: Horizontaler Innenabstand am Zeilenende
           help:
-            en: "Row end" refers to the reading direction (LTR or RTL) of the language in which the website is displayed to a visitor.
-            de: „Zeilenende" bezieht sich auf die Leserichtung (LTR oder RTL) der Sprache, in der die Website einem Besucher angezeigt wird.
+            en: '"Row end" refers to the reading direction (LTR or RTL) of the language in which the website is displayed to a visitor.'
+            de: '„Zeilenende" bezieht sich auf die Leserichtung (LTR oder RTL) der Sprache, in der die Website einem Besucher angezeigt wird.'
           width: 1/2
         columnRowGap:
           extends: fields/spacing-select
