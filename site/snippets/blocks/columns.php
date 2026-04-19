@@ -76,18 +76,20 @@ foreach ($block->layout()->toLayouts() as $columnLayoutRow): ?>
     ] ?? "pe-0";
 
   // Set the background color related CSS class for the current column row
-  $columnRowBackgroundColorClasses = $columnLayoutRow
-    ->columnRowBackgroundColor()
-    ->isNotEmpty()
-    ? $selectableBrandColors[$columnLayoutRow->columnRowBackgroundColor()->value()][
-        "light-tailwindcss-bg-class"
-      ] .
-      " " .
-      $selectableBrandColors[$columnLayoutRow->columnRowBackgroundColor()->value()][
-        "dark-tailwindcss-bg-class"
-      ] .
-      " print:bg-transparent"
-    : "";
+  $columnRowBgColorValue = $columnLayoutRow->columnRowBackgroundColor()->isNotEmpty()
+    ? $columnLayoutRow->columnRowBackgroundColor()->value()
+    : null;
+  if ($columnRowBgColorValue !== null && isset($selectableBrandColors[$columnRowBgColorValue])) {
+    $colorEntry = $selectableBrandColors[$columnRowBgColorValue];
+    $columnRowBackgroundColorClasses =
+      $colorEntry["light-tailwindcss-bg-class"] . " " .
+      $colorEntry["dark-tailwindcss-bg-class"] . " print:bg-transparent";
+  } else {
+    if ($columnRowBgColorValue !== null) {
+      error_log("columns.php: Unknown background color key \"{$columnRowBgColorValue}\"");
+    }
+    $columnRowBackgroundColorClasses = "";
+  }
 
   // Construct the classes attribute for the current column row
   $columnRowClasses = [
@@ -117,31 +119,20 @@ foreach ($block->layout()->toLayouts() as $columnLayoutRow): ?>
       $columnClassOutput = "";
       $columnClassOutput .=
         $columnWidthClasses[$columnLayoutColumn->width()] ?? "col-span-full";
-      if ($columnLayoutRow->columnRowBackgroundColor()->isNotEmpty()) {
+      if ($columnRowBgColorValue !== null && isset($selectableBrandColors[$columnRowBgColorValue])) {
+        $colorEntry = $selectableBrandColors[$columnRowBgColorValue];
         $columnInnerContainerClassOutput =
-          " " .
-          $selectableBrandColors[
-            $columnLayoutRow->columnRowBackgroundColor()->value()
-          ]["light-contrast-tailwindcss-prose-class"] .
-          " " .
-          $selectableBrandColors[
-            $columnLayoutRow->columnRowBackgroundColor()->value()
-          ]["dark-contrast-tailwindcss-prose-class"] .
+          " " . $colorEntry["light-contrast-tailwindcss-prose-class"] .
+          " " . $colorEntry["dark-contrast-tailwindcss-prose-class"] .
           " print:prose-black";
-        } elseif ($layoutRowBackgroundColorExists) {
-          $columnInnerContainerClassOutput =
-            " " .
-            $selectableBrandColors[$layoutRowBackgroundColorValue][
-              "light-contrast-tailwindcss-prose-class"
-            ] .
-            " " .
-            $selectableBrandColors[$layoutRowBackgroundColorValue][
-              "dark-contrast-tailwindcss-prose-class"
-            ] .
-            " print:prose-black";
-        } else {
+      } elseif ($layoutRowBackgroundColorExists && isset($selectableBrandColors[$layoutRowBackgroundColorValue])) {
+        $colorEntry = $selectableBrandColors[$layoutRowBackgroundColorValue];
         $columnInnerContainerClassOutput =
-          " prose-mvlkss dark:prose-invert print:prose-black";
+          " " . $colorEntry["light-contrast-tailwindcss-prose-class"] .
+          " " . $colorEntry["dark-contrast-tailwindcss-prose-class"] .
+          " print:prose-black";
+      } else {
+        $columnInnerContainerClassOutput = " prose-mvlkss dark:prose-invert print:prose-black";
       }
       if ($columnLayoutRow->columnRowVerticalAlign()->isNotEmpty()) {
         switch ($columnLayoutRow->columnRowVerticalAlign()->value()) {
