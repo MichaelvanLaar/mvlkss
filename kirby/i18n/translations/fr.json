@@ -1,4 +1,5 @@
 {
+	"account": "Compte",
 	"account.changeName": "Modifier votre nom",
 	"account.delete": "Supprimer votre compte",
 	"account.delete.confirm": "Voulez-vous vraiment supprimer votre compte ? Vous serez déconnecté immédiatement. Votre compte ne pourra pas être récupéré.",
@@ -42,6 +43,9 @@
 
 	"delete": "Supprimer",
 	"delete.all": "Tout supprimer",
+
+	"deselect": "Désélectionner",
+	"deselect.all": "Tout désélectionner",
 
 	"dialog.fields.empty": "Ce dialogue ne comporte aucun champ",
 	"dialog.files.empty": "Aucun fichier à sélectionner",
@@ -294,6 +298,10 @@
 	"error.validation.uuid": "Veuillez saisir un UUID valide",
 	"error.validation.url": "Veuillez saisir une URL valide",
 
+	"error.version.discard.permission": "Vous n’êtes pas autorisé à supprimer cette version",
+	"error.version.publish.permission": "Vous n’êtes pas autorisé à publier cette version",
+	"error.version.save.permission": "Vous n’êtes pas autorisé à modifier cette version",
+
 	"expand": "Déplier",
 	"expand.all": "Tout déplier",
 
@@ -307,7 +315,7 @@
 	"field.blocks.delete.confirm.all": "Voulez-vous vraiment supprimer tous les blocs ?",
 	"field.blocks.delete.confirm.selected": "Voulez-vous vraiment supprimer les blocs sélectionnés ?",
 	"field.blocks.empty": "Pas encore de blocs",
-	"field.blocks.fieldsets.empty": "Pas encore d‘ensembles de champs",
+	"field.blocks.fieldsets.empty": "Pas encore d’ensembles de champs",
 	"field.blocks.fieldsets.label": "Veuillez sélectionner un type de bloc…",
 	"field.blocks.fieldsets.paste": "Pressez <kbd>{{ shortcut }}</kbd> pour importer des dispositions ou blocs depuis votre presse-papier <small>Seuls ceux autorisés dans le champ actuel seront insérés.</small>",
 	"field.blocks.gallery.name": "Galerie",
@@ -356,7 +364,7 @@
 	"field.blocks.video.url.label": "URL de la vidéo",
 	"field.blocks.video.url.placeholder": "https://youtube.com/?v=",
 
-	"field.entries.delete.confirm.all": "Voulez-vous vraiment supprimer toutes les entrées ?",
+	"field.entries.delete.confirm.all": "Voulez-vous vraiment supprimer toutes les entrées ?",
 	"field.entries.empty": "Pas encore d’entrée",
 
 	"field.files.empty": "Pas encore de fichier sélectionné",
@@ -375,7 +383,8 @@
 	"field.pages.empty.single": "Pas encore de page sélectionnée",
 
 	"field.structure.delete.confirm": "Voulez-vous vraiment supprimer cette ligne ?",
-	"field.structure.delete.confirm.all": "Voulez-vous vraiment supprimer toutes les entrées ?",
+	"field.structure.delete.confirm.all": "Voulez-vous vraiment supprimer toutes les entrées ?",
+	"field.structure.delete.confirm.selected": "Voulez-vous vraiment supprimer les entrées sélectionnées ?",
 	"field.structure.empty": "Pas encore d’entrée",
 
 	"field.users.empty": "Pas encore d’utilisateur sélectionné",
@@ -474,6 +483,7 @@
 	"license.code": "Code",
 	"license.code.help": "Vous avez reçu votre code de licence par courriel après l‘achat. Veuillez le copier et le coller ici.",
 	"license.code.label": "Veuillez saisir votre numéro de licence",
+	"license.remove.text": "<p>Retirer la licence supprimera de manière irréversible le fichier de licence de ce site. Vous pourrez alors activer ce site avec une clé de licence différente ou enregistrer à nouveau la même licence si le domaine reste le même.</p><p>Pour modifier le domaine associé à la licence, veuillez contacter l’équipe de Kirby. <a href='https://getkirby.com/license'>En savoir plus &rarr;</a></p>",
 	"license.status.active.info": "Inclut les nouvelles versions majeures jusqu’au {date}",
 	"license.status.active.label": "Licence valide",
 	"license.status.demo.info": "Ceci est une installation de démonstration",
@@ -625,7 +635,9 @@
 	"plugin": "Plugin",
 	"plugins": "Plugins",
 	"prev": "Précédent",
+
 	"preview": "Prévisualiser",
+	"preview.browser.scroll": "Synchroniser le défilement",
 
 	"publish": "Publier",
 	"published": "Publié",
@@ -661,6 +673,7 @@
 
 	"security": "Sécurité",
 	"select": "Sélectionner",
+	"select.all": "Tout sélectionner",
 	"server": "Serveur",
 	"settings": "Paramètres",
 	"show": "Afficher",
@@ -769,11 +782,13 @@
 	"user.changePassword.current": "Votre mot de passe actuel",
 	"user.changePassword.new": "Nouveau mot de passe",
 	"user.changePassword.new.confirm": "Confirmer le nouveau mot de passe…",
+	"user.changePassword.own": "Votre propre mot de passe",
 	"user.changeRole": "Modifier le rôle",
 	"user.changeRole.select": "Sélectionner un nouveau rôle",
 	"user.create": "Ajouter un nouvel utilisateur",
 	"user.delete": "Supprimer cet utilisateur",
 	"user.delete.confirm": "Voulez-vous vraiment supprimer <br><strong>{email}</strong> ?",
+	"user.setPassword": "Définir un mot de passe",
 
 	"users": "Utilisateurs",
 

@@ -6,18 +6,10 @@ use DateInterval;
 use DateTime;
 use Kirby\Cms\App;
 use Kirby\Panel\Panel;
-use Kirby\Retour\Retour;
 use Kirby\Retour\Timespan;
 use Kirby\Toolkit\Date;
 use Kirby\Toolkit\I18n;
 
-/**
- * @package   Retour for Kirby
- * @author    Nico Hoffmann <nico@getkirby.com>
- * @link      https://github.com/distantnative/retour-for-kirby
- * @copyright Nico Hoffmann
- * @license   https://opensource.org/licenses/MIT
- */
 class TimespanDialog
 {
 	public function date(
@@ -42,8 +34,7 @@ class TimespanDialog
 
 	public function load(): array
 	{
-		$retour      = Retour::instance();
-		$selection   = Timespan::selection($retour);
+		$selection   = Timespan::selection();
 		[$min, $max] = $this->limits();
 
 		return [

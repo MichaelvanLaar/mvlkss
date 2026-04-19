@@ -1,4 +1,5 @@
 {
+	"account": "Account",
 	"account.changeName": "Ändra ditt namn",
 	"account.delete": "Radera ditt konto",
 	"account.delete.confirm": "Vill du verkligen radera ditt konto? Du kommer att loggas ut omedelbart. Ditt konto kan inte återställas.",
@@ -15,7 +16,7 @@
 	"changes": "Ändringar",
 	"confirm": "Spara",
 	"collapse": "Kollapsa",
-	"collapse.all": "Kollapsa alla",
+	"collapse.all": "Collapse all",
 	"color": "Färg",
 	"coordinates": "Koordinater",
 	"copy": "Kopiera",
@@ -42,6 +43,9 @@
 
 	"delete": "Radera",
 	"delete.all": "Radera allt",
+
+	"deselect": "Deselect",
+	"deselect.all": "Deselect all",
 
 	"dialog.fields.empty": "Den här dialogrutan har inga fält",
 	"dialog.files.empty": "Inga filer att välja",
@@ -294,8 +298,12 @@
 	"error.validation.uuid": "Ange ett giltigt UUID",
 	"error.validation.url": "Ange en giltig URL",
 
+	"error.version.discard.permission": "You are not allowed to discard this version",
+	"error.version.publish.permission": "You are not allowed to publish this version",
+	"error.version.save.permission": "You are not allowed to change this version",
+
 	"expand": "Expandera",
-	"expand.all": "Expandera alla",
+	"expand.all": "Expand all",
 
 	"field.invalid": "Fältet är ogiltigt",
 	"field.required": "Fältet krävs",
@@ -376,6 +384,7 @@
 
 	"field.structure.delete.confirm": "Vill du verkligen radera denna rad?",
 	"field.structure.delete.confirm.all": "Vill du verkligen radera alla poster?",
+	"field.structure.delete.confirm.selected": "Do you really want to delete the selected entries?",
 	"field.structure.empty": "Inga poster än",
 
 	"field.users.empty": "Inga användare valda än",
@@ -474,6 +483,7 @@
 	"license.code": "Kod",
 	"license.code.help": "Du fick din licenskod efter köpet via e-post. Kopiera och klistra in det här.",
 	"license.code.label": "Ange din licenskod",
+	"license.remove.text": "<p>Removing the license will irreversibly delete the license file from this site. You can then activate this site with a different license key or re-register the same license key if the domain remains the same.</p><p>To change the domain associated with the license, please contact the Kirby team. <a href='https://getkirby.com/license'>Read more &rarr;</a></p>",
 	"license.status.active.info": "Inkluderar nya större versioner fram till {date}",
 	"license.status.active.label": "Giltig licens",
 	"license.status.demo.info": "Detta är en demoinstallation",
@@ -625,7 +635,9 @@
 	"plugin": "Tillägg",
 	"plugins": "Tillägg",
 	"prev": "Föregående",
+
 	"preview": "Förhandsgranska",
+	"preview.browser.scroll": "Sync scroll",
 
 	"publish": "Publicera",
 	"published": "Publicerade",
@@ -661,6 +673,7 @@
 
 	"security": "Säkerhet",
 	"select": "Välj",
+	"select.all": "Select all",
 	"server": "Server",
 	"settings": "Inställningar",
 	"show": "Visa",
@@ -769,11 +782,13 @@
 	"user.changePassword.current": "Ditt nuvarande lösenord",
 	"user.changePassword.new": "Nytt lösenord",
 	"user.changePassword.new.confirm": "Bekräfta det nya lösenordet...",
+	"user.changePassword.own": "Your own password",
 	"user.changeRole": "Ändra roll",
 	"user.changeRole.select": "Välj en ny roll",
 	"user.create": "Lägg till en ny användare",
 	"user.delete": "Radera denna användare",
 	"user.delete.confirm": "Vill du verkligen radera <br><strong>{email}</strong>?",
+	"user.setPassword": "Set password",
 
 	"users": "Användare",
 

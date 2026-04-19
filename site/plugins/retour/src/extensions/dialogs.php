@@ -3,16 +3,6 @@
 use Kirby\Retour\Panel\TimespanDialog;
 use Kirby\Retour\Retour;
 
-/**
- * Fiber dialogs for all Panel tabs
- *
- * @package   Retour for Kirby
- * @author    Nico Hoffmann <nico@getkirby.com>
- * @link      https://github.com/distantnative/retour-for-kirby
- * @copyright Nico Hoffmann
- * @license   https://opensource.org/licenses/MIT
- */
-
 return [
 	'retour.timespan' => [
 		'pattern' => 'retour/timespan',
@@ -50,11 +40,38 @@ return [
 	'retour.failures.flush' => [
 		'pattern' => 'retour/failures/flush',
 		'load' => fn () => [
-			'component' => 'k-remove-dialog',
+			'component' => 'k-form-dialog',
 			'props'     => [
-				'text' => t('retour.failures.clear.confirm')
+				'fields' => [
+					'mode' => [
+						'type'    => 'radio',
+						'label'   => t('retour.failures.clear.confirm'),
+						'help'    => t('retour.failures.clear.help'),
+						'options' => [
+							[
+								'value' => 'all',
+								'text'  => t('retour.failures.clear.mode.all')
+							],
+							[
+								'value' => 'failures',
+								'text'  => t('retour.failures.clear.mode.failures')
+							]
+						]
+					]
+				],
+				'value' => [
+					'mode' => 'all'
+				],
+				'submitButton' => [
+					'icon'  => 'trash',
+					'text'  => t('retour.failures.clear'),
+					'theme' => 'negative'
+				]
 			]
 		],
-		'submit' => fn () => Retour::instance()->log()->flush()
+		'submit' => function () {
+			$mode = get('mode');
+			return Retour::instance()->log()->flush($mode);
+		}
 	]
 ];

@@ -18,16 +18,16 @@ class ComposerStaticInit162efd83110c77a994f175ee0d752b12
     );
 
     public static $prefixLengthsPsr4 = array (
-        'v' => 
+        'v' =>
         array (
             'voku\\helper\\' => 12,
             'voku\\' => 5,
         ),
-        'W' => 
+        'W' =>
         array (
             'Whoops\\' => 7,
         ),
-        'S' => 
+        'S' =>
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Polyfill\\Intl\\Normalizer\\' => 33,
@@ -36,29 +36,29 @@ class ComposerStaticInit162efd83110c77a994f175ee0d752b12
             'Symfony\\Component\\Yaml\\' => 23,
             'Symfony\\Component\\CssSelector\\' => 30,
         ),
-        'P' => 
+        'P' =>
         array (
             'Psr\\Log\\' => 8,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
-        'M' => 
+        'M' =>
         array (
             'MabeEnum\\' => 9,
         ),
-        'L' => 
+        'L' =>
         array (
             'League\\ColorExtractor\\' => 22,
             'Laminas\\Escaper\\' => 16,
         ),
-        'K' => 
+        'K' =>
         array (
             'Kirby\\' => 6,
         ),
-        'J' => 
+        'J' =>
         array (
             'JsonSchema\\' => 11,
         ),
-        'E' => 
+        'E' =>
         array (
             'Ergebnis\\Json\\SchemaValidator\\' => 30,
             'Ergebnis\\Json\\Printer\\' => 22,
@@ -67,11 +67,11 @@ class ComposerStaticInit162efd83110c77a994f175ee0d752b12
             'Ergebnis\\Json\\' => 14,
             'Ergebnis\\Composer\\Normalize\\' => 28,
         ),
-        'C' => 
+        'C' =>
         array (
             'Composer\\Semver\\' => 16,
         ),
-        'B' => 
+        'B' =>
         array (
             'Bnomei\\' => 7,
             'Base32\\' => 7,
@@ -79,131 +79,131 @@ class ComposerStaticInit162efd83110c77a994f175ee0d752b12
     );
 
     public static $prefixDirsPsr4 = array (
-        'voku\\helper\\' => 
+        'voku\\helper\\' =>
         array (
             0 => __DIR__ . '/..' . '/voku/simple_html_dom/src/voku/helper',
         ),
-        'voku\\' => 
+        'voku\\' =>
         array (
             0 => __DIR__ . '/..' . '/voku/html-min/src/voku',
         ),
-        'Whoops\\' => 
+        'Whoops\\' =>
         array (
             0 => __DIR__ . '/..' . '/filp/whoops/src/Whoops',
         ),
-        'Symfony\\Polyfill\\Mbstring\\' => 
+        'Symfony\\Polyfill\\Mbstring\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
-        'Symfony\\Polyfill\\Intl\\Normalizer\\' => 
+        'Symfony\\Polyfill\\Intl\\Normalizer\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer',
         ),
-        'Symfony\\Polyfill\\Intl\\Idn\\' => 
+        'Symfony\\Polyfill\\Intl\\Idn\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-intl-idn',
         ),
-        'Symfony\\Polyfill\\Ctype\\' => 
+        'Symfony\\Polyfill\\Ctype\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
-        'Symfony\\Component\\Yaml\\' => 
+        'Symfony\\Component\\Yaml\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/yaml',
         ),
-        'Symfony\\Component\\CssSelector\\' => 
+        'Symfony\\Component\\CssSelector\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/css-selector',
         ),
-        'Psr\\Log\\' => 
+        'Psr\\Log\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/log/src',
         ),
-        'PHPMailer\\PHPMailer\\' => 
+        'PHPMailer\\PHPMailer\\' =>
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
-        'MabeEnum\\' => 
+        'MabeEnum\\' =>
         array (
             0 => __DIR__ . '/..' . '/marc-mabe/php-enum/src',
         ),
-        'League\\ColorExtractor\\' => 
+        'League\\ColorExtractor\\' =>
         array (
             0 => __DIR__ . '/..' . '/league/color-extractor/src',
         ),
-        'Laminas\\Escaper\\' => 
+        'Laminas\\Escaper\\' =>
         array (
             0 => __DIR__ . '/..' . '/laminas/laminas-escaper/src',
         ),
-        'Kirby\\' => 
+        'Kirby\\' =>
         array (
             0 => __DIR__ . '/../..' . '/kirby/src',
             1 => __DIR__ . '/..' . '/getkirby/composer-installer/src',
         ),
-        'JsonSchema\\' => 
+        'JsonSchema\\' =>
         array (
             0 => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema',
         ),
-        'Ergebnis\\Json\\SchemaValidator\\' => 
+        'Ergebnis\\Json\\SchemaValidator\\' =>
         array (
             0 => __DIR__ . '/..' . '/ergebnis/json-schema-validator/src',
         ),
-        'Ergebnis\\Json\\Printer\\' => 
+        'Ergebnis\\Json\\Printer\\' =>
         array (
             0 => __DIR__ . '/..' . '/ergebnis/json-printer/src',
         ),
-        'Ergebnis\\Json\\Pointer\\' => 
+        'Ergebnis\\Json\\Pointer\\' =>
         array (
             0 => __DIR__ . '/..' . '/ergebnis/json-pointer/src',
         ),
-        'Ergebnis\\Json\\Normalizer\\' => 
+        'Ergebnis\\Json\\Normalizer\\' =>
         array (
             0 => __DIR__ . '/..' . '/ergebnis/json-normalizer/src',
         ),
-        'Ergebnis\\Json\\' => 
+        'Ergebnis\\Json\\' =>
         array (
             0 => __DIR__ . '/..' . '/ergebnis/json/src',
         ),
-        'Ergebnis\\Composer\\Normalize\\' => 
+        'Ergebnis\\Composer\\Normalize\\' =>
         array (
             0 => __DIR__ . '/..' . '/ergebnis/composer-normalize/src',
         ),
-        'Composer\\Semver\\' => 
+        'Composer\\Semver\\' =>
         array (
             0 => __DIR__ . '/..' . '/composer/semver/src',
         ),
-        'Bnomei\\' => 
+        'Bnomei\\' =>
         array (
             0 => __DIR__ . '/../..' . '/site/plugins/kirby3-robots-txt/classes',
         ),
-        'Base32\\' => 
+        'Base32\\' =>
         array (
             0 => __DIR__ . '/..' . '/christian-riesen/base32/src',
         ),
     );
 
     public static $prefixesPsr0 = array (
-        'c' => 
+        'c' =>
         array (
-            'claviska' => 
+            'claviska' =>
             array (
                 0 => __DIR__ . '/..' . '/claviska/simpleimage/src',
             ),
         ),
-        'M' => 
+        'M' =>
         array (
-            'Michelf' => 
+            'Michelf' =>
             array (
                 0 => __DIR__ . '/..' . '/michelf/php-smartypants',
             ),
         ),
-        'H' => 
+        'H' =>
         array (
-            'Highlight\\' => 
+            'Highlight\\' =>
             array (
                 0 => __DIR__ . '/..' . '/scrivo/highlight.php',
             ),
-            'HighlightUtilities\\' => 
+            'HighlightUtilities\\' =>
             array (
                 0 => __DIR__ . '/..' . '/scrivo/highlight.php',
             ),
@@ -306,6 +306,74 @@ class ComposerStaticInit162efd83110c77a994f175ee0d752b12
         'JsonSchema\\Constraints\\ConstConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/ConstConstraint.php',
         'JsonSchema\\Constraints\\Constraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Constraint.php',
         'JsonSchema\\Constraints\\ConstraintInterface' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/ConstraintInterface.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft06\\AdditionalItemsConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft06/AdditionalItemsConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft06\\AdditionalPropertiesConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft06/AdditionalPropertiesConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft06\\AllOfConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft06/AllOfConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft06\\AnyOfConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft06/AnyOfConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft06\\ConstConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft06/ConstConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft06\\ContainsConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft06/ContainsConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft06\\DependenciesConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft06/DependenciesConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft06\\Draft06Constraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft06/Draft06Constraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft06\\EnumConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft06/EnumConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft06\\ExclusiveMaximumConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft06/ExclusiveMaximumConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft06\\ExclusiveMinimumConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft06/ExclusiveMinimumConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft06\\Factory' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft06/Factory.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft06\\FormatConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft06/FormatConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft06\\ItemsConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft06/ItemsConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft06\\MaxItemsConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft06/MaxItemsConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft06\\MaxLengthConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft06/MaxLengthConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft06\\MaxPropertiesConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft06/MaxPropertiesConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft06\\MaximumConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft06/MaximumConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft06\\MinItemsConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft06/MinItemsConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft06\\MinLengthConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft06/MinLengthConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft06\\MinPropertiesConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft06/MinPropertiesConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft06\\MinimumConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft06/MinimumConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft06\\MultipleOfConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft06/MultipleOfConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft06\\NotConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft06/NotConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft06\\OneOfConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft06/OneOfConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft06\\PatternConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft06/PatternConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft06\\PatternPropertiesConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft06/PatternPropertiesConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft06\\PropertiesConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft06/PropertiesConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft06\\PropertiesNamesConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft06/PropertiesNamesConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft06\\RefConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft06/RefConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft06\\RequiredConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft06/RequiredConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft06\\TypeConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft06/TypeConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft06\\UniqueItemsConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft06/UniqueItemsConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\AdditionalItemsConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/AdditionalItemsConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\AdditionalPropertiesConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/AdditionalPropertiesConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\AllOfConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/AllOfConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\AnyOfConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/AnyOfConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\ConstConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/ConstConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\ContainsConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/ContainsConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\ContentConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/ContentConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\DependenciesConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/DependenciesConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\Draft07Constraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/Draft07Constraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\EnumConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/EnumConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\ExclusiveMaximumConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/ExclusiveMaximumConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\ExclusiveMinimumConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/ExclusiveMinimumConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\Factory' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/Factory.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\FormatConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/FormatConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\IfThenElseConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/IfThenElseConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\ItemsConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/ItemsConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\MaxItemsConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/MaxItemsConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\MaxLengthConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/MaxLengthConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\MaxPropertiesConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/MaxPropertiesConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\MaximumConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/MaximumConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\MinItemsConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/MinItemsConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\MinLengthConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/MinLengthConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\MinPropertiesConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/MinPropertiesConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\MinimumConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/MinimumConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\MultipleOfConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/MultipleOfConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\NotConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/NotConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\OneOfConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/OneOfConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\PatternConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/PatternConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\PatternPropertiesConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/PatternPropertiesConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\PropertiesConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/PropertiesConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\PropertiesNamesConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/PropertiesNamesConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\RefConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/RefConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\RequiredConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/RequiredConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\TypeConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/TypeConstraint.php',
+        'JsonSchema\\Constraints\\Drafts\\Draft07\\UniqueItemsConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Drafts/Draft07/UniqueItemsConstraint.php',
         'JsonSchema\\Constraints\\EnumConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/EnumConstraint.php',
         'JsonSchema\\Constraints\\Factory' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Factory.php',
         'JsonSchema\\Constraints\\FormatConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/FormatConstraint.php',
@@ -318,6 +386,9 @@ class ComposerStaticInit162efd83110c77a994f175ee0d752b12
         'JsonSchema\\Constraints\\TypeCheck\\TypeCheckInterface' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/TypeCheck/TypeCheckInterface.php',
         'JsonSchema\\Constraints\\TypeConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/TypeConstraint.php',
         'JsonSchema\\Constraints\\UndefinedConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/UndefinedConstraint.php',
+        'JsonSchema\\DraftIdentifiers' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/DraftIdentifiers.php',
+        'JsonSchema\\Entity\\ErrorBag' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Entity/ErrorBag.php',
+        'JsonSchema\\Entity\\ErrorBagProxy' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Entity/ErrorBagProxy.php',
         'JsonSchema\\Entity\\JsonPointer' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Entity/JsonPointer.php',
         'JsonSchema\\Enum' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Enum.php',
         'JsonSchema\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Exception/ExceptionInterface.php',
@@ -382,6 +453,7 @@ class ComposerStaticInit162efd83110c77a994f175ee0d752b12
         'Kirby\\Cms\\Collection' => __DIR__ . '/../..' . '/kirby/src/Cms/Collection.php',
         'Kirby\\Cms\\Collections' => __DIR__ . '/../..' . '/kirby/src/Cms/Collections.php',
         'Kirby\\Cms\\Core' => __DIR__ . '/../..' . '/kirby/src/Cms/Core.php',
+        'Kirby\\Cms\\Cors' => __DIR__ . '/../..' . '/kirby/src/Cms/Cors.php',
         'Kirby\\Cms\\Email' => __DIR__ . '/../..' . '/kirby/src/Cms/Email.php',
         'Kirby\\Cms\\Event' => __DIR__ . '/../..' . '/kirby/src/Cms/Event.php',
         'Kirby\\Cms\\Events' => __DIR__ . '/../..' . '/kirby/src/Cms/Events.php',
@@ -418,6 +490,7 @@ class ComposerStaticInit162efd83110c77a994f175ee0d752b12
         'Kirby\\Cms\\LayoutColumn' => __DIR__ . '/../..' . '/kirby/src/Cms/LayoutColumn.php',
         'Kirby\\Cms\\LayoutColumns' => __DIR__ . '/../..' . '/kirby/src/Cms/LayoutColumns.php',
         'Kirby\\Cms\\Layouts' => __DIR__ . '/../..' . '/kirby/src/Cms/Layouts.php',
+        'Kirby\\Cms\\LazyCollection' => __DIR__ . '/../..' . '/kirby/src/Cms/LazyCollection.php',
         'Kirby\\Cms\\License' => __DIR__ . '/../..' . '/kirby/src/Cms/License.php',
         'Kirby\\Cms\\LicenseStatus' => __DIR__ . '/../..' . '/kirby/src/Cms/LicenseStatus.php',
         'Kirby\\Cms\\LicenseType' => __DIR__ . '/../..' . '/kirby/src/Cms/LicenseType.php',
@@ -559,6 +632,7 @@ class ComposerStaticInit162efd83110c77a994f175ee0d752b12
         'Kirby\\Http\\Params' => __DIR__ . '/../..' . '/kirby/src/Http/Params.php',
         'Kirby\\Http\\Path' => __DIR__ . '/../..' . '/kirby/src/Http/Path.php',
         'Kirby\\Http\\Query' => __DIR__ . '/../..' . '/kirby/src/Http/Query.php',
+        'Kirby\\Http\\Range' => __DIR__ . '/../..' . '/kirby/src/Http/Range.php',
         'Kirby\\Http\\Remote' => __DIR__ . '/../..' . '/kirby/src/Http/Remote.php',
         'Kirby\\Http\\Request' => __DIR__ . '/../..' . '/kirby/src/Http/Request.php',
         'Kirby\\Http\\Request\\Auth' => __DIR__ . '/../..' . '/kirby/src/Http/Request/Auth.php',
@@ -575,6 +649,7 @@ class ComposerStaticInit162efd83110c77a994f175ee0d752b12
         'Kirby\\Http\\Uri' => __DIR__ . '/../..' . '/kirby/src/Http/Uri.php',
         'Kirby\\Http\\Url' => __DIR__ . '/../..' . '/kirby/src/Http/Url.php',
         'Kirby\\Http\\Visitor' => __DIR__ . '/../..' . '/kirby/src/Http/Visitor.php',
+        'Kirby\\Http\\VolatileHeaders' => __DIR__ . '/../..' . '/kirby/src/Http/VolatileHeaders.php',
         'Kirby\\Image\\Camera' => __DIR__ . '/../..' . '/kirby/src/Image/Camera.php',
         'Kirby\\Image\\Darkroom' => __DIR__ . '/../..' . '/kirby/src/Image/Darkroom.php',
         'Kirby\\Image\\Darkroom\\GdLib' => __DIR__ . '/../..' . '/kirby/src/Image/Darkroom/GdLib.php',
@@ -583,6 +658,7 @@ class ComposerStaticInit162efd83110c77a994f175ee0d752b12
         'Kirby\\Image\\Dimensions' => __DIR__ . '/../..' . '/kirby/src/Image/Dimensions.php',
         'Kirby\\Image\\Exif' => __DIR__ . '/../..' . '/kirby/src/Image/Exif.php',
         'Kirby\\Image\\Focus' => __DIR__ . '/../..' . '/kirby/src/Image/Focus.php',
+        'Kirby\\Image\\Gravity' => __DIR__ . '/../..' . '/kirby/src/Image/Gravity.php',
         'Kirby\\Image\\Image' => __DIR__ . '/../..' . '/kirby/src/Image/Image.php',
         'Kirby\\Image\\Location' => __DIR__ . '/../..' . '/kirby/src/Image/Location.php',
         'Kirby\\Image\\QrCode' => __DIR__ . '/../..' . '/kirby/src/Image/QrCode.php',
@@ -616,6 +692,7 @@ class ComposerStaticInit162efd83110c77a994f175ee0d752b12
         'Kirby\\Panel\\Lab\\Doc\\Slot' => __DIR__ . '/../..' . '/kirby/src/Panel/Lab/Doc/Slot.php',
         'Kirby\\Panel\\Lab\\Docs' => __DIR__ . '/../..' . '/kirby/src/Panel/Lab/Docs.php',
         'Kirby\\Panel\\Lab\\Example' => __DIR__ . '/../..' . '/kirby/src/Panel/Lab/Example.php',
+        'Kirby\\Panel\\Lab\\Responses' => __DIR__ . '/../..' . '/kirby/src/Panel/Lab/Responses.php',
         'Kirby\\Panel\\Lab\\Snippet' => __DIR__ . '/../..' . '/kirby/src/Panel/Lab/Snippet.php',
         'Kirby\\Panel\\Lab\\Template' => __DIR__ . '/../..' . '/kirby/src/Panel/Lab/Template.php',
         'Kirby\\Panel\\Menu' => __DIR__ . '/../..' . '/kirby/src/Panel/Menu.php',
@@ -697,6 +774,7 @@ class ComposerStaticInit162efd83110c77a994f175ee0d752b12
         'Kirby\\Query\\Segments' => __DIR__ . '/../..' . '/kirby/src/Query/Segments.php',
         'Kirby\\Query\\Visitors\\DefaultVisitor' => __DIR__ . '/../..' . '/kirby/src/Query/Visitors/DefaultVisitor.php',
         'Kirby\\Query\\Visitors\\Visitor' => __DIR__ . '/../..' . '/kirby/src/Query/Visitors/Visitor.php',
+        'Kirby\\Reflection\\Constructor' => __DIR__ . '/../..' . '/kirby/src/Reflection/Constructor.php',
         'Kirby\\Sane\\DomHandler' => __DIR__ . '/../..' . '/kirby/src/Sane/DomHandler.php',
         'Kirby\\Sane\\Handler' => __DIR__ . '/../..' . '/kirby/src/Sane/Handler.php',
         'Kirby\\Sane\\Html' => __DIR__ . '/../..' . '/kirby/src/Sane/Html.php',
