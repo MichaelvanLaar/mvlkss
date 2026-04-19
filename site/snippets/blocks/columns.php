@@ -12,12 +12,13 @@
  */
 
 // Set column width classes for the layout options using Tailwind CSS classes
+// Grid uses 12 columns to support all fractional widths as integer spans.
 $columnWidthClasses = [
   "1/1" => "col-span-full",
-  "1/2" => "col-span-3",
-  "1/3" => "col-span-2",
-  "2/3" => "col-span-4",
-  "1/4" => "col-span-full sm:col-span-3 lg:col-span-3/2", // Responsive: full on mobile, half on small, quarter on large
+  "1/2" => "col-span-6",
+  "1/3" => "col-span-4",
+  "2/3" => "col-span-8",
+  "1/4" => "col-span-3",
 ];
 
 /**
@@ -86,7 +87,7 @@ foreach ($block->layout()->toLayouts() as $columnLayoutRow): ?>
   $columnRowClasses = [
     $columnLayoutRow->columnRowClasses(),
     "grid",
-    "grid-cols-6",
+    "grid-cols-12",
     "print:block",
     $columnRowGapClass,
     $columnRowPaddingTopClass,
