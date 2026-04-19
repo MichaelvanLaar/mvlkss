@@ -41,13 +41,9 @@ if [[ -d "$ROOT/.claude" ]]; then
   done < <(find "$ROOT/.claude" -maxdepth 1 -type f -print0 2>/dev/null | sort -z)
 fi
 
-# .claude/skills/ skill definitions
-if [[ -d "$ROOT/.claude/skills" ]]; then
-  while IFS= read -r -d '' f; do
-    relpath="${f#$ROOT/}"
-    config_files+=("$relpath")
-  done < <(find "$ROOT/.claude/skills" -maxdepth 2 -name 'SKILL.md' -type f -print0 2>/dev/null | sort -z)
-fi
+# Skills under .claude/skills/ are intentionally excluded: each SKILL.md
+# carries its own description in YAML frontmatter, so listing them in the
+# config table only produces TODO placeholders that never get filled in.
 
 # .github/workflows/
 if [[ -d "$ROOT/.github/workflows" ]]; then

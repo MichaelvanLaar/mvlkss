@@ -42,33 +42,25 @@ npm run test:phpstan   # PHPStan static analysis
 
 ### Key Config Files
 
-| File                                                   | Purpose                                        |
-| ------------------------------------------------------ | ---------------------------------------------- |
-| `.claude/settings.json`                                | Claude Code permissions and hooks              |
-| `.claude/skills/cc-init/SKILL.md`                      | TODO: add description                          |
-| `.claude/skills/cc-optimize/SKILL.md`                  | TODO: add description                          |
-| `.claude/skills/openspec-apply-change/SKILL.md`        | TODO: add description                          |
-| `.claude/skills/openspec-archive-change/SKILL.md`      | TODO: add description                          |
-| `.claude/skills/openspec-bulk-archive-change/SKILL.md` | TODO: add description                          |
-| `.claude/skills/openspec-continue-change/SKILL.md`     | TODO: add description                          |
-| `.claude/skills/openspec-explore/SKILL.md`             | TODO: add description                          |
-| `.claude/skills/openspec-ff-change/SKILL.md`           | TODO: add description                          |
-| `.claude/skills/openspec-new-change/SKILL.md`          | TODO: add description                          |
-| `.claude/skills/openspec-onboard/SKILL.md`             | TODO: add description                          |
-| `.claude/skills/openspec-sync-specs/SKILL.md`          | TODO: add description                          |
-| `.claude/skills/openspec-verify-change/SKILL.md`       | TODO: add description                          |
-| `composer.json`                                        | PHP dependencies (Kirby CMS, plugins)          |
-| `.editorconfig`                                        | Editor formatting rules (indent, charset, EOL) |
-| `.gitignore`                                           | Git ignore patterns                            |
-| `.mcp.json`                                            | MCP server config                              |
-| `package.json`                                         | npm dependencies, build scripts                |
-| `postcss.config.js`                                    | PostCSS/Tailwind CSS processing config         |
-| `.prettierrc.json`                                     | Prettier formatting rules                      |
-| `webpack.config.js`                                    | Webpack bundler config (JS, CSS, assets)       |
+| File | Purpose |
+|------|---------|
+| `.claude/settings.json` | Claude Code permissions and hooks               |
+| `composer.json` | PHP dependencies (Kirby CMS, plugins)           |
+| `.editorconfig` | Editor formatting rules (indent, charset, EOL)  |
+| `eslint.config.js` | ESLint config (flat config) for JS linting      |
+| `.github/workflows/tests.yml` | CI workflow: lint, PHPUnit, Vitest, PHPStan     |
+| `.gitignore` | Git ignore patterns                             |
+| `.mcp.json` | MCP server config                               |
+| `package.json` | npm dependencies, build scripts                 |
+| `postcss.config.js` | PostCSS/Tailwind CSS processing config          |
+| `.prettierignore` | Paths excluded from Prettier formatting         |
+| `.prettierrc.json` | Prettier formatting rules                       |
+| `.stylelintrc.json` | Stylelint rules for CSS/Tailwind linting        |
+| `vitest.config.js` | Vitest (jsdom) config for JS unit tests         |
+| `webpack.config.js` | Webpack bundler config (JS, CSS, assets)        |
+| `.yamllint.json` | yamllint rules for blueprint/workflow YAML      |
 
-## Configuration Management
-
-When running config optimization or audit tasks, always check for duplicate entries across `.claude/settings.json`, `.claude/settings.local.json`, and project-level configs before proposing changes.
+Skills in `.claude/skills/*/SKILL.md` are intentionally omitted — each skill's purpose lives in its own YAML frontmatter.
 
 ## Learnings
 
@@ -83,9 +75,3 @@ When compacting: keep test commands, current file paths, open TODOs, and the las
 
 This project uses OpenSpec for structured change management.
 See `openspec/config.yaml` for workflow configuration.
-
-## Handoff
-
-Before ending a session, the user may invoke `/handoff` to create a machine-transfer summary.
-When resuming work, always check if HANDOFF.md exists in the project root. If it does, read it
-first and continue from where it left off. After confirming the context is restored, delete the file.
