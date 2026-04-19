@@ -81,15 +81,14 @@ if ($src):
   $thumbSrcsets = option("site-constants.thumb-srcsets");
 
   // Extract the correct set of values for the "sizes" attribute of "source" and
-  // "img" elements and take into account the column width reduction in case the
-  // image is contained in a columns block within the layout field.
+  // "img" elements, taking into account column width reduction when the image
+  // is nested inside a columns block within the layout field.
   $sizesAttribute = [];
   foreach (
     $layoutColumnMaxWidths[$layoutColumnWidth]
     as $mediaQuery => $maxWidth
   ) {
-    // Check for both grid (old) and column (new) layout contexts
-    $nestedColumnWidth = $columnLayoutColumnWidth ?? $gridLayoutColumnWidth ?? null;
+    $nestedColumnWidth = $columnLayoutColumnWidth ?? null;
     if ($nestedColumnWidth) {
       switch ($nestedColumnWidth) {
         case "1/2":
@@ -97,6 +96,12 @@ if ($src):
           break;
         case "1/3":
           $maxWidth = ceil($maxWidth / 3);
+          break;
+        case "2/3":
+          $maxWidth = ceil($maxWidth * 2 / 3);
+          break;
+        case "1/4":
+          $maxWidth = ceil($maxWidth / 4);
           break;
       }
     }
