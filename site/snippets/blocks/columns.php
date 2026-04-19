@@ -159,38 +159,46 @@ foreach ($block->layout()->toLayouts() as $columnLayoutRow): ?>
             $columnInnerContainerClassOutput .
             "\">";
         } ?>
-          <?php foreach ($columnLayoutColumn->blocks() as $block) {
-            if ($block->type() == "image") {
-              snippet("blocks/" . $block->type(), [
-                "block" => $block,
+          <?php foreach ($columnLayoutColumn->blocks() as $innerBlock) {
+            if ($innerBlock->type() == "image") {
+              snippet("blocks/" . $innerBlock->type(), [
+                "block" => $innerBlock,
                 "layoutColumnWidth" => $layoutColumnWidth ?? null,
                 "columnLayoutColumnWidth" => $columnLayoutColumn->width(),
                 "layoutColumnSplitting" => $layoutColumnSplitting,
               ]);
-            } elseif ($block->type() == "mvlkssbreadcrumb") {
+            } elseif ($innerBlock->type() == "columns") {
+              snippet("blocks/" . $innerBlock->type(), [
+                "block" => $innerBlock,
+                "layoutColumnWidth" => $columnLayoutColumn->width(),
+                "layoutColumnSplitting" => $layoutColumnSplitting ?? null,
+                "layoutRowBackgroundColorExists" =>
+                  $columnLayoutRow->columnRowBackgroundColor()->isNotEmpty(),
+                "layoutRowBackgroundColorValue" =>
+                  $columnLayoutRow->columnRowBackgroundColor()->isNotEmpty()
+                    ? $columnLayoutRow->columnRowBackgroundColor()->value()
+                    : null,
+              ]);
+            } elseif ($innerBlock->type() == "mvlkssbreadcrumb") {
               $colorKey = null;
               if ($columnLayoutRow->columnRowBackgroundColor()->isNotEmpty()) {
                 $colorKey = $columnLayoutRow->columnRowBackgroundColor()->value();
               } elseif ($layoutRowBackgroundColorExists) {
                 $colorKey = $layoutRowBackgroundColorValue;
               }
-              $breadcrumbTextColorLight = $colorKey
-                ? $selectableBrandColors[$colorKey][
-                  "light-contrast-tailwindcss-text-class"
-                ]
+              $breadcrumbTextColorLight = $colorKey && isset($selectableBrandColors[$colorKey])
+                ? $selectableBrandColors[$colorKey]["light-contrast-tailwindcss-text-class"]
                 : null;
-              $breadcrumbTextColorDark = $colorKey
-                ? $selectableBrandColors[$colorKey][
-                  "dark-contrast-tailwindcss-text-class"
-                ]
+              $breadcrumbTextColorDark = $colorKey && isset($selectableBrandColors[$colorKey])
+                ? $selectableBrandColors[$colorKey]["dark-contrast-tailwindcss-text-class"]
                 : null;
-              snippet("blocks/" . $block->type(), [
-                "block" => $block,
+              snippet("blocks/" . $innerBlock->type(), [
+                "block" => $innerBlock,
                 "textColorLight" => $breadcrumbTextColorLight,
                 "textColorDark" => $breadcrumbTextColorDark,
               ]);
             } else {
-              echo $block;
+              echo $innerBlock;
             }
           } ?>
         <?= $columnLayoutColumn->blocks()->isNotEmpty() ? "</div>" : "" ?>
