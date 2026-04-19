@@ -10,7 +10,10 @@
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
-define("DS", DIRECTORY_SEPARATOR);
+// Kirby defines DS itself; guard against a redefinition PHP warning.
+if (!defined("DS")) {
+    define("DS", DIRECTORY_SEPARATOR);
+}
 
 putenv("KIRBY_MODE=test");
 putenv("KIRBY_ENV=test");
@@ -21,13 +24,17 @@ putenv("KIRBY_ENV=test");
 // Kirby's Whoops handler promotes the resulting include warning to a fatal
 // exception during App construction. Write a harmless stub so the include
 // succeeds. The real classes are already loaded by the top-level autoloader.
+// Guard: only write the stub if the plugin directory itself exists (it is
+// committed to the repo); never create plugin directories that are absent.
 $pluginVendorStubs = [
     __DIR__ . "/../site/plugins/code-highlighter/vendor/autoload.php",
 ];
 foreach ($pluginVendorStubs as $stubPath) {
-    if (!is_file($stubPath)) {
-        if (!is_dir(dirname($stubPath))) {
-            mkdir(dirname($stubPath), 0755, true);
+    $pluginDir = dirname(dirname($stubPath)); // site/plugins/<name>/
+    if (is_dir($pluginDir) && !is_file($stubPath)) {
+        $vendorDir = dirname($stubPath);
+        if (!is_dir($vendorDir)) {
+            mkdir($vendorDir, 0755, true);
         }
         file_put_contents(
             $stubPath,

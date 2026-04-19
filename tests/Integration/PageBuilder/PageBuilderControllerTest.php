@@ -38,6 +38,12 @@ class PageBuilderControllerTest extends TestCase {
             "Controller file should be readable",
         );
 
+        if (!function_exists("shell_exec")) {
+            $this->markTestSkipped(
+                "shell_exec is disabled; cannot run PHP linter.",
+            );
+        }
+
         $phpBinary = defined("PHP_BINARY") ? PHP_BINARY : "php";
         $command =
             escapeshellarg($phpBinary) .

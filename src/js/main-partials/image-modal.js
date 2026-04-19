@@ -64,7 +64,7 @@ export function initImageModal(doc = document) {
     return;
   }
 
-  doc.addEventListener("DOMContentLoaded", () => {
+  const wireHandlers = () => {
     const modalTriggers = doc.querySelectorAll("[data-image-modal-trigger]");
     modalTriggers.forEach((trigger) => {
       trigger.addEventListener("click", (event) => {
@@ -86,7 +86,14 @@ export function initImageModal(doc = document) {
         closeModal(modal, modalImg, loader);
       }
     });
-  });
+  };
+
+  // Wire handlers immediately if the DOM is already parsed, otherwise wait.
+  if (doc.readyState === "loading") {
+    doc.addEventListener("DOMContentLoaded", wireHandlers);
+  } else {
+    wireHandlers();
+  }
 
   modalImg.addEventListener("load", () => {
     loader.classList.remove("flex");

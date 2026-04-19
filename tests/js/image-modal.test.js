@@ -88,9 +88,8 @@ describe("Image Modal — initImageModal", () => {
 
   it("opens the modal when a trigger is clicked", () => {
     const { modal, modalImg } = setupModalDom();
+    // readyState is "complete" in jsdom so wireHandlers() runs synchronously.
     initImageModal();
-
-    document.dispatchEvent(new Event("DOMContentLoaded"));
 
     const trigger = document.querySelector("[data-image-modal-trigger]");
     trigger.click();
@@ -105,7 +104,6 @@ describe("Image Modal — initImageModal", () => {
     try {
       const { modal } = setupModalDom();
       initImageModal();
-      document.dispatchEvent(new Event("DOMContentLoaded"));
 
       document.querySelector("[data-image-modal-trigger]").click();
       expect(modal.classList.contains("flex")).toBe(true);
