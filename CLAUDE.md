@@ -40,27 +40,27 @@ npm run build          # Production build (run before committing)
 
 | File | Purpose |
 |------|---------|
-| `.claude/settings.json` | Claude Code permissions and hooks          |
-| `.claude/skills/cc-init/SKILL.md` | TODO: add description         |
-| `.claude/skills/cc-optimize/SKILL.md` | TODO: add description         |
-| `.claude/skills/openspec-apply-change/SKILL.md` | TODO: add description         |
-| `.claude/skills/openspec-archive-change/SKILL.md` | TODO: add description         |
-| `.claude/skills/openspec-bulk-archive-change/SKILL.md` | TODO: add description         |
-| `.claude/skills/openspec-continue-change/SKILL.md` | TODO: add description         |
-| `.claude/skills/openspec-explore/SKILL.md` | TODO: add description         |
-| `.claude/skills/openspec-ff-change/SKILL.md` | TODO: add description         |
-| `.claude/skills/openspec-new-change/SKILL.md` | TODO: add description         |
-| `.claude/skills/openspec-onboard/SKILL.md` | TODO: add description         |
-| `.claude/skills/openspec-sync-specs/SKILL.md` | TODO: add description         |
-| `.claude/skills/openspec-verify-change/SKILL.md` | TODO: add description         |
-| `composer.json` | PHP dependencies (Kirby CMS, plugins)          |
-| `.editorconfig` | Editor formatting rules (indent, charset, EOL)          |
-| `.gitignore` | Git ignore patterns          |
-| `.mcp.json` | MCP server config          |
-| `package.json` | npm dependencies, build scripts          |
+| `.claude/settings.json` | Claude Code permissions and hooks               |
+| `.claude/skills/cc-init/SKILL.md` | TODO: add description                           |
+| `.claude/skills/cc-optimize/SKILL.md` | TODO: add description                           |
+| `.claude/skills/openspec-apply-change/SKILL.md` | TODO: add description                           |
+| `.claude/skills/openspec-archive-change/SKILL.md` | TODO: add description                           |
+| `.claude/skills/openspec-bulk-archive-change/SKILL.md` | TODO: add description                           |
+| `.claude/skills/openspec-continue-change/SKILL.md` | TODO: add description                           |
+| `.claude/skills/openspec-explore/SKILL.md` | TODO: add description                           |
+| `.claude/skills/openspec-ff-change/SKILL.md` | TODO: add description                           |
+| `.claude/skills/openspec-new-change/SKILL.md` | TODO: add description                           |
+| `.claude/skills/openspec-onboard/SKILL.md` | TODO: add description                           |
+| `.claude/skills/openspec-sync-specs/SKILL.md` | TODO: add description                           |
+| `.claude/skills/openspec-verify-change/SKILL.md` | TODO: add description                           |
+| `composer.json` | PHP dependencies (Kirby CMS, plugins)           |
+| `.editorconfig` | Editor formatting rules (indent, charset, EOL)  |
+| `.gitignore` | Git ignore patterns                             |
+| `.mcp.json` | MCP server config                               |
+| `package.json` | npm dependencies, build scripts                 |
 | `postcss.config.js` | PostCSS/Tailwind CSS processing config          |
-| `.prettierrc.json` | Prettier formatting rules          |
-| `webpack.config.js` | Webpack bundler config (JS, CSS, assets)          |
+| `.prettierrc.json` | Prettier formatting rules                       |
+| `webpack.config.js` | Webpack bundler config (JS, CSS, assets)        |
 
 ## Configuration Management
 

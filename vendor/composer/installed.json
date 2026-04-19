@@ -1,2705 +1,2512 @@
 {
-    "packages": [
+  "packages": [
+    {
+      "name": "adspectus/date-extended",
+      "version": "1.1.3",
+      "version_normalized": "1.1.3.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/Adspectus/k3-date-extended.git",
+        "reference": "48f9011d1585a45e1d43b66b6eae974b2688b804"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/Adspectus/k3-date-extended/zipball/48f9011d1585a45e1d43b66b6eae974b2688b804",
+        "reference": "48f9011d1585a45e1d43b66b6eae974b2688b804",
+        "shasum": ""
+      },
+      "require": {
+        "getkirby/composer-installer": "^1.1"
+      },
+      "time": "2020-06-23T11:22:24+00:00",
+      "type": "kirby-plugin",
+      "installation-source": "dist",
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["GPL-3.0-or-later"],
+      "authors": [
         {
-            "name": "adspectus/date-extended",
-            "version": "1.1.3",
-            "version_normalized": "1.1.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Adspectus/k3-date-extended.git",
-                "reference": "48f9011d1585a45e1d43b66b6eae974b2688b804"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Adspectus/k3-date-extended/zipball/48f9011d1585a45e1d43b66b6eae974b2688b804",
-                "reference": "48f9011d1585a45e1d43b66b6eae974b2688b804",
-                "shasum": ""
-            },
-            "require": {
-                "getkirby/composer-installer": "^1.1"
-            },
-            "time": "2020-06-23T11:22:24+00:00",
-            "type": "kirby-plugin",
-            "installation-source": "dist",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-3.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Adspectus",
-                    "email": "adspectus@fastmail.com"
-                }
-            ],
-            "description": "Plugin to provide two additional date fields which will store the creation date and the modication date as a Unix Epoch. A field method is provided to convert this epoch to a formatted string.",
-            "support": {
-                "issues": "https://github.com/Adspectus/k3-date-extended/issues",
-                "source": "https://github.com/Adspectus/k3-date-extended/tree/v1.1.3"
-            },
-            "install-path": "../../site/plugins/date-extended"
-        },
-        {
-            "name": "afbora/kirby-minify-html",
-            "version": "2.2.1",
-            "version_normalized": "2.2.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/afbora/kirby-minify-html.git",
-                "reference": "e1c73fa71d0b21085acdb80243a3ebfb102a165a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/afbora/kirby-minify-html/zipball/e1c73fa71d0b21085acdb80243a3ebfb102a165a",
-                "reference": "e1c73fa71d0b21085acdb80243a3ebfb102a165a",
-                "shasum": ""
-            },
-            "require": {
-                "getkirby/composer-installer": "^1.2",
-                "php": "^8.0",
-                "voku/html-min": "^4.5"
-            },
-            "time": "2025-08-16T12:37:50+00:00",
-            "type": "kirby-plugin",
-            "installation-source": "dist",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Ahmet Bora",
-                    "email": "ahmet@getkirby.com"
-                }
-            ],
-            "description": "Enable minify HTML output for Kirby",
-            "homepage": "https://github.com/afbora/kirby-minify-html",
-            "keywords": [
-                "kirby3",
-                "kirby4",
-                "kirby5"
-            ],
-            "support": {
-                "email": "ahmet@getkirby.com",
-                "issues": "https://github.com/afbora/kirby-minify-html/issues",
-                "source": "https://github.com/afbora/kirby-minify-html/tree/2.2.1"
-            },
-            "install-path": "../../site/plugins/kirby-minify-html"
-        },
-        {
-            "name": "bnomei/kirby3-robots-txt",
-            "version": "5.1.0",
-            "version_normalized": "5.1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/bnomei/kirby3-robots-txt.git",
-                "reference": "b7de1f73ab14817a9aa9c7f26abcd09acdea3d61"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/bnomei/kirby3-robots-txt/zipball/b7de1f73ab14817a9aa9c7f26abcd09acdea3d61",
-                "reference": "b7de1f73ab14817a9aa9c7f26abcd09acdea3d61",
-                "shasum": ""
-            },
-            "require": {
-                "getkirby/composer-installer": "^1.1",
-                "php": ">=8.2.0"
-            },
-            "conflict": {
-                "getkirby/cms": "<5.0"
-            },
-            "require-dev": {
-                "getkirby/cms": "^5.0.0-alpha.4",
-                "larastan/larastan": "^v3.0.0",
-                "laravel/pint": "^1.13",
-                "pestphp/pest": "^v3.5.1",
-                "spatie/ray": "^1.39"
-            },
-            "suggest": {
-                "bnomei/kirby3-feeds": "Adds a xml sitemap which will be automatically be included in the robots.txt"
-            },
-            "time": "2025-05-18T13:27:46+00:00",
-            "type": "kirby-plugin",
-            "extra": {
-                "kirby-cms-path": "tests/kirby"
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Bnomei\\": "classes/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Bruno Meilick",
-                    "email": "b@bnomei.com"
-                }
-            ],
-            "description": "Manage a virtual robots.txt from the Kirby config file",
-            "keywords": [
-                "kirby",
-                "kirby-cms",
-                "kirby-plugin",
-                "robots-exclusion-protocol",
-                "robots-txt"
-            ],
-            "support": {
-                "issues": "https://github.com/bnomei/kirby3-robots-txt/issues",
-                "source": "https://github.com/bnomei/kirby3-robots-txt/tree/v5.1.0"
-            },
-            "install-path": "../../site/plugins/kirby3-robots-txt"
-        },
-        {
-            "name": "christian-riesen/base32",
-            "version": "1.6.0",
-            "version_normalized": "1.6.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ChristianRiesen/base32.git",
-                "reference": "2e82dab3baa008e24a505649b0d583c31d31e894"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ChristianRiesen/base32/zipball/2e82dab3baa008e24a505649b0d583c31d31e894",
-                "reference": "2e82dab3baa008e24a505649b0d583c31d31e894",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.2 || ^8.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.17",
-                "phpstan/phpstan": "^0.12",
-                "phpunit/phpunit": "^8.5.13 || ^9.5"
-            },
-            "time": "2021-02-26T10:19:33+00:00",
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Base32\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Christian Riesen",
-                    "email": "chris.riesen@gmail.com",
-                    "homepage": "http://christianriesen.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Base32 encoder/decoder according to RFC 4648",
-            "homepage": "https://github.com/ChristianRiesen/base32",
-            "keywords": [
-                "base32",
-                "decode",
-                "encode",
-                "rfc4648"
-            ],
-            "support": {
-                "issues": "https://github.com/ChristianRiesen/base32/issues",
-                "source": "https://github.com/ChristianRiesen/base32/tree/1.6.0"
-            },
-            "install-path": "../christian-riesen/base32"
-        },
-        {
-            "name": "claviska/simpleimage",
-            "version": "4.4.0",
-            "version_normalized": "4.4.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/claviska/SimpleImage.git",
-                "reference": "6d928c779e343100cef40f75bac3e301c32c3741"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/claviska/SimpleImage/zipball/6d928c779e343100cef40f75bac3e301c32c3741",
-                "reference": "6d928c779e343100cef40f75bac3e301c32c3741",
-                "shasum": ""
-            },
-            "require": {
-                "ext-gd": "*",
-                "league/color-extractor": "0.4.*",
-                "php": ">=8.0"
-            },
-            "require-dev": {
-                "laravel/pint": "^1.5",
-                "phpstan/phpstan": "^1.10"
-            },
-            "time": "2025-11-20T16:58:37+00:00",
-            "type": "library",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-0": {
-                    "claviska": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Cory LaViska",
-                    "homepage": "http://www.abeautifulsite.net/",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A PHP class that makes working with images as simple as possible.",
-            "support": {
-                "issues": "https://github.com/claviska/SimpleImage/issues",
-                "source": "https://github.com/claviska/SimpleImage/tree/4.4.0"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/claviska",
-                    "type": "github"
-                }
-            ],
-            "install-path": "../claviska/simpleimage"
-        },
-        {
-            "name": "composer/semver",
-            "version": "3.4.4",
-            "version_normalized": "3.4.4.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/composer/semver.git",
-                "reference": "198166618906cb2de69b95d7d47e5fa8aa1b2b95"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/composer/semver/zipball/198166618906cb2de69b95d7d47e5fa8aa1b2b95",
-                "reference": "198166618906cb2de69b95d7d47e5fa8aa1b2b95",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^5.3.2 || ^7.0 || ^8.0"
-            },
-            "require-dev": {
-                "phpstan/phpstan": "^1.11",
-                "symfony/phpunit-bridge": "^3 || ^7"
-            },
-            "time": "2025-08-20T19:15:30+00:00",
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "3.x-dev"
-                }
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Composer\\Semver\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nils Adermann",
-                    "email": "naderman@naderman.de",
-                    "homepage": "http://www.naderman.de"
-                },
-                {
-                    "name": "Jordi Boggiano",
-                    "email": "j.boggiano@seld.be",
-                    "homepage": "http://seld.be"
-                },
-                {
-                    "name": "Rob Bast",
-                    "email": "rob.bast@gmail.com",
-                    "homepage": "http://robbast.nl"
-                }
-            ],
-            "description": "Semver library that offers utilities, version constraint parsing and validation.",
-            "keywords": [
-                "semantic",
-                "semver",
-                "validation",
-                "versioning"
-            ],
-            "support": {
-                "irc": "ircs://irc.libera.chat:6697/composer",
-                "issues": "https://github.com/composer/semver/issues",
-                "source": "https://github.com/composer/semver/tree/3.4.4"
-            },
-            "funding": [
-                {
-                    "url": "https://packagist.com",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/composer",
-                    "type": "github"
-                }
-            ],
-            "install-path": "./semver"
-        },
-        {
-            "name": "distantnative/retour-for-kirby",
-            "version": "5.6.0",
-            "version_normalized": "5.6.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/distantnative/retour-for-kirby.git",
-                "reference": "a959f468e9f7608b7d372aca8be35f2d8d6adb14"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/distantnative/retour-for-kirby/zipball/a959f468e9f7608b7d372aca8be35f2d8d6adb14",
-                "reference": "a959f468e9f7608b7d372aca8be35f2d8d6adb14",
-                "shasum": ""
-            },
-            "require": {
-                "getkirby/cms": "^4.3.1 || ^5.0",
-                "getkirby/composer-installer": "^1.1",
-                "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
-            },
-            "time": "2026-02-28T21:35:54+00:00",
-            "type": "kirby-plugin",
-            "extra": {
-                "installer-name": "retour",
-                "kirby-cms-path": false
-            },
-            "installation-source": "dist",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nico Hoffmann",
-                    "email": "nico@getkirby.com"
-                }
-            ],
-            "description": "Manage redirects and track 404s right from the Kirby CMS Panel",
-            "homepage": "https://distantnative.com/retour-for-kirby/",
-            "support": {
-                "issues": "https://github.com/distantnative/retour-for-kirby/issues",
-                "source": "https://github.com/distantnative/retour-for-kirby/tree/5.6.0"
-            },
-            "funding": [
-                {
-                    "url": "https://paypal.me/distantnative",
-                    "type": "custom"
-                }
-            ],
-            "install-path": "../../site/plugins/retour"
-        },
-        {
-            "name": "ergebnis/composer-normalize",
-            "version": "2.51.0",
-            "version_normalized": "2.51.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ergebnis/composer-normalize.git",
-                "reference": "36fb17dce18579ccab50f71b411a32ed55e6d4bc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ergebnis/composer-normalize/zipball/36fb17dce18579ccab50f71b411a32ed55e6d4bc",
-                "reference": "36fb17dce18579ccab50f71b411a32ed55e6d4bc",
-                "shasum": ""
-            },
-            "require": {
-                "composer-plugin-api": "^2.0.0",
-                "ergebnis/json": "^1.4.0",
-                "ergebnis/json-normalizer": "^4.9.0",
-                "ergebnis/json-printer": "^3.7.0",
-                "ext-json": "*",
-                "justinrainbow/json-schema": "^5.2.12 || ^6.0.0",
-                "localheinz/diff": "^1.3.0",
-                "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
-            },
-            "require-dev": {
-                "composer/composer": "^2.9.4",
-                "ergebnis/license": "^2.7.0",
-                "ergebnis/php-cs-fixer-config": "^6.61.1",
-                "ergebnis/phpstan-rules": "^2.13.1",
-                "ergebnis/phpunit-slow-test-detector": "^2.24.0",
-                "ergebnis/rector-rules": "^1.18.1",
-                "fakerphp/faker": "^1.24.1",
-                "phpstan/extension-installer": "^1.4.3",
-                "phpstan/phpstan": "^2.1.47",
-                "phpstan/phpstan-deprecation-rules": "^2.0.4",
-                "phpstan/phpstan-phpunit": "^2.0.16",
-                "phpstan/phpstan-strict-rules": "^2.0.10",
-                "phpunit/phpunit": "^9.6.33",
-                "rector/rector": "^2.4.1",
-                "symfony/filesystem": "^5.4.41"
-            },
-            "time": "2026-04-14T11:17:04+00:00",
-            "type": "composer-plugin",
-            "extra": {
-                "class": "Ergebnis\\Composer\\Normalize\\NormalizePlugin",
-                "branch-alias": {
-                    "dev-main": "2.51-dev"
-                },
-                "plugin-optional": true,
-                "composer-normalize": {
-                    "indent-size": 2,
-                    "indent-style": "space"
-                }
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Ergebnis\\Composer\\Normalize\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Andreas Möller",
-                    "email": "am@localheinz.com",
-                    "homepage": "https://localheinz.com"
-                }
-            ],
-            "description": "Provides a composer plugin for normalizing composer.json.",
-            "homepage": "https://github.com/ergebnis/composer-normalize",
-            "keywords": [
-                "composer",
-                "normalize",
-                "normalizer",
-                "plugin"
-            ],
-            "support": {
-                "issues": "https://github.com/ergebnis/composer-normalize/issues",
-                "security": "https://github.com/ergebnis/composer-normalize/blob/main/.github/SECURITY.md",
-                "source": "https://github.com/ergebnis/composer-normalize"
-            },
-            "install-path": "../ergebnis/composer-normalize"
-        },
-        {
-            "name": "ergebnis/json",
-            "version": "1.6.0",
-            "version_normalized": "1.6.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ergebnis/json.git",
-                "reference": "7b56d2b5d9e897e75b43e2e753075a0904c921b1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ergebnis/json/zipball/7b56d2b5d9e897e75b43e2e753075a0904c921b1",
-                "reference": "7b56d2b5d9e897e75b43e2e753075a0904c921b1",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
-            },
-            "require-dev": {
-                "ergebnis/composer-normalize": "^2.44.0",
-                "ergebnis/data-provider": "^3.3.0",
-                "ergebnis/license": "^2.5.0",
-                "ergebnis/php-cs-fixer-config": "^6.37.0",
-                "ergebnis/phpstan-rules": "^2.11.0",
-                "ergebnis/phpunit-slow-test-detector": "^2.16.1",
-                "fakerphp/faker": "^1.24.0",
-                "infection/infection": "~0.26.6",
-                "phpstan/extension-installer": "^1.4.3",
-                "phpstan/phpstan": "^2.1.22",
-                "phpstan/phpstan-deprecation-rules": "^2.0.3",
-                "phpstan/phpstan-phpunit": "^2.0.7",
-                "phpstan/phpstan-strict-rules": "^2.0.6",
-                "phpunit/phpunit": "^9.6.24",
-                "rector/rector": "^2.1.4"
-            },
-            "time": "2025-09-06T09:08:45+00:00",
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "1.7-dev"
-                },
-                "composer-normalize": {
-                    "indent-size": 2,
-                    "indent-style": "space"
-                }
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Ergebnis\\Json\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Andreas Möller",
-                    "email": "am@localheinz.com",
-                    "homepage": "https://localheinz.com"
-                }
-            ],
-            "description": "Provides a Json value object for representing a valid JSON string.",
-            "homepage": "https://github.com/ergebnis/json",
-            "keywords": [
-                "json"
-            ],
-            "support": {
-                "issues": "https://github.com/ergebnis/json/issues",
-                "security": "https://github.com/ergebnis/json/blob/main/.github/SECURITY.md",
-                "source": "https://github.com/ergebnis/json"
-            },
-            "install-path": "../ergebnis/json"
-        },
-        {
-            "name": "ergebnis/json-normalizer",
-            "version": "4.10.1",
-            "version_normalized": "4.10.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ergebnis/json-normalizer.git",
-                "reference": "77961faf2c651c3f05977b53c6c68e8434febf62"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ergebnis/json-normalizer/zipball/77961faf2c651c3f05977b53c6c68e8434febf62",
-                "reference": "77961faf2c651c3f05977b53c6c68e8434febf62",
-                "shasum": ""
-            },
-            "require": {
-                "ergebnis/json": "^1.2.0",
-                "ergebnis/json-pointer": "^3.4.0",
-                "ergebnis/json-printer": "^3.5.0",
-                "ergebnis/json-schema-validator": "^4.2.0",
-                "ext-json": "*",
-                "justinrainbow/json-schema": "^5.2.12 || ^6.0.0",
-                "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
-            },
-            "require-dev": {
-                "composer/semver": "^3.4.3",
-                "ergebnis/composer-normalize": "^2.44.0",
-                "ergebnis/data-provider": "^3.3.0",
-                "ergebnis/license": "^2.5.0",
-                "ergebnis/php-cs-fixer-config": "^6.37.0",
-                "ergebnis/phpunit-slow-test-detector": "^2.16.1",
-                "fakerphp/faker": "^1.24.0",
-                "infection/infection": "~0.26.6",
-                "phpstan/extension-installer": "^1.4.3",
-                "phpstan/phpstan": "^1.12.10",
-                "phpstan/phpstan-deprecation-rules": "^1.2.1",
-                "phpstan/phpstan-phpunit": "^1.4.0",
-                "phpstan/phpstan-strict-rules": "^1.6.1",
-                "phpunit/phpunit": "^9.6.19",
-                "rector/rector": "^1.2.10"
-            },
-            "suggest": {
-                "composer/semver": "If you want to use ComposerJsonNormalizer or VersionConstraintNormalizer"
-            },
-            "time": "2025-09-06T09:18:13+00:00",
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "4.11-dev"
-                },
-                "composer-normalize": {
-                    "indent-size": 2,
-                    "indent-style": "space"
-                }
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Ergebnis\\Json\\Normalizer\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Andreas Möller",
-                    "email": "am@localheinz.com",
-                    "homepage": "https://localheinz.com"
-                }
-            ],
-            "description": "Provides generic and vendor-specific normalizers for normalizing JSON documents.",
-            "homepage": "https://github.com/ergebnis/json-normalizer",
-            "keywords": [
-                "json",
-                "normalizer"
-            ],
-            "support": {
-                "issues": "https://github.com/ergebnis/json-normalizer/issues",
-                "security": "https://github.com/ergebnis/json-normalizer/blob/main/.github/SECURITY.md",
-                "source": "https://github.com/ergebnis/json-normalizer"
-            },
-            "install-path": "../ergebnis/json-normalizer"
-        },
-        {
-            "name": "ergebnis/json-pointer",
-            "version": "3.8.0",
-            "version_normalized": "3.8.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ergebnis/json-pointer.git",
-                "reference": "b58c3c468a7ff109fdf9a255f17de29ecbe5276c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ergebnis/json-pointer/zipball/b58c3c468a7ff109fdf9a255f17de29ecbe5276c",
-                "reference": "b58c3c468a7ff109fdf9a255f17de29ecbe5276c",
-                "shasum": ""
-            },
-            "require": {
-                "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
-            },
-            "require-dev": {
-                "ergebnis/composer-normalize": "^2.50.0",
-                "ergebnis/data-provider": "^3.6.0",
-                "ergebnis/license": "^2.7.0",
-                "ergebnis/php-cs-fixer-config": "^6.60.2",
-                "ergebnis/phpstan-rules": "^2.13.1",
-                "ergebnis/phpunit-slow-test-detector": "^2.24.0",
-                "ergebnis/rector-rules": "^1.16.0",
-                "fakerphp/faker": "^1.24.1",
-                "infection/infection": "~0.26.6",
-                "phpstan/extension-installer": "^1.4.3",
-                "phpstan/phpstan": "^2.1.46",
-                "phpstan/phpstan-deprecation-rules": "^2.0.4",
-                "phpstan/phpstan-phpunit": "^2.0.16",
-                "phpstan/phpstan-strict-rules": "^2.0.10",
-                "phpunit/phpunit": "^9.6.34",
-                "rector/rector": "^2.4.0"
-            },
-            "time": "2026-04-07T14:52:13+00:00",
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "3.8-dev"
-                },
-                "composer-normalize": {
-                    "indent-size": 2,
-                    "indent-style": "space"
-                }
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Ergebnis\\Json\\Pointer\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Andreas Möller",
-                    "email": "am@localheinz.com",
-                    "homepage": "https://localheinz.com"
-                }
-            ],
-            "description": "Provides an abstraction of a JSON pointer.",
-            "homepage": "https://github.com/ergebnis/json-pointer",
-            "keywords": [
-                "RFC6901",
-                "json",
-                "pointer"
-            ],
-            "support": {
-                "issues": "https://github.com/ergebnis/json-pointer/issues",
-                "security": "https://github.com/ergebnis/json-pointer/blob/main/.github/SECURITY.md",
-                "source": "https://github.com/ergebnis/json-pointer"
-            },
-            "install-path": "../ergebnis/json-pointer"
-        },
-        {
-            "name": "ergebnis/json-printer",
-            "version": "3.8.1",
-            "version_normalized": "3.8.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ergebnis/json-printer.git",
-                "reference": "211d73fc7ec6daf98568ee6ed6e6d133dee8503e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ergebnis/json-printer/zipball/211d73fc7ec6daf98568ee6ed6e6d133dee8503e",
-                "reference": "211d73fc7ec6daf98568ee6ed6e6d133dee8503e",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "ext-mbstring": "*",
-                "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
-            },
-            "require-dev": {
-                "ergebnis/composer-normalize": "^2.44.0",
-                "ergebnis/data-provider": "^3.3.0",
-                "ergebnis/license": "^2.5.0",
-                "ergebnis/php-cs-fixer-config": "^6.37.0",
-                "ergebnis/phpunit-slow-test-detector": "^2.16.1",
-                "fakerphp/faker": "^1.24.0",
-                "infection/infection": "~0.26.6",
-                "phpstan/extension-installer": "^1.4.3",
-                "phpstan/phpstan": "^1.12.10",
-                "phpstan/phpstan-deprecation-rules": "^1.2.1",
-                "phpstan/phpstan-phpunit": "^1.4.1",
-                "phpstan/phpstan-strict-rules": "^1.6.1",
-                "phpunit/phpunit": "^9.6.21",
-                "rector/rector": "^1.2.10"
-            },
-            "time": "2025-09-06T09:59:26+00:00",
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "3.9-dev"
-                },
-                "composer-normalize": {
-                    "indent-size": 2,
-                    "indent-style": "space"
-                }
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Ergebnis\\Json\\Printer\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Andreas Möller",
-                    "email": "am@localheinz.com",
-                    "homepage": "https://localheinz.com"
-                }
-            ],
-            "description": "Provides a JSON printer, allowing for flexible indentation.",
-            "homepage": "https://github.com/ergebnis/json-printer",
-            "keywords": [
-                "formatter",
-                "json",
-                "printer"
-            ],
-            "support": {
-                "issues": "https://github.com/ergebnis/json-printer/issues",
-                "security": "https://github.com/ergebnis/json-printer/blob/main/.github/SECURITY.md",
-                "source": "https://github.com/ergebnis/json-printer"
-            },
-            "install-path": "../ergebnis/json-printer"
-        },
-        {
-            "name": "ergebnis/json-schema-validator",
-            "version": "4.5.1",
-            "version_normalized": "4.5.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ergebnis/json-schema-validator.git",
-                "reference": "b739527a480a9e3651360ad351ea77e7e9019df2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ergebnis/json-schema-validator/zipball/b739527a480a9e3651360ad351ea77e7e9019df2",
-                "reference": "b739527a480a9e3651360ad351ea77e7e9019df2",
-                "shasum": ""
-            },
-            "require": {
-                "ergebnis/json": "^1.2.0",
-                "ergebnis/json-pointer": "^3.4.0",
-                "ext-json": "*",
-                "justinrainbow/json-schema": "^5.2.12 || ^6.0.0",
-                "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
-            },
-            "require-dev": {
-                "ergebnis/composer-normalize": "^2.44.0",
-                "ergebnis/data-provider": "^3.3.0",
-                "ergebnis/license": "^2.5.0",
-                "ergebnis/php-cs-fixer-config": "^6.37.0",
-                "ergebnis/phpunit-slow-test-detector": "^2.16.1",
-                "fakerphp/faker": "^1.24.0",
-                "infection/infection": "~0.26.6",
-                "phpstan/extension-installer": "^1.4.3",
-                "phpstan/phpstan": "^1.12.10",
-                "phpstan/phpstan-deprecation-rules": "^1.2.1",
-                "phpstan/phpstan-phpunit": "^1.4.0",
-                "phpstan/phpstan-strict-rules": "^1.6.1",
-                "phpunit/phpunit": "^9.6.20",
-                "rector/rector": "^1.2.10"
-            },
-            "time": "2025-09-06T11:37:35+00:00",
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "4.6-dev"
-                },
-                "composer-normalize": {
-                    "indent-size": 2,
-                    "indent-style": "space"
-                }
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Ergebnis\\Json\\SchemaValidator\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Andreas Möller",
-                    "email": "am@localheinz.com",
-                    "homepage": "https://localheinz.com"
-                }
-            ],
-            "description": "Provides a JSON schema validator, building on top of justinrainbow/json-schema.",
-            "homepage": "https://github.com/ergebnis/json-schema-validator",
-            "keywords": [
-                "json",
-                "schema",
-                "validator"
-            ],
-            "support": {
-                "issues": "https://github.com/ergebnis/json-schema-validator/issues",
-                "security": "https://github.com/ergebnis/json-schema-validator/blob/main/.github/SECURITY.md",
-                "source": "https://github.com/ergebnis/json-schema-validator"
-            },
-            "install-path": "../ergebnis/json-schema-validator"
-        },
-        {
-            "name": "filp/whoops",
-            "version": "2.18.4",
-            "version_normalized": "2.18.4.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/filp/whoops.git",
-                "reference": "d2102955e48b9fd9ab24280a7ad12ed552752c4d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/d2102955e48b9fd9ab24280a7ad12ed552752c4d",
-                "reference": "d2102955e48b9fd9ab24280a7ad12ed552752c4d",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.1 || ^8.0",
-                "psr/log": "^1.0.1 || ^2.0 || ^3.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "^1.0",
-                "phpunit/phpunit": "^7.5.20 || ^8.5.8 || ^9.3.3",
-                "symfony/var-dumper": "^4.0 || ^5.0"
-            },
-            "suggest": {
-                "symfony/var-dumper": "Pretty print complex values better with var-dumper available",
-                "whoops/soap": "Formats errors as SOAP responses"
-            },
-            "time": "2025-08-08T12:00:00+00:00",
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.7-dev"
-                }
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Whoops\\": "src/Whoops/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Filipe Dobreira",
-                    "homepage": "https://github.com/filp",
-                    "role": "Developer"
-                }
-            ],
-            "description": "php error handling for cool kids",
-            "homepage": "https://filp.github.io/whoops/",
-            "keywords": [
-                "error",
-                "exception",
-                "handling",
-                "library",
-                "throwable",
-                "whoops"
-            ],
-            "support": {
-                "issues": "https://github.com/filp/whoops/issues",
-                "source": "https://github.com/filp/whoops/tree/2.18.4"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/denis-sokolov",
-                    "type": "github"
-                }
-            ],
-            "install-path": "../filp/whoops"
-        },
-        {
-            "name": "getkirby/cms",
-            "version": "5.3.3",
-            "version_normalized": "5.3.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/getkirby/kirby.git",
-                "reference": "90c285c0c479ecbf2724c620e7e50f94008b9da4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/getkirby/kirby/zipball/90c285c0c479ecbf2724c620e7e50f94008b9da4",
-                "reference": "90c285c0c479ecbf2724c620e7e50f94008b9da4",
-                "shasum": ""
-            },
-            "require": {
-                "christian-riesen/base32": "1.6.0",
-                "claviska/simpleimage": "4.4.0",
-                "composer/semver": "3.4.4",
-                "ext-ctype": "*",
-                "ext-curl": "*",
-                "ext-dom": "*",
-                "ext-filter": "*",
-                "ext-hash": "*",
-                "ext-iconv": "*",
-                "ext-json": "*",
-                "ext-libxml": "*",
-                "ext-mbstring": "*",
-                "ext-openssl": "*",
-                "ext-simplexml": "*",
-                "filp/whoops": "2.18.4",
-                "getkirby/composer-installer": "^1.2.1",
-                "laminas/laminas-escaper": "2.18.0",
-                "michelf/php-smartypants": "1.8.1",
-                "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0",
-                "phpmailer/phpmailer": "7.0.2",
-                "symfony/polyfill-intl-idn": "1.33.0",
-                "symfony/polyfill-mbstring": "1.33.0",
-                "symfony/yaml": "7.4.6"
-            },
-            "replace": {
-                "symfony/polyfill-php72": "*"
-            },
-            "suggest": {
-                "ext-apcu": "Support for the Apcu cache driver",
-                "ext-exif": "Support for exif information from images",
-                "ext-fileinfo": "Improved mime type detection for files",
-                "ext-imagick": "Improved thumbnail generation",
-                "ext-intl": "Improved i18n number formatting",
-                "ext-memcached": "Support for the Memcached cache driver",
-                "ext-pdo": "Support for using databases",
-                "ext-redis": "Support for the Redis cache driver",
-                "ext-sodium": "Support for the crypto class and more robust session handling",
-                "ext-zip": "Support for ZIP archive file functions",
-                "ext-zlib": "Sanitization and validation for svgz files"
-            },
-            "time": "2026-03-26T11:15:44+00:00",
-            "type": "kirby-cms",
-            "installation-source": "dist",
-            "autoload": {
-                "files": [
-                    "config/setup.php",
-                    "config/helpers.php"
-                ],
-                "psr-4": {
-                    "Kirby\\": "src/"
-                },
-                "classmap": [
-                    "dependencies/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "proprietary"
-            ],
-            "authors": [
-                {
-                    "name": "Kirby Team",
-                    "email": "support@getkirby.com",
-                    "homepage": "https://getkirby.com"
-                }
-            ],
-            "description": "The Kirby core",
-            "homepage": "https://getkirby.com",
-            "keywords": [
-                "cms",
-                "core",
-                "kirby"
-            ],
-            "support": {
-                "email": "support@getkirby.com",
-                "forum": "https://forum.getkirby.com",
-                "issues": "https://github.com/getkirby/kirby/issues",
-                "source": "https://github.com/getkirby/kirby"
-            },
-            "funding": [
-                {
-                    "url": "https://getkirby.com/buy",
-                    "type": "custom"
-                }
-            ],
-            "install-path": "../../kirby"
-        },
-        {
-            "name": "getkirby/composer-installer",
-            "version": "1.2.1",
-            "version_normalized": "1.2.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/getkirby/composer-installer.git",
-                "reference": "c98ece30bfba45be7ce457e1102d1b169d922f3d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/getkirby/composer-installer/zipball/c98ece30bfba45be7ce457e1102d1b169d922f3d",
-                "reference": "c98ece30bfba45be7ce457e1102d1b169d922f3d",
-                "shasum": ""
-            },
-            "require": {
-                "composer-plugin-api": "^1.0 || ^2.0"
-            },
-            "require-dev": {
-                "composer/composer": "^1.8 || ^2.0"
-            },
-            "time": "2020-12-28T12:54:39+00:00",
-            "type": "composer-plugin",
-            "extra": {
-                "class": "Kirby\\ComposerInstaller\\Plugin"
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Kirby\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Kirby's custom Composer installer for the Kirby CMS and for Kirby plugins",
-            "homepage": "https://getkirby.com",
-            "support": {
-                "issues": "https://github.com/getkirby/composer-installer/issues",
-                "source": "https://github.com/getkirby/composer-installer/tree/1.2.1"
-            },
-            "funding": [
-                {
-                    "url": "https://getkirby.com/buy",
-                    "type": "custom"
-                }
-            ],
-            "install-path": "../getkirby/composer-installer"
-        },
-        {
-            "name": "johannschopplich/kirby-hashed-assets",
-            "version": "3.0.10",
-            "version_normalized": "3.0.10.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/johannschopplich/kirby-hashed-assets.git",
-                "reference": "eb51a6bbc95dcfdd61dc4ec4c1f9939251503b11"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/johannschopplich/kirby-hashed-assets/zipball/eb51a6bbc95dcfdd61dc4ec4c1f9939251503b11",
-                "reference": "eb51a6bbc95dcfdd61dc4ec4c1f9939251503b11",
-                "shasum": ""
-            },
-            "require": {
-                "getkirby/composer-installer": "^1.2"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "@stable",
-                "getkirby/cms": "^3.9",
-                "phpunit/phpunit": "^9.0"
-            },
-            "time": "2023-09-28T15:41:10+00:00",
-            "type": "kirby-plugin",
-            "extra": {
-                "kirby-cms-path": "tests/fixtures/kirby"
-            },
-            "installation-source": "dist",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Johann Schopplich",
-                    "email": "pkg@johannschopplich.com",
-                    "homepage": "https://johannschopplich.com"
-                }
-            ],
-            "description": "File name hashes support for css() and js() helpers",
-            "homepage": "https://github.com/johannschopplich/kirby-hashed-assets#readme",
-            "keywords": [
-                "JS",
-                "assets",
-                "components",
-                "css",
-                "helpers",
-                "kirby",
-                "kirby-cms",
-                "laravel-mix",
-                "manifest"
-            ],
-            "support": {
-                "issues": "https://github.com/johannschopplich/kirby-hashed-assets/issues",
-                "source": "https://github.com/johannschopplich/kirby-hashed-assets/tree/v3.0.10"
-            },
-            "install-path": "../../site/plugins/kirby-hashed-assets"
-        },
-        {
-            "name": "johannschopplich/kirby-highlighter",
-            "version": "3.2.0",
-            "version_normalized": "3.2.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/johannschopplich/kirby-highlighter.git",
-                "reference": "223962f389dce0920048a46fe6806f95ce3fe828"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/johannschopplich/kirby-highlighter/zipball/223962f389dce0920048a46fe6806f95ce3fe828",
-                "reference": "223962f389dce0920048a46fe6806f95ce3fe828",
-                "shasum": ""
-            },
-            "require": {
-                "getkirby/composer-installer": "^1.2",
-                "scrivo/highlight.php": "^9.18"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "@stable",
-                "getkirby/cms": "^4",
-                "phpunit/phpunit": "^11.1"
-            },
-            "time": "2024-07-19T08:41:49+00:00",
-            "type": "kirby-plugin",
-            "extra": {
-                "kirby-cms-path": "tests/fixtures/kirby"
-            },
-            "installation-source": "dist",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Johann Schopplich",
-                    "email": "hello@johannschopplich.com",
-                    "homepage": "https://johannschopplich.com"
-                }
-            ],
-            "description": "Server-side syntax highlighting for Kirby CMS",
-            "homepage": "https://github.com/johannschopplich/kirby-highlighter#readme",
-            "keywords": [
-                "highlight",
-                "highlighter",
-                "hljs",
-                "kirby"
-            ],
-            "support": {
-                "issues": "https://github.com/johannschopplich/kirby-highlighter/issues",
-                "source": "https://github.com/johannschopplich/kirby-highlighter/tree/v3.2.0"
-            },
-            "abandoned": true,
-            "install-path": "../../site/plugins/kirby-highlighter"
-        },
-        {
-            "name": "junohamburg/kirby-language-selector",
-            "version": "2.0.4",
-            "version_normalized": "2.0.4.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/junohamburg/kirby-language-selector.git",
-                "reference": "c3021819365ef8112feaae9c1d7e05c0f30325d8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/junohamburg/kirby-language-selector/zipball/c3021819365ef8112feaae9c1d7e05c0f30325d8",
-                "reference": "c3021819365ef8112feaae9c1d7e05c0f30325d8",
-                "shasum": ""
-            },
-            "require": {
-                "getkirby/composer-installer": "^1.2"
-            },
-            "time": "2025-10-20T08:54:52+00:00",
-            "type": "kirby-plugin",
-            "installation-source": "dist",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "JUNO",
-                    "email": "github@juno-hamburg.com"
-                }
-            ],
-            "description": "Kirby Language Selector",
-            "support": {
-                "issues": "https://github.com/junohamburg/kirby-language-selector/issues",
-                "source": "https://github.com/junohamburg/kirby-language-selector/tree/2.0.4"
-            },
-            "install-path": "../../site/plugins/kirby-language-selector"
-        },
-        {
-            "name": "justinrainbow/json-schema",
-            "version": "6.8.0",
-            "version_normalized": "6.8.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jsonrainbow/json-schema.git",
-                "reference": "89ac92bcfe5d0a8a4433c7b89d394553ae7250cc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jsonrainbow/json-schema/zipball/89ac92bcfe5d0a8a4433c7b89d394553ae7250cc",
-                "reference": "89ac92bcfe5d0a8a4433c7b89d394553ae7250cc",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "marc-mabe/php-enum": "^4.4",
-                "php": "^7.2 || ^8.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "3.3.0",
-                "json-schema/json-schema-test-suite": "^23.2",
-                "marc-mabe/php-enum-phpstan": "^2.0",
-                "phpspec/prophecy": "^1.19",
-                "phpstan/phpstan": "^1.12",
-                "phpunit/phpunit": "^8.5"
-            },
-            "time": "2026-04-02T12:43:11+00:00",
-            "bin": [
-                "bin/validate-json"
-            ],
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "6.x-dev"
-                }
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "JsonSchema\\": "src/JsonSchema/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Bruno Prieto Reis",
-                    "email": "bruno.p.reis@gmail.com"
-                },
-                {
-                    "name": "Justin Rainbow",
-                    "email": "justin.rainbow@gmail.com"
-                },
-                {
-                    "name": "Igor Wiedler",
-                    "email": "igor@wiedler.ch"
-                },
-                {
-                    "name": "Robert Schönthal",
-                    "email": "seroscho@googlemail.com"
-                }
-            ],
-            "description": "A library to validate a json schema.",
-            "homepage": "https://github.com/jsonrainbow/json-schema",
-            "keywords": [
-                "json",
-                "schema"
-            ],
-            "support": {
-                "issues": "https://github.com/jsonrainbow/json-schema/issues",
-                "source": "https://github.com/jsonrainbow/json-schema/tree/6.8.0"
-            },
-            "install-path": "../justinrainbow/json-schema"
-        },
-        {
-            "name": "laminas/laminas-escaper",
-            "version": "2.18.0",
-            "version_normalized": "2.18.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laminas/laminas-escaper.git",
-                "reference": "06f211dfffff18d91844c1f55250d5d13c007e18"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-escaper/zipball/06f211dfffff18d91844c1f55250d5d13c007e18",
-                "reference": "06f211dfffff18d91844c1f55250d5d13c007e18",
-                "shasum": ""
-            },
-            "require": {
-                "ext-ctype": "*",
-                "ext-mbstring": "*",
-                "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
-            },
-            "conflict": {
-                "zendframework/zend-escaper": "*"
-            },
-            "require-dev": {
-                "infection/infection": "^0.31.0",
-                "laminas/laminas-coding-standard": "~3.1.0",
-                "phpunit/phpunit": "^11.5.42",
-                "psalm/plugin-phpunit": "^0.19.5",
-                "vimeo/psalm": "^6.13.1"
-            },
-            "time": "2025-10-14T18:31:13+00:00",
-            "type": "library",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Laminas\\Escaper\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "description": "Securely and safely escape HTML, HTML attributes, JavaScript, CSS, and URLs",
-            "homepage": "https://laminas.dev",
-            "keywords": [
-                "escaper",
-                "laminas"
-            ],
-            "support": {
-                "chat": "https://laminas.dev/chat",
-                "docs": "https://docs.laminas.dev/laminas-escaper/",
-                "forum": "https://discourse.laminas.dev",
-                "issues": "https://github.com/laminas/laminas-escaper/issues",
-                "rss": "https://github.com/laminas/laminas-escaper/releases.atom",
-                "source": "https://github.com/laminas/laminas-escaper"
-            },
-            "funding": [
-                {
-                    "url": "https://funding.communitybridge.org/projects/laminas-project",
-                    "type": "community_bridge"
-                }
-            ],
-            "install-path": "../laminas/laminas-escaper"
-        },
-        {
-            "name": "league/color-extractor",
-            "version": "0.4.0",
-            "version_normalized": "0.4.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/thephpleague/color-extractor.git",
-                "reference": "21fcac6249c5ef7d00eb83e128743ee6678fe505"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/color-extractor/zipball/21fcac6249c5ef7d00eb83e128743ee6678fe505",
-                "reference": "21fcac6249c5ef7d00eb83e128743ee6678fe505",
-                "shasum": ""
-            },
-            "require": {
-                "ext-gd": "*",
-                "php": "^7.3 || ^8.0"
-            },
-            "replace": {
-                "matthecat/colorextractor": "*"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "~2",
-                "phpunit/phpunit": "^9.5"
-            },
-            "suggest": {
-                "ext-curl": "To download images from remote URLs if allow_url_fopen is disabled for security reasons"
-            },
-            "time": "2022-09-24T15:57:16+00:00",
-            "type": "library",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "League\\ColorExtractor\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mathieu Lechat",
-                    "email": "math.lechat@gmail.com",
-                    "homepage": "http://matthecat.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Extract colors from an image as a human would do.",
-            "homepage": "https://github.com/thephpleague/color-extractor",
-            "keywords": [
-                "color",
-                "extract",
-                "human",
-                "image",
-                "palette"
-            ],
-            "support": {
-                "issues": "https://github.com/thephpleague/color-extractor/issues",
-                "source": "https://github.com/thephpleague/color-extractor/tree/0.4.0"
-            },
-            "install-path": "../league/color-extractor"
-        },
-        {
-            "name": "localheinz/diff",
-            "version": "1.3.0",
-            "version_normalized": "1.3.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/localheinz/diff.git",
-                "reference": "33bd840935970cda6691c23fc7d94ae764c0734c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/localheinz/diff/zipball/33bd840935970cda6691c23fc7d94ae764c0734c",
-                "reference": "33bd840935970cda6691c23fc7d94ae764c0734c",
-                "shasum": ""
-            },
-            "require": {
-                "php": "~7.1.0 || ~7.2.0 || ~7.3.0 || ~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^7.5.0 || ^8.5.23",
-                "symfony/process": "^4.2 || ^5"
-            },
-            "time": "2025-08-30T09:44:18+00:00",
-            "type": "library",
-            "installation-source": "dist",
-            "autoload": {
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de"
-                },
-                {
-                    "name": "Kore Nordmann",
-                    "email": "mail@kore-nordmann.de"
-                }
-            ],
-            "description": "Fork of sebastian/diff for use with ergebnis/composer-normalize",
-            "homepage": "https://github.com/localheinz/diff",
-            "keywords": [
-                "diff",
-                "udiff",
-                "unidiff",
-                "unified diff"
-            ],
-            "support": {
-                "issues": "https://github.com/localheinz/diff/issues",
-                "source": "https://github.com/localheinz/diff/tree/1.3.0"
-            },
-            "install-path": "../localheinz/diff"
-        },
-        {
-            "name": "lukaskleinschmidt/kirby-snippet-controller",
-            "version": "2.2.0",
-            "version_normalized": "2.2.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/lukaskleinschmidt/kirby-snippet-controller.git",
-                "reference": "7acc5672e258699fcd02464a18c5ac5128cf56b4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/lukaskleinschmidt/kirby-snippet-controller/zipball/7acc5672e258699fcd02464a18c5ac5128cf56b4",
-                "reference": "7acc5672e258699fcd02464a18c5ac5128cf56b4",
-                "shasum": ""
-            },
-            "require": {
-                "getkirby/composer-installer": "^1.2",
-                "php": "^8.1"
-            },
-            "time": "2023-11-06T15:21:36+00:00",
-            "type": "kirby-plugin",
-            "extra": {
-                "installer-name": "snippet-controller"
-            },
-            "installation-source": "dist",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Lukas Kleinschmidt",
-                    "email": "contact@kleinschmidt.mozmail.com"
-                }
-            ],
-            "description": "Kirby Snippet Controller",
-            "support": {
-                "issues": "https://github.com/lukaskleinschmidt/kirby-snippet-controller/issues",
-                "source": "https://github.com/lukaskleinschmidt/kirby-snippet-controller/tree/2.2.0"
-            },
-            "install-path": "../../site/plugins/snippet-controller"
-        },
-        {
-            "name": "marc-mabe/php-enum",
-            "version": "v4.7.2",
-            "version_normalized": "4.7.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/marc-mabe/php-enum.git",
-                "reference": "bb426fcdd65c60fb3638ef741e8782508fda7eef"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/marc-mabe/php-enum/zipball/bb426fcdd65c60fb3638ef741e8782508fda7eef",
-                "reference": "bb426fcdd65c60fb3638ef741e8782508fda7eef",
-                "shasum": ""
-            },
-            "require": {
-                "ext-reflection": "*",
-                "php": "^7.1 | ^8.0"
-            },
-            "require-dev": {
-                "phpbench/phpbench": "^0.16.10 || ^1.0.4",
-                "phpstan/phpstan": "^1.3.1",
-                "phpunit/phpunit": "^7.5.20 | ^8.5.22 | ^9.5.11",
-                "vimeo/psalm": "^4.17.0 | ^5.26.1"
-            },
-            "time": "2025-09-14T11:18:39+00:00",
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-3.x": "3.2-dev",
-                    "dev-master": "4.7-dev"
-                }
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "MabeEnum\\": "src/"
-                },
-                "classmap": [
-                    "stubs/Stringable.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Marc Bennewitz",
-                    "email": "dev@mabe.berlin",
-                    "homepage": "https://mabe.berlin/",
-                    "role": "Lead"
-                }
-            ],
-            "description": "Simple and fast implementation of enumerations with native PHP",
-            "homepage": "https://github.com/marc-mabe/php-enum",
-            "keywords": [
-                "enum",
-                "enum-map",
-                "enum-set",
-                "enumeration",
-                "enumerator",
-                "enummap",
-                "enumset",
-                "map",
-                "set",
-                "type",
-                "type-hint",
-                "typehint"
-            ],
-            "support": {
-                "issues": "https://github.com/marc-mabe/php-enum/issues",
-                "source": "https://github.com/marc-mabe/php-enum/tree/v4.7.2"
-            },
-            "install-path": "../marc-mabe/php-enum"
-        },
-        {
-            "name": "michelf/php-smartypants",
-            "version": "1.8.1",
-            "version_normalized": "1.8.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/michelf/php-smartypants.git",
-                "reference": "47d17c90a4dfd0ccf1f87e25c65e6c8012415aad"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/michelf/php-smartypants/zipball/47d17c90a4dfd0ccf1f87e25c65e6c8012415aad",
-                "reference": "47d17c90a4dfd0ccf1f87e25c65e6c8012415aad",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "time": "2016-12-13T01:01:17+00:00",
-            "type": "library",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-0": {
-                    "Michelf": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Michel Fortin",
-                    "email": "michel.fortin@michelf.ca",
-                    "homepage": "https://michelf.ca/",
-                    "role": "Developer"
-                },
-                {
-                    "name": "John Gruber",
-                    "homepage": "https://daringfireball.net/"
-                }
-            ],
-            "description": "PHP SmartyPants",
-            "homepage": "https://michelf.ca/projects/php-smartypants/",
-            "keywords": [
-                "dashes",
-                "quotes",
-                "spaces",
-                "typographer",
-                "typography"
-            ],
-            "support": {
-                "issues": "https://github.com/michelf/php-smartypants/issues",
-                "source": "https://github.com/michelf/php-smartypants/tree/1.8.1"
-            },
-            "install-path": "../michelf/php-smartypants"
-        },
-        {
-            "name": "microman/kirby-grid-blocks",
-            "version": "1.0.0",
-            "version_normalized": "1.0.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/youngcut/kirby-grid-block.git",
-                "reference": "eb8b8423a5c0376d85980ec2862adc5f66268370"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/youngcut/kirby-grid-block/zipball/eb8b8423a5c0376d85980ec2862adc5f66268370",
-                "reference": "eb8b8423a5c0376d85980ec2862adc5f66268370",
-                "shasum": ""
-            },
-            "require": {
-                "getkirby/composer-installer": "^1.2"
-            },
-            "time": "2021-10-05T10:11:05+00:00",
-            "type": "kirby-plugin",
-            "installation-source": "dist",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Roman Gsponer",
-                    "email": "mail@microman.ch"
-                }
-            ],
-            "description": "Use the layouts field as block",
-            "support": {
-                "issues": "https://github.com/youngcut/kirby-grid-block/issues",
-                "source": "https://github.com/youngcut/kirby-grid-block/tree/1.0.0"
-            },
-            "abandoned": true,
-            "install-path": "../../site/plugins/kirby-grid-blocks"
-        },
-        {
-            "name": "phpmailer/phpmailer",
-            "version": "v7.0.2",
-            "version_normalized": "7.0.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/PHPMailer/PHPMailer.git",
-                "reference": "ebf1655bd5b99b3f97e1a3ec0a69e5f4cd7ea088"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/ebf1655bd5b99b3f97e1a3ec0a69e5f4cd7ea088",
-                "reference": "ebf1655bd5b99b3f97e1a3ec0a69e5f4cd7ea088",
-                "shasum": ""
-            },
-            "require": {
-                "ext-ctype": "*",
-                "ext-filter": "*",
-                "ext-hash": "*",
-                "php": ">=5.5.0"
-            },
-            "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
-                "doctrine/annotations": "^1.2.6 || ^1.13.3",
-                "php-parallel-lint/php-console-highlighter": "^1.0.0",
-                "php-parallel-lint/php-parallel-lint": "^1.3.2",
-                "phpcompatibility/php-compatibility": "^10.0.0@dev",
-                "squizlabs/php_codesniffer": "^3.13.5",
-                "yoast/phpunit-polyfills": "^1.0.4"
-            },
-            "suggest": {
-                "decomplexity/SendOauth2": "Adapter for using XOAUTH2 authentication",
-                "directorytree/imapengine": "For uploading sent messages via IMAP, see gmail example",
-                "ext-imap": "Needed to support advanced email address parsing according to RFC822",
-                "ext-mbstring": "Needed to send email in multibyte encoding charset or decode encoded addresses",
-                "ext-openssl": "Needed for secure SMTP sending and DKIM signing",
-                "greew/oauth2-azure-provider": "Needed for Microsoft Azure XOAUTH2 authentication",
-                "hayageek/oauth2-yahoo": "Needed for Yahoo XOAUTH2 authentication",
-                "league/oauth2-google": "Needed for Google XOAUTH2 authentication",
-                "psr/log": "For optional PSR-3 debug logging",
-                "symfony/polyfill-mbstring": "To support UTF-8 if the Mbstring PHP extension is not enabled (^1.2)",
-                "thenetworg/oauth2-azure": "Needed for Microsoft XOAUTH2 authentication"
-            },
-            "time": "2026-01-09T18:02:33+00:00",
-            "type": "library",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "PHPMailer\\PHPMailer\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPL-2.1-only"
-            ],
-            "authors": [
-                {
-                    "name": "Marcus Bointon",
-                    "email": "phpmailer@synchromedia.co.uk"
-                },
-                {
-                    "name": "Jim Jagielski",
-                    "email": "jimjag@gmail.com"
-                },
-                {
-                    "name": "Andy Prevost",
-                    "email": "codeworxtech@users.sourceforge.net"
-                },
-                {
-                    "name": "Brent R. Matzelle"
-                }
-            ],
-            "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-            "support": {
-                "issues": "https://github.com/PHPMailer/PHPMailer/issues",
-                "source": "https://github.com/PHPMailer/PHPMailer/tree/v7.0.2"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/Synchro",
-                    "type": "github"
-                }
-            ],
-            "install-path": "../phpmailer/phpmailer"
-        },
-        {
-            "name": "psr/log",
-            "version": "3.0.2",
-            "version_normalized": "3.0.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-fig/log.git",
-                "reference": "f16e1d5863e37f8d8c2a01719f5b34baa2b714d3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/f16e1d5863e37f8d8c2a01719f5b34baa2b714d3",
-                "reference": "f16e1d5863e37f8d8c2a01719f5b34baa2b714d3",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.0.0"
-            },
-            "time": "2024-09-11T13:17:53+00:00",
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.x-dev"
-                }
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Psr\\Log\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "PHP-FIG",
-                    "homepage": "https://www.php-fig.org/"
-                }
-            ],
-            "description": "Common interface for logging libraries",
-            "homepage": "https://github.com/php-fig/log",
-            "keywords": [
-                "log",
-                "psr",
-                "psr-3"
-            ],
-            "support": {
-                "source": "https://github.com/php-fig/log/tree/3.0.2"
-            },
-            "install-path": "../psr/log"
-        },
-        {
-            "name": "scrivo/highlight.php",
-            "version": "v9.18.1.10",
-            "version_normalized": "9.18.1.10",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/scrivo/highlight.php.git",
-                "reference": "850f4b44697a2552e892ffe71490ba2733c2fc6e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/scrivo/highlight.php/zipball/850f4b44697a2552e892ffe71490ba2733c2fc6e",
-                "reference": "850f4b44697a2552e892ffe71490ba2733c2fc6e",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "php": ">=5.4"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4.8|^5.7",
-                "sabberworm/php-css-parser": "^8.3",
-                "symfony/finder": "^2.8|^3.4|^5.4",
-                "symfony/var-dumper": "^2.8|^3.4|^5.4"
-            },
-            "suggest": {
-                "ext-mbstring": "Allows highlighting code with unicode characters and supports language with unicode keywords"
-            },
-            "time": "2022-12-17T21:53:22+00:00",
-            "type": "library",
-            "installation-source": "dist",
-            "autoload": {
-                "files": [
-                    "HighlightUtilities/functions.php"
-                ],
-                "psr-0": {
-                    "Highlight\\": "",
-                    "HighlightUtilities\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Geert Bergman",
-                    "homepage": "http://www.scrivo.org/",
-                    "role": "Project Author"
-                },
-                {
-                    "name": "Vladimir Jimenez",
-                    "homepage": "https://allejo.io",
-                    "role": "Maintainer"
-                },
-                {
-                    "name": "Martin Folkers",
-                    "homepage": "https://twobrain.io",
-                    "role": "Contributor"
-                }
-            ],
-            "description": "Server side syntax highlighter that supports 185 languages. It's a PHP port of highlight.js",
-            "keywords": [
-                "code",
-                "highlight",
-                "highlight.js",
-                "highlight.php",
-                "syntax"
-            ],
-            "support": {
-                "issues": "https://github.com/scrivo/highlight.php/issues",
-                "source": "https://github.com/scrivo/highlight.php"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/allejo",
-                    "type": "github"
-                }
-            ],
-            "install-path": "../scrivo/highlight.php"
-        },
-        {
-            "name": "symfony/css-selector",
-            "version": "v7.4.8",
-            "version_normalized": "7.4.8.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/css-selector.git",
-                "reference": "b055f228a4178a1d6774909903905e3475f3eac8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/b055f228a4178a1d6774909903905e3475f3eac8",
-                "reference": "b055f228a4178a1d6774909903905e3475f3eac8",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.2"
-            },
-            "time": "2026-03-24T13:12:05+00:00",
-            "type": "library",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\CssSelector\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Jean-François Simon",
-                    "email": "jeanfrancois.simon@sensiolabs.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Converts CSS selectors to XPath expressions",
-            "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/css-selector/tree/v7.4.8"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/nicolas-grekas",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "install-path": "../symfony/css-selector"
-        },
-        {
-            "name": "symfony/deprecation-contracts",
-            "version": "v3.6.0",
-            "version_normalized": "3.6.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/deprecation-contracts.git",
-                "reference": "63afe740e99a13ba87ec199bb07bbdee937a5b62"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/63afe740e99a13ba87ec199bb07bbdee937a5b62",
-                "reference": "63afe740e99a13ba87ec199bb07bbdee937a5b62",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.1"
-            },
-            "time": "2024-09-25T14:21:43+00:00",
-            "type": "library",
-            "extra": {
-                "thanks": {
-                    "url": "https://github.com/symfony/contracts",
-                    "name": "symfony/contracts"
-                },
-                "branch-alias": {
-                    "dev-main": "3.6-dev"
-                }
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "files": [
-                    "function.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "A generic function and convention to trigger deprecation notices",
-            "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.6.0"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "install-path": "../symfony/deprecation-contracts"
-        },
-        {
-            "name": "symfony/polyfill-ctype",
-            "version": "v1.36.0",
-            "version_normalized": "1.36.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/polyfill-ctype.git",
-                "reference": "141046a8f9477948ff284fa65be2095baafb94f2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/141046a8f9477948ff284fa65be2095baafb94f2",
-                "reference": "141046a8f9477948ff284fa65be2095baafb94f2",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2"
-            },
-            "provide": {
-                "ext-ctype": "*"
-            },
-            "suggest": {
-                "ext-ctype": "For best performance"
-            },
-            "time": "2026-04-10T16:19:22+00:00",
-            "type": "library",
-            "extra": {
-                "thanks": {
-                    "url": "https://github.com/symfony/polyfill",
-                    "name": "symfony/polyfill"
-                }
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "files": [
-                    "bootstrap.php"
-                ],
-                "psr-4": {
-                    "Symfony\\Polyfill\\Ctype\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Gert de Pagter",
-                    "email": "BackEndTea@gmail.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony polyfill for ctype functions",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "compatibility",
-                "ctype",
-                "polyfill",
-                "portable"
-            ],
-            "support": {
-                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.36.0"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/nicolas-grekas",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "install-path": "../symfony/polyfill-ctype"
-        },
-        {
-            "name": "symfony/polyfill-intl-idn",
-            "version": "v1.33.0",
-            "version_normalized": "1.33.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/polyfill-intl-idn.git",
-                "reference": "9614ac4d8061dc257ecc64cba1b140873dce8ad3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-intl-idn/zipball/9614ac4d8061dc257ecc64cba1b140873dce8ad3",
-                "reference": "9614ac4d8061dc257ecc64cba1b140873dce8ad3",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2",
-                "symfony/polyfill-intl-normalizer": "^1.10"
-            },
-            "suggest": {
-                "ext-intl": "For best performance"
-            },
-            "time": "2024-09-10T14:38:51+00:00",
-            "type": "library",
-            "extra": {
-                "thanks": {
-                    "url": "https://github.com/symfony/polyfill",
-                    "name": "symfony/polyfill"
-                }
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "files": [
-                    "bootstrap.php"
-                ],
-                "psr-4": {
-                    "Symfony\\Polyfill\\Intl\\Idn\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Laurent Bassin",
-                    "email": "laurent@bassin.info"
-                },
-                {
-                    "name": "Trevor Rowbotham",
-                    "email": "trevor.rowbotham@pm.me"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony polyfill for intl's idn_to_ascii and idn_to_utf8 functions",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "compatibility",
-                "idn",
-                "intl",
-                "polyfill",
-                "portable",
-                "shim"
-            ],
-            "support": {
-                "source": "https://github.com/symfony/polyfill-intl-idn/tree/v1.33.0"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/nicolas-grekas",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "install-path": "../symfony/polyfill-intl-idn"
-        },
-        {
-            "name": "symfony/polyfill-intl-normalizer",
-            "version": "v1.36.0",
-            "version_normalized": "1.36.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/polyfill-intl-normalizer.git",
-                "reference": "3833d7255cc303546435cb650316bff708a1c75c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-intl-normalizer/zipball/3833d7255cc303546435cb650316bff708a1c75c",
-                "reference": "3833d7255cc303546435cb650316bff708a1c75c",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2"
-            },
-            "suggest": {
-                "ext-intl": "For best performance"
-            },
-            "time": "2024-09-09T11:45:10+00:00",
-            "type": "library",
-            "extra": {
-                "thanks": {
-                    "url": "https://github.com/symfony/polyfill",
-                    "name": "symfony/polyfill"
-                }
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "files": [
-                    "bootstrap.php"
-                ],
-                "psr-4": {
-                    "Symfony\\Polyfill\\Intl\\Normalizer\\": ""
-                },
-                "classmap": [
-                    "Resources/stubs"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony polyfill for intl's Normalizer class and related functions",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "compatibility",
-                "intl",
-                "normalizer",
-                "polyfill",
-                "portable",
-                "shim"
-            ],
-            "support": {
-                "source": "https://github.com/symfony/polyfill-intl-normalizer/tree/v1.36.0"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/nicolas-grekas",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "install-path": "../symfony/polyfill-intl-normalizer"
-        },
-        {
-            "name": "symfony/polyfill-mbstring",
-            "version": "v1.33.0",
-            "version_normalized": "1.33.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "6d857f4d76bd4b343eac26d6b539585d2bc56493"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/6d857f4d76bd4b343eac26d6b539585d2bc56493",
-                "reference": "6d857f4d76bd4b343eac26d6b539585d2bc56493",
-                "shasum": ""
-            },
-            "require": {
-                "ext-iconv": "*",
-                "php": ">=7.2"
-            },
-            "provide": {
-                "ext-mbstring": "*"
-            },
-            "suggest": {
-                "ext-mbstring": "For best performance"
-            },
-            "time": "2024-12-23T08:48:59+00:00",
-            "type": "library",
-            "extra": {
-                "thanks": {
-                    "url": "https://github.com/symfony/polyfill",
-                    "name": "symfony/polyfill"
-                }
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "files": [
-                    "bootstrap.php"
-                ],
-                "psr-4": {
-                    "Symfony\\Polyfill\\Mbstring\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony polyfill for the Mbstring extension",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "compatibility",
-                "mbstring",
-                "polyfill",
-                "portable",
-                "shim"
-            ],
-            "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.33.0"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/nicolas-grekas",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "install-path": "../symfony/polyfill-mbstring"
-        },
-        {
-            "name": "symfony/yaml",
-            "version": "v7.4.6",
-            "version_normalized": "7.4.6.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/yaml.git",
-                "reference": "58751048de17bae71c5aa0d13cb19d79bca26391"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/58751048de17bae71c5aa0d13cb19d79bca26391",
-                "reference": "58751048de17bae71c5aa0d13cb19d79bca26391",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.2",
-                "symfony/deprecation-contracts": "^2.5|^3",
-                "symfony/polyfill-ctype": "^1.8"
-            },
-            "conflict": {
-                "symfony/console": "<6.4"
-            },
-            "require-dev": {
-                "symfony/console": "^6.4|^7.0|^8.0"
-            },
-            "time": "2026-02-09T09:33:46+00:00",
-            "bin": [
-                "Resources/bin/yaml-lint"
-            ],
-            "type": "library",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Yaml\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Loads and dumps YAML files",
-            "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/yaml/tree/v7.4.6"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/nicolas-grekas",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "install-path": "../symfony/yaml"
-        },
-        {
-            "name": "voku/html-min",
-            "version": "4.5.1",
-            "version_normalized": "4.5.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/voku/HtmlMin.git",
-                "reference": "872dac444652d30791ca5d0c23fbe1e6b9cab5bc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/voku/HtmlMin/zipball/872dac444652d30791ca5d0c23fbe1e6b9cab5bc",
-                "reference": "872dac444652d30791ca5d0c23fbe1e6b9cab5bc",
-                "shasum": ""
-            },
-            "require": {
-                "ext-dom": "*",
-                "php": ">=7.0.0",
-                "voku/simple_html_dom": "~4.8.5"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~6.0 || ~7.0 || ~9.0"
-            },
-            "time": "2024-05-25T08:01:45+00:00",
-            "type": "library",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "voku\\": "src/voku/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Lars Moelleken",
-                    "homepage": "https://www.moelleken.org/"
-                }
-            ],
-            "description": "HTML Compressor and Minifier",
-            "homepage": "https://github.com/voku/HtmlMin",
-            "keywords": [
-                "compress",
-                "compression",
-                "compressor",
-                "html",
-                "minifier"
-            ],
-            "support": {
-                "issues": "https://github.com/voku/HtmlMin/issues",
-                "source": "https://github.com/voku/HtmlMin/tree/4.5.1"
-            },
-            "funding": [
-                {
-                    "url": "https://www.paypal.me/moelleken",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/voku",
-                    "type": "github"
-                },
-                {
-                    "url": "https://www.patreon.com/voku",
-                    "type": "patreon"
-                }
-            ],
-            "install-path": "../voku/html-min"
-        },
-        {
-            "name": "voku/simple_html_dom",
-            "version": "4.8.10",
-            "version_normalized": "4.8.10.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/voku/simple_html_dom.git",
-                "reference": "716822ed52ed3a1881542be07a786270de390e99"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/voku/simple_html_dom/zipball/716822ed52ed3a1881542be07a786270de390e99",
-                "reference": "716822ed52ed3a1881542be07a786270de390e99",
-                "shasum": ""
-            },
-            "require": {
-                "ext-dom": "*",
-                "ext-libxml": "*",
-                "ext-simplexml": "*",
-                "php": ">=7.0.0",
-                "symfony/css-selector": "~3.0 || ~4.0 || ~5.0 || ~6.0 || ~7.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~6.0 || ~7.0 || ~9.0"
-            },
-            "suggest": {
-                "voku/portable-utf8": "If you need e.g. UTF-8 fixed output."
-            },
-            "time": "2024-07-03T16:05:14+00:00",
-            "type": "library",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "voku\\helper\\": "src/voku/helper/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "dimabdc",
-                    "email": "support@titor.ru",
-                    "homepage": "https://github.com/dimabdc",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Lars Moelleken",
-                    "homepage": "https://www.moelleken.org/",
-                    "role": "Fork-Maintainer"
-                }
-            ],
-            "description": "Simple HTML DOM package.",
-            "homepage": "https://github.com/voku/simple_html_dom",
-            "keywords": [
-                "HTML Parser",
-                "dom",
-                "php dom"
-            ],
-            "support": {
-                "issues": "https://github.com/voku/simple_html_dom/issues",
-                "source": "https://github.com/voku/simple_html_dom/tree/4.8.10"
-            },
-            "funding": [
-                {
-                    "url": "https://www.paypal.me/moelleken",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/voku",
-                    "type": "github"
-                },
-                {
-                    "url": "https://www.patreon.com/voku",
-                    "type": "patreon"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/voku/simple_html_dom",
-                    "type": "tidelift"
-                }
-            ],
-            "install-path": "../voku/simple_html_dom"
+          "name": "Adspectus",
+          "email": "adspectus@fastmail.com"
         }
-    ],
-    "dev": true,
-    "dev-package-names": [
-        "ergebnis/composer-normalize",
-        "ergebnis/json",
-        "ergebnis/json-normalizer",
-        "ergebnis/json-pointer",
-        "ergebnis/json-printer",
-        "ergebnis/json-schema-validator",
-        "justinrainbow/json-schema",
-        "localheinz/diff",
-        "marc-mabe/php-enum"
-    ]
+      ],
+      "description": "Plugin to provide two additional date fields which will store the creation date and the modication date as a Unix Epoch. A field method is provided to convert this epoch to a formatted string.",
+      "support": {
+        "issues": "https://github.com/Adspectus/k3-date-extended/issues",
+        "source": "https://github.com/Adspectus/k3-date-extended/tree/v1.1.3"
+      },
+      "install-path": "../../site/plugins/date-extended"
+    },
+    {
+      "name": "afbora/kirby-minify-html",
+      "version": "2.2.1",
+      "version_normalized": "2.2.1.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/afbora/kirby-minify-html.git",
+        "reference": "e1c73fa71d0b21085acdb80243a3ebfb102a165a"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/afbora/kirby-minify-html/zipball/e1c73fa71d0b21085acdb80243a3ebfb102a165a",
+        "reference": "e1c73fa71d0b21085acdb80243a3ebfb102a165a",
+        "shasum": ""
+      },
+      "require": {
+        "getkirby/composer-installer": "^1.2",
+        "php": "^8.0",
+        "voku/html-min": "^4.5"
+      },
+      "time": "2025-08-16T12:37:50+00:00",
+      "type": "kirby-plugin",
+      "installation-source": "dist",
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["MIT"],
+      "authors": [
+        {
+          "name": "Ahmet Bora",
+          "email": "ahmet@getkirby.com"
+        }
+      ],
+      "description": "Enable minify HTML output for Kirby",
+      "homepage": "https://github.com/afbora/kirby-minify-html",
+      "keywords": ["kirby3", "kirby4", "kirby5"],
+      "support": {
+        "email": "ahmet@getkirby.com",
+        "issues": "https://github.com/afbora/kirby-minify-html/issues",
+        "source": "https://github.com/afbora/kirby-minify-html/tree/2.2.1"
+      },
+      "install-path": "../../site/plugins/kirby-minify-html"
+    },
+    {
+      "name": "bnomei/kirby3-robots-txt",
+      "version": "5.1.0",
+      "version_normalized": "5.1.0.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/bnomei/kirby3-robots-txt.git",
+        "reference": "b7de1f73ab14817a9aa9c7f26abcd09acdea3d61"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/bnomei/kirby3-robots-txt/zipball/b7de1f73ab14817a9aa9c7f26abcd09acdea3d61",
+        "reference": "b7de1f73ab14817a9aa9c7f26abcd09acdea3d61",
+        "shasum": ""
+      },
+      "require": {
+        "getkirby/composer-installer": "^1.1",
+        "php": ">=8.2.0"
+      },
+      "conflict": {
+        "getkirby/cms": "<5.0"
+      },
+      "require-dev": {
+        "getkirby/cms": "^5.0.0-alpha.4",
+        "larastan/larastan": "^v3.0.0",
+        "laravel/pint": "^1.13",
+        "pestphp/pest": "^v3.5.1",
+        "spatie/ray": "^1.39"
+      },
+      "suggest": {
+        "bnomei/kirby3-feeds": "Adds a xml sitemap which will be automatically be included in the robots.txt"
+      },
+      "time": "2025-05-18T13:27:46+00:00",
+      "type": "kirby-plugin",
+      "extra": {
+        "kirby-cms-path": "tests/kirby"
+      },
+      "installation-source": "dist",
+      "autoload": {
+        "psr-4": {
+          "Bnomei\\": "classes/"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["MIT"],
+      "authors": [
+        {
+          "name": "Bruno Meilick",
+          "email": "b@bnomei.com"
+        }
+      ],
+      "description": "Manage a virtual robots.txt from the Kirby config file",
+      "keywords": [
+        "kirby",
+        "kirby-cms",
+        "kirby-plugin",
+        "robots-exclusion-protocol",
+        "robots-txt"
+      ],
+      "support": {
+        "issues": "https://github.com/bnomei/kirby3-robots-txt/issues",
+        "source": "https://github.com/bnomei/kirby3-robots-txt/tree/v5.1.0"
+      },
+      "install-path": "../../site/plugins/kirby3-robots-txt"
+    },
+    {
+      "name": "christian-riesen/base32",
+      "version": "1.6.0",
+      "version_normalized": "1.6.0.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/ChristianRiesen/base32.git",
+        "reference": "2e82dab3baa008e24a505649b0d583c31d31e894"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/ChristianRiesen/base32/zipball/2e82dab3baa008e24a505649b0d583c31d31e894",
+        "reference": "2e82dab3baa008e24a505649b0d583c31d31e894",
+        "shasum": ""
+      },
+      "require": {
+        "php": "^7.2 || ^8.0"
+      },
+      "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.17",
+        "phpstan/phpstan": "^0.12",
+        "phpunit/phpunit": "^8.5.13 || ^9.5"
+      },
+      "time": "2021-02-26T10:19:33+00:00",
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "1.x-dev"
+        }
+      },
+      "installation-source": "dist",
+      "autoload": {
+        "psr-4": {
+          "Base32\\": "src/"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["MIT"],
+      "authors": [
+        {
+          "name": "Christian Riesen",
+          "email": "chris.riesen@gmail.com",
+          "homepage": "http://christianriesen.com",
+          "role": "Developer"
+        }
+      ],
+      "description": "Base32 encoder/decoder according to RFC 4648",
+      "homepage": "https://github.com/ChristianRiesen/base32",
+      "keywords": ["base32", "decode", "encode", "rfc4648"],
+      "support": {
+        "issues": "https://github.com/ChristianRiesen/base32/issues",
+        "source": "https://github.com/ChristianRiesen/base32/tree/1.6.0"
+      },
+      "install-path": "../christian-riesen/base32"
+    },
+    {
+      "name": "claviska/simpleimage",
+      "version": "4.4.0",
+      "version_normalized": "4.4.0.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/claviska/SimpleImage.git",
+        "reference": "6d928c779e343100cef40f75bac3e301c32c3741"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/claviska/SimpleImage/zipball/6d928c779e343100cef40f75bac3e301c32c3741",
+        "reference": "6d928c779e343100cef40f75bac3e301c32c3741",
+        "shasum": ""
+      },
+      "require": {
+        "ext-gd": "*",
+        "league/color-extractor": "0.4.*",
+        "php": ">=8.0"
+      },
+      "require-dev": {
+        "laravel/pint": "^1.5",
+        "phpstan/phpstan": "^1.10"
+      },
+      "time": "2025-11-20T16:58:37+00:00",
+      "type": "library",
+      "installation-source": "dist",
+      "autoload": {
+        "psr-0": {
+          "claviska": "src/"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["MIT"],
+      "authors": [
+        {
+          "name": "Cory LaViska",
+          "homepage": "http://www.abeautifulsite.net/",
+          "role": "Developer"
+        }
+      ],
+      "description": "A PHP class that makes working with images as simple as possible.",
+      "support": {
+        "issues": "https://github.com/claviska/SimpleImage/issues",
+        "source": "https://github.com/claviska/SimpleImage/tree/4.4.0"
+      },
+      "funding": [
+        {
+          "url": "https://github.com/claviska",
+          "type": "github"
+        }
+      ],
+      "install-path": "../claviska/simpleimage"
+    },
+    {
+      "name": "composer/semver",
+      "version": "3.4.4",
+      "version_normalized": "3.4.4.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/composer/semver.git",
+        "reference": "198166618906cb2de69b95d7d47e5fa8aa1b2b95"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/composer/semver/zipball/198166618906cb2de69b95d7d47e5fa8aa1b2b95",
+        "reference": "198166618906cb2de69b95d7d47e5fa8aa1b2b95",
+        "shasum": ""
+      },
+      "require": {
+        "php": "^5.3.2 || ^7.0 || ^8.0"
+      },
+      "require-dev": {
+        "phpstan/phpstan": "^1.11",
+        "symfony/phpunit-bridge": "^3 || ^7"
+      },
+      "time": "2025-08-20T19:15:30+00:00",
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-main": "3.x-dev"
+        }
+      },
+      "installation-source": "dist",
+      "autoload": {
+        "psr-4": {
+          "Composer\\Semver\\": "src"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["MIT"],
+      "authors": [
+        {
+          "name": "Nils Adermann",
+          "email": "naderman@naderman.de",
+          "homepage": "http://www.naderman.de"
+        },
+        {
+          "name": "Jordi Boggiano",
+          "email": "j.boggiano@seld.be",
+          "homepage": "http://seld.be"
+        },
+        {
+          "name": "Rob Bast",
+          "email": "rob.bast@gmail.com",
+          "homepage": "http://robbast.nl"
+        }
+      ],
+      "description": "Semver library that offers utilities, version constraint parsing and validation.",
+      "keywords": ["semantic", "semver", "validation", "versioning"],
+      "support": {
+        "irc": "ircs://irc.libera.chat:6697/composer",
+        "issues": "https://github.com/composer/semver/issues",
+        "source": "https://github.com/composer/semver/tree/3.4.4"
+      },
+      "funding": [
+        {
+          "url": "https://packagist.com",
+          "type": "custom"
+        },
+        {
+          "url": "https://github.com/composer",
+          "type": "github"
+        }
+      ],
+      "install-path": "./semver"
+    },
+    {
+      "name": "distantnative/retour-for-kirby",
+      "version": "5.6.0",
+      "version_normalized": "5.6.0.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/distantnative/retour-for-kirby.git",
+        "reference": "a959f468e9f7608b7d372aca8be35f2d8d6adb14"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/distantnative/retour-for-kirby/zipball/a959f468e9f7608b7d372aca8be35f2d8d6adb14",
+        "reference": "a959f468e9f7608b7d372aca8be35f2d8d6adb14",
+        "shasum": ""
+      },
+      "require": {
+        "getkirby/cms": "^4.3.1 || ^5.0",
+        "getkirby/composer-installer": "^1.1",
+        "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
+      },
+      "time": "2026-02-28T21:35:54+00:00",
+      "type": "kirby-plugin",
+      "extra": {
+        "installer-name": "retour",
+        "kirby-cms-path": false
+      },
+      "installation-source": "dist",
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["MIT"],
+      "authors": [
+        {
+          "name": "Nico Hoffmann",
+          "email": "nico@getkirby.com"
+        }
+      ],
+      "description": "Manage redirects and track 404s right from the Kirby CMS Panel",
+      "homepage": "https://distantnative.com/retour-for-kirby/",
+      "support": {
+        "issues": "https://github.com/distantnative/retour-for-kirby/issues",
+        "source": "https://github.com/distantnative/retour-for-kirby/tree/5.6.0"
+      },
+      "funding": [
+        {
+          "url": "https://paypal.me/distantnative",
+          "type": "custom"
+        }
+      ],
+      "install-path": "../../site/plugins/retour"
+    },
+    {
+      "name": "ergebnis/composer-normalize",
+      "version": "2.51.0",
+      "version_normalized": "2.51.0.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/ergebnis/composer-normalize.git",
+        "reference": "36fb17dce18579ccab50f71b411a32ed55e6d4bc"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/ergebnis/composer-normalize/zipball/36fb17dce18579ccab50f71b411a32ed55e6d4bc",
+        "reference": "36fb17dce18579ccab50f71b411a32ed55e6d4bc",
+        "shasum": ""
+      },
+      "require": {
+        "composer-plugin-api": "^2.0.0",
+        "ergebnis/json": "^1.4.0",
+        "ergebnis/json-normalizer": "^4.9.0",
+        "ergebnis/json-printer": "^3.7.0",
+        "ext-json": "*",
+        "justinrainbow/json-schema": "^5.2.12 || ^6.0.0",
+        "localheinz/diff": "^1.3.0",
+        "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
+      },
+      "require-dev": {
+        "composer/composer": "^2.9.4",
+        "ergebnis/license": "^2.7.0",
+        "ergebnis/php-cs-fixer-config": "^6.61.1",
+        "ergebnis/phpstan-rules": "^2.13.1",
+        "ergebnis/phpunit-slow-test-detector": "^2.24.0",
+        "ergebnis/rector-rules": "^1.18.1",
+        "fakerphp/faker": "^1.24.1",
+        "phpstan/extension-installer": "^1.4.3",
+        "phpstan/phpstan": "^2.1.47",
+        "phpstan/phpstan-deprecation-rules": "^2.0.4",
+        "phpstan/phpstan-phpunit": "^2.0.16",
+        "phpstan/phpstan-strict-rules": "^2.0.10",
+        "phpunit/phpunit": "^9.6.33",
+        "rector/rector": "^2.4.1",
+        "symfony/filesystem": "^5.4.41"
+      },
+      "time": "2026-04-14T11:17:04+00:00",
+      "type": "composer-plugin",
+      "extra": {
+        "class": "Ergebnis\\Composer\\Normalize\\NormalizePlugin",
+        "branch-alias": {
+          "dev-main": "2.51-dev"
+        },
+        "plugin-optional": true,
+        "composer-normalize": {
+          "indent-size": 2,
+          "indent-style": "space"
+        }
+      },
+      "installation-source": "dist",
+      "autoload": {
+        "psr-4": {
+          "Ergebnis\\Composer\\Normalize\\": "src/"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["MIT"],
+      "authors": [
+        {
+          "name": "Andreas Möller",
+          "email": "am@localheinz.com",
+          "homepage": "https://localheinz.com"
+        }
+      ],
+      "description": "Provides a composer plugin for normalizing composer.json.",
+      "homepage": "https://github.com/ergebnis/composer-normalize",
+      "keywords": ["composer", "normalize", "normalizer", "plugin"],
+      "support": {
+        "issues": "https://github.com/ergebnis/composer-normalize/issues",
+        "security": "https://github.com/ergebnis/composer-normalize/blob/main/.github/SECURITY.md",
+        "source": "https://github.com/ergebnis/composer-normalize"
+      },
+      "install-path": "../ergebnis/composer-normalize"
+    },
+    {
+      "name": "ergebnis/json",
+      "version": "1.6.0",
+      "version_normalized": "1.6.0.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/ergebnis/json.git",
+        "reference": "7b56d2b5d9e897e75b43e2e753075a0904c921b1"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/ergebnis/json/zipball/7b56d2b5d9e897e75b43e2e753075a0904c921b1",
+        "reference": "7b56d2b5d9e897e75b43e2e753075a0904c921b1",
+        "shasum": ""
+      },
+      "require": {
+        "ext-json": "*",
+        "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
+      },
+      "require-dev": {
+        "ergebnis/composer-normalize": "^2.44.0",
+        "ergebnis/data-provider": "^3.3.0",
+        "ergebnis/license": "^2.5.0",
+        "ergebnis/php-cs-fixer-config": "^6.37.0",
+        "ergebnis/phpstan-rules": "^2.11.0",
+        "ergebnis/phpunit-slow-test-detector": "^2.16.1",
+        "fakerphp/faker": "^1.24.0",
+        "infection/infection": "~0.26.6",
+        "phpstan/extension-installer": "^1.4.3",
+        "phpstan/phpstan": "^2.1.22",
+        "phpstan/phpstan-deprecation-rules": "^2.0.3",
+        "phpstan/phpstan-phpunit": "^2.0.7",
+        "phpstan/phpstan-strict-rules": "^2.0.6",
+        "phpunit/phpunit": "^9.6.24",
+        "rector/rector": "^2.1.4"
+      },
+      "time": "2025-09-06T09:08:45+00:00",
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-main": "1.7-dev"
+        },
+        "composer-normalize": {
+          "indent-size": 2,
+          "indent-style": "space"
+        }
+      },
+      "installation-source": "dist",
+      "autoload": {
+        "psr-4": {
+          "Ergebnis\\Json\\": "src/"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["MIT"],
+      "authors": [
+        {
+          "name": "Andreas Möller",
+          "email": "am@localheinz.com",
+          "homepage": "https://localheinz.com"
+        }
+      ],
+      "description": "Provides a Json value object for representing a valid JSON string.",
+      "homepage": "https://github.com/ergebnis/json",
+      "keywords": ["json"],
+      "support": {
+        "issues": "https://github.com/ergebnis/json/issues",
+        "security": "https://github.com/ergebnis/json/blob/main/.github/SECURITY.md",
+        "source": "https://github.com/ergebnis/json"
+      },
+      "install-path": "../ergebnis/json"
+    },
+    {
+      "name": "ergebnis/json-normalizer",
+      "version": "4.10.1",
+      "version_normalized": "4.10.1.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/ergebnis/json-normalizer.git",
+        "reference": "77961faf2c651c3f05977b53c6c68e8434febf62"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/ergebnis/json-normalizer/zipball/77961faf2c651c3f05977b53c6c68e8434febf62",
+        "reference": "77961faf2c651c3f05977b53c6c68e8434febf62",
+        "shasum": ""
+      },
+      "require": {
+        "ergebnis/json": "^1.2.0",
+        "ergebnis/json-pointer": "^3.4.0",
+        "ergebnis/json-printer": "^3.5.0",
+        "ergebnis/json-schema-validator": "^4.2.0",
+        "ext-json": "*",
+        "justinrainbow/json-schema": "^5.2.12 || ^6.0.0",
+        "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
+      },
+      "require-dev": {
+        "composer/semver": "^3.4.3",
+        "ergebnis/composer-normalize": "^2.44.0",
+        "ergebnis/data-provider": "^3.3.0",
+        "ergebnis/license": "^2.5.0",
+        "ergebnis/php-cs-fixer-config": "^6.37.0",
+        "ergebnis/phpunit-slow-test-detector": "^2.16.1",
+        "fakerphp/faker": "^1.24.0",
+        "infection/infection": "~0.26.6",
+        "phpstan/extension-installer": "^1.4.3",
+        "phpstan/phpstan": "^1.12.10",
+        "phpstan/phpstan-deprecation-rules": "^1.2.1",
+        "phpstan/phpstan-phpunit": "^1.4.0",
+        "phpstan/phpstan-strict-rules": "^1.6.1",
+        "phpunit/phpunit": "^9.6.19",
+        "rector/rector": "^1.2.10"
+      },
+      "suggest": {
+        "composer/semver": "If you want to use ComposerJsonNormalizer or VersionConstraintNormalizer"
+      },
+      "time": "2025-09-06T09:18:13+00:00",
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-main": "4.11-dev"
+        },
+        "composer-normalize": {
+          "indent-size": 2,
+          "indent-style": "space"
+        }
+      },
+      "installation-source": "dist",
+      "autoload": {
+        "psr-4": {
+          "Ergebnis\\Json\\Normalizer\\": "src/"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["MIT"],
+      "authors": [
+        {
+          "name": "Andreas Möller",
+          "email": "am@localheinz.com",
+          "homepage": "https://localheinz.com"
+        }
+      ],
+      "description": "Provides generic and vendor-specific normalizers for normalizing JSON documents.",
+      "homepage": "https://github.com/ergebnis/json-normalizer",
+      "keywords": ["json", "normalizer"],
+      "support": {
+        "issues": "https://github.com/ergebnis/json-normalizer/issues",
+        "security": "https://github.com/ergebnis/json-normalizer/blob/main/.github/SECURITY.md",
+        "source": "https://github.com/ergebnis/json-normalizer"
+      },
+      "install-path": "../ergebnis/json-normalizer"
+    },
+    {
+      "name": "ergebnis/json-pointer",
+      "version": "3.8.0",
+      "version_normalized": "3.8.0.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/ergebnis/json-pointer.git",
+        "reference": "b58c3c468a7ff109fdf9a255f17de29ecbe5276c"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/ergebnis/json-pointer/zipball/b58c3c468a7ff109fdf9a255f17de29ecbe5276c",
+        "reference": "b58c3c468a7ff109fdf9a255f17de29ecbe5276c",
+        "shasum": ""
+      },
+      "require": {
+        "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
+      },
+      "require-dev": {
+        "ergebnis/composer-normalize": "^2.50.0",
+        "ergebnis/data-provider": "^3.6.0",
+        "ergebnis/license": "^2.7.0",
+        "ergebnis/php-cs-fixer-config": "^6.60.2",
+        "ergebnis/phpstan-rules": "^2.13.1",
+        "ergebnis/phpunit-slow-test-detector": "^2.24.0",
+        "ergebnis/rector-rules": "^1.16.0",
+        "fakerphp/faker": "^1.24.1",
+        "infection/infection": "~0.26.6",
+        "phpstan/extension-installer": "^1.4.3",
+        "phpstan/phpstan": "^2.1.46",
+        "phpstan/phpstan-deprecation-rules": "^2.0.4",
+        "phpstan/phpstan-phpunit": "^2.0.16",
+        "phpstan/phpstan-strict-rules": "^2.0.10",
+        "phpunit/phpunit": "^9.6.34",
+        "rector/rector": "^2.4.0"
+      },
+      "time": "2026-04-07T14:52:13+00:00",
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-main": "3.8-dev"
+        },
+        "composer-normalize": {
+          "indent-size": 2,
+          "indent-style": "space"
+        }
+      },
+      "installation-source": "dist",
+      "autoload": {
+        "psr-4": {
+          "Ergebnis\\Json\\Pointer\\": "src/"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["MIT"],
+      "authors": [
+        {
+          "name": "Andreas Möller",
+          "email": "am@localheinz.com",
+          "homepage": "https://localheinz.com"
+        }
+      ],
+      "description": "Provides an abstraction of a JSON pointer.",
+      "homepage": "https://github.com/ergebnis/json-pointer",
+      "keywords": ["RFC6901", "json", "pointer"],
+      "support": {
+        "issues": "https://github.com/ergebnis/json-pointer/issues",
+        "security": "https://github.com/ergebnis/json-pointer/blob/main/.github/SECURITY.md",
+        "source": "https://github.com/ergebnis/json-pointer"
+      },
+      "install-path": "../ergebnis/json-pointer"
+    },
+    {
+      "name": "ergebnis/json-printer",
+      "version": "3.8.1",
+      "version_normalized": "3.8.1.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/ergebnis/json-printer.git",
+        "reference": "211d73fc7ec6daf98568ee6ed6e6d133dee8503e"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/ergebnis/json-printer/zipball/211d73fc7ec6daf98568ee6ed6e6d133dee8503e",
+        "reference": "211d73fc7ec6daf98568ee6ed6e6d133dee8503e",
+        "shasum": ""
+      },
+      "require": {
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
+      },
+      "require-dev": {
+        "ergebnis/composer-normalize": "^2.44.0",
+        "ergebnis/data-provider": "^3.3.0",
+        "ergebnis/license": "^2.5.0",
+        "ergebnis/php-cs-fixer-config": "^6.37.0",
+        "ergebnis/phpunit-slow-test-detector": "^2.16.1",
+        "fakerphp/faker": "^1.24.0",
+        "infection/infection": "~0.26.6",
+        "phpstan/extension-installer": "^1.4.3",
+        "phpstan/phpstan": "^1.12.10",
+        "phpstan/phpstan-deprecation-rules": "^1.2.1",
+        "phpstan/phpstan-phpunit": "^1.4.1",
+        "phpstan/phpstan-strict-rules": "^1.6.1",
+        "phpunit/phpunit": "^9.6.21",
+        "rector/rector": "^1.2.10"
+      },
+      "time": "2025-09-06T09:59:26+00:00",
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-main": "3.9-dev"
+        },
+        "composer-normalize": {
+          "indent-size": 2,
+          "indent-style": "space"
+        }
+      },
+      "installation-source": "dist",
+      "autoload": {
+        "psr-4": {
+          "Ergebnis\\Json\\Printer\\": "src/"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["MIT"],
+      "authors": [
+        {
+          "name": "Andreas Möller",
+          "email": "am@localheinz.com",
+          "homepage": "https://localheinz.com"
+        }
+      ],
+      "description": "Provides a JSON printer, allowing for flexible indentation.",
+      "homepage": "https://github.com/ergebnis/json-printer",
+      "keywords": ["formatter", "json", "printer"],
+      "support": {
+        "issues": "https://github.com/ergebnis/json-printer/issues",
+        "security": "https://github.com/ergebnis/json-printer/blob/main/.github/SECURITY.md",
+        "source": "https://github.com/ergebnis/json-printer"
+      },
+      "install-path": "../ergebnis/json-printer"
+    },
+    {
+      "name": "ergebnis/json-schema-validator",
+      "version": "4.5.1",
+      "version_normalized": "4.5.1.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/ergebnis/json-schema-validator.git",
+        "reference": "b739527a480a9e3651360ad351ea77e7e9019df2"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/ergebnis/json-schema-validator/zipball/b739527a480a9e3651360ad351ea77e7e9019df2",
+        "reference": "b739527a480a9e3651360ad351ea77e7e9019df2",
+        "shasum": ""
+      },
+      "require": {
+        "ergebnis/json": "^1.2.0",
+        "ergebnis/json-pointer": "^3.4.0",
+        "ext-json": "*",
+        "justinrainbow/json-schema": "^5.2.12 || ^6.0.0",
+        "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
+      },
+      "require-dev": {
+        "ergebnis/composer-normalize": "^2.44.0",
+        "ergebnis/data-provider": "^3.3.0",
+        "ergebnis/license": "^2.5.0",
+        "ergebnis/php-cs-fixer-config": "^6.37.0",
+        "ergebnis/phpunit-slow-test-detector": "^2.16.1",
+        "fakerphp/faker": "^1.24.0",
+        "infection/infection": "~0.26.6",
+        "phpstan/extension-installer": "^1.4.3",
+        "phpstan/phpstan": "^1.12.10",
+        "phpstan/phpstan-deprecation-rules": "^1.2.1",
+        "phpstan/phpstan-phpunit": "^1.4.0",
+        "phpstan/phpstan-strict-rules": "^1.6.1",
+        "phpunit/phpunit": "^9.6.20",
+        "rector/rector": "^1.2.10"
+      },
+      "time": "2025-09-06T11:37:35+00:00",
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-main": "4.6-dev"
+        },
+        "composer-normalize": {
+          "indent-size": 2,
+          "indent-style": "space"
+        }
+      },
+      "installation-source": "dist",
+      "autoload": {
+        "psr-4": {
+          "Ergebnis\\Json\\SchemaValidator\\": "src/"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["MIT"],
+      "authors": [
+        {
+          "name": "Andreas Möller",
+          "email": "am@localheinz.com",
+          "homepage": "https://localheinz.com"
+        }
+      ],
+      "description": "Provides a JSON schema validator, building on top of justinrainbow/json-schema.",
+      "homepage": "https://github.com/ergebnis/json-schema-validator",
+      "keywords": ["json", "schema", "validator"],
+      "support": {
+        "issues": "https://github.com/ergebnis/json-schema-validator/issues",
+        "security": "https://github.com/ergebnis/json-schema-validator/blob/main/.github/SECURITY.md",
+        "source": "https://github.com/ergebnis/json-schema-validator"
+      },
+      "install-path": "../ergebnis/json-schema-validator"
+    },
+    {
+      "name": "filp/whoops",
+      "version": "2.18.4",
+      "version_normalized": "2.18.4.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/filp/whoops.git",
+        "reference": "d2102955e48b9fd9ab24280a7ad12ed552752c4d"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/filp/whoops/zipball/d2102955e48b9fd9ab24280a7ad12ed552752c4d",
+        "reference": "d2102955e48b9fd9ab24280a7ad12ed552752c4d",
+        "shasum": ""
+      },
+      "require": {
+        "php": "^7.1 || ^8.0",
+        "psr/log": "^1.0.1 || ^2.0 || ^3.0"
+      },
+      "require-dev": {
+        "mockery/mockery": "^1.0",
+        "phpunit/phpunit": "^7.5.20 || ^8.5.8 || ^9.3.3",
+        "symfony/var-dumper": "^4.0 || ^5.0"
+      },
+      "suggest": {
+        "symfony/var-dumper": "Pretty print complex values better with var-dumper available",
+        "whoops/soap": "Formats errors as SOAP responses"
+      },
+      "time": "2025-08-08T12:00:00+00:00",
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "2.7-dev"
+        }
+      },
+      "installation-source": "dist",
+      "autoload": {
+        "psr-4": {
+          "Whoops\\": "src/Whoops/"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["MIT"],
+      "authors": [
+        {
+          "name": "Filipe Dobreira",
+          "homepage": "https://github.com/filp",
+          "role": "Developer"
+        }
+      ],
+      "description": "php error handling for cool kids",
+      "homepage": "https://filp.github.io/whoops/",
+      "keywords": [
+        "error",
+        "exception",
+        "handling",
+        "library",
+        "throwable",
+        "whoops"
+      ],
+      "support": {
+        "issues": "https://github.com/filp/whoops/issues",
+        "source": "https://github.com/filp/whoops/tree/2.18.4"
+      },
+      "funding": [
+        {
+          "url": "https://github.com/denis-sokolov",
+          "type": "github"
+        }
+      ],
+      "install-path": "../filp/whoops"
+    },
+    {
+      "name": "getkirby/cms",
+      "version": "5.3.3",
+      "version_normalized": "5.3.3.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/getkirby/kirby.git",
+        "reference": "90c285c0c479ecbf2724c620e7e50f94008b9da4"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/getkirby/kirby/zipball/90c285c0c479ecbf2724c620e7e50f94008b9da4",
+        "reference": "90c285c0c479ecbf2724c620e7e50f94008b9da4",
+        "shasum": ""
+      },
+      "require": {
+        "christian-riesen/base32": "1.6.0",
+        "claviska/simpleimage": "4.4.0",
+        "composer/semver": "3.4.4",
+        "ext-ctype": "*",
+        "ext-curl": "*",
+        "ext-dom": "*",
+        "ext-filter": "*",
+        "ext-hash": "*",
+        "ext-iconv": "*",
+        "ext-json": "*",
+        "ext-libxml": "*",
+        "ext-mbstring": "*",
+        "ext-openssl": "*",
+        "ext-simplexml": "*",
+        "filp/whoops": "2.18.4",
+        "getkirby/composer-installer": "^1.2.1",
+        "laminas/laminas-escaper": "2.18.0",
+        "michelf/php-smartypants": "1.8.1",
+        "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0",
+        "phpmailer/phpmailer": "7.0.2",
+        "symfony/polyfill-intl-idn": "1.33.0",
+        "symfony/polyfill-mbstring": "1.33.0",
+        "symfony/yaml": "7.4.6"
+      },
+      "replace": {
+        "symfony/polyfill-php72": "*"
+      },
+      "suggest": {
+        "ext-apcu": "Support for the Apcu cache driver",
+        "ext-exif": "Support for exif information from images",
+        "ext-fileinfo": "Improved mime type detection for files",
+        "ext-imagick": "Improved thumbnail generation",
+        "ext-intl": "Improved i18n number formatting",
+        "ext-memcached": "Support for the Memcached cache driver",
+        "ext-pdo": "Support for using databases",
+        "ext-redis": "Support for the Redis cache driver",
+        "ext-sodium": "Support for the crypto class and more robust session handling",
+        "ext-zip": "Support for ZIP archive file functions",
+        "ext-zlib": "Sanitization and validation for svgz files"
+      },
+      "time": "2026-03-26T11:15:44+00:00",
+      "type": "kirby-cms",
+      "installation-source": "dist",
+      "autoload": {
+        "files": ["config/setup.php", "config/helpers.php"],
+        "psr-4": {
+          "Kirby\\": "src/"
+        },
+        "classmap": ["dependencies/"]
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["proprietary"],
+      "authors": [
+        {
+          "name": "Kirby Team",
+          "email": "support@getkirby.com",
+          "homepage": "https://getkirby.com"
+        }
+      ],
+      "description": "The Kirby core",
+      "homepage": "https://getkirby.com",
+      "keywords": ["cms", "core", "kirby"],
+      "support": {
+        "email": "support@getkirby.com",
+        "forum": "https://forum.getkirby.com",
+        "issues": "https://github.com/getkirby/kirby/issues",
+        "source": "https://github.com/getkirby/kirby"
+      },
+      "funding": [
+        {
+          "url": "https://getkirby.com/buy",
+          "type": "custom"
+        }
+      ],
+      "install-path": "../../kirby"
+    },
+    {
+      "name": "getkirby/composer-installer",
+      "version": "1.2.1",
+      "version_normalized": "1.2.1.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/getkirby/composer-installer.git",
+        "reference": "c98ece30bfba45be7ce457e1102d1b169d922f3d"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/getkirby/composer-installer/zipball/c98ece30bfba45be7ce457e1102d1b169d922f3d",
+        "reference": "c98ece30bfba45be7ce457e1102d1b169d922f3d",
+        "shasum": ""
+      },
+      "require": {
+        "composer-plugin-api": "^1.0 || ^2.0"
+      },
+      "require-dev": {
+        "composer/composer": "^1.8 || ^2.0"
+      },
+      "time": "2020-12-28T12:54:39+00:00",
+      "type": "composer-plugin",
+      "extra": {
+        "class": "Kirby\\ComposerInstaller\\Plugin"
+      },
+      "installation-source": "dist",
+      "autoload": {
+        "psr-4": {
+          "Kirby\\": "src/"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["MIT"],
+      "description": "Kirby's custom Composer installer for the Kirby CMS and for Kirby plugins",
+      "homepage": "https://getkirby.com",
+      "support": {
+        "issues": "https://github.com/getkirby/composer-installer/issues",
+        "source": "https://github.com/getkirby/composer-installer/tree/1.2.1"
+      },
+      "funding": [
+        {
+          "url": "https://getkirby.com/buy",
+          "type": "custom"
+        }
+      ],
+      "install-path": "../getkirby/composer-installer"
+    },
+    {
+      "name": "johannschopplich/kirby-hashed-assets",
+      "version": "3.0.10",
+      "version_normalized": "3.0.10.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/johannschopplich/kirby-hashed-assets.git",
+        "reference": "eb51a6bbc95dcfdd61dc4ec4c1f9939251503b11"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/johannschopplich/kirby-hashed-assets/zipball/eb51a6bbc95dcfdd61dc4ec4c1f9939251503b11",
+        "reference": "eb51a6bbc95dcfdd61dc4ec4c1f9939251503b11",
+        "shasum": ""
+      },
+      "require": {
+        "getkirby/composer-installer": "^1.2"
+      },
+      "require-dev": {
+        "friendsofphp/php-cs-fixer": "@stable",
+        "getkirby/cms": "^3.9",
+        "phpunit/phpunit": "^9.0"
+      },
+      "time": "2023-09-28T15:41:10+00:00",
+      "type": "kirby-plugin",
+      "extra": {
+        "kirby-cms-path": "tests/fixtures/kirby"
+      },
+      "installation-source": "dist",
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["MIT"],
+      "authors": [
+        {
+          "name": "Johann Schopplich",
+          "email": "pkg@johannschopplich.com",
+          "homepage": "https://johannschopplich.com"
+        }
+      ],
+      "description": "File name hashes support for css() and js() helpers",
+      "homepage": "https://github.com/johannschopplich/kirby-hashed-assets#readme",
+      "keywords": [
+        "JS",
+        "assets",
+        "components",
+        "css",
+        "helpers",
+        "kirby",
+        "kirby-cms",
+        "laravel-mix",
+        "manifest"
+      ],
+      "support": {
+        "issues": "https://github.com/johannschopplich/kirby-hashed-assets/issues",
+        "source": "https://github.com/johannschopplich/kirby-hashed-assets/tree/v3.0.10"
+      },
+      "install-path": "../../site/plugins/kirby-hashed-assets"
+    },
+    {
+      "name": "johannschopplich/kirby-highlighter",
+      "version": "3.2.0",
+      "version_normalized": "3.2.0.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/johannschopplich/kirby-highlighter.git",
+        "reference": "223962f389dce0920048a46fe6806f95ce3fe828"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/johannschopplich/kirby-highlighter/zipball/223962f389dce0920048a46fe6806f95ce3fe828",
+        "reference": "223962f389dce0920048a46fe6806f95ce3fe828",
+        "shasum": ""
+      },
+      "require": {
+        "getkirby/composer-installer": "^1.2",
+        "scrivo/highlight.php": "^9.18"
+      },
+      "require-dev": {
+        "friendsofphp/php-cs-fixer": "@stable",
+        "getkirby/cms": "^4",
+        "phpunit/phpunit": "^11.1"
+      },
+      "time": "2024-07-19T08:41:49+00:00",
+      "type": "kirby-plugin",
+      "extra": {
+        "kirby-cms-path": "tests/fixtures/kirby"
+      },
+      "installation-source": "dist",
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["MIT"],
+      "authors": [
+        {
+          "name": "Johann Schopplich",
+          "email": "hello@johannschopplich.com",
+          "homepage": "https://johannschopplich.com"
+        }
+      ],
+      "description": "Server-side syntax highlighting for Kirby CMS",
+      "homepage": "https://github.com/johannschopplich/kirby-highlighter#readme",
+      "keywords": ["highlight", "highlighter", "hljs", "kirby"],
+      "support": {
+        "issues": "https://github.com/johannschopplich/kirby-highlighter/issues",
+        "source": "https://github.com/johannschopplich/kirby-highlighter/tree/v3.2.0"
+      },
+      "abandoned": true,
+      "install-path": "../../site/plugins/kirby-highlighter"
+    },
+    {
+      "name": "junohamburg/kirby-language-selector",
+      "version": "2.0.4",
+      "version_normalized": "2.0.4.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/junohamburg/kirby-language-selector.git",
+        "reference": "c3021819365ef8112feaae9c1d7e05c0f30325d8"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/junohamburg/kirby-language-selector/zipball/c3021819365ef8112feaae9c1d7e05c0f30325d8",
+        "reference": "c3021819365ef8112feaae9c1d7e05c0f30325d8",
+        "shasum": ""
+      },
+      "require": {
+        "getkirby/composer-installer": "^1.2"
+      },
+      "time": "2025-10-20T08:54:52+00:00",
+      "type": "kirby-plugin",
+      "installation-source": "dist",
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["MIT"],
+      "authors": [
+        {
+          "name": "JUNO",
+          "email": "github@juno-hamburg.com"
+        }
+      ],
+      "description": "Kirby Language Selector",
+      "support": {
+        "issues": "https://github.com/junohamburg/kirby-language-selector/issues",
+        "source": "https://github.com/junohamburg/kirby-language-selector/tree/2.0.4"
+      },
+      "install-path": "../../site/plugins/kirby-language-selector"
+    },
+    {
+      "name": "justinrainbow/json-schema",
+      "version": "6.8.0",
+      "version_normalized": "6.8.0.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/jsonrainbow/json-schema.git",
+        "reference": "89ac92bcfe5d0a8a4433c7b89d394553ae7250cc"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/jsonrainbow/json-schema/zipball/89ac92bcfe5d0a8a4433c7b89d394553ae7250cc",
+        "reference": "89ac92bcfe5d0a8a4433c7b89d394553ae7250cc",
+        "shasum": ""
+      },
+      "require": {
+        "ext-json": "*",
+        "marc-mabe/php-enum": "^4.4",
+        "php": "^7.2 || ^8.0"
+      },
+      "require-dev": {
+        "friendsofphp/php-cs-fixer": "3.3.0",
+        "json-schema/json-schema-test-suite": "^23.2",
+        "marc-mabe/php-enum-phpstan": "^2.0",
+        "phpspec/prophecy": "^1.19",
+        "phpstan/phpstan": "^1.12",
+        "phpunit/phpunit": "^8.5"
+      },
+      "time": "2026-04-02T12:43:11+00:00",
+      "bin": ["bin/validate-json"],
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "6.x-dev"
+        }
+      },
+      "installation-source": "dist",
+      "autoload": {
+        "psr-4": {
+          "JsonSchema\\": "src/JsonSchema/"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["MIT"],
+      "authors": [
+        {
+          "name": "Bruno Prieto Reis",
+          "email": "bruno.p.reis@gmail.com"
+        },
+        {
+          "name": "Justin Rainbow",
+          "email": "justin.rainbow@gmail.com"
+        },
+        {
+          "name": "Igor Wiedler",
+          "email": "igor@wiedler.ch"
+        },
+        {
+          "name": "Robert Schönthal",
+          "email": "seroscho@googlemail.com"
+        }
+      ],
+      "description": "A library to validate a json schema.",
+      "homepage": "https://github.com/jsonrainbow/json-schema",
+      "keywords": ["json", "schema"],
+      "support": {
+        "issues": "https://github.com/jsonrainbow/json-schema/issues",
+        "source": "https://github.com/jsonrainbow/json-schema/tree/6.8.0"
+      },
+      "install-path": "../justinrainbow/json-schema"
+    },
+    {
+      "name": "laminas/laminas-escaper",
+      "version": "2.18.0",
+      "version_normalized": "2.18.0.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/laminas/laminas-escaper.git",
+        "reference": "06f211dfffff18d91844c1f55250d5d13c007e18"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/laminas/laminas-escaper/zipball/06f211dfffff18d91844c1f55250d5d13c007e18",
+        "reference": "06f211dfffff18d91844c1f55250d5d13c007e18",
+        "shasum": ""
+      },
+      "require": {
+        "ext-ctype": "*",
+        "ext-mbstring": "*",
+        "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
+      },
+      "conflict": {
+        "zendframework/zend-escaper": "*"
+      },
+      "require-dev": {
+        "infection/infection": "^0.31.0",
+        "laminas/laminas-coding-standard": "~3.1.0",
+        "phpunit/phpunit": "^11.5.42",
+        "psalm/plugin-phpunit": "^0.19.5",
+        "vimeo/psalm": "^6.13.1"
+      },
+      "time": "2025-10-14T18:31:13+00:00",
+      "type": "library",
+      "installation-source": "dist",
+      "autoload": {
+        "psr-4": {
+          "Laminas\\Escaper\\": "src/"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["BSD-3-Clause"],
+      "description": "Securely and safely escape HTML, HTML attributes, JavaScript, CSS, and URLs",
+      "homepage": "https://laminas.dev",
+      "keywords": ["escaper", "laminas"],
+      "support": {
+        "chat": "https://laminas.dev/chat",
+        "docs": "https://docs.laminas.dev/laminas-escaper/",
+        "forum": "https://discourse.laminas.dev",
+        "issues": "https://github.com/laminas/laminas-escaper/issues",
+        "rss": "https://github.com/laminas/laminas-escaper/releases.atom",
+        "source": "https://github.com/laminas/laminas-escaper"
+      },
+      "funding": [
+        {
+          "url": "https://funding.communitybridge.org/projects/laminas-project",
+          "type": "community_bridge"
+        }
+      ],
+      "install-path": "../laminas/laminas-escaper"
+    },
+    {
+      "name": "league/color-extractor",
+      "version": "0.4.0",
+      "version_normalized": "0.4.0.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/thephpleague/color-extractor.git",
+        "reference": "21fcac6249c5ef7d00eb83e128743ee6678fe505"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/thephpleague/color-extractor/zipball/21fcac6249c5ef7d00eb83e128743ee6678fe505",
+        "reference": "21fcac6249c5ef7d00eb83e128743ee6678fe505",
+        "shasum": ""
+      },
+      "require": {
+        "ext-gd": "*",
+        "php": "^7.3 || ^8.0"
+      },
+      "replace": {
+        "matthecat/colorextractor": "*"
+      },
+      "require-dev": {
+        "friendsofphp/php-cs-fixer": "~2",
+        "phpunit/phpunit": "^9.5"
+      },
+      "suggest": {
+        "ext-curl": "To download images from remote URLs if allow_url_fopen is disabled for security reasons"
+      },
+      "time": "2022-09-24T15:57:16+00:00",
+      "type": "library",
+      "installation-source": "dist",
+      "autoload": {
+        "psr-4": {
+          "League\\ColorExtractor\\": "src"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["MIT"],
+      "authors": [
+        {
+          "name": "Mathieu Lechat",
+          "email": "math.lechat@gmail.com",
+          "homepage": "http://matthecat.com",
+          "role": "Developer"
+        }
+      ],
+      "description": "Extract colors from an image as a human would do.",
+      "homepage": "https://github.com/thephpleague/color-extractor",
+      "keywords": ["color", "extract", "human", "image", "palette"],
+      "support": {
+        "issues": "https://github.com/thephpleague/color-extractor/issues",
+        "source": "https://github.com/thephpleague/color-extractor/tree/0.4.0"
+      },
+      "install-path": "../league/color-extractor"
+    },
+    {
+      "name": "localheinz/diff",
+      "version": "1.3.0",
+      "version_normalized": "1.3.0.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/localheinz/diff.git",
+        "reference": "33bd840935970cda6691c23fc7d94ae764c0734c"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/localheinz/diff/zipball/33bd840935970cda6691c23fc7d94ae764c0734c",
+        "reference": "33bd840935970cda6691c23fc7d94ae764c0734c",
+        "shasum": ""
+      },
+      "require": {
+        "php": "~7.1.0 || ~7.2.0 || ~7.3.0 || ~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
+      },
+      "require-dev": {
+        "phpunit/phpunit": "^7.5.0 || ^8.5.23",
+        "symfony/process": "^4.2 || ^5"
+      },
+      "time": "2025-08-30T09:44:18+00:00",
+      "type": "library",
+      "installation-source": "dist",
+      "autoload": {
+        "classmap": ["src/"]
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["BSD-3-Clause"],
+      "authors": [
+        {
+          "name": "Sebastian Bergmann",
+          "email": "sebastian@phpunit.de"
+        },
+        {
+          "name": "Kore Nordmann",
+          "email": "mail@kore-nordmann.de"
+        }
+      ],
+      "description": "Fork of sebastian/diff for use with ergebnis/composer-normalize",
+      "homepage": "https://github.com/localheinz/diff",
+      "keywords": ["diff", "udiff", "unidiff", "unified diff"],
+      "support": {
+        "issues": "https://github.com/localheinz/diff/issues",
+        "source": "https://github.com/localheinz/diff/tree/1.3.0"
+      },
+      "install-path": "../localheinz/diff"
+    },
+    {
+      "name": "lukaskleinschmidt/kirby-snippet-controller",
+      "version": "2.2.0",
+      "version_normalized": "2.2.0.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/lukaskleinschmidt/kirby-snippet-controller.git",
+        "reference": "7acc5672e258699fcd02464a18c5ac5128cf56b4"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/lukaskleinschmidt/kirby-snippet-controller/zipball/7acc5672e258699fcd02464a18c5ac5128cf56b4",
+        "reference": "7acc5672e258699fcd02464a18c5ac5128cf56b4",
+        "shasum": ""
+      },
+      "require": {
+        "getkirby/composer-installer": "^1.2",
+        "php": "^8.1"
+      },
+      "time": "2023-11-06T15:21:36+00:00",
+      "type": "kirby-plugin",
+      "extra": {
+        "installer-name": "snippet-controller"
+      },
+      "installation-source": "dist",
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["MIT"],
+      "authors": [
+        {
+          "name": "Lukas Kleinschmidt",
+          "email": "contact@kleinschmidt.mozmail.com"
+        }
+      ],
+      "description": "Kirby Snippet Controller",
+      "support": {
+        "issues": "https://github.com/lukaskleinschmidt/kirby-snippet-controller/issues",
+        "source": "https://github.com/lukaskleinschmidt/kirby-snippet-controller/tree/2.2.0"
+      },
+      "install-path": "../../site/plugins/snippet-controller"
+    },
+    {
+      "name": "marc-mabe/php-enum",
+      "version": "v4.7.2",
+      "version_normalized": "4.7.2.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/marc-mabe/php-enum.git",
+        "reference": "bb426fcdd65c60fb3638ef741e8782508fda7eef"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/marc-mabe/php-enum/zipball/bb426fcdd65c60fb3638ef741e8782508fda7eef",
+        "reference": "bb426fcdd65c60fb3638ef741e8782508fda7eef",
+        "shasum": ""
+      },
+      "require": {
+        "ext-reflection": "*",
+        "php": "^7.1 | ^8.0"
+      },
+      "require-dev": {
+        "phpbench/phpbench": "^0.16.10 || ^1.0.4",
+        "phpstan/phpstan": "^1.3.1",
+        "phpunit/phpunit": "^7.5.20 | ^8.5.22 | ^9.5.11",
+        "vimeo/psalm": "^4.17.0 | ^5.26.1"
+      },
+      "time": "2025-09-14T11:18:39+00:00",
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-3.x": "3.2-dev",
+          "dev-master": "4.7-dev"
+        }
+      },
+      "installation-source": "dist",
+      "autoload": {
+        "psr-4": {
+          "MabeEnum\\": "src/"
+        },
+        "classmap": ["stubs/Stringable.php"]
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["BSD-3-Clause"],
+      "authors": [
+        {
+          "name": "Marc Bennewitz",
+          "email": "dev@mabe.berlin",
+          "homepage": "https://mabe.berlin/",
+          "role": "Lead"
+        }
+      ],
+      "description": "Simple and fast implementation of enumerations with native PHP",
+      "homepage": "https://github.com/marc-mabe/php-enum",
+      "keywords": [
+        "enum",
+        "enum-map",
+        "enum-set",
+        "enumeration",
+        "enumerator",
+        "enummap",
+        "enumset",
+        "map",
+        "set",
+        "type",
+        "type-hint",
+        "typehint"
+      ],
+      "support": {
+        "issues": "https://github.com/marc-mabe/php-enum/issues",
+        "source": "https://github.com/marc-mabe/php-enum/tree/v4.7.2"
+      },
+      "install-path": "../marc-mabe/php-enum"
+    },
+    {
+      "name": "michelf/php-smartypants",
+      "version": "1.8.1",
+      "version_normalized": "1.8.1.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/michelf/php-smartypants.git",
+        "reference": "47d17c90a4dfd0ccf1f87e25c65e6c8012415aad"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/michelf/php-smartypants/zipball/47d17c90a4dfd0ccf1f87e25c65e6c8012415aad",
+        "reference": "47d17c90a4dfd0ccf1f87e25c65e6c8012415aad",
+        "shasum": ""
+      },
+      "require": {
+        "php": ">=5.3.0"
+      },
+      "time": "2016-12-13T01:01:17+00:00",
+      "type": "library",
+      "installation-source": "dist",
+      "autoload": {
+        "psr-0": {
+          "Michelf": ""
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["BSD-3-Clause"],
+      "authors": [
+        {
+          "name": "Michel Fortin",
+          "email": "michel.fortin@michelf.ca",
+          "homepage": "https://michelf.ca/",
+          "role": "Developer"
+        },
+        {
+          "name": "John Gruber",
+          "homepage": "https://daringfireball.net/"
+        }
+      ],
+      "description": "PHP SmartyPants",
+      "homepage": "https://michelf.ca/projects/php-smartypants/",
+      "keywords": ["dashes", "quotes", "spaces", "typographer", "typography"],
+      "support": {
+        "issues": "https://github.com/michelf/php-smartypants/issues",
+        "source": "https://github.com/michelf/php-smartypants/tree/1.8.1"
+      },
+      "install-path": "../michelf/php-smartypants"
+    },
+    {
+      "name": "phpmailer/phpmailer",
+      "version": "v7.0.2",
+      "version_normalized": "7.0.2.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/PHPMailer/PHPMailer.git",
+        "reference": "ebf1655bd5b99b3f97e1a3ec0a69e5f4cd7ea088"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/ebf1655bd5b99b3f97e1a3ec0a69e5f4cd7ea088",
+        "reference": "ebf1655bd5b99b3f97e1a3ec0a69e5f4cd7ea088",
+        "shasum": ""
+      },
+      "require": {
+        "ext-ctype": "*",
+        "ext-filter": "*",
+        "ext-hash": "*",
+        "php": ">=5.5.0"
+      },
+      "require-dev": {
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+        "doctrine/annotations": "^1.2.6 || ^1.13.3",
+        "php-parallel-lint/php-console-highlighter": "^1.0.0",
+        "php-parallel-lint/php-parallel-lint": "^1.3.2",
+        "phpcompatibility/php-compatibility": "^10.0.0@dev",
+        "squizlabs/php_codesniffer": "^3.13.5",
+        "yoast/phpunit-polyfills": "^1.0.4"
+      },
+      "suggest": {
+        "decomplexity/SendOauth2": "Adapter for using XOAUTH2 authentication",
+        "directorytree/imapengine": "For uploading sent messages via IMAP, see gmail example",
+        "ext-imap": "Needed to support advanced email address parsing according to RFC822",
+        "ext-mbstring": "Needed to send email in multibyte encoding charset or decode encoded addresses",
+        "ext-openssl": "Needed for secure SMTP sending and DKIM signing",
+        "greew/oauth2-azure-provider": "Needed for Microsoft Azure XOAUTH2 authentication",
+        "hayageek/oauth2-yahoo": "Needed for Yahoo XOAUTH2 authentication",
+        "league/oauth2-google": "Needed for Google XOAUTH2 authentication",
+        "psr/log": "For optional PSR-3 debug logging",
+        "symfony/polyfill-mbstring": "To support UTF-8 if the Mbstring PHP extension is not enabled (^1.2)",
+        "thenetworg/oauth2-azure": "Needed for Microsoft XOAUTH2 authentication"
+      },
+      "time": "2026-01-09T18:02:33+00:00",
+      "type": "library",
+      "installation-source": "dist",
+      "autoload": {
+        "psr-4": {
+          "PHPMailer\\PHPMailer\\": "src/"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["LGPL-2.1-only"],
+      "authors": [
+        {
+          "name": "Marcus Bointon",
+          "email": "phpmailer@synchromedia.co.uk"
+        },
+        {
+          "name": "Jim Jagielski",
+          "email": "jimjag@gmail.com"
+        },
+        {
+          "name": "Andy Prevost",
+          "email": "codeworxtech@users.sourceforge.net"
+        },
+        {
+          "name": "Brent R. Matzelle"
+        }
+      ],
+      "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
+      "support": {
+        "issues": "https://github.com/PHPMailer/PHPMailer/issues",
+        "source": "https://github.com/PHPMailer/PHPMailer/tree/v7.0.2"
+      },
+      "funding": [
+        {
+          "url": "https://github.com/Synchro",
+          "type": "github"
+        }
+      ],
+      "install-path": "../phpmailer/phpmailer"
+    },
+    {
+      "name": "plain/kirby-column-blocks",
+      "version": "1.2.7",
+      "version_normalized": "1.2.7.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/plain-solutions-gmbh/kirby-column-blocks.git",
+        "reference": "a10a2a62a35afff356c8febf9b9e3ac9d8c11ccc"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/plain-solutions-gmbh/kirby-column-blocks/zipball/a10a2a62a35afff356c8febf9b9e3ac9d8c11ccc",
+        "reference": "a10a2a62a35afff356c8febf9b9e3ac9d8c11ccc",
+        "shasum": ""
+      },
+      "require": {
+        "getkirby/composer-installer": "^1.1"
+      },
+      "time": "2025-10-28T09:53:59+00:00",
+      "type": "kirby-plugin",
+      "extra": {
+        "title": "Column Block"
+      },
+      "installation-source": "dist",
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["MIT"],
+      "authors": [
+        {
+          "name": "Roman Gsponer",
+          "email": "kirby@plain-solutions.net"
+        }
+      ],
+      "description": "Use columns in block fields based on the layout field.",
+      "homepage": "https://plain-solutions.net/801524",
+      "support": {
+        "issues": "https://github.com/plain-solutions-gmbh/kirby-column-blocks/issues",
+        "source": "https://github.com/plain-solutions-gmbh/kirby-column-blocks/tree/v1.2.7"
+      },
+      "funding": [
+        {
+          "url": "https://www.paypal.com/donate/?hosted_button_id=ZMV4BV3X7EUT4",
+          "type": "PayPal"
+        }
+      ],
+      "install-path": "../../site/plugins/kirby-column-blocks"
+    },
+    {
+      "name": "psr/log",
+      "version": "3.0.2",
+      "version_normalized": "3.0.2.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/php-fig/log.git",
+        "reference": "f16e1d5863e37f8d8c2a01719f5b34baa2b714d3"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/php-fig/log/zipball/f16e1d5863e37f8d8c2a01719f5b34baa2b714d3",
+        "reference": "f16e1d5863e37f8d8c2a01719f5b34baa2b714d3",
+        "shasum": ""
+      },
+      "require": {
+        "php": ">=8.0.0"
+      },
+      "time": "2024-09-11T13:17:53+00:00",
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "3.x-dev"
+        }
+      },
+      "installation-source": "dist",
+      "autoload": {
+        "psr-4": {
+          "Psr\\Log\\": "src"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["MIT"],
+      "authors": [
+        {
+          "name": "PHP-FIG",
+          "homepage": "https://www.php-fig.org/"
+        }
+      ],
+      "description": "Common interface for logging libraries",
+      "homepage": "https://github.com/php-fig/log",
+      "keywords": ["log", "psr", "psr-3"],
+      "support": {
+        "source": "https://github.com/php-fig/log/tree/3.0.2"
+      },
+      "install-path": "../psr/log"
+    },
+    {
+      "name": "scrivo/highlight.php",
+      "version": "v9.18.1.10",
+      "version_normalized": "9.18.1.10",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/scrivo/highlight.php.git",
+        "reference": "850f4b44697a2552e892ffe71490ba2733c2fc6e"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/scrivo/highlight.php/zipball/850f4b44697a2552e892ffe71490ba2733c2fc6e",
+        "reference": "850f4b44697a2552e892ffe71490ba2733c2fc6e",
+        "shasum": ""
+      },
+      "require": {
+        "ext-json": "*",
+        "php": ">=5.4"
+      },
+      "require-dev": {
+        "phpunit/phpunit": "^4.8|^5.7",
+        "sabberworm/php-css-parser": "^8.3",
+        "symfony/finder": "^2.8|^3.4|^5.4",
+        "symfony/var-dumper": "^2.8|^3.4|^5.4"
+      },
+      "suggest": {
+        "ext-mbstring": "Allows highlighting code with unicode characters and supports language with unicode keywords"
+      },
+      "time": "2022-12-17T21:53:22+00:00",
+      "type": "library",
+      "installation-source": "dist",
+      "autoload": {
+        "files": ["HighlightUtilities/functions.php"],
+        "psr-0": {
+          "Highlight\\": "",
+          "HighlightUtilities\\": ""
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["BSD-3-Clause"],
+      "authors": [
+        {
+          "name": "Geert Bergman",
+          "homepage": "http://www.scrivo.org/",
+          "role": "Project Author"
+        },
+        {
+          "name": "Vladimir Jimenez",
+          "homepage": "https://allejo.io",
+          "role": "Maintainer"
+        },
+        {
+          "name": "Martin Folkers",
+          "homepage": "https://twobrain.io",
+          "role": "Contributor"
+        }
+      ],
+      "description": "Server side syntax highlighter that supports 185 languages. It's a PHP port of highlight.js",
+      "keywords": [
+        "code",
+        "highlight",
+        "highlight.js",
+        "highlight.php",
+        "syntax"
+      ],
+      "support": {
+        "issues": "https://github.com/scrivo/highlight.php/issues",
+        "source": "https://github.com/scrivo/highlight.php"
+      },
+      "funding": [
+        {
+          "url": "https://github.com/allejo",
+          "type": "github"
+        }
+      ],
+      "install-path": "../scrivo/highlight.php"
+    },
+    {
+      "name": "symfony/css-selector",
+      "version": "v7.4.8",
+      "version_normalized": "7.4.8.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/symfony/css-selector.git",
+        "reference": "b055f228a4178a1d6774909903905e3475f3eac8"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/symfony/css-selector/zipball/b055f228a4178a1d6774909903905e3475f3eac8",
+        "reference": "b055f228a4178a1d6774909903905e3475f3eac8",
+        "shasum": ""
+      },
+      "require": {
+        "php": ">=8.2"
+      },
+      "time": "2026-03-24T13:12:05+00:00",
+      "type": "library",
+      "installation-source": "dist",
+      "autoload": {
+        "psr-4": {
+          "Symfony\\Component\\CssSelector\\": ""
+        },
+        "exclude-from-classmap": ["/Tests/"]
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["MIT"],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Jean-François Simon",
+          "email": "jeanfrancois.simon@sensiolabs.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
+      "description": "Converts CSS selectors to XPath expressions",
+      "homepage": "https://symfony.com",
+      "support": {
+        "source": "https://github.com/symfony/css-selector/tree/v7.4.8"
+      },
+      "funding": [
+        {
+          "url": "https://symfony.com/sponsor",
+          "type": "custom"
+        },
+        {
+          "url": "https://github.com/fabpot",
+          "type": "github"
+        },
+        {
+          "url": "https://github.com/nicolas-grekas",
+          "type": "github"
+        },
+        {
+          "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+          "type": "tidelift"
+        }
+      ],
+      "install-path": "../symfony/css-selector"
+    },
+    {
+      "name": "symfony/deprecation-contracts",
+      "version": "v3.6.0",
+      "version_normalized": "3.6.0.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/symfony/deprecation-contracts.git",
+        "reference": "63afe740e99a13ba87ec199bb07bbdee937a5b62"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/63afe740e99a13ba87ec199bb07bbdee937a5b62",
+        "reference": "63afe740e99a13ba87ec199bb07bbdee937a5b62",
+        "shasum": ""
+      },
+      "require": {
+        "php": ">=8.1"
+      },
+      "time": "2024-09-25T14:21:43+00:00",
+      "type": "library",
+      "extra": {
+        "thanks": {
+          "url": "https://github.com/symfony/contracts",
+          "name": "symfony/contracts"
+        },
+        "branch-alias": {
+          "dev-main": "3.6-dev"
+        }
+      },
+      "installation-source": "dist",
+      "autoload": {
+        "files": ["function.php"]
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["MIT"],
+      "authors": [
+        {
+          "name": "Nicolas Grekas",
+          "email": "p@tchwork.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
+      "description": "A generic function and convention to trigger deprecation notices",
+      "homepage": "https://symfony.com",
+      "support": {
+        "source": "https://github.com/symfony/deprecation-contracts/tree/v3.6.0"
+      },
+      "funding": [
+        {
+          "url": "https://symfony.com/sponsor",
+          "type": "custom"
+        },
+        {
+          "url": "https://github.com/fabpot",
+          "type": "github"
+        },
+        {
+          "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+          "type": "tidelift"
+        }
+      ],
+      "install-path": "../symfony/deprecation-contracts"
+    },
+    {
+      "name": "symfony/polyfill-ctype",
+      "version": "v1.36.0",
+      "version_normalized": "1.36.0.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/symfony/polyfill-ctype.git",
+        "reference": "141046a8f9477948ff284fa65be2095baafb94f2"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/141046a8f9477948ff284fa65be2095baafb94f2",
+        "reference": "141046a8f9477948ff284fa65be2095baafb94f2",
+        "shasum": ""
+      },
+      "require": {
+        "php": ">=7.2"
+      },
+      "provide": {
+        "ext-ctype": "*"
+      },
+      "suggest": {
+        "ext-ctype": "For best performance"
+      },
+      "time": "2026-04-10T16:19:22+00:00",
+      "type": "library",
+      "extra": {
+        "thanks": {
+          "url": "https://github.com/symfony/polyfill",
+          "name": "symfony/polyfill"
+        }
+      },
+      "installation-source": "dist",
+      "autoload": {
+        "files": ["bootstrap.php"],
+        "psr-4": {
+          "Symfony\\Polyfill\\Ctype\\": ""
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["MIT"],
+      "authors": [
+        {
+          "name": "Gert de Pagter",
+          "email": "BackEndTea@gmail.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
+      "description": "Symfony polyfill for ctype functions",
+      "homepage": "https://symfony.com",
+      "keywords": ["compatibility", "ctype", "polyfill", "portable"],
+      "support": {
+        "source": "https://github.com/symfony/polyfill-ctype/tree/v1.36.0"
+      },
+      "funding": [
+        {
+          "url": "https://symfony.com/sponsor",
+          "type": "custom"
+        },
+        {
+          "url": "https://github.com/fabpot",
+          "type": "github"
+        },
+        {
+          "url": "https://github.com/nicolas-grekas",
+          "type": "github"
+        },
+        {
+          "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+          "type": "tidelift"
+        }
+      ],
+      "install-path": "../symfony/polyfill-ctype"
+    },
+    {
+      "name": "symfony/polyfill-intl-idn",
+      "version": "v1.33.0",
+      "version_normalized": "1.33.0.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/symfony/polyfill-intl-idn.git",
+        "reference": "9614ac4d8061dc257ecc64cba1b140873dce8ad3"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/symfony/polyfill-intl-idn/zipball/9614ac4d8061dc257ecc64cba1b140873dce8ad3",
+        "reference": "9614ac4d8061dc257ecc64cba1b140873dce8ad3",
+        "shasum": ""
+      },
+      "require": {
+        "php": ">=7.2",
+        "symfony/polyfill-intl-normalizer": "^1.10"
+      },
+      "suggest": {
+        "ext-intl": "For best performance"
+      },
+      "time": "2024-09-10T14:38:51+00:00",
+      "type": "library",
+      "extra": {
+        "thanks": {
+          "url": "https://github.com/symfony/polyfill",
+          "name": "symfony/polyfill"
+        }
+      },
+      "installation-source": "dist",
+      "autoload": {
+        "files": ["bootstrap.php"],
+        "psr-4": {
+          "Symfony\\Polyfill\\Intl\\Idn\\": ""
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["MIT"],
+      "authors": [
+        {
+          "name": "Laurent Bassin",
+          "email": "laurent@bassin.info"
+        },
+        {
+          "name": "Trevor Rowbotham",
+          "email": "trevor.rowbotham@pm.me"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
+      "description": "Symfony polyfill for intl's idn_to_ascii and idn_to_utf8 functions",
+      "homepage": "https://symfony.com",
+      "keywords": [
+        "compatibility",
+        "idn",
+        "intl",
+        "polyfill",
+        "portable",
+        "shim"
+      ],
+      "support": {
+        "source": "https://github.com/symfony/polyfill-intl-idn/tree/v1.33.0"
+      },
+      "funding": [
+        {
+          "url": "https://symfony.com/sponsor",
+          "type": "custom"
+        },
+        {
+          "url": "https://github.com/fabpot",
+          "type": "github"
+        },
+        {
+          "url": "https://github.com/nicolas-grekas",
+          "type": "github"
+        },
+        {
+          "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+          "type": "tidelift"
+        }
+      ],
+      "install-path": "../symfony/polyfill-intl-idn"
+    },
+    {
+      "name": "symfony/polyfill-intl-normalizer",
+      "version": "v1.36.0",
+      "version_normalized": "1.36.0.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/symfony/polyfill-intl-normalizer.git",
+        "reference": "3833d7255cc303546435cb650316bff708a1c75c"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/symfony/polyfill-intl-normalizer/zipball/3833d7255cc303546435cb650316bff708a1c75c",
+        "reference": "3833d7255cc303546435cb650316bff708a1c75c",
+        "shasum": ""
+      },
+      "require": {
+        "php": ">=7.2"
+      },
+      "suggest": {
+        "ext-intl": "For best performance"
+      },
+      "time": "2024-09-09T11:45:10+00:00",
+      "type": "library",
+      "extra": {
+        "thanks": {
+          "url": "https://github.com/symfony/polyfill",
+          "name": "symfony/polyfill"
+        }
+      },
+      "installation-source": "dist",
+      "autoload": {
+        "files": ["bootstrap.php"],
+        "psr-4": {
+          "Symfony\\Polyfill\\Intl\\Normalizer\\": ""
+        },
+        "classmap": ["Resources/stubs"]
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["MIT"],
+      "authors": [
+        {
+          "name": "Nicolas Grekas",
+          "email": "p@tchwork.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
+      "description": "Symfony polyfill for intl's Normalizer class and related functions",
+      "homepage": "https://symfony.com",
+      "keywords": [
+        "compatibility",
+        "intl",
+        "normalizer",
+        "polyfill",
+        "portable",
+        "shim"
+      ],
+      "support": {
+        "source": "https://github.com/symfony/polyfill-intl-normalizer/tree/v1.36.0"
+      },
+      "funding": [
+        {
+          "url": "https://symfony.com/sponsor",
+          "type": "custom"
+        },
+        {
+          "url": "https://github.com/fabpot",
+          "type": "github"
+        },
+        {
+          "url": "https://github.com/nicolas-grekas",
+          "type": "github"
+        },
+        {
+          "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+          "type": "tidelift"
+        }
+      ],
+      "install-path": "../symfony/polyfill-intl-normalizer"
+    },
+    {
+      "name": "symfony/polyfill-mbstring",
+      "version": "v1.33.0",
+      "version_normalized": "1.33.0.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/symfony/polyfill-mbstring.git",
+        "reference": "6d857f4d76bd4b343eac26d6b539585d2bc56493"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/6d857f4d76bd4b343eac26d6b539585d2bc56493",
+        "reference": "6d857f4d76bd4b343eac26d6b539585d2bc56493",
+        "shasum": ""
+      },
+      "require": {
+        "ext-iconv": "*",
+        "php": ">=7.2"
+      },
+      "provide": {
+        "ext-mbstring": "*"
+      },
+      "suggest": {
+        "ext-mbstring": "For best performance"
+      },
+      "time": "2024-12-23T08:48:59+00:00",
+      "type": "library",
+      "extra": {
+        "thanks": {
+          "url": "https://github.com/symfony/polyfill",
+          "name": "symfony/polyfill"
+        }
+      },
+      "installation-source": "dist",
+      "autoload": {
+        "files": ["bootstrap.php"],
+        "psr-4": {
+          "Symfony\\Polyfill\\Mbstring\\": ""
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["MIT"],
+      "authors": [
+        {
+          "name": "Nicolas Grekas",
+          "email": "p@tchwork.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
+      "description": "Symfony polyfill for the Mbstring extension",
+      "homepage": "https://symfony.com",
+      "keywords": ["compatibility", "mbstring", "polyfill", "portable", "shim"],
+      "support": {
+        "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.33.0"
+      },
+      "funding": [
+        {
+          "url": "https://symfony.com/sponsor",
+          "type": "custom"
+        },
+        {
+          "url": "https://github.com/fabpot",
+          "type": "github"
+        },
+        {
+          "url": "https://github.com/nicolas-grekas",
+          "type": "github"
+        },
+        {
+          "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+          "type": "tidelift"
+        }
+      ],
+      "install-path": "../symfony/polyfill-mbstring"
+    },
+    {
+      "name": "symfony/yaml",
+      "version": "v7.4.6",
+      "version_normalized": "7.4.6.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/symfony/yaml.git",
+        "reference": "58751048de17bae71c5aa0d13cb19d79bca26391"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/symfony/yaml/zipball/58751048de17bae71c5aa0d13cb19d79bca26391",
+        "reference": "58751048de17bae71c5aa0d13cb19d79bca26391",
+        "shasum": ""
+      },
+      "require": {
+        "php": ">=8.2",
+        "symfony/deprecation-contracts": "^2.5|^3",
+        "symfony/polyfill-ctype": "^1.8"
+      },
+      "conflict": {
+        "symfony/console": "<6.4"
+      },
+      "require-dev": {
+        "symfony/console": "^6.4|^7.0|^8.0"
+      },
+      "time": "2026-02-09T09:33:46+00:00",
+      "bin": ["Resources/bin/yaml-lint"],
+      "type": "library",
+      "installation-source": "dist",
+      "autoload": {
+        "psr-4": {
+          "Symfony\\Component\\Yaml\\": ""
+        },
+        "exclude-from-classmap": ["/Tests/"]
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["MIT"],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
+      "description": "Loads and dumps YAML files",
+      "homepage": "https://symfony.com",
+      "support": {
+        "source": "https://github.com/symfony/yaml/tree/v7.4.6"
+      },
+      "funding": [
+        {
+          "url": "https://symfony.com/sponsor",
+          "type": "custom"
+        },
+        {
+          "url": "https://github.com/fabpot",
+          "type": "github"
+        },
+        {
+          "url": "https://github.com/nicolas-grekas",
+          "type": "github"
+        },
+        {
+          "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+          "type": "tidelift"
+        }
+      ],
+      "install-path": "../symfony/yaml"
+    },
+    {
+      "name": "voku/html-min",
+      "version": "4.5.1",
+      "version_normalized": "4.5.1.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/voku/HtmlMin.git",
+        "reference": "872dac444652d30791ca5d0c23fbe1e6b9cab5bc"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/voku/HtmlMin/zipball/872dac444652d30791ca5d0c23fbe1e6b9cab5bc",
+        "reference": "872dac444652d30791ca5d0c23fbe1e6b9cab5bc",
+        "shasum": ""
+      },
+      "require": {
+        "ext-dom": "*",
+        "php": ">=7.0.0",
+        "voku/simple_html_dom": "~4.8.5"
+      },
+      "require-dev": {
+        "phpunit/phpunit": "~6.0 || ~7.0 || ~9.0"
+      },
+      "time": "2024-05-25T08:01:45+00:00",
+      "type": "library",
+      "installation-source": "dist",
+      "autoload": {
+        "psr-4": {
+          "voku\\": "src/voku/"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["MIT"],
+      "authors": [
+        {
+          "name": "Lars Moelleken",
+          "homepage": "https://www.moelleken.org/"
+        }
+      ],
+      "description": "HTML Compressor and Minifier",
+      "homepage": "https://github.com/voku/HtmlMin",
+      "keywords": ["compress", "compression", "compressor", "html", "minifier"],
+      "support": {
+        "issues": "https://github.com/voku/HtmlMin/issues",
+        "source": "https://github.com/voku/HtmlMin/tree/4.5.1"
+      },
+      "funding": [
+        {
+          "url": "https://www.paypal.me/moelleken",
+          "type": "custom"
+        },
+        {
+          "url": "https://github.com/voku",
+          "type": "github"
+        },
+        {
+          "url": "https://www.patreon.com/voku",
+          "type": "patreon"
+        }
+      ],
+      "install-path": "../voku/html-min"
+    },
+    {
+      "name": "voku/simple_html_dom",
+      "version": "4.8.10",
+      "version_normalized": "4.8.10.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/voku/simple_html_dom.git",
+        "reference": "716822ed52ed3a1881542be07a786270de390e99"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/voku/simple_html_dom/zipball/716822ed52ed3a1881542be07a786270de390e99",
+        "reference": "716822ed52ed3a1881542be07a786270de390e99",
+        "shasum": ""
+      },
+      "require": {
+        "ext-dom": "*",
+        "ext-libxml": "*",
+        "ext-simplexml": "*",
+        "php": ">=7.0.0",
+        "symfony/css-selector": "~3.0 || ~4.0 || ~5.0 || ~6.0 || ~7.0"
+      },
+      "require-dev": {
+        "phpunit/phpunit": "~6.0 || ~7.0 || ~9.0"
+      },
+      "suggest": {
+        "voku/portable-utf8": "If you need e.g. UTF-8 fixed output."
+      },
+      "time": "2024-07-03T16:05:14+00:00",
+      "type": "library",
+      "installation-source": "dist",
+      "autoload": {
+        "psr-4": {
+          "voku\\helper\\": "src/voku/helper/"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": ["MIT"],
+      "authors": [
+        {
+          "name": "dimabdc",
+          "email": "support@titor.ru",
+          "homepage": "https://github.com/dimabdc",
+          "role": "Developer"
+        },
+        {
+          "name": "Lars Moelleken",
+          "homepage": "https://www.moelleken.org/",
+          "role": "Fork-Maintainer"
+        }
+      ],
+      "description": "Simple HTML DOM package.",
+      "homepage": "https://github.com/voku/simple_html_dom",
+      "keywords": ["HTML Parser", "dom", "php dom"],
+      "support": {
+        "issues": "https://github.com/voku/simple_html_dom/issues",
+        "source": "https://github.com/voku/simple_html_dom/tree/4.8.10"
+      },
+      "funding": [
+        {
+          "url": "https://www.paypal.me/moelleken",
+          "type": "custom"
+        },
+        {
+          "url": "https://github.com/voku",
+          "type": "github"
+        },
+        {
+          "url": "https://www.patreon.com/voku",
+          "type": "patreon"
+        },
+        {
+          "url": "https://tidelift.com/funding/github/packagist/voku/simple_html_dom",
+          "type": "tidelift"
+        }
+      ],
+      "install-path": "../voku/simple_html_dom"
+    }
+  ],
+  "dev": true,
+  "dev-package-names": [
+    "ergebnis/composer-normalize",
+    "ergebnis/json",
+    "ergebnis/json-normalizer",
+    "ergebnis/json-pointer",
+    "ergebnis/json-printer",
+    "ergebnis/json-schema-validator",
+    "justinrainbow/json-schema",
+    "localheinz/diff",
+    "marc-mabe/php-enum"
+  ]
 }

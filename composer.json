@@ -37,7 +37,7 @@
     "johannschopplich/kirby-highlighter": "^3.0",
     "junohamburg/kirby-language-selector": "^2.0",
     "lukaskleinschmidt/kirby-snippet-controller": "^2.1",
-    "microman/kirby-grid-blocks": "^1.0"
+    "plain/kirby-column-blocks": "^1.2"
   },
   "require-dev": {
     "ergebnis/composer-normalize": "^2.39"
