@@ -27,6 +27,12 @@ $columnWidthClasses = [
  * -----------------------------------------------------------------------------
  */
 
+// Variables injected by the caller via snippet():
+$layoutColumnWidth = $layoutColumnWidth ?? null;
+$layoutColumnSplitting = $layoutColumnSplitting ?? null;
+$layoutRowBackgroundColorExists = $layoutRowBackgroundColorExists ?? false;
+$layoutRowBackgroundColorValue = $layoutRowBackgroundColorValue ?? null;
+
 // Get the "selectable brand colors" array from the site constants
 $selectableBrandColors = option("site-constants")["selectable-brand-colors"];
 
