@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Kirby CMS website with Tailwind CSS 4, Webpack, and PHP 8.1+.
+Kirby CMS website with Tailwind CSS 4, Webpack, and PHP 8.2+.
 Flat-file CMS — no database. Deployed via GitHub Actions.
 
 @openspec/project.md for full architecture, conventions, and constraints.

@@ -22,7 +22,9 @@
       "type": "kirby-plugin",
       "installation-source": "dist",
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["GPL-3.0-or-later"],
+      "license": [
+        "GPL-3.0-or-later"
+      ],
       "authors": [
         {
           "name": "Adspectus",
@@ -60,7 +62,9 @@
       "type": "kirby-plugin",
       "installation-source": "dist",
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "Ahmet Bora",
@@ -69,7 +73,11 @@
       ],
       "description": "Enable minify HTML output for Kirby",
       "homepage": "https://github.com/afbora/kirby-minify-html",
-      "keywords": ["kirby3", "kirby4", "kirby5"],
+      "keywords": [
+        "kirby3",
+        "kirby4",
+        "kirby5"
+      ],
       "support": {
         "email": "ahmet@getkirby.com",
         "issues": "https://github.com/afbora/kirby-minify-html/issues",
@@ -121,7 +129,9 @@
         }
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "Bruno Meilick",
@@ -141,6 +151,60 @@
         "source": "https://github.com/bnomei/kirby3-robots-txt/tree/v5.1.0"
       },
       "install-path": "../../site/plugins/kirby3-robots-txt"
+    },
+    {
+      "name": "bogdancondorachi/kirby-code-highlighter",
+      "version": "1.1.1",
+      "version_normalized": "1.1.1.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/bogdancondorachi/kirby-code-highlighter.git",
+        "reference": "fb689ea83100c47b0c28967917f6e6f2d8af9805"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/bogdancondorachi/kirby-code-highlighter/zipball/fb689ea83100c47b0c28967917f6e6f2d8af9805",
+        "reference": "fb689ea83100c47b0c28967917f6e6f2d8af9805",
+        "shasum": ""
+      },
+      "require": {
+        "getkirby/composer-installer": "^1.2",
+        "phiki/phiki": "^0.3.2",
+        "php": ">=8.2"
+      },
+      "replace": {
+        "league/commonmark": "*"
+      },
+      "time": "2025-04-10T02:35:43+00:00",
+      "type": "kirby-plugin",
+      "extra": {
+        "installer-name": "code-highlighter"
+      },
+      "installation-source": "dist",
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
+      "authors": [
+        {
+          "name": "Bogdan Condorachi",
+          "email": "bogdan.condorachi@gmail.com",
+          "homepage": "https://plugins.getkirby.com/bogdancondorachi"
+        }
+      ],
+      "description": "Server-side syntax highlighter for Kirby CMS.",
+      "homepage": "https://github.com/bogdancondorachi/kirby-code-highlighter",
+      "support": {
+        "issues": "https://github.com/bogdancondorachi/kirby-code-highlighter/issues",
+        "source": "https://github.com/bogdancondorachi/kirby-code-highlighter/tree/v1.1.1"
+      },
+      "funding": [
+        {
+          "url": "https://github.com/bogdancondorachi",
+          "type": "github"
+        }
+      ],
+      "install-path": "../../site/plugins/code-highlighter"
     },
     {
       "name": "christian-riesen/base32",
@@ -179,7 +243,9 @@
         }
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "Christian Riesen",
@@ -190,7 +256,12 @@
       ],
       "description": "Base32 encoder/decoder according to RFC 4648",
       "homepage": "https://github.com/ChristianRiesen/base32",
-      "keywords": ["base32", "decode", "encode", "rfc4648"],
+      "keywords": [
+        "base32",
+        "decode",
+        "encode",
+        "rfc4648"
+      ],
       "support": {
         "issues": "https://github.com/ChristianRiesen/base32/issues",
         "source": "https://github.com/ChristianRiesen/base32/tree/1.6.0"
@@ -230,7 +301,9 @@
         }
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "Cory LaViska",
@@ -287,7 +360,9 @@
         }
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "Nils Adermann",
@@ -306,7 +381,12 @@
         }
       ],
       "description": "Semver library that offers utilities, version constraint parsing and validation.",
-      "keywords": ["semantic", "semver", "validation", "versioning"],
+      "keywords": [
+        "semantic",
+        "semver",
+        "validation",
+        "versioning"
+      ],
       "support": {
         "irc": "ircs://irc.libera.chat:6697/composer",
         "issues": "https://github.com/composer/semver/issues",
@@ -352,7 +432,9 @@
       },
       "installation-source": "dist",
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "Nico Hoffmann",
@@ -435,7 +517,9 @@
         }
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "Andreas Möller",
@@ -445,7 +529,12 @@
       ],
       "description": "Provides a composer plugin for normalizing composer.json.",
       "homepage": "https://github.com/ergebnis/composer-normalize",
-      "keywords": ["composer", "normalize", "normalizer", "plugin"],
+      "keywords": [
+        "composer",
+        "normalize",
+        "normalizer",
+        "plugin"
+      ],
       "support": {
         "issues": "https://github.com/ergebnis/composer-normalize/issues",
         "security": "https://github.com/ergebnis/composer-normalize/blob/main/.github/SECURITY.md",
@@ -507,7 +596,9 @@
         }
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "Andreas Möller",
@@ -517,7 +608,9 @@
       ],
       "description": "Provides a Json value object for representing a valid JSON string.",
       "homepage": "https://github.com/ergebnis/json",
-      "keywords": ["json"],
+      "keywords": [
+        "json"
+      ],
       "support": {
         "issues": "https://github.com/ergebnis/json/issues",
         "security": "https://github.com/ergebnis/json/blob/main/.github/SECURITY.md",
@@ -587,7 +680,9 @@
         }
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "Andreas Möller",
@@ -597,7 +692,10 @@
       ],
       "description": "Provides generic and vendor-specific normalizers for normalizing JSON documents.",
       "homepage": "https://github.com/ergebnis/json-normalizer",
-      "keywords": ["json", "normalizer"],
+      "keywords": [
+        "json",
+        "normalizer"
+      ],
       "support": {
         "issues": "https://github.com/ergebnis/json-normalizer/issues",
         "security": "https://github.com/ergebnis/json-normalizer/blob/main/.github/SECURITY.md",
@@ -659,7 +757,9 @@
         }
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "Andreas Möller",
@@ -669,7 +769,11 @@
       ],
       "description": "Provides an abstraction of a JSON pointer.",
       "homepage": "https://github.com/ergebnis/json-pointer",
-      "keywords": ["RFC6901", "json", "pointer"],
+      "keywords": [
+        "RFC6901",
+        "json",
+        "pointer"
+      ],
       "support": {
         "issues": "https://github.com/ergebnis/json-pointer/issues",
         "security": "https://github.com/ergebnis/json-pointer/blob/main/.github/SECURITY.md",
@@ -731,7 +835,9 @@
         }
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "Andreas Möller",
@@ -741,7 +847,11 @@
       ],
       "description": "Provides a JSON printer, allowing for flexible indentation.",
       "homepage": "https://github.com/ergebnis/json-printer",
-      "keywords": ["formatter", "json", "printer"],
+      "keywords": [
+        "formatter",
+        "json",
+        "printer"
+      ],
       "support": {
         "issues": "https://github.com/ergebnis/json-printer/issues",
         "security": "https://github.com/ergebnis/json-printer/blob/main/.github/SECURITY.md",
@@ -805,7 +915,9 @@
         }
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "Andreas Möller",
@@ -815,7 +927,11 @@
       ],
       "description": "Provides a JSON schema validator, building on top of justinrainbow/json-schema.",
       "homepage": "https://github.com/ergebnis/json-schema-validator",
-      "keywords": ["json", "schema", "validator"],
+      "keywords": [
+        "json",
+        "schema",
+        "validator"
+      ],
       "support": {
         "issues": "https://github.com/ergebnis/json-schema-validator/issues",
         "security": "https://github.com/ergebnis/json-schema-validator/blob/main/.github/SECURITY.md",
@@ -865,7 +981,9 @@
         }
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "Filipe Dobreira",
@@ -955,14 +1073,21 @@
       "type": "kirby-cms",
       "installation-source": "dist",
       "autoload": {
-        "files": ["config/setup.php", "config/helpers.php"],
+        "files": [
+          "config/setup.php",
+          "config/helpers.php"
+        ],
         "psr-4": {
           "Kirby\\": "src/"
         },
-        "classmap": ["dependencies/"]
+        "classmap": [
+          "dependencies/"
+        ]
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["proprietary"],
+      "license": [
+        "proprietary"
+      ],
       "authors": [
         {
           "name": "Kirby Team",
@@ -972,7 +1097,11 @@
       ],
       "description": "The Kirby core",
       "homepage": "https://getkirby.com",
-      "keywords": ["cms", "core", "kirby"],
+      "keywords": [
+        "cms",
+        "core",
+        "kirby"
+      ],
       "support": {
         "email": "support@getkirby.com",
         "forum": "https://forum.getkirby.com",
@@ -1020,7 +1149,9 @@
         }
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "description": "Kirby's custom Composer installer for the Kirby CMS and for Kirby plugins",
       "homepage": "https://getkirby.com",
       "support": {
@@ -1065,7 +1196,9 @@
       },
       "installation-source": "dist",
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "Johann Schopplich",
@@ -1093,55 +1226,6 @@
       "install-path": "../../site/plugins/kirby-hashed-assets"
     },
     {
-      "name": "johannschopplich/kirby-highlighter",
-      "version": "3.2.0",
-      "version_normalized": "3.2.0.0",
-      "source": {
-        "type": "git",
-        "url": "https://github.com/johannschopplich/kirby-highlighter.git",
-        "reference": "223962f389dce0920048a46fe6806f95ce3fe828"
-      },
-      "dist": {
-        "type": "zip",
-        "url": "https://api.github.com/repos/johannschopplich/kirby-highlighter/zipball/223962f389dce0920048a46fe6806f95ce3fe828",
-        "reference": "223962f389dce0920048a46fe6806f95ce3fe828",
-        "shasum": ""
-      },
-      "require": {
-        "getkirby/composer-installer": "^1.2",
-        "scrivo/highlight.php": "^9.18"
-      },
-      "require-dev": {
-        "friendsofphp/php-cs-fixer": "@stable",
-        "getkirby/cms": "^4",
-        "phpunit/phpunit": "^11.1"
-      },
-      "time": "2024-07-19T08:41:49+00:00",
-      "type": "kirby-plugin",
-      "extra": {
-        "kirby-cms-path": "tests/fixtures/kirby"
-      },
-      "installation-source": "dist",
-      "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
-      "authors": [
-        {
-          "name": "Johann Schopplich",
-          "email": "hello@johannschopplich.com",
-          "homepage": "https://johannschopplich.com"
-        }
-      ],
-      "description": "Server-side syntax highlighting for Kirby CMS",
-      "homepage": "https://github.com/johannschopplich/kirby-highlighter#readme",
-      "keywords": ["highlight", "highlighter", "hljs", "kirby"],
-      "support": {
-        "issues": "https://github.com/johannschopplich/kirby-highlighter/issues",
-        "source": "https://github.com/johannschopplich/kirby-highlighter/tree/v3.2.0"
-      },
-      "abandoned": true,
-      "install-path": "../../site/plugins/kirby-highlighter"
-    },
-    {
       "name": "junohamburg/kirby-language-selector",
       "version": "2.0.4",
       "version_normalized": "2.0.4.0",
@@ -1163,7 +1247,9 @@
       "type": "kirby-plugin",
       "installation-source": "dist",
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "JUNO",
@@ -1206,7 +1292,9 @@
         "phpunit/phpunit": "^8.5"
       },
       "time": "2026-04-02T12:43:11+00:00",
-      "bin": ["bin/validate-json"],
+      "bin": [
+        "bin/validate-json"
+      ],
       "type": "library",
       "extra": {
         "branch-alias": {
@@ -1220,7 +1308,9 @@
         }
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "Bruno Prieto Reis",
@@ -1241,7 +1331,10 @@
       ],
       "description": "A library to validate a json schema.",
       "homepage": "https://github.com/jsonrainbow/json-schema",
-      "keywords": ["json", "schema"],
+      "keywords": [
+        "json",
+        "schema"
+      ],
       "support": {
         "issues": "https://github.com/jsonrainbow/json-schema/issues",
         "source": "https://github.com/jsonrainbow/json-schema/tree/6.8.0"
@@ -1287,10 +1380,15 @@
         }
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["BSD-3-Clause"],
+      "license": [
+        "BSD-3-Clause"
+      ],
       "description": "Securely and safely escape HTML, HTML attributes, JavaScript, CSS, and URLs",
       "homepage": "https://laminas.dev",
-      "keywords": ["escaper", "laminas"],
+      "keywords": [
+        "escaper",
+        "laminas"
+      ],
       "support": {
         "chat": "https://laminas.dev/chat",
         "docs": "https://docs.laminas.dev/laminas-escaper/",
@@ -1345,7 +1443,9 @@
         }
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "Mathieu Lechat",
@@ -1356,7 +1456,13 @@
       ],
       "description": "Extract colors from an image as a human would do.",
       "homepage": "https://github.com/thephpleague/color-extractor",
-      "keywords": ["color", "extract", "human", "image", "palette"],
+      "keywords": [
+        "color",
+        "extract",
+        "human",
+        "image",
+        "palette"
+      ],
       "support": {
         "issues": "https://github.com/thephpleague/color-extractor/issues",
         "source": "https://github.com/thephpleague/color-extractor/tree/0.4.0"
@@ -1389,10 +1495,14 @@
       "type": "library",
       "installation-source": "dist",
       "autoload": {
-        "classmap": ["src/"]
+        "classmap": [
+          "src/"
+        ]
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["BSD-3-Clause"],
+      "license": [
+        "BSD-3-Clause"
+      ],
       "authors": [
         {
           "name": "Sebastian Bergmann",
@@ -1405,7 +1515,12 @@
       ],
       "description": "Fork of sebastian/diff for use with ergebnis/composer-normalize",
       "homepage": "https://github.com/localheinz/diff",
-      "keywords": ["diff", "udiff", "unidiff", "unified diff"],
+      "keywords": [
+        "diff",
+        "udiff",
+        "unidiff",
+        "unified diff"
+      ],
       "support": {
         "issues": "https://github.com/localheinz/diff/issues",
         "source": "https://github.com/localheinz/diff/tree/1.3.0"
@@ -1438,7 +1553,9 @@
       },
       "installation-source": "dist",
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "Lukas Kleinschmidt",
@@ -1490,10 +1607,14 @@
         "psr-4": {
           "MabeEnum\\": "src/"
         },
-        "classmap": ["stubs/Stringable.php"]
+        "classmap": [
+          "stubs/Stringable.php"
+        ]
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["BSD-3-Clause"],
+      "license": [
+        "BSD-3-Clause"
+      ],
       "authors": [
         {
           "name": "Marc Bennewitz",
@@ -1551,7 +1672,9 @@
         }
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["BSD-3-Clause"],
+      "license": [
+        "BSD-3-Clause"
+      ],
       "authors": [
         {
           "name": "Michel Fortin",
@@ -1566,12 +1689,72 @@
       ],
       "description": "PHP SmartyPants",
       "homepage": "https://michelf.ca/projects/php-smartypants/",
-      "keywords": ["dashes", "quotes", "spaces", "typographer", "typography"],
+      "keywords": [
+        "dashes",
+        "quotes",
+        "spaces",
+        "typographer",
+        "typography"
+      ],
       "support": {
         "issues": "https://github.com/michelf/php-smartypants/issues",
         "source": "https://github.com/michelf/php-smartypants/tree/1.8.1"
       },
       "install-path": "../michelf/php-smartypants"
+    },
+    {
+      "name": "phiki/phiki",
+      "version": "v0.3.2",
+      "version_normalized": "0.3.2.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/phikiphp/phiki.git",
+        "reference": "c5c83cc88bb9dd8104a38c31b9d97414e7dd0b85"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/phikiphp/phiki/zipball/c5c83cc88bb9dd8104a38c31b9d97414e7dd0b85",
+        "reference": "c5c83cc88bb9dd8104a38c31b9d97414e7dd0b85",
+        "shasum": ""
+      },
+      "require": {
+        "league/commonmark": "^2.5.3",
+        "php": "^8.2"
+      },
+      "require-dev": {
+        "illuminate/support": "^11.30",
+        "laravel/pint": "^1.18.1",
+        "pestphp/pest": "^3.5.1",
+        "phpstan/extension-installer": "^1.4.3",
+        "phpstan/phpstan": "^1.12.7",
+        "symfony/var-dumper": "^7.1.6"
+      },
+      "time": "2024-11-05T01:17:30+00:00",
+      "type": "library",
+      "installation-source": "dist",
+      "autoload": {
+        "psr-4": {
+          "Phiki\\": "src/"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
+      "authors": [
+        {
+          "name": "Ryan Chandler",
+          "email": "support@ryangjchandler.co.uk",
+          "homepage": "https://ryangjchandler.co.uk",
+          "role": "Developer"
+        }
+      ],
+      "description": "Syntax highlighting using TextMate grammars in PHP.",
+      "support": {
+        "issues": "https://github.com/phikiphp/phiki/issues",
+        "source": "https://github.com/phikiphp/phiki/tree/v0.3.2"
+      },
+      "install-path": "../phiki/phiki"
     },
     {
       "name": "phpmailer/phpmailer",
@@ -1625,7 +1808,9 @@
         }
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["LGPL-2.1-only"],
+      "license": [
+        "LGPL-2.1-only"
+      ],
       "authors": [
         {
           "name": "Marcus Bointon",
@@ -1681,7 +1866,9 @@
       },
       "installation-source": "dist",
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "Roman Gsponer",
@@ -1734,7 +1921,9 @@
         }
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "PHP-FIG",
@@ -1743,88 +1932,15 @@
       ],
       "description": "Common interface for logging libraries",
       "homepage": "https://github.com/php-fig/log",
-      "keywords": ["log", "psr", "psr-3"],
+      "keywords": [
+        "log",
+        "psr",
+        "psr-3"
+      ],
       "support": {
         "source": "https://github.com/php-fig/log/tree/3.0.2"
       },
       "install-path": "../psr/log"
-    },
-    {
-      "name": "scrivo/highlight.php",
-      "version": "v9.18.1.10",
-      "version_normalized": "9.18.1.10",
-      "source": {
-        "type": "git",
-        "url": "https://github.com/scrivo/highlight.php.git",
-        "reference": "850f4b44697a2552e892ffe71490ba2733c2fc6e"
-      },
-      "dist": {
-        "type": "zip",
-        "url": "https://api.github.com/repos/scrivo/highlight.php/zipball/850f4b44697a2552e892ffe71490ba2733c2fc6e",
-        "reference": "850f4b44697a2552e892ffe71490ba2733c2fc6e",
-        "shasum": ""
-      },
-      "require": {
-        "ext-json": "*",
-        "php": ">=5.4"
-      },
-      "require-dev": {
-        "phpunit/phpunit": "^4.8|^5.7",
-        "sabberworm/php-css-parser": "^8.3",
-        "symfony/finder": "^2.8|^3.4|^5.4",
-        "symfony/var-dumper": "^2.8|^3.4|^5.4"
-      },
-      "suggest": {
-        "ext-mbstring": "Allows highlighting code with unicode characters and supports language with unicode keywords"
-      },
-      "time": "2022-12-17T21:53:22+00:00",
-      "type": "library",
-      "installation-source": "dist",
-      "autoload": {
-        "files": ["HighlightUtilities/functions.php"],
-        "psr-0": {
-          "Highlight\\": "",
-          "HighlightUtilities\\": ""
-        }
-      },
-      "notification-url": "https://packagist.org/downloads/",
-      "license": ["BSD-3-Clause"],
-      "authors": [
-        {
-          "name": "Geert Bergman",
-          "homepage": "http://www.scrivo.org/",
-          "role": "Project Author"
-        },
-        {
-          "name": "Vladimir Jimenez",
-          "homepage": "https://allejo.io",
-          "role": "Maintainer"
-        },
-        {
-          "name": "Martin Folkers",
-          "homepage": "https://twobrain.io",
-          "role": "Contributor"
-        }
-      ],
-      "description": "Server side syntax highlighter that supports 185 languages. It's a PHP port of highlight.js",
-      "keywords": [
-        "code",
-        "highlight",
-        "highlight.js",
-        "highlight.php",
-        "syntax"
-      ],
-      "support": {
-        "issues": "https://github.com/scrivo/highlight.php/issues",
-        "source": "https://github.com/scrivo/highlight.php"
-      },
-      "funding": [
-        {
-          "url": "https://github.com/allejo",
-          "type": "github"
-        }
-      ],
-      "install-path": "../scrivo/highlight.php"
     },
     {
       "name": "symfony/css-selector",
@@ -1851,10 +1967,14 @@
         "psr-4": {
           "Symfony\\Component\\CssSelector\\": ""
         },
-        "exclude-from-classmap": ["/Tests/"]
+        "exclude-from-classmap": [
+          "/Tests/"
+        ]
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "Fabien Potencier",
@@ -1925,10 +2045,14 @@
       },
       "installation-source": "dist",
       "autoload": {
-        "files": ["function.php"]
+        "files": [
+          "function.php"
+        ]
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "Nicolas Grekas",
@@ -1994,13 +2118,17 @@
       },
       "installation-source": "dist",
       "autoload": {
-        "files": ["bootstrap.php"],
+        "files": [
+          "bootstrap.php"
+        ],
         "psr-4": {
           "Symfony\\Polyfill\\Ctype\\": ""
         }
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "Gert de Pagter",
@@ -2013,7 +2141,12 @@
       ],
       "description": "Symfony polyfill for ctype functions",
       "homepage": "https://symfony.com",
-      "keywords": ["compatibility", "ctype", "polyfill", "portable"],
+      "keywords": [
+        "compatibility",
+        "ctype",
+        "polyfill",
+        "portable"
+      ],
       "support": {
         "source": "https://github.com/symfony/polyfill-ctype/tree/v1.36.0"
       },
@@ -2069,13 +2202,17 @@
       },
       "installation-source": "dist",
       "autoload": {
-        "files": ["bootstrap.php"],
+        "files": [
+          "bootstrap.php"
+        ],
         "psr-4": {
           "Symfony\\Polyfill\\Intl\\Idn\\": ""
         }
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "Laurent Bassin",
@@ -2154,14 +2291,20 @@
       },
       "installation-source": "dist",
       "autoload": {
-        "files": ["bootstrap.php"],
+        "files": [
+          "bootstrap.php"
+        ],
         "psr-4": {
           "Symfony\\Polyfill\\Intl\\Normalizer\\": ""
         },
-        "classmap": ["Resources/stubs"]
+        "classmap": [
+          "Resources/stubs"
+        ]
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "Nicolas Grekas",
@@ -2240,13 +2383,17 @@
       },
       "installation-source": "dist",
       "autoload": {
-        "files": ["bootstrap.php"],
+        "files": [
+          "bootstrap.php"
+        ],
         "psr-4": {
           "Symfony\\Polyfill\\Mbstring\\": ""
         }
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "Nicolas Grekas",
@@ -2259,7 +2406,13 @@
       ],
       "description": "Symfony polyfill for the Mbstring extension",
       "homepage": "https://symfony.com",
-      "keywords": ["compatibility", "mbstring", "polyfill", "portable", "shim"],
+      "keywords": [
+        "compatibility",
+        "mbstring",
+        "polyfill",
+        "portable",
+        "shim"
+      ],
       "support": {
         "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.33.0"
       },
@@ -2310,17 +2463,23 @@
         "symfony/console": "^6.4|^7.0|^8.0"
       },
       "time": "2026-02-09T09:33:46+00:00",
-      "bin": ["Resources/bin/yaml-lint"],
+      "bin": [
+        "Resources/bin/yaml-lint"
+      ],
       "type": "library",
       "installation-source": "dist",
       "autoload": {
         "psr-4": {
           "Symfony\\Component\\Yaml\\": ""
         },
-        "exclude-from-classmap": ["/Tests/"]
+        "exclude-from-classmap": [
+          "/Tests/"
+        ]
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "Fabien Potencier",
@@ -2388,7 +2547,9 @@
         }
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "Lars Moelleken",
@@ -2397,7 +2558,13 @@
       ],
       "description": "HTML Compressor and Minifier",
       "homepage": "https://github.com/voku/HtmlMin",
-      "keywords": ["compress", "compression", "compressor", "html", "minifier"],
+      "keywords": [
+        "compress",
+        "compression",
+        "compressor",
+        "html",
+        "minifier"
+      ],
       "support": {
         "issues": "https://github.com/voku/HtmlMin/issues",
         "source": "https://github.com/voku/HtmlMin/tree/4.5.1"
@@ -2455,7 +2622,9 @@
         }
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "dimabdc",
@@ -2471,7 +2640,11 @@
       ],
       "description": "Simple HTML DOM package.",
       "homepage": "https://github.com/voku/simple_html_dom",
-      "keywords": ["HTML Parser", "dom", "php dom"],
+      "keywords": [
+        "HTML Parser",
+        "dom",
+        "php dom"
+      ],
       "support": {
         "issues": "https://github.com/voku/simple_html_dom/issues",
         "source": "https://github.com/voku/simple_html_dom/tree/4.8.10"
