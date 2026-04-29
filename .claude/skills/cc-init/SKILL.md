@@ -21,15 +21,20 @@ Before creating any files, understand what you're working with.
 
 1. Check if a git repo exists. If not, do NOT create one — just note it for the user.
 2. Look for existing config: `CLAUDE.md`, `AGENTS.md`, `.claude/`, `.mcp.json`. If any exist, tell the user this skill is for fresh setups and suggest using `/cc-optimize` instead.
-3. Scan for clues about the project: `package.json`, `composer.json`, `Cargo.toml`, `pyproject.toml`, `go.mod`, `Makefile`, `Gemfile`, `README.md`, `pom.xml`, `build.gradle`, any `*.sln` or `*.csproj` files. Note what you find.
-4. Check for existing quality tools: `.eslintrc*`, `.prettierrc*`, `phpcs.xml*`, `rustfmt.toml`, `.editorconfig`, CI configs (`.github/workflows/`, `.gitlab-ci.yml`), pre-commit configs.
+3. Scan for clues about the project. Cover both code and content projects:
+   - **Code**: `package.json`, `composer.json`, `Cargo.toml`, `pyproject.toml`, `go.mod`, `Makefile`, `Gemfile`, `pom.xml`, `build.gradle`, any `*.sln` or `*.csproj` files.
+   - **Content / static sites / docs**: `hugo.toml`, `config.toml`, `config.yaml` (Hugo), `_config.yml` (Jekyll), `astro.config.*`, `.eleventy.js`, `mkdocs.yml`, `content/`, `articles/`, `posts/`, `_posts/`, dominant `.md` files, knowledge base or style guide files (`STYLE.md`, `style-guide.md`).
+   - Always check `README.md` for purpose.
+4. Check for existing quality tools:
+   - **Code**: `.eslintrc*`, `.prettierrc*`, `phpcs.xml*`, `rustfmt.toml`, `.editorconfig`, CI configs (`.github/workflows/`, `.gitlab-ci.yml`), pre-commit configs.
+   - **Content**: `.vale.ini` / `vale.ini`, `.markdownlint.{json,yaml,yml}`, prettier configured for Markdown.
 5. Check for sensitive files: `.env`, `.env.*`, `secrets/`, any `*credentials*` or `*secret*` files.
 
 If the project directory is truly empty or has minimal content, ask the user:
 
-- What language(s) and framework(s) will this project use?
-- What package manager/build tool? (npm, pnpm, yarn, composer, cargo, pip, etc.)
-- What's the basic project purpose? (one sentence is fine)
+- What does this project produce? (e.g. a web app, a library, articles for a tutorial site, documentation)
+- What stack or toolchain is involved? (e.g. Next.js + npm, Hugo, Pandoc, plain Markdown, etc.)
+- Are there inputs you'll reference repeatedly, like a shared knowledge base or style guide?
 
 If `$ARGUMENTS` was provided, use that as the project description and infer what you can. Only ask about things you genuinely cannot determine.
 
@@ -45,17 +50,17 @@ Always include `permissions.deny` for sensitive files. Adapt the patterns to wha
 
 ```json
 {
-    "$schema": "https://json.schemastore.org/claude-code-settings.json",
-    "permissions": {
-        "deny": [
-            "Read(./.env)",
-            "Read(./.env.*)",
-            "Read(./secrets/**)",
-            "Bash(curl:*)",
-            "Bash(wget:*)",
-            "Bash(rm -rf:*)"
-        ]
-    }
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./secrets/**)",
+      "Bash(curl:*)",
+      "Bash(wget:*)",
+      "Bash(rm -rf:*)"
+    ]
+  }
 }
 ```
 
@@ -72,19 +77,19 @@ If you identified a formatter in Step 1, add a PostToolUse hook:
 
 ```json
 {
-    "hooks": {
-        "PostToolUse": [
-            {
-                "matcher": "Edit|Write",
-                "hooks": [
-                    {
-                        "type": "command",
-                        "command": "<formatter-command> || true"
-                    }
-                ]
-            }
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "<formatter-command> || true"
+          }
         ]
-    }
+      }
+    ]
+  }
 }
 ```
 
@@ -95,6 +100,9 @@ Common formatter commands by ecosystem:
 - Rust: `jq -r '.tool_input.file_path' | xargs rustfmt`
 - Python: `jq -r '.tool_input.file_path' | xargs ruff format`
 - Go: `jq -r '.tool_input.file_path' | xargs gofmt -w`
+- Markdown: `jq -r '.tool_input.file_path' | xargs npx prettier --write` or `jq -r '.tool_input.file_path' | xargs markdownlint --fix`
+
+Vale is a prose linter, not a formatter — don't wire it into PostToolUse. If you want Vale to run, suggest it as a manual command in CLAUDE.md instead.
 
 If no formatter is detected, skip the hook — don't guess. Note it in the summary for the user to add later.
 
@@ -106,9 +114,9 @@ Always include these cost-optimization defaults:
 
 ```json
 {
-    "env": {
-        "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "50"
-    }
+  "env": {
+    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "50"
+  }
 }
 ```
 
@@ -123,19 +131,34 @@ Structure:
 ```markdown
 # <Project Name>
 
-<One-line description. Stack summary.>
+<One-line description. Stack or toolchain summary — works for code (e.g. "Next.js + Prisma") or content (e.g. "Hugo site, articles in Markdown, edited with Vale").>
 
 ## Commands
 
-<List exact build/test/lint/dev commands. If unknown yet, add placeholders with TODO markers.>
+<List exact commands the project uses. Examples:
+
+- Code projects: `npm test`, `cargo build`, `pytest tests/`
+- Content/static-site projects: `hugo build`, `vale .`, `markdownlint **/*.md`, `pandoc input.md -o output.pdf`
+  If unknown yet, add placeholders with TODO markers.>
 
 ## Structure
 
-<Only if you can already identify a meaningful directory layout. Otherwise omit.>
+<Only if you can already identify a meaningful directory layout. Otherwise omit. For content projects, mention things like the article output directory or where the knowledge base lives.>
+
+## References
+
+<Optional. For content projects with a shared knowledge base or style guide, use progressive disclosure rather than inlining content:
+```
+
+@knowledge-base/index.md
+@style-guide.md **Read when:** writing or editing articles
+
+```
+Only include this section if such files exist.>
 
 ## Conventions
 
-<Only concrete rules that deviate from language defaults or that Claude commonly gets wrong. If the project is too new, keep this minimal or omit.>
+<Only concrete rules that deviate from defaults or that Claude commonly gets wrong. For content projects this might be voice/tone, terminology, or output format requirements. For code projects, conventions that aren't enforced by the linter. If the project is too new, keep this minimal or omit.>
 
 ## Don't
 
@@ -234,10 +257,10 @@ while IFS= read -r -d '' f; do
     package-lock.json|README.md|CHANGELOG.md|AGENTS.md|CLAUDE.md|LICENSE) continue ;;
   esac
   config_files+=("$name")
-done < <(find "$ROOT" -maxdepth 1 -type f \( -name '*.json' -o -name '*.js' -o -name '*.ts' -o -name '*.mjs' -o -name '*.cjs' -o -name '*.yaml' -o -name '*.yml' \) -print0 2>/dev/null | sort -z)
+done < <(find "$ROOT" -maxdepth 1 -type f \( -name '*.json' -o -name '*.js' -o -name '*.ts' -o -name '*.mjs' -o -name '*.cjs' -o -name '*.yaml' -o -name '*.yml' -o -name '*.toml' \) -print0 2>/dev/null | sort -z)
 
 # Root-level dotfiles that are config files
-for dotfile in .gitignore .npmignore .prettierignore .editorconfig .nvmrc .node-version; do
+for dotfile in .gitignore .npmignore .prettierignore .editorconfig .nvmrc .node-version .vale.ini .markdownlint.json .markdownlint.yaml .markdownlint.yml; do
   [[ -f "$ROOT/$dotfile" ]] && config_files+=("$dotfile")
 done
 
@@ -387,16 +410,16 @@ After creating all files, give the user a concise summary:
 2. Note any TODO placeholders that need filling in once the project takes shape.
 3. Mention what was intentionally left out and why (e.g., "No PostToolUse hook yet because no formatter was detected — add one once you pick a formatter.").
 4. Remind the user of three high-leverage next steps:
-    - Add test/build/lint commands to CLAUDE.md once they exist.
-    - Run `/cc-optimize` after the project has some code to get a project-aware configuration pass.
-    - Consider adding MCP servers to `.mcp.json` as needs arise (Context7 for docs, GitHub for PRs, etc.).
+   - Add test/build/lint commands to CLAUDE.md once they exist.
+   - Run `/cc-optimize` after the project has some code to get a project-aware configuration pass.
+   - Consider adding MCP servers to `.mcp.json` as needs arise (Context7 for docs, GitHub for PRs, etc.).
 5. If the Key Config Files auto-sync was set up (Step 6), remind the user:
-    - The pre-commit hook requires a one-time activation per clone: `git config core.hooksPath .githooks`
-    - This command was already run for the current clone, but collaborators or fresh clones need to run it too.
-    - Suggest documenting it in the project README's setup instructions.
+   - The pre-commit hook requires a one-time activation per clone: `git config core.hooksPath .githooks`
+   - This command was already run for the current clone, but collaborators or fresh clones need to run it too.
+   - Suggest documenting it in the project README's setup instructions.
 6. Explain the Learnings mechanism:
-    - When the user corrects a mistake, Claude appends a one-line summary to `.claude/learnings.md` instead of modifying CLAUDE.md directly.
-    - This file grows uncurated over time. Running `/cc-optimize` reviews it and proposes promoting recurring patterns into CLAUDE.md or skills, and deleting one-off entries.
+   - When the user corrects a mistake, Claude appends a one-line summary to `.claude/learnings.md` instead of modifying CLAUDE.md directly.
+   - This file grows uncurated over time. Running `/cc-optimize` reviews it and proposes promoting recurring patterns into CLAUDE.md or skills, and deleting one-off entries.
 7. Suggest committing the new config files to git.
 
 ## What NOT to do

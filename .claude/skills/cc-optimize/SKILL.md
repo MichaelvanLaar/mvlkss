@@ -40,6 +40,7 @@ Read and catalog everything that exists. Do this thoroughly before suggesting an
 - Build/test/lint commands (scripts in package.json, Makefile targets, etc.)
 - Formatter and linter configs (.prettierrc, .eslintrc, phpcs.xml, rustfmt.toml, etc.)
 - CI/CD configuration
+- Content-project artifacts: static-site configs (`hugo.toml`, `_config.yml`, `astro.config.*`, `mkdocs.yml`), prose tooling (`.vale.ini`, `.markdownlint.*`), shared knowledge bases or style guides referenced from CLAUDE.md
 - OpenSpec artifacts (`openspec/` directory, `openspec/project.md`, change specs)
 - Documentation (`docs/`, `README.md`, architecture docs)
 - Directory structure and apparent architecture patterns
@@ -112,7 +113,7 @@ Check for these anti-patterns:
 
 **Hooks (Claude Code):**
 
-- Is there a PostToolUse formatter hook? If a formatter exists in the project but no hook runs it, this is a high-impact gap.
+- Is there a PostToolUse formatter hook? If a formatter exists in the project but no hook runs it, this is a high-impact gap. Valid formatter targets include code formatters (prettier, ruff, rustfmt, gofmt, php-cs-fixer) and Markdown formatters (prettier on `.md`, `markdownlint --fix`) — don't skip the audit just because the project produces content rather than code.
 - Is there a PreToolUse hook protecting sensitive files? (defense in depth beyond permissions.deny)
 - Do all hooks use `|| true` for graceful degradation?
 - Are hooks doing "block at submit" rather than "block at write"? (fewer interrupts, smoother flow)
@@ -122,13 +123,13 @@ Check for these anti-patterns:
 `/cc-init` creates a project-local `.githooks/pre-commit` that runs `scripts/sync-config-table.sh` and activates it via `git config core.hooksPath .githooks`. If a hook manager like Husky is added later, it takes over `core.hooksPath` — the `.githooks/pre-commit` is still present in the repo but silently stops running. This is a silent drift scenario. Check for it:
 
 1. Detect hook managers:
-    - Husky: `husky` in `package.json` devDependencies, or `.husky/` directory present
-    - Lefthook: `lefthook.yml` or `lefthook` in devDependencies
-    - pre-commit: `.pre-commit-config.yaml`
+   - Husky: `husky` in `package.json` devDependencies, or `.husky/` directory present
+   - Lefthook: `lefthook.yml` or `lefthook` in devDependencies
+   - pre-commit: `.pre-commit-config.yaml`
 2. Detect cc-init hook infrastructure: `.githooks/pre-commit` exists and references `sync-config-table`
 3. If both are present, flag as **conflict** and propose one of these migrations:
-    - **Migrate to the hook manager** (recommended if the hook manager is the project standard): move the `sync-config-table` invocation into the hook manager's pre-commit config (e.g., append it to `.husky/pre-commit`), then delete `.githooks/pre-commit` and — if empty — the `.githooks/` directory. Optionally run `git config --unset core.hooksPath` so the setting doesn't confuse future contributors.
-    - **Keep the project-local hook** (only if the hook manager was added by mistake or is being removed): leave `.githooks/` in place and note that the user needs to resolve which hook system owns `core.hooksPath`.
+   - **Migrate to the hook manager** (recommended if the hook manager is the project standard): move the `sync-config-table` invocation into the hook manager's pre-commit config (e.g., append it to `.husky/pre-commit`), then delete `.githooks/pre-commit` and — if empty — the `.githooks/` directory. Optionally run `git config --unset core.hooksPath` so the setting doesn't confuse future contributors.
+   - **Keep the project-local hook** (only if the hook manager was added by mistake or is being removed): leave `.githooks/` in place and note that the user needs to resolve which hook system owns `core.hooksPath`.
 4. Also check if `scripts/sync-config-table.*` exists but `.githooks/pre-commit` is missing entirely — the script is orphaned and never runs. Same proposal: wire it into the active hook manager or recreate the `.githooks/` setup.
 5. If the sync script exists in a variant that doesn't match the filesystem conventions of the project (e.g., a `.sh` script in a Node-only project where the team prefers `.js`), note it as a nice-to-have for harmonization but don't force the change.
 
@@ -182,9 +183,9 @@ If `.claude/learnings.md` exists:
 1. Read all entries.
 2. Group similar entries to identify recurring patterns (3+ similar corrections suggest a real gap in the config).
 3. For each recurring pattern, propose one of:
-    - Adding a concrete rule to CLAUDE.md (if it's a universal project convention).
-    - Adding it to an existing or new skill (if it's domain-specific or rarely needed).
-    - Adding it as a hook (if it's something that should happen deterministically, not by instruction).
+   - Adding a concrete rule to CLAUDE.md (if it's a universal project convention).
+   - Adding it to an existing or new skill (if it's domain-specific or rarely needed).
+   - Adding it as a hook (if it's something that should happen deterministically, not by instruction).
 4. For one-off entries that don't recur, propose deleting them.
 5. Present the full list to the user grouped as "promote to config" vs "delete as one-off", with rationale for each. Wait for approval before changing anything.
 
