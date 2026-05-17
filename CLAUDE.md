@@ -42,23 +42,23 @@ npm run test:phpstan   # PHPStan static analysis
 
 ### Key Config Files
 
-| File | Purpose |
-|------|---------|
-| `.claude/settings.json` | Claude Code permissions and hooks               |
-| `composer.json` | PHP dependencies (Kirby CMS, plugins)           |
-| `.editorconfig` | Editor formatting rules (indent, charset, EOL)  |
-| `eslint.config.js` | ESLint config (flat config) for JS linting      |
-| `.github/workflows/tests.yml` | CI workflow: lint, PHPUnit, Vitest, PHPStan     |
-| `.gitignore` | Git ignore patterns                             |
-| `.mcp.json` | MCP server config                               |
-| `package.json` | npm dependencies, build scripts                 |
-| `postcss.config.js` | PostCSS/Tailwind CSS processing config          |
-| `.prettierignore` | Paths excluded from Prettier formatting         |
-| `.prettierrc.json` | Prettier formatting rules                       |
-| `.stylelintrc.json` | Stylelint rules for CSS/Tailwind linting        |
-| `vitest.config.js` | Vitest (jsdom) config for JS unit tests         |
-| `webpack.config.js` | Webpack bundler config (JS, CSS, assets)        |
-| `.yamllint.json` | yamllint rules for blueprint/workflow YAML      |
+| File                          | Purpose                                        |
+| ----------------------------- | ---------------------------------------------- |
+| `.claude/settings.json`       | Claude Code permissions and hooks              |
+| `composer.json`               | PHP dependencies (Kirby CMS, plugins)          |
+| `.editorconfig`               | Editor formatting rules (indent, charset, EOL) |
+| `eslint.config.js`            | ESLint config (flat config) for JS linting     |
+| `.github/workflows/tests.yml` | CI workflow: lint, PHPUnit, Vitest, PHPStan    |
+| `.gitignore`                  | Git ignore patterns                            |
+| `.mcp.json`                   | MCP server config                              |
+| `package.json`                | npm dependencies, build scripts                |
+| `postcss.config.js`           | PostCSS/Tailwind CSS processing config         |
+| `.prettierignore`             | Paths excluded from Prettier formatting        |
+| `.prettierrc.json`            | Prettier formatting rules                      |
+| `.stylelintrc.json`           | Stylelint rules for CSS/Tailwind linting       |
+| `vitest.config.js`            | Vitest (jsdom) config for JS unit tests        |
+| `webpack.config.js`           | Webpack bundler config (JS, CSS, assets)       |
+| `.yamllint.json`              | yamllint rules for blueprint/workflow YAML     |
 
 Skills in `.claude/skills/*/SKILL.md` are intentionally omitted — each skill's purpose lives in its own YAML frontmatter.
 

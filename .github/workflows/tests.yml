@@ -76,8 +76,17 @@ jobs:
       - name: Run YAML Lint
         run: npm run lint:yaml
 
-      - name: Run Vitest tests
-        run: npm run test:js
+      - name: Run Vitest tests with coverage
+        run: npm run test:js:coverage
+
+      - name: Upload JS coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./.coverage/js/lcov.info
+          flags: javascript
+          fail_ci_if_error: false
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   build-test:
     name: Build Test
