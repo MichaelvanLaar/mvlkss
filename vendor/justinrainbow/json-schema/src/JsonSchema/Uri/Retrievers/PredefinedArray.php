@@ -18,7 +18,8 @@ use JsonSchema\Validator;
  *
  *      $schema = $retriever->retrieve('http://acme.com/schemas/person#');
  */
-class PredefinedArray extends AbstractRetriever {
+class PredefinedArray extends AbstractRetriever
+{
     /**
      * Contains schemas as URI => JSON
      *
@@ -32,11 +33,9 @@ class PredefinedArray extends AbstractRetriever {
      * @param array  $schemas
      * @param string $contentType
      */
-    public function __construct(
-        array $schemas,
-        $contentType = Validator::SCHEMA_MEDIA_TYPE,
-    ) {
-        $this->schemas = $schemas;
+    public function __construct(array $schemas, $contentType = Validator::SCHEMA_MEDIA_TYPE)
+    {
+        $this->schemas     = $schemas;
         $this->contentType = $contentType;
     }
 
@@ -45,11 +44,13 @@ class PredefinedArray extends AbstractRetriever {
      *
      * @see \JsonSchema\Uri\Retrievers\UriRetrieverInterface::retrieve()
      */
-    public function retrieve($uri) {
+    public function retrieve($uri)
+    {
         if (!array_key_exists($uri, $this->schemas)) {
-            throw new \JsonSchema\Exception\ResourceNotFoundException(
-                sprintf('The JSON schema "%s" was not found.', $uri),
-            );
+            throw new \JsonSchema\Exception\ResourceNotFoundException(sprintf(
+                'The JSON schema "%s" was not found.',
+                $uri
+            ));
         }
 
         return $this->schemas[$uri];

@@ -59,8 +59,12 @@ class Lock
 				}
 			}
 
-			// return the last lock if no lock was found
-			return $lock;
+			// no language has an active lock:
+			// fall back to the lock for the current language,
+			// so that the user and modification timestamp
+			// reflect the current version and not the
+			// arbitrary last-iterated language
+			return static::for($version, Language::ensure());
 		}
 
 		$language = Language::ensure($language);
@@ -208,13 +212,15 @@ class Lock
 	 */
 	public function toArray(): array
 	{
+		$user = $this->user?->isListable() === true ? $this->user : null;
+
 		return [
 			'isLegacy' => $this->isLegacy(),
 			'isLocked' => $this->isLocked(),
 			'modified' => $this->modified('c', 'date'),
 			'user'     => [
-				'id'    => $this->user?->id(),
-				'email' => $this->user?->email()
+				'id'    => $user?->id(),
+				'email' => $user?->email()
 			]
 		];
 	}

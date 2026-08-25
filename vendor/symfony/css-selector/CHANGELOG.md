@@ -1,23 +1,34 @@
-# CHANGELOG
+CHANGELOG
+=========
 
-## 7.1
+8.1
+---
 
-- Add support for `:is()`
-- Add support for `:where()`
+ * Add support for `:has()`
 
-## 6.3
+7.1
+---
 
-- Add support for `:scope`
+ * Add support for `:is()`
+ * Add support for `:where()`
 
-## 4.4.0
+6.3
+---
 
-- Added support for `*:only-of-type`
+ * Add support for `:scope`
 
-## 2.8.0
+4.4.0
+-----
 
-- Added the `CssSelectorConverter` class as a non-static API for the component.
-- Deprecated the `CssSelector` static API of the component.
+ * Added support for `*:only-of-type`
 
-## 2.1.0
+2.8.0
+-----
 
-- none
+ * Added the `CssSelectorConverter` class as a non-static API for the component.
+ * Deprecated the `CssSelector` static API of the component.
+
+2.1.0
+-----
+
+ * none

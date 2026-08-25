@@ -10,20 +10,18 @@ use JsonSchema\Constraints\Factory;
 use JsonSchema\Entity\ErrorBagProxy;
 use JsonSchema\Entity\JsonPointer;
 
-class MinItemsConstraint implements ConstraintInterface {
+class MinItemsConstraint implements ConstraintInterface
+{
     use ErrorBagProxy;
 
-    public function __construct(?Factory $factory = null) {
+    public function __construct(?Factory $factory = null)
+    {
         $this->initialiseErrorBag($factory ?: new Factory());
     }
 
-    public function check(
-        &$value,
-        $schema = null,
-        ?JsonPointer $path = null,
-        $i = null,
-    ): void {
-        if (!property_exists($schema, "minItems")) {
+    public function check(&$value, $schema = null, ?JsonPointer $path = null, $i = null): void
+    {
+        if (!property_exists($schema, 'minItems')) {
             return;
         }
 
@@ -36,9 +34,6 @@ class MinItemsConstraint implements ConstraintInterface {
             return;
         }
 
-        $this->addError(ConstraintError::MIN_ITEMS(), $path, [
-            "minItems" => $schema->minItems,
-            "found" => $count,
-        ]);
+        $this->addError(ConstraintError::MIN_ITEMS(), $path, ['minItems' => $schema->minItems, 'found' => $count]);
     }
 }

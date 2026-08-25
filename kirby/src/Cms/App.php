@@ -103,11 +103,10 @@ class App
 		$this->core   = new Core($this);
 		$this->events = new Events($this);
 
-		// start with a fresh snippet and version cache
+		// start with fresh caches
 		Snippet::$cache = [];
 		VersionCache::reset();
-
-		// reset the UUIDs option cache
+		ModelPermissions::$cache = [];
 		Uuids::$enabled = null;
 
 		// register all roots to be able to load stuff afterwards
@@ -431,6 +430,15 @@ class App
 			$default .= '/' . $model->id();
 		}
 
+		// The content path is used as the default salt intentionally: there is
+		// no install step during which a random salt could be generated and
+		// persisted. Kirby goes live the moment files are present on the server,
+		// so there is no defined point at which to write a one-time secret.
+		// Config files are typically kept in version control and cannot be
+		// written by the system without causing merge conflicts. No value in
+		// $_SERVER is both universally available across hosting environments and
+		// stable enough to serve as a salt. Sites with security requirements
+		// must set the content.salt option to a secret random value.
 		$salt = $this->option('content.salt', $default);
 
 		if ($salt instanceof Closure) {
@@ -856,7 +864,7 @@ class App
 		$data['site']   ??= $data['kirby']->site();
 		$data['parent'] ??= $data['site']->page();
 
-		return (new KirbyTag($type, $value, $attr, $data, $this->options))->render();
+		return (new KirbyTag($type, $value, $attr, $data))->render();
 	}
 
 	/**
@@ -871,9 +879,10 @@ class App
 		$data['parent'] ??= $data['site']->page();
 
 		$options = $this->options;
+		$debug   = ($options['debug'] ?? false) === true;
 
 		$text = $this->apply('kirbytags:before', compact('text', 'data', 'options'));
-		$text = KirbyTags::parse($text, $data, $options);
+		$text = KirbyTags::parse($text, $data, debug: $debug);
 		$text = $this->apply('kirbytags:after', compact('text', 'data', 'options'));
 
 		return $text;
@@ -1263,7 +1272,7 @@ class App
 		// search for a draft if the page cannot be found
 		if (!$page && $draft = $site->draft($path)) {
 			if (
-				$this->user() ||
+				($this->user() && $draft->isAccessible()) ||
 				$draft->renderVersionFromRequest() !== null
 			) {
 				$page = $draft;
@@ -1313,6 +1322,17 @@ class App
 
 		// try to resolve clean URLs to files for pages and drafts
 		if ($page = $site->findPageOrDraft($id)) {
+			// don't leak files on draft pages through clean URLs:
+			// only serve them to an authenticated user with access
+			// permission or a request with a valid preview token
+			if (
+				$page->isDraft() === true &&
+				($this->user() && $page->isAccessible()) === false &&
+				$page->renderVersionFromRequest() === null
+			) {
+				return null;
+			}
+
 			return $this->resolveFile($page->file($filename));
 		}
 

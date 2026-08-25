@@ -10,20 +10,18 @@ use JsonSchema\Constraints\Factory;
 use JsonSchema\Entity\ErrorBagProxy;
 use JsonSchema\Entity\JsonPointer;
 
-class MaxPropertiesConstraint implements ConstraintInterface {
+class MaxPropertiesConstraint implements ConstraintInterface
+{
     use ErrorBagProxy;
 
-    public function __construct(?Factory $factory = null) {
+    public function __construct(?Factory $factory = null)
+    {
         $this->initialiseErrorBag($factory ?: new Factory());
     }
 
-    public function check(
-        &$value,
-        $schema = null,
-        ?JsonPointer $path = null,
-        $i = null,
-    ): void {
-        if (!property_exists($schema, "maxProperties")) {
+    public function check(&$value, $schema = null, ?JsonPointer $path = null, $i = null): void
+    {
+        if (!property_exists($schema, 'maxProperties')) {
             return;
         }
 
@@ -36,9 +34,6 @@ class MaxPropertiesConstraint implements ConstraintInterface {
             return;
         }
 
-        $this->addError(ConstraintError::PROPERTIES_MAX(), $path, [
-            "maxProperties" => $schema->maxProperties,
-            "found" => $count,
-        ]);
+        $this->addError(ConstraintError::PROPERTIES_MAX(), $path, ['maxProperties' => $schema->maxProperties, 'found' => $count]);
     }
 }

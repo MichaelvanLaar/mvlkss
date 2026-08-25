@@ -5,41 +5,39 @@ declare(strict_types=1);
 namespace voku\helper;
 
 /**
- * @noinspection PhpHierarchyChecksInspection
- *
  * {@inheritdoc}
  *
  * @implements \IteratorAggregate<int, \DOMNode>
  */
-class SimpleXmlDom extends AbstractSimpleXmlDom implements
-    \IteratorAggregate,
-    SimpleXmlDomInterface {
+class SimpleXmlDom extends AbstractSimpleXmlDom implements \IteratorAggregate, SimpleXmlDomInterface
+{
     /**
      * @param \DOMElement|\DOMNode $node
      */
-    public function __construct(\DOMNode $node) {
+    public function __construct(\DOMNode $node)
+    {
         $this->node = $node;
     }
 
     /**
-     * @param string $name
-     * @param array  $arguments
+     * @param string       $name
+     * @param array<mixed> $arguments
      *
      * @throws \BadMethodCallException
      *
      * @return SimpleXmlDomInterface|string|null
      */
-    public function __call($name, $arguments) {
+    public function __call($name, $arguments)
+    {
         $name = \strtolower($name);
 
         if (isset(self::$functionAliases[$name])) {
-            return \call_user_func_array(
-                [$this, self::$functionAliases[$name]],
-                $arguments,
-            );
+            $method = self::$functionAliases[$name];
+
+            return $this->{$method}(...$arguments);
         }
 
-        throw new \BadMethodCallException("Method does not exist");
+        throw new \BadMethodCallException('Method does not exist');
     }
 
     /**
@@ -50,7 +48,8 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return SimpleXmlDomInterface|SimpleXmlDomInterface[]|SimpleXmlDomNodeInterface<SimpleXmlDomInterface>
      */
-    public function find(string $selector, $idx = null) {
+    public function find(string $selector, $idx = null)
+    {
         return $this->getXmlDomParser()->find($selector, $idx);
     }
 
@@ -59,15 +58,16 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return string[]|null
      */
-    public function getAllAttributes() {
-        if ($this->node && $this->node->hasAttributes()) {
+    public function getAllAttributes()
+    {
+        $node = $this->node();
+
+        if (
+            $node->hasAttributes()
+        ) {
             $attributes = [];
-            foreach ($this->node->attributes ?? [] as $attr) {
-                $attributes[
-                    $attr->name
-                ] = XmlDomParser::putReplacedBackToPreserveHtmlEntities(
-                    $attr->value,
-                );
+            foreach ($node->attributes ?? [] as $attr) {
+                $attributes[$attr->name] = XmlDomParser::putReplacedBackToPreserveHtmlEntities($attr->value);
             }
 
             return $attributes;
@@ -79,8 +79,9 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
     /**
      * @return bool
      */
-    public function hasAttributes(): bool {
-        return $this->node->hasAttributes();
+    public function hasAttributes(): bool
+    {
+        return $this->node()->hasAttributes();
     }
 
     /**
@@ -90,14 +91,15 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return string
      */
-    public function getAttribute(string $name): string {
+    public function getAttribute(string $name): string
+    {
         if ($this->node instanceof \DOMElement) {
             return XmlDomParser::putReplacedBackToPreserveHtmlEntities(
-                $this->node->getAttribute($name),
+                $this->node->getAttribute($name)
             );
         }
 
-        return "";
+        return '';
     }
 
     /**
@@ -107,8 +109,9 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return bool
      */
-    public function hasAttribute(string $name): bool {
-        if (!($this->node instanceof \DOMElement)) {
+    public function hasAttribute(string $name): bool
+    {
+        if (!$this->node instanceof \DOMElement) {
             return false;
         }
 
@@ -122,7 +125,8 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return string
      */
-    public function innerXml(bool $multiDecodeNewHtmlEntity = false): string {
+    public function innerXml(bool $multiDecodeNewHtmlEntity = false): string
+    {
         return $this->getXmlDomParser()->innerXml($multiDecodeNewHtmlEntity);
     }
 
@@ -133,9 +137,11 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return SimpleXmlDomInterface
      */
-    public function removeAttribute(string $name): SimpleXmlDomInterface {
-        if (\method_exists($this->node, "removeAttribute")) {
-            $this->node->removeAttribute($name);
+    public function removeAttribute(string $name): SimpleXmlDomInterface
+    {
+        $node = $this->node();
+        if ($node instanceof \DOMElement) {
+            $node->removeAttribute($name);
         }
 
         return $this;
@@ -149,10 +155,10 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return SimpleXmlDomInterface
      */
-    protected function replaceChildWithString(
-        string $string,
-        bool $putBrokenReplacedBack = true,
-    ): SimpleXmlDomInterface {
+    protected function replaceChildWithString(string $string, bool $putBrokenReplacedBack = true): SimpleXmlDomInterface
+    {
+        $node = $this->node();
+
         if (!empty($string)) {
             $newDocument = new XmlDomParser($string);
 
@@ -161,40 +167,36 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
 
             if ($tmpDomString !== $tmpStr) {
                 throw new \RuntimeException(
-                    "Not valid XML fragment!" .
-                        "\n" .
-                        $tmpDomString .
-                        "\n" .
-                        $tmpStr,
+                    'Not valid XML fragment!' . "\n" .
+                    $tmpDomString . "\n" .
+                    $tmpStr
                 );
             }
         }
 
         /** @var \DOMNode[] $remove_nodes */
         $remove_nodes = [];
-        if ($this->node->childNodes->length > 0) {
+        if ($node->childNodes->length > 0) {
             // INFO: We need to fetch the nodes first, before we can delete them, because of missing references in the dom,
             // if we delete the elements on the fly.
-            foreach ($this->node->childNodes as $node) {
-                $remove_nodes[] = $node;
+            foreach ($node->childNodes as $childNode) {
+                $remove_nodes[] = $childNode;
             }
         }
         foreach ($remove_nodes as $remove_node) {
-            $this->node->removeChild($remove_node);
+            $node->removeChild($remove_node);
         }
 
         if (!empty($newDocument)) {
-            $ownerDocument = $this->node->ownerDocument;
+            $ownerDocument = $node->ownerDocument;
             if (
-                $ownerDocument &&
+                $ownerDocument
+                &&
                 $newDocument->getDocument()->documentElement
             ) {
-                $newNode = $ownerDocument->importNode(
-                    $newDocument->getDocument()->documentElement,
-                    true,
-                );
+                $newNode = $ownerDocument->importNode($newDocument->getDocument()->documentElement, true);
                 /** @noinspection UnusedFunctionResultInspection */
-                $this->node->appendChild($newNode);
+                $node->appendChild($newNode);
             }
         }
 
@@ -208,12 +210,13 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return SimpleXmlDomInterface
      */
-    protected function replaceNodeWithString(
-        string $string,
-    ): SimpleXmlDomInterface {
+    protected function replaceNodeWithString(string $string): SimpleXmlDomInterface
+    {
+        $node = $this->node();
+
         if (empty($string)) {
-            if ($this->node->parentNode) {
-                $this->node->parentNode->removeChild($this->node);
+            if ($node->parentNode) {
+                $node->parentNode->removeChild($node);
             }
 
             return $this;
@@ -221,36 +224,32 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
 
         $newDocument = new XmlDomParser($string);
 
-        $tmpDomOuterTextString = $this->normalizeStringForComparision(
-            $newDocument,
-        );
+        $tmpDomOuterTextString = $this->normalizeStringForComparision($newDocument);
         $tmpStr = $this->normalizeStringForComparision($string);
 
         if ($tmpDomOuterTextString !== $tmpStr) {
             throw new \RuntimeException(
-                "Not valid XML fragment!" .
-                    "\n" .
-                    $tmpDomOuterTextString .
-                    "\n" .
-                    $tmpStr,
+                'Not valid XML fragment!' . "\n"
+                . $tmpDomOuterTextString . "\n" .
+                $tmpStr
             );
         }
 
-        $ownerDocument = $this->node->ownerDocument;
+        $ownerDocument = $node->ownerDocument;
         if (
-            $ownerDocument === null ||
+            $ownerDocument === null
+            ||
             $newDocument->getDocument()->documentElement === null
         ) {
             return $this;
         }
 
-        $newNode = $ownerDocument->importNode(
-            $newDocument->getDocument()->documentElement,
-            true,
-        );
+        $newNode = $ownerDocument->importNode($newDocument->getDocument()->documentElement, true);
 
-        $this->node->parentNode->replaceChild($newNode, $this->node);
-        $this->node = $newNode;
+        if ($node->parentNode !== null) {
+            $node->parentNode->replaceChild($newNode, $node);
+            $this->node = $newNode;
+        }
 
         return $this;
     }
@@ -262,21 +261,26 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return SimpleXmlDomInterface
      */
-    protected function replaceTextWithString($string): SimpleXmlDomInterface {
+    protected function replaceTextWithString($string): SimpleXmlDomInterface
+    {
+        $node = $this->node();
+
         if (empty($string)) {
-            if ($this->node->parentNode) {
-                $this->node->parentNode->removeChild($this->node);
+            if ($node->parentNode) {
+                $node->parentNode->removeChild($node);
             }
 
             return $this;
         }
 
-        $ownerDocument = $this->node->ownerDocument;
+        $ownerDocument = $node->ownerDocument;
         if ($ownerDocument) {
             $newElement = $ownerDocument->createTextNode($string);
             $newNode = $ownerDocument->importNode($newElement, true);
-            $this->node->parentNode->replaceChild($newNode, $this->node);
-            $this->node = $newNode;
+            if ($node->parentNode !== null) {
+                $node->parentNode->replaceChild($newNode, $node);
+                $this->node = $newNode;
+            }
         }
 
         return $this;
@@ -294,23 +298,20 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return SimpleXmlDomInterface
      */
-    public function setAttribute(
-        string $name,
-        $value = null,
-        bool $strictEmptyValueCheck = false,
-    ): SimpleXmlDomInterface {
+    public function setAttribute(string $name, $value = null, bool $strictEmptyValueCheck = false): SimpleXmlDomInterface
+    {
+        $node = $this->node();
+
         if (
-            ($strictEmptyValueCheck && $value === null) ||
+            ($strictEmptyValueCheck && $value === null)
+            ||
             (!$strictEmptyValueCheck && empty($value))
         ) {
             /** @noinspection UnusedFunctionResultInspection */
             $this->removeAttribute($name);
-        } elseif (\method_exists($this->node, "setAttribute")) {
+        } elseif ($node instanceof \DOMElement) {
             /** @noinspection UnusedFunctionResultInspection */
-            $this->node->setAttribute(
-                $name,
-                HtmlDomParser::replaceToPreserveHtmlEntities((string) $value),
-            );
+            $node->setAttribute($name, HtmlDomParser::replaceToPreserveHtmlEntities((string) $value));
         }
 
         return $this;
@@ -321,10 +322,15 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return string
      */
-    public function text(): string {
-        return $this->getXmlDomParser()->fixHtmlOutput(
-            $this->node->textContent,
-        );
+    public function text(): string
+    {
+        $node = $this->node();
+
+        if ($node instanceof \DOMCharacterData) {
+            return XmlDomParser::putReplacedBackToPreserveHtmlEntities($node->nodeValue ?? '');
+        }
+
+        return $this->getXmlDomParser()->fixHtmlOutput($node->textContent);
     }
 
     /**
@@ -334,7 +340,8 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return string
      */
-    public function xml(bool $multiDecodeNewHtmlEntity = false): string {
+    public function xml(bool $multiDecodeNewHtmlEntity = false): string
+    {
         return $this->getXmlDomParser()->xml($multiDecodeNewHtmlEntity, false);
     }
 
@@ -348,7 +355,8 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *                          <p>DOMElement a new instance of class DOMElement or false
      *                          if an error occured.</p>
      */
-    protected function changeElementName(\DOMNode $node, string $name) {
+    protected function changeElementName(\DOMNode $node, string $name)
+    {
         $ownerDocument = $node->ownerDocument;
         if (!$ownerDocument) {
             return false;
@@ -361,14 +369,14 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
             $newNode->appendChild($child);
         }
 
-        foreach ($node->attributes ?? [] as $attrName => $attrNode) {
+        foreach ($node->attributes ?? [] as $attrNode) {
             /** @noinspection UnusedFunctionResultInspection */
-            $newNode->setAttribute($attrName, $attrNode);
+            $newNode->setAttribute($attrNode->nodeName, $attrNode->value);
         }
 
-        if ($newNode->ownerDocument) {
+        if ($node->parentNode) {
             /** @noinspection UnusedFunctionResultInspection */
-            $newNode->ownerDocument->replaceChild($newNode, $node);
+            $node->parentNode->replaceChild($newNode, $node);
         }
 
         return $newNode;
@@ -381,7 +389,8 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return SimpleXmlDomInterface|SimpleXmlDomInterface[]|SimpleXmlDomNodeInterface<SimpleXmlDomInterface>|null
      */
-    public function childNodes(int $idx = -1) {
+    public function childNodes(int $idx = -1)
+    {
         $nodeList = $this->getIterator();
 
         if ($idx === -1) {
@@ -398,7 +407,8 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return SimpleXmlDomInterface[]|SimpleXmlDomNodeInterface<SimpleXmlDomInterface>
      */
-    public function findMulti(string $selector): SimpleXmlDomNodeInterface {
+    public function findMulti(string $selector): SimpleXmlDomNodeInterface
+    {
         return $this->getXmlDomParser()->findMulti($selector);
     }
 
@@ -409,8 +419,21 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return false|SimpleXmlDomInterface[]|SimpleXmlDomNodeInterface<SimpleXmlDomInterface>
      */
-    public function findMultiOrFalse(string $selector) {
+    public function findMultiOrFalse(string $selector)
+    {
         return $this->getXmlDomParser()->findMultiOrFalse($selector);
+    }
+
+    /**
+     * Find nodes with a CSS or xPath selector or null, if no element is found.
+     *
+     * @param string $selector
+     *
+     * @return null|SimpleXmlDomInterface[]|SimpleXmlDomNodeInterface<SimpleXmlDomInterface>
+     */
+    public function findMultiOrNull(string $selector)
+    {
+        return $this->getXmlDomParser()->findMultiOrNull($selector);
     }
 
     /**
@@ -420,7 +443,8 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return SimpleXmlDomInterface
      */
-    public function findOne(string $selector): SimpleXmlDomInterface {
+    public function findOne(string $selector): SimpleXmlDomInterface
+    {
         return $this->getXmlDomParser()->findOne($selector);
     }
 
@@ -431,8 +455,21 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return false|SimpleXmlDomInterface
      */
-    public function findOneOrFalse(string $selector) {
+    public function findOneOrFalse(string $selector)
+    {
         return $this->getXmlDomParser()->findOneOrFalse($selector);
+    }
+
+    /**
+     * Find one node with a CSS or xPath selector or null, if no element is found.
+     *
+     * @param string $selector
+     *
+     * @return null|SimpleXmlDomInterface
+     */
+    public function findOneOrNull(string $selector)
+    {
+        return $this->getXmlDomParser()->findOneOrNull($selector);
     }
 
     /**
@@ -440,15 +477,16 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return SimpleXmlDomInterface|null
      */
-    public function firstChild() {
+    public function firstChild()
+    {
         /** @var \DOMNode|null $node */
-        $node = $this->node->firstChild;
+        $node = $this->node()->firstChild;
 
         if ($node === null) {
             return null;
         }
 
-        return new static($node);
+        return $this->createWrapper($node);
     }
 
     /**
@@ -458,9 +496,8 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return SimpleXmlDomInterface[]|SimpleXmlDomNodeInterface<SimpleXmlDomInterface>
      */
-    public function getElementByClass(
-        string $class,
-    ): SimpleXmlDomNodeInterface {
+    public function getElementByClass(string $class): SimpleXmlDomNodeInterface
+    {
         return $this->findMulti(".{$class}");
     }
 
@@ -471,7 +508,8 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return SimpleXmlDomInterface
      */
-    public function getElementById(string $id): SimpleXmlDomInterface {
+    public function getElementById(string $id): SimpleXmlDomInterface
+    {
         return $this->findOne("#{$id}");
     }
 
@@ -482,7 +520,8 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return SimpleXmlDomInterface
      */
-    public function getElementByTagName(string $name): SimpleXmlDomInterface {
+    public function getElementByTagName(string $name): SimpleXmlDomInterface
+    {
         if ($this->node instanceof \DOMElement) {
             $node = $this->node->getElementsByTagName($name)->item(0);
         } else {
@@ -493,7 +532,7 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
             return new SimpleXmlDomBlank();
         }
 
-        return new static($node);
+        return $this->createWrapper($node);
     }
 
     /**
@@ -504,7 +543,8 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return SimpleXmlDomInterface|SimpleXmlDomInterface[]|SimpleXmlDomNodeInterface<SimpleXmlDomInterface>
      */
-    public function getElementsById(string $id, $idx = null) {
+    public function getElementsById(string $id, $idx = null)
+    {
         return $this->find("#{$id}", $idx);
     }
 
@@ -516,7 +556,8 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return SimpleXmlDomInterface|SimpleXmlDomInterface[]|SimpleXmlDomNodeInterface<SimpleXmlDomInterface>
      */
-    public function getElementsByTagName(string $name, $idx = null) {
+    public function getElementsByTagName(string $name, $idx = null)
+    {
         if ($this->node instanceof \DOMElement) {
             $nodesList = $this->node->getElementsByTagName($name);
         } else {
@@ -526,7 +567,7 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
         $elements = new SimpleXmlDomNode();
 
         foreach ($nodesList as $node) {
-            $elements[] = new static($node);
+            $elements[] = $this->createWrapper($node);
         }
 
         // return all elements
@@ -550,8 +591,9 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
     /**
      * @return \DOMNode
      */
-    public function getNode(): \DOMNode {
-        return $this->node;
+    public function getNode(): \DOMNode
+    {
+        return $this->node();
     }
 
     /**
@@ -559,7 +601,8 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return XmlDomParser
      */
-    public function getXmlDomParser(): XmlDomParser {
+    public function getXmlDomParser(): XmlDomParser
+    {
         return new XmlDomParser($this);
     }
 
@@ -571,14 +614,9 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return string
      */
-    public function innerHtml(
-        bool $multiDecodeNewHtmlEntity = false,
-        bool $putBrokenReplacedBack = true,
-    ): string {
-        return $this->getXmlDomParser()->innerHtml(
-            $multiDecodeNewHtmlEntity,
-            $putBrokenReplacedBack,
-        );
+    public function innerHtml(bool $multiDecodeNewHtmlEntity = false, bool $putBrokenReplacedBack = true): string
+    {
+        return $this->getXmlDomParser()->innerHtml($multiDecodeNewHtmlEntity, $putBrokenReplacedBack);
     }
 
     /**
@@ -588,7 +626,8 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return bool true if node has been destroyed
      */
-    public function isRemoved(): bool {
+    public function isRemoved(): bool
+    {
         return !isset($this->node->nodeType);
     }
 
@@ -597,15 +636,16 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return SimpleXmlDomInterface|null
      */
-    public function lastChild() {
+    public function lastChild()
+    {
         /** @var \DOMNode|null $node */
-        $node = $this->node->lastChild;
+        $node = $this->node()->lastChild;
 
         if ($node === null) {
             return null;
         }
 
-        return new static($node);
+        return $this->createWrapper($node);
     }
 
     /**
@@ -613,15 +653,16 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return SimpleXmlDomInterface|null
      */
-    public function nextSibling() {
+    public function nextSibling()
+    {
         /** @var \DOMNode|null $node */
-        $node = $this->node->nextSibling;
+        $node = $this->node()->nextSibling;
 
         if ($node === null) {
             return null;
         }
 
-        return new static($node);
+        return $this->createWrapper($node);
     }
 
     /**
@@ -629,9 +670,10 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return SimpleXmlDomInterface|null
      */
-    public function nextNonWhitespaceSibling() {
+    public function nextNonWhitespaceSibling()
+    {
         /** @var \DOMNode|null $node */
-        $node = $this->node->nextSibling;
+        $node = $this->node()->nextSibling;
 
         if ($node === null) {
             return null;
@@ -642,7 +684,11 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
             $node = $node->nextSibling;
         }
 
-        return new static($node);
+        if ($node === null) {
+            return null;
+        }
+
+        return $this->createWrapper($node);
     }
 
     /**
@@ -650,8 +696,18 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return SimpleXmlDomInterface
      */
-    public function parentNode(): SimpleXmlDomInterface {
-        return new static($this->node->parentNode);
+    public function parentNode(): SimpleXmlDomInterface
+    {
+        $parentNode = $this->node()->parentNode;
+        if (
+            $parentNode === null
+            ||
+            $parentNode instanceof \DOMDocument
+        ) {
+            return new SimpleXmlDomBlank();
+        }
+
+        return $this->createWrapper($parentNode);
     }
 
     /**
@@ -659,15 +715,16 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return SimpleXmlDomInterface|null
      */
-    public function previousSibling() {
+    public function previousSibling()
+    {
         /** @var \DOMNode|null $node */
-        $node = $this->node->previousSibling;
+        $node = $this->node()->previousSibling;
 
         if ($node === null) {
             return null;
         }
 
-        return new static($node);
+        return $this->createWrapper($node);
     }
 
     /**
@@ -675,9 +732,10 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return SimpleXmlDomInterface|null
      */
-    public function previousNonWhitespaceSibling() {
+    public function previousNonWhitespaceSibling()
+    {
         /** @var \DOMNode|null $node */
-        $node = $this->node->previousSibling;
+        $node = $this->node()->previousSibling;
 
         while ($node && !\trim($node->textContent)) {
             /** @var \DOMNode|null $node */
@@ -688,7 +746,7 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
             return null;
         }
 
-        return new static($node);
+        return $this->createWrapper($node);
     }
 
     /**
@@ -699,37 +757,40 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return string|string[]|null
      */
-    public function val($value = null) {
+    public function val($value = null)
+    {
+        $node = $this->node();
+
         if ($value === null) {
             if (
-                $this->tag === "input" &&
-                ($this->getAttribute("type") === "hidden" ||
-                    $this->getAttribute("type") === "text" ||
-                    !$this->hasAttribute("type"))
+                $this->tag === 'input'
+                &&
+                (
+                    $this->getAttribute('type') === 'hidden'
+                    ||
+                    $this->getAttribute('type') === 'text'
+                    ||
+                    !$this->hasAttribute('type')
+                )
             ) {
-                return $this->getAttribute("value");
+                return $this->getAttribute('value');
             }
 
             if (
-                $this->hasAttribute("checked") &&
-                \in_array(
-                    $this->getAttribute("type"),
-                    ["checkbox", "radio"],
-                    true,
-                )
+                $this->hasAttribute('checked')
+                &&
+                \in_array($this->getAttribute('type'), ['checkbox', 'radio'], true)
             ) {
-                return $this->getAttribute("value");
+                return $this->getAttribute('value');
             }
 
-            if ($this->node->nodeName === "select") {
+            if ($node->nodeName === 'select') {
                 $valuesFromDom = [];
-                $options = $this->getElementsByTagName("option");
+                $options = $this->getElementsByTagName('option');
                 if ($options instanceof SimpleXmlDomNode) {
                     foreach ($options as $option) {
-                        if ($this->hasAttribute("checked")) {
-                            $valuesFromDom[] = (string) $option->getAttribute(
-                                "value",
-                            );
+                        if ($option->hasAttribute('selected')) {
+                            $valuesFromDom[] = (string) $option->getAttribute('value');
                         }
                     }
                 }
@@ -741,50 +802,37 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
                 return $valuesFromDom;
             }
 
-            if ($this->node->nodeName === "textarea") {
-                return $this->node->nodeValue;
+            if ($node->nodeName === 'textarea') {
+                return $node->nodeValue;
             }
         } else {
             /** @noinspection NestedPositiveIfStatementsInspection */
-            if (
-                \in_array(
-                    $this->getAttribute("type"),
-                    ["checkbox", "radio"],
-                    true,
-                )
-            ) {
-                if ($value === $this->getAttribute("value")) {
+            if (\in_array($this->getAttribute('type'), ['checkbox', 'radio'], true)) {
+                $selectedValues = \is_array($value) ? $value : [$value];
+                if (\in_array($this->getAttribute('value'), $selectedValues, true)) {
                     /** @noinspection UnusedFunctionResultInspection */
-                    $this->setAttribute("checked", "checked");
+                    $this->setAttribute('checked', 'checked');
                 } else {
                     /** @noinspection UnusedFunctionResultInspection */
-                    $this->removeAttribute("checked");
+                    $this->removeAttribute('checked');
                 }
-            } elseif (
-                $this->node instanceof \DOMElement &&
-                $this->node->nodeName === "select"
-            ) {
-                foreach (
-                    $this->node->getElementsByTagName("option")
-                    as $option
-                ) {
+            } elseif ($this->node instanceof \DOMElement && $this->node->nodeName === 'select') {
+                $selectedValues = \is_array($value) ? $value : [$value];
+                foreach ($this->node->getElementsByTagName('option') as $option) {
                     /** @var \DOMElement $option */
-                    if ($value === $option->getAttribute("value")) {
+                    if (\in_array($option->getAttribute('value'), $selectedValues, true)) {
                         /** @noinspection UnusedFunctionResultInspection */
-                        $option->setAttribute("selected", "selected");
+                        $option->setAttribute('selected', 'selected');
                     } else {
-                        $option->removeAttribute("selected");
+                        $option->removeAttribute('selected');
                     }
                 }
-            } elseif ($this->node->nodeName === "input" && \is_string($value)) {
+            } elseif ($node->nodeName === 'input' && \is_string($value)) {
                 // Set value for input elements
                 /** @noinspection UnusedFunctionResultInspection */
-                $this->setAttribute("value", $value);
-            } elseif (
-                $this->node->nodeName === "textarea" &&
-                \is_string($value)
-            ) {
-                $this->node->nodeValue = $value;
+                $this->setAttribute('value', $value);
+            } elseif ($node->nodeName === 'textarea' && \is_string($value)) {
+                $node->nodeValue = $value;
             }
         }
 
@@ -802,15 +850,30 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *                              <b>Traversable</b>
      *                           </p>
      */
-    public function getIterator(): SimpleXmlDomNodeInterface {
+    public function getIterator(): SimpleXmlDomNodeInterface
+    {
+        $node = $this->node();
         $elements = new SimpleXmlDomNode();
-        if ($this->node->hasChildNodes()) {
-            foreach ($this->node->childNodes as $node) {
-                $elements[] = new static($node);
+        if ($node->hasChildNodes()) {
+            foreach ($node->childNodes as $childNode) {
+                $elements[] = $this->createWrapper($childNode);
             }
         }
 
         return $elements;
+    }
+
+    private function createWrapper(\DOMNode $node): self
+    {
+        // @phpstan-ignore new.static (wrapper subclasses intentionally preserve late static binding)
+        return new static($node);
+    }
+
+    private function node(): \DOMNode
+    {
+        \assert($this->node instanceof \DOMNode);
+
+        return $this->node;
     }
 
     /**
@@ -820,23 +883,35 @@ class SimpleXmlDom extends AbstractSimpleXmlDom implements
      *
      * @return string
      */
-    private function normalizeStringForComparision($input): string {
+    private function normalizeStringForComparision($input): string
+    {
         if ($input instanceof XmlDomParser) {
             $string = $input->html(false, false);
         } else {
             $string = (string) $input;
         }
 
-        return \urlencode(
-            \urldecode(
-                \trim(
-                    \str_replace(
-                        [" ", "\n", "\r", "/>"],
-                        ["", "", "", ">"],
-                        \strtolower($string),
-                    ),
-                ),
-            ),
-        );
+        return
+            \urlencode(
+                \urldecode(
+                    \trim(
+                        \str_replace(
+                            [
+                                ' ',
+                                "\n",
+                                "\r",
+                                '/>',
+                            ],
+                            [
+                                '',
+                                '',
+                                '',
+                                '>',
+                            ],
+                            \strtolower($string)
+                        )
+                    )
+                )
+            );
     }
 }

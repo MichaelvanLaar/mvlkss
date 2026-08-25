@@ -7,23 +7,26 @@ namespace voku\helper;
 /**
  * {@inheritdoc}
  */
-class SimpleHtmlDomNode extends AbstractSimpleHtmlDomNode implements
-    SimpleHtmlDomNodeInterface {
+class SimpleHtmlDomNode extends AbstractSimpleHtmlDomNode implements SimpleHtmlDomNodeInterface
+{
     /**
      * Find list of nodes with a CSS selector.
      *
      * @param string   $selector
      * @param int|null $idx
      *
-     * @return SimpleHtmlDomNodeInterface<SimpleHtmlDomInterface>|SimpleHtmlDomNodeInterface[]|null
+     * @return SimpleHtmlDomInterface|SimpleHtmlDomNodeInterface<SimpleHtmlDomInterface>|null
      */
-    public function find(string $selector, $idx = null) {
+    public function find(string $selector, $idx = null)
+    {
         // init
-        $elements = new static();
+        $elements = $this->createNodeList();
 
         foreach ($this as $node) {
-            \assert($node instanceof SimpleHtmlDomInterface);
-            foreach ($node->find($selector) as $res) {
+            /** @var SimpleHtmlDomNodeInterface<SimpleHtmlDomInterface> $matches */
+            $matches = $node->find($selector);
+
+            foreach ($matches as $res) {
                 $elements[] = $res;
             }
         }
@@ -53,8 +56,12 @@ class SimpleHtmlDomNode extends AbstractSimpleHtmlDomNode implements
      *
      * @return SimpleHtmlDomInterface[]|SimpleHtmlDomNodeInterface<SimpleHtmlDomInterface>
      */
-    public function findMulti(string $selector): SimpleHtmlDomNodeInterface {
-        return $this->find($selector, null);
+    public function findMulti(string $selector): SimpleHtmlDomNodeInterface
+    {
+        /** @var SimpleHtmlDomNodeInterface<SimpleHtmlDomInterface> $return */
+        $return = $this->find($selector, null);
+
+        return $return;
     }
 
     /**
@@ -64,7 +71,9 @@ class SimpleHtmlDomNode extends AbstractSimpleHtmlDomNode implements
      *
      * @return false|SimpleHtmlDomInterface[]|SimpleHtmlDomNodeInterface<SimpleHtmlDomInterface>
      */
-    public function findMultiOrFalse(string $selector) {
+    public function findMultiOrFalse(string $selector)
+    {
+        /** @var SimpleHtmlDomNodeInterface<SimpleHtmlDomInterface> $return */
         $return = $this->find($selector, null);
 
         if ($return instanceof SimpleHtmlDomNodeBlank) {
@@ -75,13 +84,33 @@ class SimpleHtmlDomNode extends AbstractSimpleHtmlDomNode implements
     }
 
     /**
+     * Find nodes with a CSS selector or null, if no element is found.
+     *
+     * @param string $selector
+     *
+     * @return null|SimpleHtmlDomInterface[]|SimpleHtmlDomNodeInterface<SimpleHtmlDomInterface>
+     */
+    public function findMultiOrNull(string $selector)
+    {
+        /** @var SimpleHtmlDomNodeInterface<SimpleHtmlDomInterface> $return */
+        $return = $this->find($selector, null);
+
+        if ($return instanceof SimpleHtmlDomNodeBlank) {
+            return null;
+        }
+
+        return $return;
+    }
+
+    /**
      * Find one node with a CSS selector.
      *
      * @param string $selector
      *
-     * @return SimpleHtmlDomNodeInterface<SimpleHtmlDomInterface>
+     * @return SimpleHtmlDomInterface|SimpleHtmlDomNodeInterface<SimpleHtmlDomInterface>
      */
-    public function findOne(string $selector) {
+    public function findOne(string $selector)
+    {
         $return = $this->find($selector, 0);
 
         return $return ?? new SimpleHtmlDomNodeBlank();
@@ -92,12 +121,29 @@ class SimpleHtmlDomNode extends AbstractSimpleHtmlDomNode implements
      *
      * @param string $selector
      *
-     * @return false|SimpleHtmlDomNodeInterface<SimpleHtmlDomInterface>
+     * @return false|SimpleHtmlDomInterface
      */
-    public function findOneOrFalse(string $selector) {
+    public function findOneOrFalse(string $selector)
+    {
+        /** @var SimpleHtmlDomInterface|null $return */
         $return = $this->find($selector, 0);
 
         return $return ?? false;
+    }
+
+    /**
+     * Find one node with a CSS selector or null, if no element is found.
+     *
+     * @param string $selector
+     *
+     * @return null|SimpleHtmlDomInterface
+     */
+    public function findOneOrNull(string $selector)
+    {
+        /** @var SimpleHtmlDomInterface|null $return */
+        $return = $this->find($selector, 0);
+
+        return $return;
     }
 
     /**
@@ -105,7 +151,8 @@ class SimpleHtmlDomNode extends AbstractSimpleHtmlDomNode implements
      *
      * @return string[]
      */
-    public function innerHtml(): array {
+    public function innerHtml(): array
+    {
         // init
         $html = [];
 
@@ -121,7 +168,8 @@ class SimpleHtmlDomNode extends AbstractSimpleHtmlDomNode implements
      *
      * @return string[]
      */
-    public function innertext() {
+    public function innertext()
+    {
         return $this->innerHtml();
     }
 
@@ -130,7 +178,8 @@ class SimpleHtmlDomNode extends AbstractSimpleHtmlDomNode implements
      *
      * @return string[]
      */
-    public function outertext() {
+    public function outertext()
+    {
         return $this->innerHtml();
     }
 
@@ -139,7 +188,8 @@ class SimpleHtmlDomNode extends AbstractSimpleHtmlDomNode implements
      *
      * @return string[]
      */
-    public function text(): array {
+    public function text(): array
+    {
         // init
         $text = [];
 
@@ -148,5 +198,11 @@ class SimpleHtmlDomNode extends AbstractSimpleHtmlDomNode implements
         }
 
         return $text;
+    }
+
+    private function createNodeList(): self
+    {
+        // @phpstan-ignore new.static (node list wrappers intentionally preserve late static binding)
+        return new static();
     }
 }

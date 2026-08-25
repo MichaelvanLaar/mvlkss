@@ -23,13 +23,14 @@ use JsonSchema\Constraints\TypeCheck\LooseTypeCheck;
  *
  * @see    README.md
  */
-class Validator extends BaseConstraint {
-    public const SCHEMA_MEDIA_TYPE = "application/schema+json";
+class Validator extends BaseConstraint
+{
+    public const SCHEMA_MEDIA_TYPE = 'application/schema+json';
 
-    public const ERROR_NONE = 0;
-    public const ERROR_ALL = -1;
-    public const ERROR_DOCUMENT_VALIDATION = 1;
-    public const ERROR_SCHEMA_VALIDATION = 2;
+    public const ERROR_NONE                    = 0;
+    public const ERROR_ALL                     = -1;
+    public const ERROR_DOCUMENT_VALIDATION     = 1;
+    public const ERROR_SCHEMA_VALIDATION       = 2;
 
     /**
      * Validates the given data against the schema and returns an object containing the results
@@ -44,11 +45,8 @@ class Validator extends BaseConstraint {
      * @phpstan-param int-mask-of<Constraint::CHECK_MODE_*> $checkMode
      * @phpstan-return int-mask-of<Validator::ERROR_*>
      */
-    public function validate(
-        &$value,
-        $schema = null,
-        ?int $checkMode = null,
-    ): int {
+    public function validate(&$value, $schema = null, ?int $checkMode = null): int
+    {
         // reset errors prior to validation
         $this->reset();
 
@@ -60,15 +58,15 @@ class Validator extends BaseConstraint {
 
         // add provided schema to SchemaStorage with internal URI to allow internal $ref resolution
         $schemaURI = SchemaStorage::INTERNAL_PROVIDED_SCHEMA_URI;
-        if (LooseTypeCheck::propertyExists($schema, "id")) {
-            $schemaURI = LooseTypeCheck::propertyGet($schema, "id");
+        if (LooseTypeCheck::propertyExists($schema, 'id')) {
+            $schemaURI = LooseTypeCheck::propertyGet($schema, 'id');
         }
         if (LooseTypeCheck::propertyExists($schema, '$id')) {
             $schemaURI = LooseTypeCheck::propertyGet($schema, '$id');
         }
         $this->factory->getSchemaStorage()->addSchema($schemaURI, $schema);
 
-        $validator = $this->factory->createInstanceFor("schema");
+        $validator = $this->factory->createInstanceFor('schema');
         $schema = $this->factory->getSchemaStorage()->getSchema($schemaURI);
 
         // Boolean schema requires no further validation
@@ -87,7 +85,7 @@ class Validator extends BaseConstraint {
             }
 
             $validator = $this->factory->createInstanceFor(
-                DraftIdentifiers::byValue($dialect)->toConstraintName(),
+                DraftIdentifiers::byValue($dialect)->toConstraintName()
             );
         }
 
@@ -110,7 +108,8 @@ class Validator extends BaseConstraint {
      *
      * @phpstan-return int-mask-of<Validator::ERROR_*>
      */
-    public function check($value, $schema): int {
+    public function check($value, $schema): int
+    {
         return $this->validate($value, $schema);
     }
 
@@ -124,11 +123,8 @@ class Validator extends BaseConstraint {
      *
      * @phpstan-return int-mask-of<Validator::ERROR_*>
      */
-    public function coerce(&$value, $schema): int {
-        return $this->validate(
-            $value,
-            $schema,
-            Constraint::CHECK_MODE_COERCE_TYPES,
-        );
+    public function coerce(&$value, $schema): int
+    {
+        return $this->validate($value, $schema, Constraint::CHECK_MODE_COERCE_TYPES);
     }
 }

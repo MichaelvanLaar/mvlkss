@@ -2,7 +2,8 @@
 
 namespace voku\helper;
 
-interface DomParserInterface {
+interface DomParserInterface
+{
     /**
      * Find list of nodes with a CSS selector.
      *
@@ -32,6 +33,15 @@ interface DomParserInterface {
     public function findMultiOrFalse(string $selector);
 
     /**
+     * Find nodes with a CSS selector or null, if no element is found.
+     *
+     * @param string $selector
+     *
+     * @return mixed
+     */
+    public function findMultiOrNull(string $selector);
+
+    /**
      * Find one node with a CSS selector.
      *
      * @param string $selector
@@ -50,17 +60,22 @@ interface DomParserInterface {
     public function findOneOrFalse(string $selector);
 
     /**
+     * Find one node with a CSS selector or null, if no element is found.
+     *
+     * @param string $selector
+     *
+     * @return mixed
+     */
+    public function findOneOrNull(string $selector);
+
+    /**
      * @param string $content
      * @param bool   $multiDecodeNewHtmlEntity
      * @param bool   $putBrokenReplacedBack
      *
      * @return string
      */
-    public function fixHtmlOutput(
-        string $content,
-        bool $multiDecodeNewHtmlEntity = false,
-        bool $putBrokenReplacedBack = true,
-    ): string;
+    public function fixHtmlOutput(string $content, bool $multiDecodeNewHtmlEntity = false, bool $putBrokenReplacedBack = true): string;
 
     /**
      * @return \DOMDocument
@@ -122,10 +137,7 @@ interface DomParserInterface {
      *
      * @return string
      */
-    public function html(
-        bool $multiDecodeNewHtmlEntity = false,
-        bool $putBrokenReplacedBack = true,
-    ): string;
+    public function html(bool $multiDecodeNewHtmlEntity = false, bool $putBrokenReplacedBack = true): string;
 
     /**
      * Get dom node's inner html.
@@ -135,10 +147,7 @@ interface DomParserInterface {
      *
      * @return string
      */
-    public function innerHtml(
-        bool $multiDecodeNewHtmlEntity = false,
-        bool $putBrokenReplacedBack = true,
-    ): string;
+    public function innerHtml(bool $multiDecodeNewHtmlEntity = false, bool $putBrokenReplacedBack = true): string;
 
     /**
      * Get dom node's inner xml.
@@ -169,10 +178,7 @@ interface DomParserInterface {
      *
      * @return DomParserInterface
      */
-    public function loadHtmlFile(
-        string $filePath,
-        $libXMLExtraOptions = null,
-    ): self;
+    public function loadHtmlFile(string $filePath, $libXMLExtraOptions = null): self;
 
     /**
      * Save the html-dom as string.
@@ -181,7 +187,7 @@ interface DomParserInterface {
      *
      * @return string
      */
-    public function save(string $filepath = ""): string;
+    public function save(string $filepath = ''): string;
 
     /**
      * @param callable $functionName
@@ -209,10 +215,5 @@ interface DomParserInterface {
      *
      * @return string
      */
-    public function xml(
-        bool $multiDecodeNewHtmlEntity = false,
-        bool $htmlToXml = true,
-        bool $removeXmlHeader = true,
-        int $options = \LIBXML_NOEMPTYTAG,
-    ): string;
+    public function xml(bool $multiDecodeNewHtmlEntity = false, bool $htmlToXml = true, bool $removeXmlHeader = true, int $options = \LIBXML_NOEMPTYTAG): string;
 }

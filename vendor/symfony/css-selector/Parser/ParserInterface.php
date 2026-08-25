@@ -23,7 +23,8 @@ use Symfony\Component\CssSelector\Node\SelectorNode;
  *
  * @internal
  */
-interface ParserInterface {
+interface ParserInterface
+{
     /**
      * Parses given selector source into an array of tokens.
      *

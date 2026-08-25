@@ -5,34 +5,31 @@ declare(strict_types=1);
 namespace voku\helper;
 
 /**
- * @noinspection PhpHierarchyChecksInspection
- *
  * {@inheritdoc}
  *
  * @implements \IteratorAggregate<int, \DOMNode>
  */
-class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
-    \IteratorAggregate,
-    SimpleHtmlDomInterface {
+class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements \IteratorAggregate, SimpleHtmlDomInterface
+{
     /**
-     * @param string $name
-     * @param array  $arguments
+     * @param string       $name
+     * @param array<mixed> $arguments
      *
      * @throws \BadMethodCallException
      *
      * @return SimpleHtmlDomInterface|string|null
      */
-    public function __call($name, $arguments) {
+    public function __call($name, $arguments)
+    {
         $name = \strtolower($name);
 
         if (isset(self::$functionAliases[$name])) {
-            return \call_user_func_array(
-                [$this, self::$functionAliases[$name]],
-                $arguments,
-            );
+            $method = self::$functionAliases[$name];
+
+            return $this->{$method}(...$arguments);
         }
 
-        throw new \BadMethodCallException("Method does not exist");
+        throw new \BadMethodCallException('Method does not exist');
     }
 
     /**
@@ -43,12 +40,38 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return SimpleHtmlDomNodeInterface<SimpleHtmlDomInterface>
      */
-    public function find(string $selector, $idx = null) {
+    public function find(string $selector, $idx = null)
+    {
         return new SimpleHtmlDomNodeBlank();
     }
 
-    public function getTag(): string {
-        return "";
+    /**
+     * Find nodes with a CSS selector or null, if no element is found.
+     *
+     * @param string $selector
+     *
+     * @return null
+     */
+    public function findMultiOrNull(string $selector)
+    {
+        return null;
+    }
+
+    /**
+     * Find one node with a CSS selector or null, if no element is found.
+     *
+     * @param string $selector
+     *
+     * @return null
+     */
+    public function findOneOrNull(string $selector)
+    {
+        return null;
+    }
+
+    public function getTag(): string
+    {
+        return '';
     }
 
     /**
@@ -56,14 +79,16 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return null
      */
-    public function getAllAttributes() {
+    public function getAllAttributes()
+    {
         return null;
     }
 
     /**
      * @return bool
      */
-    public function hasAttributes(): bool {
+    public function hasAttributes(): bool
+    {
         return false;
     }
 
@@ -74,8 +99,9 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return string
      */
-    public function getAttribute(string $name): string {
-        return "";
+    public function getAttribute(string $name): string
+    {
+        return '';
     }
 
     /**
@@ -85,7 +111,8 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return bool
      */
-    public function hasAttribute(string $name): bool {
+    public function hasAttribute(string $name): bool
+    {
         return false;
     }
 
@@ -96,8 +123,9 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return string
      */
-    public function html(bool $multiDecodeNewHtmlEntity = false): string {
-        return "";
+    public function html(bool $multiDecodeNewHtmlEntity = false): string
+    {
+        return '';
     }
 
     /**
@@ -108,11 +136,9 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return string
      */
-    public function innerHtml(
-        bool $multiDecodeNewHtmlEntity = false,
-        bool $putBrokenReplacedBack = true,
-    ): string {
-        return "";
+    public function innerHtml(bool $multiDecodeNewHtmlEntity = false, bool $putBrokenReplacedBack = true): string
+    {
+        return '';
     }
 
     /**
@@ -122,7 +148,8 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return SimpleHtmlDomInterface
      */
-    public function removeAttribute(string $name): SimpleHtmlDomInterface {
+    public function removeAttribute(string $name): SimpleHtmlDomInterface
+    {
         return $this;
     }
 
@@ -131,7 +158,8 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return SimpleHtmlDomBlank
      */
-    public function removeAttributes(): SimpleHtmlDomInterface {
+    public function removeAttributes(): SimpleHtmlDomInterface
+    {
         return $this;
     }
 
@@ -141,11 +169,9 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return SimpleHtmlDomInterface
      */
-    protected function replaceChildWithString(
-        string $string,
-        bool $putBrokenReplacedBack = true,
-    ): SimpleHtmlDomInterface {
-        return new static();
+    protected function replaceChildWithString(string $string, bool $putBrokenReplacedBack = true): SimpleHtmlDomInterface
+    {
+        return $this->blankInstance();
     }
 
     /**
@@ -153,10 +179,9 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return SimpleHtmlDomInterface
      */
-    protected function replaceNodeWithString(
-        string $string,
-    ): SimpleHtmlDomInterface {
-        return new static();
+    protected function replaceNodeWithString(string $string): SimpleHtmlDomInterface
+    {
+        return $this->blankInstance();
     }
 
     /**
@@ -164,8 +189,9 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return SimpleHtmlDomInterface
      */
-    protected function replaceTextWithString($string): SimpleHtmlDomInterface {
-        return new static();
+    protected function replaceTextWithString($string): SimpleHtmlDomInterface
+    {
+        return $this->blankInstance();
     }
 
     /**
@@ -180,11 +206,8 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return SimpleHtmlDomInterface
      */
-    public function setAttribute(
-        string $name,
-        $value = null,
-        bool $strictEmptyValueCheck = false,
-    ): SimpleHtmlDomInterface {
+    public function setAttribute(string $name, $value = null, bool $strictEmptyValueCheck = false): SimpleHtmlDomInterface
+    {
         return $this;
     }
 
@@ -193,8 +216,9 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return string
      */
-    public function text(): string {
-        return "";
+    public function text(): string
+    {
+        return '';
     }
 
     /**
@@ -204,7 +228,8 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return null
      */
-    public function childNodes(int $idx = -1) {
+    public function childNodes(int $idx = -1)
+    {
         return null;
     }
 
@@ -215,7 +240,8 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return SimpleHtmlDomNodeInterface<SimpleHtmlDomInterface>
      */
-    public function findMulti(string $selector): SimpleHtmlDomNodeInterface {
+    public function findMulti(string $selector): SimpleHtmlDomNodeInterface
+    {
         return new SimpleHtmlDomNodeBlank();
     }
 
@@ -226,7 +252,8 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return false
      */
-    public function findMultiOrFalse(string $selector) {
+    public function findMultiOrFalse(string $selector)
+    {
         return false;
     }
 
@@ -237,8 +264,9 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return SimpleHtmlDomInterface
      */
-    public function findOne(string $selector): SimpleHtmlDomInterface {
-        return new static();
+    public function findOne(string $selector): SimpleHtmlDomInterface
+    {
+        return $this->blankInstance();
     }
 
     /**
@@ -248,7 +276,8 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return false
      */
-    public function findOneOrFalse(string $selector) {
+    public function findOneOrFalse(string $selector)
+    {
         return false;
     }
 
@@ -257,7 +286,8 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return null
      */
-    public function firstChild() {
+    public function firstChild()
+    {
         return null;
     }
 
@@ -268,9 +298,8 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return SimpleHtmlDomNodeInterface<SimpleHtmlDomInterface>
      */
-    public function getElementByClass(
-        string $class,
-    ): SimpleHtmlDomNodeInterface {
+    public function getElementByClass(string $class): SimpleHtmlDomNodeInterface
+    {
         return new SimpleHtmlDomNodeBlank();
     }
 
@@ -281,8 +310,9 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return SimpleHtmlDomInterface
      */
-    public function getElementById(string $id): SimpleHtmlDomInterface {
-        return new static();
+    public function getElementById(string $id): SimpleHtmlDomInterface
+    {
+        return $this->blankInstance();
     }
 
     /**
@@ -292,8 +322,9 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return SimpleHtmlDomInterface
      */
-    public function getElementByTagName(string $name): SimpleHtmlDomInterface {
-        return new static();
+    public function getElementByTagName(string $name): SimpleHtmlDomInterface
+    {
+        return $this->blankInstance();
     }
 
     /**
@@ -304,7 +335,8 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return SimpleHtmlDomNodeInterface<SimpleHtmlDomInterface>
      */
-    public function getElementsById(string $id, $idx = null) {
+    public function getElementsById(string $id, $idx = null)
+    {
         return new SimpleHtmlDomNodeBlank();
     }
 
@@ -316,7 +348,8 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return SimpleHtmlDomNodeInterface<SimpleHtmlDomInterface>
      */
-    public function getElementsByTagName(string $name, $idx = null) {
+    public function getElementsByTagName(string $name, $idx = null)
+    {
         return new SimpleHtmlDomNodeBlank();
     }
 
@@ -325,14 +358,16 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return HtmlDomParser
      */
-    public function getHtmlDomParser(): HtmlDomParser {
+    public function getHtmlDomParser(): HtmlDomParser
+    {
         return new HtmlDomParser($this);
     }
 
     /**
      * @return \DOMNode
      */
-    public function getNode(): \DOMNode {
+    public function getNode(): \DOMNode
+    {
         return new \DOMNode();
     }
 
@@ -343,7 +378,8 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return bool true if node has been destroyed
      */
-    public function isRemoved(): bool {
+    public function isRemoved(): bool
+    {
         return true;
     }
 
@@ -352,7 +388,8 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return null
      */
-    public function lastChild() {
+    public function lastChild()
+    {
         return null;
     }
 
@@ -361,7 +398,8 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return null
      */
-    public function nextSibling() {
+    public function nextSibling()
+    {
         return null;
     }
 
@@ -370,7 +408,8 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return null
      */
-    public function nextNonWhitespaceSibling() {
+    public function nextNonWhitespaceSibling()
+    {
         return null;
     }
 
@@ -379,7 +418,8 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return null
      */
-    public function previousNonWhitespaceSibling() {
+    public function previousNonWhitespaceSibling()
+    {
         return null;
     }
 
@@ -388,8 +428,9 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return SimpleHtmlDomInterface|null
      */
-    public function parentNode(): ?SimpleHtmlDomInterface {
-        return new static();
+    public function parentNode(): ?SimpleHtmlDomInterface
+    {
+        return $this->blankInstance();
     }
 
     /**
@@ -397,7 +438,8 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return null
      */
-    public function previousSibling() {
+    public function previousSibling()
+    {
         return null;
     }
 
@@ -409,7 +451,8 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return string|string[]|null
      */
-    public function val($value = null) {
+    public function val($value = null)
+    {
         return null;
     }
 
@@ -424,8 +467,15 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *                              <b>Traversable</b>
      *                           </p>
      */
-    public function getIterator(): SimpleHtmlDomNodeInterface {
+    public function getIterator(): SimpleHtmlDomNodeInterface
+    {
         return new SimpleHtmlDomNodeBlank();
+    }
+
+    private function blankInstance(): self
+    {
+        // @phpstan-ignore new.static (blank wrappers intentionally preserve late static binding)
+        return new static();
     }
 
     /**
@@ -435,16 +485,28 @@ class SimpleHtmlDomBlank extends AbstractSimpleHtmlDom implements
      *
      * @return string
      */
-    public function innerXml(bool $multiDecodeNewHtmlEntity = false): string {
-        return "";
+    public function innerXml(bool $multiDecodeNewHtmlEntity = false): string
+    {
+        return '';
     }
 
     /**
-     * Delete
+     * Remove this node from the DOM
      *
      * @return void
      */
-    public function delete() {
-        $this->outertext = "";
+    public function delete()
+    {
+        $this->outertext='';
+    }
+
+    /**
+     * Remove this node from the DOM (alias for delete).
+     *
+     * @return void
+     */
+    public function remove()
+    {
+        $this->delete();
     }
 }

@@ -7,7 +7,8 @@ namespace voku\helper;
 /**
  * {@inheritdoc}
  */
-class SimpleHtmlAttributes implements SimpleHtmlAttributesInterface {
+class SimpleHtmlAttributes implements SimpleHtmlAttributesInterface
+{
     /**
      * @var string
      */
@@ -38,7 +39,8 @@ class SimpleHtmlAttributes implements SimpleHtmlAttributesInterface {
      * @param string $attributeName
      *                                  <p>The name of the attribute.</p>
      */
-    public function __construct($element, string $attributeName) {
+    public function __construct($element, string $attributeName)
+    {
         $this->element = $element;
         $this->attributeName = $attributeName;
 
@@ -54,14 +56,15 @@ class SimpleHtmlAttributes implements SimpleHtmlAttributesInterface {
      *
      * @return int|string The value of the property specified
      */
-    public function __get(string $name) {
-        if ($name === "length") {
+    public function __get(string $name)
+    {
+        if ($name === 'length') {
             $this->tokenize();
 
             return \count($this->tokens);
         }
 
-        if ($name === "value") {
+        if ($name === 'value') {
             return (string) $this;
         }
 
@@ -71,16 +74,18 @@ class SimpleHtmlAttributes implements SimpleHtmlAttributesInterface {
     /**
      * @return string
      */
-    public function __toString(): string {
+    public function __toString(): string
+    {
         $this->tokenize();
 
-        return \implode(" ", $this->tokens);
+        return \implode(' ', $this->tokens);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function add(string ...$tokens) {
+    public function add(string ...$tokens)
+    {
         if (\count($tokens) === 0) {
             return null;
         }
@@ -99,7 +104,8 @@ class SimpleHtmlAttributes implements SimpleHtmlAttributesInterface {
     /**
      * {@inheritdoc}
      */
-    public function contains(string $token): bool {
+    public function contains(string $token): bool
+    {
         $this->tokenize();
 
         return \in_array($token, $this->tokens, true);
@@ -108,13 +114,18 @@ class SimpleHtmlAttributes implements SimpleHtmlAttributesInterface {
     /**
      * {@inheritdoc}
      */
-    public function entries(): \ArrayIterator {
+    public function entries(): \ArrayIterator
+    {
         $this->tokenize();
 
-        return new \ArrayIterator($this->tokens);
+        /** @var \ArrayIterator<int, string> $iterator */
+        $iterator = new \ArrayIterator($this->tokens);
+
+        return $iterator;
     }
 
-    public function item(int $index) {
+    public function item(int $index)
+    {
         $this->tokenize();
         if ($index >= \count($this->tokens)) {
             return null;
@@ -126,7 +137,8 @@ class SimpleHtmlAttributes implements SimpleHtmlAttributesInterface {
     /**
      * {@inheritdoc}
      */
-    public function remove(string ...$tokens) {
+    public function remove(string ...$tokens)
+    {
         if (\count($tokens) === 0) {
             return null;
         }
@@ -150,7 +162,8 @@ class SimpleHtmlAttributes implements SimpleHtmlAttributesInterface {
     /**
      * {@inheritdoc}
      */
-    public function replace(string $old, string $new) {
+    public function replace(string $old, string $new)
+    {
         if ($old === $new) {
             return null;
         }
@@ -160,7 +173,9 @@ class SimpleHtmlAttributes implements SimpleHtmlAttributesInterface {
         if ($i !== false) {
             $j = \array_search($new, $this->tokens, true);
             if ($j === false) {
-                $this->tokens[$i] = $new;
+                $tokens = $this->tokens;
+                $tokens[$i] = $new;
+                $this->tokens = \array_values($tokens);
             } else {
                 \array_splice($this->tokens, $i, 1);
             }
@@ -174,7 +189,8 @@ class SimpleHtmlAttributes implements SimpleHtmlAttributesInterface {
     /**
      * {@inheritdoc}
      */
-    public function toggle(string $token, bool $force = null): bool {
+    public function toggle(string $token, ?bool $force = null): bool
+    {
         // init
         $this->tokenize();
         $isThereAfter = false;
@@ -208,12 +224,13 @@ class SimpleHtmlAttributes implements SimpleHtmlAttributesInterface {
     /**
      * @return \DOMAttr|false|null
      */
-    private function setAttributeValue() {
+    private function setAttributeValue()
+    {
         if ($this->element === null) {
             return false;
         }
 
-        $value = \implode(" ", $this->tokens);
+        $value = \implode(' ', $this->tokens);
         if ($this->previousValue === $value) {
             return null;
         }
@@ -226,7 +243,8 @@ class SimpleHtmlAttributes implements SimpleHtmlAttributesInterface {
     /**
      * @return void
      */
-    private function tokenize() {
+    private function tokenize()
+    {
         if ($this->element === null) {
             return;
         }
@@ -237,10 +255,10 @@ class SimpleHtmlAttributes implements SimpleHtmlAttributesInterface {
         }
 
         $this->previousValue = $current;
-        $tokens = \explode(" ", $current);
+        $tokens = \explode(' ', $current);
         $finals = [];
         foreach ($tokens as $token) {
-            if ($token === "") {
+            if ($token === '') {
                 continue;
             }
 

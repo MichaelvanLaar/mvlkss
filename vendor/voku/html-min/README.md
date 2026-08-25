@@ -1,8 +1,8 @@
 [![Build Status](https://github.com/voku/HtmlMin/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/voku/HtmlMin/actions)
 [![Coverage Status](https://coveralls.io/repos/github/voku/HtmlMin/badge.svg?branch=master)](https://coveralls.io/github/voku/HtmlMin?branch=master)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a433ed2b3b7546b3a1c520310222a601)](https://www.codacy.com/app/voku/HtmlMin?utm_source=github.com&utm_medium=referral&utm_content=voku/HtmlMin&utm_campaign=Badge_Grade)
-[![Latest Stable Version](https://poser.pugx.org/voku/html-min/v/stable)](https://packagist.org/packages/voku/html-min)
-[![Total Downloads](https://poser.pugx.org/voku/html-min/downloads)](https://packagist.org/packages/voku/html-min)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a433ed2b3b7546b3a1c520310222a601)](https://www.codacy.com/app/voku/HtmlMin?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=voku/HtmlMin&amp;utm_campaign=Badge_Grade)
+[![Latest Stable Version](https://poser.pugx.org/voku/html-min/v/stable)](https://packagist.org/packages/voku/html-min) 
+[![Total Downloads](https://poser.pugx.org/voku/html-min/downloads)](https://packagist.org/packages/voku/html-min) 
 [![License](https://poser.pugx.org/voku/html-min/license)](https://packagist.org/packages/voku/html-min)
 [![Donate to this project using Paypal](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.me/moelleken)
 [![Donate to this project using Patreon](https://img.shields.io/badge/patreon-donate-yellow.svg)](https://www.patreon.com/voku)
@@ -12,6 +12,7 @@
 ### Description
 
 HtmlMin is a fast and very easy to use PHP library that minifies given HTML5 source by removing extra whitespaces, comments and other unneeded characters without breaking the content structure. As a result pages become smaller in size and load faster. It will also prepare the HTML for better gzip results, by re-ranging (sort alphabetical) attributes and css-class-names.
+
 
 ### Install via "composer require"
 
@@ -42,7 +43,7 @@ $html = "
 ";
 $htmlMin = new HtmlMin();
 
-echo $htmlMin->minify($html);
+echo $htmlMin->minify($html); 
 // '<html><body><ul><li class=foo style="display: inline;"> à <li class=foo style="display: inline;"> á </ul>'
 ```
 
@@ -53,48 +54,68 @@ use voku\helper\HtmlMin;
 
 $htmlMin = new HtmlMin();
 
-/*
+/* 
  * Protected HTML (inline css / inline js / conditional comments) are still protected,
  *    no matter what settings you use.
  */
 
-$htmlMin->doOptimizeViaHtmlDomParser(); // optimize html via "HtmlDomParser()"
-$htmlMin->doRemoveComments(); // remove default HTML comments (depends on "doOptimizeViaHtmlDomParser(true)")
-$htmlMin->doSumUpWhitespace(); // sum-up extra whitespace from the Dom (depends on "doOptimizeViaHtmlDomParser(true)")
-$htmlMin->doRemoveWhitespaceAroundTags(); // remove whitespace around tags (depends on "doOptimizeViaHtmlDomParser(true)")
-$htmlMin->doOptimizeAttributes(); // optimize html attributes (depends on "doOptimizeViaHtmlDomParser(true)")
-$htmlMin->doRemoveHttpPrefixFromAttributes(); // remove optional "http:"-prefix from attributes (depends on "doOptimizeAttributes(true)")
-$htmlMin->doRemoveHttpsPrefixFromAttributes(); // remove optional "https:"-prefix from attributes (depends on "doOptimizeAttributes(true)")
-$htmlMin->doKeepHttpAndHttpsPrefixOnExternalAttributes(); // keep "http:"- and "https:"-prefix for all external links
-$htmlMin->doMakeSameDomainsLinksRelative(["example.com"]); // make some links relative, by removing the domain from attributes
-$htmlMin->doRemoveDefaultAttributes(); // remove defaults (depends on "doOptimizeAttributes(true)" | disabled by default)
-$htmlMin->doRemoveDeprecatedAnchorName(); // remove deprecated anchor-jump (depends on "doOptimizeAttributes(true)")
+$htmlMin->doOptimizeViaHtmlDomParser();               // optimize html via "HtmlDomParser()"
+$htmlMin->doRemoveComments();                         // remove default HTML comments (depends on "doOptimizeViaHtmlDomParser(true)")
+$htmlMin->doRemoveCommentsOnly();                     // remove HTML comments only, without changing any other HTML
+$htmlMin->doSumUpWhitespace();                        // sum-up extra whitespace from the Dom (depends on "doOptimizeViaHtmlDomParser(true)")
+$htmlMin->doRemoveWhitespaceAroundTags();             // remove whitespace around tags (depends on "doOptimizeViaHtmlDomParser(true)")
+$htmlMin->doOptimizeAttributes();                     // optimize html attributes (depends on "doOptimizeViaHtmlDomParser(true)")
+$htmlMin->doRemoveHttpPrefixFromAttributes();         // remove optional "http:"-prefix from attributes (depends on "doOptimizeAttributes(true)")
+$htmlMin->doRemoveHttpsPrefixFromAttributes();        // remove optional "https:"-prefix from attributes (depends on "doOptimizeAttributes(true)")
+$htmlMin->doKeepHttpAndHttpsPrefixOnExternalAttributes(); // keep "http:"- and "https:"-prefix for all external links 
+$htmlMin->setLocalDomains(['example.com'])->doMakeSameDomainsLinksRelative(); // make some links relative, by removing the domain from attributes
+$htmlMin->doRemoveDefaultAttributes();                // remove defaults (depends on "doOptimizeAttributes(true)" | disabled by default)
+$htmlMin->doRemoveDeprecatedAnchorName();             // remove deprecated anchor-jump (depends on "doOptimizeAttributes(true)")
 $htmlMin->doRemoveDeprecatedScriptCharsetAttribute(); // remove deprecated charset-attribute - the browser will use the charset from the HTTP-Header, anyway (depends on "doOptimizeAttributes(true)")
-$htmlMin->doRemoveDeprecatedTypeFromScriptTag(); // remove deprecated script-mime-types (depends on "doOptimizeAttributes(true)")
+$htmlMin->doRemoveDeprecatedTypeFromScriptTag();      // remove deprecated script-mime-types (depends on "doOptimizeAttributes(true)")
+$htmlMin->doMinifyJavaScript();                       // minify inline JavaScript inside regular <script> tags (disabled by default)
 $htmlMin->doRemoveDeprecatedTypeFromStylesheetLink(); // remove "type=text/css" for css links (depends on "doOptimizeAttributes(true)")
 $htmlMin->doRemoveDeprecatedTypeFromStyleAndLinkTag(); // remove "type=text/css" from all links and styles
 $htmlMin->doRemoveDefaultMediaTypeFromStyleAndLinkTag(); // remove "media="all" from all links and styles
-$htmlMin->doRemoveDefaultTypeFromButton(); // remove type="submit" from button tags
-$htmlMin->doRemoveEmptyAttributes(); // remove some empty attributes (depends on "doOptimizeAttributes(true)")
-$htmlMin->doRemoveValueFromEmptyInput(); // remove 'value=""' from empty <input> (depends on "doOptimizeAttributes(true)")
-$htmlMin->doSortCssClassNames(); // sort css-class-names, for better gzip results (depends on "doOptimizeAttributes(true)")
-$htmlMin->doSortHtmlAttributes(); // sort html-attributes, for better gzip results (depends on "doOptimizeAttributes(true)")
-$htmlMin->doRemoveSpacesBetweenTags(); // remove more (aggressive) spaces in the dom (disabled by default)
-$htmlMin->doRemoveOmittedQuotes(); // remove quotes e.g. class="lall" => class=lall
-$htmlMin->doRemoveOmittedHtmlTags(); // remove ommitted html tags e.g. <p>lall</p> => <p>lall
+$htmlMin->doRemoveDefaultTypeFromButton();            // remove type="submit" from button tags 
+$htmlMin->doRemoveEmptyAttributes();                  // remove some empty attributes (depends on "doOptimizeAttributes(true)")
+$htmlMin->doRemoveDataAttributes();                   // remove all "data-*" attributes (depends on "doOptimizeAttributes(true)" | disabled by default)
+$htmlMin->doRemoveValueFromEmptyInput();              // remove 'value=""' from empty <input> (depends on "doOptimizeAttributes(true)")
+$htmlMin->doSortCssClassNames();                      // sort css-class-names, for better gzip results (depends on "doOptimizeAttributes(true)")
+$htmlMin->doSortHtmlAttributes();                     // sort html-attributes, for better gzip results (depends on "doOptimizeAttributes(true)")
+$htmlMin->doRemoveSpacesBetweenTags();                // remove more (aggressive) spaces in the dom (disabled by default)
+$htmlMin->doRemoveOmittedQuotes();                    // remove quotes e.g. class="lall" => class=lall
+$htmlMin->doRemoveOmittedHtmlTags();                  // apply supported WHATWG optional tag omission rules e.g. <p>lall</p> => <p>lall
 ```
+
+Current optional tag support from the WHATWG HTML syntax rules:
+
+- `<html>`: start tag may be omitted when the first child is not a comment; end tag may be omitted when the element is not immediately followed by a comment.
+- `<head>`: start tag may be omitted when the element is empty or starts with an element; end tag may be omitted when it is not immediately followed by ASCII whitespace or a comment.
+- `<body>`: start tag may be omitted when the element is empty or starts with something other than ASCII whitespace / a comment / `meta` / `noscript` / `link` / `script` / `style` / `template`; end tag may be omitted when it is not immediately followed by a comment.
+- `<p>`: end tag may be omitted before `address`, `article`, `aside`, `blockquote`, `details`, `dialog`, `div`, `dl`, `fieldset`, `figcaption`, `figure`, `footer`, `form`, `h1`-`h6`, `header`, `hgroup`, `hr`, `main`, `menu`, `nav`, `ol`, `p`, `pre`, `search`, `section`, `table`, or `ul`, or at the end of the parent when the parent is not `a`, `audio`, `del`, `ins`, `map`, `noscript`, `video`, or an autonomous custom element.
+- `<li>`, `<dt>`, `<dd>`, `<rt>`, `<rp>`, `<tr>`, `<td>`, and `<th>`: the end tag may be omitted in the standard adjacent-sibling / end-of-parent cases from the spec.
+- `<option>`: the end tag may be omitted before another `option`, `optgroup`, or `hr`, or at the end of the parent.
+- `<optgroup>`: the end tag may be omitted before another `optgroup` or `hr`, or at the end of the parent.
+- `<colgroup>`: the start tag may be omitted when the first child is `col` and the previous omitted-tag rule does not block it; the end tag may be omitted when it is not immediately followed by ASCII whitespace or a comment.
+- `<caption>`: the end tag may be omitted when it is not immediately followed by ASCII whitespace or a comment.
+- `<thead>`: the end tag may be omitted before `tbody` or `tfoot`.
+- `<tbody>`: the start tag may be omitted when the first child is `tr` and the previous omitted-tag rule does not block it; the end tag may be omitted before `tbody` / `tfoot` or at the end of the parent.
+- `<tfoot>`: the end tag may be omitted at the end of the parent.
+
+Start tags are never omitted when the element has attributes.
 
 PS: you can use the "nocompress"-tag to keep the html e.g.: "<nocompress>\n foobar \n</nocompress>"
 
 ### Unit Test
 
-1. [Composer](https://getcomposer.org) is a prerequisite for running the tests.
+1) [Composer](https://getcomposer.org) is a prerequisite for running the tests.
 
 ```
 composer require voku/html-min
 ```
 
-2. The tests can be executed by running this command from the root directory:
+2) The tests can be executed by running this command from the root directory:
 
 ```bash
 ./vendor/bin/phpunit

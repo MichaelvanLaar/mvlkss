@@ -43,10 +43,11 @@ namespace voku\helper;
  *
  * @extends \IteratorAggregate<int, \DOMNode>
  */
-interface SimpleXmlDomInterface extends \IteratorAggregate {
+interface SimpleXmlDomInterface extends \IteratorAggregate
+{
     /**
-     * @param string $name
-     * @param array  $arguments
+     * @param string       $name
+     * @param array<mixed> $arguments
      *
      * @throws \BadMethodCallException
      *
@@ -57,7 +58,7 @@ interface SimpleXmlDomInterface extends \IteratorAggregate {
     /**
      * @param string $name
      *
-     * @return array|string|null
+     * @return array<int, string>|string|null
      */
     public function __get($name);
 
@@ -119,6 +120,15 @@ interface SimpleXmlDomInterface extends \IteratorAggregate {
     public function findMultiOrFalse(string $selector);
 
     /**
+     * Find nodes with a CSS or xPath selector or null, if no element is found.
+     *
+     * @param string $selector
+     *
+     * @return null|SimpleXmlDomInterface[]|SimpleXmlDomNodeInterface<SimpleXmlDomInterface>
+     */
+    public function findMultiOrNull(string $selector);
+
+    /**
      * Find one node with a CSS or xPath selector.
      *
      * @param string $selector
@@ -135,6 +145,15 @@ interface SimpleXmlDomInterface extends \IteratorAggregate {
      * @return false|SimpleXmlDomInterface
      */
     public function findOneOrFalse(string $selector);
+
+    /**
+     * Find one node with a CSS or xPath selector or null, if no element is found.
+     *
+     * @param string $selector
+     *
+     * @return null|SimpleXmlDomInterface
+     */
+    public function findOneOrNull(string $selector);
 
     /**
      * Returns the first child of node.
@@ -253,10 +272,7 @@ interface SimpleXmlDomInterface extends \IteratorAggregate {
      *
      * @return string
      */
-    public function innerHtml(
-        bool $multiDecodeNewHtmlEntity = false,
-        bool $putBrokenReplacedBack = true,
-    ): string;
+    public function innerHtml(bool $multiDecodeNewHtmlEntity = false, bool $putBrokenReplacedBack = true): string;
 
     /**
      * Get dom node's inner html.
@@ -339,11 +355,7 @@ interface SimpleXmlDomInterface extends \IteratorAggregate {
      *
      * @return SimpleXmlDomInterface
      */
-    public function setAttribute(
-        string $name,
-        $value = null,
-        bool $strictEmptyValueCheck = false,
-    ): self;
+    public function setAttribute(string $name, $value = null, bool $strictEmptyValueCheck = false): self;
 
     /**
      * Get dom node's plain text.

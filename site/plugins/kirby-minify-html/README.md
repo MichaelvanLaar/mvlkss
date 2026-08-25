@@ -1,6 +1,6 @@
 # Kirby Minify HTML
 
-Enable minify HTML output for Kirby 3 and 4.
+Enable minify HTML output for Kirby.
 
 ## Installation
 
@@ -24,12 +24,12 @@ The default values of the package are:
 | :------------------------------- | :------ | :------ | :------------------------------------------ |
 | afbora.kirby-minify-html.enabled | true    | boolean | Enable/disable minify                       |
 | afbora.kirby-minify-html.ignore  | []      | array   | Ignore minifying for the selected templates |
-| afbora.kirby-minify-html.options | []      | array   | Minify options \*                           |
+| afbora.kirby-minify-html.options | []      | array   | Minify options *                            |
 
 ### Available Minify Options
 
 | Option                                       | Description                                                                                                                                   |
-| :------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
+| :------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------- |
 | doOptimizeViaHtmlDomParser                   | optimize html via "HtmlDomParser()"                                                                                                           |
 | doRemoveComments                             | remove default HTML comments (depends on "doOptimizeViaHtmlDomParser(true)")                                                                  |
 | doSumUpWhitespace                            | sum-up extra whitespace from the Dom (depends on "doOptimizeViaHtmlDomParser(true)")                                                          |

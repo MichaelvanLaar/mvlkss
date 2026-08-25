@@ -7,23 +7,26 @@ namespace voku\helper;
 /**
  * {@inheritdoc}
  */
-class SimpleXmlDomNode extends AbstractSimpleXmlDomNode implements
-    SimpleXmlDomNodeInterface {
+class SimpleXmlDomNode extends AbstractSimpleXmlDomNode implements SimpleXmlDomNodeInterface
+{
     /**
      * Find list of nodes with a CSS or xPath selector.
      *
      * @param string   $selector
      * @param int|null $idx
      *
-     * @return SimpleXmlDomNodeInterface<SimpleXmlDomInterface>|SimpleXmlDomNodeInterface[]|null
+     * @return SimpleXmlDomInterface|SimpleXmlDomNodeInterface<SimpleXmlDomInterface>|null
      */
-    public function find(string $selector, $idx = null) {
+    public function find(string $selector, $idx = null)
+    {
         // init
-        $elements = new static();
+        $elements = $this->createNodeList();
 
         foreach ($this as $node) {
-            \assert($node instanceof SimpleXmlDomInterface);
-            foreach ($node->find($selector) as $res) {
+            /** @var SimpleXmlDomNodeInterface<SimpleXmlDomInterface> $matches */
+            $matches = $node->find($selector);
+
+            foreach ($matches as $res) {
                 $elements->append($res);
             }
         }
@@ -53,8 +56,12 @@ class SimpleXmlDomNode extends AbstractSimpleXmlDomNode implements
      *
      * @return SimpleXmlDomInterface[]|SimpleXmlDomNodeInterface<SimpleXmlDomInterface>
      */
-    public function findMulti(string $selector): SimpleXmlDomNodeInterface {
-        return $this->find($selector, null);
+    public function findMulti(string $selector): SimpleXmlDomNodeInterface
+    {
+        /** @var SimpleXmlDomNodeInterface<SimpleXmlDomInterface> $return */
+        $return = $this->find($selector, null);
+
+        return $return;
     }
 
     /**
@@ -64,7 +71,9 @@ class SimpleXmlDomNode extends AbstractSimpleXmlDomNode implements
      *
      * @return false|SimpleXmlDomInterface[]|SimpleXmlDomNodeInterface<SimpleXmlDomInterface>
      */
-    public function findMultiOrFalse(string $selector) {
+    public function findMultiOrFalse(string $selector)
+    {
+        /** @var SimpleXmlDomNodeInterface<SimpleXmlDomInterface> $return */
         $return = $this->find($selector, null);
 
         if ($return instanceof SimpleXmlDomNodeBlank) {
@@ -75,13 +84,33 @@ class SimpleXmlDomNode extends AbstractSimpleXmlDomNode implements
     }
 
     /**
+     * Find nodes with a CSS or xPath selector or null, if no element is found.
+     *
+     * @param string $selector
+     *
+     * @return null|SimpleXmlDomInterface[]|SimpleXmlDomNodeInterface<SimpleXmlDomInterface>
+     */
+    public function findMultiOrNull(string $selector)
+    {
+        /** @var SimpleXmlDomNodeInterface<SimpleXmlDomInterface> $return */
+        $return = $this->find($selector, null);
+
+        if ($return instanceof SimpleXmlDomNodeBlank) {
+            return null;
+        }
+
+        return $return;
+    }
+
+    /**
      * Find one node with a CSS or xPath selector.
      *
      * @param string $selector
      *
-     * @return SimpleXmlDomNodeInterface<SimpleXmlDomInterface>
+     * @return SimpleXmlDomInterface|SimpleXmlDomNodeInterface<SimpleXmlDomInterface>
      */
-    public function findOne(string $selector) {
+    public function findOne(string $selector)
+    {
         $return = $this->find($selector, 0);
 
         return $return ?? new SimpleXmlDomNodeBlank();
@@ -92,12 +121,29 @@ class SimpleXmlDomNode extends AbstractSimpleXmlDomNode implements
      *
      * @param string $selector
      *
-     * @return false|SimpleXmlDomNodeInterface<SimpleXmlDomInterface>
+     * @return false|SimpleXmlDomInterface
      */
-    public function findOneOrFalse(string $selector) {
+    public function findOneOrFalse(string $selector)
+    {
+        /** @var SimpleXmlDomInterface|null $return */
         $return = $this->find($selector, 0);
 
         return $return ?? false;
+    }
+
+    /**
+     * Find one node with a CSS or xPath selector or null, if no element is found.
+     *
+     * @param string $selector
+     *
+     * @return null|SimpleXmlDomInterface
+     */
+    public function findOneOrNull(string $selector)
+    {
+        /** @var SimpleXmlDomInterface|null $return */
+        $return = $this->find($selector, 0);
+
+        return $return;
     }
 
     /**
@@ -105,7 +151,8 @@ class SimpleXmlDomNode extends AbstractSimpleXmlDomNode implements
      *
      * @return string[]
      */
-    public function innerHtml(): array {
+    public function innerHtml(): array
+    {
         // init
         $html = [];
 
@@ -121,7 +168,8 @@ class SimpleXmlDomNode extends AbstractSimpleXmlDomNode implements
      *
      * @return string[]
      */
-    public function innertext() {
+    public function innertext()
+    {
         return $this->innerHtml();
     }
 
@@ -130,7 +178,8 @@ class SimpleXmlDomNode extends AbstractSimpleXmlDomNode implements
      *
      * @return string[]
      */
-    public function outertext() {
+    public function outertext()
+    {
         return $this->innerHtml();
     }
 
@@ -139,7 +188,8 @@ class SimpleXmlDomNode extends AbstractSimpleXmlDomNode implements
      *
      * @return string[]
      */
-    public function text(): array {
+    public function text(): array
+    {
         // init
         $text = [];
 
@@ -148,5 +198,11 @@ class SimpleXmlDomNode extends AbstractSimpleXmlDomNode implements
         }
 
         return $text;
+    }
+
+    private function createNodeList(): self
+    {
+        // @phpstan-ignore new.static (node list wrappers intentionally preserve late static binding)
+        return new static();
     }
 }

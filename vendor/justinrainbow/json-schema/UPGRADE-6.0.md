@@ -1,4 +1,5 @@
-# UPGRADE FROM 5.3 to 6.0
+UPGRADE FROM 5.3 to 6.0
+=======================
 
 ## Introduction
 
@@ -9,40 +10,36 @@ Please review the following breaking changes carefully and update your implement
 Thank you for your support and contributions to the project.
 
 ## Errors
+* `constraint` key is no longer the constraint name but contains more information in order to translate violations.
 
-- `constraint` key is no longer the constraint name but contains more information in order to translate violations.
-
-    _Before_
-
+    *Before*
     ```php
     foreach ($validator->getErrors() as $error) {
-        echo $error["constraint"]; // required
+        echo $error['constraint']; // required
     }
     ```
 
-    _After_
-
+    *After*
     ```php
     foreach ($validator->getErrors() as $error) {
-        echo $error["constraint"]["name"]; // required
+        echo $error['constraint']['name']; // required
     }
     ```
 
 ## BaseConstraint::addError signature changed
 
-- The signature for the `BaseConstraint::AddError` method has changed.
+* The signature for the `BaseConstraint::AddError` method has changed.
 
-    The `$message` parameter has been removed and replaced by the `ConstraintError` parameter.
-    The `ConstraintError` object encapsulates the error message along with additional information about the constraint violation.
+  The `$message` parameter has been removed and replaced by the `ConstraintError` parameter.
+  The `ConstraintError` object encapsulates the error message along with additional information about the constraint violation.
 
-    _Before_
-
+    *Before*
     ```php
     public function addError(?JsonPointer $path, $message, $constraint = '', ?array $more = null)
     ```
 
-    _After_
-
+    *After*
     ```php
     public function addError(ConstraintError $constraint, ?JsonPointer $path = null, array $more = []): void
     ```
+

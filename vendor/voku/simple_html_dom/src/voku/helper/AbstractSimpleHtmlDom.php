@@ -4,28 +4,33 @@ declare(strict_types=1);
 
 namespace voku\helper;
 
-abstract class AbstractSimpleHtmlDom {
+abstract class AbstractSimpleHtmlDom
+{
     /**
-     * @var array
+     * @var array<string, string>
      */
     protected static $functionAliases = [
-        "children" => "childNodes",
-        "first_child" => "firstChild",
-        "last_child" => "lastChild",
-        "next_sibling" => "nextSibling",
-        "prev_sibling" => "previousSibling",
-        "parent" => "parentNode",
-        "outertext" => "html",
-        "outerhtml" => "html",
-        "innertext" => "innerHtml",
-        "innerhtml" => "innerHtml",
-        "innerhtmlkeep" => "innerHtmlKeep",
+        'children'     => 'childNodes',
+        'first_child'  => 'firstChild',
+        'last_child'   => 'lastChild',
+        'next_sibling' => 'nextSibling',
+        'prev_sibling' => 'previousSibling',
+        'parent'       => 'parentNode',
+        'outertext'    => 'html',
+        'outerhtml'    => 'html',
+        'innertext'    => 'innerHtml',
+        'innerhtml'    => 'innerHtml',
+        'innerhtmlkeep'    => 'innerHtmlKeep',
     ];
 
     /**
      * @var string[]
      */
-    protected static $stringDomNodes = ["id", "prefix", "content"];
+    protected static $stringDomNodes = [
+        'id',
+        'prefix',
+        'content'
+    ];
 
     /**
      * @var \DOMElement|\DOMNode|null
@@ -38,57 +43,58 @@ abstract class AbstractSimpleHtmlDom {
     private $classListCache;
 
     /**
-     * @param string $name
-     * @param array  $arguments
+     * @param string       $name
+     * @param array<mixed> $arguments
      *
      * @throws \BadMethodCallException
      *
      * @return SimpleHtmlDomInterface|string|null
      */
-    public function __call($name, $arguments) {
+    public function __call($name, $arguments)
+    {
         $name = \strtolower($name);
 
         if (isset(self::$functionAliases[$name])) {
-            return \call_user_func_array(
-                [$this, self::$functionAliases[$name]],
-                $arguments,
-            );
+            $method = self::$functionAliases[$name];
+
+            return $this->{$method}(...$arguments);
         }
 
-        throw new \BadMethodCallException("Method does not exist");
+        throw new \BadMethodCallException('Method does not exist');
     }
 
     /**
      * @param string $name
      *
-     * @return SimpleHtmlAttributes|string|string[]|null
+     * @return array<int, string>|SimpleHtmlAttributes|string|null
      */
-    public function __get($name) {
+    public function __get($name)
+    {
         $nameOrig = $name;
         $name = \strtolower($name);
 
         switch ($name) {
-            case "outerhtml":
-            case "outertext":
-            case "html":
+            case 'outerhtml':
+            case 'outertext':
+            case 'html':
                 return $this->html();
-            case "innerhtml":
-            case "innertext":
+            case 'innerhtml':
+            case 'innertext':
                 return $this->innerHtml();
-            case "innerhtmlkeep":
+            case 'innerhtmlkeep':
                 return $this->innerHtml(false, false);
-            case "text":
-            case "plaintext":
+            case 'text':
+            case 'plaintext':
                 return $this->text();
-            case "tag":
-                return $this->node->nodeName ?? "";
-            case "attr":
+            case 'tag':
+                return $this->node->nodeName ?? '';
+            case 'attr':
                 return $this->getAllAttributes();
-            case "classlist":
+            case 'classlist':
                 if ($this->classListCache === null) {
                     $this->classListCache = new SimpleHtmlAttributes(
-                        $this->node ?? null,
-                        "class",
+                        $this->node instanceof \DOMElement ? $this->node : null,
+                        'class'
                     );
                 }
 
@@ -96,9 +102,7 @@ abstract class AbstractSimpleHtmlDom {
             default:
                 if ($this->node && \property_exists($this->node, $nameOrig)) {
                     if (\is_string($this->node->{$nameOrig})) {
-                        return HtmlDomParser::putReplacedBackToPreserveHtmlEntities(
-                            $this->node->{$nameOrig},
-                        );
+                        return HtmlDomParser::putReplacedBackToPreserveHtmlEntities($this->node->{$nameOrig});
                     }
 
                     return $this->node->{$nameOrig};
@@ -114,7 +118,8 @@ abstract class AbstractSimpleHtmlDom {
      *
      * @return SimpleHtmlDomInterface|SimpleHtmlDomInterface[]|SimpleHtmlDomNodeInterface<SimpleHtmlDomInterface>
      */
-    public function __invoke($selector, $idx = null) {
+    public function __invoke($selector, $idx = null)
+    {
         return $this->find($selector, $idx);
     }
 
@@ -123,19 +128,20 @@ abstract class AbstractSimpleHtmlDom {
      *
      * @return bool
      */
-    public function __isset($name) {
+    public function __isset($name)
+    {
         $nameOrig = $name;
         $name = \strtolower($name);
 
         switch ($name) {
-            case "outertext":
-            case "outerhtml":
-            case "innertext":
-            case "innerhtml":
-            case "innerhtmlkeep":
-            case "plaintext":
-            case "text":
-            case "tag":
+            case 'outertext':
+            case 'outerhtml':
+            case 'innertext':
+            case 'innerhtml':
+            case 'innerhtmlkeep':
+            case 'plaintext':
+            case 'text':
+            case 'tag':
                 return true;
             default:
                 if ($this->node && \property_exists($this->node, $nameOrig)) {
@@ -150,47 +156,54 @@ abstract class AbstractSimpleHtmlDom {
      * @param string $name
      * @param mixed  $value
      *
-     * @return SimpleHtmlDomInterface|null
+     * @return void
      */
-    public function __set($name, $value) {
+    public function __set($name, $value): void
+    {
         $nameOrig = $name;
         $name = \strtolower($name);
 
         switch ($name) {
-            case "outerhtml":
-            case "outertext":
-                return $this->replaceNodeWithString($value);
-            case "innertext":
-            case "innerhtml":
-                return $this->replaceChildWithString($value);
-            case "innerhtmlkeep":
-                return $this->replaceChildWithString($value, false);
-            case "plaintext":
-                return $this->replaceTextWithString($value);
-            case "classlist":
-                $name = "class";
-                $nameOrig = "class";
-            // no break
+            case 'outerhtml':
+            case 'outertext':
+                $this->replaceNodeWithString($value);
+                return;
+            case 'innertext':
+            case 'innerhtml':
+                $this->replaceChildWithString($value);
+                return;
+            case 'innerhtmlkeep':
+                $this->replaceChildWithString($value, false);
+                return;
+            case 'plaintext':
+                $this->replaceTextWithString($value);
+                return;
+            case 'classlist':
+                $name = 'class';
+                $nameOrig = 'class';
+                // no break
             default:
                 if ($this->node && \property_exists($this->node, $nameOrig)) {
                     // INFO: Cannot assign null to property DOMNode::* of type string
-                    if (in_array($nameOrig, self::$stringDomNodes)) {
+                    if (\in_array($nameOrig, self::$stringDomNodes)) {
                         $value = (string) $value;
                     }
 
-                    if (!is_null($value)) {
-                        return $this->node->{$nameOrig} = $value;
+                    if ($value !== null) {
+                        $this->node->{$nameOrig} = $value;
+                        return;
                     }
                 }
 
-                return $this->setAttribute($name, $value);
+                $this->setAttribute($name, $value);
         }
     }
 
     /**
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->html();
     }
 
@@ -199,7 +212,8 @@ abstract class AbstractSimpleHtmlDom {
      *
      * @return void
      */
-    public function __unset($name) {
+    public function __unset($name)
+    {
         /** @noinspection UnusedFunctionResultInspection */
         $this->removeAttribute($name);
     }
@@ -221,36 +235,22 @@ abstract class AbstractSimpleHtmlDom {
 
     abstract public function hasAttribute(string $name): bool;
 
-    abstract public function html(
-        bool $multiDecodeNewHtmlEntity = false,
-    ): string;
+    abstract public function html(bool $multiDecodeNewHtmlEntity = false): string;
 
-    abstract public function innerHtml(
-        bool $multiDecodeNewHtmlEntity = false,
-        bool $putBrokenReplacedBack = true,
-    ): string;
+    abstract public function innerHtml(bool $multiDecodeNewHtmlEntity = false, bool $putBrokenReplacedBack = true): string;
 
-    abstract public function removeAttribute(
-        string $name,
-    ): SimpleHtmlDomInterface;
+    abstract public function removeAttribute(string $name): SimpleHtmlDomInterface;
 
-    abstract protected function replaceChildWithString(
-        string $string,
-        bool $putBrokenReplacedBack = true,
-    ): SimpleHtmlDomInterface;
+    abstract protected function replaceChildWithString(string $string, bool $putBrokenReplacedBack = true): SimpleHtmlDomInterface;
 
-    abstract protected function replaceNodeWithString(
-        string $string,
-    ): SimpleHtmlDomInterface;
+    abstract protected function replaceNodeWithString(string $string): SimpleHtmlDomInterface;
 
     /**
      * @param string $string
      *
      * @return SimpleHtmlDomInterface
      */
-    abstract protected function replaceTextWithString(
-        $string,
-    ): SimpleHtmlDomInterface;
+    abstract protected function replaceTextWithString($string): SimpleHtmlDomInterface;
 
     /**
      * @param string      $name
@@ -259,11 +259,7 @@ abstract class AbstractSimpleHtmlDom {
      *
      * @return SimpleHtmlDomInterface
      */
-    abstract public function setAttribute(
-        string $name,
-        $value = null,
-        bool $strictEmptyValueCheck = false,
-    ): SimpleHtmlDomInterface;
+    abstract public function setAttribute(string $name, $value = null, bool $strictEmptyValueCheck = false): SimpleHtmlDomInterface;
 
     abstract public function text(): string;
 }

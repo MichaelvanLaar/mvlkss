@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace JsonSchema\Constraints\TypeCheck;
 
-interface TypeCheckInterface {
+interface TypeCheckInterface
+{
     public static function isObject($value);
 
     public static function isArray($value);

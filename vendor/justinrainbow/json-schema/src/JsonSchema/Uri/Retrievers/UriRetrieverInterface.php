@@ -16,7 +16,8 @@ namespace JsonSchema\Uri\Retrievers;
  *
  * @author Sander Coolen <sander@jibber.nl>
  */
-interface UriRetrieverInterface {
+interface UriRetrieverInterface
+{
     /**
      * Retrieve a schema from the specified URI
      *

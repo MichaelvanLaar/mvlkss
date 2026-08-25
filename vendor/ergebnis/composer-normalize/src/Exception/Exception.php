@@ -13,4 +13,6 @@ declare(strict_types=1);
 
 namespace Ergebnis\Composer\Normalize\Exception;
 
-interface Exception extends \Throwable {}
+interface Exception extends \Throwable
+{
+}

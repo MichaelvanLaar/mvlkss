@@ -17,6 +17,7 @@ use Kirby\Exception\InvalidArgumentException;
 use Kirby\Form\Fields;
 use Kirby\Form\Form;
 use Kirby\Panel\Model;
+use Kirby\Toolkit\BlockCollectionAccess;
 use Kirby\Toolkit\Str;
 use Kirby\Uuid\Identifiable;
 use Kirby\Uuid\Uuid;
@@ -109,6 +110,7 @@ abstract class ModelWithContent implements Identifiable, Stringable
 	 * @since 5.0.0
 	 * @unstable
 	 */
+	#[BlockCollectionAccess]
 	public function changeStorage(Storage|string $toStorage, bool $copy = false): static
 	{
 		if (is_string($toStorage) === true) {
@@ -132,6 +134,7 @@ abstract class ModelWithContent implements Identifiable, Stringable
 	 *
 	 * @todo eventually refactor without need of propertyData
 	 */
+	#[BlockCollectionAccess]
 	public function clone(array $props = []): static
 	{
 		$props = array_replace_recursive($this->propertyData, $props);
@@ -268,6 +271,7 @@ abstract class ModelWithContent implements Identifiable, Stringable
 	/**
 	 * Decrement a given field value
 	 */
+	#[BlockCollectionAccess]
 	public function decrement(
 		string $field,
 		int $by = 1,
@@ -300,6 +304,7 @@ abstract class ModelWithContent implements Identifiable, Stringable
 	 * Creates a clone and fetches all
 	 * lazy-loaded getters to get a full copy
 	 */
+	#[BlockCollectionAccess]
 	public function hardcopy(): static
 	{
 		$clone = $this->clone();
@@ -324,6 +329,7 @@ abstract class ModelWithContent implements Identifiable, Stringable
 	/**
 	 * Increment a given field value
 	 */
+	#[BlockCollectionAccess]
 	public function increment(
 		string $field,
 		int $by = 1,
@@ -429,7 +435,7 @@ abstract class ModelWithContent implements Identifiable, Stringable
 	 */
 	public function readContent(string|null $languageCode = null): array
 	{
-		Helpers::deprecated('$model->readContent() is deprecated. Use $model->version()->read() instead.'); // @codeCoverageIgnore
+		Helpers::deprecated('$model->readContent() is deprecated. Use $model->version()->read() instead.', 'model-content-file'); // @codeCoverageIgnore
 		return $this->version()->read($languageCode ?? 'default') ?? [];
 	}
 
@@ -442,6 +448,7 @@ abstract class ModelWithContent implements Identifiable, Stringable
 	 * Low-level method to save the model with the given data.
 	 * Consider using `::update()` instead.
 	 */
+	#[BlockCollectionAccess]
 	public function save(
 		array|null $data = null,
 		string|null $languageCode = null,
@@ -482,7 +489,7 @@ abstract class ModelWithContent implements Identifiable, Stringable
 		array|null $data = null,
 		bool $overwrite = false
 	): static {
-		Helpers::deprecated('$model->saveContent() is deprecated. Use $model->save() instead.');
+		Helpers::deprecated('$model->saveContent() is deprecated. Use $model->save() instead.', 'model-content-file');
 		return $this->save($data, 'default', $overwrite);
 	}
 
@@ -494,7 +501,7 @@ abstract class ModelWithContent implements Identifiable, Stringable
 		string|null $languageCode = null,
 		bool $overwrite = false
 	): static {
-		Helpers::deprecated('$model->saveTranslation() is deprecated. Use $model->save() instead.');
+		Helpers::deprecated('$model->saveTranslation() is deprecated. Use $model->save() instead.', 'model-content-file');
 		return $this->save($data, $languageCode ?? 'default', $overwrite);
 	}
 
@@ -655,6 +662,7 @@ abstract class ModelWithContent implements Identifiable, Stringable
 	 *
 	 * @throws \Kirby\Exception\InvalidArgumentException If the input array contains invalid values
 	 */
+	#[BlockCollectionAccess]
 	public function update(
 		array|null $input = null,
 		string|null $languageCode = null,
@@ -723,9 +731,10 @@ abstract class ModelWithContent implements Identifiable, Stringable
 	 * @internal
 	 * @deprecated 5.0.0 Use `->version()->save()` instead
 	 */
+	#[BlockCollectionAccess]
 	public function writeContent(array $data, string|null $languageCode = null): bool
 	{
-		Helpers::deprecated('$model->writeContent() is deprecated. Use $model->version()->save() instead.'); // @codeCoverageIgnore
+		Helpers::deprecated('$model->writeContent() is deprecated. Use $model->version()->save() instead.', 'model-content-file'); // @codeCoverageIgnore
 		$this->version()->save($data, $languageCode ?? 'default', true);
 		return true;
 	}

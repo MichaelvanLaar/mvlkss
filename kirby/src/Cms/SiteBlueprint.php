@@ -27,7 +27,9 @@ class SiteBlueprint extends Blueprint
 			$this->props['options'] ?? true,
 			// defaults
 			[
+				'access'      => null,
 				'changeTitle' => null,
+				'preview'     => null,
 				'update'      => null,
 			],
 			// aliases

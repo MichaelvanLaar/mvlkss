@@ -18,6 +18,9 @@ parameters:
     bootstrapFiles:
         - vendor/autoload.php
 
+    scanFiles:
+        - .phpstan-stubs/kirby-alias.php
+
     ignoreErrors:
         # Kirby uses magic methods and dynamic properties
         - '#Access to an undefined property Kirby\\Cms\\.*::\$.*#'

@@ -8,7 +8,8 @@ namespace voku\helper;
  * @property-read int    $length The number of tokens.
  * @property-read string $value  A space-separated list of the tokens.
  */
-interface SimpleHtmlAttributesInterface {
+interface SimpleHtmlAttributesInterface
+{
     /**
      * Adds the given tokens to the list.
      *
@@ -31,7 +32,7 @@ interface SimpleHtmlAttributesInterface {
     /**
      * Returns an iterator allowing you to go through all tokens contained in the list.
      *
-     * @return \ArrayIterator
+     * @return \ArrayIterator<int, string>
      */
     public function entries(): \ArrayIterator;
 
@@ -77,5 +78,5 @@ interface SimpleHtmlAttributesInterface {
      * @return bool false if the token is not in the list after the call, or true if the token is in the list after the
      *              call
      */
-    public function toggle(string $token, bool $force = null): bool;
+    public function toggle(string $token, ?bool $force = null): bool;
 }

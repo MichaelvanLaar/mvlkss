@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace voku\helper;
 
-interface HtmlMinDomObserverInterface {
+interface HtmlMinDomObserverInterface
+{
     /**
      * Receive dom elements before the minification.
      *
@@ -13,10 +14,7 @@ interface HtmlMinDomObserverInterface {
      *
      * @return void
      */
-    public function domElementBeforeMinification(
-        SimpleHtmlDomInterface $element,
-        HtmlMinInterface $htmlMin,
-    );
+    public function domElementBeforeMinification(SimpleHtmlDomInterface $element, HtmlMinInterface $htmlMin);
 
     /**
      * Receive dom elements after the minification.
@@ -26,8 +24,5 @@ interface HtmlMinDomObserverInterface {
      *
      * @return void
      */
-    public function domElementAfterMinification(
-        SimpleHtmlDomInterface $element,
-        HtmlMinInterface $htmlMin,
-    );
+    public function domElementAfterMinification(SimpleHtmlDomInterface $element, HtmlMinInterface $htmlMin);
 }

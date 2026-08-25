@@ -18,7 +18,8 @@ use JsonSchema\Exception\ResourceNotFoundException;
  *
  * @author Sander Coolen <sander@jibber.nl>
  */
-class FileGetContents extends AbstractRetriever {
+class FileGetContents extends AbstractRetriever
+{
     protected $messageBody;
 
     /**
@@ -26,8 +27,9 @@ class FileGetContents extends AbstractRetriever {
      *
      * @see \JsonSchema\Uri\Retrievers\UriRetrieverInterface::retrieve()
      */
-    public function retrieve($uri) {
-        if (function_exists("http_clear_last_response_headers")) {
+    public function retrieve($uri)
+    {
+        if (function_exists('http_clear_last_response_headers')) {
             http_clear_last_response_headers();
         }
 
@@ -43,24 +45,18 @@ class FileGetContents extends AbstractRetriever {
         }
 
         if (false === $response) {
-            throw new ResourceNotFoundException(
-                "JSON schema not found at " . $uri,
-            );
+            throw new ResourceNotFoundException('JSON schema not found at ' . $uri);
         }
 
-        if (
-            $response == "" &&
-            substr($uri, 0, 7) == "file://" &&
-            substr($uri, -1) == "/"
+        if ($response == ''
+            && substr($uri, 0, 7) == 'file://' && substr($uri, -1) == '/'
         ) {
-            throw new ResourceNotFoundException(
-                "JSON schema not found at " . $uri,
-            );
+            throw new ResourceNotFoundException('JSON schema not found at ' . $uri);
         }
 
         $this->messageBody = $response;
 
-        if (function_exists("http_get_last_response_headers")) {
+        if (function_exists('http_get_last_response_headers')) {
             // Use http_get_last_response_headers() for compatibility with PHP 8.5+
             // where $http_response_header is deprecated.
             $httpResponseHeaders = http_get_last_response_headers();
@@ -83,11 +79,10 @@ class FileGetContents extends AbstractRetriever {
      *
      * @return bool Whether the Content-Type header was found or not
      */
-    private function fetchContentType(array $headers): bool {
+    private function fetchContentType(array $headers): bool
+    {
         foreach (array_reverse($headers) as $header) {
-            if (
-                $this->contentType = self::getContentTypeMatchInHeader($header)
-            ) {
+            if ($this->contentType = self::getContentTypeMatchInHeader($header)) {
                 return true;
             }
         }
@@ -100,8 +95,9 @@ class FileGetContents extends AbstractRetriever {
      *
      * @return string|null
      */
-    protected static function getContentTypeMatchInHeader($header) {
-        if (0 < preg_match("/Content-Type:(\V*)/ims", $header, $match)) {
+    protected static function getContentTypeMatchInHeader($header)
+    {
+        if (0 < preg_match('/^Content-Type:([^;\v]*)/im', $header, $match)) {
             return trim($match[1]);
         }
 

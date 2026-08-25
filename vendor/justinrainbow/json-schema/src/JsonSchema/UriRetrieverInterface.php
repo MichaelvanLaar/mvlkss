@@ -14,7 +14,8 @@ namespace JsonSchema;
 /**
  * @package JsonSchema
  */
-interface UriRetrieverInterface {
+interface UriRetrieverInterface
+{
     /**
      * Retrieve a URI
      *

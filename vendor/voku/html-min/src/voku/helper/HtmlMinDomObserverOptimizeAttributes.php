@@ -9,8 +9,8 @@ namespace voku\helper;
  *
  * Sort HTML-Attributes, so that gzip can do better work and remove some default attributes...
  */
-final class HtmlMinDomObserverOptimizeAttributes implements
-    HtmlMinDomObserverInterface {
+final class HtmlMinDomObserverOptimizeAttributes implements HtmlMinDomObserverInterface
+{
     /**
      * // https://mathiasbynens.be/demo/javascript-mime-type
      * // https://developer.mozilla.org/en/docs/Web/HTML/Element/script#attr-type
@@ -20,12 +20,12 @@ final class HtmlMinDomObserverOptimizeAttributes implements
      * @psalm-var array<string, string>
      */
     private static $executableScriptsMimeTypes = [
-        "text/javascript" => "",
-        "text/ecmascript" => "",
-        "text/jscript" => "",
-        "application/javascript" => "",
-        "application/x-javascript" => "",
-        "application/ecmascript" => "",
+        'text/javascript'          => '',
+        'text/ecmascript'          => '',
+        'text/jscript'             => '',
+        'application/javascript'   => '',
+        'application/x-javascript' => '',
+        'application/ecmascript'   => '',
     ];
 
     /**
@@ -36,10 +36,9 @@ final class HtmlMinDomObserverOptimizeAttributes implements
      *
      * @return void
      */
-    public function domElementBeforeMinification(
-        SimpleHtmlDomInterface $element,
-        HtmlMinInterface $htmlMin,
-    ) {}
+    public function domElementBeforeMinification(SimpleHtmlDomInterface $element, HtmlMinInterface $htmlMin)
+    {
+    }
 
     /**
      * Receive dom elements after the minification.
@@ -49,10 +48,8 @@ final class HtmlMinDomObserverOptimizeAttributes implements
      *
      * @return void
      */
-    public function domElementAfterMinification(
-        SimpleHtmlDomInterface $element,
-        HtmlMinInterface $htmlMin,
-    ) {
+    public function domElementAfterMinification(SimpleHtmlDomInterface $element, HtmlMinInterface $htmlMin)
+    {
         $attributes = $element->getAllAttributes();
         if ($attributes === null) {
             return;
@@ -68,29 +65,24 @@ final class HtmlMinDomObserverOptimizeAttributes implements
             if ($htmlMin->isDoMakeSameDomainsLinksRelative()) {
                 $localDomains = $htmlMin->getLocalDomains();
                 foreach ($localDomains as $localDomain) {
-                    /** @noinspection InArrayCanBeUsedInspection */
                     if (
-                        ($attrName === "href" ||
-                            $attrName === "src" ||
-                            $attrName === "srcset" ||
-                            $attrName === "action") &&
-                        !(
-                            isset($attributes["rel"]) &&
-                            $attributes["rel"] === "external"
-                        ) &&
-                        !(
-                            isset($attributes["target"]) &&
-                            $attributes["target"] === "_blank"
-                        ) &&
+                        (
+                            $attrName === 'href'
+                            ||
+                            $attrName === 'src'
+                            ||
+                            $attrName === 'srcset'
+                            ||
+                            $attrName === 'action'
+                        )
+                        &&
+                        !(isset($attributes['rel']) && $attributes['rel'] === 'external')
+                        &&
+                        !(isset($attributes['target']) && $attributes['target'] === '_blank')
+                        &&
                         \stripos($attrValue, $localDomain) !== false
                     ) {
-                        $localDomainEscaped = \preg_quote($localDomain, "/");
-
-                        $attrValue = (string) \preg_replace(
-                            "/^(?:(?:https?:)?\/\/)?{$localDomainEscaped}(?!\w)(?:\/?)/i",
-                            "/",
-                            $attrValue,
-                        );
+                        $attrValue = (string) \preg_replace("/^(?:(?:https?:)?\/\/)?" . \preg_quote($localDomain, '/') . "(?!\w)\/?/i", '/', $attrValue);
                     }
                 }
             }
@@ -103,10 +95,10 @@ final class HtmlMinDomObserverOptimizeAttributes implements
                 $attrValue = $this->removeUrlSchemeHelper(
                     $attrValue,
                     $attrName,
-                    "http",
+                    'http',
                     $attributes,
                     $tagName,
-                    $htmlMin,
+                    $htmlMin
                 );
             }
 
@@ -114,10 +106,10 @@ final class HtmlMinDomObserverOptimizeAttributes implements
                 $attrValue = $this->removeUrlSchemeHelper(
                     $attrValue,
                     $attrName,
-                    "https",
+                    'https',
                     $attributes,
                     $tagName,
-                    $htmlMin,
+                    $htmlMin
                 );
             }
 
@@ -125,15 +117,13 @@ final class HtmlMinDomObserverOptimizeAttributes implements
             // Remove some special attributes.
             // -------------------------------------------------------------------------
 
-            if (
-                $this->removeAttributeHelper(
-                    $element->tag,
-                    $attrName,
-                    $attrValue,
-                    $attributes,
-                    $htmlMin,
-                )
-            ) {
+            if ($this->removeAttributeHelper(
+                $element->tag,
+                $attrName,
+                $attrValue,
+                $attributes,
+                $htmlMin
+            )) {
                 $element->{$attrName} = null;
 
                 continue;
@@ -149,7 +139,7 @@ final class HtmlMinDomObserverOptimizeAttributes implements
 
             if ($htmlMin->isDoSortHtmlAttributes()) {
                 $attrs[$attrName] = $attrValue;
-                $element->{$attrName} = null;
+                $element->removeAttribute($attrName);
             }
         }
 
@@ -160,9 +150,7 @@ final class HtmlMinDomObserverOptimizeAttributes implements
         if ($htmlMin->isDoSortHtmlAttributes()) {
             \ksort($attrs);
             foreach ($attrs as $attrName => $attrValue) {
-                $attrValue = HtmlDomParser::replaceToPreserveHtmlEntities(
-                    $attrValue,
-                );
+                $attrValue = HtmlDomParser::replaceToPreserveHtmlEntities($attrValue);
                 $element->setAttribute((string) $attrName, $attrValue, true);
             }
         }
@@ -179,104 +167,59 @@ final class HtmlMinDomObserverOptimizeAttributes implements
      *
      * @return bool
      */
-    private function removeAttributeHelper(
-        $tag,
-        $attrName,
-        $attrValue,
-        $allAttr,
-        HtmlMinInterface $htmlMin,
-    ): bool {
+    private function removeAttributeHelper($tag, $attrName, $attrValue, $allAttr, HtmlMinInterface $htmlMin): bool
+    {
         // remove defaults
         if ($htmlMin->isDoRemoveDefaultAttributes()) {
-            if (
-                $tag === "script" &&
-                $attrName === "language" &&
-                $attrValue === "javascript"
-            ) {
+            if ($tag === 'script' && $attrName === 'language' && $attrValue === 'javascript') {
                 return true;
             }
 
-            if (
-                $tag === "form" &&
-                $attrName === "method" &&
-                $attrValue === "get"
-            ) {
+            if ($tag === 'form' && $attrName === 'method' && $attrValue === 'get') {
                 return true;
             }
 
-            if (
-                $tag === "form" &&
-                $attrName === "autocomplete" &&
-                $attrValue === "on"
-            ) {
+            if ($tag === 'form' && $attrName === 'autocomplete' && $attrValue === 'on') {
                 return true;
             }
 
-            if (
-                $tag === "form" &&
-                $attrName === "enctype" &&
-                $attrValue === "application/x-www-form-urlencoded"
-            ) {
+            if ($tag === 'form' && $attrName === 'enctype' && $attrValue === 'application/x-www-form-urlencoded') {
                 return true;
             }
 
-            if (
-                $tag === "input" &&
-                $attrName === "type" &&
-                $attrValue === "text"
-            ) {
+            if ($tag === 'input' && $attrName === 'type' && $attrValue === 'text') {
                 return true;
             }
 
-            if (
-                $tag === "textarea" &&
-                $attrName === "wrap" &&
-                $attrValue === "soft"
-            ) {
+            if ($tag === 'textarea' && $attrName === 'wrap' && $attrValue === 'soft') {
                 return true;
             }
 
-            if (
-                $tag === "area" &&
-                $attrName === "shape" &&
-                $attrValue === "rect"
-            ) {
+            if ($tag === 'area' && $attrName === 'shape' && $attrValue === 'rect') {
                 return true;
             }
 
-            if (
-                $tag === "th" &&
-                $attrName === "scope" &&
-                $attrValue === "auto"
-            ) {
+            if ($tag === 'th' && $attrName === 'scope' && $attrValue === 'auto') {
                 return true;
             }
 
-            if (
-                $tag === "ol" &&
-                $attrName === "type" &&
-                $attrValue === "decimal"
-            ) {
+            if ($tag === 'ol' && $attrName === 'type' && $attrValue === 'decimal') {
                 return true;
             }
 
-            if ($tag === "ol" && $attrName === "start" && $attrValue === "1") {
+            if ($tag === 'ol' && $attrName === 'start' && $attrValue === '1') {
                 return true;
             }
 
-            if (
-                $tag === "track" &&
-                $attrName === "kind" &&
-                $attrValue === "subtitles"
-            ) {
+            if ($tag === 'track' && $attrName === 'kind' && $attrValue === 'subtitles') {
                 return true;
             }
 
-            if ($attrName === "spellcheck" && $attrValue === "default") {
+            if ($attrName === 'spellcheck' && $attrValue === 'default') {
                 return true;
             }
 
-            if ($attrName === "draggable" && $attrValue === "auto") {
+            if ($attrName === 'draggable' && $attrValue === 'auto') {
                 return true;
             }
         }
@@ -284,11 +227,7 @@ final class HtmlMinDomObserverOptimizeAttributes implements
         // remove deprecated charset-attribute (the browser will use the charset from the HTTP-Header, anyway)
         if ($htmlMin->isDoRemoveDeprecatedScriptCharsetAttribute()) {
             /** @noinspection NestedPositiveIfStatementsInspection */
-            if (
-                $tag === "script" &&
-                $attrName === "charset" &&
-                !isset($allAttr["src"])
-            ) {
+            if ($tag === 'script' && $attrName === 'charset' && !isset($allAttr['src'])) {
                 return true;
             }
         }
@@ -296,23 +235,14 @@ final class HtmlMinDomObserverOptimizeAttributes implements
         // remove deprecated anchor-jump
         if ($htmlMin->isDoRemoveDeprecatedAnchorName()) {
             /** @noinspection NestedPositiveIfStatementsInspection */
-            if (
-                $tag === "a" &&
-                $attrName === "name" &&
-                isset($allAttr["id"]) &&
-                $allAttr["id"] === $attrValue
-            ) {
+            if ($tag === 'a' && $attrName === 'name' && isset($allAttr['id']) && $allAttr['id'] === $attrValue) {
                 return true;
             }
         }
 
         if ($htmlMin->isDoRemoveDefaultMediaTypeFromStyleAndLinkTag()) {
             /** @noinspection NestedPositiveIfStatementsInspection */
-            if (
-                ($tag === "link" || $tag === "style") &&
-                $attrName === "media" &&
-                $attrValue === "all"
-            ) {
+            if (($tag === 'link' || $tag === 'style') && $attrName === 'media' && $attrValue === 'all') {
                 return true;
             }
         }
@@ -320,28 +250,14 @@ final class HtmlMinDomObserverOptimizeAttributes implements
         // remove "type=text/css" for css "stylesheet"-links
         if ($htmlMin->isDoRemoveDeprecatedTypeFromStylesheetLink()) {
             /** @noinspection NestedPositiveIfStatementsInspection */
-            if (
-                $tag === "link" &&
-                $attrName === "type" &&
-                $attrValue === "text/css" &&
-                isset($allAttr["rel"]) &&
-                $allAttr["rel"] === "stylesheet" &&
-                $htmlMin->isXHTML() === false &&
-                $htmlMin->isHTML4() === false
-            ) {
+            if ($tag === 'link' && $attrName === 'type' && $attrValue === 'text/css' && isset($allAttr['rel']) && $allAttr['rel'] === 'stylesheet' && $htmlMin->isXHTML() === false && $htmlMin->isHTML4() === false) {
                 return true;
             }
         }
         // remove deprecated css-mime-types
         if ($htmlMin->isDoRemoveDeprecatedTypeFromStyleAndLinkTag()) {
             /** @noinspection NestedPositiveIfStatementsInspection */
-            if (
-                ($tag === "link" || $tag === "style") &&
-                $attrName === "type" &&
-                $attrValue === "text/css" &&
-                $htmlMin->isXHTML() === false &&
-                $htmlMin->isHTML4() === false
-            ) {
+            if (($tag === 'link' || $tag === 'style') && $attrName === 'type' && $attrValue === 'text/css' && $htmlMin->isXHTML() === false && $htmlMin->isHTML4() === false) {
                 return true;
             }
         }
@@ -349,13 +265,7 @@ final class HtmlMinDomObserverOptimizeAttributes implements
         // remove deprecated script-mime-types
         if ($htmlMin->isDoRemoveDeprecatedTypeFromScriptTag()) {
             /** @noinspection NestedPositiveIfStatementsInspection */
-            if (
-                $tag === "script" &&
-                $attrName === "type" &&
-                isset(self::$executableScriptsMimeTypes[$attrValue]) &&
-                $htmlMin->isXHTML() === false &&
-                $htmlMin->isHTML4() === false
-            ) {
+            if ($tag === 'script' && $attrName === 'type' && isset(self::$executableScriptsMimeTypes[$attrValue]) && $htmlMin->isXHTML() === false && $htmlMin->isHTML4() === false) {
                 return true;
             }
         }
@@ -363,11 +273,7 @@ final class HtmlMinDomObserverOptimizeAttributes implements
         // remove 'type=submit' from <button type="submit">
         if ($htmlMin->isDoRemoveDefaultTypeFromButton()) {
             /** @noinspection NestedPositiveIfStatementsInspection */
-            if (
-                $tag === "button" &&
-                $attrName === "type" &&
-                $attrValue === "submit"
-            ) {
+            if ($tag === 'button' && $attrName === 'type' && $attrValue === 'submit') {
                 return true;
             }
         }
@@ -375,13 +281,7 @@ final class HtmlMinDomObserverOptimizeAttributes implements
         // remove 'value=""' from <input type="text">
         if ($htmlMin->isDoRemoveValueFromEmptyInput()) {
             /** @noinspection NestedPositiveIfStatementsInspection */
-            if (
-                $tag === "input" &&
-                $attrName === "value" &&
-                $attrValue === "" &&
-                isset($allAttr["type"]) &&
-                $allAttr["type"] === "text"
-            ) {
+            if ($tag === 'input' && $attrName === 'value' && $attrValue === '' && isset($allAttr['type']) && $allAttr['type'] === 'text') {
                 return true;
             }
         }
@@ -389,18 +289,17 @@ final class HtmlMinDomObserverOptimizeAttributes implements
         // remove some empty attributes
         if ($htmlMin->isDoRemoveEmptyAttributes()) {
             /** @noinspection NestedPositiveIfStatementsInspection */
-            if (
-                \trim($attrValue) === "" &&
-                \preg_match(
-                    '/^(?:class|id|style|title|lang|dir|on(?:focus|blur|change|click|dblclick|mouse(?:down|up|over|move|out)|key(?:press|down|up)))$/',
-                    $attrName,
-                )
-            ) {
+            if (\trim($attrValue) === '' && \preg_match('/^(?:class|id|style|title|lang|dir|on(?:focus|blur|change|click|dblclick|mouse(?:down|up|over|move|out)|key(?:press|down|up)))$/', $attrName)) {
                 return true;
             }
         }
 
-        return false;
+        // remove all "data-*" attributes
+        return $htmlMin->isDoRemoveDataAttributes()
+               &&
+               $tag !== 'html-min--voku--saved-content'
+               &&
+               \strpos($attrName, 'data-') === 0;
     }
 
     /**
@@ -421,23 +320,32 @@ final class HtmlMinDomObserverOptimizeAttributes implements
         string $scheme,
         array $attributes,
         string $tagName,
-        HtmlMinInterface $htmlMin,
+        HtmlMinInterface $htmlMin
     ): string {
-        /** @noinspection InArrayCanBeUsedInspection */
         if (
-            !(isset($attributes["rel"]) && $attributes["rel"] === "external") &&
-            !(
-                isset($attributes["target"]) &&
-                $attributes["target"] === "_blank"
-            ) &&
-            (($attrName === "href" &&
-                (!$htmlMin->isdoKeepHttpAndHttpsPrefixOnExternalAttributes() ||
-                    $tagName === "link")) ||
-                $attrName === "src" ||
-                $attrName === "srcset" ||
-                $attrName === "action")
+            !(isset($attributes['rel']) && $attributes['rel'] === 'external')
+            &&
+            !(isset($attributes['target']) && $attributes['target'] === '_blank')
+            &&
+            (
+                (
+                    $attrName === 'href'
+                    &&
+                    (
+                        !$htmlMin->isdoKeepHttpAndHttpsPrefixOnExternalAttributes()
+                        ||
+                        $tagName === 'link'
+                    )
+                )
+                ||
+                $attrName === 'src'
+                ||
+                $attrName === 'srcset'
+                ||
+                $attrName === 'action'
+            )
         ) {
-            $attrValue = \str_replace($scheme . "://", "//", $attrValue);
+            $attrValue = \str_replace($scheme . '://', '//', $attrValue);
         }
 
         return $attrValue;
@@ -449,21 +357,24 @@ final class HtmlMinDomObserverOptimizeAttributes implements
      *
      * @return string
      */
-    private function sortCssClassNames($attrName, $attrValue): string {
-        if ($attrName !== "class" || !$attrValue) {
+    private function sortCssClassNames($attrName, $attrValue): string
+    {
+        if ($attrName !== 'class' || !$attrValue) {
             return $attrValue;
         }
 
-        $classes = \array_unique(\explode(" ", $attrValue));
+        $classes = \array_unique(
+            \explode(' ', $attrValue)
+        );
         \sort($classes);
 
-        $attrValue = "";
+        $attrValue = '';
         foreach ($classes as $class) {
             if (!$class) {
                 continue;
             }
 
-            $attrValue .= \trim($class) . " ";
+            $attrValue .= \trim($class) . ' ';
         }
 
         return \trim($attrValue);

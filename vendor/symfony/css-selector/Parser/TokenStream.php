@@ -24,7 +24,8 @@ use Symfony\Component\CssSelector\Exception\SyntaxErrorException;
  *
  * @internal
  */
-class TokenStream {
+class TokenStream
+{
     /**
      * @var Token[]
      */
@@ -44,7 +45,8 @@ class TokenStream {
      *
      * @return $this
      */
-    public function push(Token $token): static {
+    public function push(Token $token): static
+    {
         $this->tokens[] = $token;
 
         return $this;
@@ -55,7 +57,8 @@ class TokenStream {
      *
      * @return $this
      */
-    public function freeze(): static {
+    public function freeze(): static
+    {
         return $this;
     }
 
@@ -64,7 +67,8 @@ class TokenStream {
      *
      * @throws InternalErrorException If there is no more token
      */
-    public function getNext(): Token {
+    public function getNext(): Token
+    {
         if ($this->peeking) {
             $this->peeking = false;
             $this->used[] = $this->peeked;
@@ -73,7 +77,7 @@ class TokenStream {
         }
 
         if (!isset($this->tokens[$this->cursor])) {
-            throw new InternalErrorException("Unexpected token stream end.");
+            throw new InternalErrorException('Unexpected token stream end.');
         }
 
         return $this->tokens[$this->cursor++];
@@ -82,7 +86,8 @@ class TokenStream {
     /**
      * Returns peeked token.
      */
-    public function getPeek(): Token {
+    public function getPeek(): Token
+    {
         if (!$this->peeking) {
             $this->peeked = $this->getNext();
             $this->peeking = true;
@@ -96,7 +101,8 @@ class TokenStream {
      *
      * @return Token[]
      */
-    public function getUsed(): array {
+    public function getUsed(): array
+    {
         return $this->used;
     }
 
@@ -105,11 +111,12 @@ class TokenStream {
      *
      * @throws SyntaxErrorException If next token is not an identifier
      */
-    public function getNextIdentifier(): string {
+    public function getNextIdentifier(): string
+    {
         $next = $this->getNext();
 
         if (!$next->isIdentifier()) {
-            throw SyntaxErrorException::unexpectedToken("identifier", $next);
+            throw SyntaxErrorException::unexpectedToken('identifier', $next);
         }
 
         return $next->getValue();
@@ -120,14 +127,15 @@ class TokenStream {
      *
      * @throws SyntaxErrorException If next token is not an identifier or a star delimiter
      */
-    public function getNextIdentifierOrStar(): ?string {
+    public function getNextIdentifierOrStar(): ?string
+    {
         $next = $this->getNext();
 
         if ($next->isIdentifier()) {
             return $next->getValue();
         }
 
-        if ($next->isDelimiter(["*"])) {
+        if ($next->isDelimiter(['*'])) {
             return null;
         }
 
@@ -137,7 +145,8 @@ class TokenStream {
     /**
      * Skips next whitespace if any.
      */
-    public function skipWhitespace(): void {
+    public function skipWhitespace(): void
+    {
         $peek = $this->getPeek();
 
         if ($peek->isWhitespace()) {

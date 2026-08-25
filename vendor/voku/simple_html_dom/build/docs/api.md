@@ -1,21 +1,21 @@
-# :scroll: Simple Html Dom Parser for PHP
+# :scroll: Simple Html Dom Parser for PHP 
 
 ### DomParser API
 
-%**functions_index**voku\helper\DomParserInterface\_\_%
+%__functions_index__voku\helper\DomParserInterface__%
 
 ### SimpleHtmlDomNode (group of dom elements) API
 
-%**functions_index**voku\helper\SimpleHtmlDomNodeInterface\_\_%
+%__functions_index__voku\helper\SimpleHtmlDomNodeInterface__%
 
 ### SimpleHtmlDom (single dom element) API
 
-%**functions_index**voku\helper\SimpleHtmlDomInterface\_\_%
+%__functions_index__voku\helper\SimpleHtmlDomInterface__%
 
 ---
 
-%**functions_list**voku\helper\DomParserInterface\_\_%
+%__functions_list__voku\helper\DomParserInterface__%
 
-%**functions_list**voku\helper\SimpleHtmlDomNodeInterface\_\_%
+%__functions_list__voku\helper\SimpleHtmlDomNodeInterface__%
 
-%**functions_list**voku\helper\SimpleHtmlDomInterface\_\_%
+%__functions_list__voku\helper\SimpleHtmlDomInterface__%

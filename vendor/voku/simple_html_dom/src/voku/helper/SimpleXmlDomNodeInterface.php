@@ -12,11 +12,12 @@ namespace voku\helper;
  *
  * @extends \IteratorAggregate<int, SimpleXmlDomInterface>
  */
-interface SimpleXmlDomNodeInterface extends \IteratorAggregate {
+interface SimpleXmlDomNodeInterface extends \IteratorAggregate
+{
     /**
      * @param string $name
      *
-     * @return array|null
+     * @return array<int, mixed>|null
      */
     public function __get($name);
 
@@ -24,7 +25,7 @@ interface SimpleXmlDomNodeInterface extends \IteratorAggregate {
      * @param string $selector
      * @param int    $idx
      *
-     * @return SimpleXmlDomNodeInterface<SimpleXmlDomInterface>|SimpleXmlDomNodeInterface[]|null
+     * @return SimpleXmlDomInterface|SimpleXmlDomNodeInterface<SimpleXmlDomInterface>|null
      */
     public function __invoke($selector, $idx = null);
 
@@ -46,7 +47,7 @@ interface SimpleXmlDomNodeInterface extends \IteratorAggregate {
      * @param string $selector
      * @param int    $idx
      *
-     * @return SimpleXmlDomNode|SimpleXmlDomNode[]|null
+     * @return SimpleXmlDomInterface|SimpleXmlDomNodeInterface<SimpleXmlDomInterface>|null
      */
     public function find(string $selector, $idx = null);
 
@@ -69,11 +70,20 @@ interface SimpleXmlDomNodeInterface extends \IteratorAggregate {
     public function findMultiOrFalse(string $selector);
 
     /**
+     * Find nodes with a CSS or xPath selector or null, if no element is found.
+     *
+     * @param string $selector
+     *
+     * @return null|SimpleXmlDomInterface[]|SimpleXmlDomNodeInterface<SimpleXmlDomInterface>
+     */
+    public function findMultiOrNull(string $selector);
+
+    /**
      * Find one node with a CSS or xPath selector.
      *
      * @param string $selector
      *
-     * @return SimpleXmlDomInterface
+     * @return SimpleXmlDomInterface|SimpleXmlDomNodeInterface<SimpleXmlDomInterface>
      */
     public function findOne(string $selector);
 
@@ -85,6 +95,15 @@ interface SimpleXmlDomNodeInterface extends \IteratorAggregate {
      * @return false|SimpleXmlDomInterface
      */
     public function findOneOrFalse(string $selector);
+
+    /**
+     * Find one node with a CSS or xPath selector or null, if no element is found.
+     *
+     * @param string $selector
+     *
+     * @return null|SimpleXmlDomInterface
+     */
+    public function findOneOrNull(string $selector);
 
     /**
      * Get html of elements.

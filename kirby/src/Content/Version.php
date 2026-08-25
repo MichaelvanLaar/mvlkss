@@ -11,6 +11,7 @@ use Kirby\Exception\LogicException;
 use Kirby\Exception\NotFoundException;
 use Kirby\Form\Fields;
 use Kirby\Http\Uri;
+use Kirby\Toolkit\BlockCollectionAccess;
 
 /**
  * The Version class handles all actions for a single
@@ -71,6 +72,7 @@ class Version
 	 *
 	 * @internal
 	 */
+	#[BlockCollectionAccess]
 	public function contentFile(Language|string $language = 'default'): string
 	{
 		return $this->model->storage()->contentFile(
@@ -94,6 +96,7 @@ class Version
 	 *
 	 * @param array<string, string> $fields Content fields
 	 */
+	#[BlockCollectionAccess]
 	public function create(
 		array $fields,
 		Language|string $language = 'default'
@@ -121,6 +124,7 @@ class Version
 	/**
 	 * Deletes a version for a specific language
 	 */
+	#[BlockCollectionAccess]
 	public function delete(Language|string $language = 'default'): void
 	{
 		if ($language === '*') {
@@ -267,6 +271,7 @@ class Version
 	/**
 	 * Returns the lock object for the version
 	 */
+	#[BlockCollectionAccess]
 	public function lock(Language|string $language = 'default'): Lock
 	{
 		return Lock::for($this, $language);
@@ -302,6 +307,7 @@ class Version
 	 *
 	 * @throws \Kirby\Exception\NotFoundException If the version does not exist
 	 */
+	#[BlockCollectionAccess]
 	public function move(
 		Language|string $fromLanguage,
 		VersionId|null $toVersionId = null,
@@ -396,6 +402,7 @@ class Version
 	 * of draft and version previews
 	 * @unstable
 	 */
+	#[BlockCollectionAccess]
 	public function previewToken(): string
 	{
 		if ($this->model instanceof Site) {
@@ -413,7 +420,12 @@ class Version
 			throw new LogicException('Invalid model type');
 		}
 
-		return $this->previewTokenFromUrl($this->model->url());
+		// bind the token to the custom preview URL so it still matches
+		// when the version is rendered, otherwise use the page URL
+		$preview = $this->model->blueprint()->preview();
+		$url     = is_string($preview) === true ? $preview : $this->model->url();
+
+		return $this->previewTokenFromUrl($url);
 	}
 
 	/**
@@ -446,6 +458,7 @@ class Version
 	 * It will copy all fields over to the "latest" version and delete
 	 * this version afterwards.
 	 */
+	#[BlockCollectionAccess]
 	public function publish(Language|string $language = 'default'): void
 	{
 		$language = Language::ensure($language);
@@ -482,6 +495,7 @@ class Version
 	 *
 	 * @return array<string, string>|null
 	 */
+	#[BlockCollectionAccess]
 	public function read(Language|string $language = 'default'): array|null
 	{
 		$language = Language::ensure($language);
@@ -514,6 +528,7 @@ class Version
 	 *
 	 * @throws \Kirby\Exception\NotFoundException If the version does not exist
 	 */
+	#[BlockCollectionAccess]
 	public function replace(
 		array $fields,
 		Language|string $language = 'default'
@@ -537,6 +552,7 @@ class Version
 	/**
 	 * Convenience wrapper around ::create, ::replace and ::update.
 	 */
+	#[BlockCollectionAccess]
 	public function save(
 		array $fields,
 		Language|string $language = 'default',
@@ -571,6 +587,7 @@ class Version
 	 *
 	 * @throws \Kirby\Exception\NotFoundException If the version does not exist
 	 */
+	#[BlockCollectionAccess]
 	public function touch(Language|string $language = 'default'): void
 	{
 		$language = Language::ensure($language);
@@ -581,12 +598,42 @@ class Version
 	}
 
 	/**
+	 * Removes the lock from the changes version without discarding changes
+	 */
+	public function unlock(Language|string $language = 'default'): void
+	{
+		$language = Language::ensure($language);
+
+		if ($this->exists($language) === false) {
+			return;
+		}
+
+		$fields = $this->read($language);
+
+		// only remove the lock if the current user holds it
+		if (($fields['lock'] ?? null) !== $this->model->kirby()->user()?->id()) {
+			return;
+		}
+
+		unset($fields['lock']);
+
+		$this->model->storage()->update(
+			versionId: $this->id,
+			language:  $language,
+			fields:    $fields
+		);
+
+		VersionCache::remove($this, $language);
+	}
+
+	/**
 	 * Updates the content fields of an existing version
 	 *
 	 * @param array<string, string> $fields Content fields
 	 *
 	 * @throws \Kirby\Exception\NotFoundException If the version does not exist
 	 */
+	#[BlockCollectionAccess]
 	public function update(
 		array $fields,
 		Language|string $language = 'default'
@@ -618,6 +665,7 @@ class Version
 	 * Returns the preview URL with authentication for drafts and versions
 	 * @unstable
 	 */
+	#[BlockCollectionAccess]
 	public function url(): string|null
 	{
 		if (

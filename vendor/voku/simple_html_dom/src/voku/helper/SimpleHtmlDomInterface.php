@@ -51,10 +51,11 @@ namespace voku\helper;
  *
  * @extends \IteratorAggregate<int, \DOMNode>
  */
-interface SimpleHtmlDomInterface extends \IteratorAggregate {
+interface SimpleHtmlDomInterface extends \IteratorAggregate
+{
     /**
-     * @param string $name
-     * @param array  $arguments
+     * @param string       $name
+     * @param array<mixed> $arguments
      *
      * @throws \BadMethodCallException
      *
@@ -65,7 +66,7 @@ interface SimpleHtmlDomInterface extends \IteratorAggregate {
     /**
      * @param string $name
      *
-     * @return array|string|null
+     * @return array<int, string>|SimpleHtmlAttributes|string|null
      */
     public function __get($name);
 
@@ -94,7 +95,7 @@ interface SimpleHtmlDomInterface extends \IteratorAggregate {
      *
      * @return string
      */
-    public function getTag(): string;
+    public function getTag():string;
 
     /**
      * Returns children of node.
@@ -134,6 +135,15 @@ interface SimpleHtmlDomInterface extends \IteratorAggregate {
     public function findMultiOrFalse(string $selector);
 
     /**
+     * Find nodes with a CSS selector or null, if no element is found.
+     *
+     * @param string $selector
+     *
+     * @return null|SimpleHtmlDomInterface[]|SimpleHtmlDomNodeInterface<SimpleHtmlDomInterface>
+     */
+    public function findMultiOrNull(string $selector);
+
+    /**
      * Find one node with a CSS selector.
      *
      * @param string $selector
@@ -150,6 +160,15 @@ interface SimpleHtmlDomInterface extends \IteratorAggregate {
      * @return false|SimpleHtmlDomInterface
      */
     public function findOneOrFalse(string $selector);
+
+    /**
+     * Find one node with a CSS selector or null, if no element is found.
+     *
+     * @param string $selector
+     *
+     * @return null|SimpleHtmlDomInterface
+     */
+    public function findOneOrNull(string $selector);
 
     /**
      * Returns the first child of node.
@@ -272,10 +291,7 @@ interface SimpleHtmlDomInterface extends \IteratorAggregate {
      *
      * @return string
      */
-    public function innerHtml(
-        bool $multiDecodeNewHtmlEntity = false,
-        bool $putBrokenReplacedBack = true,
-    ): string;
+    public function innerHtml(bool $multiDecodeNewHtmlEntity = false, bool $putBrokenReplacedBack = true): string;
 
     /**
      * Get dom node's inner html.
@@ -358,11 +374,7 @@ interface SimpleHtmlDomInterface extends \IteratorAggregate {
      *
      * @return SimpleHtmlDomInterface
      */
-    public function setAttribute(
-        string $name,
-        $value = null,
-        bool $strictEmptyValueCheck = false,
-    ): self;
+    public function setAttribute(string $name, $value = null, bool $strictEmptyValueCheck = false): self;
 
     /**
      * Remove all attributes
@@ -389,9 +401,16 @@ interface SimpleHtmlDomInterface extends \IteratorAggregate {
     public function val($value = null);
 
     /**
-     * Delete
+     * Remove this node from the DOM.
      *
-     * @return mixed
+     * @return void
      */
     public function delete();
+
+    /**
+     * Remove this node from the DOM (alias for delete).
+     *
+     * @return void
+     */
+    public function remove();
 }

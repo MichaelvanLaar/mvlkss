@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace JsonSchema;
 
-interface SchemaStorageInterface {
+interface SchemaStorageInterface
+{
     /**
      * Adds schema with given identifier
      *

@@ -31,19 +31,19 @@
     "adspectus/date-extended": "^1.1",
     "afbora/kirby-minify-html": "^2.0",
     "bnomei/kirby3-robots-txt": "^5.0",
+    "bogdancondorachi/kirby-code-highlighter": "^1.0",
     "distantnative/retour-for-kirby": "^5.0",
     "getkirby/cms": "^5.0",
     "johannschopplich/kirby-hashed-assets": "^3.0",
-    "bogdancondorachi/kirby-code-highlighter": "^1.0",
     "junohamburg/kirby-language-selector": "^2.0",
     "lukaskleinschmidt/kirby-snippet-controller": "^2.1",
     "plain/kirby-column-blocks": "^1.2"
   },
   "require-dev": {
     "ergebnis/composer-normalize": "^2.39",
-    "phpunit/phpunit": "^11.0",
+    "phpstan/extension-installer": "^1.4",
     "phpstan/phpstan": "^2.0",
-    "phpstan/extension-installer": "^1.4"
+    "phpunit/phpunit": "^11.0"
   },
   "autoload-dev": {
     "psr-4": {

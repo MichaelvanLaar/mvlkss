@@ -18,7 +18,8 @@ namespace Symfony\Polyfill\Ctype;
  *
  * @author Gert de Pagter <BackEndTea@gmail.com>
  */
-final class Ctype {
+final class Ctype
+{
     /**
      * Returns TRUE if every character in text is either a letter or a digit, FALSE otherwise.
      *
@@ -28,12 +29,11 @@ final class Ctype {
      *
      * @return bool
      */
-    public static function ctype_alnum($text) {
+    public static function ctype_alnum($text)
+    {
         $text = self::convert_int_to_char_for_ctype($text, __FUNCTION__);
 
-        return \is_string($text) &&
-            "" !== $text &&
-            !preg_match("/[^A-Za-z0-9]/", $text);
+        return \is_string($text) && '' !== $text && !preg_match('/[^A-Za-z0-9]/', $text);
     }
 
     /**
@@ -45,12 +45,11 @@ final class Ctype {
      *
      * @return bool
      */
-    public static function ctype_alpha($text) {
+    public static function ctype_alpha($text)
+    {
         $text = self::convert_int_to_char_for_ctype($text, __FUNCTION__);
 
-        return \is_string($text) &&
-            "" !== $text &&
-            !preg_match("/[^A-Za-z]/", $text);
+        return \is_string($text) && '' !== $text && !preg_match('/[^A-Za-z]/', $text);
     }
 
     /**
@@ -62,12 +61,11 @@ final class Ctype {
      *
      * @return bool
      */
-    public static function ctype_cntrl($text) {
+    public static function ctype_cntrl($text)
+    {
         $text = self::convert_int_to_char_for_ctype($text, __FUNCTION__);
 
-        return \is_string($text) &&
-            "" !== $text &&
-            !preg_match('/[^\x00-\x1f\x7f]/', $text);
+        return \is_string($text) && '' !== $text && !preg_match('/[^\x00-\x1f\x7f]/', $text);
     }
 
     /**
@@ -79,12 +77,11 @@ final class Ctype {
      *
      * @return bool
      */
-    public static function ctype_digit($text) {
+    public static function ctype_digit($text)
+    {
         $text = self::convert_int_to_char_for_ctype($text, __FUNCTION__);
 
-        return \is_string($text) &&
-            "" !== $text &&
-            !preg_match("/[^0-9]/", $text);
+        return \is_string($text) && '' !== $text && !preg_match('/[^0-9]/', $text);
     }
 
     /**
@@ -96,12 +93,11 @@ final class Ctype {
      *
      * @return bool
      */
-    public static function ctype_graph($text) {
+    public static function ctype_graph($text)
+    {
         $text = self::convert_int_to_char_for_ctype($text, __FUNCTION__);
 
-        return \is_string($text) &&
-            "" !== $text &&
-            !preg_match("/[^!-~]/", $text);
+        return \is_string($text) && '' !== $text && !preg_match('/[^!-~]/', $text);
     }
 
     /**
@@ -113,12 +109,11 @@ final class Ctype {
      *
      * @return bool
      */
-    public static function ctype_lower($text) {
+    public static function ctype_lower($text)
+    {
         $text = self::convert_int_to_char_for_ctype($text, __FUNCTION__);
 
-        return \is_string($text) &&
-            "" !== $text &&
-            !preg_match("/[^a-z]/", $text);
+        return \is_string($text) && '' !== $text && !preg_match('/[^a-z]/', $text);
     }
 
     /**
@@ -130,12 +125,11 @@ final class Ctype {
      *
      * @return bool
      */
-    public static function ctype_print($text) {
+    public static function ctype_print($text)
+    {
         $text = self::convert_int_to_char_for_ctype($text, __FUNCTION__);
 
-        return \is_string($text) &&
-            "" !== $text &&
-            !preg_match("/[^ -~]/", $text);
+        return \is_string($text) && '' !== $text && !preg_match('/[^ -~]/', $text);
     }
 
     /**
@@ -147,12 +141,11 @@ final class Ctype {
      *
      * @return bool
      */
-    public static function ctype_punct($text) {
+    public static function ctype_punct($text)
+    {
         $text = self::convert_int_to_char_for_ctype($text, __FUNCTION__);
 
-        return \is_string($text) &&
-            "" !== $text &&
-            !preg_match("/[^!-\/\:-@\[-`\{-~]/", $text);
+        return \is_string($text) && '' !== $text && !preg_match('/[^!-\/\:-@\[-`\{-~]/', $text);
     }
 
     /**
@@ -164,12 +157,11 @@ final class Ctype {
      *
      * @return bool
      */
-    public static function ctype_space($text) {
+    public static function ctype_space($text)
+    {
         $text = self::convert_int_to_char_for_ctype($text, __FUNCTION__);
 
-        return \is_string($text) &&
-            "" !== $text &&
-            !preg_match("/[^\s]/", $text);
+        return \is_string($text) && '' !== $text && !preg_match('/[^\s]/', $text);
     }
 
     /**
@@ -181,12 +173,11 @@ final class Ctype {
      *
      * @return bool
      */
-    public static function ctype_upper($text) {
+    public static function ctype_upper($text)
+    {
         $text = self::convert_int_to_char_for_ctype($text, __FUNCTION__);
 
-        return \is_string($text) &&
-            "" !== $text &&
-            !preg_match("/[^A-Z]/", $text);
+        return \is_string($text) && '' !== $text && !preg_match('/[^A-Z]/', $text);
     }
 
     /**
@@ -198,12 +189,11 @@ final class Ctype {
      *
      * @return bool
      */
-    public static function ctype_xdigit($text) {
+    public static function ctype_xdigit($text)
+    {
         $text = self::convert_int_to_char_for_ctype($text, __FUNCTION__);
 
-        return \is_string($text) &&
-            "" !== $text &&
-            !preg_match("/[^A-Fa-f0-9]/", $text);
+        return \is_string($text) && '' !== $text && !preg_match('/[^A-Fa-f0-9]/', $text);
     }
 
     /**
@@ -219,15 +209,10 @@ final class Ctype {
      *
      * @return mixed
      */
-    private static function convert_int_to_char_for_ctype($int, $function) {
+    private static function convert_int_to_char_for_ctype($int, $function)
+    {
         if (\PHP_VERSION_ID >= 80100 && !\is_string($int)) {
-            @trigger_error(
-                $function .
-                    "(): Argument of type " .
-                    get_debug_type($int) .
-                    " will be interpreted as string in the future",
-                \E_USER_DEPRECATED,
-            );
+            @trigger_error($function.'(): Argument of type '.get_debug_type($int).' will be interpreted as string in the future', \E_USER_DEPRECATED);
         }
 
         if (!\is_int($int)) {

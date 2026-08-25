@@ -6,20 +6,24 @@ namespace voku\helper;
 
 /**
  * {@inheritdoc}
+ *
+ * @extends \ArrayObject<int, SimpleXmlDomInterface>
  */
-abstract class AbstractSimpleXmlDomNode extends \ArrayObject {
+abstract class AbstractSimpleXmlDomNode extends \ArrayObject
+{
     /** @noinspection MagicMethodsValidityInspection */
 
     /**
      * @param string $name
      *
-     * @return array|int|null
+     * @return array<int, mixed>|int|null
      */
-    public function __get($name) {
+    public function __get($name)
+    {
         // init
         $name = \strtolower($name);
 
-        if ($name === "length") {
+        if ($name === 'length') {
             return $this->count();
         }
 
@@ -27,6 +31,7 @@ abstract class AbstractSimpleXmlDomNode extends \ArrayObject {
             $return = [];
 
             foreach ($this as $node) {
+                // @phpstan-ignore instanceof.alwaysTrue (ArrayObject entries are typed as SimpleXmlDomInterface here)
                 if ($node instanceof SimpleXmlDomInterface) {
                     $return[] = $node->{$name};
                 }
@@ -35,7 +40,7 @@ abstract class AbstractSimpleXmlDomNode extends \ArrayObject {
             return $return;
         }
 
-        if ($name === "plaintext" || $name === "outertext") {
+        if ($name === 'plaintext' || $name === 'outertext') {
             return [];
         }
 
@@ -48,16 +53,18 @@ abstract class AbstractSimpleXmlDomNode extends \ArrayObject {
      *
      * @return SimpleXmlDomNodeInterface<SimpleXmlDomInterface>|SimpleXmlDomNodeInterface[]|null
      */
-    public function __invoke($selector, $idx = null) {
+    public function __invoke($selector, $idx = null)
+    {
         return $this->find($selector, $idx);
     }
 
     /**
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         // init
-        $html = "";
+        $html = '';
 
         foreach ($this as $node) {
             $html .= $node->outertext;
