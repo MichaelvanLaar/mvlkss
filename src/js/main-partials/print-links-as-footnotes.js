@@ -39,7 +39,9 @@
   ) {
     const container = document.createElement("section");
     container.classList.add(className, printOnlyClassName);
-    container.innerHTML = `<${headlineElement}>${headlineText}</${headlineElement}>`;
+    const headline = document.createElement(headlineElement);
+    headline.textContent = headlineText;
+    container.appendChild(headline);
     return container;
   }
 

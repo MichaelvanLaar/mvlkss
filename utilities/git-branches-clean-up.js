@@ -8,7 +8,7 @@
  * =============================================================================
  */
 
-const { execSync } = require("child_process");
+const { execSync, execFileSync } = require("child_process");
 
 function execCommand(command) {
   return execSync(command).toString().trim().split("\n");
@@ -36,7 +36,7 @@ branches.forEach((branch) => {
   // Replace with your main branch names if different
   if (!protectedBranches.includes(branch)) {
     try {
-      execSync(`git branch -d ${branch}`, { stdio: "inherit" });
+      execFileSync("git", ["branch", "-d", branch], { stdio: "inherit" });
     } catch (error) {
       console.error(`Error deleting branch ${branch}:`, error.message);
     }
