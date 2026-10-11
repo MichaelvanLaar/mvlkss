@@ -153,21 +153,21 @@ $columnWidthClasses = [
 ```yaml
 # Old (grid block)
 blocks:
-  - type: grid
-    content:
-      grid:
-        - columns:
-            - width: 1/2
-              blocks: [...]
+    - type: grid
+      content:
+          grid:
+              - columns:
+                    - width: 1/2
+                      blocks: [...]
 
 # New (columns block) - SAME STRUCTURE
 blocks:
-  - type: columns
-    content:
-      layout:  # Field name might differ, verify!
-        - columns:
-            - width: 1/2
-              blocks: [...]
+    - type: columns
+      content:
+          layout: # Field name might differ, verify!
+              - columns:
+                    - width: 1/2
+                      blocks: [...]
 ```
 
 **Risk mitigation:** Test migration on copy of content first, verify in Panel
